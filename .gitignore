@@ -22,5 +22,3 @@ archive.zip
 */.gitignore
 
 *package-lock.json
-*.sh
-Deploy.sh
