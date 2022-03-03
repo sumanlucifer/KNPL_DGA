@@ -2,7 +2,7 @@
 
 specVersion: "2.5"
 metadata:
-  name: com.knpl.dga.productcatalogue.productcatalogue
+  name: com.knpl.dga.productcatalogue
 type: application
 server:
   customMiddleware:

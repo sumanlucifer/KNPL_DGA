@@ -7,7 +7,7 @@ sap.ui.define([
 
 	Opa5.extendConfig({
 		arrangements: new Startup(),
-		viewNamespace: "com.knpl.dga.productcatalogue.productcatalogue.view.",
+		viewNamespace: "com.knpl.dga.productcatalogue.view.",
 		autoWait: true
 	});
 });

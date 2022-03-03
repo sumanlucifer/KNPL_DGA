@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.knpl.dga.productcatalogue.productcatalogue",
+        "id": "com.knpl.dga.productcatalogue",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -68,7 +68,7 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "com.knpl.dga.productcatalogue.productcatalogue.i18n.i18n"
+                    "bundleName": "com.knpl.dga.productcatalogue.i18n.i18n"
                 }
             },
             "": {
@@ -89,7 +89,7 @@
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
                 "async": true,
-                "viewPath": "com.knpl.dga.productcatalogue.productcatalogue.view",
+                "viewPath": "com.knpl.dga.productcatalogue.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
                 "clearControlAggregation": false
@@ -114,7 +114,7 @@
             }
         },
         "rootView": {
-            "viewName": "com.knpl.dga.productcatalogue.productcatalogue.view.View1",
+            "viewName": "com.knpl.dga.productcatalogue.view.View1",
             "type": "XML",
             "async": true,
             "id": "View1"

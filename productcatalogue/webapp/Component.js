@@ -6,7 +6,7 @@ sap.ui.define([
     function (UIComponent, Device, models) {
         "use strict";
 
-        return UIComponent.extend("com.knpl.dga.productcatalogue.productcatalogue.Component", {
+        return UIComponent.extend("com.knpl.dga.productcatalogue.Component", {
             metadata: {
                 manifest: "json"
             },

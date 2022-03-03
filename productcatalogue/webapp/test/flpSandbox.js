@@ -61,7 +61,7 @@ sap.ui.define([
 								},
 								"resolutionResult": {
 									"applicationType": "SAPUI5",
-									"additionalInformation": "SAPUI5.Component=com.knpl.dga.productcatalogue.productcatalogue",
+									"additionalInformation": "SAPUI5.Component=com.knpl.dga.productcatalogue",
 									"url": sap.ui.require.toUrl("com/knpl/dga/productcatalogue/productcatalogue")
 								}
 							}

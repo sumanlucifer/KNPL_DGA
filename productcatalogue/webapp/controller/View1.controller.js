@@ -7,7 +7,7 @@ sap.ui.define([
     function (Controller) {
         "use strict";
 
-        return Controller.extend("com.knpl.dga.productcatalogue.productcatalogue.controller.View1", {
+        return Controller.extend("com.knpl.dga.productcatalogue.controller.View1", {
             onInit: function () {
 
             }
