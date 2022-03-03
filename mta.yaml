@@ -46,9 +46,23 @@ modules:
       - comknpldgauitemplateknplui5teplate.zip
       name: comknpldgauitemplateknplui5teplate
       target-path: resources/
+    - artifacts:
+      - comknpldgaproductcatalogueproductcatalogue.zip
+      name: comknpldgaproductcatalogueproductcatalogue
+      target-path: resources/
 - name: comknpldgauitemplateknplui5teplate
   type: html5
   path: ui5Template
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgaproductcatalogueproductcatalogue
+  type: html5
+  path: productcatalogue
   build-parameters:
     build-result: dist
     builder: custom
