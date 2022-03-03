@@ -22,7 +22,7 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "com-knpl-dga-productcatalogue-productcatalogue-inbound": {
+                "com-knpl-dga-productcatalogue-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"

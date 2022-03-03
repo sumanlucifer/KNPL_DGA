@@ -40,7 +40,7 @@ sap.ui.define([
 								"tileType": "sap.ushell.ui.tile.StaticTile",
 								"properties": {
 									"title": "Product Catalogue",
-									"targetURL": "#comknpldgaproductcatalogueproductcatalogue-display"
+									"targetURL": "#comknpldgaproductcatalogue-display"
 								}
 							}]
 						}]
@@ -51,8 +51,8 @@ sap.ui.define([
 				"adapter": {
 					"config": {
 						"inbounds": {
-							"comknpldgaproductcatalogueproductcatalogue-display": {
-								"semanticObject": "comknpldgaproductcatalogueproductcatalogue",
+							"comknpldgaproductcatalogue-display": {
+								"semanticObject": "comknpldgaproductcatalogue",
 								"action": "display",
 								"description": "A Fiori application.",
 								"title": "Product Catalogue",
