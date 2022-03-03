@@ -47,8 +47,8 @@ modules:
       name: comknpldgauitemplateknplui5teplate
       target-path: resources/
     - artifacts:
-      - comknpldgaproductcatalogueproductcatalogue.zip
-      name: comknpldgaproductcatalogueproductcatalogue
+      - comknpldgaproductcatalogue.zip
+      name: comknpldgaproductcatalogue
       target-path: resources/
 - name: comknpldgauitemplateknplui5teplate
   type: html5
@@ -60,7 +60,7 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: comknpldgaproductcatalogueproductcatalogue
+- name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
   build-parameters:
