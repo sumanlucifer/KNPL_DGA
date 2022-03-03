@@ -19,6 +19,21 @@
                     "odataVersion": "2.0"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-knpl-dga-productcatalogue-productcatalogue-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "Manage",
+                    "action": "ProdtCatalogue",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": ""
+                }
+            }
         }
     },
     "sap.ui": {
