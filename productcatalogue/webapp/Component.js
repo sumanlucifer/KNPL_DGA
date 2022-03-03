@@ -1,7 +1,7 @@
 sap.ui.define([
         "sap/ui/core/UIComponent",
         "sap/ui/Device",
-        "com/knpl/dga/productcatalogue/productcatalogue/model/models"
+        "com/knpl/dga/productcatalogue/model/models"
     ],
     function (UIComponent, Device, models) {
         "use strict";
