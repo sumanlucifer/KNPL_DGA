@@ -8,6 +8,7 @@ sap.ui.define([
 	flpSandbox.init().then(function () {
 		FakeLrepConnectorLocalStorage.enableFakeConnector();
 	}, function (oError) {
+        console.log("error")
 		MessageBox.error(oError.message);
 	});
 });

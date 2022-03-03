@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ViewSettingsDialog confirm="handleFilterDialogConfirm">
+		<filterItems>
+            <ViewSettingsFilterItem key="{Id}" text="Range" multiSelect="false" items="{path: '/MasterProductRangeSet'}">
+                <items>
+                <ViewSettingsItem key="{Id}" text="{Range}"/>
+                </items>
+            </ViewSettingsFilterItem>
+            <ViewSettingsFilterItem text="Status" key="Status" multiSelect="false">
+				<items>
+					<ViewSettingsItem text="Active" key="true"/>
+					<ViewSettingsItem text="Inactive" key="false"/>
+				</items>
+			</ViewSettingsFilterItem>
+		</filterItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

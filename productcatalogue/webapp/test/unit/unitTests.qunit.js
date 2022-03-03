@@ -5,7 +5,7 @@ sap.ui.getCore().attachInit(function () {
 	"use strict";
 
 	sap.ui.require([
-		"comknpldgaproductcatalogue/productcatalogue/test/unit/AllTests"
+		"comknpldgauitemplate/knplui5teplate/test/unit/AllTests"
 	], function () {
 		QUnit.start();
 	});

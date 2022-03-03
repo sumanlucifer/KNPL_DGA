@@ -1,7 +1,7 @@
 /*global QUnit*/
 
 sap.ui.define([
-	"comknpldgaproductcatalogue/productcatalogue/controller/View1.controller"
+	"comknpldgauitemplate/knplui5teplate/controller/View1.controller"
 ], function (Controller) {
 	"use strict";
 

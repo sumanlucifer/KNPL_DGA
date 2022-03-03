@@ -1,5 +1,5 @@
 sap.ui.define([
-	"comknpldgaproductcatalogue/productcatalogue/test/unit/controller/View1.controller"
+	"comknpldgauitemplate/knplui5teplate/test/unit/controller/View1.controller"
 ], function () {
 	"use strict";
 });

@@ -39,7 +39,7 @@ sap.ui.define([
 							"tiles": [{
 								"tileType": "sap.ushell.ui.tile.StaticTile",
 								"properties": {
-									"title": "Product Catalogue",
+									"title": "KNPl Ui5 Template",
 									"targetURL": "#comknpldgaproductcatalogue-display"
 								}
 							}]
@@ -55,7 +55,7 @@ sap.ui.define([
 								"semanticObject": "comknpldgaproductcatalogue",
 								"action": "display",
 								"description": "A Fiori application.",
-								"title": "Product Catalogue",
+								"title": "KNPl Ui5 Template",
 								"signature": {
 									"parameters": {}
 								},

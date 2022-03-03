@@ -1,25 +1,16 @@
 {
-    "_version": "1.32.0",
+    "_version": "1.12.0",
     "sap.app": {
         "id": "com.knpl.dga.productcatalogue",
         "type": "application",
         "i18n": "i18n/i18n.properties",
-        "applicationVersion": {
-            "version": "0.0.1"
-        },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
-        "dataSources": {
-            "mainService": {
-                "uri": "/v2/northwind/northwind.svc/",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            }
+        "applicationVersion": {
+            "version": "1.0.0"
         },
+        "ach": "set-ach",
+        "resources": "resources.json",
         "crossNavigation": {
             "inbounds": {
                 "com-knpl-dga-productcatalogue-inbound": {
@@ -28,18 +19,40 @@
                         "additionalParameters": "allowed"
                     },
                     "semanticObject": "Manage",
-                    "action": "ProdtCatalogue",
-                    "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
-                    "icon": ""
+                    "action": "ProductCatalogue",
+                    "title": "{{appTileTitle}}",
+                    "subTitle": "{{appTileSubTitle}}"
                 }
             }
+        },
+        "dataSources": {
+            "KNPL_DS": {
+                "uri": "/v2/northwind/northwind.svc/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/metadata.xml",
+                     "annotations": [ 
+                        "annotation0"   ] 
+                }
+            },
+            "tableData_alias": {
+                "uri": "model/demoData.json",
+                "type": "JSON"
+            },
+            "annotation0": {
+                "type": "ODataAnnotation",
+                "uri": "annotation/annotation.xml"
         }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
     },
     "sap.ui": {
         "technology": "UI5",
         "icons": {
-            "icon": "",
+            "icon": "sap-icon://task",
             "favIcon": "",
             "phone": "",
             "phone@2": "",
@@ -53,11 +66,19 @@
         }
     },
     "sap.ui5": {
-        "flexEnabled": true,
+        "rootView": {
+            "viewName": "com.knpl.dga.productcatalogue.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
         "dependencies": {
-            "minUI5Version": "1.98.0",
+            "minUI5Version": "1.66.0",
             "libs": {
-                "sap.ui.core": {}
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.f": {},
+                "sap.ushell": {}
             }
         },
         "contentDensities": {
@@ -72,52 +93,98 @@
                 }
             },
             "": {
-                "dataSource": "mainService",
-                "preload": true,
-                "settings": {}
-            }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
-                }
-            ]
-        },
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Request",
+                    "defaultUpdateMethod":"PUT",
+                    "useBatch": false
+                },
+                "dataSource": "KNPL_DS",
+                "preload": true
+            }     
+           },
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
-                "async": true,
                 "viewPath": "com.knpl.dga.productcatalogue.view",
-                "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                },
+                "async": true
             },
             "routes": [
                 {
-                    "name": "RouteView1",
-                    "pattern": "RouteView1",
+                    "pattern": "",
+                    "name": "worklist",
                     "target": [
-                        "TargetView1"
+                        "worklist"
+                    ]
+                },
+                {
+                    "pattern": "Products/{objectId}",
+                    "name": "object",
+                    "target": [
+                        "object"
+                    ]
+                },
+                 {
+                    "name": "ActionPage",
+                    "pattern": "ActionPage/{action}/:property:",
+                    "target": [
+                        "TargetActionPage"
+                    ]
+                },
+                 {
+                    "name": "PainterList",
+                    "pattern": "PainterList/{catalogueId}",
+                    "target": [
+                        "TargetPainterList"
                     ]
                 }
             ],
             "targets": {
-                "TargetView1": {
+                "worklist": {
+                    "viewName": "Worklist",
+                    "viewId": "worklist",
+                    "viewLevel": 1,
+                    "title": "{i18n>worklistViewTitle}"
+                },
+                "object": {
+                    "viewName": "Object",
+                    "viewId": "object",
+                    "viewLevel": 2,
+                    "title": "{i18n>objectViewTitle}"
+                },
+                "objectNotFound": {
+                    "viewName": "ObjectNotFound",
+                    "viewId": "objectNotFound"
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewId": "notFound"
+                },
+                "TargetActionPage": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "View1",
-                    "viewName": "View1"
+                    "viewName": "ActionPage",
+                    "viewLevel": 2,
+                    "viewId": "actionPage"
+                },
+                "TargetPainterList": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "viewName": "PainterList",
+                    "viewLevel": 2,
+                    "viewId": "painterList"
                 }
             }
-        },
-        "rootView": {
-            "viewName": "com.knpl.dga.productcatalogue.view.View1",
-            "type": "XML",
-            "async": true,
-            "id": "View1"
         }
     },
     "sap.cloud": {
