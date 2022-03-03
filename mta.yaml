@@ -48,7 +48,7 @@ modules:
       target-path: resources/
 - name: comknpldgauitemplateknplui5teplate
   type: html5
-  path: knplui5teplate
+  path: ui5Template
   build-parameters:
     build-result: dist
     builder: custom
