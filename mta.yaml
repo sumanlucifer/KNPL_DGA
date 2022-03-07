@@ -50,6 +50,10 @@ modules:
       - comknpldgacomplains.zip
       name: comknpldgacomplains
       target-path: resources/
+    - artifacts:
+      - comknpldgaleadmanagement.zip
+      name: comknpldgaleadmanagement
+      target-path: resources/
 - name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
@@ -63,6 +67,16 @@ modules:
 - name: comknpldgacomplains
   type: html5
   path: complains
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgaleadmanagement
+  type: html5
+  path: leadmanagement
   build-parameters:
     build-result: dist
     builder: custom
