@@ -17,9 +17,9 @@ server:
           url: https://ui5.sap.com
           version: 1.98.0 # The UI5 version, for instance, 1.78.1. Empty string means latest version
         backend:
-          - path: /v2
-            url: https://services.odata.org
-            destination: Northwind
+          - path: /api
+            url: https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com
+            destination: KNPL_PAINTER_API2
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
