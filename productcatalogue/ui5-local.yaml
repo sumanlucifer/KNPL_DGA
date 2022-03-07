@@ -37,7 +37,7 @@ server:
       beforeMiddleware: fiori-tools-proxy
       configuration:
         service:
-          urlBasePath: /v2/northwind/northwind.svc
+          urlBasePath: /api/v2/odata.svc
           name: ''
           metadataXmlPath: ./webapp/localService/metadata.xml
           mockdataRootPath: ./webapp/localService/data
