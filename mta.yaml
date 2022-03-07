@@ -43,10 +43,6 @@ modules:
     build-result: resources
     requires:
     - artifacts:
-      - comknpldgauitemplateknplui5teplate.zip
-      name: comknpldgauitemplateknplui5teplate
-      target-path: resources/
-    - artifacts:
       - comknpldgaproductcatalogue.zip
       name: comknpldgaproductcatalogue
       target-path: resources/
@@ -54,16 +50,6 @@ modules:
       - comknpldgacomplains.zip
       name: comknpldgacomplains
       target-path: resources/
-- name: comknpldgauitemplateknplui5teplate
-  type: html5
-  path: ui5Template
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
 - name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
