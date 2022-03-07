@@ -11,6 +11,26 @@
         },
         "ach": "set-ach",
         "resources": "resources.json",
+        "dataSources": {
+            "KNPL_DS": {
+                "uri": "/v2/northwind/northwind.svc/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/metadata.xml",
+                    "annotations": [
+                        "annotation0"
+                    ]
+                }
+            },
+            "tableData_alias": {
+                "uri": "model/demoData.json",
+                "type": "JSON"
+            },
+            "annotation0": {
+                "type": "ODataAnnotation",
+                "uri": "annotation/annotation.xml"
+            }
+        },
         "crossNavigation": {
             "inbounds": {
                 "com-knpl-dga-productcatalogue-inbound": {
@@ -24,25 +44,6 @@
                     "subTitle": "{{appTileSubTitle}}"
                 }
             }
-        },
-        "dataSources": {
-            "KNPL_DS": {
-                "uri": "/v2/northwind/northwind.svc/",
-                "type": "OData",
-                "settings": {
-                    "localUri": "localService/metadata.xml",
-                     "annotations": [ 
-                        "annotation0"   ] 
-                }
-            },
-            "tableData_alias": {
-                "uri": "model/demoData.json",
-                "type": "JSON"
-            },
-            "annotation0": {
-                "type": "ODataAnnotation",
-                "uri": "annotation/annotation.xml"
-        }
         }
     },
     "sap.fiori": {
@@ -98,13 +99,13 @@
                     "defaultOperationMode": "Server",
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Request",
-                    "defaultUpdateMethod":"PUT",
+                    "defaultUpdateMethod": "PUT",
                     "useBatch": false
                 },
                 "dataSource": "KNPL_DS",
                 "preload": true
-            }     
-           },
+            }
+        },
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
@@ -134,14 +135,14 @@
                         "object"
                     ]
                 },
-                 {
+                {
                     "name": "ActionPage",
                     "pattern": "ActionPage/{action}/:property:",
                     "target": [
                         "TargetActionPage"
                     ]
                 },
-                 {
+                {
                     "name": "PainterList",
                     "pattern": "PainterList/{catalogueId}",
                     "target": [
