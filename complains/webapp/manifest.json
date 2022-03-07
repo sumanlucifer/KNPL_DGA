@@ -1,46 +1,54 @@
 {
-    "_version": "1.32.0",
+    "_version": "1.12.0",
     "sap.app": {
         "id": "com.knpl.dga.complains",
         "type": "application",
         "i18n": "i18n/i18n.properties",
-        "applicationVersion": {
-            "version": "0.0.1"
-        },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "ach": "set-ach",
+        "sourceTemplate": {
+            "id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+            "version": "1.40.12"
+        },
         "resources": "resources.json",
         "dataSources": {
             "mainService": {
                 "uri": "/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
-                    "annotations": [],
-                    "localUri": "localService/metadata.xml",
-                    "odataVersion": "2.0"
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
                 }
             }
         },
         "crossNavigation": {
             "inbounds": {
-                "com-knpl-dga-complains-inbound": {
+                "com.knpl.dga.complains-inbounds": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
                     "semanticObject": "Manage",
-                    "action": "Complains",
-                    "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
-                    "icon": ""
+                    "action": "CM",
+                    "title": "{{appTitle}}",
+                    "subTitle": "{{appSubTitle}}",
+                    "icon": "sap-icon://quality-issue"
                 }
             }
         }
     },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
     "sap.ui": {
         "technology": "UI5",
         "icons": {
-            "icon": "",
+            "icon": "sap-icon://task",
             "favIcon": "",
             "phone": "",
             "phone@2": "",
@@ -54,17 +62,18 @@
         }
     },
     "sap.ui5": {
-        "flexEnabled": true,
+        "rootView": {
+            "viewName": "com.knpl.dga.complains.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
         "dependencies": {
-            "minUI5Version": "1.98.0",
+            "minUI5Version": "1.66.0",
             "libs": {
-                "sap.m": {},
                 "sap.ui.core": {},
+                "sap.m": {},
                 "sap.f": {},
-                "sap.suite.ui.generic.template": {},
-                "sap.ui.comp": {},
-                "sap.ui.generic.app": {},
-                "sap.ui.table": {},
                 "sap.ushell": {}
             }
         },
@@ -79,57 +88,100 @@
                     "bundleName": "com.knpl.dga.complains.i18n.i18n"
                 }
             },
+            "LoginInfo": {
+                "type": "sap.ui.model.json.JSONModel"
+            },
             "": {
                 "dataSource": "mainService",
                 "preload": true,
-                "settings": {}
-            }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true,
+                    "defaultUpdateMethod": "Put",
+                    "useBatch": false,
+                    "preliminaryContext" : true
                 }
-            ]
+            }
         },
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
-                "async": true,
                 "viewPath": "com.knpl.dga.complains.view",
-                "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                },
+                "async": true
             },
             "routes": [
                 {
-                    "name": "RouteView1",
-                    "pattern": "RouteView1",
+                    "pattern": "",
+                    "name": "worklist",
                     "target": [
-                        "TargetView1"
+                        "worklist"
+                    ]
+                },
+                {
+                    "pattern": "ComplaintSet/{objectId}",
+                    "name": "object",
+                    "target": [
+                        "object"
+                    ]
+                },
+                {
+                    "pattern": "Add/{Id}",
+                    "name": "RouteAddCmp",
+                    "target": [
+                        "TargetAddCmp"
+                    ]
+                },
+                {
+                    "pattern": "Edit/{prop}",
+                    "name": "RouteEditCmp",
+                    "target": [
+                        "TargetEditCmp"
                     ]
                 }
             ],
             "targets": {
-                "TargetView1": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "View1",
-                    "viewName": "View1"
+                "worklist": {
+                    "viewName": "Worklist",
+                    "viewId": "worklist",
+                    "viewLevel": 1,
+                    "title": "{i18n>worklistViewTitle}"
+                },
+                "object": {
+                    "viewName": "Object",
+                    "viewId": "object",
+                    "viewLevel": 2,
+                    "title": "{i18n>objectViewTitle}"
+                },
+                "TargetAddCmp": {
+                    "viewName": "AddComplaint",
+                    "viewId": "AddComplaint",
+                    "viewLevel": 2,
+                    "title": "{i18n>worklistViewTitle}"
+                },
+                "TargetEditCmp": {
+                    "viewName": "EditComplaint",
+                    "viewId": "EditComplaint",
+                    "viewLevel": 2,
+                    "title": "{i18n>worklistViewTitle}"
+                },
+                "objectNotFound": {
+                    "viewName": "ObjectNotFound",
+                    "viewId": "objectNotFound"
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewId": "notFound"
                 }
             }
-        },
-        "rootView": {
-            "viewName": "com.knpl.dga.complains.view.View1",
-            "type": "XML",
-            "async": true,
-            "id": "View1"
         }
-    },
-    "sap.cloud": {
-        "public": true,
-        "service": "knpl.dga"
     }
 }

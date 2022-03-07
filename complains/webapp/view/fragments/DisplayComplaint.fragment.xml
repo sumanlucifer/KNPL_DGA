@@ -1,0 +1,47 @@
+<core:FragmentDefinition xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+
+    <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+        <f:content>
+            <core:Title text="{i18n>ComplaintDetails}" />
+            <Label text="{i18n>ComplaintId}" />
+            <Text text="{ComplaintCode}" />
+            <Label text="{i18n>ComplaintType}" />
+            <Text text="{ComplaintType/ComplaintType}" />
+            <Label text="{i18n>ComplaintDetails}" />
+            <Text text="{ComplaintSubtype/ComplaintSubtype}" />
+            <Label text="{i18n>ComplainDescription}" visible="{= ${oModelView>/ComplaintSubtypeId} === 99}"  />
+            <Text text="{ComplaintDescription}" visible="{= ${oModelView>/ComplaintSubtypeId} === 99}"   />
+
+            <Label text="{i18n>GiftDetails}" visible="{= ${ComplaintTypeId} === 13}" />
+            <Text text="{RewardGiftId}" visible="{= ${ComplaintTypeId} === 13}" />
+
+
+            <Label text="{i18n>DateAndTime}" />
+            <Text text="{path:'CreatedAt',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}" />
+            <Label text="{i18n>Attachment}" />
+            <VBox>
+                <Link text="{i18n>ViewAttachment}" press="onViewAttachment" visible="{oModelControl>/ImageLoaded}" />
+                <Text text="{i18n>NoAttachFound}" visible="{= !${oModelControl>/ImageLoaded} }"></Text>
+            </VBox>
+
+            <Label text="{i18n>ProbingSteps}"/>
+            	<FormattedText  id="FormattedText" htmlText="{ path:'ProbingSteps' ,formatter:'.fmtProbingSteps' }"/>
+
+            <core:Title text="{i18n>PainterDetails}" />
+            <Label text="{i18n>PainterName}" />
+            <Text text="{Painter/Name}" />
+            <Label text="{i18n>MembershipId}" />
+            <Text text="{Painter/MembershipCard}" />
+            <Label text="{i18n>PrimaryMobileNo}" />
+            <Text text="{Painter/Mobile}" />
+            <Label text="{i18n>Zone}" />
+            <Text text="{Painter/ZoneId}" />
+            <Label text="{i18n>Division}" />
+            <Text text="{Painter/DivisionId}" />
+            <Label text="{i18n>Depot}" />
+            <Text text="{Painter/Depot/Depot}" />
+         
+        </f:content>
+    </f:SimpleForm>
+
+</core:FragmentDefinition>
