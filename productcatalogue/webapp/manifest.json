@@ -16,6 +16,7 @@
                 "uri": "/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
+                    "odataVersion": "2.0",
                     "localUri": "localService/metadata.xml",
                     "annotations": [
                         "annotation0"
