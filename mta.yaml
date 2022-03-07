@@ -50,6 +50,10 @@ modules:
       - comknpldgaproductcatalogue.zip
       name: comknpldgaproductcatalogue
       target-path: resources/
+    - artifacts:
+      - comknpldgacomplains.zip
+      name: comknpldgacomplains
+      target-path: resources/
 - name: comknpldgauitemplateknplui5teplate
   type: html5
   path: ui5Template
@@ -63,6 +67,16 @@ modules:
 - name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgacomplains
+  type: html5
+  path: complains
   build-parameters:
     build-result: dist
     builder: custom
