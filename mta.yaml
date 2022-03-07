@@ -54,6 +54,10 @@ modules:
       - comknpldgaleadmanagement.zip
       name: comknpldgaleadmanagement
       target-path: resources/
+    - artifacts:
+      - comknpldgadgamanage.zip
+      name: comknpldgadgamanage
+      target-path: resources/
 - name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
@@ -77,6 +81,16 @@ modules:
 - name: comknpldgaleadmanagement
   type: html5
   path: leadmanagement
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgadgamanage
+  type: html5
+  path: dgamanage
   build-parameters:
     build-result: dist
     builder: custom
