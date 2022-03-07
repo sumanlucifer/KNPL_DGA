@@ -12,7 +12,7 @@
         "resources": "resources.json",
         "dataSources": {
             "mainService": {
-                "uri": "/v2/northwind/northwind.svc/",
+                "uri": "/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
                     "annotations": [],
