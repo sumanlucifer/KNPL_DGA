@@ -183,5 +183,9 @@
                 }
             }
         }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "knpl.dga"
     }
 }
