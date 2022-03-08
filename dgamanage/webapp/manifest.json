@@ -20,6 +20,21 @@
                     "odataVersion": "2.0"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-knpl-dga-dgamanage-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "Manage",
+                    "action": "DGAMgmt",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": ""
+                }
+            }
         }
     },
     "sap.ui": {
