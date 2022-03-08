@@ -53,6 +53,7 @@
         }
     },
     "sap.ui5": {
+        "flexEnabled": true,
         "rootView": {
             "viewName": "com.knpl.dga.complains.view.App",
             "type": "XML",
