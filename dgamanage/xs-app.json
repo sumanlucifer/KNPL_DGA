@@ -5,7 +5,7 @@
         {
             "source": "^/api/(.*)$",
             "target": "/api/$1",
-            "destination": "KNPL_PAINTER_API2",
+            "destination": "KNPL_PAINTER_API",
             "authenticationType": "xsuaa",
             "csrfProtection": false
         },
