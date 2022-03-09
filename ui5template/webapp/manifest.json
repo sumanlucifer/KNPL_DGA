@@ -7,7 +7,7 @@
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
         "applicationVersion": {
-            "version": "1.0.0"
+            "version": "0.0.1"
         },
         "resources": "resources.json",
         "dataSources": {
@@ -15,6 +15,7 @@
                 "uri": "/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
+                    "annotations": [],
                     "odataVersion": "2.0",
                     "localUri": "localService/metadata.xml"
                 }
@@ -53,18 +54,18 @@
         }
     },
     "sap.ui5": {
-        "rootView": {
-            "viewName": "com.knpl.dga.ui5template.view.App",
-            "type": "XML",
-            "async": true,
-            "id": "app"
-        },
+        "flexEnabled": true,
         "dependencies": {
-            "minUI5Version": "1.66.0",
+            "minUI5Version": "1.98.0",
             "libs": {
-                "sap.ui.core": {},
                 "sap.m": {},
-                "sap.f": {}
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
             }
         },
         "contentDensities": {
@@ -93,15 +94,6 @@
                 "type": "sap.ui.model.json.JSONModel"
             }
 
-        },
-        "services": {
-            "ShellUIService": {
-                "factoryName": "sap.ushell.ui5service.ShellUIService",
-                "lazy": false,
-                "settings": {
-                    "setTitle": "auto"
-                }
-            }
         },
         "routing": {
             "config": {
@@ -165,6 +157,16 @@
                     "viewId": "notFound"
                 }
             }
+        },
+        "rootView": {
+            "viewName": "com.knpl.dga.ui5template.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
         }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "knpl.dga"
     }
 }
