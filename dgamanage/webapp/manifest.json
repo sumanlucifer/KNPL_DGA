@@ -82,7 +82,16 @@
             "": {
                 "dataSource": "mainService",
                 "preload": true,
-                "settings": {}
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "defaultUpdateMethod": "Put",
+                    "useBatch": false
+                }
+            },
+            "LoginInfo": {
+                "type": "sap.ui.model.json.JSONModel"
             }
         },
         "resources": {
@@ -104,20 +113,51 @@
             },
             "routes": [
                 {
-                    "name": "RouteApp",
-                    "pattern": "RouteApp",
+                    "pattern": "",
+                    "name": "worklist",
                     "target": [
-                        "TargetApp"
+                        "worklist"
+                    ]
+                },
+                {
+                    "pattern": "Detail/{Mode}/{Id}",
+                    "name": "Detail",
+                    "target": [
+                        "Detail"
+                    ]
+                },
+                {
+                    "pattern": "Add",
+                    "name": "Add",
+                    "target": [
+                        "object"
                     ]
                 }
             ],
             "targets": {
-                "TargetApp": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "App",
-                    "viewName": "App"
+                "worklist": {
+                    "viewName": "Worklist",
+                    "viewId": "worklist",
+                    "viewLevel": 1,
+                    "title": "{i18n>worklistViewTitle}"
+                },
+                "object": {
+                    "viewName": "AddObject",
+                    "viewId": "object",
+                    "viewLevel": 2
+                },
+                "objectNotFound": {
+                    "viewName": "ObjectNotFound",
+                    "viewId": "objectNotFound"
+                },
+                "Detail": {
+                    "viewName": "Detail",
+                    "viewId": "Detail",
+                    "viewLevel": 2
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewId": "notFound"
                 }
             }
         },
