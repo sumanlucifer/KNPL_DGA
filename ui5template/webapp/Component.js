@@ -1,7 +1,7 @@
 sap.ui.define([
         "sap/ui/core/UIComponent",
         "sap/ui/Device",
-        "com/knpl/dga/ui5template/model/models",
+        "./model/models",
         "./controller/ErrorHandler"
     ],
     function (UIComponent, Device, models,ErrorHandler) {
