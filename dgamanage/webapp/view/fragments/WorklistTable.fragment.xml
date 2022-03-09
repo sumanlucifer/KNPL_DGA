@@ -1,11 +1,11 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable id="idWorkListTable1" header="{i18n>ComplainList}" enableAutoBinding="false" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="PainterComplainsSet" beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="ParentComplaintId,Id" >
+    <smartTable:SmartTable id="idWorkListTable1" header="{i18n>MainObject} {i18n>List}" enableAutoBinding="false" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="PainterComplainsSet" beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="ParentComplaintId,Id" >
         <smartTable:customToolbar>
 			<OverflowToolbar>
                         <ToolbarSpacer />
-                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>AddComplaint}" press="onPressAddObject"/>
+                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Add} {i18n>MainObject}" press="onPressAddObject"/>
                     </OverflowToolbar>
 		</smartTable:customToolbar>
 
@@ -22,14 +22,14 @@
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintCode", "leadingProperty": "ComplaintCode", "columnIndex": 1 ,"sortProperty": "ComplaintCode","filterProperty": "ComplaintCode"}'/>
                     </customData>
-                    <Text text="{i18n>ComplaintCode}"/>
+                    <Text text="{i18n>MainObject} {i18n>Code}"/>
                 </Column>
 
                 <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintType/ComplaintType", "leadingProperty": "ComplaintType/ComplaintType", "columnIndex": 2 ,"sortProperty": "ComplaintType/ComplaintType","filterProperty": "ComplaintType/ComplaintType"}'/>
                     </customData>
-                    <Text text="{i18n>ComplaintType}"/>
+                    <Text text="{i18n>MainObject} {i18n>Type}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
@@ -41,7 +41,7 @@
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintStatus", "leadingProperty": "ComplaintStatus", "columnIndex": 4 ,"sortProperty": "ComplaintStatus","filterProperty": "ComplaintStatus"}'/>
                     </customData>
-                    <Text text="{i18n>ComplaintStatus}"/>
+                    <Text text="{i18n>MainObject} {i18n>Status}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>

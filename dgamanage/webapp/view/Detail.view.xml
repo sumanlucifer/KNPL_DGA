@@ -7,8 +7,8 @@
                     <Title text="{ComplaintType/ComplaintType}"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>UpdateComplaints}">
-                        <Link text="{i18n>Complaint}" press="onNavToHome"/>
+                    <Breadcrumbs currentLocationText="{i18n>Update} {i18n>MainObject}">
+                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
@@ -33,7 +33,7 @@
                         <ObjectAttribute title="{i18n>MembershipId}" text="{Painter/MembershipCard}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
-                        <Label  text="{i18n>ComplaintDetails}:"  />
+                        <Label  text="{i18n>MainObject} {i18n>Details}:"  />
                         <ObjectAttribute  text="{ComplaintSubtype/ComplaintSubtype}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout>

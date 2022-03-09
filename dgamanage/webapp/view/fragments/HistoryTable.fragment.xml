@@ -23,7 +23,7 @@
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintCode", "leadingProperty": "ComplaintCode", "columnIndex": 0 ,"sortProperty": "ComplaintCode","filterProperty": "ComplaintCode"}'/>
                     </customData>
-                    <Text text="{i18n>ComplaintId}"/>
+                    <Text text="{i18n>MainObject} {i18n>Id}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
@@ -35,7 +35,7 @@
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintStatus", "leadingProperty": "ComplaintStatus", "columnIndex": 2 ,"sortProperty": "ComplaintStatus","filterProperty": "ComplaintStatus"}'/>
                     </customData>
-                    <Text text="{i18n>ComplaintStatus}"/>
+                    <Text text="{i18n>MainObject} {i18n>Status}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
