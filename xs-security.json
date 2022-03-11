@@ -1,20 +1,33 @@
 {
-  "xsappname": "knpl-dga-web",
-  "tenant-mode": "dedicated",
-  "description": "Security profile of called application",
-  "scopes": [
-    {
-      "name": "uaa.user",
-      "description": "UAA"
-    }
-  ],
-  "role-templates": [
-    {
-      "name": "Token_Exchange",
-      "description": "UAA",
-      "scope-references": [
-        "uaa.user"
-      ]
-    }
-  ]
+    "xsappname": "knpl-dga-web",
+    "tenant-mode": "dedicated",
+    "description": "Security profile of called application",
+    "oauth2-configuration": {
+        "token-validity": 604800,
+        "refresh-token-validity": 2592000,
+        "redirect-uris": [
+            "https://*.ap10cf.applicationstudio.cloud.sap/login/callback",
+            "https://*.ap11cf.applicationstudio.cloud.sap/login/callback",
+            "https://*.cf.ap10.hana.ondemand.com/login/callback",
+            "https://*.cf.ap11.hana.ondemand.com/login/callback",
+            "https://*.cfapps.ap10.hana.ondemand.com/login/callback",
+            "https://*.cfapps.ap11.hana.ondemand.com/login/callback",
+            "https://*.ap11.applicationstudio.cloud.sap/login/callback"
+        ]
+    },
+    "scopes": [
+        {
+            "name": "uaa.user",
+            "description": "UAA"
+        }
+    ],
+    "role-templates": [
+        {
+            "name": "Token_Exchange",
+            "description": "UAA",
+            "scope-references": [
+                "uaa.user"
+            ]
+        }
+    ]
 }

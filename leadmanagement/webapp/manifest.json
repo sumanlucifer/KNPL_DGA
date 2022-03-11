@@ -5,14 +5,23 @@
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
-            "version": "0.0.1"
+            "version": "1.0.0"
         },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
         "resources": "resources.json",
         "dataSources": {
             "mainService": {
-                "uri": "/v2/northwind/northwind.svc/",
+                "uri": "/KNPL_DGA_API/api/v2/odata.svc/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "additionalService": {
+                "uri": "/KNPL_PAINTER_API2/api/v2/odata.svc",
                 "type": "OData",
                 "settings": {
                     "annotations": [],
@@ -82,7 +91,21 @@
             "": {
                 "dataSource": "mainService",
                 "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "defaultUpdateMethod": "Put",
+                    "useBatch": false
+                }
+            },
+            "additionalModel": {
+                "dataSource": "additionalService",
+                "preload": true,
                 "settings": {}
+            },
+            "LoginInfo": {
+                "type": "sap.ui.model.json.JSONModel"
             }
         },
         "resources": {
@@ -92,6 +115,15 @@
                 }
             ]
         },
+        "services": {
+            "ShellUIService": {
+                "factoryName": "sap.ushell.ui5service.ShellUIService",
+                "lazy": false,
+                "settings": {
+                    "setTitle": "auto"
+                }
+            }
+        },
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
@@ -100,24 +132,44 @@
                 "viewPath": "com.knpl.dga.leadmanagement.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                },
                 "clearControlAggregation": false
             },
             "routes": [
                 {
-                    "name": "RouteApp",
-                    "pattern": "RouteApp",
+                    "pattern": "",
+                    "name": "worklist",
                     "target": [
-                        "TargetApp"
+                        "worklist"
+                    ]
+                },
+                {
+                    "pattern": "Detail/{Mode}/{Id}",
+                    "name": "Detail",
+                    "target": [
+                        "Detail"
                     ]
                 }
             ],
             "targets": {
-                "TargetApp": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "App",
-                    "viewName": "App"
+                "worklist": {
+                    "viewName": "Worklist",
+                    "viewId": "worklist",
+                    "viewLevel": 1,
+                    "title": "{i18n>worklistViewTitle}"
+                },
+                "object": {
+                    "viewName": "AddObject",
+                    "viewId": "object",
+                    "viewLevel": 2
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewId": "notFound"
                 }
             }
         },

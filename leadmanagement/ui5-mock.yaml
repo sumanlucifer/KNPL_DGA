@@ -16,9 +16,12 @@ server:
             - /test-resources
           url: https://ui5.sap.com
         backend:
-          - path: /v2
-            url: https://services.odata.org
-            destination: Northwind
+          - path: /KNPL_DGA_API
+            url: https://knpl-dga-api.cfapps.ap11.hana.ondemand.com
+            destination: KNPL_DGA_API
+          - path: /KNPL_PAINTER_API2
+            url: https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com
+            destination: KNPL_PAINTER_API2
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
