@@ -250,6 +250,30 @@ sap.ui.define([
                 oViewModel.getProperty("/shareSendEmailMessage")
             );
         },
+        onZoneChange: function (oEvent) {
+            var sId = oEvent.getSource().getSelectedKey();
+            var oView = this.getView();
+            // setting value for division
+            var oDivision = oView.byId("idDivision");
+            oDivision.clearSelection();
+            oDivision.setValue("");
+            var oDivItems = oDivision.getBinding("items");
+            oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
+            //setting the data for depot;
+            var oDepot = oView.byId("idDepot");
+            oDepot.clearSelection();
+            oDepot.setValue("");
+            // clearning data for dealer
+        },
+        onDivisionChange: function (oEvent) {
+            var sKey = oEvent.getSource().getSelectedKey();
+            var oView = this.getView();
+            var oDepot = oView.byId("idDepot");
+            var oDepBindItems = oDepot.getBinding("items");
+            oDepot.clearSelection();
+            oDepot.setValue("");
+            oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
+        },
         onDialogClose: function () {
             /*
                 Internal method to handle the closure of all the dialogs
@@ -321,6 +345,27 @@ sap.ui.define([
 
 
         },
+        onDealersTokenUpdate: function (oEvent) {
+            if (oEvent.getParameter("type") === "removed") {
+                var oView = this.getView();
+                var oModel = oView.getModel("oModelControl");
+                var sPath = oEvent.getSource().getBinding("tokens").getPath();
+                var aArray = oModel.getProperty(sPath);
+                var aNewArray;
+                var aRemovedTokens = oEvent.getParameter("removedTokens");
+                var aRemovedKeys = [];
+                aRemovedTokens.forEach(function (item) {
+                    aRemovedKeys.push(item.getKey());
+                });
+                aNewArray = aArray.filter(function (item) {
+                    return aRemovedKeys.indexOf(item["Id"]) < 0;
+                });
+                oModel.setProperty(sPath, aNewArray);
+            }
+            
+        },
+
+
 
 
     });

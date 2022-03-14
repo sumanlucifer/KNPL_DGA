@@ -326,30 +326,7 @@ sap.ui.define(
                     });
 
                 },
-                onZoneChange: function (oEvent) {
-                    var sId = oEvent.getSource().getSelectedKey();
-                    var oView = this.getView();
-                    // setting value for division
-                    var oDivision = oView.byId("idDivision");
-                    oDivision.clearSelection();
-                    oDivision.setValue("");
-                    var oDivItems = oDivision.getBinding("items");
-                    oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
-                    //setting the data for depot;
-                    var oDepot = oView.byId("idDepot");
-                    oDepot.clearSelection();
-                    oDepot.setValue("");
-                    // clearning data for dealer
-                },
-                onDivisionChange: function (oEvent) {
-                    var sKey = oEvent.getSource().getSelectedKey();
-                    var oView = this.getView();
-                    var oDepot = oView.byId("idDepot");
-                    var oDepBindItems = oDepot.getBinding("items");
-                    oDepot.clearSelection();
-                    oDepot.setValue("");
-                    oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
-                },
+               
 
                 onPressDelete:function(oEvent){
                     var oView = this.getView();

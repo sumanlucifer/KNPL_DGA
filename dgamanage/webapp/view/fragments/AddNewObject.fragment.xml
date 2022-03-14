@@ -54,7 +54,7 @@
                     <core:Item text="{Depot} ( {Id} )" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>LinkDealer}" />
-                <MultiInput placeholder="{i18n>placeHolder1}" tokenUpdate="onProdTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDealersValueHelp" tokens="{path:'oModelControl>/MultiCombo/Dealers'}">
+                <MultiInput placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDealersValueHelp" tokens="{path:'oModelControl>/MultiCombo/Dealers'}">
                     <tokens>
                               <Token text="{oModelControl>Name}" key="{oModelControl>Id}"/>
                     </tokens>
