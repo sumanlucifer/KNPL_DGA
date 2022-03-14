@@ -54,9 +54,12 @@
                     <core:Item text="{Depot} ( {Id} )" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>LinkDealer}" />
-                <MultiInput tokenUpdate="onPTokenUpdate" valueHelpOnly="true" id="idMinpPDealers"  	valueHelpRequest="handlePDealerValue">
-                    	<core:Item key="{Id}" text="{DealerName} - {Id}" />
-                </MultiInput> 
+                <MultiInput placeholder="{i18n>placeHolder1}" tokenUpdate="onProdTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDealersValueHelp" tokens="{path:'oModelControl>/MultiCombo/LinkedDealers'}">
+                    <tokens>
+                              <Token text="{oModelControl>Name}" key="{oModelControl>Id}"/>
+                    </tokens>
+                </MultiInput>
+
 
            
             </f:content>
