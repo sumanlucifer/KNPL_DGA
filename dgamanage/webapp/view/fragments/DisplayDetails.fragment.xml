@@ -7,15 +7,37 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
 
-    <f:SimpleForm id="DisplayData" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+    <f:SimpleForm id="DisplayData" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false">
         <f:content>
-              <core:Title text="{i18n>MainObject} {i18n>Details}" />
-                <Label text="{i18n>MainObject} {i18n>Type}" />
-                <Text text="{path : 'ComplaintType/ComplaintType'}"  />
-                <core:Title text="{i18n>RemarkDetails}" />
-                <Label text="{i18n>Remark}" />
-               <Text 
-                text="{path : 'Remark'}"  />
+          <core:Title text="{i18n>Personal} {i18n>Details}" />
+            <Label text="{i18n>MainObject} {i18n>FullName}" />
+                     <Text text="{path : 'GivenName'}"  />
+                 <Label text="{i18n>OfficialMobileNo}" />
+                 <Text text="{path : 'Mobile'}"  />
+              <core:Title text="{i18n>BasicDetails}" />
+                <Label text="{i18n>SalesGroup}" />
+                <Text text="{path : 'SaleGroup/Name'}"  />
+                  <Label text="{i18n>PayrollCompany}" />
+                <Text text="{path : 'PayrollCompany/Name'}"  />
+                <core:Title text="{i18n>LocationDetails}" />
+                   <Label text="{i18n>PinCode}" />
+                     <Text   />
+                <Label text="{i18n>State}" />
+                  <Text  />
+                <Label text="{i18n>City}"  />
+                 <Text text="{path : 'Town/Name'}"  />
+
+                 <Label text="{i18n>Zone}" />
+                       <Text text="{path : 'Zone'}"  />
+
+                <Label text="{i18n>Division}" />
+                <Text text="{path : 'Division/Id'}"  />
+
+                <Label text="{i18n>Depot}" />
+             <Text text="{path : 'Depot/Depot'}"  />
+                <Label text="{i18n>LinkDealer}" />
+              
+               
         </f:content>
     </f:SimpleForm>
 

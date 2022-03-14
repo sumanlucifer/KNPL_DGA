@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
     <smartTable:SmartTable
-                            id="HistoryTable"
+                            
                             editable="false"
                             beforeRebindTable="onBeforeRebindHistoryTable"                    
-                            entitySet="PainterComplainsHistorySet"
+                            
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"

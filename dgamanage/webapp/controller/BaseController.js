@@ -265,6 +265,11 @@ sap.ui.define([
                     return;
                 }
             }
+            if(this._ChangeStatus){
+                this._ChangeStatus.close();
+                this._ChangeStatus.destroy();
+                delete this._ChangeStatus();
+            }
         },
         // painter value help request
         onPainterValueHelpRequest: function (oEvent) {

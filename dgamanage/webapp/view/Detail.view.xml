@@ -4,7 +4,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{ComplaintType/ComplaintType}"/>
+                    <Title text="{i18n>MainObject} {i18n>Details}"/>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs currentLocationText="{i18n>MainObject} {i18n>Details}">
@@ -12,34 +12,35 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="{ComplaintCode}"/>
+                    <Label text="DGA ID"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="{ComplaintCode}"/>
+                    <Label text="DGA ID"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
                     <Title text="{ComplaintType/ComplaintType}"/>
                 </f:snappedTitleOnMobile>
                 <f:actions>
-                    <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>Validate}" />
+                    <Button press="onChangeStatus" type="Emphasized" text="{i18n>ChangeStatus}" />
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
-                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>PainterName}" text="{Painter/Name}"/>
-                        <ObjectAttribute title="{i18n>MembershipId}" text="{Painter/MembershipCard}"/>
+                  <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                         <Avatar fallbackIcon="sap-icon://picture" displaySize="L" class="sapUiTinyMarginBegin"/>
                     </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
-                        <Label  text="{i18n>MainObject} {i18n>Details}:"  />
-                        <ObjectAttribute  text="{ComplaintSubtype/ComplaintSubtype}"/>
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                        <ObjectAttribute title="{i18n>DGAFullname}" text="{GivenName} {FamilyName}"/>
+                        <ObjectAttribute title="{i18n>Mobile}" text="{Mobile}"/>
+                         <ObjectAttribute title="{i18n>Location}" text="{TownId}"/>
+                            <ObjectAttribute title="{i18n>PinCode}" text=""/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"/>
                    
-                          <ObjectStatus class="sapMObjectStatusLarge" text="{ComplaintStatus}" state="None"/>
+                          <ObjectStatus class="sapMObjectStatusLarge" text="" state="None"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
@@ -53,7 +54,19 @@
                         
                         
                         </IconTabFilter>
-                         <IconTabFilter  text="{i18n>History}" key="1" >
+                         <IconTabFilter  text="{i18n>LinkedDealers}" key="1" >
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
+                        </IconTabFilter>
+                           <IconTabFilter  text="{i18n>LinkedContractors}" key="2" >
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
+                        </IconTabFilter>
+                         <IconTabFilter  text="{i18n>Leads}" key="3" >
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
+                        </IconTabFilter>
+                           <IconTabFilter  text="{i18n>Performance}" key="4" >
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
+                        </IconTabFilter>
+                           <IconTabFilter  text="{i18n>AttendanceAndVisits}" key="5" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
                         </IconTabFilter>
                          
@@ -66,7 +79,7 @@
               <ToolbarSpacer/>
               <Button press="onNavToHome" type="Ghost"  text="{i18n>Cancel}"  />
              
-              <Button press=".onApproval(true)" visible="{= ${oModelDisplay>/mode}==='Display'}" text="{i18n>Approve}"  type="Accept"  />
+              <!-- <Button press=".onApproval(true)" visible="{= ${oModelDisplay>/mode}==='Display'}" text="{i18n>Approve}"  type="Accept"  /> -->
              <Button press="onPressSave" visible="{= ${oModelDisplay>/mode}==='Edit'}"  text="{i18n>Save}" type="Emphasized" />
           
         
