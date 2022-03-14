@@ -236,19 +236,42 @@ sap.ui.define(
                                 aFlaEmpty = false;
                                 aCurrentFilterValues.push(
                                     new Filter("ComplaintStatus", FilterOperator.EQ, oViewFilter[prop]));
+                            } else if (prop === "ZoneId") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter("Zone", FilterOperator.EQ, oViewFilter[prop]));
+                            } else if (prop === "DivisionId") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter("DivisionId", FilterOperator.EQ, oViewFilter[prop]));
+                            } else if (prop === "DepotId") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter("DepotId", FilterOperator.EQ, oViewFilter[prop]));
+                            } else if (prop === "DGAType") {
+                               
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter("DGATypeId", FilterOperator.EQ, oViewFilter[prop]));
                             } else if (prop === "Search") {
                                 aFlaEmpty = false;
                                 aCurrentFilterValues.push(
                                     new Filter(
                                         [
                                             new Filter({
-                                                path: "Painter/Name",
+                                                path: "GivenName",
                                                 operator: "Contains",
                                                 value1: oViewFilter[prop].trim(),
                                                 caseSensitive: false
                                             }),
                                             new Filter({
-                                                path: "ComplaintCode",
+                                                path: "Mobile",
+                                                operator: "Contains",
+                                                value1: oViewFilter[prop].trim(),
+                                                caseSensitive: false
+                                            }),
+                                            new Filter({
+                                                path: "DGAType/Name",
                                                 operator: "Contains",
                                                 value1: oViewFilter[prop].trim(),
                                                 caseSensitive: false
@@ -303,6 +326,31 @@ sap.ui.define(
                     });
 
                 },
+                onZoneChange: function (oEvent) {
+                    var sId = oEvent.getSource().getSelectedKey();
+                    var oView = this.getView();
+                    // setting value for division
+                    var oDivision = oView.byId("idDivision");
+                    oDivision.clearSelection();
+                    oDivision.setValue("");
+                    var oDivItems = oDivision.getBinding("items");
+                    oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
+                    //setting the data for depot;
+                    var oDepot = oView.byId("idDepot");
+                    oDepot.clearSelection();
+                    oDepot.setValue("");
+                    // clearning data for dealer
+                },
+                onDivisionChange: function (oEvent) {
+                    var sKey = oEvent.getSource().getSelectedKey();
+                    var oView = this.getView();
+                    var oDepot = oView.byId("idDepot");
+                    var oDepBindItems = oDepot.getBinding("items");
+                    oDepot.clearSelection();
+                    oDepot.setValue("");
+                    oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
+                },
+
                 onPressDelete:function(oEvent){
                     var oView = this.getView();
                     var oBj = oEvent.getSource().getBindingContext().getObject();
