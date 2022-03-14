@@ -94,6 +94,7 @@ sap.ui.define([
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
+            this.getView().getModel().resetChanges();
             promise.resolve();
             return promise;
         },
@@ -157,7 +158,7 @@ sap.ui.define([
                         c3 = othat._uploadFile();
                         c3.then(function () {
                             oModelControl.setProperty("/PageBusy", false);
-                            //othat.onNavToHome();
+                            othat.onNavToHome();
                         })
                     })
                 })

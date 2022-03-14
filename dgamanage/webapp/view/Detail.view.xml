@@ -55,7 +55,7 @@
                         
                         </IconTabFilter>
                          <IconTabFilter  text="{i18n>LinkedDealers}" key="1" >
-                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.DealersTable" type="XML"/>
                         </IconTabFilter>
                            <IconTabFilter  text="{i18n>LinkedContractors}" key="2" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>

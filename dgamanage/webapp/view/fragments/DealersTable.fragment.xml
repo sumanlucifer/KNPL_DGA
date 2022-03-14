@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
+    <smartTable:SmartTable
+                            id="Dealerstable"
+                            editable="false"
+                            beforeRebindTable="onBeforeRebindHistoryTable"                    
+                            tableBindingPath="DGADealers/"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="true"
+                            demandPopin="true"
+                            enableAutoBinding="true"
+                            placeToolbarInTable="true"
+                            persistencyKey="HistoryPersistenceKey"
+                            initiallyVisibleFields="ID,DealerId,DGAId"
+                             initialNoDataText="{i18n>tableNoDataText}"
+                          >
+
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+            <columns>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID", "columnIndex": 0 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                    </customData>
+                    <Text text="{i18n>Id}"/>
+                </Column>
+            
+               
+                
+
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                 
+                        	
+                       <Text text="{ID}" />
+                        
+
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

@@ -214,13 +214,15 @@ sap.ui.define(
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 if (sKey == "1") {
-                    //oView.byId("HistoryTable").rebindTable();
+                    oView.byId("Dealerstable").setEntitySet("DGAs(33)");
+                    //oView.byId("Dealerstable").rebindTable();
+                   
                 }
             },
             onBeforeRebindHistoryTable: function (oEvent) {
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.sorter.push(new Sorter("UpdatedAt", true));
+               // oBindingParams.sorter.push(new Sorter("UpdatedAt", true));
             },
 
             _LoadFragment: function (mParam) {
