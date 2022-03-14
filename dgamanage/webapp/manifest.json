@@ -11,7 +11,7 @@
         "description": "{{appDescription}}",
         "resources": "resources.json",
         "dataSources": {
-            "mainService": {
+            "mainService2": {
                 "uri": "KNPL_PAINTER_API/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
@@ -20,7 +20,7 @@
                     "odataVersion": "2.0"
                 }
             },
-            "mainService2": {
+            "mainService": {
                 "uri": "KNPL_DGA_API/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {

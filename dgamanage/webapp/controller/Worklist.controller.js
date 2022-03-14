@@ -41,10 +41,14 @@ sap.ui.define(
                     var oRouter = this.getOwnerComponent().getRouter();
                     var oDataControl = {
                         filterBar: {
+                            ZoneId:"",
+                            DivisionId:"",
+                            DepotId:"",
                             StartDate: null,
                             EndDate:null,
                             Status: "",
                             Search: "",
+                            DGAType:""
                         },
                         PageBusy: true
                     };
@@ -88,9 +92,10 @@ sap.ui.define(
                     oModelControl.setProperty("/PageBusy", true)
                     c1 = othat._addSearchFieldAssociationToFB();
                     c1.then(function () {
-                        c2 = othat._getLoggedInInfo();
+                        //c2 = othat._getLoggedInInfo();
+                        c2 = othat._dummyFunction();
                         c2.then(function () {
-                            c3 = othat._initTableData();
+                            c3 = othat._dummyFunction();
                             c3.then(function () {
                                 oModelControl.setProperty("/PageBusy", false)
                             })
@@ -99,7 +104,7 @@ sap.ui.define(
 
                 },
                 _dummyFunction: function () {
-                    var promise = jQuerry.Deferred();
+                    var promise = $.Deferred();
                     promise.resolve()
                     return promise;
                 },
@@ -164,6 +169,7 @@ sap.ui.define(
 
                 },
                 _initTableData: function () {
+                    console.log("rebind table")
                     /*
                      * Author: manik saluja
                      * Date: 02-Dec-2021
@@ -173,11 +179,12 @@ sap.ui.define(
                     var promise = jQuery.Deferred();
                     var oView = this.getView();
                     var othat = this;
-                    oView.byId("idWorkListTable1").rebindTable();
+                    //oView.byId("idWorkListTable1").rebindTable();
                     promise.resolve();
                     return promise;
                 },
                 onBindTblComplainList: function (oEvent) {
+                    console.log("check auto binding")
                     /*
                      * Author: manik saluja
                      * Date: 02-Dec-2021
@@ -185,7 +192,7 @@ sap.ui.define(
                      * Purpose: init binding method for the table.
                      */
                     var oBindingParams = oEvent.getParameter("bindingParams");
-                    oBindingParams.parameters["expand"] = "Painter,ComplaintType";
+                    oBindingParams.parameters["expand"] = "DGAType,Division,Depot";
                     oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                     // Apply Filters
@@ -209,8 +216,6 @@ sap.ui.define(
                     // init filters - is archived and complaint type id is 1
                     aCurrentFilterValues.push(
                         new Filter("IsArchived", FilterOperator.EQ, false));
-                    aCurrentFilterValues.push(
-                        new Filter("ComplaintTypeId", FilterOperator.NE, 1));
 
 
                     // filter bar filters
@@ -274,9 +279,14 @@ sap.ui.define(
                 _ResetFilterBar: function () {
                     var aCurrentFilterValues = [];
                     var aResetProp = {
-                        StartDate: null,
-                        Status: "",
-                        Search: "",
+                            ZoneId:"",
+                            DivisionId:"",
+                            DepotId:"",
+                            StartDate: null,
+                            EndDate:null,
+                            Status: "",
+                            Search: "",
+                            DGAType:""
                     };
                     var oViewModel = this.getView().getModel("oModelControl");
                     oViewModel.setProperty("/filterBar", aResetProp);
