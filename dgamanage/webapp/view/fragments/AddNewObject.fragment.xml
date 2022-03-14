@@ -1,0 +1,65 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  
+        <f:SimpleForm class="addForm" id="FormObjectData" editable="true" layout="ResponsiveGridLayout" title="{oModelControl>/Pagetitle} {i18n>MainObject}" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false">
+            <f:content>
+                <core:Title text="{i18n>Personal} {i18n>Details}" />
+                <Label text="{i18n>MainObject} {i18n>FullName}" />
+                <Input valueStateText="Kindly enter a valid name without any additonal space in the end.Max 50 chars allowed." maxLength="50" required="true" value="{path : 'oModelView>/GivenName', type : 'sap.ui.model.type.String', constraints:{minLength:1,maxLength:50,search :'^[A-Za-z]{1}$|^(?:[A-Za-z][ ]?[.]?[ ]?){1,40}[A-Za-z]$' } }" />
+                 <Label text="{i18n>OfficialMobileNo}" />
+                 <Input valueStateText="Kindly enter a mobile no with 10 digits." required="true" type="Number" value="{path:'oModelView>/Mobile',type:'sap.ui.model.type.String',constraints:{minLength:10,maxLength:10 }}" />
+              <core:Title text="{i18n>BasicDetails}" />
+                <Label text="{i18n>SalesGroup}" />
+                <ComboBox items="{path:'/MasterSaleGroups',sorter:{path:'Name'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{path:'oModelView>/SaleGroupId',type:'sap.ui.model.type.String' }">
+                    <items>
+                        <core:Item text="{Name}" key="{ID}" />
+                    </items>
+                </ComboBox> 
+              <Label text="{i18n>PayrollCompany}" />
+                <ComboBox items="{path:'/MasterPayrollCompanies',sorter:{path:'Name'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{path:'oModelView>/PayrollCompanyId',type :'sap.ui.model.type.String' }">
+                    <items>
+                        <core:Item text="{Name}" key="{ID}" />
+                    </items>
+                </ComboBox>
+                <core:Title text="{i18n>LocationDetails}" />
+                  
+                  <Label text="{i18n>PinCode}" />
+                <Input enabled="false" value="{path:'oModelView>/PinCode',  type : 'sap.ui.model.type.String'  }" autocomplete="false" showSuggestion="true" suggestionItemSelected="onPinCodeSelect" suggest="onPinSuggest" >
+                    <suggestionItems>
+                        <core:ListItem text="{Pincode}" additionalText="{State/State}" />
+                    </suggestionItems>
+                </Input>
+                <Label text="{i18n>State}" />
+                <ComboBox enabled="false" id="cmBxState" selectionChange="onStateChange" required="true" selectedKey="{path:'oModelView>/PainterAddress/StateId', type : 'com.knpl.pragati.ContactPainter.model.customInt'  }">
+                    <items>
+                        <core:Item text="{State}" key="{Id}" />
+                    </items>
+                </ComboBox>
+                <Label text="{i18n>City}" required="true" />
+                <ComboBox enabled="false" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/PainterAddress/StateId} !== '' }"  selectedKey="{path:'oModelView>/PainterAddress/CityId', type : 'com.knpl.pragati.ContactPainter.model.customInt' }" id="cmbCity" required="true">
+                    <items>
+                        <core:Item text="{City}" key="{Id}" />
+                    </items>
+                </ComboBox>
+
+                 <Label text="{i18n>Zone}" />
+                <ComboBox selectionChange="onZoneChange" items="{/MasterZones}" selectedKey="{path:'oModelView>/Zone',type:'sap.ui.model.type.String' }">
+                    <core:Item text="{Id}" key="{Id}" />
+                </ComboBox>
+                <Label text="{i18n>Division}" />
+                <ComboBox id="idDivision" editable="{= ${oModelView>/Zone}!=='' }" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelView>/DivisionId',type:'sap.ui.model.type.String' }">
+                    <core:Item text="{Id}" key="{Id}" />
+                </ComboBox>
+                <Label text="{i18n>Depot}" />
+                <ComboBox selectionChange="onDepotChange" editable="{= ${oModelView>/DivisionId}!=='' }" id="idDepot" items="{/MasterDepots}" selectedKey="{path:'oModelView>/DepotId',type:'sap.ui.model.type.String' }">
+                    <core:Item text="{Depot} ( {Id} )" key="{Id}" />
+                </ComboBox>
+                <Label text="{i18n>LinkDealer}" />
+                <MultiInput tokenUpdate="onPTokenUpdate" valueHelpOnly="true" id="idMinpPDealers"  	valueHelpRequest="handlePDealerValue">
+                    	<core:Item key="{Id}" text="{DealerName} - {Id}" />
+                </MultiInput> 
+
+           
+            </f:content>
+        </f:SimpleForm>
+   
+</core:FragmentDefinition>

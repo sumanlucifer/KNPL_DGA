@@ -5,12 +5,11 @@ sap.ui.define([
     "sap/ui/core/routing/History",
     "sap/ui/core/Fragment",
     "sap/ui/model/json/JSONModel",
-    "../controller/Validator",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox,Filter,FilterOperator) {
+], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, MessageToast, MessageBox,Filter,FilterOperator) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -94,18 +93,7 @@ sap.ui.define([
             promise.resolve()
             return promise;
         },
-        _ValidateForm: function () {
-            var oView = this.getView();
-            var oValidate = new Validator();
-            var othat = this;
-            var oForm = oView.byId("FormObjectData");
-            var bFlagValidate = oValidate.validate(oForm);
-            if (!bFlagValidate) {
-                othat._showMessageToast("Message3")
-                return false;
-            }
-            return true;
-        },
+        
         /**
          * Getter for the resource bundle.
          * @public

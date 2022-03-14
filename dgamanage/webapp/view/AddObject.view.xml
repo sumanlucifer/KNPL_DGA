@@ -9,8 +9,8 @@
         <headerContent>
             <Bar>
                 <contentLeft>
-                    <Breadcrumbs currentLocationText="{i18n>Add} {i18n>MainObject}" >
-                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
+                    <Breadcrumbs currentLocationText="{i18n>Add} {i18n>New} {i18n>MainObject}" >
+                        <Link text="{i18n>DGAList}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </contentLeft>
             </Bar>

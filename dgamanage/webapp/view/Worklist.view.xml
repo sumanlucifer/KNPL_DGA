@@ -40,7 +40,7 @@
                             </fb:FilterGroupItem>
                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="DGAType" label="{i18n>MainObject} {i18n>Type}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                     <ComboBox placeholder="{i18n>Enter} {i18n>MainObject} {i18n>Type}" selectionChange="onZoneChange"  items="{path:'/MasterDGATypes',filters:[{path:'IsArchived',operator:'EQ' , value1:false}]}" selectedKey="{path:'oModelControl>/filterBar/DGAType'}">
+                                     <ComboBox placeholder="{i18n>Select} {i18n>MainObject} {i18n>Type}" selectionChange="onZoneChange"  items="{path:'/MasterDGATypes',filters:[{path:'IsArchived',operator:'EQ' , value1:false}]}" selectedKey="{path:'oModelControl>/filterBar/DGAType'}">
                                         <core:Item text="{Name} " key="{ID}" />
                                     </ComboBox>
                                 </fb:control>

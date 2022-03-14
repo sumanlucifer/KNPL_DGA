@@ -5,11 +5,15 @@ sap.ui.define([
     "../model/formatter",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "sap/ui/core/library",
     "sap/ui/core/ValueState",
+    "com/knpl/dga/dgamanage/controller/Validator",
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
-    "sap/m/MessageToast"
-], function (BaseController, JSONModel, History, formatter, Filter, FilterOperator, ValueState, Fragment, MessageBox, MessageToast) {
+    "sap/m/MessageToast",
+  
+
+], function (BaseController, JSONModel, History, formatter, Filter, FilterOperator, library,ValueState,Validator, Fragment, MessageBox, MessageToast) {
     "use strict";
 
     return BaseController.extend("com.knpl.dga.dgamanage.controller.AddObject", {
@@ -38,6 +42,10 @@ sap.ui.define([
             });
 
 
+            this._ValueState = library.ValueState;
+            this._MessageType = library.MessageType;
+
+
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Add").attachMatched(this._onRouterMatched, this);
 
@@ -56,7 +64,7 @@ sap.ui.define([
                 c1.then(function () {
                     c2 = othat._setInitViewModel();
                     c2.then(function () {
-                        c3 = othat._LoadAddFragment("AddComplaint");
+                        c3 = othat._LoadAddFragment("AddNewObject");
                         c3.then(function () {
                             oView.getModel("oModelControl").setProperty("/PageBusy", false)
                         })
@@ -75,10 +83,13 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var oDataView = {
-                Remark: "",
-                ComplaintTypeId: "",
-                "ComplaintSubtypeId": 8,
-                "PainterId": "",
+                GivenName: "",
+                Mobile: "",
+                SaleGroupId:"",
+                PayrollCompanyId:"",
+                Zone:"",
+                DivisionId:"",
+                DepotId:""
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -112,6 +123,18 @@ sap.ui.define([
             }
 
         },
+        _ValidateForm: function () {
+            var oView = this.getView();
+            var oValidate = new Validator();
+            var othat = this;
+            var oForm = oView.byId("FormObjectData");
+            var bFlagValidate = oValidate.validate(oForm,true);
+            if (!bFlagValidate) {
+                othat._showMessageToast("Message3")
+                return false;
+            }
+            return true;
+        },
         _postDataToSave: function () {
             /*
              * Author: manik saluja
@@ -139,22 +162,23 @@ sap.ui.define([
 
         },
         _CreateObject: function (oPayLoad) {
-            //console.log(oPayLoad);
+            console.log(oPayLoad);
             var othat = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
             return new Promise((resolve, reject) => {
-                oDataModel.create("/PainterComplainsSet", oPayLoad, {
-                    success: function (data) {
-                        othat._showMessageToast("Message2")
-                        resolve(data);
-                    },
-                    error: function (data) {
-                        othat._showMessageToast("Message4")
-                        reject(data);
-                    },
-                });
+                resolve();
+                    oDataModel.create("/DGAs", oPayLoad, {
+                        success: function (data) {
+                            othat._showMessageToast("Message2")
+                            resolve(data);
+                        },
+                        error: function (data) {
+                            othat._showMessageToast("Message4")
+                            reject(data);
+                        },
+                    });
             });
         }
 
