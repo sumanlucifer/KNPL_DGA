@@ -63,7 +63,7 @@ sap.ui.define(
                 _SetDisplayData: function (oProp, sMode) {
                     var oData = {
                         mode: sMode,
-                        bindProp: "PainterComplainsSet(" + oProp + ")",
+                        bindProp: "DGAs(" + oProp + ")",
                         complaintId: oProp,
                         PageBusy: true,
                         IcnTabKey: "0",
@@ -84,7 +84,8 @@ sap.ui.define(
                     var oData = oModel.getData();
                     var othat = this;
                     oModel.setProperty("/PageBusy", true);
-                    c1 = othat._CheckLoginData();
+                    // c1 = othat._CheckLoginData();
+                    c1 = othat._dummypromise();
                     c1.then(function () {
                         c2 = othat._getDisplayData(oData["bindProp"]);
                         c2.then(function () {
@@ -184,13 +185,13 @@ sap.ui.define(
                     var promise = jQuery.Deferred();
                     var oView = this.getView();
 
-                    var exPand = "Painter,ComplaintType,ComplaintSubtype";
+                    var exPand = "";
                     var othat = this;
                     if (oProp.trim() !== "") {
                         oView.bindElement({
                             path: "/" + oProp,
                             parameters: {
-                                expand: exPand,
+                              
                             },
                             events: {
                                 dataRequested: function (oEvent) {

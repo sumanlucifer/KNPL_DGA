@@ -42,6 +42,11 @@ sap.ui.define([
          * @param {string} sName the model name
          * @returns {sap.ui.mvc.View} the view instance
          */
+        _dummypromise:function(){
+            var promise = $.Deferred();
+            promise.resolve()
+            return promise;
+        },
         setModel: function (oModel, sName) {
             return this.getView().setModel(oModel, sName);
         },

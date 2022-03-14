@@ -7,8 +7,8 @@
                     <Title text="{ComplaintType/ComplaintType}"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>Update} {i18n>MainObject}">
-                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
+                    <Breadcrumbs currentLocationText="{i18n>MainObject} {i18n>Details}">
+                        <Link text="{i18n>DGAList}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
