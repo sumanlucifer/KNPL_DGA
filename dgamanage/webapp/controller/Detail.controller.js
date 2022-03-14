@@ -214,15 +214,14 @@ sap.ui.define(
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 if (sKey == "1") {
-                    oView.byId("Dealerstable").setEntitySet("DGAs(33)");
-                    //oView.byId("Dealerstable").rebindTable();
-                   
+                    oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
                 }
             },
             onBeforeRebindHistoryTable: function (oEvent) {
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
-               // oBindingParams.sorter.push(new Sorter("UpdatedAt", true));
+                console.log("onbefore binding")
+                // oBindingParams.sorter.push(new Sorter("UpdatedAt", true));
             },
 
             _LoadFragment: function (mParam) {
@@ -276,7 +275,7 @@ sap.ui.define(
 
 
             },
-        
+
             onChangeStatus: function () {
                 var oView = this.getView(),
                     aStatus = [{
@@ -287,7 +286,7 @@ sap.ui.define(
                         key: "NOT_CONTACTABLE"
                     }],
                     oModelControl = oView.getModel("oModelDisplay"),
-                    sCurrentStatus = null ,//oView.getBindingContext().getProperty("ActivationStatus"),
+                    sCurrentStatus = null,//oView.getBindingContext().getProperty("ActivationStatus"),
                     oChangeStatus = {
                         aApplicableStatus: aStatus.filter(ele => ele.key != sCurrentStatus),
                         oPayload: {
