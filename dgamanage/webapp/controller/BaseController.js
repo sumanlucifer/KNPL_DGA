@@ -93,7 +93,7 @@ sap.ui.define([
                     PainterDepot: ""
                 },
                 MultiCombo: {
-                    LinkedDealers: []
+                    Dealers: []
                 }
             };
             var oModelControl = new JSONModel(oDataControl)
@@ -220,7 +220,7 @@ sap.ui.define([
             //1.Clone the payload and convert string to integer values based on odata model entity
             var oPayLoad = this._RemoveEmptyValue(oModelData);
             var inTegerProperty = [
-                "ComplaintTypeId",
+              
             ];
             for (var y of inTegerProperty) {
                 if (oPayLoad.hasOwnProperty(y)) {
@@ -272,11 +272,13 @@ sap.ui.define([
                 this._ChangeStatus.close();
                 this._ChangeStatus.destroy();
                 delete this._ChangeStatus();
+                return;
             }
-            if(this._DealerValueHelpDialog){
-              
+            if (this._DealerValueHelpDialog) {
+
                 this._DealerValueHelpDialog.destroy();
                 delete this._DealerValueHelpDialog;
+                return;
             }
         },
         handleDealersValueHelp: function () {
@@ -299,112 +301,27 @@ sap.ui.define([
             }
 
         },
-        // painter value help request
-        onPainterValueHelpRequest: function (oEvent) {
-            var sInputValue = oEvent.getSource().getValue(),
-                oView = this.getView(), oModelControl = oView.getModel("oModelControl");
-
-            if (!this._pValueHelpDialog) {
-                this._pValueHelpDialog = Fragment.load({
-                    id: oView.getId(),
-                    name: oModelControl.getProperty("/resourcePath") + ".view.fragments.PainterValueHelpDialog",
-                    controller: this,
-                }).then(function (oDialog) {
-                    oView.addDependent(oDialog);
-                    return oDialog;
+        _handleProdValueHelpConfirm: function (oEvent) {
+            var oSelected = oEvent.getParameter("selectedContexts");
+            var oView = this.getView();
+            var oModel = oView.getModel("oModelControl");
+            var aDealers = [],
+                oBj;
+            for (var a of oSelected) {
+                oBj = a.getObject();
+                aDealers.push({
+                    Name: oBj["Name"],
+                    Id: oBj["ID"],
                 });
             }
-            this._pValueHelpDialog.then(function (oDialog) {
-                // Create a filter for the binding
-                oDialog
-                    .getBinding("items")
-                    .filter([
-                        new Filter(
-                            [
-                                new Filter(
-                                    {
-                                        path: "Name",
-                                        operator: "Contains",
-                                        value1: sInputValue.trim(),
-                                        caseSensitive: false
-                                    }
-                                ),
-                                new Filter(
-                                    {
-                                        path: "Mobile",
-                                        operator: "Contains",
-                                        value1: sInputValue.trim(),
-                                        caseSensitive: false
-                                    }
-                                ),
-                            ],
-                            false
-                        ),
-                    ]);
-                // Open ValueHelpDialog filtered by the input's value
-                oDialog.open(sInputValue);
-            });
-        },
-        onPainterValueHelpSearch: function (oEvent) {
-            var sValue = oEvent.getParameter("value");
-            var oFilter = new Filter(
-                [
-                    new Filter(
-                        {
-                            path: "Name",
-                            operator: "Contains",
-                            value1: sValue.trim(),
-                            caseSensitive: false
-                        }
-                    ),
-                    new Filter(
-                        {
-                            path: "Mobile",
-                            operator: "Contains",
-                            value1: sValue.trim(),
-                            caseSensitive: false
-                        }
-                    )
-                ],
-                false
-            );
+            console.log(aDealers);
+            oModel.setProperty("/MultiCombo/Dealers", aDealers);
+            oModel.refresh(true);
+            this.onDialogClose();
 
-            oEvent.getSource().getBinding("items").filter([oFilter]);
-        },
-        onPainterValueHelpClose: function (oEvent) {
-            var oSelectedItem = oEvent.getParameter("selectedItem");
-            oEvent.getSource().getBinding("items").filter([]);
-            var oViewModel = this.getView().getModel("oModelView"),
-                oModelControl = this.getView().getModel("oModelControl");
-            if (!oSelectedItem) {
-                return;
-            }
-            var obj = oSelectedItem.getBindingContext().getObject();
-            oViewModel.setProperty("/PainterId", obj["Id"]);
-            oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
-            oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
-            oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
-            oModelControl.setProperty("/AddFields/PainterDivision", obj.DivisionId);
-            oModelControl.setProperty("/AddFields/PainterZone", obj.ZoneId);
-
-            oModelControl.setProperty("/AddFields/PainterDepot", "");
-            //Fallback as Preliminary context not supported
-            this._getDepot(obj.DepotId);
 
         },
-        _getDepot: function (sDepotId) {
-            if (!sDepotId) return;
 
-            var sPath = this.getModel().createKey("/MasterDepotSet", {
-                Id: sDepotId
-            }),
-                oModel = this.getModel("oModelControl");
-
-            this.getModel().read(sPath, {
-                success: ele => oModel.setProperty("/AddFields/PainterDepot", ele.Depot)
-            })
-
-        },
 
     });
 

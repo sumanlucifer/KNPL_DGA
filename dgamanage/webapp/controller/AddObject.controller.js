@@ -11,9 +11,9 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
     "sap/m/MessageToast",
-  
 
-], function (BaseController, JSONModel, History, formatter, Filter, FilterOperator, library,ValueState,Validator, Fragment, MessageBox, MessageToast) {
+
+], function (BaseController, JSONModel, History, formatter, Filter, FilterOperator, library, ValueState, Validator, Fragment, MessageBox, MessageToast) {
     "use strict";
 
     return BaseController.extend("com.knpl.dga.dgamanage.controller.AddObject", {
@@ -85,11 +85,12 @@ sap.ui.define([
             var oDataView = {
                 GivenName: "",
                 Mobile: "",
-                SaleGroupId:"",
-                PayrollCompanyId:"",
-                Zone:"",
-                DivisionId:"",
-                DepotId:""
+                SaleGroupId: "",
+                PayrollCompanyId: "",
+                Zone: "",
+                DivisionId: "",
+                DepotId: "",
+                DGADealers: []
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -128,7 +129,7 @@ sap.ui.define([
             var oValidate = new Validator();
             var othat = this;
             var oForm = oView.byId("FormObjectData");
-            var bFlagValidate = oValidate.validate(oForm,true);
+            var bFlagValidate = oValidate.validate(oForm, true);
             if (!bFlagValidate) {
                 othat._showMessageToast("Message3")
                 return false;
@@ -146,19 +147,44 @@ sap.ui.define([
             var oModelControl = oView.getModel("oModelControl");
             oModelControl.setProperty("/PageBusy", true);
             var othat = this;
-            var c1, c2, c3, c4;
+            var c1, c1B,c2, c3, c4;
             c1 = othat._CheckEmptyFieldsPostPayload();
             c1.then(function (oPayload) {
-                c2 = othat._CreateObject(oPayload)
-                c2.then(function () {
-                    c3 = othat._uploadFile();
-                    c3.then(function () {
-                        oModelControl.setProperty("/PageBusy", false);
-                        othat.onNavToHome();
+                c1B = othat._AddMultiComboData(oPayload);
+                c1B.then(function (oPayload) {
+                    c2 = othat._CreateObject(oPayload)
+                    c2.then(function () {
+                        c3 = othat._uploadFile();
+                        c3.then(function () {
+                            oModelControl.setProperty("/PageBusy", false);
+                            //othat.onNavToHome();
+                        })
                     })
                 })
             })
 
+
+        },
+        _AddMultiComboData: function (oPayload) {
+            var promise = $.Deferred();
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            var oModelControl = oView.getModel("oModelControl");
+            // dealers
+            var aExistingDealers = oModelView.getProperty("/DGADealers");
+            var aSelectedDealers = oModelControl.getProperty("/MultiCombo/Dealers")
+            var iDealers = -1
+            for (var x of aSelectedDealers) {
+                iDealers = aExistingDealers.findIndex(item => item["ID"] === x["Id"])
+                if (iDealers >= 0) {
+                    //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
+                } else {
+                    oPayload["DGADealers"].push({ DealerId: x["Id"] });
+                }
+            }
+
+            promise.resolve(oPayload);
+            return promise
 
         },
         _CreateObject: function (oPayLoad) {
@@ -168,17 +194,17 @@ sap.ui.define([
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
             return new Promise((resolve, reject) => {
-                resolve();
-                    oDataModel.create("/DGAs", oPayLoad, {
-                        success: function (data) {
-                            othat._showMessageToast("Message2")
-                            resolve(data);
-                        },
-                        error: function (data) {
-                            othat._showMessageToast("Message4")
-                            reject(data);
-                        },
-                    });
+                //resolve();
+                oDataModel.create("/DGAs", oPayLoad, {
+                    success: function (data) {
+                        othat._showMessageToast("Message2")
+                        resolve(data);
+                    },
+                    error: function (data) {
+                        othat._showMessageToast("Message4")
+                        reject(data);
+                    },
+                });
             });
         }
 
