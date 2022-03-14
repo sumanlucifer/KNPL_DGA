@@ -2,7 +2,7 @@
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
 		<SelectDialog
-		title="{i18n>Dealers}"
+		title="Products"
         growing="true"
         growingThreshold="8"
         rememberSelections="true"
@@ -10,7 +10,7 @@
 		items="{path:'/MasterDealers',sorter:{path:'Name'},parameters:{select:'ID,Name'} }"
 	    search="_handlePValueHelpSearch"
 		confirm="_handleProdValueHelpConfirm"
-        cancel="onDialogClose"
+        cancel="_handleProdValueHelpClose"
 		multiSelect="true">
 		<StandardListItem
 			iconDensityAware="false"

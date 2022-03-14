@@ -291,7 +291,7 @@ sap.ui.define([
                 }).then(
                     function (oValueHelpDialog) {
                         this._DealerValueHelpDialog = oValueHelpDialog;
-                        this.getView().addDependent(this._ProdValueHelpDialog);
+                        oView.addDependent(this._DealerValueHelpDialog);
                         this._DealerValueHelpDialog.open();
 
                     }.bind(this)
