@@ -17,7 +17,7 @@ server:
           url: https://ui5.sap.com
         backend:
           - path: /KNPL_PAINTER_API
-            destination: KNPL_PAINTER_API2
+            destination: KNPL_PAINTER_API
           - path: /KNPL_DGA_API
             destination: KNPL_DGA_API
     - name: fiori-tools-appreload
