@@ -68,7 +68,6 @@ sap.ui.define(
                     PageBusy: true,
                     IcnTabKey: "0",
                     resourcePath: "com.knpl.dga.dgamanage",
-
                     ChangeStatus: {
 
                     }
@@ -294,21 +293,47 @@ sap.ui.define(
                             ActivationStatusChangeReason: ""
                         }
                     };
-                oModelControl.setProperty("/oChangeStatus", oChangeStatus);
+                oModelControl.setProperty("/ChangeStatus", oChangeStatus);
                 // create dialog lazily
                 if (!this._ChangeStatus) {
                     // load asynchronous XML fragment
-                    Fragment.load({
-                        id: oView.getId(),
-                        name: oView.getModel("oModelDisplay").getProperty("/resourcePath")+".view.fragments.ChangeStatus",
-                        controller: this
-                    }).then(function (oDialog) {
-                        // connect dialog to the root view of this component (models, lifecycle)
-                        oView.addDependent(oDialog);
-                        oDialog.open();
-                    });
+                    this._getViewFragment("ChangeStatus").then(function (oControl) {
+                        console.log(oControl)
+                        this._ChangeStatus = oControl;
+                        oView.addDependent(this._ChangeStatus);
+                        this._ChangeStatus.open();
+                    }.bind(this));
+                    // Fragment.load({
+                    //     id: oView.getId(),
+                    //     name: oView.getModel("oModelDisplay").getProperty("/resourcePath")+".view.fragments.ChangeStatus",
+                    //     controller: this
+                    // }).then(function (oDialog) {
+                    //     // connect dialog to the root view of this component (models, lifecycle)
+                    //     this._ChangeStatus = oDialog;
+                    //     oView.addDependent(this._ChangeStatus);
+                    //     this._ChangeStatus.open();
+                    // }.bind(this));
+                } else {
+                    this._ChangeStatus.open();
                 }
             },
+            onConfirmStatus: function () {
+                var oPayload = this.getView().getModel("oModelDisplay").getProperty("/ChangeStatus/oPayload");
+                if (!oPayload.ActivationStatus)
+                    return;
+                if (!oPayload.ActivationStatusChangeReason)
+                    return;
+                var sPath = this.getView().getBindingContext().getPath();
+                console.log(oPayload);
+                // this.getView().getModel().update(sPath +
+                //     "/ActivationStatus", oPayload, {
+                //         success: function () {
+                //             MessageToast.show(`Status has been changed to ${oPayload.ActivationStatus}`);
+                //             this.onCloseStatus();
+                //         }.bind(this)
+                //     })
+            },
+
 
             _UpdatedObject: function (oPayLoad) {
                 var othat = this;

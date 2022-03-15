@@ -6,11 +6,11 @@
             <f:SimpleForm layout="ResponsiveGridLayout" columnsL="1" columnsM="1" singleContainerFullSize="false">
                 <f:content>
                     <Label required="true" text="{i18n>ChangeStatus}" />
-                    <ComboBox items="{oModelControl2>aApplicableStatus}" selectedKey="{oModelControl2>oPayload/ActivationStatus}">
-                        <core:Item key="{oModelControl2>key}" text="{path: 'oModelControl2>key', formatter:'.formatter.sActivationStatus'}" />
+                    <ComboBox items="{oModelDisplay>aApplicableStatus}" selectedKey="{oModelDisplay>oPayload/ActivationStatus}">
+                        <core:Item key="{oModelDisplay>key}" text="{path: 'oModelDisplay>key', formatter:'.formatter.fmtLowerCase'}" />
                     </ComboBox>
                     <Label required="true" text="{i18n>Reason}" />
-                    <TextArea value="{oModelControl2>oPayload/ActivationStatusChangeReason}" />
+                    <TextArea value="{oModelDisplay>oPayload/ActivationStatusChangeReason}" />
                 </f:content>
             </f:SimpleForm>
 
@@ -18,7 +18,7 @@
 
         </content>
         <buttons>
-            <Button text="{i18n>Close}" press=".onDialogClose" />
+            <Button text="{i18n>Close}" press="._onDialogClose" />
             <Button press="onConfirmStatus" type="Emphasized" text="{i18n>Save}" />
         </buttons>
     </Dialog>

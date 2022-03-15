@@ -101,6 +101,27 @@ sap.ui.define([
             promise.resolve()
             return promise;
         },
+        _getViewFragment: function (sFragmentName) {
+            var oView = this.getView();
+            var oModel;
+            if (oView.getModel("oModelControl")) {
+                oModel = oView.getModel("oModelControl");
+            } else {
+                oModel = oView.getModel("oModelDisplay");
+            }
+            var othat = this;
+
+            this._formFragments = Fragment.load({
+                id: oView.getId(),
+                name: oModel.getProperty("/resourcePath") + ".view.fragments." + sFragmentName,
+                controller: othat,
+            }).then(function (oFragament) {
+                return oFragament;
+            });
+
+
+            return this._formFragments;
+        },
 
         /**
          * Getter for the resource bundle.
@@ -293,10 +314,9 @@ sap.ui.define([
                 }
             }
             if (this._ChangeStatus) {
-                this._ChangeStatus.close();
-                this._ChangeStatus.destroy();
-                delete this._ChangeStatus();
-                return;
+                if (this._ChangeStatus.isOpen()) {
+                    this._ChangeStatus.close();
+                }
             }
             if (this._DealerValueHelpDialog) {
                 this._DealerValueHelpDialog.destroy();
@@ -309,18 +329,23 @@ sap.ui.define([
 
 
             if (!this._DealerValueHelpDialog) {
-                Fragment.load({
-                    id: oView.getId(),
-                    name: oView.getModel("oModelControl").getProperty("/resourcePath") + ".view.fragments.DealersValueHelp",
-                    controller: this,
-                }).then(
-                    function (oValueHelpDialog) {
-                        this._DealerValueHelpDialog = oValueHelpDialog;
-                        oView.addDependent(this._DealerValueHelpDialog);
-                        this._DealerValueHelpDialog.open();
+                this._getViewFragment("DealersValueHelp").then(function (oControl) {
+                    this._DealerValueHelpDialog = oControl;
+                    oView.addDependent(this._DealerValueHelpDialog);
+                    this._DealerValueHelpDialog.open();
+                }.bind(this))
+                // Fragment.load({
+                //     id: oView.getId(),
+                //     name: oView.getModel("oModelControl").getProperty("/resourcePath") + ".view.fragments.DealersValueHelp",
+                //     controller: this,
+                // }).then(
+                //     function (oValueHelpDialog) {
+                //         this._DealerValueHelpDialog = oValueHelpDialog;
+                //         oView.addDependent(this._DealerValueHelpDialog);
+                //         this._DealerValueHelpDialog.open();
 
-                    }.bind(this)
-                );
+                //     }.bind(this)
+                // );
             }
 
         },
@@ -337,7 +362,7 @@ sap.ui.define([
                     Id: oBj["ID"],
                 });
             }
-           
+
             oModel.setProperty("/MultiCombo/Dealers", aDealers);
             oModel.refresh(true);
             this._onDialogClose();
