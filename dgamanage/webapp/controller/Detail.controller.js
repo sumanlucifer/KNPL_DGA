@@ -64,7 +64,7 @@ sap.ui.define(
                 var oData = {
                     mode: sMode,
                     bindProp: "DGAs(" + oProp + ")",
-                    complaintId: oProp,
+                    Id: oProp,
                     PageBusy: true,
                     IcnTabKey: "0",
                     resourcePath: "com.knpl.dga.dgamanage",
@@ -88,7 +88,7 @@ sap.ui.define(
                 var othat = this;
                 oModel.setProperty("/PageBusy", true);
                 // c1 = othat._CheckLoginData();
-                c1 = othat._dummypromise();
+                c1 = othat._dummyPromise();
                 c1.then(function () {
                     c2 = othat._getDisplayData(oData["bindProp"]);
                     c2.then(function () {
@@ -103,18 +103,20 @@ sap.ui.define(
                 var oView = this.getView();
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay");
+                oModel.setProperty("/PageBusy", true);
                 var sProp = oModel.getProperty("/bindProp")
+                oModel.setProperty("/mode","Edit");
                 var oData = oModel.getData();
                 var c1, c2, c3, c4;
-                var c1 = othat._AddObjectControlModel("Edit", oData["complaintId"]);
+                var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                 oModel.setProperty("/PageBusy", true);
                 c1.then(function () {
                     c1.then(function () {
                         c2 = othat._setInitViewModel();
                         c2.then(function () {
-                            c3 = othat._LoadFragment("AddComplaint");
+                            c3 = othat._LoadFragment("AddNewObject");
                             c3.then(function () {
-                                c4 = othat._getDisplayData(sProp);
+                                c4 = othat._SetFiltersForControls();
                                 c4.then(function () {
                                     oModel.setProperty("/PageBusy", false);
                                 })
@@ -123,6 +125,32 @@ sap.ui.define(
                         })
                     })
                 })
+
+            },
+            _SetFiltersForControls:function(){
+                var promise = $.Deferred();
+                var oView = this.getView();
+                var oModelView = oView.getModel("oModelView");
+                var oPayload = oModelView.getData();
+                // set filers for Division, Depot
+                var sZoneId = oPayload["Zone"];
+                if (sZoneId !== null) {
+                    oView
+                        .byId("idDivision")
+                        .getBinding("items")
+                        .filter(new Filter("Zone", FilterOperator.EQ, sZoneId));
+                }
+                var sDivisionId = oPayload["DivisionId"];
+                if (sDivisionId !== null) {
+                    oView
+                        .byId("idDepot")
+                        .getBinding("items")
+                        .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
+                }
+                promise.resolve(oPayload);
+                return promise;
+
+                
 
             },
             _setInitViewModel: function () {
@@ -135,13 +163,13 @@ sap.ui.define(
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
-                            $expand: exPand,
+                            //$expand: exPand,
                         },
                         success: function (data) {
 
                             var oModel = new JSONModel(data);
                             oView.setModel(oModel, "oModelView");
-                            resolve();
+                            resolve(data);
                         },
                         error: function () { },
                     });
@@ -230,11 +258,7 @@ sap.ui.define(
                 var oVboxProfile = oView.byId("oVBoxAddObjectPage");
                 var sResourcePath = oView.getModel("oModelDisplay").getProperty("/resourcePath")
                 oVboxProfile.destroyItems();
-                return Fragment.load({
-                    id: oView.getId(),
-                    controller: othat,
-                    name: sResourcePath + ".view.fragments." + mParam,
-                }).then(function (oControlProfile) {
+                return this._getViewFragment(mParam).then(function (oControlProfile) {
                     oView.addDependent(oControlProfile);
                     oVboxProfile.addItem(oControlProfile);
                     promise.resolve();
@@ -248,6 +272,18 @@ sap.ui.define(
                 }
 
             },
+            _ValidateForm: function () {
+                var oView = this.getView();
+                var oValidate = new Validator();
+                var othat = this;
+                var oForm = oView.byId("FormObjectData");
+                var bFlagValidate = oValidate.validate(oForm, true);
+                if (!bFlagValidate) {
+                    othat._showMessageToast("Message3")
+                    return false;
+                }
+                return true;
+            },
             _postDataToSave: function () {
                 /*
                  * Author: manik saluja
@@ -256,7 +292,7 @@ sap.ui.define(
                  * Purpose: Payload is ready and we have to send the same based to server but before that we have to modify it slighlty
                  */
                 var oView = this.getView();
-                var oModelControl = oView.getModel("oModelControl");
+                var oModelControl = oView.getModel("oModelDisplay");
                 oModelControl.setProperty("/PageBusy", true);
                 var othat = this;
                 var c1, c2, c3;
@@ -338,6 +374,7 @@ sap.ui.define(
             _UpdatedObject: function (oPayLoad) {
                 var othat = this;
                 var oView = this.getView();
+                console.log(oPayLoad);
                 var oDataModel = oView.getModel();
                 var oModelControl = oView.getModel("oModelControl");
                 var sProp = oModelControl.getProperty("/bindProp")
@@ -345,11 +382,11 @@ sap.ui.define(
                 return new Promise((resolve, reject) => {
                     oDataModel.update("/" + sProp, oPayLoad, {
                         success: function (data) {
-                            MessageToast.show(othat.geti18nText("Message1"));
+                            MessageToast.show(othat._geti18nText("Message1"));
                             resolve(data);
                         },
                         error: function (data) {
-                            MessageToast.show(othat.geti18nText("Message2"));
+                            MessageToast.show(othat._geti18nText("Message2"));
                             oModelControl.setProperty("/PageBusy", false);
                             reject(data);
                         },

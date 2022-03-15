@@ -42,7 +42,7 @@ sap.ui.define([
          * @param {string} sName the model name
          * @returns {sap.ui.mvc.View} the view instance
          */
-        _dummypromise: function () {
+        _dummyPromise: function () {
             var promise = $.Deferred();
             promise.resolve()
             return promise;
@@ -81,8 +81,8 @@ sap.ui.define([
                 PageBusy: true,
                 Pagetitle: mParam1 === "Add" ? "Add" : "Edit",
                 mode: mParam1,
-                ComplainId: mParam2,
-                bindProp: "PainterComplainsSet(" + mParam2 + ")",
+                Id: mParam2,
+                bindProp: "DGAs(" + mParam2 + ")",
                 resourcePath: "com.knpl.dga.dgamanage",
                 AddFields: {
                     PainterMobile: "",
