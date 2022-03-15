@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
     <smartTable:SmartTable
-                            id="Dealerstable"
+                           
                             editable="false"
                             beforeRebindTable="onBeforeRebindHistoryTable"                    
-                            tableBindingPath="DGADealers/"
+                          
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"
@@ -21,51 +21,63 @@
             <columns>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Name","columnIndex":0 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ConsumerName","columnIndex":0 }'/>
                     </customData>
-                    <Text text="{i18n>Name}"/>
+                    <Text text="{i18n>ConsumerName}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PhoneNumber","columnIndex":1 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Mobile","columnIndex":1 }'/>
                     </customData>
-                    <Text text="{i18n>PhoneNumber}"/>
+                    <Text text="{i18n>MobileNumber}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "SapCode","columnIndex":2 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ServiceType","columnIndex":2 }'/>
                     </customData>
-                    <Text text="{i18n>SapCode}"/>
+                    <Text text="{i18n>ServiceType}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "SapGroup","columnIndex":3 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "State","columnIndex":3 }'/>
                     </customData>
-                    <Text text="{i18n>SapGroupName}"/>
+                    <Text text="{i18n>State}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "FiscalYear","columnIndex":4 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Zone","columnIndex":4 }'/>
                     </customData>
-                    <Text text="{i18n>FiscalYear}"/>
+                    <Text text="{i18n>Zone}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Visits","columnIndex":5 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Division","columnIndex":5 }'/>
                     </customData>
-                    <Text text="{i18n>Visits}"/>
+                    <Text text="{i18n>Division}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "MappedContract","columnIndex":6 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Depot","columnIndex":6 }'/>
                     </customData>
-                    <Text text="{i18n>TotalMappedContractor}"/>
+                    <Text text="{i18n>Depot}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Leads","columnIndex":7 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PinCode","columnIndex":7 }'/>
                     </customData>
-                    <Text text="{i18n>LeadsProvided}"/>
+                    <Text text="{i18n>PinCode}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Stage","columnIndex":8 }'/>
+                    </customData>
+                    <Text text="{i18n>Stage}"/>
+                </Column>
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status","columnIndex":9 }'/>
+                    </customData>
+                    <Text text="{i18n>Status}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
@@ -90,7 +102,8 @@
                         <Text />
                         <Text />
                         <Text />
-
+                        <Text />
+                         <Text />
                        <Text text="{ID}" />
                         
 

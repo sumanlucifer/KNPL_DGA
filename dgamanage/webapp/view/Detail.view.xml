@@ -58,10 +58,10 @@
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.DealersTable" type="XML"/>
                         </IconTabFilter>
                            <IconTabFilter  text="{i18n>LinkedContractors}" key="2" >
-                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.ContractorTable" type="XML"/>
                         </IconTabFilter>
                          <IconTabFilter  text="{i18n>Leads}" key="3" >
-                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.LeadsTable" type="XML"/>
                         </IconTabFilter>
                            <IconTabFilter  text="{i18n>Performance}" key="4" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
