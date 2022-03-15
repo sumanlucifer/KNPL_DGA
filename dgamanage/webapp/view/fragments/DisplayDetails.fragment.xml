@@ -23,7 +23,7 @@
                    <Label text="{i18n>PinCode}" />
                      <Text text="{Pincode/Name}"  />
                 <Label text="{i18n>State}" />
-                  <Text  />
+                  <Text text="{path:'State/Name'}" />
                 <Label text="{i18n>City}"  />
                  <Text text="{path : 'Town/Name'}"  />
 

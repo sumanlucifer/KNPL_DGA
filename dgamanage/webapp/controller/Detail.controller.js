@@ -234,7 +234,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town";
+                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -272,9 +272,7 @@ sap.ui.define(
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
-                var othat = this;
                 var oVboxProfile = oView.byId("oVBoxAddObjectPage");
-                var sResourcePath = oView.getModel("oModelDisplay").getProperty("/resourcePath")
                 oVboxProfile.destroyItems();
                 return this._getViewFragment(mParam).then(function (oControlProfile) {
                     oView.addDependent(oControlProfile);

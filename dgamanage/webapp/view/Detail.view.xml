@@ -12,10 +12,10 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="DGA ID"/>
+                    <Label text="{UniqueId}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="DGA ID"/>
+                    <Label text="{UniqueId}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
                     <Title text="{ComplaintType/ComplaintType}"/>

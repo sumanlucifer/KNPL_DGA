@@ -20,7 +20,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGAID", "columnIndex": 1 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UniqueId", "leadingProperty": "UniqueId", "columnIndex": 1 ,"sortProperty": "UniqueId","filterProperty": "UniqueId"}'/>
                     </customData>
                     <Text text="{i18n>MainObject} {i18n>Id}"/>
                 </Column>
@@ -96,7 +96,7 @@
                 <ColumnListItem press="onListItemPress" type="Navigation">
                     <cells>
                         <Text text="{GivenName}"/>
-                         <Text text=""/>
+                         <Text text="{UniqueId}"/>
                          <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                            <Text text="{Mobile}"/>
                               <Text text="{DGAType/Name}"/>

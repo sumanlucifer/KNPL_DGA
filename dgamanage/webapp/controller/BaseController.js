@@ -42,9 +42,9 @@ sap.ui.define([
          * @param {string} sName the model name
          * @returns {sap.ui.mvc.View} the view instance
          */
-        _dummyPromise: function () {
+        _dummyPromise: function (oPayload) {
             var promise = $.Deferred();
-            promise.resolve()
+            promise.resolve(oPayload)
             return promise;
         },
         setModel: function (oModel, sName) {
