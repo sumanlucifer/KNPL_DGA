@@ -40,7 +40,7 @@
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"/>
                    
-                          <ObjectStatus class="sapMObjectStatusLarge" text="{Status}" state="None"/>
+                          <ObjectStatus class="sapMObjectStatusLarge" text="{Status}" state="{= ${Status} === 'Activated' ? 'Success' : 'None' }"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
