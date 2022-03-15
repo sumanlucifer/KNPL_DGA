@@ -104,7 +104,7 @@
                                    <Text text="{Division/Id}"/>
                                     <Text text="{Depot/Depot}"/>
                                     <Text text="{Pincode/Name}"/>
-                                    <Text text="{Status}"/>
+                                    <ObjectStatus text="{Status}" state="{path:'Status',formatter:'.formatter.fmtStatusColorChange'}"/>
                         <!-- <Text text="{ComplaintCode}"/> -->
                           <!--
                          <Text text="{ComplaintType/ComplaintType}"/>

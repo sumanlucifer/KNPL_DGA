@@ -52,6 +52,18 @@ sap.ui.define([], function () {
 
         },
         fmtStatusColorChange: function (mParam) {
+            if (mParam === "Activated") {
+                return "Success";
+            }
+            if (mParam === "PUBLISHED") {
+                return "Success";
+            }
+            if (mParam === "PENDING") {
+                return "Warning";
+            }
+            return "None";
+        },
+        fmtStatusColorChange2: function (mParam) {
             if (mParam === "APPROVED") {
                 return "Success";
             }
