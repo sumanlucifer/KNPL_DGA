@@ -37,6 +37,7 @@ sap.ui.define(
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute("Detail").attachMatched(this._onRouteMatched, this);
+               
                 sap.ui.getCore().attachValidationError(function (oEvent) {
                     if (oEvent.getParameter("element").getRequired()) {
                         oEvent.getParameter("element").setValueState(ValueState.Error);
@@ -59,7 +60,15 @@ sap.ui.define(
                 this._SetDisplayData(sId, sMode);
 
             },
-
+            _onRouteMatchedEdit: function (oEvent) {
+                var sId = window.decodeURIComponent(
+                    oEvent.getParameter("arguments").Id
+                );
+                var sMode = window.decodeURIComponent(
+                    oEvent.getParameter("arguments").Mode
+                );
+                this._SetDisplayData(sId, sMode);
+            },
             _SetDisplayData: function (oProp, sMode) {
                 var oData = {
                     mode: sMode,
@@ -105,7 +114,7 @@ sap.ui.define(
                 var oModel = oView.getModel("oModelDisplay");
                 oModel.setProperty("/PageBusy", true);
                 var sProp = oModel.getProperty("/bindProp")
-                oModel.setProperty("/mode","Edit");
+                oModel.setProperty("/mode", "Edit");
                 var oData = oModel.getData();
                 var c1, c2, c3, c4;
                 var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
@@ -127,7 +136,16 @@ sap.ui.define(
                 })
 
             },
-            _SetFiltersForControls:function(){
+            onPressEdit: function () {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("Detail", {
+                    Id:sId,
+                    Mode: "Edit"
+                });
+            },
+            _SetFiltersForControls: function () {
                 var promise = $.Deferred();
                 var oView = this.getView();
                 var oModelView = oView.getModel("oModelView");
@@ -150,7 +168,7 @@ sap.ui.define(
                 promise.resolve(oPayload);
                 return promise;
 
-                
+
 
             },
             _setInitViewModel: function () {
@@ -374,7 +392,7 @@ sap.ui.define(
             _UpdatedObject: function (oPayLoad) {
                 var othat = this;
                 var oView = this.getView();
-                console.log(oPayLoad);
+                //console.log(oPayLoad);
                 var oDataModel = oView.getModel();
                 var oModelControl = oView.getModel("oModelControl");
                 var sProp = oModelControl.getProperty("/bindProp")
