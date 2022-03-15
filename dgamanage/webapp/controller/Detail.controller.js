@@ -234,7 +234,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers";
+                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({

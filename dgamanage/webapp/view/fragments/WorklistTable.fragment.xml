@@ -62,13 +62,13 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Pincode","columnIndex":8 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Pincode/Name","leadingProperty": "Pincode/Name", "columnIndex": 8 ,"sortProperty": "Pincode/Name","filterProperty": "Pincode/Name" }'/>
                     </customData>
                     <Text text="{i18n>PinCode}"/>
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Status","columnIndex":9 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status","leadingProperty": "Status", "columnIndex": 9 ,"sortProperty": "Status","filterProperty": "Status" }'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
@@ -103,8 +103,8 @@
                                 <Text text="{Zone}"/>
                                    <Text text="{Division/Id}"/>
                                     <Text text="{Depot/Depot}"/>
-                                    <Text text=""/>
-                                    <Text text=""/>
+                                    <Text text="{Pincode/Name}"/>
+                                    <Text text="{Status}"/>
                         <!-- <Text text="{ComplaintCode}"/> -->
                           <!--
                          <Text text="{ComplaintType/ComplaintType}"/>

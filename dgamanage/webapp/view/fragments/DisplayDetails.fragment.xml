@@ -21,7 +21,7 @@
                 <Text text="{path : 'PayrollCompany/Name'}"  />
                 <core:Title text="{i18n>LocationDetails}" />
                    <Label text="{i18n>PinCode}" />
-                     <Text   />
+                     <Text text="{Pincode/Name}"  />
                 <Label text="{i18n>State}" />
                   <Text  />
                 <Label text="{i18n>City}"  />

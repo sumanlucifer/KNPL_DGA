@@ -35,12 +35,12 @@
                         <ObjectAttribute title="{i18n>DGAFullname}" text="{GivenName} {FamilyName}"/>
                         <ObjectAttribute title="{i18n>Mobile}" text="{Mobile}"/>
                          <ObjectAttribute title="{i18n>Location}" text="{TownId}"/>
-                            <ObjectAttribute title="{i18n>PinCode}" text=""/>
+                            <ObjectAttribute title="{i18n>PinCode}" text="{Pincode/Name}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"/>
                    
-                          <ObjectStatus class="sapMObjectStatusLarge" text="" state="None"/>
+                          <ObjectStatus class="sapMObjectStatusLarge" text="{Status}" state="None"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
