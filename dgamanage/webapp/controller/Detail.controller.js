@@ -37,7 +37,7 @@ sap.ui.define(
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute("Detail").attachMatched(this._onRouteMatched, this);
-               
+
                 sap.ui.getCore().attachValidationError(function (oEvent) {
                     if (oEvent.getParameter("element").getRequired()) {
                         oEvent.getParameter("element").setValueState(ValueState.Error);
@@ -125,23 +125,32 @@ sap.ui.define(
                         c2.then(function () {
                             c3 = othat._LoadFragment("AddNewObject");
                             c3.then(function () {
-                                c4 = othat._SetFiltersForControls();
+                                c4 = othat._SetFiltersForControls(oPayLoad);
                                 c4.then(function () {
-                                    oModel.setProperty("/PageBusy", false);
+                                    othat._setEditPopoverData(oPayLoad);
+                                    c4.then(function () {
+                                        oModel.setProperty("/PageBusy", false);
+                                    })
                                 })
-
                             })
                         })
                     })
                 })
 
             },
+            _setEditPopoverData: function (oPayload) {
+                var promise = $.Deferred();
+                // set the data for pin code poper
+
+                promise.resolve(oPayLoad)
+                return oPayLoad;
+            },
             onPressEdit: function () {
                 var oView = this.getView();
                 var sId = oView.getModel("oModelDisplay").getProperty("/Id")
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("Detail", {
-                    Id:sId,
+                    Id: sId,
                     Mode: "Edit"
                 });
             },
