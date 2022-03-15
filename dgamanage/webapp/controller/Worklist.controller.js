@@ -169,7 +169,7 @@ sap.ui.define(
 
                 },
                 _initTableData: function () {
-                    console.log("rebind table")
+                   
                     /*
                      * Author: manik saluja
                      * Date: 02-Dec-2021
@@ -184,7 +184,7 @@ sap.ui.define(
                     return promise;
                 },
                 onBindTblComplainList: function (oEvent) {
-                    console.log("check auto binding")
+                  
                     /*
                      * Author: manik saluja
                      * Date: 02-Dec-2021

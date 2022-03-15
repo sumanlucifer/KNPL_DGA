@@ -9,8 +9,8 @@
 		class="sapUiPopupWithPadding"
 		items="{path:'/MasterDealers',sorter:{path:'Name'},parameters:{select:'ID,Name'} }"
 	    search="_handlePValueHelpSearch"
-		confirm="_handleProdValueHelpConfirm"
-        cancel="_handleProdValueHelpClose"
+		confirm="_handleDealersValueHelpConfirm"
+        cancel="_onDialogClose"
 		multiSelect="true">
 		<StandardListItem
 			iconDensityAware="false"

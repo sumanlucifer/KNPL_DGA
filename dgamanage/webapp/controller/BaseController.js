@@ -220,7 +220,7 @@ sap.ui.define([
             //1.Clone the payload and convert string to integer values based on odata model entity
             var oPayLoad = this._RemoveEmptyValue(oModelData);
             var inTegerProperty = [
-              
+
             ];
             for (var y of inTegerProperty) {
                 if (oPayLoad.hasOwnProperty(y)) {
@@ -274,7 +274,7 @@ sap.ui.define([
             oDepot.setValue("");
             oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
         },
-        onDialogClose: function () {
+        _onDialogClose: function () {
             /*
                 Internal method to handle the closure of all the dialogs
                 if dialog 1 is open first and on top over that dialog 2 is open
@@ -299,7 +299,6 @@ sap.ui.define([
                 return;
             }
             if (this._DealerValueHelpDialog) {
-
                 this._DealerValueHelpDialog.destroy();
                 delete this._DealerValueHelpDialog;
                 return;
@@ -312,7 +311,7 @@ sap.ui.define([
             if (!this._DealerValueHelpDialog) {
                 Fragment.load({
                     id: oView.getId(),
-                    name: "com.knpl.dga.dgamanage.view.fragments.LinkedDealers",
+                    name: oView.getModel("oModelControl").getProperty("/resourcePath") + ".view.fragments.DealersValueHelp",
                     controller: this,
                 }).then(
                     function (oValueHelpDialog) {
@@ -325,7 +324,7 @@ sap.ui.define([
             }
 
         },
-        _handleProdValueHelpConfirm: function (oEvent) {
+        _handleDealersValueHelpConfirm: function (oEvent) {
             var oSelected = oEvent.getParameter("selectedContexts");
             var oView = this.getView();
             var oModel = oView.getModel("oModelControl");
@@ -338,10 +337,10 @@ sap.ui.define([
                     Id: oBj["ID"],
                 });
             }
-            console.log(aDealers);
+           
             oModel.setProperty("/MultiCombo/Dealers", aDealers);
             oModel.refresh(true);
-            this.onDialogClose();
+            this._onDialogClose();
 
 
         },
@@ -362,7 +361,7 @@ sap.ui.define([
                 });
                 oModel.setProperty(sPath, aNewArray);
             }
-            
+
         },
 
 

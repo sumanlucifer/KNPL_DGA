@@ -300,7 +300,7 @@ sap.ui.define(
                     // load asynchronous XML fragment
                     Fragment.load({
                         id: oView.getId(),
-                        name: "com.knpl.dga.dgamanage.view.fragments.ChangeStatus",
+                        name: oView.getModel("oModelDisplay").getProperty("/resourcePath")+".view.fragments.ChangeStatus",
                         controller: this
                     }).then(function (oDialog) {
                         // connect dialog to the root view of this component (models, lifecycle)
