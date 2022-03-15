@@ -23,15 +23,11 @@
                 <core:Title text="{i18n>LocationDetails}" />
                   
                   <Label text="{i18n>PinCode}" />
-                <Input enabled="false" value="{path:'oModelView>/PinCode',  type : 'sap.ui.model.type.String'  }" autocomplete="false" showSuggestion="true" suggestionItemSelected="onPinCodeSelect" suggest="onPinSuggest" >
-                    <suggestionItems>
-                        <core:ListItem text="{Pincode}" additionalText="{State/State}" />
-                    </suggestionItems>
-                </Input>
+               <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/PinCode'}" />
                 <Label text="{i18n>State}" />
-                <ComboBox enabled="false" id="cmBxState" selectionChange="onStateChange" required="true" selectedKey="{path:'oModelView>/PainterAddress/StateId', type : 'com.knpl.pragati.ContactPainter.model.customInt'  }">
+                <ComboBox enabled="true" id="cmBxState" selectionChange="onStateChange" items="{path:'/MasterStates',sorter:{path:'Name'}}" required="false" selectedKey="{path:'oModelView>/StateId', type:'sap.ui.model.type.String'  }">
                     <items>
-                        <core:Item text="{State}" key="{Id}" />
+                        <core:Item text="{Name}" key="{ID}" />
                     </items>
                 </ComboBox>
                 <Label text="{i18n>City}" required="true" />

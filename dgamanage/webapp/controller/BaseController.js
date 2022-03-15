@@ -85,12 +85,7 @@ sap.ui.define([
                 bindProp: "DGAs(" + mParam2 + ")",
                 resourcePath: "com.knpl.dga.dgamanage",
                 AddFields: {
-                    PainterMobile: "",
-                    PainterName: "",
-                    PainterMembershipId: "",
-                    PainterZone: "",
-                    PainterDivision: "",
-                    PainterDepot: ""
+                    Pincode: ""
                 },
                 MultiCombo: {
                     Dealers: []
@@ -318,11 +313,43 @@ sap.ui.define([
                     this._ChangeStatus.close();
                 }
             }
+            if (this._PinCodeValueHelp) {
+                this._PinCodeValueHelp.destroy();
+                delete this._PinCodeValueHelp;
+                return;
+            }
             if (this._DealerValueHelpDialog) {
                 this._DealerValueHelpDialog.destroy();
                 delete this._DealerValueHelpDialog;
                 return;
             }
+        },
+        _handlePinCodeValueHelp: function () {
+            var oView = this.getView();
+            if (!this._PinCodeValueHelp) {
+                this._getViewFragment("PinCodeValueHelp").then(function (oControl) {
+                    this._PinCodeValueHelp = oControl;
+                    oView.addDependent(this._PinCodeValueHelp);
+                    this._PinCodeValueHelp.open();
+                }.bind(this))
+            }
+        },
+        _handlePinCodeValueHelpConfirm: function (oEvent) {
+            var oSelectedItem = oEvent.getParameter("selectedItem");
+            var oViewModel = this.getView().getModel("oModelView"),
+                oModelControl = this.getView().getModel("oModelControl");
+            var obj = oSelectedItem.getBindingContext().getObject();
+            oModelControl.setProperty(
+                "/AddFields/PinCode",
+                obj["Name"]
+            );
+            oViewModel.setProperty(
+                "/PincodeId",
+                obj["ID"]
+            );
+
+            this._onDialogClose();
+
         },
         handleDealersValueHelp: function () {
             var oView = this.getView();
@@ -333,7 +360,7 @@ sap.ui.define([
                     this._DealerValueHelpDialog = oControl;
                     oView.addDependent(this._DealerValueHelpDialog);
                     this._DealerValueHelpDialog.open();
-                }.bind(this))
+                }.bind(this));
                 // Fragment.load({
                 //     id: oView.getId(),
                 //     name: oView.getModel("oModelControl").getProperty("/resourcePath") + ".view.fragments.DealersValueHelp",
