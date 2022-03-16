@@ -29,14 +29,14 @@ sap.ui.define([
          * @public
          */
         onInit: function () {
-             /*
-             * Author: manik saluja
-             * Date: 15-Mar-2022
-             * Language:  JS
-             * Purpose: In the initi we are configuring the view/control for the following
-             * 1. Field level validation using  the sap internal method of validation check
-             * 2. Setting up the routing method
-             */
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose: In the initi we are configuring the view/control for the following
+            * 1. Field level validation using  the sap internal method of validation check
+            * 2. Setting up the routing method
+            */
             sap.ui.getCore().attachValidationError(function (oEvent) {
                 if (oEvent.getParameter("element").getRequired()) {
                     oEvent.getParameter("element").setValueState(ValueState.Error);
@@ -63,15 +63,15 @@ sap.ui.define([
             this._initData();
         },
         _initData: function () {
-             /*
-             * Author: manik saluja
-             * Date: 15-Mar-2022
-             * Language:  JS
-             * Purpose:  Following is the flow 
-             * 1. Setting up the control model which holds the field level and general flag values that are not a part of payload
-             * 2.  _setInitView model we are seeting the oModelView which will be replica of the payload that is sent to the backend
-             * 3. Loading the fresh fragment that has the form displaying the initial values
-             */
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose:  Following is the flow 
+            * 1. Setting up the control model which holds the field level and general flag values that are not a part of payload
+            * 2.  _setInitView model we are seeting the oModelView which will be replica of the payload that is sent to the backend
+            * 3. Loading the fresh fragment that has the form displaying the initial values
+            */
             var oView = this.getView();
             var othat = this;
             var c1, c2, c3;
@@ -102,6 +102,7 @@ sap.ui.define([
                 GivenName: "",
                 Mobile: "",
                 SaleGroupId: "",
+                PincodeId: "",
                 PayrollCompanyId: "",
                 Zone: "",
                 DivisionId: "",
@@ -110,7 +111,7 @@ sap.ui.define([
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
-            this.getView().getModel().resetChanges();
+
             promise.resolve();
             return promise;
         },
@@ -135,12 +136,12 @@ sap.ui.define([
 
 
         onPressSave: function () {
-             /*
-             * Author: manik saluja
-             * Date: 01-Mar-2022
-             * Language:  JS
-             * Purpose: Method is triggered when we have click save on the add form
-             */
+            /*
+            * Author: manik saluja
+            * Date: 01-Mar-2022
+            * Language:  JS
+            * Purpose: Method is triggered when we have click save on the add form
+            */
             var bValidateForm = this._ValidateForm();
             if (bValidateForm) {
                 this._postDataToSave();
@@ -207,15 +208,17 @@ sap.ui.define([
             var aExistingDealers = oModelView.getProperty("/DGADealers");
             var aSelectedDealers = oModelControl.getProperty("/MultiCombo/Dealers")
             var iDealers = -1;
+            var aDealers = [];
             for (var x of aSelectedDealers) {
-                iDealers = aExistingDealers.findIndex(item => item["ID"] === x["Id"])
+                iDealers = aExistingDealers.findIndex(item => item["Id"] === x["Id"])
                 if (iDealers >= 0) {
                     //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
+                    aDealers.push(oPayload["DGADealers"][iDealers]);
                 } else {
-                    oPayload["DGADealers"].push({ DealerId: x["Id"] });
+                    aDealers.push({ DealerId: x["Id"] });
                 }
             }
-
+            oPayload["DGADealers"] = aDealers;
             promise.resolve(oPayload);
             return promise
 
