@@ -263,10 +263,11 @@ sap.ui.define(
                 }
             },
             onBeforeRebindHistoryTable: function (oEvent) {
+                console.log("onbefore rebind")
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                console.log("onbefore binding")
-                // oBindingParams.sorter.push(new Sorter("UpdatedAt", true));
+                oBindingParams.parameters["expand"] = "Dealer";
+                 //oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
 
             _LoadFragment: function (mParam) {
