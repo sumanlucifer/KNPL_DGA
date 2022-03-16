@@ -7,7 +7,7 @@
         growingThreshold="8"
        rememberSelections="false"
 		class="sapUiPopupWithPadding"
-		items="{path:'/MasterPincodes',sorter:{path:'Name'},parameters:{select:'ID,Name'} }"
+		items="{path:'/MasterPincodes',sorter:{path:'Name'},parameters:{select:'Id,Name'} }"
 	    search="_handlePValueHelpSearch"
 		confirm="_handlePinCodeValueHelpConfirm"
         cancel="_onDialogClose"

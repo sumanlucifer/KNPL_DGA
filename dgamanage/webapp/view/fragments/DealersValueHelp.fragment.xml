@@ -7,7 +7,7 @@
         growingThreshold="8"
         rememberSelections="true"
 		class="sapUiPopupWithPadding"
-		items="{path:'/MasterDealers',sorter:{path:'Name'},parameters:{select:'ID,Name'} }"
+		items="{path:'/MasterDealers',sorter:{path:'Name'},parameters:{select:'Id,Name'} }"
 	    search="_handlePValueHelpSearch"
 		confirm="_handleDealersValueHelpConfirm"
         cancel="_onDialogClose"

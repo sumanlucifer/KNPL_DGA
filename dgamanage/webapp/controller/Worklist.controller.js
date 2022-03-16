@@ -321,7 +321,7 @@ sap.ui.define(
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("Detail", {
-                    Id: oBj["ID"],
+                    Id: oBj["Id"],
                     Mode: "Display"
                 });
 

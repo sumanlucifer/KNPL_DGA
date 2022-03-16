@@ -29,7 +29,14 @@ sap.ui.define([
          * @public
          */
         onInit: function () {
-
+             /*
+             * Author: manik saluja
+             * Date: 15-Mar-2022
+             * Language:  JS
+             * Purpose: In the initi we are configuring the view/control for the following
+             * 1. Field level validation using  the sap internal method of validation check
+             * 2. Setting up the routing method
+             */
             sap.ui.getCore().attachValidationError(function (oEvent) {
                 if (oEvent.getParameter("element").getRequired()) {
                     oEvent.getParameter("element").setValueState(ValueState.Error);
@@ -56,6 +63,15 @@ sap.ui.define([
             this._initData();
         },
         _initData: function () {
+             /*
+             * Author: manik saluja
+             * Date: 15-Mar-2022
+             * Language:  JS
+             * Purpose:  Following is the flow 
+             * 1. Setting up the control model which holds the field level and general flag values that are not a part of payload
+             * 2.  _setInitView model we are seeting the oModelView which will be replica of the payload that is sent to the backend
+             * 3. Loading the fresh fragment that has the form displaying the initial values
+             */
             var oView = this.getView();
             var othat = this;
             var c1, c2, c3;
@@ -76,7 +92,7 @@ sap.ui.define([
         _setInitViewModel: function () {
             /*
              * Author: manik saluja
-             * Date: 02-Dec-2021
+             * Date: 01-Mar-2022
              * Language:  JS
              * Purpose: Used to set the view data model that is bindined to value fields of control in xml
              */
@@ -119,6 +135,12 @@ sap.ui.define([
 
 
         onPressSave: function () {
+             /*
+             * Author: manik saluja
+             * Date: 01-Mar-2022
+             * Language:  JS
+             * Purpose: Method is triggered when we have click save on the add form
+             */
             var bValidateForm = this._ValidateForm();
             if (bValidateForm) {
                 this._postDataToSave();
@@ -126,6 +148,12 @@ sap.ui.define([
 
         },
         _ValidateForm: function () {
+            /*
+             * Author: manik saluja
+             * Date: 15-Mar-2022
+             * Language:  JS
+             * Purpose: This method validates the fields in the form based on the configuration given in the property binding of the particular control.
+             */
             var oView = this.getView();
             var oValidate = new Validator();
             var othat = this;
@@ -140,9 +168,13 @@ sap.ui.define([
         _postDataToSave: function () {
             /*
              * Author: manik saluja
-             * Date: 02-Dec-2021
+             * Date: 01-Mar-2022
              * Language:  JS
-             * Purpose: Payload is ready and we have to send the same based to server but before that we have to modify it slighlty
+             * Purpose: Modify the payload so that its compatible with the backend server requirement. 
+             * 1. _CheckEmptyFieldsPostPayload used to check the empty string values and convert it into null and also clone the payload from omodeview
+             * 2._AddMultiComboData is used to set values of the multicombobx feilds from oModelControl to the payload.
+             * 3. _CreateObject to send the request with the payload to the backend
+             * 4. _UploadFile if its required to upload file based on the created object id.
              */
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");

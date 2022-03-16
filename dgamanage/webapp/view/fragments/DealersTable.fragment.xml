@@ -13,7 +13,7 @@
                             enableAutoBinding="true"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            initiallyVisibleFields="ID,DealerId,DGAId"
+                            initiallyVisibleFields="Id,DealerId,DGAId"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
 
@@ -69,7 +69,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID", "columnIndex": 8 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 8 ,"sortProperty": "Id","filterProperty": "Id"}'/>
                     </customData>
                     <Text text="{i18n>Id}"/>
                 </Column>
@@ -91,7 +91,7 @@
                         <Text />
                         <Text />
 
-                       <Text text="{ID}" />
+                       <Text text="{Id}" />
                         
 
                     </cells>

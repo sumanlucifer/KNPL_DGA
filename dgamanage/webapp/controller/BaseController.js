@@ -71,7 +71,7 @@ sap.ui.define([
         _AddObjectControlModel: function (mParam1, mParam2) {
             /*
              * Author: manik saluja
-             * Date: 02-Dec-2021
+             * Date: 02-Mar-2022
              * Language:  JS
              * Purpose: used to create omodelcontrol that is binded to the view or used to store static data
              */
@@ -97,6 +97,13 @@ sap.ui.define([
             return promise;
         },
         _getViewFragment: function (sFragmentName) {
+            /*
+             * Author: manik saluja
+             * Date: 14-March-2022
+             * Language:  JS
+             * Purpose: Common method to access fragmets from folder view.fragments. this method is 
+             * written so that the developer dont writes the Fragment.load again.
+             */
             var oView = this.getView();
             var oModel;
             if (oView.getModel("oModelControl")) {
@@ -124,10 +131,22 @@ sap.ui.define([
          * @returns {sap.ui.model.resource.ResourceModel} the resourceModel of the component
          */
         _geti18nText: function (mParam, mParam2) {
+            /*
+             * Author: manik saluja
+             * Date: 15-Mar-2022
+             * Language:  JS
+             * Purpose: This is the for getting the i18n text with additional paramters
+             */
             var oModel = this.getOwnerComponent().getModel("i18n").getResourceBundle();
             return oModel.getText(mParam, mParam2);
         },
         _showMessageToast: function (mParam, mParam2) {
+            /*
+             * Author: manik saluja
+             * Date: 15-Mar-2022
+             * Language:  JS
+             * Purpose: A common method of controllers to call the messgae toast with the property
+             */
             var oModel = this.getOwnerComponent().getModel("i18n").getResourceBundle();
             var sText = oModel.getText(mParam, mParam2);
             MessageToast.show(sText, {
@@ -291,6 +310,12 @@ sap.ui.define([
             oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
         },
         _handlePValueHelpSearch: function (oEvent) {
+             /*
+             * Author: manik saluja
+             * Date: 15-Mar-2022
+             * Language:  JS
+             * Purpose: A common method of controllers handle the search for the popovers
+             */
             var sValue = oEvent.getParameter("value").trim();
             var sPath = oEvent.getParameter("itemsBinding").getPath();
             // Pincodes Valuehelp
@@ -333,11 +358,14 @@ sap.ui.define([
         },
 
         _onDialogClose: function () {
-            /*
-                Internal method to handle the closure of all the dialogs
+             /*
+             * Author: manik saluja
+             * Date: 15-Mar-2022
+             * Language:  JS
+             * Purpose:  Internal method to handle the closure of all the dialogs
                 if dialog 1 is open first and on top over that dialog 2 is open
                 then dialog 2 code for closure should be written before dialog 1
-            */
+             */
             if (this._pValueHelpDialog) {
                 this._pValueHelpDialog.destroy();
                 delete this._pValueHelpDialog;
@@ -367,6 +395,12 @@ sap.ui.define([
             }
         },
         _handlePinCodeValueHelp: function () {
+             /*
+             * Author: manik saluja
+             * Date: 15-Mar-2022
+             * Language:  JS
+             * Purpose:  Used to handle the pin code pop over in the add dga and edit dga.
+             */
             var oView = this.getView();
             if (!this._PinCodeValueHelp) {
                 this._getViewFragment("PinCodeValueHelp").then(function (oControl) {
@@ -387,34 +421,27 @@ sap.ui.define([
             );
             oViewModel.setProperty(
                 "/PincodeId",
-                obj["ID"]
+                obj["Id"]
             );
 
             this._onDialogClose();
 
         },
         handleDealersValueHelp: function () {
+             /*
+             * Author: manik saluja
+             * Date: 15-Mar-2022
+             * Language:  JS
+             * Purpose:  This method is used to open the popover for selecting the linked dealers in the 
+             * add dga form. 
+             */
             var oView = this.getView();
-
-
             if (!this._DealerValueHelpDialog) {
                 this._getViewFragment("DealersValueHelp").then(function (oControl) {
                     this._DealerValueHelpDialog = oControl;
                     oView.addDependent(this._DealerValueHelpDialog);
                     this._DealerValueHelpDialog.open();
                 }.bind(this));
-                // Fragment.load({
-                //     id: oView.getId(),
-                //     name: oView.getModel("oModelControl").getProperty("/resourcePath") + ".view.fragments.DealersValueHelp",
-                //     controller: this,
-                // }).then(
-                //     function (oValueHelpDialog) {
-                //         this._DealerValueHelpDialog = oValueHelpDialog;
-                //         oView.addDependent(this._DealerValueHelpDialog);
-                //         this._DealerValueHelpDialog.open();
-
-                //     }.bind(this)
-                // );
             }
 
         },
@@ -428,7 +455,7 @@ sap.ui.define([
                 oBj = a.getObject();
                 aDealers.push({
                     Name: oBj["Name"],
-                    Id: oBj["ID"],
+                    Id: oBj["Id"],
                 });
             }
 

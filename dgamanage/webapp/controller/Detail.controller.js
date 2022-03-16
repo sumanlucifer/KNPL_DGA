@@ -60,15 +60,6 @@ sap.ui.define(
                 this._SetDisplayData(sId, sMode);
 
             },
-            _onRouteMatchedEdit: function (oEvent) {
-                var sId = window.decodeURIComponent(
-                    oEvent.getParameter("arguments").Id
-                );
-                var sMode = window.decodeURIComponent(
-                    oEvent.getParameter("arguments").Mode
-                );
-                this._SetDisplayData(sId, sMode);
-            },
             _SetDisplayData: function (oProp, sMode) {
                 var oData = {
                     mode: sMode,
@@ -364,16 +355,6 @@ sap.ui.define(
                         oView.addDependent(this._ChangeStatus);
                         this._ChangeStatus.open();
                     }.bind(this));
-                    // Fragment.load({
-                    //     id: oView.getId(),
-                    //     name: oView.getModel("oModelDisplay").getProperty("/resourcePath")+".view.fragments.ChangeStatus",
-                    //     controller: this
-                    // }).then(function (oDialog) {
-                    //     // connect dialog to the root view of this component (models, lifecycle)
-                    //     this._ChangeStatus = oDialog;
-                    //     oView.addDependent(this._ChangeStatus);
-                    //     this._ChangeStatus.open();
-                    // }.bind(this));
                 } else {
                     this._ChangeStatus.open();
                 }
