@@ -290,6 +290,52 @@ sap.ui.define([
             oDepot.setValue("");
             oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
         },
+        _handlePValueHelpSearch: function (oEvent) {
+            var sValue = oEvent.getParameter("value").trim();
+            var sPath = oEvent.getParameter("itemsBinding").getPath();
+            // Pincodes Valuehelp
+            if (sPath === "/MasterPincodes") {
+                if (sValue.length > 0) {
+                    var aFilter = new Filter({
+                        path: "Name",
+                        operator: "Contains",
+                        value1: sValue,
+                        caseSensitive: false,
+                    });
+                    this._PinCodeValueHelp
+                        .getBinding("items")
+                        .filter(aFilter, "Application");
+
+                } else {
+                    this._PinCodeValueHelp
+                        .getBinding("items")
+                        .filter([],"Application");
+                }
+                return;
+            }
+            // Dealers Valuehelp
+            if (sPath === "/MasterDealers") {
+                if (sValue.length > 0) {
+                    var aFilter = new Filter({
+                        path: "Name",
+                        operator: "Contains",
+                        value1: sValue,
+                        caseSensitive: false,
+                    });
+                    this._DealerValueHelpDialog
+                        .getBinding("items")
+                        .filter(aFilter, "Application");
+
+                }else {
+                    this._DealerValueHelpDialog
+                        .getBinding("items")
+                        .filter([],"Application");
+                }
+                return;
+            }
+
+        },
+
         _onDialogClose: function () {
             /*
                 Internal method to handle the closure of all the dialogs
