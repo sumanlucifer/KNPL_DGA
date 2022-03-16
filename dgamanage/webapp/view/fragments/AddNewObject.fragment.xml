@@ -31,7 +31,7 @@
                     </items>
                 </ComboBox>
                 <Label text="{i18n>City}" required="true" />
-                <ComboBox enabled="false" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/PainterAddress/StateId} !== '' }"  selectedKey="{path:'oModelView>/PainterAddress/CityId', type : 'com.knpl.pragati.ContactPainter.model.customInt' }" id="cmbCity" required="true">
+                <ComboBox enabled="false" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/PainterAddress/StateId} !== '' }"  selectedKey="{path:'oModelView>/PainterAddress/CityId' }" id="cmbCity" required="true">
                     <items>
                         <core:Item text="{City}" key="{Id}" />
                     </items>

@@ -148,7 +148,7 @@ sap.ui.define([
             var oModelControl = oView.getModel("oModelControl");
             oModelControl.setProperty("/PageBusy", true);
             var othat = this;
-            var c1, c1B,c2, c3, c4;
+            var c1, c1B, c2, c3, c4;
             c1 = othat._CheckEmptyFieldsPostPayload();
             c1.then(function (oPayload) {
                 c1B = othat._AddMultiComboData(oPayload);
@@ -171,10 +171,10 @@ sap.ui.define([
             var oView = this.getView();
             var oModelView = oView.getModel("oModelView");
             var oModelControl = oView.getModel("oModelControl");
-            // dealers
+            // Dealers Combobox - 
             var aExistingDealers = oModelView.getProperty("/DGADealers");
             var aSelectedDealers = oModelControl.getProperty("/MultiCombo/Dealers")
-            var iDealers = -1
+            var iDealers = -1;
             for (var x of aSelectedDealers) {
                 iDealers = aExistingDealers.findIndex(item => item["ID"] === x["Id"])
                 if (iDealers >= 0) {
