@@ -4,7 +4,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{i18n>MainObject} {i18n>Details}"/>
+                    <Title text="{GivenName}"/>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs currentLocationText="{i18n>MainObject} {i18n>Details}">
@@ -12,10 +12,10 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="{UniqueId}"/>
+                    <Label text="{i18n>DgaId} - {UniqueId}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="{UniqueId}"/>
+                    <Label text="{i18n>DgaId} - {UniqueId}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
                     <Title text="{ComplaintType/ComplaintType}"/>
@@ -48,7 +48,7 @@
         <f:content>
             <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="iconTabBar" class="sapUiResponsiveContentPadding" >
                 <items>
-                    <IconTabFilter  text="{i18n>Overview}" key="0" >
+                    <IconTabFilter  text="{i18n>BasicDetails}" key="0" >
                         <VBox id="oVBoxAddObjectPage" width="100%">
                           </VBox>
                         

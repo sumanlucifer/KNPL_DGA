@@ -30,7 +30,7 @@
                         <core:Item text="{Name}" key="{Id}" />
                     </items>
                 </ComboBox>
-                <Label text="{i18n>City}" required="true" />
+                <Label text="{i18n>City}"  />
                 <ComboBox enabled="false" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/PainterAddress/StateId} !== '' }"  selectedKey="{path:'oModelView>/PainterAddress/CityId' }" id="cmbCity" required="true">
                     <items>
                         <core:Item text="{City}" key="{Id}" />
@@ -38,15 +38,15 @@
                 </ComboBox>
 
                  <Label text="{i18n>Zone}" />
-                <ComboBox selectionChange="onZoneChange" items="{/MasterZones}" selectedKey="{path:'oModelView>/Zone',type:'sap.ui.model.type.String' }">
+                <ComboBox required="true" selectionChange="onZoneChange" items="{/MasterZones}" selectedKey="{path:'oModelView>/Zone',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
                     <core:Item text="{Id}" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>Division}" />
-                <ComboBox id="idDivision" editable="{= ${oModelView>/Zone}!=='' }" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelView>/DivisionId',type:'sap.ui.model.type.String' }">
+                <ComboBox required="true" id="idDivision" editable="{= ${oModelView>/Zone}!=='' }" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelView>/DivisionId',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
                     <core:Item text="{Id}" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>Depot}" />
-                <ComboBox selectionChange="onDepotChange" editable="{= ${oModelView>/DivisionId}!=='' }" id="idDepot" items="{/MasterDepots}" selectedKey="{path:'oModelView>/DepotId',type:'sap.ui.model.type.String' }">
+                <ComboBox required="true" selectionChange="onDepotChange" editable="{= ${oModelView>/DivisionId}!=='' }" id="idDepot" items="{/MasterDepots}" selectedKey="{path:'oModelView>/DepotId',type:'sap.ui.model.type.String',constraints:{minLength:1} }">
                     <core:Item text="{Depot} ( {Id} )" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>LinkDealer}" visible="{= ${oModelControl>/mode} === 'Add'}" />
