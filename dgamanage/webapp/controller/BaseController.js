@@ -302,15 +302,12 @@ sap.ui.define([
                         value1: sValue,
                         caseSensitive: false,
                     });
-                    this._PinCodeValueHelp
-                        .getBinding("items")
-                        .filter(aFilter, "Application");
-
                 } else {
-                    this._PinCodeValueHelp
-                        .getBinding("items")
-                        .filter([],"Application");
+                    var aFilter = [];
                 }
+                this._PinCodeValueHelp
+                    .getBinding("items")
+                    .filter(aFilter, "Application");
                 return;
             }
             // Dealers Valuehelp
@@ -322,15 +319,14 @@ sap.ui.define([
                         value1: sValue,
                         caseSensitive: false,
                     });
-                    this._DealerValueHelpDialog
-                        .getBinding("items")
-                        .filter(aFilter, "Application");
 
-                }else {
-                    this._DealerValueHelpDialog
-                        .getBinding("items")
-                        .filter([],"Application");
+
+                } else {
+                    var aFilter = [];
                 }
+                this._DealerValueHelpDialog
+                    .getBinding("items")
+                    .filter(aFilter, "Application");
                 return;
             }
 
