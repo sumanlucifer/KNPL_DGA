@@ -260,6 +260,8 @@ sap.ui.define(
                 var oView = this.getView();
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
+                } else if (sKey == "3") {
+                    oView.byId("idLeadsTable").rebindTable();
                 }
             },
             onBeforeRebindHistoryTable: function (oEvent) {
@@ -267,7 +269,17 @@ sap.ui.define(
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Dealer";
-                 //oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeBindLeadsTable: function (oEvent) {
+                var oView = this.getView();
+                var sDgaId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "LeadServiceType,State,Depot,LeadStatus";
+                var oFiler = new Filter ("DGAId",FilterOperator.EQ,sDgaId)
+                oBindingParams.filters.push(oFiler);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+
             },
 
             _LoadFragment: function (mParam) {

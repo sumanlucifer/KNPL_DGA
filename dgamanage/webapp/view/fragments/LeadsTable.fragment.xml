@@ -1,19 +1,19 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
     <smartTable:SmartTable
-                           
+                           id="idLeadsTable"
                             editable="false"
-                            beforeRebindTable="onBeforeRebindHistoryTable"                    
-                          
+                            beforeRebindTable="onBeforeBindLeadsTable"                    
+                            entitySet="Leads"
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"
                             useVariantManagement="false"
                             useTablePersonalisation="true"
                             demandPopin="true"
-                            enableAutoBinding="true"
+                            enableAutoBinding="false"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            initiallyVisibleFields="ID,DealerId,DGAId"
+                            initiallyVisibleFields="Id,ConsumerName,PrimaryNum,LeadServiceType/Name,State/Name,Zone,DivisionId,Depot/Depot,Pincode,Stage,LeadStatus/Name"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
 
@@ -21,70 +21,70 @@
             <columns>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ConsumerName","columnIndex":0 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ConsumerName", "leadingProperty": "ConsumerName", "columnIndex": 0 ,"sortProperty": "ConsumerName","filterProperty": "ConsumerName"}'/>
                     </customData>
                     <Text text="{i18n>ConsumerName}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Mobile","columnIndex":1 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PrimaryNum", "leadingProperty": "PrimaryNum", "columnIndex": 1 ,"sortProperty": "PrimaryNum","filterProperty": "PrimaryNum"}'/>
                     </customData>
                     <Text text="{i18n>MobileNumber}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ServiceType","columnIndex":2 }'/>
+                       <core:CustomData key="p13nData" value='\{"columnKey": "LeadServiceType/Name", "leadingProperty": "LeadServiceType/Name", "columnIndex": 2 ,"sortProperty": "LeadServiceType/Name","filterProperty": "LeadServiceType/Name"}'/>
                     </customData>
                     <Text text="{i18n>ServiceType}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "State","columnIndex":3 }'/>
+                         <core:CustomData key="p13nData" value='\{"columnKey": "State/Name", "leadingProperty": "State/Name", "columnIndex": 3 ,"sortProperty": "State/Name","filterProperty": "State/Name"}'/>
                     </customData>
                     <Text text="{i18n>State}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Zone","columnIndex":4 }'/>
+                          <core:CustomData key="p13nData" value='\{"columnKey": "Zone", "leadingProperty": "Zone", "columnIndex": 4 ,"sortProperty": "Zone","filterProperty": "Zone"}'/>
                     </customData>
                     <Text text="{i18n>Zone}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Division","columnIndex":5 }'/>
+                          <core:CustomData key="p13nData" value='\{"columnKey": "DivisionId", "leadingProperty": "DivisionId", "columnIndex": 5 ,"sortProperty": "DivisionId","filterProperty": "DivisionId"}'/>
                     </customData>
                     <Text text="{i18n>Division}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Depot","columnIndex":6 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Depot/Depot", "leadingProperty": "Depot/Depot", "columnIndex": 6 ,"sortProperty": "Depot/Depot","filterProperty": "Depot/Depot"}'/>
                     </customData>
                     <Text text="{i18n>Depot}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PinCode","columnIndex":7 }'/>
+                          <core:CustomData key="p13nData" value='\{"columnKey": "Pincode", "leadingProperty": "Pincode", "columnIndex": 7 ,"sortProperty": "Pincode","filterProperty": "Pincode"}'/>
                     </customData>
                     <Text text="{i18n>PinCode}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Stage","columnIndex":8 }'/>
+                      <core:CustomData key="p13nData" value='\{"columnKey": "Stage", "leadingProperty": "Stage", "columnIndex": 8 ,"sortProperty": "Stage","filterProperty": "Stage"}'/>
                     </customData>
                     <Text text="{i18n>Stage}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Status","columnIndex":9 }'/>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "LeadStatus/Name", "leadingProperty": "LeadStatus/Name", "columnIndex": 9 ,"sortProperty": "LeadStatus/Name","filterProperty": "LeadStatus/Name"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
-                <Column hAlign="Begin">
+                <!-- <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID", "columnIndex": 8 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 8 ,"sortProperty": "Id","filterProperty": "Id"}'/>
                     </customData>
                     <Text text="{i18n>Id}"/>
-                </Column>
+                </Column> -->
             
                
                 
@@ -94,17 +94,17 @@
                 <ColumnListItem>
                     <cells>
                  
-                       <Text />
-                       <Text />
-                       <Text />
-                        <Text />
-                        <Text />
-                        <Text />
-                        <Text />
-                        <Text />
-                        <Text />
-                         <Text />
-                       <Text text="{ID}" />
+                       <Text text="{ConsumerName}" />
+                       <Text text="{PrimaryNum}"/>
+                       <Text text="{LeadServiceType/Name}" />
+                        <Text text="{State/Name}"/>
+                        <Text text="{Zone}"/>
+                        <Text  text="{DivisionId}"/>
+                        <Text text="{Depot/Depot}"/>
+                        <Text text="{Pincode}"/>
+                        <Text text="{Stage}"/>
+                         <Text text="{LeadStatus/Name}"/>
+                       <!-- <Text text="{Id}" /> -->
                         
 
                     </cells>
