@@ -13,7 +13,7 @@
                             enableAutoBinding="false"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            initiallyVisibleFields="Id,ConsumerName,PrimaryNum,LeadServiceType/Name,State/Name,Zone,DivisionId,Depot/Depot,Pincode,Stage,LeadStatus/Name"
+                            initiallyVisibleFields="ConsumerName,PrimaryNum,LeadServiceType/Name,State/Name,Zone,DivisionId,Depot/Depot,Pincode,Stage,LeadStatus/Name"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
 
