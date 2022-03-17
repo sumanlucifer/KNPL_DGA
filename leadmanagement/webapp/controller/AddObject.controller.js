@@ -25,7 +25,6 @@ sap.ui.define([
          * @public
          */
         onInit: function () {
-
             sap.ui.getCore().attachValidationError(function (oEvent) {
                 if (oEvent.getParameter("element").getRequired()) {
                     oEvent.getParameter("element").setValueState(ValueState.Error);
@@ -36,12 +35,8 @@ sap.ui.define([
             sap.ui.getCore().attachValidationSuccess(function (oEvent) {
                 oEvent.getParameter("element").setValueState(ValueState.None);
             });
-
-
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Add").attachMatched(this._onRouterMatched, this);
-
-
         },
         _onRouterMatched: function (oEvent) {
             var sPainterId = oEvent.getParameter("arguments").Id;
@@ -56,7 +51,7 @@ sap.ui.define([
                 c1.then(function () {
                     c2 = othat._setInitViewModel();
                     c2.then(function () {
-                        c3 = othat._LoadAddFragment("AddComplaint");
+                        c3 = othat._LoadAddFragment("AddLead");
                         c3.then(function () {
                             oView.getModel("oModelControl").setProperty("/PageBusy", false)
                         })
@@ -75,10 +70,16 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var oDataView = {
-                Remark: "",
-                ComplaintTypeId: "",
-                "ComplaintSubtypeId": 8,
-                "PainterId": "",
+                ConsumerName:"",
+                PrimaryNum:"",
+                Email:"",
+                Pincode:"",
+                StateId:"",
+                District:"",
+                CityOrTown:"",
+                Landmark:"",
+                Address:"",
+                LeadSourceId:"1"
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -139,13 +140,13 @@ sap.ui.define([
 
         },
         _CreateObject: function (oPayLoad) {
-            //console.log(oPayLoad);
+            // console.log(oPayLoad);
             var othat = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
             return new Promise((resolve, reject) => {
-                oDataModel.create("/PainterComplainsSet", oPayLoad, {
+                oDataModel.create("/Leads", oPayLoad, {
                     success: function (data) {
                         othat._showMessageToast("Message2")
                         resolve(data);

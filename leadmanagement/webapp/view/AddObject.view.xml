@@ -10,7 +10,7 @@
             <Bar>
                 <contentLeft>
                     <Breadcrumbs currentLocationText="{i18n>Add} {i18n>MainObject}" >
-                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
+                        <Link text="{i18n>MainObject2}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </contentLeft>
             </Bar>

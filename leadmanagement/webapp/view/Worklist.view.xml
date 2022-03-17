@@ -6,29 +6,53 @@
                 <f:content>
                     <fb:FilterBar showRestoreButton="false" id="filterbar" reset="onResetFilterBar" search="onFilterBarGo" useToolbar="false" showRestoreOnFB="true">
                         <fb:filterGroupItems>
-                       
-                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="StartDate" label="{i18n>StartDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Zone" label="{i18n>Zone}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>Zone}" selectionChange="onZoneChange"  items="{/MasterZones}" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
+                                        <core:Item text="{Id} " key="{Id}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Division" label="{i18n>Division}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>Division}" id="idDivision" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
+                                        <core:Item text="{Id}" key="{Id}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <ComboBox enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}" selectionChange="onDepotChange"  items="{/MasterDepots}" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
+                                        <core:Item text="{Depot} ( {Id} )" key="{Id}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="StartDate" label="{i18n>StartDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                     <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/StartDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="EndDate" label="{i18n>EndDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:FilterGroupItem groupName="__$INTERNAL$" name="EndDate" label="{i18n>EndDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                    <fb:control>
+                                        <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/EndDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
+                                    </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="PinCode" label="{i18n>PinCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                 <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/EndDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
+                                    <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/Pincode'}" />
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>MainObject} {i18n>Status}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+
+                            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="DGAType" label="{i18n>DGA} {i18n>Type}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                     <ComboBox id="idStatus" placeholder="{i18n>Select} {i18n>MainObject} {i18n>Status}" selectionChange="onStatusChange" selectedKey="{path:'oModelControl>/filterBar/Status' }">
-                                       <core:Item text="{i18n>Registered}" key="REGISTERED"/>
-                                        <core:Item text="{i18n>Inreview}" key="INREVIEW"/>
-                                        <core:Item text="{i18n>Resolved}" key="RESOLVED"/>
-                                        <core:Item text="{i18n>Withdrawn}" key="WITHDRAWN"/>
+                                    <ComboBox placeholder="{i18n>Select} {i18n>MainObject} {i18n>Type}" selectionChange="onZoneChange"  items="{path:'/MasterDGATypes',filters:[{path:'IsArchived',operator:'EQ' , value1:false}]}" selectedKey="{path:'oModelControl>/filterBar/DGAType'}">
+                                        <core:Item text="{Name} " key="{ID}" />
                                     </ComboBox>
                                 </fb:control>
-                            </fb:FilterGroupItem>
+                            </fb:FilterGroupItem> -->
                         </fb:filterGroupItems>
                     </fb:FilterBar>
+
                 </f:content>
             </f:DynamicPageHeader>
         </f:header>

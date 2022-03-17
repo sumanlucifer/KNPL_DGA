@@ -10,7 +10,7 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox,Filter,FilterOperator) {
+], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox, Filter, FilterOperator) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -64,6 +64,11 @@ sap.ui.define([
             //     oRouter.navTo("worklist", {}, true);
             // }
         },
+        _dummyPromise: function (oPayload) {
+            var promise = $.Deferred();
+            promise.resolve(oPayload)
+            return promise;
+        },
         _AddObjectControlModel: function (mParam1, mParam2) {
             /*
              * Author: manik saluja
@@ -75,18 +80,13 @@ sap.ui.define([
             var oView = this.getView();
             var oDataControl = {
                 PageBusy: true,
-                Pagetitle: mParam1 === "Add" ? "Add Complaint" : "Edit Complaint",
+                Pagetitle: mParam1 === "Add" ? "Add Lead" : "Edit Lead",
                 mode: mParam1,
-                ComplainId: mParam2,
-                bindProp: "PainterComplainsSet(" + mParam2 + ")",
+                LeadId: mParam2,
+                bindProp: "Leads(" + mParam2 + ")",
                 resourcePath: "com.knpl.dga.leadmanagement",
-                AddFields:{
-                    PainterMobile:"",
-                    PainterName:"",
-                    PainterMembershipId:"",
-                    PainterZone:"",
-                    PainterDivision:"",
-                    PainterDepot:""
+                AddFields: {
+                    Pincode: ""
                 }
             };
             var oModelControl = new JSONModel(oDataControl)
@@ -99,12 +99,40 @@ sap.ui.define([
             var oValidate = new Validator();
             var othat = this;
             var oForm = oView.byId("FormObjectData");
-            var bFlagValidate = oValidate.validate(oForm);
+            var bFlagValidate = oValidate.validate(oForm, true);
             if (!bFlagValidate) {
                 othat._showMessageToast("Message3")
                 return false;
             }
             return true;
+        },
+        _getViewFragment: function (sFragmentName) {
+            /*
+             * Author: manik saluja
+             * Date: 14-March-2022
+             * Language:  JS
+             * Purpose: Common method to access fragmets from folder view.fragments. this method is 
+             * written so that the developer dont writes the Fragment.load again.
+             */
+            var oView = this.getView();
+            var oModel;
+            if (oView.getModel("oModelControl")) {
+                oModel = oView.getModel("oModelControl");
+            } else {
+                oModel = oView.getModel("oModelDisplay");
+            }
+            var othat = this;
+
+            this._formFragments = Fragment.load({
+                id: oView.getId(),
+                name: oModel.getProperty("/resourcePath") + ".view.fragments." + sFragmentName,
+                controller: othat,
+            }).then(function (oFragament) {
+                return oFragament;
+            });
+
+
+            return this._formFragments;
         },
         /**
          * Getter for the resource bundle.
@@ -138,7 +166,7 @@ sap.ui.define([
             var sMessage = this._geti18nText(pMessage, pMessageParam);
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
-            var aMessageType = ["success", "information", "alert","error", "warning", "confirm"];
+            var aMessageType = ["success", "information", "alert", "error", "warning", "confirm"];
 
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
@@ -164,7 +192,7 @@ sap.ui.define([
 
         },
         _showMessageBox2: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
-            
+
             /*  pType(string) > type of message box ex: information or alert etc.
                 pMessage (string)> i18n property name for the message
                 pMessageParam(array/null)> i18n property has params specify in array or else pass as null
@@ -181,7 +209,7 @@ sap.ui.define([
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
             var aMessageType = ["success", "information", "alert", "error", "warning"];
-           
+
 
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
@@ -254,7 +282,7 @@ sap.ui.define([
                 oViewModel.getProperty("/shareSendEmailMessage")
             );
         },
-        onDialogClose:function(){
+        onDialogClose: function () {
             /*
                 Internal method to handle the closure of all the dialogs
                 if dialog 1 is open first and on top over that dialog 2 is open
@@ -273,111 +301,91 @@ sap.ui.define([
                 }
             }
         },
-        // painter value help request
-        onPainterValueHelpRequest: function (oEvent) {
-            var sInputValue = oEvent.getSource().getValue(),
-                oView = this.getView(),oModelControl=oView.getModel("oModelControl");
-
-            if (!this._pValueHelpDialog) {
-                this._pValueHelpDialog = Fragment.load({
-                    id: oView.getId(),
-                    name:oModelControl.getProperty("/resourcePath")+".view.fragments.PainterValueHelpDialog",
-                    controller: this,
-                }).then(function (oDialog) {
-                    oView.addDependent(oDialog);
-                    return oDialog;
-                });
+        _handlePinCodeValueHelp: function () {
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose:  Used to handle the pin code pop over in the add dga and edit dga.
+            */
+            var oView = this.getView();
+            if (!this._PinCodeValueHelp) {
+                this._getViewFragment("PincodeValueHelp").then(function (oControl) {
+                    this._PinCodeValueHelp = oControl;
+                    oView.addDependent(this._PinCodeValueHelp);
+                    this._PinCodeValueHelp.open();
+                }.bind(this))
             }
-            this._pValueHelpDialog.then(function (oDialog) {
-                // Create a filter for the binding
-                oDialog
-                    .getBinding("items")
-                    .filter([
-                        new Filter(
-                            [
-                                new Filter(
-                                    {
-                                        path: "Name",
-                                        operator: "Contains",
-                                        value1: sInputValue.trim(),
-                                        caseSensitive: false
-                                    }
-                                ),
-                                new Filter(
-                                    {
-                                        path: "Mobile",
-                                        operator: "Contains",
-                                        value1: sInputValue.trim(),
-                                        caseSensitive: false
-                                    }
-                                ),
-                            ],
-                            false
-                        ),
-                    ]);
-                // Open ValueHelpDialog filtered by the input's value
-                oDialog.open(sInputValue);
-            });
         },
-        onPainterValueHelpSearch: function (oEvent) {
-            var sValue = oEvent.getParameter("value");
-            var oFilter = new Filter(
-                [
-                    new Filter(
-                        {
-                            path: "Name",
-                            operator: "Contains",
-                            value1: sValue.trim(),
-                            caseSensitive: false
-                        }
-                    ),
-                    new Filter(
-                        {
-                            path: "Mobile",
-                            operator: "Contains",
-                            value1: sValue.trim(),
-                            caseSensitive: false
-                        }
-                    )
-                ],
-                false
-            );
-
-            oEvent.getSource().getBinding("items").filter([oFilter]);
-        },
-        onPainterValueHelpClose: function (oEvent) {
-            var oSelectedItem = oEvent.getParameter("selectedItem");
-            oEvent.getSource().getBinding("items").filter([]);
-            var oViewModel = this.getView().getModel("oModelView"),
-             oModelControl = this.getView().getModel("oModelControl")  ;
-            if (!oSelectedItem) {
+        _onDialogClose: function () {
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose:  Internal method to handle the closure of all the dialogs
+               if dialog 1 is open first and on top over that dialog 2 is open
+               then dialog 2 code for closure should be written before dialog 1
+            */
+            if (this._PinCodeValueHelp) {
+                this._PinCodeValueHelp.destroy();
+                delete this._PinCodeValueHelp;
                 return;
             }
-            var obj = oSelectedItem.getBindingContext().getObject();
-            oViewModel.setProperty("/PainterId", obj["Id"]);
-            oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
-            oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
-            oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
-            oModelControl.setProperty("/AddFields/PainterDivision",obj.DivisionId );
-            oModelControl.setProperty("/AddFields/PainterZone",obj.ZoneId );
-
-            oModelControl.setProperty("/AddFields/PainterDepot", ""  ); 
-            //Fallback as Preliminary context not supported
-            this._getDepot(obj.DepotId);
-            
         },
-        _getDepot: function(sDepotId){
-            if(!sDepotId) return;
+        _handlePinCodeValueHelpConfirm: function (oEvent) {
+            var oSelectedItem = oEvent.getParameter("selectedItem");
+            var oViewModel = this.getView().getModel("oModelView"),
+                oModelControl = this.getView().getModel("oModelControl");
+            var obj = oSelectedItem.getBindingContext().getObject();
+            oModelControl.setProperty(
+                "/AddFields/Pincode",
+                obj["Name"]
+            );
+            oViewModel.setProperty(
+                "/Pincode",
+                obj["Name"]
+            );
+            this._onDialogClose();
+        },
+        _handlePValueHelpSearch: function (oEvent) {
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose: A common method of controllers handle the search for the popovers
+            */
+            var sValue = oEvent.getParameter("value").trim();
+            var sPath = oEvent.getParameter("itemsBinding").getPath();
+            // Pincodes Valuehelp
+            if (sPath === "/MasterPincodes") {
+                if (sValue.length > 0) {
+                    var aFilter = new Filter({
+                        path: "Name",
+                        operator: "Contains",
+                        value1: sValue,
+                        caseSensitive: false,
+                    });
+                } else {
+                    var aFilter = [];
+                }
+                this._PinCodeValueHelp
+                    .getBinding("items")
+                    .filter(aFilter, "Application");
+                return;
+            }
+        },
+        _getDepot: function (sDepotId) {
+            if (!sDepotId) return;
 
             var sPath = this.getModel().createKey("/MasterDepotSet", {
-                Id : sDepotId
+                Id: sDepotId
             }),
                 oModel = this.getModel("oModelControl");
 
             this.getModel().read(sPath, {
-                success: ele => oModel.setProperty("/AddFields/PainterDepot",ele.Depot)
+                success: ele => oModel.setProperty("/AddFields/PainterDepot", ele.Depot)
             })
-            
+
         },
 
     });

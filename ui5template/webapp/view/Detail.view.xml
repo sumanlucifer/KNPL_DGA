@@ -49,7 +49,7 @@
                 <items>
                     <IconTabFilter  text="{i18n>Overview}" key="0" >
                         <VBox id="oVBoxAddObjectPage" width="100%">
-                          </VBox>
+                        </VBox>
                         
                         
                         </IconTabFilter>

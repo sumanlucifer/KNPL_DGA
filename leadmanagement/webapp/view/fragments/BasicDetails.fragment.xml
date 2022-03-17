@@ -6,22 +6,67 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
-
-    <f:SimpleForm id="BasicDetailsData" editable="false" layout="ResponsiveGridLayout" 
+    <VBox width="100%">
+    <items>
+    <f:SimpleForm id="BasicDetailsData" editable="false" layout="ColumnLayout" 
     labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
-    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
-    columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"  
+    columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false" title="{i18n>Contact} {i18n>Details}">
         <f:content>
-            <core:Title text="{i18n>Contact} {i18n>Details}" />
-            <Label text="{i18n>MainObject} {i18n>Type}" />
-            <Text text="{path : 'ComplaintType/ComplaintType'}"  />
-            <core:Title text="{i18n>RemarkDetails}" />
-            <Label text="{i18n>Remark}" />
-            <Text text="{path : 'Remark'}"  />
-            <core:Title text="{i18n>Location} {i18n>Details}" />
-            <Label text="{i18n>Remark}" />
-            <Text text="{path : 'Remark'}"  />
+            <Label text="{i18n>MainObject} {i18n>ConsumerName}" />
+            <Text text="{path : 'ConsumerName'}"  />
+            <Label text="{i18n>WhatsappNo}" />
+            <Text text="{path : 'PrimaryNum'}"  />
+            <Label text="{i18n>SecondaryNo}" />
+            <Text text="{path : 'SecondaryNum'}"  />
+            <Label text="{i18n>Email}" />
+            <Text text="{path : 'Email'}"  />
+            <Label text="{i18n>CarpetArea}({i18n>SqFt})" />
+            <Text text="{path : 'CarpetArea'}"  />
+            <Label text="{i18n>Pincode}" />
+            <Text text="{path : 'Pincode'}"  />
+            <Label text="{i18n>State}" />
+            <Text text="{path : 'State/Name'}"  />
+            <Label text="{i18n>District}" />
+            <Text text="{path : 'District'}"  />
+            <Label text="{i18n>Town}/{i18n>City}" />
+            <Text text="{path : 'CityOrTown'}"  />
+            <Label text="{i18n>Address}" />
+            <Text text="{path : 'Address'}"  />
+            <Label text="{i18n>Landmark}" />
+            <Text text="{path : 'Landmark'}"  />
         </f:content>
     </f:SimpleForm>
-
+    <f:SimpleForm id="SourceDetailsData" editable="false" layout="ResponsiveGridLayout" 
+    labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
+    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
+    columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false" title="{i18n>Source} {i18n>Details}">
+        <f:content>
+            <Label text="{i18n>Selected} {i18n>Source}" />
+            <Text text="{path : 'LeadSource/Name'}"  />
+            <Label text="{i18n>ContractorName}" />
+            <Text text="{path : 'SourceContractor/Name'}"  />
+            <!-- <Label text="{i18n>PhoneNo}" />
+            <Text text="{path : 'SecondaryNum'}"  /> -->
+        </f:content>
+    </f:SimpleForm>
+    <f:SimpleForm id="ServiceDetailsData" editable="false" layout="ResponsiveGridLayout" 
+    labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
+    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
+    columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false" title="{i18n>ServiceAndPainting} {i18n>Details}">
+        <f:content>
+            <Label text="{i18n>ServiceType}" />
+            <Text text="{path : 'LeadServiceType/Name'}"  />
+            <Label text="{i18n>PaintingType}" />
+            <Text text="{path : 'PaintType/Name'}"  />
+            <Label text="{i18n>PaintingReqDays}" />
+            <Text text="{path : 'PaintingReqSlab/Name'}"  />
+            <Label text="{i18n>SubType}" />
+            <Text text="{path : 'PaintingReqSlab/LeadSubStatus'}"  />
+            <!-- <Label text="{i18n>PaintingReq}" />
+            <Text text="{path : 'SourceContractor/Name'}"  /> -->
+        </f:content>
+    </f:SimpleForm>
+    </items>
+</VBox>
 </core:FragmentDefinition>
