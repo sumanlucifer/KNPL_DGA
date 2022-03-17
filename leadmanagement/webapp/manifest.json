@@ -153,6 +153,13 @@
                     "target": [
                         "Detail"
                     ]
+                },
+                {
+                    "pattern": "Add",
+                    "name": "Add",
+                    "target": [
+                        "object"
+                    ]
                 }
             ],
             "targets": {
@@ -165,6 +172,15 @@
                 "object": {
                     "viewName": "AddObject",
                     "viewId": "object",
+                    "viewLevel": 2
+                },
+                "objectNotFound": {
+                    "viewName": "ObjectNotFound",
+                    "viewId": "objectNotFound"
+                },
+                "Detail": {
+                    "viewName": "Detail",
+                    "viewId": "Detail",
                     "viewLevel": 2
                 },
                 "notFound": {
