@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
     <smartTable:SmartTable
-                           
+                            id="idContractorTable"
                             editable="false"
-                            beforeRebindTable="onBeforeRebindHistoryTable"                    
-                          
+                            beforeRebindTable="onBeforeBindContractorTbl"                    
+                            tableBindingPath="DGAContractors/"
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"
@@ -13,15 +13,15 @@
                             enableAutoBinding="true"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            initiallyVisibleFields="ID,DealerId,DGAId"
+                            initiallyVisibleFields="Id,Contractor/Name"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
 
-        <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+         <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
             <columns>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Name","columnIndex":0 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Contractor/Name", "leadingProperty": "Contractor/Name", "columnIndex": 0 ,"sortProperty": "Contractor/Name","filterProperty": "Contractor/Name"}'/>
                     </customData>
                     <Text text="{i18n>Name}"/>
                 </Column>
@@ -75,7 +75,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID", "columnIndex": 8 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 9 ,"sortProperty": "Id","filterProperty": "Id"}'/>
                     </customData>
                     <Text text="{i18n>Id}"/>
                 </Column>
@@ -88,7 +88,7 @@
                 <ColumnListItem>
                     <cells>
                  
-                       <Text />
+                       <Text text="{Contractor/Name}" />
                        <Text />
                        <Text />
                         <Text />

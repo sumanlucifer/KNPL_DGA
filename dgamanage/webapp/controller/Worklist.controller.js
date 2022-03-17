@@ -48,9 +48,14 @@ sap.ui.define(
                         EndDate: null,
                         Status: "",
                         Search: "",
-                        DGAType: ""
+                        DGAType: "",
+                        PinCodeId:""
                     },
-                    PageBusy: true
+                    AddFields:{
+                        PinCode:""
+                    },
+                    PageBusy: true,
+                    resourcePath: "com.knpl.dga.dgamanage"
                 };
                 var oMdlCtrl = new JSONModel(oDataControl);
                 this.getView().setModel(oMdlCtrl, "oModelControl");
@@ -253,6 +258,11 @@ sap.ui.define(
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("DGATypeId", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "PinCodeId") {
+
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("PincodeId", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
@@ -298,7 +308,23 @@ sap.ui.define(
             onResetFilterBar: function () {
                 this._ResetFilterBar();
             },
-
+            _handlePinCodeValueHelpConfirm: function (oEvent) {
+              
+                var oSelectedItem = oEvent.getParameter("selectedItem");
+                var oModelControl = this.getView().getModel("oModelControl");
+                var obj = oSelectedItem.getBindingContext().getObject();
+                oModelControl.setProperty(
+                    "/AddFields/PinCode",
+                    obj["Name"]
+                );
+                oModelControl.setProperty(
+                    "/filterBar/PinCodeId",
+                    obj["Id"]
+                );
+    
+                this._onDialogClose();
+    
+            },
             _ResetFilterBar: function () {
                 var aCurrentFilterValues = [];
                 var aResetProp = {
@@ -309,7 +335,8 @@ sap.ui.define(
                     EndDate: null,
                     Status: "",
                     Search: "",
-                    DGAType: ""
+                    DGAType: "",
+                    PinCode:""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);

@@ -411,6 +411,7 @@ sap.ui.define([
             }
         },
         _handlePinCodeValueHelpConfirm: function (oEvent) {
+            // this method is overwritten for the 
             var oSelectedItem = oEvent.getParameter("selectedItem");
             var oViewModel = this.getView().getModel("oModelView"),
                 oModelControl = this.getView().getModel("oModelControl");

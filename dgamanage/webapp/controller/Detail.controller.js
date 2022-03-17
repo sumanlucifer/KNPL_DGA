@@ -234,7 +234,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State";
+                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -260,12 +260,14 @@ sap.ui.define(
                 var oView = this.getView();
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
+                } else if (sKey == "2") {
+                    oView.byId("idContractorTable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
                 } else if (sKey == "3") {
                     oView.byId("idLeadsTable").rebindTable();
                 }
             },
+            // #smart table filters
             onBeforeRebindHistoryTable: function (oEvent) {
-                console.log("onbefore rebind")
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Dealer";
@@ -280,6 +282,14 @@ sap.ui.define(
                 oBindingParams.filters.push(oFiler);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
+            },
+            onBeforeBindContractorTbl:function(oEvent){
+                var oView = this.getView();
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "Contractor";
+                var oFiler = new Filter ("IsLinked",FilterOperator.EQ,true);
+                oBindingParams.filters.push(oFiler);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
 
             _LoadFragment: function (mParam) {
