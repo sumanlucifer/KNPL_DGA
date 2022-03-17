@@ -49,10 +49,10 @@ sap.ui.define(
                         Status: "",
                         Search: "",
                         DGAType: "",
-                        PinCodeId:""
+                        PinCodeId: ""
                     },
-                    AddFields:{
-                        PinCode:""
+                    FilterAddFileds: {
+                        PinCode: ""
                     },
                     PageBusy: true,
                     resourcePath: "com.knpl.dga.dgamanage"
@@ -67,6 +67,29 @@ sap.ui.define(
             },
             _onRouteMatched: function () {
                 this._InitData();
+            },
+            _ResetFilterBar: function () {
+                var aCurrentFilterValues = [];
+                var aResetProp = {
+                    ZoneId: "",
+                    DivisionId: "",
+                    DepotId: "",
+                    StartDate: null,
+                    EndDate: null,
+                    Status: "",
+                    Search: "",
+                    DGAType: "",
+                    PinCodeId: ""
+                };
+                var aFiterAddFileds = {
+                    PinCode:""
+                };
+                var oViewModel = this.getView().getModel("oModelControl");
+                oViewModel.setProperty("/filterBar", aResetProp);
+                oViewModel.setProperty("/FilterAddFileds", aFiterAddFileds);
+                var oTable = this.getView().byId("idWorkListTable1");
+                oTable.rebindTable();
+
             },
             onPressAddObject: function () {
                 /*
@@ -309,41 +332,23 @@ sap.ui.define(
                 this._ResetFilterBar();
             },
             _handlePinCodeValueHelpConfirm: function (oEvent) {
-              
+
                 var oSelectedItem = oEvent.getParameter("selectedItem");
                 var oModelControl = this.getView().getModel("oModelControl");
                 var obj = oSelectedItem.getBindingContext().getObject();
                 oModelControl.setProperty(
-                    "/AddFields/PinCode",
+                    "/FilterAddFileds/PinCode",
                     obj["Name"]
                 );
                 oModelControl.setProperty(
                     "/filterBar/PinCodeId",
                     obj["Id"]
                 );
-    
+
                 this._onDialogClose();
-    
-            },
-            _ResetFilterBar: function () {
-                var aCurrentFilterValues = [];
-                var aResetProp = {
-                    ZoneId: "",
-                    DivisionId: "",
-                    DepotId: "",
-                    StartDate: null,
-                    EndDate: null,
-                    Status: "",
-                    Search: "",
-                    DGAType: "",
-                    PinCode:""
-                };
-                var oViewModel = this.getView().getModel("oModelControl");
-                oViewModel.setProperty("/filterBar", aResetProp);
-                var oTable = this.getView().byId("idWorkListTable1");
-                oTable.rebindTable();
 
             },
+
             onListItemPress: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 var oRouter = this.getOwnerComponent().getRouter();
