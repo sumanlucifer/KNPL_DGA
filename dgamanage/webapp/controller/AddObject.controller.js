@@ -107,7 +107,9 @@ sap.ui.define([
                 Zone: "",
                 DivisionId: "",
                 DepotId: "",
-                DGADealers: []
+                DGADealers: [],
+                StateId:"",
+                TownId:""
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");

@@ -31,9 +31,9 @@
                     </items>
                 </ComboBox>
                 <Label text="{i18n>City}"  />
-                <ComboBox enabled="false" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/PainterAddress/StateId} !== '' }"  selectedKey="{path:'oModelView>/PainterAddress/CityId' }" id="cmbCity" required="false">
+                <ComboBox  items="{path:'/MasterTowns'}" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/StateId} !== '' }"  selectedKey="{path:'oModelView>/TownId' }" id="cmbCity" required="false">
                     <items>
-                        <core:Item text="{City}" key="{Id}" />
+                        <core:Item text="{Name}" key="{Id}" />
                     </items>
                 </ComboBox>
 
