@@ -85,7 +85,8 @@ sap.ui.define([
                 bindProp: "DGAs(" + mParam2 + ")",
                 resourcePath: "com.knpl.dga.dgamanage",
                 AddFields: {
-                    Pincode: ""
+                    Pincode: "",
+                    SalesGroup: ""
                 },
                 MultiCombo: {
                     Dealers: []
@@ -310,12 +311,12 @@ sap.ui.define([
             oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
         },
         _handlePValueHelpSearch: function (oEvent) {
-             /*
-             * Author: manik saluja
-             * Date: 15-Mar-2022
-             * Language:  JS
-             * Purpose: A common method of controllers handle the search for the popovers
-             */
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose: A common method of controllers handle the search for the popovers
+            */
             var sValue = oEvent.getParameter("value").trim();
             var sPath = oEvent.getParameter("itemsBinding").getPath();
             // Pincodes Valuehelp
@@ -354,18 +355,37 @@ sap.ui.define([
                     .filter(aFilter, "Application");
                 return;
             }
+            // sales group
+            if (sPath === "/MasterSaleGroups") {
+                if (sValue.length > 0) {
+                    var aFilter = new Filter({
+                        path: "Name",
+                        operator: "Contains",
+                        value1: sValue,
+                        caseSensitive: false,
+                    });
+
+
+                } else {
+                    var aFilter = [];
+                }
+                this._SalesGroupValueHelp
+                    .getBinding("items")
+                    .filter(aFilter, "Application");
+                return;
+            }
 
         },
 
         _onDialogClose: function () {
-             /*
-             * Author: manik saluja
-             * Date: 15-Mar-2022
-             * Language:  JS
-             * Purpose:  Internal method to handle the closure of all the dialogs
-                if dialog 1 is open first and on top over that dialog 2 is open
-                then dialog 2 code for closure should be written before dialog 1
-             */
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose:  Internal method to handle the closure of all the dialogs
+               if dialog 1 is open first and on top over that dialog 2 is open
+               then dialog 2 code for closure should be written before dialog 1
+            */
             if (this._pValueHelpDialog) {
                 this._pValueHelpDialog.destroy();
                 delete this._pValueHelpDialog;
@@ -393,14 +413,36 @@ sap.ui.define([
                 delete this._DealerValueHelpDialog;
                 return;
             }
+            if (this._SalesGroupValueHelp) {
+                this._SalesGroupValueHelp.destroy();
+                delete this._SalesGroupValueHelp;
+                return;
+            }
+        },
+        _handleSalesGropValueHelp: function () {
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose:  Used to handle the sales group pop over in the add dga and edit dga.
+            */
+            var oView = this.getView();
+            if (!this._SalesGroupValueHelp) {
+                this._getViewFragment("SalesGroupValueHelp").then(function (oControl) {
+                    this._SalesGroupValueHelp = oControl;
+                    oView.addDependent(this._SalesGroupValueHelp);
+                    this._SalesGroupValueHelp.open();
+                }.bind(this))
+            }
+
         },
         _handlePinCodeValueHelp: function () {
-             /*
-             * Author: manik saluja
-             * Date: 15-Mar-2022
-             * Language:  JS
-             * Purpose:  Used to handle the pin code pop over in the add dga and edit dga.
-             */
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose:  Used to handle the pin code pop over in the add dga and edit dga.
+            */
             var oView = this.getView();
             if (!this._PinCodeValueHelp) {
                 this._getViewFragment("PinCodeValueHelp").then(function (oControl) {
@@ -410,8 +452,24 @@ sap.ui.define([
                 }.bind(this))
             }
         },
+        _handleSalesGroupConfirm:function(oEvent){
+            var oSelectedItem = oEvent.getParameter("selectedItem");
+            var oViewModel = this.getView().getModel("oModelView"),
+                oModelControl = this.getView().getModel("oModelControl");
+            var obj = oSelectedItem.getBindingContext().getObject();
+            oModelControl.setProperty(
+                "/AddFields/SalesGroup",
+                obj["Name"]
+            );
+            oViewModel.setProperty(
+                "/SaleGroupId",
+                obj["Id"]
+            );
+
+            this._onDialogClose();
+        },
         _handlePinCodeValueHelpConfirm: function (oEvent) {
-            // this method is overwritten for the 
+            // this method is overwritten for the pincode in the worklist view
             var oSelectedItem = oEvent.getParameter("selectedItem");
             var oViewModel = this.getView().getModel("oModelView"),
                 oModelControl = this.getView().getModel("oModelControl");
@@ -429,13 +487,13 @@ sap.ui.define([
 
         },
         handleDealersValueHelp: function () {
-             /*
-             * Author: manik saluja
-             * Date: 15-Mar-2022
-             * Language:  JS
-             * Purpose:  This method is used to open the popover for selecting the linked dealers in the 
-             * add dga form. 
-             */
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose:  This method is used to open the popover for selecting the linked dealers in the 
+            * add dga form. 
+            */
             var oView = this.getView();
             if (!this._DealerValueHelpDialog) {
                 this._getViewFragment("DealersValueHelp").then(function (oControl) {
