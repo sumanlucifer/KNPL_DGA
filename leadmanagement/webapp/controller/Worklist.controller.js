@@ -329,7 +329,8 @@ sap.ui.define(
                     EndDate: null,
                     Status: "",
                     Search: "",
-                    DGAType: ""
+                    DGAType: "",
+                    Pincode:""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
