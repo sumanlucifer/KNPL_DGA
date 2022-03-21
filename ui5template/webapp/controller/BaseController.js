@@ -21,6 +21,12 @@ sap.ui.define([
          * Convenience method for accessing the router.
          * @public
          * @returns {sap.ui.core.routing.Router} the router for this component
+         * This module is used as a template for creating other modules in the KNPL Dga Applications
+         * for creating the module kindly replate the following 
+         * 1. com.knpl.dga.ui5template
+         * 2. com/knpl/dga/ui5template - used in test folder for flp config
+         * 3. com-knpl-dga-ui5template - used in the manifest
+         * 4  comknpldgaui5template - used in test folder for flp config
          */
         getRouter: function () {
             return UIComponent.getRouterFor(this);
