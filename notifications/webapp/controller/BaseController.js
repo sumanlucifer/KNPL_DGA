@@ -10,7 +10,7 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox,Filter,FilterOperator) {
+], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox, Filter, FilterOperator) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -93,10 +93,10 @@ sap.ui.define([
                 ComplainId: mParam2,
                 bindProp: "NotificationSet(" + mParam2 + ")",
                 resourcePath: "com.knpl.dga.notifications",
-                MultiCombo:{
-                    Receivers:[]
+                MultiCombo: {
+                    Receivers: []
                 },
-                currDate:new Date()
+                currDate: new Date()
             };
             var oModelControl = new JSONModel(oDataControl)
             oView.setModel(oModelControl, "oModelControl");
@@ -108,7 +108,7 @@ sap.ui.define([
             var oValidate = new Validator();
             var othat = this;
             var oForm = oView.byId("FormObjectData");
-            var bFlagValidate = oValidate.validate(oForm);
+            var bFlagValidate = oValidate.validate(oForm,true);
             if (!bFlagValidate) {
                 othat._showMessageToast("Message3")
                 return false;
@@ -147,7 +147,7 @@ sap.ui.define([
             var sMessage = this._geti18nText(pMessage, pMessageParam);
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
-            var aMessageType = ["success", "information", "alert","error", "warning", "confirm"];
+            var aMessageType = ["success", "information", "alert", "error", "warning", "confirm"];
 
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
@@ -173,7 +173,7 @@ sap.ui.define([
 
         },
         _showMessageBox2: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
-            
+
             /*  pType(string) > type of message box ex: information or alert etc.
                 pMessage (string)> i18n property name for the message
                 pMessageParam(array/null)> i18n property has params specify in array or else pass as null
@@ -190,7 +190,7 @@ sap.ui.define([
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
             var aMessageType = ["success", "information", "alert", "error", "warning"];
-           
+
 
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
@@ -215,6 +215,27 @@ sap.ui.define([
 
 
         },
+        onRedirectionChange: function () {
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            oModelView.setProperty("/RedirectionTo", "");
+        },
+        onSwitch1Change: function (oEvent) {
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
+            oModelControl.setProperty("/MultiCombo/Receivers", []);
+            oModelView.setProperty("/GroupId","")
+        },
+        onSwitch2Change: function (oEvent) {
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
+            // ScheduledDate:null,
+            // ScheduledTime:null,
+            oModelView.setProperty("/ScheduledDate",null);
+            oModelView.setProperty("/ScheduledTime",null);
+        },
         _RemoveEmptyValue: function (mParam) {
             var obj = Object.assign({}, mParam);
             // remove string values
@@ -233,7 +254,7 @@ sap.ui.define([
             //1.Clone the payload and convert string to integer values based on odata model entity
             var oPayLoad = this._RemoveEmptyValue(oModelData);
             var inTegerProperty = [
-                "ComplaintTypeId",
+                "GroupId",
             ];
             for (var y of inTegerProperty) {
                 if (oPayLoad.hasOwnProperty(y)) {
@@ -244,6 +265,30 @@ sap.ui.define([
             }
             promise.resolve(oPayLoad);
             return promise;
+        },
+        _AddMultiComboData: function (oPayload) {
+            var promise = $.Deferred();
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            var oModelControl = oView.getModel("oModelControl");
+            // Receivers/Painters Combobox - 
+            var aExistingDealers = oModelView.getProperty("/Receivers");
+            var aSelectedDealers = oModelControl.getProperty("/MultiCombo/Receivers")
+            var iDealers = -1;
+            var aDealers = [];
+            for (var x of aSelectedDealers) {
+                iDealers = aExistingDealers.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]) )
+                if (iDealers >= 0) {
+                    //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
+                    aDealers.push(oPayload["Receivers"][iDealers]);
+                } else {
+                    aDealers.push({ Id: parseInt(x["Id"]) });
+                }
+            }
+            oPayload["Receivers"] = aDealers;
+            promise.resolve(oPayload);
+            return promise
+
         },
         _uploadFile: function (oPayLoad) {
             var promise = jQuery.Deferred();
@@ -292,7 +337,7 @@ sap.ui.define([
             return this._formFragments;
         },
 
-        _onDialogClose:function(){
+        _onDialogClose: function () {
             /*
                 Internal method to handle the closure of all the dialogs
                 if dialog 1 is open first and on top over that dialog 2 is open
@@ -302,7 +347,7 @@ sap.ui.define([
                 to get destroyed
             */
             if (this._pValueHelpDialog) {
-                
+
                 this._pValueHelpDialog.destroy();
                 delete this._pValueHelpDialog;
                 return;
@@ -316,7 +361,7 @@ sap.ui.define([
             }
         },
         // painter value help request
-              
+
         onValueHelpRequestedPainter: function () {
             this._oMultiInput = this.getView().byId("multiInputPainterAdd");
             this.oColModel = new JSONModel({
@@ -357,10 +402,12 @@ sap.ui.define([
             });
 
             var aCols = this.oColModel.getData().cols;
-             var oFilter = new sap.ui.model.Filter({filters:[
-                  new Filter("IsArchived", sap.ui.model.FilterOperator.EQ, false),
-                  new Filter("PainterId", sap.ui.model.FilterOperator.GT, 0)
-                ],and:true});
+            var oFilter = new sap.ui.model.Filter({
+                filters: [
+                    new Filter("IsArchived", sap.ui.model.FilterOperator.EQ, false),
+                    new Filter("PainterId", sap.ui.model.FilterOperator.GT, 0)
+                ], and: true
+            });
 
             this._oValueHelpDialog = sap.ui.xmlfragment(
                 "com.knpl.dga.notifications.view.fragments.PainterValueHelp",
@@ -403,7 +450,7 @@ sap.ui.define([
             this._oValueHelpDialog.open();
         },
 
-    
+
 
         onValueHelpCancelPressPainter: function () {
             this._oValueHelpDialog.close();
@@ -429,12 +476,12 @@ sap.ui.define([
             this._oValueHelpDialog.close();
         },
         onValueHelpAfterClose: function () {
-          
+
             if (this._oValueHelpDialog) {
                 this._oValueHelpDialog.destroy();
                 delete this._oValueHelpDialog;
-            } 
-           
+            }
+
         },
 
         _filterTable: function (oFilter, sType) {
@@ -513,9 +560,9 @@ sap.ui.define([
             //     operator: FilterOperator.EQ,
             //     value1: false
             // }))
-            
-           
-            if(aCurrentFilterValues.length >0){
+
+
+            if (aCurrentFilterValues.length > 0) {
                 this._FilterPainterValueTable(
                     new Filter({
                         filters: aCurrentFilterValues,
@@ -567,7 +614,7 @@ sap.ui.define([
                 operator: FilterOperator.EQ,
                 value1: false
             }));
-           
+
             this._FilterPainterValueTable(
                 new Filter({
                     filters: aCurrentFilterValues,
