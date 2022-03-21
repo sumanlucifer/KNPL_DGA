@@ -58,6 +58,10 @@ modules:
       - comknpldgadgamanage.zip
       name: comknpldgadgamanage
       target-path: resources/
+    - artifacts:
+      - comknpldgausersrole.zip
+      name: comknpldgausersrole
+      target-path: resources/
 - name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
@@ -91,6 +95,16 @@ modules:
 - name: comknpldgadgamanage
   type: html5
   path: dgamanage
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgausersrole
+  type: html5
+  path: usersrole
   build-parameters:
     build-result: dist
     builder: custom

@@ -1,0 +1,1264 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="1.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+        <Schema Namespace="com.knpl.dga.entity" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Attendances">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DgaName" Type="Edm.String" Nullable="true"/>
+                <Property Name="Date" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="SiteVisitCount" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="ContractorVisitCount" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="DealerVisitCount" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="LeadVisitCount" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="CheckInTime" Type="Edm.String" Nullable="true"/>
+                <Property Name="CheckOutTime" Type="Edm.String" Nullable="true"/>
+                <Property Name="DGAId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="DGA" Relationship="com.knpl.dga.entity.r_Attendances_2_r_Dga" FromRole="r_Attendances" ToRole="r_Dga"/>
+            </EntityType>
+            <EntityType Name="MapDGADealers">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DealerId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DGAId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Dealer" Relationship="com.knpl.dga.entity.r_Dealer_2_r_DgaDealers" FromRole="r_DgaDealers" ToRole="r_Dealer"/>
+                <NavigationProperty Name="DGA" Relationship="com.knpl.dga.entity.r_Dga_2_r_DgaDealers" FromRole="r_DgaDealers" ToRole="r_Dga"/>
+            </EntityType>
+            <EntityType Name="MasterClasses">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterConstructionChemicalTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterDepots">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="true"/>
+                <Property Name="Depot" Type="Edm.String" Nullable="true"/>
+                <Property Name="Division" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterExteriorTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterLeadStatus">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Leads" Relationship="com.knpl.dga.entity.r_LeadStatus_2_r_Leads" FromRole="r_LeadStatus" ToRole="r_Leads"/>
+            </EntityType>
+            <EntityType Name="MasterPaintingReqs">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="MapLeadsToPaintingReqs" Relationship="com.knpl.dga.entity.r_MapLeadsToPaintingReqs_2_r_MasterPaintingReq" FromRole="r_MasterPaintingReq" ToRole="r_MapLeadsToPaintingReqs"/>
+            </EntityType>
+            <EntityType Name="MasterPaintTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Leads" Relationship="com.knpl.dga.entity.r_Leads_2_r_PaintType" FromRole="r_PaintType" ToRole="r_Leads"/>
+            </EntityType>
+            <EntityType Name="MasterProductCatalogs">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterProducts">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="true"/>
+                <Property Name="ProductName" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterSaleGroups">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="MasterSaleGroups" Relationship="com.knpl.dga.entity.MasterSaleGroups_2_r_MasterSaleGroups" FromRole="MasterSaleGroups" ToRole="r_MasterSaleGroups"/>
+            </EntityType>
+            <EntityType Name="MasterSystems">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterVolumePacks">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="Volume" Type="Edm.String" Nullable="true"/>
+                <Property Name="VolumeType" Type="Edm.String" Nullable="true"/>
+                <Property Name="ProductCode" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="OfficeEmployeeContacts">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DGAId" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="DGA" Relationship="com.knpl.dga.entity.r_Dga_2_r_OfficeEmployeeContacts" FromRole="r_OfficeEmployeeContacts" ToRole="r_Dga"/>
+            </EntityType>
+            <EntityType Name="Areas">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Type" Type="Edm.String" Nullable="true"/>
+                <Property Name="ClassType" Type="Edm.String" Nullable="true"/>
+                <Property Name="SystemType" Type="Edm.String" Nullable="true"/>
+                <Property Name="VAType" Type="Edm.String" Nullable="true"/>
+                <Property Name="RatePerSqFt" Type="Edm.Double" Nullable="true"/>
+                <Property Name="Area" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="RateAccToArea" Type="Edm.Double" Nullable="true"/>
+                <Property Name="LeadsToPaintingReqId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="LeadsToPaintingReq" Relationship="com.knpl.dga.entity.r_Areas_2_r_LeadsToPaintingReq" FromRole="r_Areas" ToRole="r_LeadsToPaintingReq"/>
+            </EntityType>
+            <EntityType Name="MapDGAContractors">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsLinked" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="Rating" Type="Edm.String" Nullable="true"/>
+                <Property Name="ContractorId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DGAId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Contractor" Relationship="com.knpl.dga.entity.r_Contractor_2_r_DgaContractors" FromRole="r_DgaContractors" ToRole="r_Contractor"/>
+                <NavigationProperty Name="DGA" Relationship="com.knpl.dga.entity.r_Dga_2_r_DgaContractors" FromRole="r_DgaContractors" ToRole="r_Dga"/>
+                <NavigationProperty Name="Leads" Relationship="com.knpl.dga.entity.r_DgaContractor_2_r_Leads" FromRole="r_DgaContractor" ToRole="r_Leads"/>
+            </EntityType>
+            <EntityType Name="MasterCatalogs">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterComplainTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterDealers">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="PhoneNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="SAPCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="SAPGroupName" Type="Edm.String" Nullable="true"/>
+                <Property Name="FiscalYear" Type="Edm.String" Nullable="true"/>
+                <Property Name="Visits" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="TotalMappedContractor" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="LeadsProvided" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Leads" Relationship="com.knpl.dga.entity.r_Leads_2_r_SourceDealer" FromRole="r_SourceDealer" ToRole="r_Leads"/>
+                <NavigationProperty Name="DGADealers" Relationship="com.knpl.dga.entity.r_Dealer_2_r_DgaDealers" FromRole="r_Dealer" ToRole="r_DgaDealers"/>
+            </EntityType>
+            <EntityType Name="MasterEmailTemplates">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterLeadSources">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Leads" Relationship="com.knpl.dga.entity.r_LeadSource_2_r_Leads" FromRole="r_LeadSource" ToRole="r_Leads"/>
+            </EntityType>
+            <EntityType Name="MasterPaintingEquipments">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterPaintingReqTypeValues">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterPricings">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Putty" Type="Edm.String" Nullable="true"/>
+                <Property Name="Primer" Type="Edm.String" Nullable="true"/>
+                <Property Name="ContractorRate" Type="Edm.Double" Nullable="true"/>
+                <Property Name="DealerRate" Type="Edm.Double" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Pincode" Relationship="com.knpl.dga.entity.MasterPricings_2_r_Pincode" FromRole="MasterPricings" ToRole="r_Pincode"/>
+                <NavigationProperty Name="ProductCategory" Relationship="com.knpl.dga.entity.MasterPricings_2_r_ProductCategory" FromRole="MasterPricings" ToRole="r_ProductCategory"/>
+                <NavigationProperty Name="Class" Relationship="com.knpl.dga.entity.MasterPricings_2_r_MasterClass" FromRole="MasterPricings" ToRole="r_MasterClass"/>
+                <NavigationProperty Name="Product" Relationship="com.knpl.dga.entity.MasterPricings_2_r_Product" FromRole="MasterPricings" ToRole="r_Product"/>
+                <NavigationProperty Name="PaintType" Relationship="com.knpl.dga.entity.MasterPricings_2_r_PaintType" FromRole="MasterPricings" ToRole="r_PaintType"/>
+                <NavigationProperty Name="System" Relationship="com.knpl.dga.entity.MasterPricings_2_r_System" FromRole="MasterPricings" ToRole="r_System"/>
+                <NavigationProperty Name="Plan" Relationship="com.knpl.dga.entity.MasterPricings_2_r_ServiceSubType" FromRole="MasterPricings" ToRole="r_ServiceSubType"/>
+                <NavigationProperty Name="ValueAddition" Relationship="com.knpl.dga.entity.MasterPricings_2_r_ValueAddition" FromRole="MasterPricings" ToRole="r_ValueAddition"/>
+            </EntityType>
+            <EntityType Name="MasterRoles">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterSMSTemplates">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="TemplateType" Type="Edm.String" Nullable="true"/>
+                <Property Name="GatewayTemplateId" Type="Edm.String" Nullable="true"/>
+                <Property Name="TemplateBody" Type="Edm.String" Nullable="true"/>
+                <Property Name="LanguageId" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterWoodenCoatingTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="PreEstimation">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="true"/>
+                <Property Name="LeadId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="MapLeadsToPaintingReqs" Relationship="com.knpl.dga.entity.PreEstimation_2_r_MapLeadsToPaintingReqs" FromRole="PreEstimation" ToRole="r_MapLeadsToPaintingReqs"/>
+            </EntityType>
+            <EntityType Name="DGAs">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="GivenName" Type="Edm.String" Nullable="true"/>
+                <Property Name="FamilyName" Type="Edm.String" Nullable="true"/>
+                <Property Name="Targets" Type="Edm.String" Nullable="true"/>
+                <Property Name="PerformanceTargets" Type="Edm.String" Nullable="true"/>
+                <Property Name="Mobile" Type="Edm.String" Nullable="true"/>
+                <Property Name="Designation" Type="Edm.String" Nullable="true"/>
+                <Property Name="Zone" Type="Edm.String" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="UniqueId" Type="Edm.String" Nullable="true"/>
+                <Property Name="PayrollCompanyId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="SaleGroupId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DGATypeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DepotId" Type="Edm.String" Nullable="true"/>
+                <Property Name="DivisionId" Type="Edm.String" Nullable="true"/>
+                <Property Name="TownId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PincodeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="StateId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="PayrollCompany" Relationship="com.knpl.dga.entity.DGAs_2_r_PayrollCompany" FromRole="DGAs" ToRole="r_PayrollCompany"/>
+                <NavigationProperty Name="SaleGroup" Relationship="com.knpl.dga.entity.DGAs_2_r_SaleGroup" FromRole="DGAs" ToRole="r_SaleGroup"/>
+                <NavigationProperty Name="DGAType" Relationship="com.knpl.dga.entity.DGAs_2_r_DgaType" FromRole="DGAs" ToRole="r_DgaType"/>
+                <NavigationProperty Name="Depot" Relationship="com.knpl.dga.entity.DGAs_2_r_Depot" FromRole="DGAs" ToRole="r_Depot"/>
+                <NavigationProperty Name="Division" Relationship="com.knpl.dga.entity.DGAs_2_r_Division" FromRole="DGAs" ToRole="r_Division"/>
+                <NavigationProperty Name="Town" Relationship="com.knpl.dga.entity.DGAs_2_r_Town" FromRole="DGAs" ToRole="r_Town"/>
+                <NavigationProperty Name="Pincode" Relationship="com.knpl.dga.entity.DGAs_2_r_Pincode" FromRole="DGAs" ToRole="r_Pincode"/>
+                <NavigationProperty Name="State" Relationship="com.knpl.dga.entity.DGAs_2_r_State" FromRole="DGAs" ToRole="r_State"/>
+                <NavigationProperty Name="OfficeEmployeeContacts" Relationship="com.knpl.dga.entity.r_Dga_2_r_OfficeEmployeeContacts" FromRole="r_Dga" ToRole="r_OfficeEmployeeContacts"/>
+                <NavigationProperty Name="DGAContractors" Relationship="com.knpl.dga.entity.r_Dga_2_r_DgaContractors" FromRole="r_Dga" ToRole="r_DgaContractors"/>
+                <NavigationProperty Name="DGADealers" Relationship="com.knpl.dga.entity.r_Dga_2_r_DgaDealers" FromRole="r_Dga" ToRole="r_DgaDealers"/>
+                <NavigationProperty Name="TargetAccomplishments" Relationship="com.knpl.dga.entity.r_Dga_2_r_TargetAccomplishments" FromRole="r_Dga" ToRole="r_TargetAccomplishments"/>
+                <NavigationProperty Name="Attendances" Relationship="com.knpl.dga.entity.r_Attendances_2_r_Dga" FromRole="r_Dga" ToRole="r_Attendances"/>
+                <NavigationProperty Name="Visits" Relationship="com.knpl.dga.entity.r_Dga_2_r_Visits" FromRole="r_Dga" ToRole="r_Visits"/>
+                <NavigationProperty Name="Leads" Relationship="com.knpl.dga.entity.r_Dga_2_r_Leads" FromRole="r_Dga" ToRole="r_Leads"/>
+            </EntityType>
+            <EntityType Name="Leads">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PrimaryNum" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsSecondaryNumSameAsPrimaryNum" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="SecondaryNum" Type="Edm.String" Nullable="true"/>
+                <Property Name="Email" Type="Edm.String" Nullable="true"/>
+                <Property Name="Pincode" Type="Edm.String" Nullable="true"/>
+                <Property Name="District" Type="Edm.String" Nullable="true"/>
+                <Property Name="CityOrTown" Type="Edm.String" Nullable="true"/>
+                <Property Name="Landmark" Type="Edm.String" Nullable="true"/>
+                <Property Name="CarpetArea" Type="Edm.String" Nullable="true"/>
+                <Property Name="Address" Type="Edm.String" Nullable="true"/>
+                <Property Name="ConsumerName" Type="Edm.String" Nullable="true"/>
+                <Property Name="SourceNewContractorName" Type="Edm.String" Nullable="true"/>
+                <Property Name="SourceNewContractorMobile" Type="Edm.String" Nullable="true"/>
+                <Property Name="SourceHOLabel" Type="Edm.String" Nullable="true"/>
+                <Property Name="SourceConsumerName" Type="Edm.String" Nullable="true"/>
+                <Property Name="SourceNewConsumerName" Type="Edm.String" Nullable="true"/>
+                <Property Name="SourceNewConsumerNum" Type="Edm.String" Nullable="true"/>
+                <Property Name="Zone" Type="Edm.String" Nullable="true"/>
+                <Property Name="Stage" Type="Edm.String" Nullable="true"/>
+                <Property Name="ExistingConsumerLeadId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Visits" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="DivisionId" Type="Edm.String" Nullable="true"/>
+                <Property Name="DepotId" Type="Edm.String" Nullable="true"/>
+                <Property Name="LeadStatusId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DGAId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="StateId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="LeadSourceId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DGAContractorId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="LeadServiceTypeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="LeadServiceSubTypeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PaintTypeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="SourceContractorId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="SourceDealerId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PaintingReqSlabId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Division" Relationship="com.knpl.dga.entity.Leads_2_r_Division" FromRole="Leads" ToRole="r_Division"/>
+                <NavigationProperty Name="Depot" Relationship="com.knpl.dga.entity.Leads_2_r_Depot" FromRole="Leads" ToRole="r_Depot"/>
+                <NavigationProperty Name="LeadStatus" Relationship="com.knpl.dga.entity.r_LeadStatus_2_r_Leads" FromRole="r_Leads" ToRole="r_LeadStatus"/>
+                <NavigationProperty Name="DGA" Relationship="com.knpl.dga.entity.r_Dga_2_r_Leads" FromRole="r_Leads" ToRole="r_Dga"/>
+                <NavigationProperty Name="State" Relationship="com.knpl.dga.entity.r_Leads_2_r_State" FromRole="r_Leads" ToRole="r_State"/>
+                <NavigationProperty Name="LeadSource" Relationship="com.knpl.dga.entity.r_LeadSource_2_r_Leads" FromRole="r_Leads" ToRole="r_LeadSource"/>
+                <NavigationProperty Name="DGAContractor" Relationship="com.knpl.dga.entity.r_DgaContractor_2_r_Leads" FromRole="r_Leads" ToRole="r_DgaContractor"/>
+                <NavigationProperty Name="LeadServiceType" Relationship="com.knpl.dga.entity.r_LeadServiceType_2_r_Leads" FromRole="r_Leads" ToRole="r_LeadServiceType"/>
+                <NavigationProperty Name="LeadServiceSubType" Relationship="com.knpl.dga.entity.r_LeadServiceType_2_r_Leads" FromRole="r_Leads" ToRole="r_LeadServiceType"/>
+                <NavigationProperty Name="PaintType" Relationship="com.knpl.dga.entity.r_Leads_2_r_PaintType" FromRole="r_Leads" ToRole="r_PaintType"/>
+                <NavigationProperty Name="SourceContractor" Relationship="com.knpl.dga.entity.r_Leads_2_r_SourceContractor" FromRole="r_Leads" ToRole="r_SourceContractor"/>
+                <NavigationProperty Name="SourceDealer" Relationship="com.knpl.dga.entity.r_Leads_2_r_SourceDealer" FromRole="r_Leads" ToRole="r_SourceDealer"/>
+                <NavigationProperty Name="PaintingReqSlab" Relationship="com.knpl.dga.entity.r_Leads_2_r_PaintingReqSlab" FromRole="r_Leads" ToRole="r_PaintingReqSlab"/>
+                <NavigationProperty Name="MapLeadsToPaintingReqs" Relationship="com.knpl.dga.entity.r_Lead_2_r_MapLeadsToPaintingReqs" FromRole="r_Lead" ToRole="r_MapLeadsToPaintingReqs"/>
+            </EntityType>
+            <EntityType Name="MasterAppFeatures">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterContacts">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterDGATypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterInteriorTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterLeadTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterPaintingReqSlab">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="LeadSubStatus" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Leads" Relationship="com.knpl.dga.entity.r_Leads_2_r_PaintingReqSlab" FromRole="r_PaintingReqSlab" ToRole="r_Leads"/>
+            </EntityType>
+            <EntityType Name="MasterPayrollCompanies">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterProductCategories">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="true"/>
+                <Property Name="CategoryName" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterProductShades">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="ProductCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterServiceSubTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="ServiceSubType" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterTargetPlans">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterTowns">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterZones">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="TargetAccomplishments">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DGAId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="DGA" Relationship="com.knpl.dga.entity.r_Dga_2_r_TargetAccomplishments" FromRole="r_TargetAccomplishments" ToRole="r_Dga"/>
+            </EntityType>
+            <EntityType Name="DGADevices">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DGAId" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="DeviceId" Type="Edm.String" Nullable="true"/>
+                <Property Name="DeviceType" Type="Edm.String" Nullable="true"/>
+                <Property Name="AccessToken" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MapLeadsToPaintingReq">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PaintingReqsId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="LeadId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PreEstimationId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="MasterPaintingReq" Relationship="com.knpl.dga.entity.r_MapLeadsToPaintingReqs_2_r_MasterPaintingReq" FromRole="r_MapLeadsToPaintingReqs" ToRole="r_MasterPaintingReq"/>
+                <NavigationProperty Name="Lead" Relationship="com.knpl.dga.entity.r_Lead_2_r_MapLeadsToPaintingReqs" FromRole="r_MapLeadsToPaintingReqs" ToRole="r_Lead"/>
+                <NavigationProperty Name="Areas" Relationship="com.knpl.dga.entity.r_Areas_2_r_LeadsToPaintingReq" FromRole="r_LeadsToPaintingReq" ToRole="r_Areas"/>
+            </EntityType>
+            <EntityType Name="MasterCompanySettings">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="AboutUs" Type="Edm.String" Nullable="true"/>
+                <Property Name="Disclaimer" Type="Edm.String" Nullable="true"/>
+                <Property Name="DisclaimerVersion" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="CallCenterHelpline" Type="Edm.String" Nullable="true"/>
+                <Property Name="AndroidAppLink" Type="Edm.String" Nullable="true"/>
+                <Property Name="AndroidAppVersion" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsOfferEnabled" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="IsRedemptionEnabled" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="IsForceUpgradeAvailable" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterComplainResolutionTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterContractors">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Rating" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Leads" Relationship="com.knpl.dga.entity.r_Leads_2_r_SourceContractor" FromRole="r_SourceContractor" ToRole="r_Leads"/>
+                <NavigationProperty Name="DGAContractors" Relationship="com.knpl.dga.entity.r_Contractor_2_r_DgaContractors" FromRole="r_Contractor" ToRole="r_DgaContractors"/>
+            </EntityType>
+            <EntityType Name="MasterDivisions">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="true"/>
+                <Property Name="Zone" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterLeadServiceTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="Leads" Relationship="com.knpl.dga.entity.r_LeadServiceType_2_r_Leads" FromRole="r_LeadServiceType" ToRole="r_Leads"/>
+                <NavigationProperty Name="ServiceSubTypes" Relationship="com.knpl.dga.entity.MasterLeadServiceTypes_2_r_ServiceSubTypes" FromRole="MasterLeadServiceTypes" ToRole="r_ServiceSubTypes"/>
+            </EntityType>
+            <EntityType Name="MasterPainters">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterPaintingReqTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterPincodes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="SaleGroupsId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="MasterSaleGroups" Relationship="com.knpl.dga.entity.MasterPincodes_2_r_MasterSaleGroups" FromRole="MasterPincodes" ToRole="r_MasterSaleGroups"/>
+            </EntityType>
+            <EntityType Name="MasterProductClassifications">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="true"/>
+                <Property Name="ClassificationName" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterProductRanges">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterRoomTypes">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterStates">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="Leads" Relationship="com.knpl.dga.entity.r_Leads_2_r_State" FromRole="r_State" ToRole="r_Leads"/>
+            </EntityType>
+            <EntityType Name="MasterValueAdditions">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MobileOTPVerification">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Mobile" Type="Edm.String" Nullable="true"/>
+                <Property Name="MobileOTP" Type="Edm.String" Nullable="true"/>
+                <Property Name="Username" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsValid" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="ErrorCode" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="ErrorMessage" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="DGADevices" Relationship="com.knpl.dga.entity.MobileOTPVerification_2_r_DgaDevices" FromRole="MobileOTPVerification" ToRole="r_DgaDevices"/>
+            </EntityType>
+            <EntityType Name="Visits">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Type" Type="Edm.String" Nullable="true"/>
+                <Property Name="Target" Type="Edm.String" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="Comments" Type="Edm.String" Nullable="true"/>
+                <Property Name="Time" Type="Edm.String" Nullable="true"/>
+                <Property Name="Date" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="DGAId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.Int64" Nullable="true"/>
+                <NavigationProperty Name="DGA" Relationship="com.knpl.dga.entity.r_Dga_2_r_Visits" FromRole="r_Visits" ToRole="r_Dga"/>
+            </EntityType>
+            <Association Name="r_Dga_2_r_DgaContractors">
+                <End Type="com.knpl.dga.entity.MapDGAContractors" Multiplicity="*" Role="r_DgaContractors"/>
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="0..1" Role="r_Dga"/>
+            </Association>
+            <Association Name="MasterLeadServiceTypes_2_r_ServiceSubTypes">
+                <End Type="com.knpl.dga.entity.MasterLeadServiceTypes" Multiplicity="1" Role="MasterLeadServiceTypes"/>
+                <End Type="com.knpl.dga.entity.MasterServiceSubTypes" Multiplicity="*" Role="r_ServiceSubTypes"/>
+            </Association>
+            <Association Name="r_LeadServiceType_2_r_Leads">
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="*" Role="r_Leads"/>
+                <End Type="com.knpl.dga.entity.MasterLeadServiceTypes" Multiplicity="0..1" Role="r_LeadServiceType"/>
+            </Association>
+            <Association Name="DGAs_2_r_Depot">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="1" Role="DGAs"/>
+                <End Type="com.knpl.dga.entity.MasterDepots" Multiplicity="0..1" Role="r_Depot"/>
+            </Association>
+            <Association Name="MasterPricings_2_r_Product">
+                <End Type="com.knpl.dga.entity.MasterPricings" Multiplicity="1" Role="MasterPricings"/>
+                <End Type="com.knpl.dga.entity.MasterProducts" Multiplicity="0..1" Role="r_Product"/>
+            </Association>
+            <Association Name="r_Leads_2_r_State">
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="*" Role="r_Leads"/>
+                <End Type="com.knpl.dga.entity.MasterStates" Multiplicity="0..1" Role="r_State"/>
+            </Association>
+            <Association Name="r_Dealer_2_r_DgaDealers">
+                <End Type="com.knpl.dga.entity.MapDGADealers" Multiplicity="*" Role="r_DgaDealers"/>
+                <End Type="com.knpl.dga.entity.MasterDealers" Multiplicity="0..1" Role="r_Dealer"/>
+            </Association>
+            <Association Name="MasterPricings_2_r_ProductCategory">
+                <End Type="com.knpl.dga.entity.MasterPricings" Multiplicity="1" Role="MasterPricings"/>
+                <End Type="com.knpl.dga.entity.MasterProductCategories" Multiplicity="0..1" Role="r_ProductCategory"/>
+            </Association>
+            <Association Name="r_Dga_2_r_Leads">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="0..1" Role="r_Dga"/>
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="*" Role="r_Leads"/>
+            </Association>
+            <Association Name="MasterPricings_2_r_System">
+                <End Type="com.knpl.dga.entity.MasterPricings" Multiplicity="1" Role="MasterPricings"/>
+                <End Type="com.knpl.dga.entity.MasterSystems" Multiplicity="0..1" Role="r_System"/>
+            </Association>
+            <Association Name="r_Contractor_2_r_DgaContractors">
+                <End Type="com.knpl.dga.entity.MapDGAContractors" Multiplicity="*" Role="r_DgaContractors"/>
+                <End Type="com.knpl.dga.entity.MasterContractors" Multiplicity="0..1" Role="r_Contractor"/>
+            </Association>
+            <Association Name="r_Dga_2_r_Visits">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="0..1" Role="r_Dga"/>
+                <End Type="com.knpl.dga.entity.Visits" Multiplicity="*" Role="r_Visits"/>
+            </Association>
+            <Association Name="r_Areas_2_r_LeadsToPaintingReq">
+                <End Type="com.knpl.dga.entity.Areas" Multiplicity="*" Role="r_Areas"/>
+                <End Type="com.knpl.dga.entity.MapLeadsToPaintingReq" Multiplicity="0..1" Role="r_LeadsToPaintingReq"/>
+            </Association>
+            <Association Name="r_Leads_2_r_PaintingReqSlab">
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="*" Role="r_Leads"/>
+                <End Type="com.knpl.dga.entity.MasterPaintingReqSlab" Multiplicity="0..1" Role="r_PaintingReqSlab"/>
+            </Association>
+            <Association Name="MasterSaleGroups_2_r_MasterSaleGroups">
+                <End Type="com.knpl.dga.entity.MasterSaleGroups" Multiplicity="1" Role="MasterSaleGroups"/>
+                <End Type="com.knpl.dga.entity.MasterSaleGroups" Multiplicity="*" Role="r_MasterSaleGroups"/>
+            </Association>
+            <Association Name="MasterPricings_2_r_PaintType">
+                <End Type="com.knpl.dga.entity.MasterPricings" Multiplicity="1" Role="MasterPricings"/>
+                <End Type="com.knpl.dga.entity.MasterPaintTypes" Multiplicity="0..1" Role="r_PaintType"/>
+            </Association>
+            <Association Name="Leads_2_r_Depot">
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="1" Role="Leads"/>
+                <End Type="com.knpl.dga.entity.MasterDepots" Multiplicity="0..1" Role="r_Depot"/>
+            </Association>
+            <Association Name="DGAs_2_r_Division">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="1" Role="DGAs"/>
+                <End Type="com.knpl.dga.entity.MasterDivisions" Multiplicity="0..1" Role="r_Division"/>
+            </Association>
+            <Association Name="DGAs_2_r_Pincode">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="1" Role="DGAs"/>
+                <End Type="com.knpl.dga.entity.MasterPincodes" Multiplicity="0..1" Role="r_Pincode"/>
+            </Association>
+            <Association Name="DGAs_2_r_State">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="1" Role="DGAs"/>
+                <End Type="com.knpl.dga.entity.MasterStates" Multiplicity="0..1" Role="r_State"/>
+            </Association>
+            <Association Name="r_Leads_2_r_SourceDealer">
+                <End Type="com.knpl.dga.entity.MasterDealers" Multiplicity="0..1" Role="r_SourceDealer"/>
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="*" Role="r_Leads"/>
+            </Association>
+            <Association Name="MasterPincodes_2_r_MasterSaleGroups">
+                <End Type="com.knpl.dga.entity.MasterPincodes" Multiplicity="1" Role="MasterPincodes"/>
+                <End Type="com.knpl.dga.entity.MasterSaleGroups" Multiplicity="0..1" Role="r_MasterSaleGroups"/>
+            </Association>
+            <Association Name="r_Dga_2_r_DgaDealers">
+                <End Type="com.knpl.dga.entity.MapDGADealers" Multiplicity="*" Role="r_DgaDealers"/>
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="0..1" Role="r_Dga"/>
+            </Association>
+            <Association Name="r_Lead_2_r_MapLeadsToPaintingReqs">
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="0..1" Role="r_Lead"/>
+                <End Type="com.knpl.dga.entity.MapLeadsToPaintingReq" Multiplicity="*" Role="r_MapLeadsToPaintingReqs"/>
+            </Association>
+            <Association Name="DGAs_2_r_DgaType">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="1" Role="DGAs"/>
+                <End Type="com.knpl.dga.entity.MasterDGATypes" Multiplicity="0..1" Role="r_DgaType"/>
+            </Association>
+            <Association Name="r_Leads_2_r_SourceContractor">
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="*" Role="r_Leads"/>
+                <End Type="com.knpl.dga.entity.MasterContractors" Multiplicity="0..1" Role="r_SourceContractor"/>
+            </Association>
+            <Association Name="r_LeadStatus_2_r_Leads">
+                <End Type="com.knpl.dga.entity.MasterLeadStatus" Multiplicity="0..1" Role="r_LeadStatus"/>
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="*" Role="r_Leads"/>
+            </Association>
+            <Association Name="DGAs_2_r_Town">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="1" Role="DGAs"/>
+                <End Type="com.knpl.dga.entity.MasterTowns" Multiplicity="0..1" Role="r_Town"/>
+            </Association>
+            <Association Name="r_Leads_2_r_PaintType">
+                <End Type="com.knpl.dga.entity.MasterPaintTypes" Multiplicity="0..1" Role="r_PaintType"/>
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="*" Role="r_Leads"/>
+            </Association>
+            <Association Name="r_Dga_2_r_TargetAccomplishments">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="0..1" Role="r_Dga"/>
+                <End Type="com.knpl.dga.entity.TargetAccomplishments" Multiplicity="*" Role="r_TargetAccomplishments"/>
+            </Association>
+            <Association Name="DGAs_2_r_SaleGroup">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="1" Role="DGAs"/>
+                <End Type="com.knpl.dga.entity.MasterSaleGroups" Multiplicity="0..1" Role="r_SaleGroup"/>
+            </Association>
+            <Association Name="r_Attendances_2_r_Dga">
+                <End Type="com.knpl.dga.entity.Attendances" Multiplicity="*" Role="r_Attendances"/>
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="0..1" Role="r_Dga"/>
+            </Association>
+            <Association Name="r_MapLeadsToPaintingReqs_2_r_MasterPaintingReq">
+                <End Type="com.knpl.dga.entity.MasterPaintingReqs" Multiplicity="0..1" Role="r_MasterPaintingReq"/>
+                <End Type="com.knpl.dga.entity.MapLeadsToPaintingReq" Multiplicity="*" Role="r_MapLeadsToPaintingReqs"/>
+            </Association>
+            <Association Name="r_Dga_2_r_OfficeEmployeeContacts">
+                <End Type="com.knpl.dga.entity.OfficeEmployeeContacts" Multiplicity="*" Role="r_OfficeEmployeeContacts"/>
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="0..1" Role="r_Dga"/>
+            </Association>
+            <Association Name="r_LeadSource_2_r_Leads">
+                <End Type="com.knpl.dga.entity.MasterLeadSources" Multiplicity="0..1" Role="r_LeadSource"/>
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="*" Role="r_Leads"/>
+            </Association>
+            <Association Name="DGAs_2_r_PayrollCompany">
+                <End Type="com.knpl.dga.entity.DGAs" Multiplicity="1" Role="DGAs"/>
+                <End Type="com.knpl.dga.entity.MasterPayrollCompanies" Multiplicity="0..1" Role="r_PayrollCompany"/>
+            </Association>
+            <Association Name="MobileOTPVerification_2_r_DgaDevices">
+                <End Type="com.knpl.dga.entity.MobileOTPVerification" Multiplicity="1" Role="MobileOTPVerification"/>
+                <End Type="com.knpl.dga.entity.DGADevices" Multiplicity="0..1" Role="r_DgaDevices"/>
+            </Association>
+            <Association Name="r_DgaContractor_2_r_Leads">
+                <End Type="com.knpl.dga.entity.MapDGAContractors" Multiplicity="0..1" Role="r_DgaContractor"/>
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="*" Role="r_Leads"/>
+            </Association>
+            <Association Name="MasterPricings_2_r_MasterClass">
+                <End Type="com.knpl.dga.entity.MasterPricings" Multiplicity="1" Role="MasterPricings"/>
+                <End Type="com.knpl.dga.entity.MasterClasses" Multiplicity="0..1" Role="r_MasterClass"/>
+            </Association>
+            <Association Name="PreEstimation_2_r_MapLeadsToPaintingReqs">
+                <End Type="com.knpl.dga.entity.PreEstimation" Multiplicity="1" Role="PreEstimation"/>
+                <End Type="com.knpl.dga.entity.MapLeadsToPaintingReq" Multiplicity="*" Role="r_MapLeadsToPaintingReqs"/>
+            </Association>
+            <Association Name="MasterPricings_2_r_Pincode">
+                <End Type="com.knpl.dga.entity.MasterPricings" Multiplicity="1" Role="MasterPricings"/>
+                <End Type="com.knpl.dga.entity.MasterPincodes" Multiplicity="0..1" Role="r_Pincode"/>
+            </Association>
+            <Association Name="MasterPricings_2_r_ValueAddition">
+                <End Type="com.knpl.dga.entity.MasterPricings" Multiplicity="1" Role="MasterPricings"/>
+                <End Type="com.knpl.dga.entity.MasterValueAdditions" Multiplicity="0..1" Role="r_ValueAddition"/>
+            </Association>
+            <Association Name="MasterPricings_2_r_ServiceSubType">
+                <End Type="com.knpl.dga.entity.MasterPricings" Multiplicity="1" Role="MasterPricings"/>
+                <End Type="com.knpl.dga.entity.MasterServiceSubTypes" Multiplicity="0..1" Role="r_ServiceSubType"/>
+            </Association>
+            <Association Name="Leads_2_r_Division">
+                <End Type="com.knpl.dga.entity.Leads" Multiplicity="1" Role="Leads"/>
+                <End Type="com.knpl.dga.entity.MasterDivisions" Multiplicity="0..1" Role="r_Division"/>
+            </Association>
+            <EntityContainer Name="DefaultContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="Attendances" EntityType="com.knpl.dga.entity.Attendances"/>
+                <EntitySet Name="MapDGADealers" EntityType="com.knpl.dga.entity.MapDGADealers"/>
+                <EntitySet Name="MasterClasses" EntityType="com.knpl.dga.entity.MasterClasses"/>
+                <EntitySet Name="MasterConstructionChemicalTypes" EntityType="com.knpl.dga.entity.MasterConstructionChemicalTypes"/>
+                <EntitySet Name="MasterDepots" EntityType="com.knpl.dga.entity.MasterDepots"/>
+                <EntitySet Name="MasterExteriorTypes" EntityType="com.knpl.dga.entity.MasterExteriorTypes"/>
+                <EntitySet Name="MasterLeadStatus" EntityType="com.knpl.dga.entity.MasterLeadStatus"/>
+                <EntitySet Name="MasterPaintingReqs" EntityType="com.knpl.dga.entity.MasterPaintingReqs"/>
+                <EntitySet Name="MasterPaintTypes" EntityType="com.knpl.dga.entity.MasterPaintTypes"/>
+                <EntitySet Name="MasterProductCatalogs" EntityType="com.knpl.dga.entity.MasterProductCatalogs"/>
+                <EntitySet Name="MasterProducts" EntityType="com.knpl.dga.entity.MasterProducts"/>
+                <EntitySet Name="MasterSaleGroups" EntityType="com.knpl.dga.entity.MasterSaleGroups"/>
+                <EntitySet Name="MasterSystems" EntityType="com.knpl.dga.entity.MasterSystems"/>
+                <EntitySet Name="MasterVolumePacks" EntityType="com.knpl.dga.entity.MasterVolumePacks"/>
+                <EntitySet Name="OfficeEmployeeContacts" EntityType="com.knpl.dga.entity.OfficeEmployeeContacts"/>
+                <EntitySet Name="Areas" EntityType="com.knpl.dga.entity.Areas"/>
+                <EntitySet Name="MapDGAContractors" EntityType="com.knpl.dga.entity.MapDGAContractors"/>
+                <EntitySet Name="MasterCatalogs" EntityType="com.knpl.dga.entity.MasterCatalogs"/>
+                <EntitySet Name="MasterComplainTypes" EntityType="com.knpl.dga.entity.MasterComplainTypes"/>
+                <EntitySet Name="MasterDealers" EntityType="com.knpl.dga.entity.MasterDealers"/>
+                <EntitySet Name="MasterEmailTemplates" EntityType="com.knpl.dga.entity.MasterEmailTemplates"/>
+                <EntitySet Name="MasterLeadSources" EntityType="com.knpl.dga.entity.MasterLeadSources"/>
+                <EntitySet Name="MasterPaintingEquipments" EntityType="com.knpl.dga.entity.MasterPaintingEquipments"/>
+                <EntitySet Name="MasterPaintingReqTypeValues" EntityType="com.knpl.dga.entity.MasterPaintingReqTypeValues"/>
+                <EntitySet Name="MasterPricings" EntityType="com.knpl.dga.entity.MasterPricings"/>
+                <EntitySet Name="MasterRoles" EntityType="com.knpl.dga.entity.MasterRoles"/>
+                <EntitySet Name="MasterSMSTemplates" EntityType="com.knpl.dga.entity.MasterSMSTemplates"/>
+                <EntitySet Name="MasterWoodenCoatingTypes" EntityType="com.knpl.dga.entity.MasterWoodenCoatingTypes"/>
+                <EntitySet Name="PreEstimation" EntityType="com.knpl.dga.entity.PreEstimation"/>
+                <EntitySet Name="DGAs" EntityType="com.knpl.dga.entity.DGAs"/>
+                <EntitySet Name="Leads" EntityType="com.knpl.dga.entity.Leads"/>
+                <EntitySet Name="MasterAppFeatures" EntityType="com.knpl.dga.entity.MasterAppFeatures"/>
+                <EntitySet Name="MasterContacts" EntityType="com.knpl.dga.entity.MasterContacts"/>
+                <EntitySet Name="MasterDGATypes" EntityType="com.knpl.dga.entity.MasterDGATypes"/>
+                <EntitySet Name="MasterInteriorTypes" EntityType="com.knpl.dga.entity.MasterInteriorTypes"/>
+                <EntitySet Name="MasterLeadTypes" EntityType="com.knpl.dga.entity.MasterLeadTypes"/>
+                <EntitySet Name="MasterPaintingReqSlab" EntityType="com.knpl.dga.entity.MasterPaintingReqSlab"/>
+                <EntitySet Name="MasterPayrollCompanies" EntityType="com.knpl.dga.entity.MasterPayrollCompanies"/>
+                <EntitySet Name="MasterProductCategories" EntityType="com.knpl.dga.entity.MasterProductCategories"/>
+                <EntitySet Name="MasterProductShades" EntityType="com.knpl.dga.entity.MasterProductShades"/>
+                <EntitySet Name="MasterServiceSubTypes" EntityType="com.knpl.dga.entity.MasterServiceSubTypes"/>
+                <EntitySet Name="MasterTargetPlans" EntityType="com.knpl.dga.entity.MasterTargetPlans"/>
+                <EntitySet Name="MasterTowns" EntityType="com.knpl.dga.entity.MasterTowns"/>
+                <EntitySet Name="MasterZones" EntityType="com.knpl.dga.entity.MasterZones"/>
+                <EntitySet Name="TargetAccomplishments" EntityType="com.knpl.dga.entity.TargetAccomplishments"/>
+                <EntitySet Name="DGADevices" EntityType="com.knpl.dga.entity.DGADevices"/>
+                <EntitySet Name="MapLeadsToPaintingReq" EntityType="com.knpl.dga.entity.MapLeadsToPaintingReq"/>
+                <EntitySet Name="MasterCompanySettings" EntityType="com.knpl.dga.entity.MasterCompanySettings"/>
+                <EntitySet Name="MasterComplainResolutionTypes" EntityType="com.knpl.dga.entity.MasterComplainResolutionTypes"/>
+                <EntitySet Name="MasterContractors" EntityType="com.knpl.dga.entity.MasterContractors"/>
+                <EntitySet Name="MasterDivisions" EntityType="com.knpl.dga.entity.MasterDivisions"/>
+                <EntitySet Name="MasterLeadServiceTypes" EntityType="com.knpl.dga.entity.MasterLeadServiceTypes"/>
+                <EntitySet Name="MasterPainters" EntityType="com.knpl.dga.entity.MasterPainters"/>
+                <EntitySet Name="MasterPaintingReqTypes" EntityType="com.knpl.dga.entity.MasterPaintingReqTypes"/>
+                <EntitySet Name="MasterPincodes" EntityType="com.knpl.dga.entity.MasterPincodes"/>
+                <EntitySet Name="MasterProductClassifications" EntityType="com.knpl.dga.entity.MasterProductClassifications"/>
+                <EntitySet Name="MasterProductRanges" EntityType="com.knpl.dga.entity.MasterProductRanges"/>
+                <EntitySet Name="MasterRoomTypes" EntityType="com.knpl.dga.entity.MasterRoomTypes"/>
+                <EntitySet Name="MasterStates" EntityType="com.knpl.dga.entity.MasterStates"/>
+                <EntitySet Name="MasterValueAdditions" EntityType="com.knpl.dga.entity.MasterValueAdditions"/>
+                <EntitySet Name="MobileOTPVerification" EntityType="com.knpl.dga.entity.MobileOTPVerification"/>
+                <EntitySet Name="Visits" EntityType="com.knpl.dga.entity.Visits"/>
+                <AssociationSet Name="r_Dga_2_r_DgaContractors" Association="com.knpl.dga.entity.r_Dga_2_r_DgaContractors">
+                    <End EntitySet="MapDGAContractors" Role="r_DgaContractors"/>
+                    <End EntitySet="DGAs" Role="r_Dga"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterLeadServiceTypes_2_r_ServiceSubTypes" Association="com.knpl.dga.entity.MasterLeadServiceTypes_2_r_ServiceSubTypes">
+                    <End EntitySet="MasterLeadServiceTypes" Role="MasterLeadServiceTypes"/>
+                    <End EntitySet="MasterServiceSubTypes" Role="r_ServiceSubTypes"/>
+                </AssociationSet>
+                <AssociationSet Name="r_LeadServiceType_2_r_Leads" Association="com.knpl.dga.entity.r_LeadServiceType_2_r_Leads">
+                    <End EntitySet="Leads" Role="r_Leads"/>
+                    <End EntitySet="MasterLeadServiceTypes" Role="r_LeadServiceType"/>
+                </AssociationSet>
+                <AssociationSet Name="DGAs_2_r_Depot" Association="com.knpl.dga.entity.DGAs_2_r_Depot">
+                    <End EntitySet="DGAs" Role="DGAs"/>
+                    <End EntitySet="MasterDepots" Role="r_Depot"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterPricings_2_r_Product" Association="com.knpl.dga.entity.MasterPricings_2_r_Product">
+                    <End EntitySet="MasterPricings" Role="MasterPricings"/>
+                    <End EntitySet="MasterProducts" Role="r_Product"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Leads_2_r_State" Association="com.knpl.dga.entity.r_Leads_2_r_State">
+                    <End EntitySet="Leads" Role="r_Leads"/>
+                    <End EntitySet="MasterStates" Role="r_State"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Dealer_2_r_DgaDealers" Association="com.knpl.dga.entity.r_Dealer_2_r_DgaDealers">
+                    <End EntitySet="MapDGADealers" Role="r_DgaDealers"/>
+                    <End EntitySet="MasterDealers" Role="r_Dealer"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterPricings_2_r_ProductCategory" Association="com.knpl.dga.entity.MasterPricings_2_r_ProductCategory">
+                    <End EntitySet="MasterPricings" Role="MasterPricings"/>
+                    <End EntitySet="MasterProductCategories" Role="r_ProductCategory"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Dga_2_r_Leads" Association="com.knpl.dga.entity.r_Dga_2_r_Leads">
+                    <End EntitySet="DGAs" Role="r_Dga"/>
+                    <End EntitySet="Leads" Role="r_Leads"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterPricings_2_r_System" Association="com.knpl.dga.entity.MasterPricings_2_r_System">
+                    <End EntitySet="MasterPricings" Role="MasterPricings"/>
+                    <End EntitySet="MasterSystems" Role="r_System"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Contractor_2_r_DgaContractors" Association="com.knpl.dga.entity.r_Contractor_2_r_DgaContractors">
+                    <End EntitySet="MapDGAContractors" Role="r_DgaContractors"/>
+                    <End EntitySet="MasterContractors" Role="r_Contractor"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Dga_2_r_Visits" Association="com.knpl.dga.entity.r_Dga_2_r_Visits">
+                    <End EntitySet="DGAs" Role="r_Dga"/>
+                    <End EntitySet="Visits" Role="r_Visits"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Areas_2_r_LeadsToPaintingReq" Association="com.knpl.dga.entity.r_Areas_2_r_LeadsToPaintingReq">
+                    <End EntitySet="Areas" Role="r_Areas"/>
+                    <End EntitySet="MapLeadsToPaintingReq" Role="r_LeadsToPaintingReq"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Leads_2_r_PaintingReqSlab" Association="com.knpl.dga.entity.r_Leads_2_r_PaintingReqSlab">
+                    <End EntitySet="Leads" Role="r_Leads"/>
+                    <End EntitySet="MasterPaintingReqSlab" Role="r_PaintingReqSlab"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterSaleGroups_2_r_MasterSaleGroups" Association="com.knpl.dga.entity.MasterSaleGroups_2_r_MasterSaleGroups">
+                    <End EntitySet="MasterSaleGroups" Role="MasterSaleGroups"/>
+                    <End EntitySet="MasterSaleGroups" Role="r_MasterSaleGroups"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterPricings_2_r_PaintType" Association="com.knpl.dga.entity.MasterPricings_2_r_PaintType">
+                    <End EntitySet="MasterPricings" Role="MasterPricings"/>
+                    <End EntitySet="MasterPaintTypes" Role="r_PaintType"/>
+                </AssociationSet>
+                <AssociationSet Name="Leads_2_r_Depot" Association="com.knpl.dga.entity.Leads_2_r_Depot">
+                    <End EntitySet="Leads" Role="Leads"/>
+                    <End EntitySet="MasterDepots" Role="r_Depot"/>
+                </AssociationSet>
+                <AssociationSet Name="DGAs_2_r_Division" Association="com.knpl.dga.entity.DGAs_2_r_Division">
+                    <End EntitySet="DGAs" Role="DGAs"/>
+                    <End EntitySet="MasterDivisions" Role="r_Division"/>
+                </AssociationSet>
+                <AssociationSet Name="DGAs_2_r_Pincode" Association="com.knpl.dga.entity.DGAs_2_r_Pincode">
+                    <End EntitySet="DGAs" Role="DGAs"/>
+                    <End EntitySet="MasterPincodes" Role="r_Pincode"/>
+                </AssociationSet>
+                <AssociationSet Name="DGAs_2_r_State" Association="com.knpl.dga.entity.DGAs_2_r_State">
+                    <End EntitySet="DGAs" Role="DGAs"/>
+                    <End EntitySet="MasterStates" Role="r_State"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Leads_2_r_SourceDealer" Association="com.knpl.dga.entity.r_Leads_2_r_SourceDealer">
+                    <End EntitySet="MasterDealers" Role="r_SourceDealer"/>
+                    <End EntitySet="Leads" Role="r_Leads"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterPincodes_2_r_MasterSaleGroups" Association="com.knpl.dga.entity.MasterPincodes_2_r_MasterSaleGroups">
+                    <End EntitySet="MasterPincodes" Role="MasterPincodes"/>
+                    <End EntitySet="MasterSaleGroups" Role="r_MasterSaleGroups"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Dga_2_r_DgaDealers" Association="com.knpl.dga.entity.r_Dga_2_r_DgaDealers">
+                    <End EntitySet="MapDGADealers" Role="r_DgaDealers"/>
+                    <End EntitySet="DGAs" Role="r_Dga"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Lead_2_r_MapLeadsToPaintingReqs" Association="com.knpl.dga.entity.r_Lead_2_r_MapLeadsToPaintingReqs">
+                    <End EntitySet="Leads" Role="r_Lead"/>
+                    <End EntitySet="MapLeadsToPaintingReq" Role="r_MapLeadsToPaintingReqs"/>
+                </AssociationSet>
+                <AssociationSet Name="DGAs_2_r_DgaType" Association="com.knpl.dga.entity.DGAs_2_r_DgaType">
+                    <End EntitySet="DGAs" Role="DGAs"/>
+                    <End EntitySet="MasterDGATypes" Role="r_DgaType"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Leads_2_r_SourceContractor" Association="com.knpl.dga.entity.r_Leads_2_r_SourceContractor">
+                    <End EntitySet="Leads" Role="r_Leads"/>
+                    <End EntitySet="MasterContractors" Role="r_SourceContractor"/>
+                </AssociationSet>
+                <AssociationSet Name="r_LeadStatus_2_r_Leads" Association="com.knpl.dga.entity.r_LeadStatus_2_r_Leads">
+                    <End EntitySet="MasterLeadStatus" Role="r_LeadStatus"/>
+                    <End EntitySet="Leads" Role="r_Leads"/>
+                </AssociationSet>
+                <AssociationSet Name="DGAs_2_r_Town" Association="com.knpl.dga.entity.DGAs_2_r_Town">
+                    <End EntitySet="DGAs" Role="DGAs"/>
+                    <End EntitySet="MasterTowns" Role="r_Town"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Leads_2_r_PaintType" Association="com.knpl.dga.entity.r_Leads_2_r_PaintType">
+                    <End EntitySet="MasterPaintTypes" Role="r_PaintType"/>
+                    <End EntitySet="Leads" Role="r_Leads"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Dga_2_r_TargetAccomplishments" Association="com.knpl.dga.entity.r_Dga_2_r_TargetAccomplishments">
+                    <End EntitySet="DGAs" Role="r_Dga"/>
+                    <End EntitySet="TargetAccomplishments" Role="r_TargetAccomplishments"/>
+                </AssociationSet>
+                <AssociationSet Name="DGAs_2_r_SaleGroup" Association="com.knpl.dga.entity.DGAs_2_r_SaleGroup">
+                    <End EntitySet="DGAs" Role="DGAs"/>
+                    <End EntitySet="MasterSaleGroups" Role="r_SaleGroup"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Attendances_2_r_Dga" Association="com.knpl.dga.entity.r_Attendances_2_r_Dga">
+                    <End EntitySet="Attendances" Role="r_Attendances"/>
+                    <End EntitySet="DGAs" Role="r_Dga"/>
+                </AssociationSet>
+                <AssociationSet Name="r_MapLeadsToPaintingReqs_2_r_MasterPaintingReq" Association="com.knpl.dga.entity.r_MapLeadsToPaintingReqs_2_r_MasterPaintingReq">
+                    <End EntitySet="MasterPaintingReqs" Role="r_MasterPaintingReq"/>
+                    <End EntitySet="MapLeadsToPaintingReq" Role="r_MapLeadsToPaintingReqs"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Dga_2_r_OfficeEmployeeContacts" Association="com.knpl.dga.entity.r_Dga_2_r_OfficeEmployeeContacts">
+                    <End EntitySet="OfficeEmployeeContacts" Role="r_OfficeEmployeeContacts"/>
+                    <End EntitySet="DGAs" Role="r_Dga"/>
+                </AssociationSet>
+                <AssociationSet Name="r_LeadSource_2_r_Leads" Association="com.knpl.dga.entity.r_LeadSource_2_r_Leads">
+                    <End EntitySet="MasterLeadSources" Role="r_LeadSource"/>
+                    <End EntitySet="Leads" Role="r_Leads"/>
+                </AssociationSet>
+                <AssociationSet Name="DGAs_2_r_PayrollCompany" Association="com.knpl.dga.entity.DGAs_2_r_PayrollCompany">
+                    <End EntitySet="DGAs" Role="DGAs"/>
+                    <End EntitySet="MasterPayrollCompanies" Role="r_PayrollCompany"/>
+                </AssociationSet>
+                <AssociationSet Name="MobileOTPVerification_2_r_DgaDevices" Association="com.knpl.dga.entity.MobileOTPVerification_2_r_DgaDevices">
+                    <End EntitySet="MobileOTPVerification" Role="MobileOTPVerification"/>
+                    <End EntitySet="DGADevices" Role="r_DgaDevices"/>
+                </AssociationSet>
+                <AssociationSet Name="r_DgaContractor_2_r_Leads" Association="com.knpl.dga.entity.r_DgaContractor_2_r_Leads">
+                    <End EntitySet="MapDGAContractors" Role="r_DgaContractor"/>
+                    <End EntitySet="Leads" Role="r_Leads"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterPricings_2_r_MasterClass" Association="com.knpl.dga.entity.MasterPricings_2_r_MasterClass">
+                    <End EntitySet="MasterPricings" Role="MasterPricings"/>
+                    <End EntitySet="MasterClasses" Role="r_MasterClass"/>
+                </AssociationSet>
+                <AssociationSet Name="PreEstimation_2_r_MapLeadsToPaintingReqs" Association="com.knpl.dga.entity.PreEstimation_2_r_MapLeadsToPaintingReqs">
+                    <End EntitySet="PreEstimation" Role="PreEstimation"/>
+                    <End EntitySet="MapLeadsToPaintingReq" Role="r_MapLeadsToPaintingReqs"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterPricings_2_r_Pincode" Association="com.knpl.dga.entity.MasterPricings_2_r_Pincode">
+                    <End EntitySet="MasterPricings" Role="MasterPricings"/>
+                    <End EntitySet="MasterPincodes" Role="r_Pincode"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterPricings_2_r_ValueAddition" Association="com.knpl.dga.entity.MasterPricings_2_r_ValueAddition">
+                    <End EntitySet="MasterPricings" Role="MasterPricings"/>
+                    <End EntitySet="MasterValueAdditions" Role="r_ValueAddition"/>
+                </AssociationSet>
+                <AssociationSet Name="MasterPricings_2_r_ServiceSubType" Association="com.knpl.dga.entity.MasterPricings_2_r_ServiceSubType">
+                    <End EntitySet="MasterPricings" Role="MasterPricings"/>
+                    <End EntitySet="MasterServiceSubTypes" Role="r_ServiceSubType"/>
+                </AssociationSet>
+                <AssociationSet Name="Leads_2_r_Division" Association="com.knpl.dga.entity.Leads_2_r_Division">
+                    <End EntitySet="Leads" Role="Leads"/>
+                    <End EntitySet="MasterDivisions" Role="r_Division"/>
+                </AssociationSet>
+                <FunctionImport Name="SendMobileOTP" ReturnType="com.knpl.dga.entity.MobileOTPVerification" EntitySet="MobileOTPVerification" m:HttpMethod="GET">
+                    <Parameter Name="Mobile" Type="Edm.String" Nullable="false"/>
+                    <Parameter Name="type" Type="Edm.String" Nullable="true"/>
+                </FunctionImport>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
