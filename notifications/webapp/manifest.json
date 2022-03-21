@@ -30,8 +30,8 @@
                     },
                     "semanticObject": "Manage",
                     "action": "PaintReq",
-                    "title": "Painter Requests",
-                    "subTitle": "",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
                     "icon": ""
                 }
             }
