@@ -83,7 +83,8 @@ sap.ui.define([
                 GroupId:"",
                 IsGroupNotification:false,
                 RedirectionType:"",
-                RedirectionTo:""
+                RedirectionTo:"",
+                Receivers:[]
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -113,9 +114,7 @@ sap.ui.define([
             }
 
         },
-        onPressScheduled:function(){
-            
-        },
+     
         _postDataToSave: function () {
             /*
              * Author: manik saluja
@@ -127,21 +126,26 @@ sap.ui.define([
             var oModelControl = oView.getModel("oModelControl");
             oModelControl.setProperty("/PageBusy", true);
             var othat = this;
-            var c1, c2, c3, c4;
+            var c1,c1A, c2, c3, c4;
             c1 = othat._CheckEmptyFieldsPostPayload();
             c1.then(function (oPayload) {
-                c2 = othat._CreateObject(oPayload)
-                c2.then(function () {
-                    c3 = othat._uploadFile();
-                    c3.then(function () {
-                        oModelControl.setProperty("/PageBusy", false);
-                        //othat.onNavToHome();
+                c1A = othat._AddMultiComboData(oPayload);
+                c1A.then(function(oPayload){
+                    c2 = othat._CreateObject(oPayload)
+                    c2.then(function () {
+                        c3 = othat._uploadFile();
+                        c3.then(function () {
+                            oModelControl.setProperty("/PageBusy", false);
+                            //othat.onNavToHome();
+                        })
                     })
                 })
+              
             })
 
 
         },
+      
         _CreateObject: function (oPayLoad) {
             console.log(oPayLoad);
             var othat = this;

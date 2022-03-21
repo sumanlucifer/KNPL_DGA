@@ -45,7 +45,7 @@
                <Input  maxLength="300" width="100%"
                 value="{path : 'oModelView>/Body', type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :500, search :'^[a-zA-Z0-9]{1}[wW]*' } }" required="true" />
                 <Label text="{i18n>colIsGroupNotification}"/>
-								<Switch state="{oModelView>/IsGroupNotification}" customTextOn="Yes" customTextOff="No" >
+								<Switch change="onSwitch1Change" state="{oModelView>/IsGroupNotification}" customTextOn="Yes" customTextOff="No" >
 									<layoutData>
 										<FlexItemData growFactor="1"/>
 									</layoutData>
