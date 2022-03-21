@@ -1,13 +1,13 @@
 /*global QUnit*/
 
 sap.ui.define([
-	"comknpldga/notifications/controller/App.controller"
+	"comknpldga/ui5template/controller/View1.controller"
 ], function (Controller) {
 	"use strict";
 
-	QUnit.module("App Controller");
+	QUnit.module("View1 Controller");
 
-	QUnit.test("I should test the App controller", function (assert) {
+	QUnit.test("I should test the View1 controller", function (assert) {
 		var oAppController = new Controller();
 		oAppController.onInit();
 		assert.ok(oAppController);

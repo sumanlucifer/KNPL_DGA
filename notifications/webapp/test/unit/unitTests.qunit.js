@@ -5,7 +5,7 @@ sap.ui.getCore().attachInit(function () {
 	"use strict";
 
 	sap.ui.require([
-		"comknpldga/notifications/test/unit/AllTests"
+		"comknpldga/ui5template/test/unit/AllTests"
 	], function () {
 		QUnit.start();
 	});

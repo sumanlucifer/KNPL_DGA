@@ -1,5 +1,5 @@
 sap.ui.define([
-	"comknpldga/notifications/test/unit/controller/App.controller"
+	"comknpldga/ui5template/test/unit/controller/View1.controller"
 ], function () {
 	"use strict";
 });
