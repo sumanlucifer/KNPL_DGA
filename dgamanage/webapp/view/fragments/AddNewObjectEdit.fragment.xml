@@ -9,24 +9,24 @@
                  <Input valueStateText="Kindly enter a mobile no with 10 digits." required="true" type="Number" value="{path:'oModelView>/Mobile',type:'sap.ui.model.type.String',constraints:{minLength:10,maxLength:10 }}" />
               <core:Title text="{i18n>BasicDetails}" />
                 <Label text="{i18n>SalesGroup}" />
-                 <Text text="{path : 'SaleGroup/Name'}"  />
+                 <Text text="{path : 'oModelView>/SaleGroup/Name'}"  />
               <Label text="{i18n>PayrollCompany}" />
-              <Text text="{path : 'PayrollCompany/Name'}"  />
+              <Text text="{path : 'oModelView>/PayrollCompany/Name'}"  />
                 <core:Title text="{i18n>LocationDetails}" />
                   
                   <Label text="{i18n>PinCode}" />
-                <Text text="{Pincode/Name}"  />
+                <Text text="{oModelView>/Pincode/Name}"  />
                 <Label text="{i18n>State}" />
-                 <Text text="{path:'State/Name'}" />
+                 <Text text="{path:'oModelView>/State/Name'}" />
                 <Label text="{i18n>City}"  />
-                 <Text text="{path : 'Town/Name'}"  />
+                 <Text text="{path : 'oModelView>/Town/Name'}"  />
 
                  <Label text="{i18n>Zone}" />
-                <Text text="{path : 'Zone'}"  />
+                <Text text="{path : 'oModelView>/Zone'}"  />
                 <Label text="{i18n>Division}" />
-                <Text text="{path : 'Division/Id'}"  />
+                <Text text="{path : 'oModelView>/Division/Id'}"  />
                 <Label text="{i18n>Depot}" />
-                     <Text text="{path : 'Depot/Depot'}"  />
+                     <Text text="{path : 'oModelView>/Depot/Depot'}"  />
                 <!-- <Label text="{i18n>LinkDealer}" visible="{= ${oModelControl>/mode} === 'Add'}" />
                 <MultiInput visible="{= ${oModelControl>/mode} === 'Add'}"  placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDealersValueHelp" tokens="{path:'oModelControl>/MultiCombo/Dealers'}">
                     <tokens>

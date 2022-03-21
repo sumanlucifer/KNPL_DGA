@@ -114,7 +114,7 @@ sap.ui.define(
                     c1.then(function () {
                         c2 = othat._setInitViewModel();
                         c2.then(function () {
-                            c2A = othat._getDisplayData(oModel.getProperty("/bindProp"));
+                            c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
                             c2A.then(function () {
                                 c3 = othat._LoadFragment("AddNewObjectEdit");
                                 c3.then(function () {
@@ -181,11 +181,11 @@ sap.ui.define(
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "ComplaintType,SalesGroup";
+                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
-                            //$expand: exPand,
+                            $expand: exPand,
                         },
                         success: function (data) {
 
