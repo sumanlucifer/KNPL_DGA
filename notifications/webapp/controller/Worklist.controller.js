@@ -109,9 +109,9 @@ sap.ui.define(
                     oModelControl.setProperty("/PageBusy", true)
                     c1 = othat._addSearchFieldAssociationToFB();
                     c1.then(function () {
-                        c2 = othat._getLoggedInInfo();
+                        c2 = othat._dummyPromise();
                         c2.then(function () {
-                            c3 = othat._initTableData();
+                            c3 = othat._dummyPromise();
                             c3.then(function () {
                                 oModelControl.setProperty("/PageBusy", false)
                             })
@@ -141,7 +141,7 @@ sap.ui.define(
                         oBasicSearch = new sap.m.SearchField({
                             value: "{oModelControl>/filterBar/Search}",
                             showSearchButton: true,
-                            search: othat.onFilterBarGo.bind(othat)
+                            search: othat.onFilter.bind(othat)
                         });
                         oFilterBar.setBasicSearch(oBasicSearch);
                     }
@@ -184,105 +184,74 @@ sap.ui.define(
                     }
 
                 },
-                _initTableData: function () {
-                    /*
-                     * Author: manik saluja
-                     * Date: 02-Dec-2021
-                     * Language:  JS
-                     * Purpose: Used to load the table data and trigger the on before binding method.
-                     */
-                    var promise = jQuery.Deferred();
-                    var oView = this.getView();
-                    var othat = this;
-                    oView.byId("idWorkListTable1").rebindTable();
-                    promise.resolve();
-                    return promise;
-                },
-                onBindTblComplainList: function (oEvent) {
-                    /*
-                     * Author: manik saluja
-                     * Date: 02-Dec-2021
-                     * Language:  JS
-                     * Purpose: init binding method for the table.
-                     */
-                    var oBindingParams = oEvent.getParameter("bindingParams");
-                    oBindingParams.parameters["expand"] = "Painter,ComplaintType";
-                    oBindingParams.sorter.push(new Sorter("CreatedAt", true));
-
-                    // Apply Filters
-                    var oFilter = this._CreateFilter();
-                    if (oFilter) {
-                        oBindingParams.filters.push(oFilter);
-                    }
-
-                },
-                onFilterBarGo: function () {
-                    var oView = this.getView();
-                    oView.byId("idWorkListTable1").rebindTable();
-                },
-                _CreateFilter: function () {
+              
+                onFilter: function (oEvent) {
                     var aCurrentFilterValues = [];
                     var oViewFilter = this.getView()
                         .getModel("oModelControl")
                         .getProperty("/filterBar");
-
-                    var aFlaEmpty = false;
-                    // init filters - is archived and complaint type id is 1
-                    aCurrentFilterValues.push(
-                        new Filter("IsArchived", FilterOperator.EQ, false));
-                    aCurrentFilterValues.push(
-                        new Filter("ComplaintTypeId", FilterOperator.NE, 1));
-
-
-                    // filter bar filters
+                    var aFlaEmpty = true;
                     for (let prop in oViewFilter) {
                         if (oViewFilter[prop]) {
-                            if (prop === "StartDate") {
-                                 // converstions are made as the difference between utc and the server time
+                            if (prop === "ZoneId") {
                                 aFlaEmpty = false;
                                 aCurrentFilterValues.push(
-                                    new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
-                            }else if (prop === "EndDate") {
-                                // converstions are made as the difference between utc and the server time
+                                    new Filter("ZoneId", FilterOperator.EQ, oViewFilter[prop])
+                                );
+                            } else if (prop === "DivisionId") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter("DivisionId", FilterOperator.EQ, oViewFilter[prop])
+                                );
+                            } else if (prop === "StartDate") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter(
+                                        "CreatedAt",
+                                        FilterOperator.GE,
+                                        new Date(oViewFilter[prop])
+                                    )
+                                );
+                            } else if (prop === "EndDate") {
                                 aFlaEmpty = false;
                                 var oDate = oViewFilter[prop].setDate(oViewFilter[prop].getDate() + 1);
                                 aCurrentFilterValues.push(
-                                    new Filter("CreatedAt", FilterOperator.LT, oDate));
-                            } else if (prop === "Status") {
-                                aFlaEmpty = false;
-                                aCurrentFilterValues.push(
-                                    new Filter("ComplaintStatus", FilterOperator.EQ, oViewFilter[prop]));
-                            } else if (prop === "ZoneId") {
-                                aFlaEmpty = false;
-                                aCurrentFilterValues.push(
-                                    new Filter("Painter/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
-                            } else if (prop === "DvisionId") {
-                                aFlaEmpty = false;
-                                aCurrentFilterValues.push(
-                                    new Filter("Painter/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
-                            } else if (prop === "DepotId") {
-                                aFlaEmpty = false;
-                                aCurrentFilterValues.push(
-                                    new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop]));
-                            } else if (prop === "Search") {
+                                    new Filter("CreatedAt", FilterOperator.LT, oDate)
+                                );
+                            } else if (prop === "Name") {
                                 aFlaEmpty = false;
                                 aCurrentFilterValues.push(
                                     new Filter(
                                         [
                                             new Filter({
-                                                path: "Painter/Name",
+                                                path: "Name",
                                                 operator: "Contains",
                                                 value1: oViewFilter[prop].trim(),
                                                 caseSensitive: false
                                             }),
                                             new Filter({
-                                                path: "ComplaintCode",
+                                                path: "MembershipCard",
                                                 operator: "Contains",
                                                 value1: oViewFilter[prop].trim(),
                                                 caseSensitive: false
-                                            })
+                                            }),
+                                            new Filter({
+                                                path: "Mobile",
+                                                operator: "Contains",
+                                                value1: oViewFilter[prop].trim(),
+                                                caseSensitive: false
+                                            }),
                                         ],
                                         false
+                                    )
+                                );
+                            } else {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter(
+                                        prop,
+                                        FilterOperator.Contains,
+                                        oViewFilter[prop].trim()
                                     )
                                 );
                             }
@@ -293,12 +262,32 @@ sap.ui.define(
                         filters: aCurrentFilterValues,
                         and: true,
                     });
+                    //table1
+                    var oTable = this.getView().byId("table");
+                    var oBinding = oTable.getBinding("items");
                     if (!aFlaEmpty) {
-                        return endFilter;
+                        oBinding.filter(endFilter);
                     } else {
-                        return false;
+                        oBinding.filter([]);
                     }
+                    //table2
+                    var oTable2 = this.getView().byId("table1");
+                    var oBinding2 = oTable2.getBinding("items");
+                    if (!aFlaEmpty && oBinding2) {
+                        oBinding2.filter(endFilter);
+                    } else if (aFlaEmpty && oBinding) {
+                        oBinding2.filter([]);
+                    }
+                     //table3
+                     var oTable3 = this.getView().byId("table3");
+                     var oBinding3 = oTable3.getBinding("items");
+                     if (!aFlaEmpty && oBinding3) {
+                        oBinding3.filter(endFilter);
+                     } else if (aFlaEmpty && oBinding3) {
+                         oBinding.filter([]);
+                     }
                 },
+
 
                 onResetFilterBar: function () {
                     this._ResetFilterBar();
@@ -314,6 +303,56 @@ sap.ui.define(
                     });
 
                 },
+                onUpdateFinished: function (oEvent) {
+                    // update the worklist's object counter after the table update
+                    var sTitle,sDraft,
+                                oTable = this.getView().byId("table"),
+                                iTotalItems = oEvent.getParameter("total");
+                           // sDraft = this.getResourceBundle().getText("draftCount", [iTotalItems]);
+                           // this.getModel("worklistView").setProperty("/draft", sDraft);
+                            
+                            if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
+                                sDraft = this.getResourceBundle().getText("draftCount", [
+                                    iTotalItems,
+                                ]);
+                            } else {
+                                sDraft = this.getResourceBundle().getText("draftCount", [0]);
+                            }
+                            this.getModel("worklistView").setProperty("/draft", sDraft);
+        
+                        
+                },
+        
+                onUpdateFinished1: function (oEvent) {
+                    // update the worklist's object counter after the table update
+                     var sTitle,sSchedule,
+                                oTable = this.getView().byId("table1"),
+                                iTotalItems = oEvent.getParameter("total");
+                            if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
+                                sSchedule = this.getResourceBundle().getText("scheduledCount", [
+                                    iTotalItems,
+                                ]);
+                            } else {
+                                sSchedule = this.getResourceBundle().getText("scheduledCount", [0]);
+                            }
+                            this.getModel("worklistView").setProperty("/scheduled", sSchedule);
+                },
+           
+                onUpdateFinished2: function (oEvent) {
+                    // update the worklist's object counter after the table update
+                     var sTitle,sTrigger,
+                                oTable = this.getView().byId("table2"),
+                                iTotalItems = oEvent.getParameter("total");
+                             if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
+                                sTrigger = this.getResourceBundle().getText("triggeredCount", [
+                                    iTotalItems,
+                                ]);
+                            } else {
+                                sTrigger = this.getResourceBundle().getText("triggeredCount", [0]);
+                            }
+                            this.getModel("worklistView").setProperty("/triggered", sTrigger);
+                },
+        
                 onZoneChange: function (oEvent) {
                     var sId = oEvent.getSource().getSelectedKey();
                     var oView = this.getView();

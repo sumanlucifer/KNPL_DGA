@@ -31,7 +31,11 @@ sap.ui.define([
         getRouter: function () {
             return UIComponent.getRouterFor(this);
         },
-
+        _dummyPromise: function (oPayload) {
+            var promise = $.Deferred();
+            promise.resolve(oPayload)
+            return promise;
+        },
         /**
          * Convenience method for getting the view model by name.
          * @public
