@@ -254,13 +254,46 @@ sap.ui.define([
                 oViewModel.getProperty("/shareSendEmailMessage")
             );
         },
-        onDialogClose:function(){
+        _getViewFragment: function (sFragmentName) {
+            /*
+             * Author: manik saluja
+             * Date: 14-March-2022
+             * Language:  JS
+             * Purpose: Common method to access fragmets from folder view.fragments. this method is 
+             * written so that the developer dont writes the Fragment.load again.
+             */
+            var oView = this.getView();
+            var oModel;
+            if (oView.getModel("oModelControl")) {
+                oModel = oView.getModel("oModelControl");
+            } else {
+                oModel = oView.getModel("oModelDisplay");
+            }
+            var othat = this;
+
+            this._formFragments = Fragment.load({
+                id: oView.getId(),
+                name: oModel.getProperty("/resourcePath") + ".view.fragments." + sFragmentName,
+                controller: othat,
+            }).then(function (oFragament) {
+                return oFragament;
+            });
+
+
+            return this._formFragments;
+        },
+
+        _onDialogClose:function(){
             /*
                 Internal method to handle the closure of all the dialogs
                 if dialog 1 is open first and on top over that dialog 2 is open
                 then dialog 2 code for closure should be written before dialog 1
+
+                value help with select dialog box wont require to close they just are required 
+                to get destroyed
             */
             if (this._pValueHelpDialog) {
+                
                 this._pValueHelpDialog.destroy();
                 delete this._pValueHelpDialog;
                 return;

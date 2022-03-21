@@ -45,6 +45,10 @@ sap.ui.define(
                             EndDate:null,
                             Status: "",
                             Search: "",
+                            ZoneId: "",
+                            DivisionId: "",
+                            DepotId: "",
+    
                         },
                         PageBusy: true
                     };
@@ -54,6 +58,23 @@ sap.ui.define(
                         .getRoute("worklist")
                         .attachMatched(this._onRouteMatched, this);
 
+
+                },
+                _ResetFilterBar: function () {
+                    var aCurrentFilterValues = [];
+                    var aResetProp = {
+                        StartDate: null,
+                        Status: "",
+                        Search: "",
+                        ZoneId: "",
+                        DivisionId: "",
+                        DepotId: "",
+
+                    };
+                    var oViewModel = this.getView().getModel("oModelControl");
+                    oViewModel.setProperty("/filterBar", aResetProp);
+                    var oTable = this.getView().byId("idWorkListTable1");
+                    oTable.rebindTable();
 
                 },
                 _onRouteMatched: function () {
@@ -231,6 +252,18 @@ sap.ui.define(
                                 aFlaEmpty = false;
                                 aCurrentFilterValues.push(
                                     new Filter("ComplaintStatus", FilterOperator.EQ, oViewFilter[prop]));
+                            } else if (prop === "ZoneId") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter("Painter/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
+                            } else if (prop === "DvisionId") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter("Painter/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
+                            } else if (prop === "DepotId") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop]));
                             } else if (prop === "Search") {
                                 aFlaEmpty = false;
                                 aCurrentFilterValues.push(
@@ -271,19 +304,7 @@ sap.ui.define(
                     this._ResetFilterBar();
                 },
 
-                _ResetFilterBar: function () {
-                    var aCurrentFilterValues = [];
-                    var aResetProp = {
-                        StartDate: null,
-                        Status: "",
-                        Search: "",
-                    };
-                    var oViewModel = this.getView().getModel("oModelControl");
-                    oViewModel.setProperty("/filterBar", aResetProp);
-                    var oTable = this.getView().byId("idWorkListTable1");
-                    oTable.rebindTable();
-
-                },
+              
                 onListItemPress: function (oEvent) {
                     var oBj = oEvent.getSource().getBindingContext().getObject();
                     var oRouter = this.getOwnerComponent().getRouter();
@@ -293,6 +314,31 @@ sap.ui.define(
                     });
 
                 },
+                onZoneChange: function (oEvent) {
+                    var sId = oEvent.getSource().getSelectedKey();
+                    var oView = this.getView();
+                    // setting value for division
+                    var oDivision = oView.byId("idDivision");
+                    oDivision.clearSelection();
+                    oDivision.setValue("");
+                    var oDivItems = oDivision.getBinding("items");
+                    oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
+                    //setting the data for depot;
+                    var oDepot = oView.byId("idDepot");
+                    oDepot.clearSelection();
+                    oDepot.setValue("");
+                    // clearning data for dealer
+                },
+                onDivisionChange: function (oEvent) {
+                    var sKey = oEvent.getSource().getSelectedKey();
+                    var oView = this.getView();
+                    var oDepot = oView.byId("idDepot");
+                    var oDepBindItems = oDepot.getBinding("items");
+                    oDepot.clearSelection();
+                    oDepot.setValue("");
+                    oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
+                },
+        
                 onPressDelete:function(oEvent){
                     var oView = this.getView();
                     var oBj = oEvent.getSource().getBindingContext().getObject();

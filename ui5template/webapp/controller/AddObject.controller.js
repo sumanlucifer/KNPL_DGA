@@ -92,13 +92,9 @@ sap.ui.define([
             var oVboxProfile = oView.byId("oVBoxAddObjectPage");
             var sResourcePath = oView.getModel("oModelControl").getProperty("/resourcePath")
             oVboxProfile.destroyItems();
-            return Fragment.load({
-                id: oView.getId(),
-                controller: othat,
-                name: sResourcePath + ".view.fragments." + mParam,
-            }).then(function (oControlProfile) {
-                oView.addDependent(oControlProfile);
-                oVboxProfile.addItem(oControlProfile);
+            return this._getViewFragment(mParam).then(function (oControl) {
+                oView.addDependent(oControl);
+                oVboxProfile.addItem(oControl);
                 promise.resolve();
                 return promise;
             });
