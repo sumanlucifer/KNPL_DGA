@@ -4,26 +4,14 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                    <fb:FilterBar showRestoreButton="false" id="filterbar" reset="onResetFilterBar" search="onFilterBarGo" useToolbar="false" showRestoreOnFB="true">
+                    <fb:FilterBar showRestoreButton="false" id="filterbar" reset="onResetFilterBar" search="onFilterBarGo" useToolbar="false" showRestoreOnFB="false">
                         <fb:filterGroupItems>
                        
-                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="StartDate" label="{i18n>StartDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                             
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>Role}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/StartDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="EndDate" label="{i18n>EndDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                 <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/EndDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>MainObject} {i18n>Status}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                     <ComboBox id="idStatus" placeholder="{i18n>Select} {i18n>MainObject} {i18n>Status}" selectionChange="onStatusChange" selectedKey="{path:'oModelControl>/filterBar/Status' }">
-                                       <core:Item text="{i18n>Registered}" key="REGISTERED"/>
-                                        <core:Item text="{i18n>Inreview}" key="INREVIEW"/>
-                                        <core:Item text="{i18n>Resolved}" key="RESOLVED"/>
-                                        <core:Item text="{i18n>Withdrawn}" key="WITHDRAWN"/>
+                                     <ComboBox id="idStatus" placeholder="{i18n>Select} {i18n>Role}" selectionChange="onStatusChange"  items="{/MasterRoles}" selectedKey="{path:'oModelControl>/filterBar/Status' }">
+                                      <core:Item text="{Name}" key="{Id}" />
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
