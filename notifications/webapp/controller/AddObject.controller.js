@@ -79,7 +79,7 @@ sap.ui.define([
                 Subject: "",
                 IsLater: false,
                 ScheduledDate:null,
-                ScheduledTime:null,
+                ScheduledTime:"",
                 GroupId:"",
                 IsGroupNotification:false,
                 RedirectionType:"",

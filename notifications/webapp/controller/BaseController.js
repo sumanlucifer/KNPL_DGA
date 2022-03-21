@@ -108,7 +108,7 @@ sap.ui.define([
             var oValidate = new Validator();
             var othat = this;
             var oForm = oView.byId("FormObjectData");
-            var bFlagValidate = oValidate.validate(oForm);
+            var bFlagValidate = oValidate.validate(oForm,true);
             if (!bFlagValidate) {
                 othat._showMessageToast("Message3")
                 return false;
@@ -224,7 +224,7 @@ sap.ui.define([
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
             var oModelView = oView.getModel("oModelView");
-            oModelControl.setProperty("/MultiCombo/MultiCombo", []);
+            oModelControl.setProperty("/MultiCombo/Receivers", []);
             oModelView.setProperty("/GroupId","")
         },
         onSwitch2Change: function (oEvent) {

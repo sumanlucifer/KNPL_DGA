@@ -24,7 +24,7 @@
 									placeholder="{i18n>linkPlaceHolder}" />
                 <Label required="true" text="{i18n>colReceivers}" visible="{= ${oModelView>/IsGroupNotification} === false}" />
 								
-                                 <MultiInput id="multiInputPainterAdd"  tokens="{oModelControl>/MultiCombo/Receivers}" valueHelpRequest="onValueHelpRequestedPainter" visible="{= ${oModelView>/IsGroupNotification} === false}">
+                                 <MultiInput id="multiInputPainterAdd"  tokens="{path:'oModelControl>/MultiCombo/Receivers'}" valueHelpRequest="onValueHelpRequestedPainter" visible="{= ${oModelView>/IsGroupNotification} === false}">
                                     <tokens>
                                         <Token editable="false" text="{oModelControl>PainterName}" key="{oModelControl>Id}"/>
                                     </tokens>
