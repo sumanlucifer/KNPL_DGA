@@ -45,6 +45,9 @@ sap.ui.define([
         getModel: function (sName) {
             return this.getView().getModel(sName);
         },
+        getResourceBundle: function () {
+            return this.getOwnerComponent().getModel("i18n").getResourceBundle();
+        },
 
         /**
          * Convenience method for setting the view model.

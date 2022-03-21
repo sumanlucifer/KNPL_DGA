@@ -57,7 +57,7 @@
         <f:content>
             <IconTabBar id="idIconTabBar3" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding notification-tab">
 				<items>
-					<IconTabFilter text="{i18n>Draft}">
+					<IconTabFilter text="{oModelControl>/Draft}">
 						 <core:Fragment fragmentName="com.knpl.dga.notifications.view.fragments.WorklistTable1" type="XML"/>
 					</IconTabFilter>
 					<IconTabFilter text="{i18n>Scheduled}">

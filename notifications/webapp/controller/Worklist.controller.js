@@ -50,6 +50,9 @@ sap.ui.define(
                             DepotId: "",
     
                         },
+                        draft:"",
+                        scheduled:"",
+                        triggered:"",
                         PageBusy: true
                     };
                     var oMdlCtrl = new JSONModel(oDataControl);
@@ -318,7 +321,7 @@ sap.ui.define(
                             } else {
                                 sDraft = this.getResourceBundle().getText("draftCount", [0]);
                             }
-                            this.getModel("worklistView").setProperty("/draft", sDraft);
+                            this.getModel("oModelControl").setProperty("/draft", sDraft);
         
                         
                 },
@@ -335,7 +338,7 @@ sap.ui.define(
                             } else {
                                 sSchedule = this.getResourceBundle().getText("scheduledCount", [0]);
                             }
-                            this.getModel("worklistView").setProperty("/scheduled", sSchedule);
+                            this.getModel("oModelControl").setProperty("/scheduled", sSchedule);
                 },
            
                 onUpdateFinished2: function (oEvent) {
@@ -350,7 +353,7 @@ sap.ui.define(
                             } else {
                                 sTrigger = this.getResourceBundle().getText("triggeredCount", [0]);
                             }
-                            this.getModel("worklistView").setProperty("/triggered", sTrigger);
+                            this.getModel("oModelControl").setProperty("/triggered", sTrigger);
                 },
         
                 onZoneChange: function (oEvent) {
