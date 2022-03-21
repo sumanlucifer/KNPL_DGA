@@ -118,7 +118,7 @@ modules:
     supported-platforms: []
 - name: comknpldganotifications
   type: html5
-  path: usersrole
+  path: notifications
   build-parameters:
     build-result: dist
     builder: custom
