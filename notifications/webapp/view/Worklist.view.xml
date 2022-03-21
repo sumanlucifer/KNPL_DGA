@@ -57,13 +57,13 @@
         <f:content>
             <IconTabBar id="idIconTabBar3" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding notification-tab">
 				<items>
-					<IconTabFilter text="{oModelControl>/Draft}">
+					<IconTabFilter text="{oModelControl>/draft}">
 						 <core:Fragment fragmentName="com.knpl.dga.notifications.view.fragments.WorklistTable1" type="XML"/>
 					</IconTabFilter>
-					<IconTabFilter text="{i18n>Scheduled}">
+					<IconTabFilter text="{oModelControl>/scheduled}">
 						 <core:Fragment fragmentName="com.knpl.dga.notifications.view.fragments.WorklistTable2" type="XML"/>
 					</IconTabFilter>
-					<IconTabFilter text="{i18n>Triggered}">
+					<IconTabFilter text="{oModelControl>/triggered}">
 						 <core:Fragment fragmentName="com.knpl.dga.notifications.view.fragments.WorklistTable3" type="XML"/>
 					</IconTabFilter>
 				</items>

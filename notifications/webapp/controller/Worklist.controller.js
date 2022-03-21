@@ -94,6 +94,16 @@ sap.ui.define(
                     oRouter.navTo("Add");
 
                 },
+                onAdd: function (oEvent) {
+                    // this.getModel("appView").setProperty("/viewFlag", "Y");
+                    // this.getRouter().navTo("createObject");
+                    var oRouter = this.getOwnerComponent().getRouter();
+                    oRouter.navTo("Add", {
+                    });
+                   
+        
+                },
+        
                 _InitData: function () {
 
                     /*

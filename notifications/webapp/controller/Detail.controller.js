@@ -63,7 +63,7 @@ sap.ui.define(
                 _SetDisplayData: function (oProp, sMode) {
                     var oData = {
                         mode: sMode,
-                        bindProp: "PainterComplainsSet(" + oProp + ")",
+                        bindProp: "Notification(" + oProp + ")",
                         complaintId: oProp,
                         PageBusy: true,
                         IcnTabKey: "0",

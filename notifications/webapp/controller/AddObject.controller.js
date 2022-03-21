@@ -75,10 +75,15 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var oDataView = {
-                Remark: "",
-                ComplaintTypeId: "",
-                "ComplaintSubtypeId": 8,
-                "PainterId": "",
+                Body: "",
+                Subject: "",
+                IsLater: false,
+                ScheduledDate:null,
+                ScheduledTime:null,
+                GroupId:"",
+                IsGroupNotification:false,
+                RedirectionType:"",
+                RedirectionTo:""
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -108,6 +113,9 @@ sap.ui.define([
             }
 
         },
+        onPressScheduled:function(){
+            
+        },
         _postDataToSave: function () {
             /*
              * Author: manik saluja
@@ -127,7 +135,7 @@ sap.ui.define([
                     c3 = othat._uploadFile();
                     c3.then(function () {
                         oModelControl.setProperty("/PageBusy", false);
-                        othat.onNavToHome();
+                        //othat.onNavToHome();
                     })
                 })
             })
@@ -135,22 +143,23 @@ sap.ui.define([
 
         },
         _CreateObject: function (oPayLoad) {
-            //console.log(oPayLoad);
+            console.log(oPayLoad);
             var othat = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
             return new Promise((resolve, reject) => {
-                oDataModel.create("/PainterComplainsSet", oPayLoad, {
-                    success: function (data) {
-                        othat._showMessageToast("Message2")
-                        resolve(data);
-                    },
-                    error: function (data) {
-                        othat._showMessageToast("Message4")
-                        reject(data);
-                    },
-                });
+                resolve();
+                // oDataModel.create("/NotificationSet", oPayLoad, {
+                //     success: function (data) {
+                //         othat._showMessageToast("Message2")
+                //         resolve(data);
+                //     },
+                //     error: function (data) {
+                //         othat._showMessageToast("Message4")
+                //         reject(data);
+                //     },
+                // });
             });
         }
 
