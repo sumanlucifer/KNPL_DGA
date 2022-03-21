@@ -77,9 +77,9 @@
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.Quotation" type="XML"/>
                     </IconTabFilter>    -->
                     <!-- Material Requisition tab -->
-                    <!-- <IconTabFilter  text="{i18n>MaterialRequisition}" key="3" >
+                    <IconTabFilter  text="{i18n>MaterialRequisition}" key="3" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.MaterialRequisition" type="XML"/>
-                    </IconTabFilter>    -->
+                    </IconTabFilter> 
                     <!-- Feedback tab -->
                     <!-- <IconTabFilter  text="{i18n>Feedback}" key="4" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.Feedback" type="XML"/>
