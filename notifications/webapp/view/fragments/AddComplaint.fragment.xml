@@ -14,13 +14,13 @@
 										<core:Item text="{i18n>link}" key="LINK"/>
 									</items>
 					</ComboBox>
-                    <Label visible="{= ${oModelView>/RedirectionType} === 'SCREEN'}" required="true" text="{i18n>colRedirectionTo}"/>
-								<ComboBox visible="{= ${oModelView>/RedirectionType} === 'SCREEN'}" width="100%" selectedKey="{oModelView>/RedirectionTo}"
+                    <Label visible="{= ${oModelView>/RedirectionType} === 'SCREEN'}"  text="{i18n>colRedirectionTo}"/>
+								<ComboBox visible="{= ${oModelView>/RedirectionType} === 'SCREEN'}" required="true" width="100%" selectedKey="{path:'oModelView>/RedirectionTo', type:'sap.ui.model.type.String', constraints:{minLength:1 } }"
 									items="{ path: '/MasterRedirectionSet' }" >
 									<core:Item key="{RedirectionKey}" text="{RedirectionValue}"/>
 								</ComboBox>
-                    <Label visible="{= ${oModelView>/RedirectionType} === 'LINK'}" required="true" text="{i18n>colRedirectionTo}"/>
-								<Input visible="{= ${oModelView>/RedirectionType} === 'LINK'}" width="100%" type="Url"  value="{oModelView>/RedirectionTo}"
+                    <Label visible="{= ${oModelView>/RedirectionType} === 'LINK'}"  text="{i18n>colRedirectionTo}"/>
+								<Input visible="{= ${oModelView>/RedirectionType} === 'LINK'}" width="100%" required="true"  value="{path:'oModelView>/RedirectionTo',type:'sap.ui.model.type.String', constraints:{minLength:1 } }"
 									placeholder="{i18n>linkPlaceHolder}" />
                 <Label required="true" text="{i18n>colReceivers}" visible="{= ${oModelView>/IsGroupNotification} === false}" />
 								
@@ -29,16 +29,16 @@
                                         <Token editable="false" text="{oModelControl>PainterName}" key="{oModelControl>Id}"/>
                                     </tokens>
                                  </MultiInput>
-                	<Label visible="{= ${oModelView>/IsGroupNotification} === true}" required="true" text="{i18n>colGroup}"/>
-								<ComboBox id="idGroupCombo" visible="{= ${oModelView>/IsGroupNotification} === true}" width="100%" selectedKey="{oModelView>/GroupId}"
-									items="{ path: '/NotificationGroupSet',filters: [{ path : 'IsArchived' , operator : 'EQ' , value1 : false }] }">
+                	<Label visible="{= ${oModelView>/IsGroupNotification} === true}"  text="{i18n>colGroup}"/>
+								<ComboBox id="idGroupCombo" visible="{= ${oModelView>/IsGroupNotification} === true}" width="100%" selectedKey="{path:'oModelView>/GroupId', type:'sap.ui.model.type.String',constraints:{minLength:1}}"
+									items="{ path: '/NotificationGroupSet',filters: [{ path : 'IsArchived' , operator : 'EQ' , value1 : false }] }" required="true">
 									<core:Item key="{Id}" text="{GroupName}"/>
 								</ComboBox>
                <Label  text="{i18n>colScheduledDate}" visible="{= ${oModelView>/IsLater} === true}"/>
-				<DatePicker width="100%" valueFormat="dd MMM yyyy" displayFormat="dd MMM yyyy" value="{oModelView>/ScheduledDate}"
+				<DatePicker required="true" width="100%" valueFormat="dd MMM yyyy" displayFormat="dd MMM yyyy" value="{path:'oModelView>/ScheduledDate',type :'sap.ui.model.type.Date',formatOptions:{source: {pattern: 'dd/MM/yyyy'},pattern:'dd/MM/yyyy',constraints:{minimum:'01/01/2021'}  }}"
 					 minDate="{oModelControl>/currDate}" visible="{= ${oModelView>/IsLater} === true}" />
-                <Label required="true" text="{i18n>colScheduledTime}" visible="{= ${oModelView>/IsLater} === true}" />
-				<TimePicker id="idTimePicker" width="100%" change="onChangeTime" valueFormat="HH:mm" displayFormat="HH:mm" value="{oModelView>/ScheduledTime}"
+                <Label  text="{i18n>colScheduledTime}" visible="{= ${oModelView>/IsLater} === true}" />
+				<TimePicker required="true" id="idTimePicker" width="100%" change="onChangeTime" valueFormat="HH:mm" displayFormat="HH:mm" value="{path:'oModelView>/ScheduledTime',type :'sap.ui.model.type.DateTime', formatOptions:{source: {pattern: 'HH:mm'},pattern:'HH:mm', constraints:{minimum:'00:00'}}}"
 				visible="{= ${oModelView>/IsLater} === true}"	/>
                 <core:Title text="" />
                 <Label text="{i18n>Message}" />
