@@ -4,11 +4,11 @@
         "id": "com.knpl.dga.usersrole",
         "type": "application",
         "i18n": "i18n/i18n.properties",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
         "applicationVersion": {
             "version": "0.0.1"
         },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
         "resources": "resources.json",
         "dataSources": {
             "mainService": {
@@ -16,8 +16,8 @@
                 "type": "OData",
                 "settings": {
                     "annotations": [],
-                    "localUri": "localService/metadata.xml",
-                    "odataVersion": "2.0"
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
                 }
             }
         },
@@ -29,9 +29,9 @@
                         "additionalParameters": "allowed"
                     },
                     "semanticObject": "Manage",
-                    "action": "UserRoles",
-                    "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
+                    "action": "PaintReq",
+                    "title": "Painter Requests",
+                    "subTitle": "",
                     "icon": ""
                 }
             }
@@ -40,7 +40,7 @@
     "sap.ui": {
         "technology": "UI5",
         "icons": {
-            "icon": "",
+            "icon": "sap-icon://task",
             "favIcon": "",
             "phone": "",
             "phone@2": "",
@@ -56,7 +56,7 @@
     "sap.ui5": {
         "flexEnabled": true,
         "dependencies": {
-            "minUI5Version": "1.99.0",
+            "minUI5Version": "1.98.0",
             "libs": {
                 "sap.m": {},
                 "sap.ui.core": {},
@@ -82,42 +82,79 @@
             "": {
                 "dataSource": "mainService",
                 "preload": true,
-                "settings": {}
-            }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "defaultUpdateMethod": "Put",
+                    "useBatch": false
                 }
-            ]
+            },
+            "LoginInfo": {
+                "type": "sap.ui.model.json.JSONModel"
+            }
+
         },
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
-                "async": true,
                 "viewPath": "com.knpl.dga.usersrole.view",
-                "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
-            },
-            "routes": [
-                {
-                    "name": "RouteApp",
-                    "pattern": "RouteApp",
+                "controlAggregation": "pages",
+                "bypassed": {
                     "target": [
-                        "TargetApp"
+                        "notFound"
+                    ]
+                },
+                "async": true
+            },
+            "routes": [{
+                    "pattern": "",
+                    "name": "worklist",
+                    "target": [
+                        "worklist"
+                    ]
+                },
+                {
+                    "pattern": "Detail/{Mode}/{Id}",
+                    "name": "Detail",
+                    "target": [
+                        "Detail"
+                    ]
+                },
+                {
+                    "pattern": "Add",
+                    "name": "Add",
+                    "target": [
+                        "object"
                     ]
                 }
             ],
             "targets": {
-                "TargetApp": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "App",
-                    "viewName": "App"
+                "worklist": {
+                    "viewName": "Worklist",
+                    "viewId": "worklist",
+                    "viewLevel": 1,
+                    "title": "{i18n>worklistViewTitle}"
+                },
+                "object": {
+                    "viewName": "AddObject",
+                    "viewId": "object",
+                    "viewLevel": 2
+                },
+                "objectNotFound": {
+                    "viewName": "ObjectNotFound",
+                    "viewId": "objectNotFound"
+                },
+                "Detail": {
+                    "viewName": "Detail",
+                    "viewId": "Detail",
+                    "viewLevel": 2
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewId": "notFound"
                 }
             }
         },
@@ -125,7 +162,7 @@
             "viewName": "com.knpl.dga.usersrole.view.App",
             "type": "XML",
             "async": true,
-            "id": "App"
+            "id": "app"
         }
     },
     "sap.cloud": {

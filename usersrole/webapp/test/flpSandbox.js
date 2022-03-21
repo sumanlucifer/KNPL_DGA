@@ -39,7 +39,7 @@ sap.ui.define([
 							"tiles": [{
 								"tileType": "sap.ushell.ui.tile.StaticTile",
 								"properties": {
-									"title": "Users Role",
+									"title": "Ui5 Template",
 									"targetURL": "#comknpldgausersrole-display"
 								}
 							}]
@@ -55,7 +55,7 @@ sap.ui.define([
 								"semanticObject": "comknpldgausersrole",
 								"action": "display",
 								"description": "A Fiori application.",
-								"title": "Users Role",
+								"title": "Ui5 Template",
 								"signature": {
 									"parameters": {}
 								},
