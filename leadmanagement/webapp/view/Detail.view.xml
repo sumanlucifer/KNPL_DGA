@@ -4,7 +4,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{Address}"/>
+                    <Title text="{ConsumerName}"/>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs currentLocationText="{i18n>MainObject} {Id}">
@@ -45,10 +45,10 @@
                         <Label  text="{i18n>Source}:"/>
                           <ObjectStatus class="sapMObjectStatusLarge" text="{LeadSource/Name}" state="None"/>
                     </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginBegin">
+                    <!-- <layout:VerticalLayout class="sapUiSmallMarginBegin">
                         <Label  text="{i18n>LeadOwnerName}:"/>
                         <ObjectStatus class="sapMObjectStatusLarge" text="{ConsumerName}" state="None"/>
-                    </layout:VerticalLayout>
+                    </layout:VerticalLayout> -->
                     <layout:VerticalLayout class="sapUiSmallMarginBegin">
                         <Label  text="{i18n>MobNo}:"/>
                         <ObjectStatus class="sapMObjectStatusLarge" text="{PrimaryNum}" state="None"/>
