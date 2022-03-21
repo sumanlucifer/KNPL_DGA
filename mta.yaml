@@ -62,6 +62,10 @@ modules:
       - comknpldgausersrole.zip
       name: comknpldgausersrole
       target-path: resources/
+    - artifacts:
+      - comknpldganotifications.zip
+      name: comknpldganotifications
+      target-path: resources/
 - name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
@@ -103,6 +107,16 @@ modules:
     - npm run build:cf
     supported-platforms: []
 - name: comknpldgausersrole
+  type: html5
+  path: usersrole
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldganotifications
   type: html5
   path: usersrole
   build-parameters:
