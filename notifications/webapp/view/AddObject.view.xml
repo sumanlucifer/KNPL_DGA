@@ -1,0 +1,34 @@
+<mvc:View
+ xmlns:core="sap.ui.core"
+	controllerName="com.knpl.dga.notifications.controller.AddObject"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	>
+
+ <Page busy="{oModelControl>/PageBusy}"  busyIndicatorDelay="0" showNavButton="false" showHeader="true" >
+        <headerContent>
+            <Bar>
+                <contentLeft>
+                    <Breadcrumbs currentLocationText="{i18n>Add} {i18n>MainObject}" >
+                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
+                    </Breadcrumbs>
+                </contentLeft>
+            </Bar>
+        </headerContent>
+        <content>
+            <VBox width="100%" id="oVBoxAddObjectPage">
+            </VBox>
+        </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Button width="7%" text="{i18n>Cancel}" type="Ghost" press="onNavToHome"/>
+                  <Button width="7%" text="{i18n>Draft}" type="Emphasized" press="onPressDraft"/>
+                <Button visible="{= ${oModelView>/IsLater} === false}" width="7%" text="{i18n>Send}" type="Emphasized" press="onPressSave"/>
+                  <Button visible="{= ${oModelView>/IsLater} === true}" width="7%" text="{i18n>Schedule}" type="Emphasized" press="onPressSchedule"/>
+            </Toolbar>
+        </footer>
+    </Page>
+
+
+</mvc:View>

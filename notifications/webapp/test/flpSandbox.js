@@ -39,7 +39,7 @@ sap.ui.define([
 							"tiles": [{
 								"tileType": "sap.ushell.ui.tile.StaticTile",
 								"properties": {
-									"title": "Notification Groups",
+									"title": "Ui5 Template",
 									"targetURL": "#comknpldganotifications-display"
 								}
 							}]
@@ -55,7 +55,7 @@ sap.ui.define([
 								"semanticObject": "comknpldganotifications",
 								"action": "display",
 								"description": "A Fiori application.",
-								"title": "Notification Groups",
+								"title": "Ui5 Template",
 								"signature": {
 									"parameters": {}
 								},

@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:l="sap.ui.layout" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m"  xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  
+        <f:SimpleForm class="addForm" id="FormObjectData" editable="true" layout="ResponsiveGridLayout" title="{oModelControl>/Pagetitle} {i18n>MainObject}" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+            <f:content>
+                <core:Title text="{i18n>MainObject} {i18n>Details}" />
+                <Label text="{i18n>NotificationTitle}" />
+                  <Input required="true" maxLength="300" width="100%"
+                value="{path : 'oModelView>/Subject', type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :500, search :'^[a-zA-Z0-9]{1}[wW]*' } }" />
+              
+                 <Label text="{i18n>RedirectionType}" />
+                 	<ComboBox width="100%" selectedKey="{oModelView>/RedirectionType}" change="onRedirectionChange" >
+									<items>
+										<core:Item text="{i18n>screen}" key="SCREEN"/>
+										<core:Item text="{i18n>link}" key="LINK"/>
+									</items>
+					</ComboBox>
+                    <Label visible="{= ${oModelView>/RedirectionType} === 'SCREEN'}" required="true" text="{i18n>colRedirectionTo}"/>
+								<ComboBox visible="{= ${oModelView>/RedirectionType} === 'SCREEN'}" width="100%" selectedKey="{oModelView>/RedirectionTo}"
+									items="{ path: '/MasterRedirectionSet' }" >
+									<core:Item key="{RedirectionKey}" text="{RedirectionValue}"/>
+								</ComboBox>
+                    <Label visible="{= ${oModelView>/RedirectionType} === 'LINK'}" required="true" text="{i18n>colRedirectionTo}"/>
+								<Input visible="{= ${oModelView>/RedirectionType} === 'LINK'}" width="100%" type="Url"  value="{oModelView>/RedirectionTo}"
+									placeholder="{i18n>linkPlaceHolder}" />
+                <Label required="true" text="{i18n>colReceivers}" visible="{= ${oModelView>/IsGroupNotification} === false}" />
+								
+                                 <MultiInput id="multiInputPainterAdd"  tokens="{oModelControl>/MultiCombo/Receivers}" valueHelpRequest="onValueHelpRequestedPainter" visible="{= ${oModelView>/IsGroupNotification} === false}">
+                                    <tokens>
+                                        <Token editable="false" text="{oModelControl>PainterName}" key="{oModelControl>Id}"/>
+                                    </tokens>
+                                 </MultiInput>
+                	<Label visible="{= ${oModelView>/IsGroupNotification} === true}" required="true" text="{i18n>colGroup}"/>
+								<ComboBox id="idGroupCombo" visible="{= ${oModelView>/IsGroupNotification} === true}" width="100%" selectedKey="{oModelView>/GroupId}"
+									items="{ path: '/NotificationGroupSet',filters: [{ path : 'IsArchived' , operator : 'EQ' , value1 : false }] }">
+									<core:Item key="{Id}" text="{GroupName}"/>
+								</ComboBox>
+               <Label  text="{i18n>colScheduledDate}" visible="{= ${oModelView>/IsLater} === true}"/>
+				<DatePicker width="100%" valueFormat="dd MMM yyyy" displayFormat="dd MMM yyyy" value="{oModelView>/ScheduledDate}"
+					 minDate="{oModelControl>/currDate}" visible="{= ${oModelView>/IsLater} === true}" />
+                <Label required="true" text="{i18n>colScheduledTime}" visible="{= ${oModelView>/IsLater} === true}" />
+				<TimePicker id="idTimePicker" width="100%" change="onChangeTime" valueFormat="HH:mm" displayFormat="HH:mm" value="{oModelView>/ScheduledTime}"
+				visible="{= ${oModelView>/IsLater} === true}"	/>
+                <core:Title text="" />
+                <Label text="{i18n>Message}" />
+               <Input  maxLength="300" width="100%"
+                value="{path : 'oModelView>/Body', type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :500, search :'^[a-zA-Z0-9]{1}[wW]*' } }" required="true" />
+                <Label text="{i18n>colIsGroupNotification}"/>
+								<Switch state="{oModelView>/IsGroupNotification}" customTextOn="Yes" customTextOff="No" >
+									<layoutData>
+										<FlexItemData growFactor="1"/>
+									</layoutData>
+				</Switch>
+
+                <Label text="{i18n>colIsLater}"/>
+								<Switch state="{oModelView>/IsLater}" customTextOn="Yes" customTextOff="No" >
+									<layoutData>
+										<FlexItemData growFactor="1"/>
+									</layoutData>
+								</Switch>
+           
+            </f:content>
+        </f:SimpleForm>
+   
+</core:FragmentDefinition>
