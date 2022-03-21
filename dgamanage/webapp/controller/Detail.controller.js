@@ -107,29 +107,33 @@ sap.ui.define(
                 var sProp = oModel.getProperty("/bindProp")
                 oModel.setProperty("/mode", "Edit");
                 var oData = oModel.getData();
-                var c1, c2, c3, c4;
+                var c1, c2, c2A, c3, c4;
                 var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                 oModel.setProperty("/PageBusy", true);
                 c1.then(function () {
                     c1.then(function () {
                         c2 = othat._setInitViewModel();
                         c2.then(function () {
-                            c3 = othat._LoadFragment("AddNewObject");
-                            c3.then(function () {
-                                c4 = othat._SetFiltersForControls(oPayLoad);
-                                c4.then(function () {
-                                    othat._setEditPopoverData(oPayLoad);
-                                    c4.then(function () {
-                                        oModel.setProperty("/PageBusy", false);
+                            c2A = othat._getDisplayData(oModel.getProperty("/bindProp"));
+                            c2A.then(function () {
+                                c3 = othat._LoadFragment("AddNewObjectEdit");
+                                c3.then(function () {
+                                    c4 = othat._SetFiltersForControls();
+                                    c4.then(function (oPayLoad) {
+                                        othat._setEditPopoverData(oPayLoad);
+                                        c4.then(function () {
+                                            oModel.setProperty("/PageBusy", false);
+                                        })
                                     })
                                 })
                             })
+
                         })
                     })
                 })
 
             },
-            _setEditPopoverData: function (oPayload) {
+            _setEditPopoverData: function (oPayLoad) {
                 var promise = $.Deferred();
                 // set the data for pin code poper
 
@@ -151,20 +155,20 @@ sap.ui.define(
                 var oModelView = oView.getModel("oModelView");
                 var oPayload = oModelView.getData();
                 // set filers for Division, Depot
-                var sZoneId = oPayload["Zone"];
-                if (sZoneId !== null) {
-                    oView
-                        .byId("idDivision")
-                        .getBinding("items")
-                        .filter(new Filter("Zone", FilterOperator.EQ, sZoneId));
-                }
-                var sDivisionId = oPayload["DivisionId"];
-                if (sDivisionId !== null) {
-                    oView
-                        .byId("idDepot")
-                        .getBinding("items")
-                        .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
-                }
+                // var sZoneId = oPayload["Zone"];
+                // if (sZoneId !== null) {
+                //     oView
+                //         .byId("idDivision")
+                //         .getBinding("items")
+                //         .filter(new Filter("Zone", FilterOperator.EQ, sZoneId));
+                // }
+                // var sDivisionId = oPayload["DivisionId"];
+                // if (sDivisionId !== null) {
+                //     oView
+                //         .byId("idDepot")
+                //         .getBinding("items")
+                //         .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
+                // }
                 promise.resolve(oPayload);
                 return promise;
 
@@ -177,7 +181,7 @@ sap.ui.define(
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "ComplaintType";
+                var exPand = "ComplaintType,SalesGroup";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
@@ -278,16 +282,16 @@ sap.ui.define(
                 var sDgaId = oView.getModel("oModelDisplay").getProperty("/Id")
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "LeadServiceType,State,Depot,LeadStatus";
-                var oFiler = new Filter ("DGAId",FilterOperator.EQ,sDgaId)
+                var oFiler = new Filter("DGAId", FilterOperator.EQ, sDgaId)
                 oBindingParams.filters.push(oFiler);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
             },
-            onBeforeBindContractorTbl:function(oEvent){
+            onBeforeBindContractorTbl: function (oEvent) {
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Contractor";
-                var oFiler = new Filter ("IsLinked",FilterOperator.EQ,true);
+                var oFiler = new Filter("IsLinked", FilterOperator.EQ, true);
                 oBindingParams.filters.push(oFiler);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
