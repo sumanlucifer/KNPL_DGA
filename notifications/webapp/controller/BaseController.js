@@ -99,7 +99,7 @@ sap.ui.define([
                 currDate: new Date(),
                 StartDate:null,
                 StarTime:null,
-                Keys:[]
+               
             };
             var oModelControl = new JSONModel(oDataControl)
             oView.setModel(oModelControl, "oModelControl");

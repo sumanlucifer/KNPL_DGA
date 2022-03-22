@@ -24,7 +24,7 @@
 									placeholder="{i18n>linkPlaceHolder}" />
                 <Label required="true" text="{i18n>colReceivers}" visible="{= ${oModelView>/IsGroupNotification} === false}" />
 								
-                                 <MultiInput id="multiInputPainterAdd" selectedToekns="{oModelControl>/Keys}"  tokens="{path:'oModelControl>/MultiCombo/Receivers'}" valueHelpRequest="onValueHelpRequestedPainter" visible="{= ${oModelView>/IsGroupNotification} === false}">
+                                 <MultiInput id="multiInputPainterAdd" selectedKey="{oModelControl>/Keys}"  tokens="{path:'oModelControl>/MultiCombo/Receivers'}" valueHelpRequest="onValueHelpRequestedPainter" visible="{= ${oModelView>/IsGroupNotification} === false}">
                                     <tokens>
                                         <Token editable="false" text="{oModelControl>PainterName}" key="{oModelControl>Id}"/>
                                     </tokens>
@@ -37,7 +37,7 @@
                <Label  text="{i18n>colScheduledDate}" visible="{= ${oModelView>/IsLater} === true}"/>
 				<!-- <DatePicker required="true" width="100%" valueFormat="dd MMM yyyy" displayFormat="dd MMM yyyy" value="{path:'oModelView>/ScheduledDate',type :'sap.ui.model.type.Date',formatOptions:{source: {pattern: 'dd/MM/yyyy'},pattern:'dd/MM/yyyy',constraints:{minimum:'01/01/2021'}  }}"
 					 minDate="{oModelControl>/currDate}" visible="{= ${oModelView>/IsLater} === true}" /> -->
-                   <DatePicker  valueStateText="Enter a valid date" dateValue="{path:'oModelControl>/StartDate'}"  value="{path:'oModelView>/StartDate', type :'sap.ui.model.type.Date',formatOptions:{source: {pattern: 'dd MMM yyyy'},pattern:'dd MMM yyyy',strictParsing:true},constraints:{minimum:'01 Jan 2021'}  }"  placeholder="DD MM YYYY" required="true" visible="{= ${oModelView>/IsLater} === true}" />
+                   <DatePicker minDate="{oModelControl>/currDate}" valueStateText="Enter a valid date" dateValue="{path:'oModelControl>/StartDate'}"  value="{path:'oModelView>/StartDate', type :'sap.ui.model.type.Date',formatOptions:{source: {pattern: 'dd MMM yyyy'},pattern:'dd MMM yyyy',strictParsing:true},constraints:{minimum:'01 Jan 2021'}  }"  placeholder="DD MM YYYY" required="true" visible="{= ${oModelView>/IsLater} === true}" />
                 <Label  text="{i18n>colScheduledTime}" visible="{= ${oModelView>/IsLater} === true}" />
 				<TimePicker required="true" id="idTimePicker" width="100%" change="onChangeTime"  dateValue="{path:'oModelControl>/StarTime'}"  value="{path:'oModelView>/ScheduledTime',type :'sap.ui.model.type.Time', formatOptions:{source: {pattern: 'HH:mm'}, pattern:'HH:mm' ,strictParsing:true},constraints:{ minimum: '06:00', maxLength: '23:59' } }"
 				visible="{= ${oModelView>/IsLater} === true}"	/>
