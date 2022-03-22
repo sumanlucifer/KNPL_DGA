@@ -29,8 +29,8 @@
                     },
                     "semanticObject": "Manage",
                     "action": "CM",
-                    "title": "{{appTitle}}",
-                    "subTitle": "{{appSubTitle}}",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
                     "icon": "sap-icon://quality-issue"
                 }
             }
