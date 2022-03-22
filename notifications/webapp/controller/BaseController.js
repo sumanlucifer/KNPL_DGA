@@ -97,8 +97,8 @@ sap.ui.define([
                     Receivers: []
                 },
                 currDate: new Date(),
-                StartDate: null,
-                StarTime: null,
+                ScheduledDate: null,
+                ScheduledTime: null,
 
             };
             var oModelControl = new JSONModel(oDataControl)

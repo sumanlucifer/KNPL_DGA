@@ -10,12 +10,34 @@
     <f:SimpleForm id="DisplayData" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
         <f:content>
               <core:Title text="{i18n>MainObject} {i18n>Details}" />
-                <Label text="{i18n>MainObject} {i18n>Type}" />
-                <Text text="{path : 'ComplaintType/ComplaintType'}"  />
-                <core:Title text="{i18n>RemarkDetails}" />
-                <Label text="{i18n>Remark}" />
-               <Text 
-                text="{path : 'Remark'}"  />
+                <Label text="{i18n>NotificationTitle}" />
+                <Text text="{path : 'Subject'}"  />
+                <Label text="{i18n>RedirectionType}" />
+                <Text text="{path : 'RedirectionType'}"  />
+                <Label visible="{= ${RedirectionType} === 'SCREEN' || ${RedirectionType} === 'LINK'  }"  text="{i18n>colRedirectionTo}"/>
+                <Text text="{path : 'RedirectionTo'}" visible="{= ${RedirectionType} === 'SCREEN' || ${RedirectionType} === 'LINK'  }" />
+                <Label text="{i18n>colReceivers}" visible="{= ${IsGroupNotification} === false}" />
+                <MultiInput editable="false"  tokens="{path:'Receivers/'}"  visible="{= ${IsGroupNotification} === false}">
+                                    <tokens>
+                                        <Token editable="false" text="{PainterName}" key="{Id}"/>
+                                    </tokens>
+                                 </MultiInput>
+                <Label visible="{= ${IsGroupNotification} === true}"  text="{i18n>colGroup}"/>
+                  <Text text="{path : 'Group/GroupName'}"  visible="{= ${IsGroupNotification} === true}" />
+
+                 <Label  text="{i18n>colScheduledDate}" />
+                  <Text text="{path : 'ScheduledDate'}"  />
+                    <Label  text="{i18n>colScheduledTime}" />
+                      <Text text="{path : 'ScheduledTime'}"  />
+                <core:Title text=" " />
+                  <Label text="{i18n>Message}" />
+                    <Text text="{path : 'Body'}"  />
+                    <Label text="{i18n>colIsGroupNotification}"/>
+					<Text text="{= ${IsGroupNotification} === true ? 'Yes' : 'No'  }"  />
+			
+
+                <Label text="{i18n>colIsLater}"/>
+				<Text text="{= ${IsLater} === true ? 'Yes' : 'No'  }"  />
         </f:content>
     </f:SimpleForm>
 

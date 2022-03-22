@@ -308,10 +308,12 @@ sap.ui.define(
 
               
                 onListItemPress: function (oEvent) {
+
                     var oBj = oEvent.getSource().getBindingContext().getObject();
+                   
                     var oRouter = this.getOwnerComponent().getRouter();
                     oRouter.navTo("Detail", {
-                        Id: oBj["Id"],
+                        Id: oBj["UUID"],
                         Mode:"Display"
                     });
 

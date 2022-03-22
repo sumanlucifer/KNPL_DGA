@@ -155,7 +155,7 @@ sap.ui.define([
                         c3 = othat._uploadFile();
                         c3.then(function () {
                             oModelControl.setProperty("/PageBusy", false);
-                            //othat.onNavToHome();
+                            othat.onNavToHome();
                         })
                     })
                 })
@@ -173,17 +173,17 @@ sap.ui.define([
             var oModelControl = oView.getModel("oModelControl");
             console.log(oModelControl.getData())
             return new Promise((resolve, reject) => {
-                resolve();
-                // oDataModel.create("/NotificationSet", oPayLoad, {
-                //     success: function (data) {
-                //         othat._showMessageToast("Message2")
-                //         resolve(data);
-                //     },
-                //     error: function (data) {
-                //         othat._showMessageToast("Message4")
-                //         reject(data);
-                //     },
-                // });
+                //resolve();
+                oDataModel.create("/NotificationSet", oPayLoad, {
+                    success: function (data) {
+                        othat._showMessageToast("Message2")
+                        resolve(data);
+                    },
+                    error: function (data) {
+                        othat._showMessageToast("Message4")
+                        reject(data);
+                    },
+                });
             });
         }
 
