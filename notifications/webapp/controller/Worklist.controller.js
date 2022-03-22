@@ -103,6 +103,7 @@ sap.ui.define(
                    
         
                 },
+              
         
                 _InitData: function () {
 
@@ -317,6 +318,15 @@ sap.ui.define(
                         Mode:"Display"
                     });
 
+                },
+                onEdit:function(oEvent){
+                    var oBj = oEvent.getSource().getBindingContext().getObject();
+                   
+                    var oRouter = this.getOwnerComponent().getRouter();
+                    oRouter.navTo("Detail", {
+                        Id: oBj["UUID"],
+                        Mode:"Edit"
+                    });
                 },
                 onUpdateFinished: function (oEvent) {
                     // update the worklist's object counter after the table update

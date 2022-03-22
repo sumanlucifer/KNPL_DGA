@@ -18,10 +18,10 @@
             <Toolbar>
                 <ToolbarSpacer/>
                 <Button width="7%" text="{i18n>Cancel}" type="Ghost" press="onNavToHome"/>
-                <HBox visible="{= ${oModelDisplay>/mode} === 'Edit'}">
-                     <Button width="7%" text="{i18n>Draft}" type="Emphasized" press="onPressSave('DRAFT')"/>
-                <Button visible="{= ${oModelView>/IsLater} === false}" width="7%" text="{i18n>Send}" type="Emphasized" press="onPressSave('SCHEDULED')"/>
-                  <Button visible="{= ${oModelView>/IsLater} === true}" width="7%" text="{i18n>Schedule}" type="Emphasized" press="onPressSave('SCHEDULED')"/>
+                <HBox justifyContent="SpaceBetween" visible="{= ${oModelDisplay>/mode} === 'Edit'}" width="15%">
+                  <Button  text="{i18n>Draft}" type="Emphasized" press="onPressSave('DRAFT')"/>
+                  <Button visible="{= ${oModelView>/IsLater} === false}"  text="{i18n>Send}" type="Emphasized" press="onPressSave('SCHEDULED')"/>
+                  <Button visible="{= ${oModelView>/IsLater} === true}"  text="{i18n>Schedule}" type="Emphasized" press="onPressSave('SCHEDULED')"/>
                 </HBox>
                  
             </Toolbar>

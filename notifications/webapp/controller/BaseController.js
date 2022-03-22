@@ -96,7 +96,7 @@ sap.ui.define([
                 MultiCombo: {
                     Receivers: []
                 },
-                currDate: new Date(),
+                currDate: null,
                 ScheduledDate: null,
                 ScheduledTime: null,
 
