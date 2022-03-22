@@ -209,7 +209,7 @@ sap.ui.define(
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 if (sKey == "1") {
-                    //oView.byId("smartTreeTable").rebindTable();
+                    oView.byId("PreEstTbl").rebindTable();
                     //oView.byId("HistoryTable").rebindTable();
                 } else if (sKey == "2") {
                     
