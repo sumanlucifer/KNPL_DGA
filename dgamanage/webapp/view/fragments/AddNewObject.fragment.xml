@@ -16,6 +16,12 @@
                         <core:Item text="{Name}" key="{Id}" />
                     </items>
                 </ComboBox>
+                <Label text="{i18n>EmployeeId}"/>
+                <Input />
+                <Label text="{i18n>JoiningDate}" />
+                <DatePicker placeholder="DD/MM/YYYY" ></DatePicker>
+                <Label text="{i18n>ExitDate}" />
+                <DatePicker placeholder="DD/MM/YYYY" ></DatePicker>
                 <core:Title text="{i18n>LocationDetails}" />
                   
                   <Label text="{i18n>PinCode}" />
@@ -32,7 +38,8 @@
                         <core:Item text="{Name}" key="{Id}" />
                     </items>
                 </ComboBox>
-
+                <Label text="{i18n>WorkLocation}"/>
+                <Input />
                  <Label text="{i18n>Zone}" />
                 <ComboBox required="true" selectionChange="onZoneChange" items="{/MasterZones}" selectedKey="{path:'oModelView>/Zone',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
                     <core:Item text="{Id}" key="{Id}" />
