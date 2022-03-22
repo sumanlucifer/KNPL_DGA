@@ -96,7 +96,10 @@ sap.ui.define([
                 MultiCombo: {
                     Receivers: []
                 },
-                currDate: new Date()
+                currDate: new Date(),
+                StartDate:null,
+                StarTime:null,
+                Keys:[]
             };
             var oModelControl = new JSONModel(oDataControl)
             oView.setModel(oModelControl, "oModelControl");

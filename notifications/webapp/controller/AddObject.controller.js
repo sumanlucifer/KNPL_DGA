@@ -84,7 +84,8 @@ sap.ui.define([
                 IsGroupNotification:false,
                 RedirectionType:"",
                 RedirectionTo:"",
-                Receivers:[]
+                Receivers:[],
+                NotificationStatus:""
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -152,6 +153,7 @@ sap.ui.define([
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
+            console.log(oModelControl.getData())
             return new Promise((resolve, reject) => {
                 resolve();
                 // oDataModel.create("/NotificationSet", oPayLoad, {
