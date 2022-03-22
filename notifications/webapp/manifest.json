@@ -32,7 +32,7 @@
                     "action": "PaintReq",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
-                    "icon": ""
+                    "icon": "sap-icon://message-popup"
                 }
             }
         }
