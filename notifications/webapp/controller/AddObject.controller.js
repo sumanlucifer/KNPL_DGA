@@ -78,13 +78,14 @@ sap.ui.define([
                 Body: "",
                 Subject: "",
                 IsLater: false,
-                ScheduledDate:"",
-                ScheduledTime:"",
-                GroupId:"",
-                IsGroupNotification:false,
-                RedirectionType:"",
-                RedirectionTo:"",
-                Receivers:[]
+                ScheduledDate: "",
+                ScheduledTime: "",
+                GroupId: "",
+                IsGroupNotification: false,
+                RedirectionType: "",
+                RedirectionTo: "",
+                Receivers: [],
+                NotificationStatus: ""
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -107,15 +108,21 @@ sap.ui.define([
         },
 
 
-        onPressSave: function () {
+        onPressSave: function (sStatusType) {
+            //SCHEDULED DRAFT
             var bValidateForm = this._ValidateForm();
+            var bValidateReceivers = this._CheckReceivers.bind(this);
+
             if (bValidateForm) {
-                this._postDataToSave();
+                if (bValidateReceivers()) {
+                    this._postDataToSave(sStatusType);
+                }
             }
 
         },
-     
-        _postDataToSave: function () {
+       
+
+        _postDataToSave: function (sStatusType) {
             /*
              * Author: manik saluja
              * Date: 02-Dec-2021
@@ -126,44 +133,45 @@ sap.ui.define([
             var oModelControl = oView.getModel("oModelControl");
             oModelControl.setProperty("/PageBusy", true);
             var othat = this;
-            var c1,c1A, c2, c3, c4;
-            c1 = othat._CheckEmptyFieldsPostPayload();
+            var c1, c1A, c2, c3, c4;
+            c1 = othat._CheckEmptyFieldsPostPayload(sStatusType);
             c1.then(function (oPayload) {
                 c1A = othat._AddMultiComboData(oPayload);
-                c1A.then(function(oPayload){
+                c1A.then(function (oPayload) {
                     c2 = othat._CreateObject(oPayload)
                     c2.then(function () {
                         c3 = othat._uploadFile();
                         c3.then(function () {
                             oModelControl.setProperty("/PageBusy", false);
-                            //othat.onNavToHome();
+                            othat.onNavToHome();
                         })
                     })
                 })
-              
+
             })
 
 
         },
-      
+
         _CreateObject: function (oPayLoad) {
             console.log(oPayLoad);
             var othat = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
+            console.log(oModelControl.getData())
             return new Promise((resolve, reject) => {
-                resolve();
-                // oDataModel.create("/NotificationSet", oPayLoad, {
-                //     success: function (data) {
-                //         othat._showMessageToast("Message2")
-                //         resolve(data);
-                //     },
-                //     error: function (data) {
-                //         othat._showMessageToast("Message4")
-                //         reject(data);
-                //     },
-                // });
+                //resolve();
+                oDataModel.create("/NotificationSet", oPayLoad, {
+                    success: function (data) {
+                        othat._showMessageToast("Message2")
+                        resolve(data);
+                    },
+                    error: function (data) {
+                        othat._showMessageToast("Message4")
+                        reject(data);
+                    },
+                });
             });
         }
 

@@ -23,9 +23,9 @@
             <Toolbar>
                 <ToolbarSpacer/>
                 <Button width="7%" text="{i18n>Cancel}" type="Ghost" press="onNavToHome"/>
-                  <Button width="7%" text="{i18n>Draft}" type="Emphasized" press="onPressDraft"/>
-                <Button visible="{= ${oModelView>/IsLater} === false}" width="7%" text="{i18n>Send}" type="Emphasized" press="onPressSave"/>
-                  <Button visible="{= ${oModelView>/IsLater} === true}" width="7%" text="{i18n>Schedule}" type="Emphasized" press="onPressSave"/>
+                  <Button width="7%" text="{i18n>Draft}" type="Emphasized" press="onPressSave('DRAFT')"/>
+                <Button visible="{= ${oModelView>/IsLater} === false}" width="7%" text="{i18n>Send}" type="Emphasized" press="onPressSave('SCHEDULED')"/>
+                  <Button visible="{= ${oModelView>/IsLater} === true}" width="7%" text="{i18n>Schedule}" type="Emphasized" press="onPressSave('SCHEDULED')"/>
             </Toolbar>
         </footer>
     </Page>
