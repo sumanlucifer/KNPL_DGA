@@ -1,0 +1,47 @@
+<core:FragmentDefinition xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns="sap.ui.table"
+    xmlns:m="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <TreeTable
+        id="QuotationTable"
+        selectionMode="Single"
+        enableColumnReordering="false"
+        expandFirstLevel="false"
+       >
+
+        <columns>
+
+            <Column label="Description">
+                <template>
+                    <m:Text text="{Description}" wrapping="false" />
+                </template>
+            </Column>
+
+            <Column label="HierarchyLevel">
+                <template>
+                    <m:Text text="{HierarchyLevel}" wrapping="false" />
+                </template>
+            </Column>
+
+            <Column label="NodeID">
+                <template>
+                    <m:Text text="{NodeID}" wrapping="false" />
+                </template>
+            </Column>
+
+            <Column label="ParentNodeID">
+                <template>
+                    <m:Text text="{ParentNodeID}" wrapping="false" />
+                </template>
+            </Column>
+
+        </columns>
+
+    </TreeTable>
+
+    
+
+</core:FragmentDefinition>

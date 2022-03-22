@@ -1,0 +1,68 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
+    <smartTable:SmartTable
+                           id="idMaterialsReqTable2"
+                            editable="false"
+                                 
+                            header="Table1"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="true"
+                            demandPopin="true"
+                            enableAutoBinding="false"
+                          
+                            persistencyKey="HistoryPersistenceKey"
+                            initiallyVisibleFields="Id"
+                             initialNoDataText="{i18n>tableNoDataText}"
+                          >
+
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+            <columns>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PaintingReq", "columnIndex": 0 }'/>
+                    </customData>
+                    <Text text="{i18n>PaintingReq}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Equipment","columnIndex": 1}'/>
+                    </customData>
+                    <Text text="{i18n>Equipment}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                       <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "columnIndex": 2 }'/>
+                    </customData>
+                    <Text text="{i18n>Quantity}"/>
+                </Column>
+              
+                <!-- <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 8 ,"sortProperty": "Id","filterProperty": "Id"}'/>
+                    </customData>
+                    <Text text="{i18n>Id}"/>
+                </Column> -->
+            
+               
+                
+
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                 
+                       <Text  />
+                       <Text />
+                       <Text  />
+                      
+                       <!-- <Text text="{Id}" /> -->
+                        
+
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

@@ -209,7 +209,7 @@ sap.ui.define(
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 if (sKey == "1") {
-                    oView.byId("HistoryTable").rebindTable();
+                    //oView.byId("HistoryTable").rebindTable();
                 }
             },
             // onBeforeRebindHistoryTable: function (oEvent) {
