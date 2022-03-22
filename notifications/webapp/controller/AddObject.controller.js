@@ -120,19 +120,7 @@ sap.ui.define([
             }
 
         },
-        _CheckReceivers: function () {
-            var oView = this.getView();
-            var oModelControl = oView.getModel("oModelControl");
-            var oModelView = oView.getModel("oModelView");
-            if (!oModelView.getProperty("/IsGroupNotification")) {
-                if (oModelControl.getProperty("/MultiCombo/Receivers").length === 0) {
-                    this._showMessageToast("Message7");
-                    return false;
-                }
-            }
-            return true;
-
-        },
+       
 
         _postDataToSave: function (sStatusType) {
             /*

@@ -57,10 +57,10 @@ sap.ui.define(
                     oEvent.getParameter("arguments").Mode
                 );
                 this._SetDisplayData(sId, sMode);
-               
+
             },
-            onAfterRendering:function(){
-            
+            onAfterRendering: function () {
+
             },
             _SetDisplayData: function (oProp, sMode) {
                 var oData = {
@@ -266,14 +266,19 @@ sap.ui.define(
                 });
 
             },
-            onPressSave: function () {
+            onPressSave: function (sStatusType) {
+                //SCHEDULED DRAFT
                 var bValidateForm = this._ValidateForm();
+                var bValidateReceivers = this._CheckReceivers.bind(this);
+
                 if (bValidateForm) {
-                    this._postDataToSave();
+                    if (bValidateReceivers()) {
+                        this._postDataToSave(sStatusType);
+                    }
                 }
 
             },
-            _postDataToSave: function () {
+            _postDataToSave: function (sStatusType) {
                 /*
                  * Author: manik saluja
                  * Date: 02-Dec-2021
@@ -281,21 +286,27 @@ sap.ui.define(
                  * Purpose: Payload is ready and we have to send the same based to server but before that we have to modify it slighlty
                  */
                 var oView = this.getView();
-                var oModelControl = oView.getModel("oModelControl");
+                var oModelControl = oView.getModel("oModelDisplay");
                 oModelControl.setProperty("/PageBusy", true);
                 var othat = this;
-                var c1, c2, c3;
-                c1 = othat._CheckEmptyFieldsPostPayload();
+                var c1, c1A, c2, c3, c4;
+                c1 = othat._CheckEmptyFieldsPostPayload(sStatusType);
                 c1.then(function (oPayload) {
-                    c2 = othat._UpdatedObject(oPayload)
-                    c2.then(function () {
-                        c3 = othat._uploadFile();
-                        c3.then(function () {
-                            oModelControl.setProperty("/PageBusy", false);
-                            othat.onNavToHome();
+                    c1A = othat._AddMultiComboData(oPayload);
+                    c1A.then(function (oPayload) {
+                        c2 = othat._UpdatedObject(oPayload)
+                        c2.then(function () {
+                            c3 = othat._uploadFile();
+                            c3.then(function () {
+                                oModelControl.setProperty("/PageBusy", false);
+                                othat.onNavToHome();
+                            })
                         })
                     })
+
                 })
+
+
 
 
             },
@@ -309,11 +320,11 @@ sap.ui.define(
                 return new Promise((resolve, reject) => {
                     oDataModel.update("/" + sProp, oPayLoad, {
                         success: function (data) {
-                            MessageToast.show(othat.geti18nText("Message1"));
+                            othat._showMessageToast("Message1")
                             resolve(data);
                         },
                         error: function (data) {
-                            MessageToast.show(othat.geti18nText("Message2"));
+                            othat._showMessageToast("Message4")
                             oModelControl.setProperty("/PageBusy", false);
                             reject(data);
                         },
