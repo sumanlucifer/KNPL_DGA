@@ -1,0 +1,27 @@
+<mvc:View height="100%" xmlns:smartTable="sap.ui.comp.smarttable" controllerName="com.knpl.dga.usersrole.controller.Worklist" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+    <f:DynamicPage busyIndicatorDelay="0" busy="{oModelControl>/PageBusy}" id="dynamicPageId" headerExpanded="true">
+    
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <fb:FilterBar showRestoreButton="false" id="filterbar" reset="onResetFilterBar" search="onFilterBarGo" useToolbar="false" showRestoreOnFB="false">
+                        <fb:filterGroupItems>
+                       
+                             
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>Role}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                     <ComboBox id="idStatus" placeholder="{i18n>Select} {i18n>Role}" selectionChange="onStatusChange"  items="{/MasterRoles}" selectedKey="{path:'oModelControl>/filterBar/Status' }">
+                                      <core:Item text="{Name}" key="{Id}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+              <core:Fragment fragmentName="com.knpl.dga.usersrole.view.fragments.WorklistTable" type="XML"/>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
