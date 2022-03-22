@@ -41,7 +41,7 @@
                     "action": "DGAMgmt",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
-                    "icon": ""
+                    "icon": "sap-icon://employee"
                 }
             }
         }
@@ -63,7 +63,7 @@
         }
     },
     "sap.ui5": {
-        "flexEnabled": true,
+        "flexEnabled": false,
         "dependencies": {
             "minUI5Version": "1.98.0",
             "libs": {
