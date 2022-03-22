@@ -209,13 +209,29 @@ sap.ui.define(
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 if (sKey == "1") {
+                    //oView.byId("smartTreeTable").rebindTable();
                     //oView.byId("HistoryTable").rebindTable();
-                } else if (sKey == "3") {
-                    oView.byId("idMaterialsReqTable1").setTableBindingPath("RequisitionProducts");
+                } else if (sKey == "2") {
+                    
                     //oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
                 }
             },
             // before binding methods of the smart tables
+            onBeforeRebindPreReq: function (oEvent) {
+            
+
+                var mBindingParams = oEvent.getParameter("bindingParams");
+               
+                mBindingParams.parameters["expand"] = "PreEstimationAreas";
+
+                mBindingParams.parameters["navigation"] = { "PreEstimations": "PreEstimationAreas" };
+
+                mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
+
+                // mBindingParams.filters.push(new Filter("PONumber", FilterOperator.EQ, sPONumber));
+
+                // mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
             onBeforeBindMatReqTbl1: function (oEvent) {
                 var oView = this.getView();
                 var sId = oView.getModel("oModelDisplay").getProperty("/Id")
@@ -225,11 +241,8 @@ sap.ui.define(
                 // oBindingParams.filters.push(oFiler);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
-            // onBeforeRebindHistoryTable: function (oEvent) {
-            //     var oView = this.getView();
-            //     var oBindingParams = oEvent.getParameter("bindingParams");
-            //     oBindingParams.sorter.push(new Sorter("UpdatedAt", true));
-            // },
+
+
 
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();

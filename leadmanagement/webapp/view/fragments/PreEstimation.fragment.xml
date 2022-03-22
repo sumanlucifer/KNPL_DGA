@@ -1,72 +1,249 @@
 <core:FragmentDefinition xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-    xmlns="sap.ui.table"
-    xmlns:m="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m"
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
-    xmlns:core="sap.ui.core">
-    <TreeTable
-        id="PreEstimationTable"
-        selectionMode="Single"
-        enableColumnReordering="false"
-        expandFirstLevel="false"
-       >
+    xmlns:core="sap.ui.core"
+    xmlns:tt="sap.ui.table">
+<smartTable:SmartTable id="smartTreeTable" entitySet="PreEstimations" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false"
+    useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true"
+    beforeRebindTable="onBeforeRebindPreReq" ignoreFromPersonalisation="" initiallyVisibleFields="Id" >
+        <!-- layout data used to make the table growing but the filter bar fixed -->
+        <!-- <smartTable:customToolbar>
+            <OverflowToolbar design="Transparent">
+                <ToolbarSpacer/>
+                <Button text="{i18n>manageBOQ}" press="navToManageBOQApp"/>
+                <Button icon="sap-icon://refresh" press="onRefreshBOQItems"/>
+            </OverflowToolbar>
+        </smartTable:customToolbar> -->
+        <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" expandFirstLevel="true" visibleRowCountMode="Interactive">
+            <tt:columns>
+             
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>Parameters}" />
+                    <tt:customData>
+                         <core:CustomData key="p13nData" value='\{"columnKey": "Parameters", "columnIndex": 0}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text  />
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>Type}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Type", "leadingProperty":"PreEstimationAreas/Type", "columnIndex": 1}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{Type}"/>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>Class}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ClassType", "leadingProperty":"PreEstimationAreas/ClassType", "columnIndex": 2}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{ClassType}"/>
+                    </tt:template>
+                </tt:Column>
+                  
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>Products}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Products", "columnIndex": 3}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text />
+                    </tt:template>
+                </tt:Column>
+                 <tt:Column hAlign="Center">
+                    <Label text="{i18n>System}" />
+                    <tt:customData>
+                         <core:CustomData key="p13nData" value='\{"columnKey": "SystemType", "leadingProperty":"PreEstimationAreas/SystemType", "columnIndex": 4}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{SystemType}" />
+                    </tt:template>
+                </tt:Column>
+                  <tt:Column hAlign="Center">
+                    <Label text="{i18n>ValueAddition}" />
+                    <tt:customData>
+                           <core:CustomData key="p13nData" value='\{"columnKey": "ValueAddition", "columnIndex": 5}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text  />
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>Rate}" />
+                    <tt:customData>
+                         <core:CustomData key="p13nData" value='\{"columnKey": "RatePerSqFt", "leadingProperty":"PreEstimationAreas/RatePerSqFt", "columnIndex": 6}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{RatePerSqFt}" />
+                    </tt:template>
+                </tt:Column>
+                  <tt:Column hAlign="Center">
+                    <Label text="{i18n>AreaSqft}" />
+                    <tt:customData>
+                         <core:CustomData key="p13nData" value='\{"columnKey": "Area", "leadingProperty":"PreEstimationAreas/Area", "columnIndex": 7}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{Area}" />
+                    </tt:template>
+                </tt:Column>
+                 <tt:Column hAlign="Center">
+                    <Label text="{i18n>RateAccToArea}" tooltip="{i18n>RateAccToArea}" />
+                    <tt:customData>
+                         <core:CustomData key="p13nData" value='\{"columnKey": "RateAccToArea", "leadingProperty":"PreEstimationAreas/RateAccToArea", "columnIndex": 8}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{RateAccToArea}" />
+                    </tt:template>
+                </tt:Column>
+                  <tt:Column hAlign="Center">
+                    <Label text="{i18n>Total}" />
+                    <tt:customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "GrandTotal", "leadingProperty": "GrandTotal",
+                            "columnIndex": 9 ,"sortProperty": "GrandTotal","filterProperty": "GrandTotal"}'/>
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{GrandTotal}"  />
+                    </tt:template>
+                </tt:Column>
+                  <tt:Column hAlign="Center">
+               
+                <Label text="LeadId"/>
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadId", "leadingProperty": "LeadId",
+                            "columnIndex": 10 ,"sortProperty": "LeadId","filterProperty": "LeadId"}'/>
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{LeadId}" wrapping="false"></Text>
+                    </tt:template>
+                </tt:Column>
+                                 <!-- <tt:Column hAlign="Center">
+                    <Label text="{i18n>description}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Description", "leadingProperty": "Description",
+                            "columnIndex": 2 ,"sortProperty": "Description","filterProperty": "Description"}'/>
+                    </tt:customData>
+                    <tt:template>
+                        <ExpandableText text="{Description}" overflowMode="Popover" maxCharacters="5"/>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>poQuantity}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty":"Quantity", "columnIndex": 3}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{Quantity}"></Text>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>uom}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UoM", "leadingProperty":"UoM", "columnIndex": 4}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{UoM}"></Text>
+                    </tt:template>
+                </tt:Column>
 
-        <columns>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>boqDefinedFor}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "GeneratedBOQQty", "leadingProperty":"BOQGroups/GeneratedBOQQty", "columnIndex": 5}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{GeneratedBOQQty}"></Text>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>boqItems}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TotalChildItemCount", "leadingProperty":"BOQGroups/TotalChildItemCount", "columnIndex": 6}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{TotalChildItemCount}"></Text>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>RequestedOn}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty":"BOQGroups/CreatedAt", "columnIndex": 7}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{path:'CreatedAt',
+                                                    type: 'sap.ui.model.type.Date',
 
-            <Column label="{i18n>Parameters}">
-                <template>
-                    <m:Text text="{Parameters}" wrapping="false" />
-                </template>
-            </Column>
-
-            <Column label="{i18n>Type}">
-                <template>
-                    <m:Text text="{Type}" wrapping="false" />
-                </template>
-            </Column>
-
-            <Column label="{i18n>Class}">
-                <template>
-                    <m:Text text="{Class}" wrapping="false" />
-                </template>
-            </Column>
-
-            <Column label="{i18n>Products}">
-                <template>
-                    <m:Text text="{Products}" wrapping="false" />
-                </template>
-            </Column>
-              <Column label="{i18n>System}">
-                <template>
-                    <m:Text text="{System}" wrapping="false" />
-                </template>
-            </Column>
-             <Column label="{i18n>ValueAddition}">
-                <template>
-                    <m:Text text="{ValueAddition}" wrapping="false" />
-                </template>
-            </Column>
-             <Column label="{i18n>Rate}">
-                <template>
-                    <m:Text text="{Rate}" wrapping="false" />
-                </template>
-            </Column>
-            <Column label="{i18n>AreaSqft}">
-                <template>
-                    <m:Text text="{AreaSqft}" wrapping="false" />
-                </template>
-            </Column>
-             <Column label="{i18n>RateAccToArea}">
-                <template>
-                    <m:Text text="{RateAccToArea}" wrapping="false" />
-                </template>
-            </Column>
-
-        </columns>
-
-    </TreeTable>
-
-    
+                                                    formatOptions: {
+                                                        style: 'medium',
+                                                        pattern: 'MMM d, yyyy'
+                                                    }}"/>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>approvaldate}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty":"BOQGroups/ApprovedOn", "columnIndex": 8}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{path:'ApprovedOn',
+                                                    type: 'sap.ui.model.type.Date',
+                                                    formatOptions: {
+                                                        style: 'medium',
+                                                        pattern: 'MMM d, yyyy'
+                                                    }}"/>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>status}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "status", "columnIndex": 9}' />
+                    </tt:customData>
+                    <tt:template>
+                    <HBox>
+                        <VBox justifyContent="Center" visible="{= ${MaterialCode} ? false : true }">
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                        </VBox>
+                         <VBox justifyContent="Center" visible="{= ${MaterialCode} ? false : true }">
+                            <Button text="{i18n>SendForApproval}" visible="{= ${Status}.length>0 ? false : true }" press="onSendForApprovalPress"/>
+                        </VBox>
+                    </HBox>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>comments}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Comment", "leadingProperty":"BOQGroups/Comment", "columnIndex": 10}' />
+                    </tt:customData>
+                    <tt:template>
+                        <ExpandableText text="{Comment}" maxCharacters="10" overflowMode="Popover" visible="{= ${MaterialCode} ? false : true }"/>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>Action}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Action", "columnIndex": 11}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Link text="{= ${MaterialCode} ? '' : 'View BOQ Items' }" press="onViewBOQItemPress"></Link>
+                    </tt:template>
+                </tt:Column> -->
+                  <tt:Column hAlign="Center">
+                    <Label text="{i18n>Id}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "columnIndex": 11 ,"leadingProperty":"Id"}' />
+                    </tt:customData>
+                    <tt:template>
+                        <Text text="{Id}" />
+                    </tt:template>
+                </tt:Column> 
+            </tt:columns>
+        </tt:TreeTable>
+    </smartTable:SmartTable>
 
 </core:FragmentDefinition>
