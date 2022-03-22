@@ -97,9 +97,9 @@ sap.ui.define([
                     Receivers: []
                 },
                 currDate: new Date(),
-                StartDate:null,
-                StarTime:null,
-               
+                StartDate: null,
+                StarTime: null,
+
             };
             var oModelControl = new JSONModel(oDataControl)
             oView.setModel(oModelControl, "oModelControl");
@@ -111,7 +111,7 @@ sap.ui.define([
             var oValidate = new Validator();
             var othat = this;
             var oForm = oView.byId("FormObjectData");
-            var bFlagValidate = oValidate.validate(oForm,true);
+            var bFlagValidate = oValidate.validate(oForm, true);
             if (!bFlagValidate) {
                 othat._showMessageToast("Message3")
                 return false;
@@ -228,7 +228,7 @@ sap.ui.define([
             var oModelControl = oView.getModel("oModelControl");
             var oModelView = oView.getModel("oModelView");
             oModelControl.setProperty("/MultiCombo/Receivers", []);
-            oModelView.setProperty("/GroupId","")
+            oModelView.setProperty("/GroupId", "")
         },
         onSwitch2Change: function (oEvent) {
             var oView = this.getView();
@@ -236,8 +236,8 @@ sap.ui.define([
             var oModelView = oView.getModel("oModelView");
             // ScheduledDate:null,
             // ScheduledTime:null,
-            oModelView.setProperty("/ScheduledDate",null);
-            oModelView.setProperty("/ScheduledTime",null);
+            oModelView.setProperty("/ScheduledDate", null);
+            oModelView.setProperty("/ScheduledTime", null);
         },
         _RemoveEmptyValue: function (mParam) {
             var obj = Object.assign({}, mParam);
@@ -249,7 +249,8 @@ sap.ui.define([
             }
             return obj;
         },
-        _CheckEmptyFieldsPostPayload: function () {
+        _CheckEmptyFieldsPostPayload: function (mParam1) {
+            //mParam1 is string value for notification type
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var oModel = oView.getModel("oModelView");
@@ -266,6 +267,7 @@ sap.ui.define([
                     }
                 }
             }
+            oPayLoad["NotificationStatus"] = mParam1;
             promise.resolve(oPayLoad);
             return promise;
         },
@@ -280,7 +282,7 @@ sap.ui.define([
             var iDealers = -1;
             var aDealers = [];
             for (var x of aSelectedDealers) {
-                iDealers = aExistingDealers.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]) )
+                iDealers = aExistingDealers.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
                 if (iDealers >= 0) {
                     //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
                     aDealers.push(oPayload["Receivers"][iDealers]);

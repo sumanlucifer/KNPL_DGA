@@ -78,14 +78,14 @@ sap.ui.define([
                 Body: "",
                 Subject: "",
                 IsLater: false,
-                ScheduledDate:"",
-                ScheduledTime:"",
-                GroupId:"",
-                IsGroupNotification:false,
-                RedirectionType:"",
-                RedirectionTo:"",
-                Receivers:[],
-                NotificationStatus:""
+                ScheduledDate: "",
+                ScheduledTime: "",
+                GroupId: "",
+                IsGroupNotification: false,
+                RedirectionType: "",
+                RedirectionTo: "",
+                Receivers: [],
+                NotificationStatus: ""
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -108,15 +108,33 @@ sap.ui.define([
         },
 
 
-        onPressSave: function () {
+        onPressSave: function (sStatusType) {
+            //SCHEDULED DRAFT
             var bValidateForm = this._ValidateForm();
+            var bValidateReceivers = this._CheckReceivers.bind(this);
+
             if (bValidateForm) {
-                this._postDataToSave();
+                if (bValidateReceivers()) {
+                    this._postDataToSave(sStatusType);
+                }
             }
 
         },
-     
-        _postDataToSave: function () {
+        _CheckReceivers: function () {
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
+            if (!oModelView.getProperty("/IsGroupNotification")) {
+                if (oModelControl.getProperty("/MultiCombo/Receivers").length === 0) {
+                    this._showMessageToast("Message7");
+                    return false;
+                }
+            }
+            return true;
+
+        },
+
+        _postDataToSave: function (sStatusType) {
             /*
              * Author: manik saluja
              * Date: 02-Dec-2021
@@ -127,11 +145,11 @@ sap.ui.define([
             var oModelControl = oView.getModel("oModelControl");
             oModelControl.setProperty("/PageBusy", true);
             var othat = this;
-            var c1,c1A, c2, c3, c4;
-            c1 = othat._CheckEmptyFieldsPostPayload();
+            var c1, c1A, c2, c3, c4;
+            c1 = othat._CheckEmptyFieldsPostPayload(sStatusType);
             c1.then(function (oPayload) {
                 c1A = othat._AddMultiComboData(oPayload);
-                c1A.then(function(oPayload){
+                c1A.then(function (oPayload) {
                     c2 = othat._CreateObject(oPayload)
                     c2.then(function () {
                         c3 = othat._uploadFile();
@@ -141,12 +159,12 @@ sap.ui.define([
                         })
                     })
                 })
-              
+
             })
 
 
         },
-      
+
         _CreateObject: function (oPayLoad) {
             console.log(oPayLoad);
             var othat = this;
