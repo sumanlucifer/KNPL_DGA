@@ -19,6 +19,12 @@
                 <Text text="{path : 'SaleGroup/Name'}"  />
                   <Label text="{i18n>PayrollCompany}" />
                 <Text text="{path : 'PayrollCompany/Name'}"  />
+                  <Label text="{i18n>EmployeeId}"/>
+                <Text />
+                <Label text="{i18n>JoiningDate}" />
+                <Text />
+                <Label text="{i18n>ExitDate}" />
+                <Text />
                 <core:Title text="{i18n>LocationDetails}" />
                    <Label text="{i18n>PinCode}" />
                      <Text text="{Pincode/Name}"  />
@@ -26,6 +32,8 @@
                   <Text text="{path:'State/Name'}" />
                 <Label text="{i18n>City}"  />
                  <Text text="{path : 'Town/Name'}"  />
+                   <Label text="{i18n>WorkLocation}"/>
+                <Text />
 
                  <Label text="{i18n>Zone}" />
                        <Text text="{path : 'Zone'}"  />
