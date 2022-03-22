@@ -2,15 +2,16 @@
     <smartTable:SmartTable
                            id="idMaterialsReqTable1"
                             editable="false"
-                                 
-                          
+                            width="100%"
+                       
+                            beforeRebindTable="RequisitionProducts"
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"
                             useVariantManagement="false"
                             useTablePersonalisation="true"
                             demandPopin="true"
-                            enableAutoBinding="false"
+                            enableAutoBinding="true"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
                             initiallyVisibleFields="Id"
@@ -44,12 +45,12 @@
                     <Text text="{i18n>Quantity}"/>
                 </Column>
               
-                <!-- <Column hAlign="Begin">
+                <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 8 ,"sortProperty": "Id","filterProperty": "Id"}'/>
                     </customData>
                     <Text text="{i18n>Id}"/>
-                </Column> -->
+                </Column>
             
                
                 
@@ -64,7 +65,7 @@
                        <Text  />
                         <Text/> 
                       
-                       <!-- <Text text="{Id}" /> -->
+                       <Text text="{Id}" />
                         
 
                     </cells>

@@ -64,7 +64,7 @@ sap.ui.define(
                 var oData = {
                     mode: sMode,
                     bindProp: "Leads(" + oProp + ")",
-                    leadId: oProp,
+                    Id: oProp,
                     PageBusy: true,
                     IcnTabKey: "0",
                     resourcePath: "com.knpl.dga.leadmanagement"
@@ -210,7 +210,20 @@ sap.ui.define(
                 var oView = this.getView();
                 if (sKey == "1") {
                     //oView.byId("HistoryTable").rebindTable();
+                } else if (sKey == "3") {
+                    oView.byId("idMaterialsReqTable1").setTableBindingPath("RequisitionProducts");
+                    //oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
                 }
+            },
+            // before binding methods of the smart tables
+            onBeforeBindMatReqTbl1: function (oEvent) {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "RequisitionProducts";
+                // var oFiler = new Filter("LeadId", FilterOperator.EQ, sId)
+                // oBindingParams.filters.push(oFiler);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
             // onBeforeRebindHistoryTable: function (oEvent) {
             //     var oView = this.getView();
