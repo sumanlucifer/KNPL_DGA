@@ -6,19 +6,23 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
-
-    <f:SimpleForm id="MRDetailsData" editable="false" layout="ResponsiveGridLayout" 
+    <l:VerticalLayout width="100%">
+        <f:SimpleForm id="MRDetailsData" editable="false" layout="ResponsiveGridLayout" 
     labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
     emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
     columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
         <f:content>
-            <core:Title text="{i18n>MaterialRequisition} {i18n>Details}" />
-            <Label text="{i18n>MainObject} {i18n>Type}" />
+            <core:Title text="{i18n>Dealer} {i18n>Details}" />
+            <Label text="{i18n>Dealer} {i18n>Name}" />
             <Text text="{path : 'ComplaintType/ComplaintType'}"  />
-            <core:Title text="{i18n>RemarkDetails}" />
-            <Label text="{i18n>Remark}" />
+            <core:Title text=" " />
+            <Label text="{i18n>Dealer} {i18n>Code}" />
             <Text text="{path : 'Remark'}"  />
         </f:content>
     </f:SimpleForm>
+         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.MaterialReqTable1" type="XML"/>
+            <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.MaterialReqTable2" type="XML"/>
+    </l:VerticalLayout>
+    
 
 </core:FragmentDefinition>

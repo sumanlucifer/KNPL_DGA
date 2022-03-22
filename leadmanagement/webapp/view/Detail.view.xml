@@ -69,17 +69,17 @@
                         </VBox>
                     </IconTabFilter>
                     <!-- Pre Estimation tab -->
-                    <!-- <IconTabFilter  text="{i18n>PreEstimation}" key="1" >
+                    <IconTabFilter  text="{i18n>PreEstimation}" key="1" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.PreEstimation" type="XML"/>
-                    </IconTabFilter>    -->
+                    </IconTabFilter>   
                     <!-- Quotation tab -->
-                    <!-- <IconTabFilter  text="{i18n>Quotation}" key="2" >
+                    <IconTabFilter  text="{i18n>Quotation}" key="2" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.Quotation" type="XML"/>
-                    </IconTabFilter>    -->
+                    </IconTabFilter>   
                     <!-- Material Requisition tab -->
-                    <!-- <IconTabFilter  text="{i18n>MaterialRequisition}" key="3" >
+                    <IconTabFilter  text="{i18n>MaterialRequisition}" key="3" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.MaterialRequisition" type="XML"/>
-                    </IconTabFilter>    -->
+                    </IconTabFilter> 
                     <!-- Feedback tab -->
                     <!-- <IconTabFilter  text="{i18n>Feedback}" key="4" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.Feedback" type="XML"/>
