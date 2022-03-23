@@ -242,9 +242,7 @@ sap.ui.define(
                 });
             },
             onDeActiveItemPress: function (oEve) {
-
-                this._showMessageBox1("Do you want to ?");
-                var iId = oEve.getSource().getBindingContext().getObject().Id;
+            var iId = oEve.getSource().getBindingContext().getObject().Id;
                 //console.log(oPayLoad);
                 var oPayLoad = {
                     "Status": 0

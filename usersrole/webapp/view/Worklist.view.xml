@@ -19,8 +19,8 @@
                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>Status}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                      <ComboBox id="idStatus" placeholder="{i18n>Select} {i18n>Status}" selectionChange="onStatusChange" selectedKey="{path:'oModelControl>/filterBar/Status' }">
-                                       <core:Item text="{i18n>Deactivate}" key="0"/>
-                                        <core:Item text="{i18n>Activate}" key="1"/>
+                                       <core:Item text="{i18n>Inactive}" key="0"/>
+                                        <core:Item text="{i18n>Active}" key="1"/>
                                         
                                     </ComboBox>
                                 </fb:control>
