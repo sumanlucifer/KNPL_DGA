@@ -10,8 +10,8 @@ sap.ui.define([], function () {
          * @returns {string} sValue with 2 digits rounded
          */
         fmtLowerCase: function (mParam) {
-            if(!mParam){
-                return 
+            if (!mParam) {
+                return
             }
             var sStatus = "";
 
@@ -63,6 +63,16 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
+        fmttext: function (mParam) {
+            if (mParam === 1) {
+                return "Active";
+            }
+            if (mParam === 0) {
+                return "Inactive";
+            }
+
+            
+        }
     };
 
 });
