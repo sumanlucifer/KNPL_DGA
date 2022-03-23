@@ -312,7 +312,31 @@ sap.ui.define(
 
 
             },
-
+            onDelete: function (oEvent) {
+                var oContext = oEvent.getSource().getBindingContext();
+                var oObj = oContext.getObject();
+                var sPath = oContext.getPath() + "/IsArchived";
+                var that = this;
+                this._showMessageBox1("warning", "Message5", [oObj["GroupName"]], this._onConfirmDelete.bind(this, sPath));
+            },
+            _onConfirmDelete: function (mParam1) {
+                // mParam1 is the sPath.
+                var oView = this.getView();
+                var oModel = oView.getModel();
+                var othat = this;
+                var oPayLoad = {
+                    IsArchived: true
+                }
+                oModel.update(mParam1, oPayLoad,
+                    {
+                        success: function () {
+                            othat._showMessageToast("Message7");
+                            othat.getView().byId("table").getBinding("items").refresh();
+                        }, error: function (oEvent) {
+                            othat._showMessageBox2("error", "Message8")
+                        }
+                    })
+            },
             onListItemPress: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 var oRouter = this.getOwnerComponent().getRouter();
