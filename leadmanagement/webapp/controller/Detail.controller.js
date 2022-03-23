@@ -212,7 +212,7 @@ sap.ui.define(
                     oView.byId("PreEstTbl").rebindTable();
                     //oView.byId("HistoryTable").rebindTable();
                 } else if (sKey == "2") {
-                    
+                    oView.byId("QuotationTbl").rebindTable();
                     //oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
                 }
             },
@@ -229,8 +229,21 @@ sap.ui.define(
                 mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
 
                 // mBindingParams.filters.push(new Filter("PONumber", FilterOperator.EQ, sPONumber));
+                 mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeRebindQuotation: function (oEvent) {
+            
 
-                // mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                var mBindingParams = oEvent.getParameter("bindingParams");
+               
+                mBindingParams.parameters["expand"] = "QuotationAreas/QuotationSelectedProducts/MasterProduct";
+
+                mBindingParams.parameters["navigation"] = { "Quotations": "QuotationAreas" };
+
+                mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
+
+                // mBindingParams.filters.push(new Filter("PONumber", FilterOperator.EQ, sPONumber));
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
             onBeforeBindMatReqTbl1: function (oEvent) {
                 var oView = this.getView();
