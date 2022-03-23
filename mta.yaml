@@ -66,6 +66,10 @@ modules:
       - comknpldganotifications.zip
       name: comknpldganotifications
       target-path: resources/
+    - artifacts:
+      - comknpldgareassigcontractors.zip
+      name: comknpldgareassigcontractors
+      target-path: resources/
 - name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
@@ -119,6 +123,16 @@ modules:
 - name: comknpldganotifications
   type: html5
   path: notifications
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgareassigcontractors
+  type: html5
+  path: reassigcontractors
   build-parameters:
     build-result: dist
     builder: custom
