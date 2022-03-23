@@ -63,9 +63,9 @@ sap.ui.define(
                 _SetDisplayData: function (oProp, sMode) {
                     var oData = {
                         mode: sMode,
-                        bindProp: "PainterComplainsSet(" + oProp + ")",
+                        bindProp: "NotificationGroupSet(" + oProp + ")",
                         Id: oProp,
-                        EntitySet:"PainterComplainsSet",
+                        EntitySet:"NotificationGroupSet",
                         PageBusy: true,
                         IcnTabKey: "0",
                         resourcePath: "com.knpl.dga.notificationgroups",

@@ -45,7 +45,9 @@ sap.ui.define([
         getModel: function (sName) {
             return this.getView().getModel(sName);
         },
-
+        getResourceBundle: function () {
+            return this.getOwnerComponent().getModel("i18n").getResourceBundle();
+        },
         /**
          * Convenience method for setting the view model.
          * @public
@@ -87,9 +89,9 @@ sap.ui.define([
                 PageBusy: true,
                 Pagetitle: mParam1 === "Add" ? "Add" : "Edit",
                 mode: mParam1,
-                ComplainId: mParam2,
-                bindProp: "PainterComplainsSet(" + mParam2 + ")",
-                EntitySet:"PainterComplainsSet",
+                Id: mParam2,
+                bindProp: "NotificationGroupSet(" + mParam2 + ")",
+                EntitySet:"NotificationGroupSet",
                 resourcePath: "com.knpl.dga.notificationgroups",
                 AddFields:{
                     PainterMobile:"",

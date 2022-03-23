@@ -1,71 +1,51 @@
 <core:FragmentDefinition xmlns="sap.m"
-    xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable id="idWorkListTable1" header="{i18n>MainObject} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="PainterComplainsSet" beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="ParentComplaintId,Id" >
-        <smartTable:customToolbar>
-			<OverflowToolbar>
-                        <ToolbarSpacer />
-                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Add} {i18n>MainObject}" press="onPressAddObject"/>
-                    </OverflowToolbar>
-		</smartTable:customToolbar>
-
-        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
-           
-            <columns>
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Painter/Name", "leadingProperty": "Painter/Name", "columnIndex": 0 ,"sortProperty": "Painter/Name","filterProperty": "Painter/Name"}'/>
-                    </customData>
-                    <Text text="{i18n>PainterName}"/>
-                </Column>
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintCode", "leadingProperty": "ComplaintCode", "columnIndex": 1 ,"sortProperty": "ComplaintCode","filterProperty": "ComplaintCode"}'/>
-                    </customData>
-                    <Text text="{i18n>MainObject} {i18n>Code}"/>
-                </Column>
-
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintType/ComplaintType", "leadingProperty": "ComplaintType/ComplaintType", "columnIndex": 2 ,"sortProperty": "ComplaintType/ComplaintType","filterProperty": "ComplaintType/ComplaintType"}'/>
-                    </customData>
-                    <Text text="{i18n>MainObject} {i18n>Type}"/>
-                </Column>
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 3 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
-                    </customData>
-                    <Text text="{i18n>DateAndTime}"/>
-                </Column>
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintStatus", "leadingProperty": "ComplaintStatus", "columnIndex": 4 ,"sortProperty": "ComplaintStatus","filterProperty": "ComplaintStatus"}'/>
-                    </customData>
-                    <Text text="{i18n>MainObject} {i18n>Status}"/>
-                </Column>
-                 <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions"}'/>
-                    </customData>
-                    <Text text="{i18n>Actions}"/>
-                </Column>
-
-            </columns>
-            <items>
-                <ColumnListItem press="onListItemPress" type="Navigation">
-                    <cells>
-                        <Text text="{Painter/Name}"/>
-                        <Text text="{ComplaintCode}"/>
-                         <Text text="{ComplaintType/ComplaintType}"/>
-                        <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
-                        <ObjectStatus text="{parts:['ComplaintStatus','ParentComplaintId'],formatter:'.formatter.fmtLowerCase'}" state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Error' }"/>
-                           <HBox >
-                                            <Button icon="sap-icon://edit" press="onEditListItemPress" type="Transparent" tooltip="{i18n>Edit}"/>
-							                <Button icon="sap-icon://delete" press="onPressDelete" type="Transparent" tooltip="{i18n>Delete}"/>
-                                        </HBox>
-                    </cells>
-                </ColumnListItem>
-            </items>
-        </Table>
-    </smartTable:SmartTable>
+   <Table id="table" width="auto"
+				items="{ path: '/NotificationGroupSet', filters : { path : 'IsArchived' , operator : 'EQ' , value1 : false }, sorter: { path: 'Id', descending: false } }"
+				noDataText="{i18n>tableNoDataText}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10"
+				updateFinished=".onUpdateFinished">
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title id="tableHeader" text="{oModelControl>/Table1Count}" level="H3"/>
+						<ToolbarSpacer/>
+						<!-- <Button text="{i18n>btnRefresh}" icon="sap-icon://refresh" press="onRefreshView">
+							<layoutData>
+								<OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>
+							</layoutData>
+						</Button> -->
+						<Button text="{i18n>btnAdd}" type="Emphasized" icon="sap-icon://add" press="onAdd">
+							<layoutData>
+								<OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>
+							</layoutData>
+						</Button>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="57%">
+						<Text text="{i18n>colGroupName}"/>
+					</Column>
+					<Column width="13%">
+						<Text text="{i18n>colTotalMembers}"/>
+					</Column>
+					<Column width="20%">
+						<Text text="{i18n>colCreator}"/>
+					</Column>
+					<Column >
+						<Text text="{i18n>colAction}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation" press="onPressView">
+						<cells>
+							<Text text="{GroupName}"/>
+							<Text text="{TotalMembers}"/>
+							<Text text="{= ${CreatorName}=== null ? 'SYSTEM' : ${CreatorName} }"/>
+                            <FlexBox >
+							<Button icon="sap-icon://edit"  visible="{= ${IsDefault} !== true }" press="onEdit" type="Transparent" tooltip="Edit"/>
+							<Button icon="sap-icon://delete" visible="{= ${IsDefault} !== true }" press="onDelete" type="Transparent" tooltip="Delete"/>
+                            </FlexBox>
+                        </cells>
+					</ColumnListItem>
+				</items>
+			</Table>
 </core:FragmentDefinition>
