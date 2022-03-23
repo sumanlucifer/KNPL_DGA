@@ -50,7 +50,8 @@ sap.ui.define(
                         DepotId: "",
 
                     },
-                    PageBusy: true
+                    PageBusy: true,
+                    Table1Count: ""
                 };
                 var oMdlCtrl = new JSONModel(oDataControl);
                 this.getView().setModel(oMdlCtrl, "oModelControl");
@@ -71,6 +72,7 @@ sap.ui.define(
                     DepotId: "",
 
                 };
+
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
                 var oTable = this.getView().byId("idWorkListTable1");
@@ -190,8 +192,9 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
-                if (oView.byId("idWorkListTable1")) {
-                    oView.byId("idWorkListTable1").rebindTable();
+                if (oView.byId("table")) {
+                    console.log("binding refreshed")
+                    oView.byId("table").getBinding("items").refresh();
                 }
                 promise.resolve();
                 return promise;
@@ -216,22 +219,15 @@ sap.ui.define(
             },
             onFilterBarSearch: function () {
                 var oView = this.getView();
-                oView.byId("idWorkListTable1").rebindTable();
+                this._CreateFilter();
+
             },
             _CreateFilter: function () {
                 var aCurrentFilterValues = [];
                 var oViewFilter = this.getView()
                     .getModel("oModelControl")
                     .getProperty("/filterBar");
-
-                var aFlaEmpty = false;
-                // init filters - is archived and complaint type id is 1
-                aCurrentFilterValues.push(
-                    new Filter("IsArchived", FilterOperator.EQ, false));
-                aCurrentFilterValues.push(
-                    new Filter("ComplaintTypeId", FilterOperator.NE, 1));
-
-
+                var aFlaEmpty = true;
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
@@ -268,13 +264,7 @@ sap.ui.define(
                                 new Filter(
                                     [
                                         new Filter({
-                                            path: "Painter/Name",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "ComplaintCode",
+                                            path: "GroupName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
@@ -291,18 +281,62 @@ sap.ui.define(
                     filters: aCurrentFilterValues,
                     and: true,
                 });
-                if (!aFlaEmpty) {
-                    return endFilter;
+                //table1
+                var oTable = this.getView().byId("table");
+                var oBinding = oTable.getBinding("items");
+                if (!aFlaEmpty && oBinding) {
+                    oBinding.filter(endFilter);
                 } else {
-                    return false;
+                    oBinding.filter([]);
                 }
             },
 
             onResetFilterBar: function () {
                 this._ResetFilterBar();
             },
+            onUpdateFinished: function (oEvent) {
+                var sTitle, sDraft,
+                    oTable = this.getView().byId("table"),
+                    iTotalItems = oEvent.getParameter("total");
+                // sDraft = this.getResourceBundle().getText("draftCount", [iTotalItems]);
+                // this.getModel("worklistView").setProperty("/draft", sDraft);
+
+                if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
+                    sDraft = this.getResourceBundle().getText("Table1Count", [
+                        iTotalItems,
+                    ]);
+                } else {
+                    sDraft = this.getResourceBundle().getText("draftCount", [0]);
+                }
+                this.getModel("oModelControl").setProperty("/Table1Count", sDraft);
 
 
+            },
+            onDelete: function (oEvent) {
+                var oContext = oEvent.getSource().getBindingContext();
+                var oObj = oContext.getObject();
+                var sPath = oContext.getPath() + "/IsArchived";
+                var that = this;
+                this._showMessageBox1("warning", "Message5", [oObj["GroupName"]], this._onConfirmDelete.bind(this, sPath));
+            },
+            _onConfirmDelete: function (mParam1) {
+                // mParam1 is the sPath.
+                var oView = this.getView();
+                var oModel = oView.getModel();
+                var othat = this;
+                var oPayLoad = {
+                    IsArchived: true
+                }
+                oModel.update(mParam1, oPayLoad,
+                    {
+                        success: function () {
+                            othat._showMessageToast("Message7");
+                            othat.getView().byId("table").getBinding("items").refresh();
+                        }, error: function (oEvent) {
+                            othat._showMessageBox2("error", "Message8")
+                        }
+                    })
+            },
             onListItemPress: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 var oRouter = this.getOwnerComponent().getRouter();
