@@ -31,7 +31,11 @@ sap.ui.define([
         getRouter: function () {
             return UIComponent.getRouterFor(this);
         },
-
+        _dummyPromise:function(oPayload){
+            var promise = $.Deferred();
+            promise.resolve(oPayload);
+            return promise;
+        },
         /**
          * Convenience method for getting the view model by name.
          * @public
@@ -85,6 +89,7 @@ sap.ui.define([
                 mode: mParam1,
                 ComplainId: mParam2,
                 bindProp: "PainterComplainsSet(" + mParam2 + ")",
+                EntitySet:"PainterComplainsSet",
                 resourcePath: "com.knpl.dga.ui5template",
                 AddFields:{
                     PainterMobile:"",
@@ -402,22 +407,9 @@ sap.ui.define([
 
             oModelControl.setProperty("/AddFields/PainterDepot", ""  ); 
             //Fallback as Preliminary context not supported
-            this._getDepot(obj.DepotId);
+         
             
-        },
-        _getDepot: function(sDepotId){
-            if(!sDepotId) return;
-
-            var sPath = this.getModel().createKey("/MasterDepotSet", {
-                Id : sDepotId
-            }),
-                oModel = this.getModel("oModelControl");
-
-            this.getModel().read(sPath, {
-                success: ele => oModel.setProperty("/AddFields/PainterDepot",ele.Depot)
-            })
-            
-        },
+        }
 
     });
 

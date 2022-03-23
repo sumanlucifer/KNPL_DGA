@@ -141,7 +141,7 @@ sap.ui.define([
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
             return new Promise((resolve, reject) => {
-                oDataModel.create("/PainterComplainsSet", oPayLoad, {
+                oDataModel.create("/"+oModelControl.getProperty("/EntitySet"), oPayLoad, {
                     success: function (data) {
                         othat._showMessageToast("Message2")
                         resolve(data);

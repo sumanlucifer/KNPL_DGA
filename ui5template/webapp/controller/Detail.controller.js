@@ -64,10 +64,12 @@ sap.ui.define(
                     var oData = {
                         mode: sMode,
                         bindProp: "PainterComplainsSet(" + oProp + ")",
-                        complaintId: oProp,
+                        Id: oProp,
+                        EntitySet:"PainterComplainsSet",
                         PageBusy: true,
                         IcnTabKey: "0",
-                        resourcePath: "com.knpl.dga.ui5template"
+                        resourcePath: "com.knpl.dga.ui5template",
+                        
                     };
                     var oModel = new JSONModel(oData);
                     this.getView().setModel(oModel, "oModelDisplay");
@@ -102,7 +104,7 @@ sap.ui.define(
                     var sProp=oModel.getProperty("/bindProp")
                     var oData = oModel.getData();
                     var c1, c2, c3,c4;
-                    var c1 = othat._AddObjectControlModel("Edit", oData["complaintId"]);
+                    var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                     oModel.setProperty("/PageBusy", true);
                     c1.then(function () {
                         c1.then(function () {
