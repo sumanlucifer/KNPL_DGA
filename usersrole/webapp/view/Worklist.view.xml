@@ -8,10 +8,10 @@
                         <fb:filterGroupItems>
                        
                              
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>Role}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Role" label="{i18n>Role}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                     <ComboBox id="idStatus" placeholder="{i18n>Select} {i18n>Role}" selectionChange="onStatusChange"  items="{/MasterRoles}" selectedKey="{path:'oModelControl>/filterBar/Status' }">
-                                      <core:Item text="{Name}" key="{Id}" />
+                                     <ComboBox id="idRole" placeholder="{i18n>Select} {i18n>Role}" selectionChange="onRoleChange"  items="{/MasterRoles}" selectedKey="{path:'oModelControl>/filterBar/Role' }">
+                                      <core:Item text="{Name}" key="{Name}" />
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>

@@ -24,15 +24,12 @@ sap.ui.define(
         MessageToast
     ) {
         "use strict";
-
         return BaseController.extend(
             "com.knpl.dga.usersrole.controller.Worklist", {
             formatter: formatter,
-
             /* =========================================================== */
             /* lifecycle methods                                           */
             /* =========================================================== */
-
             /**
              * Called when the worklist controller is instantiated.
              * @public
@@ -43,7 +40,7 @@ sap.ui.define(
                     filterBar: {
                         StartDate: null,
                         EndDate: null,
-                        Status: "",
+                        Role: "",
                         Search: "",
                     },
                     PageBusy: false
@@ -53,8 +50,6 @@ sap.ui.define(
                 oRouter
                     .getRoute("worklist")
                     .attachMatched(this._onRouteMatched, this);
-
-
             },
             _onRouteMatched: function () {
                 this._InitData();
@@ -68,10 +63,8 @@ sap.ui.define(
                  */
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("Add");
-
             },
             _InitData: function () {
-
                 /*
                  * Author: manik saluja
                  * Date: 02-Dec-2021
@@ -80,7 +73,6 @@ sap.ui.define(
                  * 1. get the logged in users informaion. 2.rebind the table to load data and apply filters 3. perform other operations that are required at the time 
                  * of loading the application
                  */
-
                 var othat = this;
                 var oView = this.getView();
                 var oModelControl = oView.getModel("oModelControl");
@@ -96,7 +88,6 @@ sap.ui.define(
                 //         })
                 //     })
                 // })
-
             },
             _dummyFunction: function () {
                 var promise = jQuerry.Deferred();
@@ -126,7 +117,6 @@ sap.ui.define(
                 }
                 promise.resolve();
                 return promise;
-
             },
             _getLoggedInInfo: function () {
                 /*
@@ -161,7 +151,6 @@ sap.ui.define(
                     promise.resolve();
                     return promise;
                 }
-
             },
             _initTableData: function () {
                 /*
@@ -179,21 +168,18 @@ sap.ui.define(
             },
             onBindTblComplainList: function (oEvent) {
                 /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
+                 * Author: deepanjali kumari
+                 * Date: 22-Mar-2022
                  * Language:  JS
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Painter,ComplaintType";
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
-
-                // Apply Filters
+                oBindingParams.parameters["expand"] = "Role";
+                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 var oFilter = this._CreateFilter();
                 if (oFilter) {
                     oBindingParams.filters.push(oFilter);
                 }
-
             },
             onFilterBarGo: function () {
                 var oView = this.getView();
@@ -204,85 +190,42 @@ sap.ui.define(
                 var oViewFilter = this.getView()
                     .getModel("oModelControl")
                     .getProperty("/filterBar");
-
                 var aFlaEmpty = false;
-                // init filters - is archived and complaint type id is 1
-                aCurrentFilterValues.push(
-                    new Filter("IsArchived", FilterOperator.EQ, false));
-                aCurrentFilterValues.push(
-                    new Filter("ComplaintTypeId", FilterOperator.NE, 1));
-
-
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
-                        if (prop === "StartDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = false;
+                        if (prop === "Role") {
+                            // Role Filter selection
+                            aFlaEmpty = true;
                             aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
-                        } else if (prop === "EndDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = false;
-                            var oDate = oViewFilter[prop].setDate(oViewFilter[prop].getDate() + 1);
-                            aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.LT, oDate));
-                        } else if (prop === "Status") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("ComplaintStatus", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "Search") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter(
-                                    [
-                                        new Filter({
-                                            path: "Painter/Name",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "ComplaintCode",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        })
-                                    ],
-                                    false
-                                )
-                            );
+                                new Filter("Role/Name", FilterOperator.EQ, oViewFilter[prop]));
                         }
                     }
                 }
-
                 var endFilter = new Filter({
                     filters: aCurrentFilterValues,
                     and: true,
                 });
-                if (!aFlaEmpty) {
+                if (aFlaEmpty) {
                     return endFilter;
                 } else {
                     return false;
                 }
             },
-
             onResetFilterBar: function () {
                 this._ResetFilterBar();
             },
-
             _ResetFilterBar: function () {
                 var aCurrentFilterValues = [];
                 var aResetProp = {
                     StartDate: null,
-                    Status: "",
+                    Role: "",
                     Search: "",
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
                 var oTable = this.getView().byId("idWorkListTable1");
                 oTable.rebindTable();
-
             },
             onListItemPress: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();
@@ -291,28 +234,37 @@ sap.ui.define(
                     Id: oBj["Id"],
                     Mode: "Display"
                 });
-
             },
-            onPressDelete: function (oEvent) {
-                var oView = this.getView();
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                this._showMessageBox1("information", "Message5", [oBj["ComplaintCode"]],
-                    this._DeleteComplaints.bind(this, "first paramters", "secondParameter")
-                );
-            },
-            _DeleteComplaints: function (mParam1, mParam2) {
-                // after deleting the entity make sure that we are calling the refresh just on the table and not on thw whole model
-                MessageToast.show("Message5")
-            },
-
-            onEditListItemPress: function (oEvent) {
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
-                    Mode: "Edit"
+            onDeActiveItemPress: function (oEve) {
+                var iId = oEve.getSource().getBindingContext().getObject().Id;
+                //console.log(oPayLoad);
+                var oPayLoad = {
+                    "Status": 0
+                };
+                var oDataModel = this.getView().getModel();
+                oDataModel.update(`/Users(${iId})`, oPayLoad, {
+                    success: function (data) {
+                        var oTable = this.getView().byId("idWorkListTable1");
+                        oTable.rebindTable();
+                    }.bind(this),
+                    error: function (data) {
+                    }.bind(this),
                 });
-
+            },
+            onPressActivate: function (oEve) {
+                var oPayLoad = {
+                    "Status": 1
+                };
+                var iId = oEve.getSource().getBindingContext().getObject().Id;
+                var oDataModel = this.getView().getModel();
+                oDataModel.update(`/Users(${iId})`, oPayLoad, {
+                    success: function (data) {
+                        var oTable = this.getView().byId("idWorkListTable1");
+                        oTable.rebindTable();
+                    }.bind(this),
+                    error: function (data) {
+                    }.bind(this),
+                });
             }
         }
         );

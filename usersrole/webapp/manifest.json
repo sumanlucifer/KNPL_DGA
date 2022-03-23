@@ -29,8 +29,8 @@
                         "additionalParameters": "allowed"
                     },
                     "semanticObject": "Manage",
-                    "action": "PaintReq",
-                    "title": "Painter Requests",
+                    "action": "User",
+                    "title": "User Role",
                     "subTitle": "",
                     "icon": ""
                 }
@@ -93,7 +93,6 @@
             "LoginInfo": {
                 "type": "sap.ui.model.json.JSONModel"
             }
-
         },
         "routing": {
             "config": {
@@ -109,7 +108,8 @@
                 },
                 "async": true
             },
-            "routes": [{
+            "routes": [
+                {
                     "pattern": "",
                     "name": "worklist",
                     "target": [
