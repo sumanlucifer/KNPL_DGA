@@ -10,8 +10,8 @@ sap.ui.define([], function () {
          * @returns {string} sValue with 2 digits rounded
          */
         fmtLowerCase: function (mParam) {
-            if(!mParam){
-                return 
+            if (!mParam) {
+                return
             }
             var sStatus = "";
 
@@ -63,6 +63,22 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
+        fmtQuotProducts: function (mParam1) {
+           // mParam1 > QuotationSelectedProducts
+            if (mParam1) {
+                var aProd = []
+                var oModel = this.getView().getModel();
+                var oObj,oObj2;
+                for (var x of mParam1) {
+                    oObj = oModel.getProperty("/" + x);
+                    oObj2 = oModel.getProperty("/" + oObj["MasterProduct"]["__ref"])
+                    aProd.push(oObj2["ProductName"]);
+                }
+              
+                return aProd.join(" ")
+            }
+            return ""
+        }
     };
 
 });
