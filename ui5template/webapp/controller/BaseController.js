@@ -56,6 +56,10 @@ sap.ui.define([
         setModel: function (oModel, sName) {
             return this.getView().setModel(oModel, sName);
         },
+        getResourceBundle: function () {
+            return this.getOwnerComponent().getModel("i18n").getResourceBundle();
+        },
+
         onNavToHome: function () {
             var sPreviousHash = History.getInstance().getPreviousHash();
 
@@ -87,7 +91,7 @@ sap.ui.define([
                 PageBusy: true,
                 Pagetitle: mParam1 === "Add" ? "Add" : "Edit",
                 mode: mParam1,
-                ComplainId: mParam2,
+                Id: mParam2,
                 bindProp: "PainterComplainsSet(" + mParam2 + ")",
                 EntitySet:"PainterComplainsSet",
                 resourcePath: "com.knpl.dga.ui5template",

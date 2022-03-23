@@ -110,7 +110,7 @@ sap.ui.define(
                         c1.then(function () {
                             c2 = othat._setInitViewModel();
                             c2.then(function () {
-                                c3 = othat._LoadFragment("AddComplaint");
+                                c3 = othat._LoadFragment("AddNewObjForm");
                                 c3.then(function () {
                                     c4 = othat._getDisplayData(sProp);
                                     c4.then(function () {
