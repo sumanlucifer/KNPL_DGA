@@ -10,7 +10,7 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox,Filter,FilterOperator) {
+], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox, Filter, FilterOperator) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -80,13 +80,13 @@ sap.ui.define([
                 ComplainId: mParam2,
                 bindProp: "PainterComplainsSet(" + mParam2 + ")",
                 resourcePath: "com.knpl.dga.usersrole",
-                AddFields:{
-                    PainterMobile:"",
-                    PainterName:"",
-                    PainterMembershipId:"",
-                    PainterZone:"",
-                    PainterDivision:"",
-                    PainterDepot:""
+                AddFields: {
+                    PainterMobile: "",
+                    PainterName: "",
+                    PainterMembershipId: "",
+                    PainterZone: "",
+                    PainterDivision: "",
+                    PainterDepot: ""
                 }
             };
             var oModelControl = new JSONModel(oDataControl)
@@ -138,7 +138,7 @@ sap.ui.define([
             var sMessage = this._geti18nText(pMessage, pMessageParam);
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
-            var aMessageType = ["success", "information", "alert","error", "warning", "confirm"];
+            var aMessageType = ["success", "information", "alert", "error", "warning", "confirm"];
 
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
@@ -164,7 +164,7 @@ sap.ui.define([
 
         },
         _showMessageBox2: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
-            
+
             /*  pType(string) > type of message box ex: information or alert etc.
                 pMessage (string)> i18n property name for the message
                 pMessageParam(array/null)> i18n property has params specify in array or else pass as null
@@ -181,7 +181,7 @@ sap.ui.define([
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
             var aMessageType = ["success", "information", "alert", "error", "warning"];
-           
+
 
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
@@ -254,7 +254,7 @@ sap.ui.define([
                 oViewModel.getProperty("/shareSendEmailMessage")
             );
         },
-        onDialogClose:function(){
+        onDialogClose: function () {
             /*
                 Internal method to handle the closure of all the dialogs
                 if dialog 1 is open first and on top over that dialog 2 is open
@@ -276,12 +276,12 @@ sap.ui.define([
         // painter value help request
         onPainterValueHelpRequest: function (oEvent) {
             var sInputValue = oEvent.getSource().getValue(),
-                oView = this.getView(),oModelControl=oView.getModel("oModelControl");
+                oView = this.getView(), oModelControl = oView.getModel("oModelControl");
 
             if (!this._pValueHelpDialog) {
                 this._pValueHelpDialog = Fragment.load({
                     id: oView.getId(),
-                    name:oModelControl.getProperty("/resourcePath")+".view.fragments.PainterValueHelpDialog",
+                    name: oModelControl.getProperty("/resourcePath") + ".view.fragments.PainterValueHelpDialog",
                     controller: this,
                 }).then(function (oDialog) {
                     oView.addDependent(oDialog);
@@ -349,7 +349,7 @@ sap.ui.define([
             var oSelectedItem = oEvent.getParameter("selectedItem");
             oEvent.getSource().getBinding("items").filter([]);
             var oViewModel = this.getView().getModel("oModelView"),
-             oModelControl = this.getView().getModel("oModelControl")  ;
+                oModelControl = this.getView().getModel("oModelControl");
             if (!oSelectedItem) {
                 return;
             }
@@ -358,26 +358,26 @@ sap.ui.define([
             oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
             oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
             oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
-            oModelControl.setProperty("/AddFields/PainterDivision",obj.DivisionId );
-            oModelControl.setProperty("/AddFields/PainterZone",obj.ZoneId );
+            oModelControl.setProperty("/AddFields/PainterDivision", obj.DivisionId);
+            oModelControl.setProperty("/AddFields/PainterZone", obj.ZoneId);
 
-            oModelControl.setProperty("/AddFields/PainterDepot", ""  ); 
+            oModelControl.setProperty("/AddFields/PainterDepot", "");
             //Fallback as Preliminary context not supported
             this._getDepot(obj.DepotId);
-            
+
         },
-        _getDepot: function(sDepotId){
-            if(!sDepotId) return;
+        _getDepot: function (sDepotId) {
+            if (!sDepotId) return;
 
             var sPath = this.getModel().createKey("/MasterDepotSet", {
-                Id : sDepotId
+                Id: sDepotId
             }),
                 oModel = this.getModel("oModelControl");
 
             this.getModel().read(sPath, {
-                success: ele => oModel.setProperty("/AddFields/PainterDepot",ele.Depot)
+                success: ele => oModel.setProperty("/AddFields/PainterDepot", ele.Depot)
             })
-            
+
         },
 
     });

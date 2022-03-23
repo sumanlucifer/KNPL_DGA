@@ -41,7 +41,7 @@ sap.ui.define(
                         StartDate: null,
                         EndDate: null,
                         Role: "",
-                        Search: "",
+                        Search: ""
                     },
                     PageBusy: false
                 };
@@ -166,7 +166,7 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-            onBindTblComplainList: function (oEvent) {
+            onBindTblUserList: function (oEvent) {
                 /*
                  * Author: deepanjali kumari
                  * Date: 22-Mar-2022
@@ -199,7 +199,12 @@ sap.ui.define(
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
                                 new Filter("Role/Name", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "Status") {
+                            aFlaEmpty = true;
+                            aCurrentFilterValues.push(
+                                new Filter("Status", FilterOperator.EQ, oViewFilter[prop]));
                         }
+
                     }
                 }
                 var endFilter = new Filter({
@@ -221,6 +226,7 @@ sap.ui.define(
                     StartDate: null,
                     Role: "",
                     Search: "",
+                    Status: ""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -236,6 +242,8 @@ sap.ui.define(
                 });
             },
             onDeActiveItemPress: function (oEve) {
+
+                this._showMessageBox1("Do you want to ?");
                 var iId = oEve.getSource().getBindingContext().getObject().Id;
                 //console.log(oPayLoad);
                 var oPayLoad = {

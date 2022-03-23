@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable id="idWorkListTable1" requestAtLeastFields="Id" header="{i18n>MainObject1} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="Users" beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" demandPopin="false">
+    <smartTable:SmartTable id="idWorkListTable1" requestAtLeastFields="Id" header="{i18n>MainObject} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="Users" beforeRebindTable="onBindTblUserList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" demandPopin="false">
         <smartTable:customToolbar>
 			<OverflowToolbar>
                         <!-- <ToolbarSpacer /> -->
@@ -50,7 +50,7 @@
                         
                         <ObjectStatus text="{path:'Status',formatter:'.formatter.fmttext'}" state="{= ${Status} === 1  ? 'Success' : 'Error' }"/> 
                          <HBox >
-                                            <Button text="{i18n>Deactivate}"  enabled="{= ${Status} === 1  ? true : false }" press="onDeActiveItemPress" type="Reject" tooltip="{i18n>Deactive}"/>
+                                            <Button text="{i18n>Deactivate}"  enabled="{= ${Status} === 1  ? true : false }" press="onDeActiveItemPress" type="Reject" tooltip="{i18n>Deactivate}"/>
 							                <Button text="{i18n>Activate}" enabled="{= ${Status} === 1  ? false : true }"  class="sapUiTinyMarginBegin" press="onPressActivate" type="Accept" tooltip="{i18n>Activate}"/>
                                         </HBox>
 
