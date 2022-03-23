@@ -18,7 +18,7 @@ server:
         backend:
           - path: /api
             url: https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com
-            destination: KNPL_PAINTER_API2
+            destination: KNPL_PAINTER_API
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
