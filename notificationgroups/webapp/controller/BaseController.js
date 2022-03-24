@@ -134,7 +134,7 @@ sap.ui.define([
             promise.resolve()
             return promise;
         },
-     
+
         /**
          * Getter for the resource bundle.
          * @public
@@ -264,6 +264,48 @@ sap.ui.define([
             }
             promise.resolve(oPayLoad);
             return promise;
+        },
+        _CreateRadioButtonPayload: function (oPayLoad) {
+            var promise = jQuery.Deferred();
+            var oView = this.getView();
+            var aBoleanProps = {
+                IsTargetGroup: "TarGrp"
+            };
+            var oModelControl = oView.getModel("oModelControl");
+            var oPropRbtn = oModelControl.getProperty("/Rbtn");
+            for (var key in aBoleanProps) {
+                if (oPropRbtn[aBoleanProps[key]] === 0) {
+                    oPayLoad[key] = false;
+                } else {
+                    oPayLoad[key] = true;
+                }
+            }
+            promise.resolve(oPayLoad);
+            return promise;
+        },
+        _CreateMultiComboPayload: function (oPayload) {
+            var promise = $.Deferred();
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            var oModelControl = oView.getModel("oModelControl");
+            // Members - 
+            var aExistingMember = oModelView.getProperty("/Members");
+            var aSelectedMember = oModelControl.getProperty("/MultiCombo/Members")
+            var iMembers = -1;
+            var aMembers = [];
+            for (var x of aSelectedMember) {
+                iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
+                if (iDealers >= 0) {
+
+                    aMembers.push(oPayload["Members"][iMembers]);
+                } else {
+                    aMembers.push({ Id: parseInt(x["Id"]) });
+                }
+            }
+            oPayload["Members"] = aMembers;
+            promise.resolve(oPayload);
+            return promise
+
         },
         _uploadFile: function (oPayLoad) {
             var promise = jQuery.Deferred();
