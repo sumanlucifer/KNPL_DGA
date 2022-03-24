@@ -24,15 +24,12 @@ sap.ui.define(
         MessageToast
     ) {
         "use strict";
-
         return BaseController.extend(
             "com.knpl.dga.ui5template.controller.Worklist", {
             formatter: formatter,
-
             /* =========================================================== */
             /* lifecycle methods                                           */
             /* =========================================================== */
-
             /**
              * Called when the worklist controller is instantiated.
              * @public
@@ -48,7 +45,6 @@ sap.ui.define(
                         ZoneId: "",
                         DivisionId: "",
                         DepotId: "",
-
                     },
                     PageBusy: false
                 };
@@ -57,25 +53,23 @@ sap.ui.define(
                 oRouter
                     .getRoute("worklist")
                     .attachMatched(this._onRouteMatched, this);
-
-
             },
             _ResetFilterBar: function () {
                 var aCurrentFilterValues = [];
                 var aResetProp = {
                     StartDate: null,
+                    EndDate: null,
                     Status: "",
                     Search: "",
-                    ZoneId: "",
-                    DivisionId: "",
+                    DGA: "",
+                    preContractName: "",
+                    ReassignedContractName: "",
                     DepotId: "",
-
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
                 var oTable = this.getView().byId("idWorkListTable1");
                 oTable.rebindTable();
-
             },
             _onRouteMatched: function () {
                 this._InitData();
@@ -89,10 +83,8 @@ sap.ui.define(
                  */
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("Add");
-
             },
             _InitData: function () {
-
                 /*
                  * Author: manik saluja
                  * Date: 02-Dec-2021
@@ -101,7 +93,6 @@ sap.ui.define(
                  * 1. get the logged in users informaion. 2.rebind the table to load data and apply filters 3. perform other operations that are required at the time 
                  * of loading the application
                  */
-
                 var othat = this;
                 var oView = this.getView();
                 var oModelControl = oView.getModel("oModelControl");
@@ -117,9 +108,7 @@ sap.ui.define(
                 //         })
                 //     })
                 // })
-
             },
-
             _addSearchFieldAssociationToFB: function () {
                 /*
                  * Author: manik saluja
@@ -143,7 +132,6 @@ sap.ui.define(
                 }
                 promise.resolve();
                 return promise;
-
             },
             _getLoggedInInfo: function () {
                 /*
@@ -178,7 +166,6 @@ sap.ui.define(
                     promise.resolve();
                     return promise;
                 }
-
             },
             _initTableData: function () {
                 /*
@@ -204,15 +191,13 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Painter,ComplaintType";
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
-
+                oBindingParams.parameters["expand"] = "Lead,DGA,PreviousContractor,ReassignedContractor,ReassignmentStatus";
+                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 // Apply Filters
                 var oFilter = this._CreateFilter();
                 if (oFilter) {
                     oBindingParams.filters.push(oFilter);
                 }
-
             },
             onFilterBarSearch: function () {
                 var oView = this.getView();
@@ -223,141 +208,75 @@ sap.ui.define(
                 var oViewFilter = this.getView()
                     .getModel("oModelControl")
                     .getProperty("/filterBar");
-
                 var aFlaEmpty = false;
-                // init filters - is archived and complaint type id is 1
-                aCurrentFilterValues.push(
-                    new Filter("IsArchived", FilterOperator.EQ, false));
-                aCurrentFilterValues.push(
-                    new Filter("ComplaintTypeId", FilterOperator.NE, 1));
-
-
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
-                        if (prop === "StartDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = false;
+                        if (prop === "DGA") {
+                            aFlaEmpty = true;
                             aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
-                        } else if (prop === "EndDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = false;
-                            var oDate = oViewFilter[prop].setDate(oViewFilter[prop].getDate() + 1);
+                                new Filter("DGA/GivenName", FilterOperator.EQ, oViewFilter[prop]));
+                        }
+                        else if (prop === "preContractName") {
+                            aFlaEmpty = true;
                             aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.LT, oDate));
-                        } else if (prop === "Status") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("ComplaintStatus", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "ZoneId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DvisionId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DepotId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "Search") {
-                            aFlaEmpty = false;
+                                new Filter("PreviousContractor/Name", FilterOperator.EQ, oViewFilter[prop]));
+                        }
+                        else if (prop === "Search") {
+                            aFlaEmpty = true;
                             aCurrentFilterValues.push(
                                 new Filter(
                                     [
                                         new Filter({
-                                            path: "Painter/Name",
+                                            path: "DGA/GivenName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "ComplaintCode",
+                                            path: "PreviousContractor/Name",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
-                                        })
+                                        }),
+                                        new Filter({
+                                            path: "ReassignedContractor/Name",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
                                     ],
                                     false
                                 )
                             );
                         }
+                        else if (prop === "StartDate") {
+                            // converstions are made as the difference between utc and the server time
+                            aFlaEmpty = true;
+                            aCurrentFilterValues.push(
+                                new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
+                        } else if (prop === "EndDate") {
+                            // converstions are made as the difference between utc and the server time
+                            aFlaEmpty = true;
+                            var oDate = oViewFilter[prop].setDate(oViewFilter[prop].getDate() + 1);
+                            aCurrentFilterValues.push(
+                                new Filter("CreatedAt", FilterOperator.LT, oDate));
+                        }
                     }
                 }
-
                 var endFilter = new Filter({
                     filters: aCurrentFilterValues,
                     and: true,
                 });
-                if (!aFlaEmpty) {
+                if (aFlaEmpty) {
                     return endFilter;
                 } else {
                     return false;
                 }
             },
-
             onResetFilterBar: function () {
                 this._ResetFilterBar();
             },
-
-
-            onListItemPress: function (oEvent) {
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
-                    Mode: "Display"
-                });
-
-            },
-            onZoneChange: function (oEvent) {
-                var sId = oEvent.getSource().getSelectedKey();
-                var oView = this.getView();
-                // setting value for division
-                var oDivision = oView.byId("idDivision");
-                oDivision.clearSelection();
-                oDivision.setValue("");
-                var oDivItems = oDivision.getBinding("items");
-                oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
-                //setting the data for depot;
-                var oDepot = oView.byId("idDepot");
-                oDepot.clearSelection();
-                oDepot.setValue("");
-                // clearning data for dealer
-            },
-            onDivisionChange: function (oEvent) {
-                var sKey = oEvent.getSource().getSelectedKey();
-                var oView = this.getView();
-                var oDepot = oView.byId("idDepot");
-                var oDepBindItems = oDepot.getBinding("items");
-                oDepot.clearSelection();
-                oDepot.setValue("");
-                oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
-            },
-
-            onPressDelete: function (oEvent) {
-                var oView = this.getView();
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                this._showMessageBox1("information", "Message5", [oBj["ComplaintCode"]],
-                    this._DeleteComplaints.bind(this, "first paramters", "secondParameter")
-                );
-            },
-            _DeleteComplaints: function (mParam1, mParam2) {
-                // after deleting the entity make sure that we are calling the refresh just on the table and not on thw whole model
-                MessageToast.show("Message5")
-            },
-
-            onEditListItemPress: function (oEvent) {
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
-                    Mode: "Edit"
-                });
-
-            }
         }
         );
     }

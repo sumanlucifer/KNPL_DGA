@@ -10,29 +10,19 @@
                                      <!-- <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>DGAName}" selectionChange="onZoneChange"  selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
                                         <core:Item text="{Id} " key="{Id}" />
                                     </ComboBox> -->
-                                      <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>DGAName}" selectionChange="onZoneChange"  selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
-                                        <core:Item text="{Id} " key="{Id}" />
+                                      <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>DGAName}" items="{/DGAs}" selectionChange="onZoneChange"  selectedKey="{path:'oModelControl>/filterBar/DGA' }">
+                                        <core:Item text="{GivenName} " key="{GivenName}" />
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Division" label="{i18n>ContractorName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                             <fb:FilterGroupItem  groupName="__$INTERNAL$" name="Division" label="{i18n>ContractorName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                       <!-- <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>ContractorName}" id="idDivision" selectionChange="onDivisionChange"  selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
                     <core:Item text="{Id}" key="{Id}" />
                 </ComboBox> -->
-                 <ComboBox  placeholder="{i18n>Enter} {i18n>ContractorName}" id="idDivision" selectionChange="onDivisionChange"  selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
-                    <core:Item text="{Id}" key="{Id}" />
+                 <ComboBox  placeholder="{i18n>Enter} {i18n>ContractorName}"  id="idDivision" selectionChange="onDivisionChange" items="{/MasterContractors}" selectedKey="{path:'oModelControl>/filterBar/preContractName'}">
+                    <core:Item text="{Name}" key="{Name}" />
                 </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>DelearName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                     <!-- <ComboBox enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="idDepot" placeholder="{i18n>Enter} {i18n>DelearName}" selectionChange="onDepotChange" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
-                                        <core:Item text="{Depot} ( {Id} )" key="{Id}" />
-                                    </ComboBox> -->
-                                       <ComboBox  id="idDepot" placeholder="{i18n>Enter} {i18n>DelearName}" selectionChange="onDepotChange" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
-                                        <core:Item text="{Depot}" key="{Id}" />
-                                    </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="StartDate" label="{i18n>StartDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
