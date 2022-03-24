@@ -3,71 +3,47 @@
                            id="idMaterialsReqTable1"
                             editable="false"
                             width="100%"
-                       
-                            beforeRebindTable="RequisitionProducts"
+                            entitySet="MaterialRequisitionProducts"
+                            beforeRebindTable="onBeforeBindMatReqTbl1"
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"
                             useVariantManagement="false"
                             useTablePersonalisation="true"
                             demandPopin="true"
-                            enableAutoBinding="true"
+                            enableAutoBinding="false"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            initiallyVisibleFields="Id"
-                             initialNoDataText="{i18n>tableNoDataText}"
-                          >
+                            initialNoDataText="{i18n>tableNoDataText}"
+                            header="{i18n>Interior}">
 
         <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
             <columns>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PaintingReq", "columnIndex": 0 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Product/ProductName", "leadingProperty": "Product/ProductName", "sortProperty": "Product/ProductName", "filterProperty": "Product/ProductName", "columnIndex": 0 }'/>
                     </customData>
-                    <Text text="{i18n>PaintingReq}"/>
+                    <Text text="{i18n>ProductName}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Products","columnIndex": 1 ,"sortProperty": "Products"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ProductShade/Name", "leadingProperty": "ProductShade/Name", "sortProperty": "ProductShade/Name", "filterProperty": "ProductShade/Name", "columnIndex": 1 }'/>
                     </customData>
-                    <Text text="{i18n>Products}"/>
+                    <Text text="{i18n>ProductShade}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                       <core:CustomData key="p13nData" value='\{"columnKey": "Volume", "columnIndex": 2 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Volume", "leadingProperty": "Volume", "sortProperty": "Volume", "filterProperty": "Volume", "columnIndex": 2 }'/>
                     </customData>
                     <Text text="{i18n>Volume}"/>
                 </Column>
-                 <Column hAlign="Begin">
-                    <customData>
-                         <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "columnIndex": 3 }'/>
-                    </customData>
-                    <Text text="{i18n>Quantity}"/>
-                </Column>
-              
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 8 ,"sortProperty": "Id","filterProperty": "Id"}'/>
-                    </customData>
-                    <Text text="{i18n>Id}"/>
-                </Column>
-            
-               
-                
-
             </columns>
             <items>
                 <ColumnListItem>
-                    <cells>
-                 
-                       <Text  />
-                       <Text />
-                       <Text  />
-                        <Text/> 
-                      
-                       <Text text="{Id}" />
-                        
-
+                    <cells>                  
+                       <Text text="{Product/ProductName}"/>
+                       <Text text="{ProductShade/Name}"/>
+                       <Text text="{Volume}"/>
                     </cells>
                 </ColumnListItem>
             </items>

@@ -99,11 +99,6 @@
                     "useBatch": false
                 }
             },
-            "additionalModel": {
-                "dataSource": "additionalService",
-                "preload": true,
-                "settings": {}
-            },
             "LoginInfo": {
                 "type": "sap.ui.model.json.JSONModel"
             }
