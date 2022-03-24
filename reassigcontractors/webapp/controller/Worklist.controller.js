@@ -50,7 +50,7 @@ sap.ui.define(
                         DepotId: "",
 
                     },
-                    PageBusy: true
+                    PageBusy: false
                 };
                 var oMdlCtrl = new JSONModel(oDataControl);
                 this.getView().setModel(oMdlCtrl, "oModelControl");
@@ -106,17 +106,17 @@ sap.ui.define(
                 var oView = this.getView();
                 var oModelControl = oView.getModel("oModelControl");
                 var c1, c2, c3, c4;
-                oModelControl.setProperty("/PageBusy", true)
+                // oModelControl.setProperty("/PageBusy", true)
                 c1 = othat._addSearchFieldAssociationToFB();
-                c1.then(function () {
-                    c2 = othat._dummyPromise();
-                    c2.then(function () {
-                        c3 = othat._initTableData();
-                        c3.then(function () {
-                            oModelControl.setProperty("/PageBusy", false)
-                        })
-                    })
-                })
+                // c1.then(function () {
+                //     c2 = othat._dummyPromise();
+                //     c2.then(function () {
+                //         c3 = othat._initTableData();
+                //         c3.then(function () {
+                //             oModelControl.setProperty("/PageBusy", false)
+                //         })
+                //     })
+                // })
 
             },
 
