@@ -65,6 +65,7 @@ sap.ui.define([
             })
 
         },
+        
         _setInitViewModel: function () {
             /*
              * Author: manik saluja
@@ -150,6 +151,7 @@ sap.ui.define([
 
 
         },
+     
         _CreateObject: function (oPayLoad) {
             console.log(oPayLoad);
             var othat = this;

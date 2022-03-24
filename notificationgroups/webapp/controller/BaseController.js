@@ -707,6 +707,7 @@ sap.ui.define([
                 oValueHelpDialog.update();
             });
         },
+        
         removeDuplicates: function (originalArray, prop) {
             var newArray = [];
             var lookupObject = {};
@@ -725,6 +726,58 @@ sap.ui.define([
                 iIndex = +(oEvent.getParameter("listItem").getBindingContext("oModelControl").sPath.match(/\d+/)[0]);
             oViewModel.getProperty("/MultiCombo/Members").splice(iIndex, 1);
             oViewModel.refresh();
+        },
+        onPVhZoneChange: function (oEvent) {
+            var sId = oEvent.getSource().getSelectedKey();
+            var oView = this.getView();
+
+            var oDivision = sap.ui.getCore().byId("idPVhDivision");
+            var oDivItems = oDivision.getBinding("items");
+            var oDivSelItm = oDivision.getSelectedItem(); //.getBindingContext().getObject()
+            oDivision.clearSelection();
+            oDivision.setValue("");
+            oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
+            //setting the data for depot;
+            var oDepot = sap.ui.getCore().byId("idPVhDepot");
+            oDepot.clearSelection();
+            oDepot.setValue("");
+            // clearning data for dealer
+        },
+        onPVhDivisionChange: function (oEvent) {
+            var sKey = oEvent.getSource().getSelectedKey();
+            var oView = this.getView();
+            var oDepot = sap.ui.getCore().byId("idPVhDepot");
+            var oDepBindItems = oDepot.getBinding("items");
+            oDepot.clearSelection();
+            oDepot.setValue("");
+            oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
+        },
+        onClearPainterVhSearch: function () {
+            var oView = this.getView();
+            var oModel = oView.getModel("oModelControl"),
+                aCurrentFilterValues = [];
+            oModel.setProperty("/Search/PainterVh", {
+                ZoneId: "",
+                DivisionId: "",
+                DepotId: "",
+                PainterType: "",
+                ArcheType: "",
+                MembershipCard: "",
+                Name: "",
+                Mobile: ""
+            });
+            aCurrentFilterValues.push(new Filter({
+                path: "IsArchived",
+                operator: FilterOperator.EQ,
+                value1: false
+            }));
+
+            this._FilterPainterValueTable(
+                new Filter({
+                    filters: aCurrentFilterValues,
+                    and: true,
+                })
+            );
         },
 
     });
