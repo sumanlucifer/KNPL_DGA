@@ -39,25 +39,25 @@
                                     </FlexBox>
 									<FlexBox >
                                
-                                    <Text text="{objectView>Painter/Mobile}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{oModelControl>Painter/Mobile}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
                                       <FlexBox >
                                   
-                                    <Text text="{objectView>Painter/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{oModelControl>Painter/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
 
                                     
                                      <FlexBox >
-                                    <Text text="{objectView>Admin/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
-                                    <Text text="{objectView>Painter/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                   
+                                    <Text text="{oModelControl>Painter/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
                                      <FlexBox >
                                 
-                                    <Text text="{objectView>Painter/DivisionId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{oModelControl>Painter/DivisionId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
                                     <FlexBox >
                                    
-                                    <Text text="{objectView>Painter/DepotId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{oModelControl>Painter/DepotId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
                                     <!-- <Text text="{objectView>Role/Role}" visible="{= ${objectView>IsArchived} !== true }"/> -->
                                     </cells>

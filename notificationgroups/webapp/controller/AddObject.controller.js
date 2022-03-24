@@ -112,6 +112,18 @@ sap.ui.define([
             }
 
         },
+        _ValidateForm: function () {
+            var oView = this.getView();
+            var oValidate = new Validator();
+            var othat = this;
+            var oForm = oView.byId("FormObjectData");
+            var bFlagValidate = oValidate.validate(oForm);
+            if (!bFlagValidate) {
+                othat._showMessageToast("Message3")
+                return false;
+            }
+            return true;
+        },
         _postDataToSave: function () {
             /*
              * Author: manik saluja
@@ -139,7 +151,7 @@ sap.ui.define([
 
         },
         _CreateObject: function (oPayLoad) {
-            //console.log(oPayLoad);
+            console.log(oPayLoad);
             var othat = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
