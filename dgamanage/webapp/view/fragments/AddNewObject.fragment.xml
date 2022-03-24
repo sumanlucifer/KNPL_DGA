@@ -24,22 +24,6 @@
                 <DatePicker placeholder="DD/MM/YYYY" dateValue="{oModelView>/ExitDate}"  value="{path:'oModelControl>/AddFields/ExitDate', type:'sap.ui.model.type.Date', formatOptions:{source:{pattern:'dd/MM/YYYY'}, pattern:'dd/MM/YYYY', strictParsing:true}, constraints:{minimum:'01/01/2022'} }"  ></DatePicker>
                 <core:Title text="{i18n>LocationDetails}" />
                   
-                  <Label text="{i18n>PinCode}" />
-               <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/PinCode'}" />
-                <Label text="{i18n>State}" />
-                <ComboBox enabled="true" id="cmBxState" selectionChange="onStateChange" items="{path:'/MasterStates',sorter:{path:'Name'}}" required="false" selectedKey="{path:'oModelView>/StateId', type:'sap.ui.model.type.String'  }">
-                    <items>
-                        <core:Item text="{Name}" key="{Id}" />
-                    </items>
-                </ComboBox>
-                <Label text="{i18n>City}"  />
-                <ComboBox  items="{path:'/MasterTowns'}" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/StateId} !== '' }"  selectedKey="{path:'oModelView>/TownId' }" id="cmbCity" required="false">
-                    <items>
-                        <core:Item text="{Name}" key="{Id}" />
-                    </items>
-                </ComboBox>
-                <Label text="{i18n>WorkLocation}"/>
-                <Input />
                  <Label text="{i18n>Zone}" />
                 <ComboBox required="true" selectionChange="onZoneChange" items="{/MasterZones}" selectedKey="{path:'oModelView>/Zone',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
                     <core:Item text="{Id}" key="{Id}" />
@@ -55,11 +39,30 @@
                 <Label text="{i18n>LinkDealer}" visible="{= ${oModelControl>/mode} === 'Add'}" />
                 <MultiInput visible="{= ${oModelControl>/mode} === 'Add'}"  placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDealersValueHelp" tokens="{path:'oModelControl>/MultiCombo/Dealers'}">
                     <tokens>
-                              <Token text="{oModelControl>Name}" key="{oModelControl>Id}"/>
+                        <Token text="{oModelControl>Name}" key="{oModelControl>Id}"/>
                     </tokens>
                 </MultiInput>
-            
-
+                <Label text="{i18n>WorkLocation}"  />
+                <ComboBox  items="{path:'/MasterWorkingLocations', sorter:{path:'Name'}}" valueStateText="{i18n>ValueStateMessage2}" editable="{= ${oModelView>/Zone} !== '' }"  selectedKey="{path:'oModelView>/WorkLocationId', type:'sap.ui.model.type.String', constraints:{minLength:1} }"  required="true">
+                    <items>
+                        <core:Item text="{Name}" key="{Id}" />
+                    </items>
+                </ComboBox>
+                <Label text="{i18n>PinCode}" />
+               <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/PinCode'}" />
+                <Label text="{i18n>State}" />
+                <ComboBox enabled="true" id="cmBxState" selectionChange="onStateChange" items="{path:'/MasterStates',sorter:{path:'Name'}}" required="false" selectedKey="{path:'oModelView>/StateId', type:'sap.ui.model.type.String'  }">
+                    <items>
+                        <core:Item text="{Name}" key="{Id}" />
+                    </items>
+                </ComboBox>
+                <Label text="{i18n>City}"  />
+                <ComboBox  items="{path:'/MasterTowns', sorter:{path:'Name'}}" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/StateId} !== '' }"  selectedKey="{path:'oModelView>/TownId' }" id="cmbCity" required="false">
+                    <items>
+                        <core:Item text="{Name}" key="{Id}" />
+                    </items>
+                </ComboBox>
+               
            
             </f:content>
         </f:SimpleForm>
