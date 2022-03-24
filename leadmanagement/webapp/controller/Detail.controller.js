@@ -214,34 +214,28 @@ sap.ui.define(
                 } else if (sKey == "2") {
                     oView.byId("QuotationTbl").rebindTable();
                     //oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
+                } else if (sKey == "3") {
+                    oView.byId("idMaterialsReqTable1").rebindTable();
+                    oView.byId("idMaterialsReqTable2").rebindTable();
+                    oView.byId("idMaterialsReqTable3").rebindTable();
+                    oView.byId("idMaterialsReqTable4").rebindTable();
+                    oView.byId("idMaterialsReqTable5").rebindTable();
                 }
             },
             // before binding methods of the smart tables
             onBeforeRebindPreReq: function (oEvent) {
-            
-
                 var mBindingParams = oEvent.getParameter("bindingParams");
-               
                 mBindingParams.parameters["expand"] = "PreEstimationAreas";
-
                 mBindingParams.parameters["navigation"] = { "PreEstimations": "PreEstimationAreas" };
-
                 mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
-
                 // mBindingParams.filters.push(new Filter("PONumber", FilterOperator.EQ, sPONumber));
                  mBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
             onBeforeRebindQuotation: function (oEvent) {
-            
-
                 var mBindingParams = oEvent.getParameter("bindingParams");
-               
                 mBindingParams.parameters["expand"] = "QuotationAreas/QuotationSelectedProducts/MasterProduct";
-
                 mBindingParams.parameters["navigation"] = { "Quotations": "QuotationAreas" };
-
                 mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
-
                 // mBindingParams.filters.push(new Filter("PONumber", FilterOperator.EQ, sPONumber));
                 mBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
@@ -249,14 +243,51 @@ sap.ui.define(
                 var oView = this.getView();
                 var sId = oView.getModel("oModelDisplay").getProperty("/Id")
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "RequisitionProducts";
-                // var oFiler = new Filter("LeadId", FilterOperator.EQ, sId)
-                // oBindingParams.filters.push(oFiler);
+                oBindingParams.parameters["expand"] = "Product,ProductShade";
+                var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
+                var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, 1);
+                oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
-
-
-
+            onBeforeBindMatReqTbl2: function (oEvent) {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "Product,ProductShade";
+                var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
+                var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, 2);
+                oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeBindMatReqTbl3: function (oEvent) {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "Product,ProductShade";
+                var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
+                var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, 3);
+                oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeBindMatReqTbl4: function (oEvent) {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "Product,ProductShade";
+                var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
+                var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, 4);
+                oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeBindMatReqTbl5: function (oEvent) {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "Equipment";
+                var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
+                oBindingParams.filters.push(oFiler);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
