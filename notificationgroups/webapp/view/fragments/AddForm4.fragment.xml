@@ -1,0 +1,68 @@
+<core:FragmentDefinition xmlns:html="http://www.w3.org/1999/xhtml" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  
+   <Table id="List" mode="Delete" delete="onDeleteMember" width="auto"
+							items="{path: 'oModelControl>/MultiCombo/Members'}"
+							headerText="{i18n>colGroupMembers}" growing="true" noDataText="{i18n>tableNoDataText}">
+							<headerToolbar>
+								<Toolbar>
+									<ToolbarSpacer/>
+									
+                                     <Button press="onValueHelpRequestedPainter" icon="sap-icon://add" type="Emphasized" text="{i18n>btnAddMember}"/>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column>
+									<Text text="{i18n>Name}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>Mobile}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>MembershipId}"/>
+								</Column>
+                                <Column>
+									<Text text="{i18n>Zone}"/>
+								</Column>
+                                <Column>
+									<Text text="{i18n>Division}"/>
+								</Column>
+                                <Column>
+									<Text text="{i18n>Depot}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+                                    <FlexBox>
+                               
+                                    <Text text="{oModelControl>PainterName}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+									<FlexBox >
+                               
+                                    <Text text="{oModelControl>Painter/Mobile}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+                                      <FlexBox >
+                                  
+                                    <Text text="{oModelControl>Painter/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+
+                                    
+                                     <FlexBox >
+                   
+                                    <Text text="{oModelControl>Painter/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+                                     <FlexBox >
+                                
+                                    <Text text="{oModelControl>Painter/DivisionId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+                                    <FlexBox >
+                                   
+                                    <Text text="{oModelControl>Painter/DepotId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+                                    <!-- <Text text="{objectView>Role/Role}" visible="{= ${objectView>IsArchived} !== true }"/> -->
+                                    </cells>
+                                </ColumnListItem>
+							</items>
+						</Table>
+   
+</core:FragmentDefinition>

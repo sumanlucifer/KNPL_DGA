@@ -10,7 +10,7 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox,Filter,FilterOperator) {
+], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox, Filter, FilterOperator) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -31,7 +31,7 @@ sap.ui.define([
         getRouter: function () {
             return UIComponent.getRouterFor(this);
         },
-        _dummyPromise:function(oPayload){
+        _dummyPromise: function (oPayload) {
             var promise = $.Deferred();
             promise.resolve(oPayload);
             return promise;
@@ -91,15 +91,42 @@ sap.ui.define([
                 mode: mParam1,
                 Id: mParam2,
                 bindProp: "NotificationGroupSet(" + mParam2 + ")",
-                EntitySet:"NotificationGroupSet",
+                EntitySet: "NotificationGroupSet",
                 resourcePath: "com.knpl.dga.notificationgroups",
-                AddFields:{
-                    PainterMobile:"",
-                    PainterName:"",
-                    PainterMembershipId:"",
-                    PainterZone:"",
-                    PainterDivision:"",
-                    PainterDepot:""
+                AddFields: {
+                    PainterMobile: "",
+                    PainterName: "",
+                    PainterMembershipId: "",
+                    PainterZone: "",
+                    PainterDivision: "",
+                    PainterDepot: ""
+                },
+                Rbtn: {
+                    TarGrp: 0
+                },
+                MultiCombo: {
+                    Zone: [],
+                    Division: [],
+                    Depot: [],
+                    Members: [],
+                    PainterType: [],
+                    ArcheType: []
+                },
+                Search: {
+                    PainterVh: {
+                        ZoneId: "",
+                        DivisionId: "",
+                        DepotId: "",
+                        PainterType: "",
+                        ArcheType: "",
+                        MembershipCard: "",
+                        Name: "",
+                        Mobile: ""
+                    },
+                    DepotVh: {
+                        DepotId: "",
+                        Division: ""
+                    }
                 }
             };
             var oModelControl = new JSONModel(oDataControl)
@@ -107,18 +134,7 @@ sap.ui.define([
             promise.resolve()
             return promise;
         },
-        _ValidateForm: function () {
-            var oView = this.getView();
-            var oValidate = new Validator();
-            var othat = this;
-            var oForm = oView.byId("FormObjectData");
-            var bFlagValidate = oValidate.validate(oForm);
-            if (!bFlagValidate) {
-                othat._showMessageToast("Message3")
-                return false;
-            }
-            return true;
-        },
+
         /**
          * Getter for the resource bundle.
          * @public
@@ -151,7 +167,7 @@ sap.ui.define([
             var sMessage = this._geti18nText(pMessage, pMessageParam);
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
-            var aMessageType = ["success", "information", "alert","error", "warning", "confirm"];
+            var aMessageType = ["success", "information", "alert", "error", "warning", "confirm"];
 
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
@@ -177,7 +193,7 @@ sap.ui.define([
 
         },
         _showMessageBox2: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
-            
+
             /*  pType(string) > type of message box ex: information or alert etc.
                 pMessage (string)> i18n property name for the message
                 pMessageParam(array/null)> i18n property has params specify in array or else pass as null
@@ -194,7 +210,7 @@ sap.ui.define([
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
             var aMessageType = ["success", "information", "alert", "error", "warning"];
-           
+
 
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
@@ -218,6 +234,55 @@ sap.ui.define([
             }
 
 
+        },
+        _propertyToBlank: function (aArray, aModel2) {
+            var aProp = aArray;
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            if (aModel2) {
+                oModelView = oView.getModel("oModelControl");
+            }
+            for (var x of aProp) {
+                var oGetProp = oModelView.getProperty("/" + x);
+                if (Array.isArray(oGetProp)) {
+                    oModelView.setProperty("/" + x, []);
+                    //oView.byId(x.substring(x.indexOf("/") + 1)).fireChange();
+                } else if (oGetProp === null) {
+                    oModelView.setProperty("/" + x, null);
+                } else if (oGetProp instanceof Date) {
+                    oModelView.setProperty("/" + x, null);
+                } else if (typeof oGetProp === "boolean") {
+                    oModelView.setProperty("/" + x, false);
+                } else {
+                    oModelView.setProperty("/" + x, "");
+                }
+            }
+            oModelView.refresh(true);
+        },
+
+        _ValidateForm: function () {
+            var oView = this.getView();
+            var oValidate = new Validator();
+            var othat = this;
+            var oForm = oView.byId("ObjectPageLayout");
+            var bFlagValidate = oValidate.validate(oForm,true);
+            if (!bFlagValidate) {
+                othat._showMessageToast("Message3")
+                return false;
+            }
+            return true;
+        },
+        _ValidateMembers:function(){
+            console.log("Method Trigerred")
+            var oView = this.getView();
+            var oModelData = oView.getModel("oModelControl").getData();
+            if(oModelData["Rbtn"]["TarGrp"] === 0){
+                if(oModelData["MultiCombo"]["Members"].length === 0){
+                    this._showMessageToast("Message10")
+                    return false;
+                }
+            }
+            return true;
         },
         _RemoveEmptyValue: function (mParam) {
             var obj = Object.assign({}, mParam);
@@ -248,6 +313,48 @@ sap.ui.define([
             }
             promise.resolve(oPayLoad);
             return promise;
+        },
+        _CreateRadioButtonPayload: function (oPayLoad) {
+            var promise = jQuery.Deferred();
+            var oView = this.getView();
+            var aBoleanProps = {
+                IsTargetGroup: "TarGrp"
+            };
+            var oModelControl = oView.getModel("oModelControl");
+            var oPropRbtn = oModelControl.getProperty("/Rbtn");
+            for (var key in aBoleanProps) {
+                if (oPropRbtn[aBoleanProps[key]] === 0) {
+                    oPayLoad[key] = false;
+                } else {
+                    oPayLoad[key] = true;
+                }
+            }
+            promise.resolve(oPayLoad);
+            return promise;
+        },
+        _CreateMultiComboPayload: function (oPayload) {
+            var promise = $.Deferred();
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            var oModelControl = oView.getModel("oModelControl");
+            // Members - 
+            var aExistingMember = oModelView.getProperty("/Members");
+            var aSelectedMember = oModelControl.getProperty("/MultiCombo/Members")
+            var iMembers = -1;
+            var aMembers = [];
+            for (var x of aSelectedMember) {
+                iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
+                if (iMembers >= 0) {
+
+                    aMembers.push(oPayload["Members"][iMembers]);
+                } else {
+                    aMembers.push({ Id: parseInt(x["Id"]) });
+                }
+            }
+            oPayload["Members"] = aMembers;
+            promise.resolve(oPayload);
+            return promise
+
         },
         _uploadFile: function (oPayLoad) {
             var promise = jQuery.Deferred();
@@ -296,7 +403,7 @@ sap.ui.define([
             return this._formFragments;
         },
 
-        _onDialogClose:function(){
+        _onDialogClose: function () {
             /*
                 Internal method to handle the closure of all the dialogs
                 if dialog 1 is open first and on top over that dialog 2 is open
@@ -306,7 +413,7 @@ sap.ui.define([
                 to get destroyed
             */
             if (this._pValueHelpDialog) {
-                
+
                 this._pValueHelpDialog.destroy();
                 delete this._pValueHelpDialog;
                 return;
@@ -319,99 +426,359 @@ sap.ui.define([
                 }
             }
         },
-        // painter value help request
-        onPainterValueHelpRequest: function (oEvent) {
-            var sInputValue = oEvent.getSource().getValue(),
-                oView = this.getView(),oModelControl=oView.getModel("oModelControl");
-
-            if (!this._pValueHelpDialog) {
-                this._pValueHelpDialog = Fragment.load({
-                    id: oView.getId(),
-                    name:oModelControl.getProperty("/resourcePath")+".view.fragments.PainterValueHelpDialog",
-                    controller: this,
-                }).then(function (oDialog) {
-                    oView.addDependent(oDialog);
-                    return oDialog;
-                });
-            }
-            this._pValueHelpDialog.then(function (oDialog) {
-                // Create a filter for the binding
-                oDialog
-                    .getBinding("items")
-                    .filter([
-                        new Filter(
-                            [
-                                new Filter(
-                                    {
-                                        path: "Name",
-                                        operator: "Contains",
-                                        value1: sInputValue.trim(),
-                                        caseSensitive: false
-                                    }
-                                ),
-                                new Filter(
-                                    {
-                                        path: "Mobile",
-                                        operator: "Contains",
-                                        value1: sInputValue.trim(),
-                                        caseSensitive: false
-                                    }
-                                ),
-                            ],
-                            false
-                        ),
-                    ]);
-                // Open ValueHelpDialog filtered by the input's value
-                oDialog.open(sInputValue);
-            });
+        onRbChnageMain:function(oEvent){
+            this._propertyToBlank(["MultiCombo/Members","MultiCombo/Zone","MultiCombo/Division","MultiCombo/Depot","MultiCombo/PainterType","MultiCombo/ArcheType"],true)
         },
-        onPainterValueHelpSearch: function (oEvent) {
-            var sValue = oEvent.getParameter("value");
-            var oFilter = new Filter(
-                [
-                    new Filter(
-                        {
-                            path: "Name",
-                            operator: "Contains",
-                            value1: sValue.trim(),
-                            caseSensitive: false
-                        }
-                    ),
-                    new Filter(
-                        {
-                            path: "Mobile",
-                            operator: "Contains",
-                            value1: sValue.trim(),
-                            caseSensitive: false
-                        }
-                    )
+        // painter value help request
+        onValueHelpRequestedPainter: function () {
+            this._oMultiInput = this.getView().byId("multiInputPainterAdd");
+            this.oColModel = new JSONModel({
+                cols: [{
+                    label: "Membership ID",
+                    template: "Painter/MembershipCard",
+                },
+                {
+                    label: "Name",
+                    template: "Painter/Name",
+                },
+                {
+                    label: "Mobile Number",
+                    template: "Painter/Mobile",
+                },
+                {
+                    label: "Zone",
+                    template: "Painter/ZoneId",
+                },
+                {
+                    label: "Division",
+                    template: "Painter/DivisionId",
+                },
+                {
+                    label: "Depot",
+                    template: "Painter/Depot/Depot",
+                },
+                {
+                    label: "Painter Type",
+                    template: "Painter/PainterType/PainterType",
+                },
+                {
+                    label: "Painter ArcheType",
+                    template: "Painter/ArcheType/ArcheType",
+                }
                 ],
-                false
+            });
+
+            var aCols = this.oColModel.getData().cols;
+            var oFilter = new sap.ui.model.Filter({
+                filters: [
+                    new Filter("IsArchived", sap.ui.model.FilterOperator.EQ, false),
+                    new Filter("PainterId", sap.ui.model.FilterOperator.GT, 0)
+                ],
+                and: true
+            });
+
+            this._oValueHelpDialog = sap.ui.xmlfragment(
+                "com.knpl.dga.notificationgroups.view.fragments.PainterValueHelp",
+                this
+            );
+            this.getView().addDependent(this._oValueHelpDialog);
+
+            this._oValueHelpDialog.setBusy(true);
+
+            this._oValueHelpDialog.getTableAsync().then(
+                function (oTable) {
+                    oTable.setModel(this.oColModel, "columns");
+
+                    if (oTable.bindRows) {
+                        oTable.bindAggregation("rows", {
+                            path: "/UserSet",
+                            filters: [oFilter],
+                            parameters: {
+                                expand: "Painter,Painter/Depot,Painter/Division,Painter/ArcheType,Painter/PainterType"
+                            },
+                            events: {
+                                dataReceived: function () {
+                                    this._oValueHelpDialog.setBusy(false);
+                                    this._oValueHelpDialog.update();
+
+                                    // var update=this._oValueHelpDialog.update();
+                                    // update.then(
+                                    //     function(){
+                                    //         debugger;
+                                    //         this._oValueHelpDialog.setBusy(false)
+                                    //     }
+
+                                    // );
+
+                                }.bind(this)
+                            }
+                        });
+                    }
+
+                    if (oTable.bindItems) {
+                        oTable.bindAggregation("items", "/UserSet", function () {
+                            return new sap.m.ColumnListItem({
+                                cells: aCols.map(function (column) {
+                                    return new sap.m.Label({
+                                        text: "{" + column.template + "}",
+                                    });
+                                }),
+                            });
+                        });
+                    }
+
+                    this._oValueHelpDialog.update();
+                }.bind(this)
             );
 
-            oEvent.getSource().getBinding("items").filter([oFilter]);
+            // this._oValueHelpDialog.setTokens(this._oMultiInput.getTokens());
+            this._oValueHelpDialog.open();
         },
-        onPainterValueHelpClose: function (oEvent) {
-            var oSelectedItem = oEvent.getParameter("selectedItem");
-            oEvent.getSource().getBinding("items").filter([]);
-            var oViewModel = this.getView().getModel("oModelView"),
-             oModelControl = this.getView().getModel("oModelControl")  ;
-            if (!oSelectedItem) {
-                return;
-            }
-            var obj = oSelectedItem.getBindingContext().getObject();
-            oViewModel.setProperty("/PainterId", obj["Id"]);
-            oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
-            oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
-            oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
-            oModelControl.setProperty("/AddFields/PainterDivision",obj.DivisionId );
-            oModelControl.setProperty("/AddFields/PainterZone",obj.ZoneId );
 
-            oModelControl.setProperty("/AddFields/PainterDepot", ""  ); 
-            //Fallback as Preliminary context not supported
-         
-            
-        }
+
+        onValueHelpCancelPressPainter: function () {
+            this._oValueHelpDialog.close();
+        },
+
+        onValueHelpOkPressPainter: function (oEvent) {
+            var oData = [];
+            var xUnique = new Set();
+            var oViewModel = this.getModel("oModelControl"),
+                aData = oViewModel.getProperty("/MultiCombo/Members");
+            var aTokens = oEvent.getParameter("tokens");
+            if (aTokens && aTokens.length) {
+                for (var i = 0; i < aTokens.length; i++) {
+                    var userData = aTokens[i].getCustomData()[0].getValue();
+                    if (userData.AdminId !== null) {
+                        var painterData = this.getModel().getData("/" + userData.Admin.__ref);
+
+                    } else if (userData.Painter !== null) {
+                        var painterData = this.getModel().getData("/" + userData.Painter.__ref);
+                    }
+                    //var roleData = this.getModel().getData("/" + userData.Role.__ref);
+                    userData.Painter = painterData;
+                    //userData.Role.Role = roleData.Role;
+                    aData.push(userData);
+                }
+            }
+            var uniqueArray = this.removeDuplicates(aData, "Id");
+            oViewModel.setProperty("/MultiCombo/Members", uniqueArray);
+            console.log(oViewModel);
+            oViewModel.refresh(true);
+
+
+
+            // aTokens.forEach(function (ele) {
+            //     if (xUnique.has(ele.getKey()) == false) {
+            //         oData.push({
+            //             Name: ele.getText(),
+            //             Id: ele.getKey()
+            //         });
+            //         xUnique.add(ele.getKey());
+            //     }
+            // });
+
+            // this.getView().getModel("objectView").setProperty("/oDetails/Receivers", oData);
+            this._oValueHelpDialog.close();
+        },
+        onValueHelpAfterClose: function () {
+
+            if (this._oValueHelpDialog) {
+                this._oValueHelpDialog.destroy();
+                delete this._oValueHelpDialog;
+            }
+
+        },
+
+        _filterTable: function (oFilter, sType) {
+            var oValueHelpDialog = this._oValueHelpDialog;
+
+            oValueHelpDialog.getTableAsync().then(function (oTable) {
+                if (oTable.bindRows) {
+                    oTable.getBinding("rows").filter(oFilter, sType || "Application");
+                }
+
+                if (oTable.bindItems) {
+                    oTable
+                        .getBinding("items")
+                        .filter(oFilter, sType || "Application");
+                }
+
+                oValueHelpDialog.update();
+            });
+        },
+
+
+        onFilterBarSearchPainter: function (oEvent) {
+            var afilterBar = oEvent.getParameter("selectionSet");
+
+            var aCurrentFilterValues = [];
+            var oViewFilter = this.getView().getModel("oModelControl").getProperty("/Search/PainterVh");
+            var aFlaEmpty = true;
+            for (let prop in oViewFilter) {
+                if (oViewFilter[prop]) {
+                    if (prop === "ZoneId") {
+                        aFlaEmpty = false;
+                        aCurrentFilterValues.push(
+                            new Filter("Painter/ZoneId", FilterOperator.EQ, oViewFilter[prop])
+                        );
+                    } else if (prop === "DivisionId") {
+                        aFlaEmpty = false;
+                        aCurrentFilterValues.push(
+                            new Filter("Painter/DivisionId", FilterOperator.EQ, oViewFilter[prop])
+                        );
+                    } else if (prop === "DepotId") {
+                        aFlaEmpty = false;
+                        aCurrentFilterValues.push(
+                            new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop])
+                        );
+                    } else if (prop === "PainterType") {
+                        aFlaEmpty = false;
+                        aCurrentFilterValues.push(
+                            new Filter({
+                                path: "Painter/PainterTypeId",
+                                operator: FilterOperator.EQ,
+                                value1: oViewFilter[prop]
+                            })
+                        );
+                    } else if (prop === "ArcheType") {
+                        aFlaEmpty = false;
+                        aCurrentFilterValues.push(
+                            new Filter({
+                                path: "Painter/ArcheTypeId",
+                                operator: FilterOperator.EQ,
+                                value1: oViewFilter[prop]
+                            })
+                        );
+                    } else if (prop === "MembershipCard") {
+                        aFlaEmpty = false;
+                        aCurrentFilterValues.push(
+                            new Filter({
+                                path: "Painter/MembershipCard",
+                                operator: FilterOperator.Contains,
+                                value1: oViewFilter[prop],
+                                caseSensitive: false
+                            })
+                        );
+                    } else if (prop === "Name") {
+                        aFlaEmpty = false;
+                        aCurrentFilterValues.push(
+                            new Filter({
+                                path: "Painter/Name",
+                                operator: FilterOperator.Contains,
+                                value1: oViewFilter[prop],
+                                caseSensitive: false
+                            })
+                        );
+                    } else if (prop === "Mobile") {
+                        aFlaEmpty = false;
+                        aCurrentFilterValues.push(
+                            new Filter({
+                                path: "Painter/Mobile",
+                                operator: FilterOperator.Contains,
+                                value1: oViewFilter[prop]
+                            })
+                        );
+                    }
+                }
+            }
+
+            this._FilterPainterValueTable(
+                new Filter({
+                    filters: aCurrentFilterValues,
+                    and: true,
+                })
+            );
+        },
+        _FilterPainterValueTable: function (oFilter, sType) {
+            var oValueHelpDialog = this._oValueHelpDialog;
+
+            oValueHelpDialog.getTableAsync().then(function (oTable) {
+                if (oTable.bindRows) {
+                    oTable.getBinding("rows").filter(oFilter, sType || "ApplicatApplication");
+                }
+
+                if (oTable.bindItems) {
+                    oTable
+                        .getBinding("items")
+                        .filter(oFilter, sType || "Application");
+                }
+
+                oValueHelpDialog.update();
+            });
+        },
+        
+        removeDuplicates: function (originalArray, prop) {
+            var newArray = [];
+            var lookupObject = {};
+
+            for (var i in originalArray) {
+                lookupObject[originalArray[i][prop]] = originalArray[i];
+            }
+
+            for (i in lookupObject) {
+                newArray.push(lookupObject[i]);
+            }
+            return newArray;
+        },
+        onDeleteMember: function (oEvent) {
+            var oViewModel = this.getModel("oModelControl"),
+                iIndex = +(oEvent.getParameter("listItem").getBindingContext("oModelControl").sPath.match(/\d+/)[0]);
+            oViewModel.getProperty("/MultiCombo/Members").splice(iIndex, 1);
+            oViewModel.refresh();
+        },
+        onPVhZoneChange: function (oEvent) {
+            var sId = oEvent.getSource().getSelectedKey();
+            var oView = this.getView();
+
+            var oDivision = sap.ui.getCore().byId("idPVhDivision");
+            var oDivItems = oDivision.getBinding("items");
+            var oDivSelItm = oDivision.getSelectedItem(); //.getBindingContext().getObject()
+            oDivision.clearSelection();
+            oDivision.setValue("");
+            oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
+            //setting the data for depot;
+            var oDepot = sap.ui.getCore().byId("idPVhDepot");
+            oDepot.clearSelection();
+            oDepot.setValue("");
+            // clearning data for dealer
+        },
+        onPVhDivisionChange: function (oEvent) {
+            var sKey = oEvent.getSource().getSelectedKey();
+            var oView = this.getView();
+            var oDepot = sap.ui.getCore().byId("idPVhDepot");
+            var oDepBindItems = oDepot.getBinding("items");
+            oDepot.clearSelection();
+            oDepot.setValue("");
+            oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
+        },
+        onClearPainterVhSearch: function () {
+            var oView = this.getView();
+            var oModel = oView.getModel("oModelControl"),
+                aCurrentFilterValues = [];
+            oModel.setProperty("/Search/PainterVh", {
+                ZoneId: "",
+                DivisionId: "",
+                DepotId: "",
+                PainterType: "",
+                ArcheType: "",
+                MembershipCard: "",
+                Name: "",
+                Mobile: ""
+            });
+            aCurrentFilterValues.push(new Filter({
+                path: "IsArchived",
+                operator: FilterOperator.EQ,
+                value1: false
+            }));
+
+            this._FilterPainterValueTable(
+                new Filter({
+                    filters: aCurrentFilterValues,
+                    and: true,
+                })
+            );
+        },
 
     });
 

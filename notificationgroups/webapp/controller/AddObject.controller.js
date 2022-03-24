@@ -3,19 +3,20 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/routing/History",
     "../model/formatter",
+    "../model/customMulti",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/ValueState",
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
     "sap/m/MessageToast"
-], function (BaseController, JSONModel, History, formatter, Filter, FilterOperator, ValueState, Fragment, MessageBox, MessageToast) {
+], function (BaseController, JSONModel, History, formatter,customMulti, Filter, FilterOperator, ValueState, Fragment, MessageBox, MessageToast) {
     "use strict";
 
     return BaseController.extend("com.knpl.dga.notificationgroups.controller.AddObject", {
 
         formatter: formatter,
-
+        customMulti:customMulti,
         /* =========================================================== */
         /* lifecycle methods                                           */
         /* =========================================================== */
@@ -56,7 +57,7 @@ sap.ui.define([
                 c1.then(function () {
                     c2 = othat._setInitViewModel();
                     c2.then(function () {
-                        c3 = othat._LoadAddFragment("AddComplaint");
+                        c3 = othat._dummyPromise();
                         c3.then(function () {
                             oView.getModel("oModelControl").setProperty("/PageBusy", false)
                         })
@@ -65,6 +66,7 @@ sap.ui.define([
             })
 
         },
+        
         _setInitViewModel: function () {
             /*
              * Author: manik saluja
@@ -75,10 +77,14 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var oDataView = {
-                Remark: "",
-                ComplaintTypeId: "",
-                "ComplaintSubtypeId": 8,
-                "PainterId": "",
+                GroupName: "",
+                IsTargetGroup: false,
+                Members: [],
+                NotificationGroupZone: [],
+                NotificationGroupDivision: [],
+                NotificationGroupDepot: [],
+                NotificationGroupPainterArcheType: [],
+                NotificationGroupPainterType: []
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -103,11 +109,15 @@ sap.ui.define([
 
         onPressSave: function () {
             var bValidateForm = this._ValidateForm();
+            var bVlidateMember= this._ValidateMembers.bind(this);
             if (bValidateForm) {
-                this._postDataToSave();
+                if(bVlidateMember()){
+                    this._postDataToSave();
+                }            
             }
 
         },
+        
         _postDataToSave: function () {
             /*
              * Author: manik saluja
@@ -119,38 +129,48 @@ sap.ui.define([
             var oModelControl = oView.getModel("oModelControl");
             oModelControl.setProperty("/PageBusy", true);
             var othat = this;
-            var c1, c2, c3, c4;
+            var c1, c1b, c1c, c2, c3, c4;
             c1 = othat._CheckEmptyFieldsPostPayload();
             c1.then(function (oPayload) {
-                c2 = othat._CreateObject(oPayload)
-                c2.then(function () {
-                    c3 = othat._uploadFile();
-                    c3.then(function () {
-                        oModelControl.setProperty("/PageBusy", false);
-                        othat.onNavToHome();
+                c1b = othat._CreateRadioButtonPayload(oPayload);
+                c1b.then(function (oPayload) {
+                    c1c=othat._CreateMultiComboPayload(oPayload)
+                    c1c.then(function(oPayload){
+                        c2 = othat._CreateObject(oPayload)
+                        c2.then(function (oPayload) {
+                            c3 = othat._uploadFile(oPayload);
+                            c3.then(function () {
+                                oModelControl.setProperty("/PageBusy", false);
+                                //othat.onNavToHome();
+                            })
+                        })
                     })
+                   
                 })
+               
             })
 
 
         },
+     
         _CreateObject: function (oPayLoad) {
-            //console.log(oPayLoad);
+            console.log(oPayLoad);
             var othat = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
             return new Promise((resolve, reject) => {
-                oDataModel.create("/"+oModelControl.getProperty("/EntitySet"), oPayLoad, {
-                    success: function (data) {
-                        othat._showMessageToast("Message2")
-                        resolve(data);
-                    },
-                    error: function (data) {
-                        othat._showMessageToast("Message4")
-                        reject(data);
-                    },
-                });
+                resolve();
+                // oDataModel.create("/"+oModelControl.getProperty("/EntitySet"), oPayLoad, {
+                //     success: function (data) {
+                //         othat._showMessageToast("Message2")
+                //         resolve(data);
+                //     },
+                //     error: function (data) {
+                //         othat._showMessageToast("Message4")
+                //         reject(data);
+                //     },
+                // });
             });
         }
 
