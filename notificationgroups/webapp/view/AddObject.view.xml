@@ -1,32 +1,52 @@
-<mvc:View
- xmlns:core="sap.ui.core"
-	controllerName="com.knpl.dga.notificationgroups.controller.AddObject"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	>
-
- <Page busy="{oModelControl>/PageBusy}"  busyIndicatorDelay="0" showNavButton="false" showHeader="true" >
-        <headerContent>
-            <Bar>
-                <contentLeft>
-                    <Breadcrumbs currentLocationText="{i18n>Add} {i18n>MainObject}" >
-                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
+<mvc:View controllerName="com.knpl.dga.notificationgroups.controller.AddObject" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified" xmlns:uxap="sap.uxap" xmlns:l="sap.ui.layout">
+	<uxap:ObjectPageLayout id="ObjectPageLayout" showAnchorBar="true" showFooter="true" subSectionLayout="TitleOnLeft"
+		binding="{objectView>/oDetails}" busy="{objectView>/busy}" busyIndicatorDelay="0" class="sapUiResponsiveContentPadding">
+		<uxap:headerTitle>
+			<uxap:ObjectPageHeader objectTitle="Add Notification Group">
+                <uxap:breadcrumbs>
+                    <Breadcrumbs  currentLocationText="Group Details">
+                        <Link text="Notification Groups" press="onCancel"/>
                     </Breadcrumbs>
-                </contentLeft>
-            </Bar>
-        </headerContent>
-        <content>
-            <VBox width="100%" id="oVBoxAddObjectPage">
-            </VBox>
-        </content>
-        <footer>
-            <Toolbar>
-                <ToolbarSpacer/>
-                <Button width="7%" text="{i18n>Cancel}" type="Ghost" press="onNavToHome"/>
-                <Button width="7%" text="{i18n>Save}" type="Emphasized" press="onPressSave"/>
-            </Toolbar>
-        </footer>
-    </Page>
-
-
+                </uxap:breadcrumbs>
+            </uxap:ObjectPageHeader>
+		</uxap:headerTitle>
+		<uxap:sections>
+			<uxap:ObjectPageSection title="{i18n>Group}">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection>
+						<core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm1" type="XML"/>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+            <uxap:ObjectPageSection title="{i18n>TargetGroup}">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection>
+							<core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm2" type="XML"/>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+             <uxap:ObjectPageSection title=" " visible="{= ${oModelControl>/Rbtn/TarGrp} === 1 }" >
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection>
+                            	<core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm3" type="XML"/>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="{i18n>Members}"  visible="{= ${oModelControl>/Rbtn/TarGrp} === 0 }">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection>
+                            	<core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm4" type="XML"/>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+		</uxap:sections>
+		<uxap:footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>Cancel}" press="onCancel"/>
+				<Button text="{i18n>Save}" type="Emphasized" press="onSave" />
+			</Toolbar>
+		</uxap:footer>
+	</uxap:ObjectPageLayout>
 </mvc:View>

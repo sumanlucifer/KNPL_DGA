@@ -56,7 +56,7 @@ sap.ui.define([
                 c1.then(function () {
                     c2 = othat._setInitViewModel();
                     c2.then(function () {
-                        c3 = othat._LoadAddFragment("AddComplaint");
+                        c3 = othat._dummyPromise();
                         c3.then(function () {
                             oView.getModel("oModelControl").setProperty("/PageBusy", false)
                         })
@@ -75,10 +75,14 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var oDataView = {
-                Remark: "",
-                ComplaintTypeId: "",
-                "ComplaintSubtypeId": 8,
-                "PainterId": "",
+                GroupName: "",
+                IsTargetGroup: false,
+                Members: [],
+                NotificationGroupZone: [],
+                NotificationGroupDivision: [],
+                NotificationGroupDepot: [],
+                NotificationGroupPainterArcheType: [],
+                NotificationGroupPainterType: []
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -127,7 +131,7 @@ sap.ui.define([
                     c3 = othat._uploadFile();
                     c3.then(function () {
                         oModelControl.setProperty("/PageBusy", false);
-                        othat.onNavToHome();
+                        //othat.onNavToHome();
                     })
                 })
             })
@@ -141,16 +145,17 @@ sap.ui.define([
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
             return new Promise((resolve, reject) => {
-                oDataModel.create("/"+oModelControl.getProperty("/EntitySet"), oPayLoad, {
-                    success: function (data) {
-                        othat._showMessageToast("Message2")
-                        resolve(data);
-                    },
-                    error: function (data) {
-                        othat._showMessageToast("Message4")
-                        reject(data);
-                    },
-                });
+                resolve();
+                // oDataModel.create("/"+oModelControl.getProperty("/EntitySet"), oPayLoad, {
+                //     success: function (data) {
+                //         othat._showMessageToast("Message2")
+                //         resolve(data);
+                //     },
+                //     error: function (data) {
+                //         othat._showMessageToast("Message4")
+                //         reject(data);
+                //     },
+                // });
             });
         }
 

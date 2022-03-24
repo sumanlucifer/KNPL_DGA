@@ -82,7 +82,7 @@ sap.ui.define(
             _onRouteMatched: function () {
                 this._InitData();
             },
-            onPressAddObject: function () {
+            onAdd: function () {
                 /*
                  * Author: manik saluja
                  * Date: 02-Dec-2021
