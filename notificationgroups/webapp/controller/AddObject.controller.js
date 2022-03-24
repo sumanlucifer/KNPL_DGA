@@ -3,19 +3,20 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/routing/History",
     "../model/formatter",
+    "../model/customMulti",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/ValueState",
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
     "sap/m/MessageToast"
-], function (BaseController, JSONModel, History, formatter, Filter, FilterOperator, ValueState, Fragment, MessageBox, MessageToast) {
+], function (BaseController, JSONModel, History, formatter,customMulti, Filter, FilterOperator, ValueState, Fragment, MessageBox, MessageToast) {
     "use strict";
 
     return BaseController.extend("com.knpl.dga.notificationgroups.controller.AddObject", {
 
         formatter: formatter,
-
+        customMulti:customMulti,
         /* =========================================================== */
         /* lifecycle methods                                           */
         /* =========================================================== */

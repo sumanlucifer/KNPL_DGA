@@ -265,7 +265,7 @@ sap.ui.define([
             var oValidate = new Validator();
             var othat = this;
             var oForm = oView.byId("ObjectPageLayout");
-            var bFlagValidate = oValidate.validate(oForm);
+            var bFlagValidate = oValidate.validate(oForm,true);
             if (!bFlagValidate) {
                 othat._showMessageToast("Message3")
                 return false;
@@ -427,7 +427,7 @@ sap.ui.define([
             }
         },
         onRbChnageMain:function(oEvent){
-            this._propertyToBlank(["MultiCombo/Members"],true)
+            this._propertyToBlank(["MultiCombo/Members","MultiCombo/Zone","MultiCombo/Division","MultiCombo/Depot","MultiCombo/PainterType","MultiCombo/ArcheType"],true)
         },
         // painter value help request
         onValueHelpRequestedPainter: function () {

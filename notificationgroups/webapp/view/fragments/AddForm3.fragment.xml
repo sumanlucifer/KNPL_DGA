@@ -4,11 +4,11 @@
             <f:content>
             
                 <Label text="{i18n>Zone}" />
-                  <MultiComboBox required="true" selectedKeys="{path:'oModelControl>/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/MasterZoneSet' }">
+                  <MultiComboBox required="true" selectedKeys="{path:'oModelControl>/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/MasterZoneSet' }"  selectionChange="onMultyZoneChange" >
 					<core:Item key="{Id}" text="{Id}"/>
 				</MultiComboBox>
                 <Label text="{i18n>Division}"/>
-                <MultiComboBox id="idPVhDivision"  selectedKeys="{oModelControl>/MultiCombo/Division}" items="{ path : '/MasterDivisionSet'}">
+                <MultiComboBox id="idPVhDivision"  selectedKeys="{oModelControl>/MultiCombo/Division}" items="{ path : '/MasterDivisionSet'}" selectionChange="onMultyDivisionChange" >
 					<core:Item key="{Id}" text="{Id}"/>
 				</MultiComboBox>
                 <Label text="{i18n>Depot}" />
