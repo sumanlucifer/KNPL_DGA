@@ -1,19 +1,16 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable id="idWorkListTable1" requestAtLeastFields="Id" header="{i18n>MainObject1} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="Users" beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" demandPopin="false">
+    <smartTable:SmartTable id="idWorkListTable1" requestAtLeastFields="Id" header="{i18n>MainObject} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="Users" beforeRebindTable="onBindTblUserList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" demandPopin="false">
         <smartTable:customToolbar>
-			<OverflowToolbar>
-                        <!-- <ToolbarSpacer /> -->
+			<OverflowToolbar design="Transparent">
+                        <!-- <ToolbarSpacer />
+                        	<OverflowToolbarButton icon="sap-icon://sort" tooltip="Sort" text="Sort" press="onSort"/> -->
                         <!-- <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Add} {i18n>MainObject}" press="onPressAddObject"/> -->
                     </OverflowToolbar>
 		</smartTable:customToolbar>
-
         <Table growing="true"  growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
-           
             <columns>
-                
-
                 <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name", "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
@@ -38,22 +35,17 @@
                     </customData>
                     <Text text="{i18n>Actions}"/>
                 </Column>
-
-
             </columns>
             <items>
                 <ColumnListItem press="onListItemPress">
                     <cells>
-                      
                          <Text text="{Name}"/>
                          <Text text="{Role/Name}"/>
-                        
                         <ObjectStatus text="{path:'Status',formatter:'.formatter.fmttext'}" state="{= ${Status} === 1  ? 'Success' : 'Error' }"/> 
                          <HBox >
-                                            <Button text="{i18n>Deactivate}"  enabled="{= ${Status} === 1  ? true : false }" press="onDeActiveItemPress" type="Reject" tooltip="{i18n>Deactive}"/>
-							                <Button text="{i18n>Activate}" enabled="{= ${Status} === 1  ? false : true }"  class="sapUiTinyMarginBegin" press="onPressActivate" type="Accept" tooltip="{i18n>Activate}"/>
+                                            <Button text="{i18n>Deactivate}"  enabled="{= ${Status} === 1  ? true : false }" press="onPressActiveDeactive" type="Reject" tooltip="{i18n>Deactivate}"/>
+							                <Button text="{i18n>Activate}" enabled="{= ${Status} === 1  ? false : true }"  class="sapUiTinyMarginBegin" press="onPressActiveDeactive" type="Accept" tooltip="{i18n>Activate}"/>
                                         </HBox>
-
                     </cells>
                 </ColumnListItem>
             </items>

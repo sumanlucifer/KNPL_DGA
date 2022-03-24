@@ -1,17 +1,22 @@
 <mvc:View height="100%" xmlns:smartTable="sap.ui.comp.smarttable" controllerName="com.knpl.dga.usersrole.controller.Worklist" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
     <f:DynamicPage busyIndicatorDelay="0" busy="{oModelControl>/PageBusy}" id="dynamicPageId" headerExpanded="true">
-    
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                    <fb:FilterBar showRestoreButton="false" id="filterbar" reset="onResetFilterBar" search="onFilterBarGo" useToolbar="false" showRestoreOnFB="false">
+                    <fb:FilterBar showRestoreButton="false" id="filterbar" reset="onResetFilterBar" search="onFilterBarGo" useToolbar="false" showRestoreOnFB="true">
                         <fb:filterGroupItems>
-                       
-                             
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Role" label="{i18n>Role}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                      <ComboBox id="idRole" placeholder="{i18n>Select} {i18n>Role}" selectionChange="onRoleChange"  items="{/MasterRoles}" selectedKey="{path:'oModelControl>/filterBar/Role' }">
                                       <core:Item text="{Name}" key="{Name}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>Status}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                     <ComboBox id="idStatus" placeholder="{i18n>Select} {i18n>Status}" selectionChange="onStatusChange" selectedKey="{path:'oModelControl>/filterBar/Status' }">
+                                       <core:Item text="{i18n>Inactive}" key="0"/>
+                                        <core:Item text="{i18n>Active}" key="1"/>
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
