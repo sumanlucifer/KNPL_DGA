@@ -10,23 +10,31 @@
               <core:Title text="{i18n>BasicDetails}" />
                 <Label text="{i18n>SalesGroup}" />
                  <Text text="{path : 'oModelView>/SaleGroup/Name'}"  />
-              <Label text="{i18n>PayrollCompany}" />
-              <Text text="{path : 'oModelView>/PayrollCompany/Name'}"  />
+                <Label text="{i18n>PayrollCompany}" />
+                <Text text="{path : 'oModelView>/PayrollCompany/Name'}"  />
+                  <Label text="{i18n>EmployeeId}"/>
+                <Text text="{oModelView>/EmployeeId}" />
+                <Label text="{i18n>JoiningDate}" />
+                <Text text="{path:'oModelView>/JoiningDate',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY', UTC:false, strictParsing:true} }" />
+                <Label text="{i18n>ExitDate}" />
+                <Text text="{path:'oModelView>/ExitDate', type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY', UTC:false, strictParsing:true} }" />
                 <core:Title text="{i18n>LocationDetails}" />
                   
-                  <Label text="{i18n>PinCode}" />
-                <Text text="{oModelView>/Pincode/Name}"  />
-                <Label text="{i18n>State}" />
-                 <Text text="{path:'oModelView>/State/Name'}" />
-                <Label text="{i18n>City}"  />
-                 <Text text="{path : 'oModelView>/Town/Name'}"  />
-
                  <Label text="{i18n>Zone}" />
                 <Text text="{path : 'oModelView>/Zone'}"  />
                 <Label text="{i18n>Division}" />
                 <Text text="{path : 'oModelView>/Division/Id'}"  />
                 <Label text="{i18n>Depot}" />
                      <Text text="{path : 'oModelView>/Depot/Depot'}"  />
+                        <Label text="{i18n>PinCode}" />
+                <Text text="{oModelView>/Pincode/Name}"  />
+                <Label text="{i18n>WorkLocation}"/>
+                <Text text="{oModelView>/WorkLocation/Name}"/>
+                <Label text="{i18n>State}" />
+                 <Text text="{path:'oModelView>/State/Name'}" />
+                <Label text="{i18n>City}"  />
+                 <Text text="{path : 'oModelView>/Town/Name'}"  />
+
                 <!-- <Label text="{i18n>LinkDealer}" visible="{= ${oModelControl>/mode} === 'Add'}" />
                 <MultiInput visible="{= ${oModelControl>/mode} === 'Add'}"  placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDealersValueHelp" tokens="{path:'oModelControl>/MultiCombo/Dealers'}">
                     <tokens>

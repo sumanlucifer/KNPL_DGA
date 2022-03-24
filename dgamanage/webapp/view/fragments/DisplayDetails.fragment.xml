@@ -20,30 +20,28 @@
                   <Label text="{i18n>PayrollCompany}" />
                 <Text text="{path : 'PayrollCompany/Name'}"  />
                   <Label text="{i18n>EmployeeId}"/>
-                <Text />
+                <Text text="{EmployeeId}" />
                 <Label text="{i18n>JoiningDate}" />
-                <Text />
+                <Text text="{path:'JoiningDate',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY', UTC:false, strictParsing:true} }" />
                 <Label text="{i18n>ExitDate}" />
-                <Text />
+                <Text text="{path:'ExitDate', type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY', UTC:false, strictParsing:true} }" />
                 <core:Title text="{i18n>LocationDetails}" />
-                   <Label text="{i18n>PinCode}" />
-                     <Text text="{Pincode/Name}"  />
-                <Label text="{i18n>State}" />
-                  <Text text="{path:'State/Name'}" />
-                <Label text="{i18n>City}"  />
-                 <Text text="{path : 'Town/Name'}"  />
-                   <Label text="{i18n>WorkLocation}"/>
-                <Text />
-
                  <Label text="{i18n>Zone}" />
-                       <Text text="{path : 'Zone'}"  />
+                 <Text text="{path : 'Zone'}"  />
 
                 <Label text="{i18n>Division}" />
                 <Text text="{path : 'Division/Id'}"  />
 
                 <Label text="{i18n>Depot}" />
              <Text text="{path : 'Depot/Depot'}"  />
-              
+
+
+              <Label text="{i18n>PinCode}" />
+                <Text text="{Pincode/Name}"  />
+                <Label text="{i18n>State}" />
+                  <Text text="{path:'State/Name'}" />
+                <Label text="{i18n>City}"  />
+                 <Text text="{path : 'Town/Name'}"  />
               
                
         </f:content>
