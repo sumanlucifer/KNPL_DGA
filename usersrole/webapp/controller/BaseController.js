@@ -12,10 +12,8 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
 ], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox, Filter, FilterOperator) {
     "use strict";
-
     // shortcut for sap.m.URLHelper
     var URLHelper = mobileLibrary.URLHelper;
-
     return Controller.extend("com.knpl.dga.usersrole.controller.BaseController", {
         /**
          * Convenience method for accessing the router.
@@ -25,7 +23,6 @@ sap.ui.define([
         getRouter: function () {
             return UIComponent.getRouterFor(this);
         },
-
         /**
          * Convenience method for getting the view model by name.
          * @public
@@ -35,7 +32,6 @@ sap.ui.define([
         getModel: function (sName) {
             return this.getView().getModel(sName);
         },
-
         /**
          * Convenience method for setting the view model.
          * @public
@@ -48,7 +44,6 @@ sap.ui.define([
         },
         onNavToHome: function () {
             var sPreviousHash = History.getInstance().getPreviousHash();
-
             if (sPreviousHash !== undefined) {
                 history.go(-1);
             } else {
@@ -56,7 +51,6 @@ sap.ui.define([
             }
             // var oHistory = History.getInstance();
             // var sPreviousHash = oHistory.getPreviousHash();
-
             // if (sPreviousHash !== undefined) {
             //     window.history.go(-1);
             // } else {
@@ -122,14 +116,13 @@ sap.ui.define([
                 duration: 6000
             })
         },
-        _showMessageBox1: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
+        _showMessageBox: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
             // 
             /*pType(string) > type of message box ex: information or alert etc.
               pMessage (string)> i18n property name for the message
               pMessageParam(array/null)> i18n property has params specify in array or else pass as null
               pfn1(function1/null) > this is a function to be called after user presses yes 
               pfn2(function2/null) > this is a function to be called after user presses no
-
               you can call this below method like this
               this._showMessageBox1("information", "i18nProper", ["i18nParamerter1if any"],
               this._sample1.bind(this, "first paramters", "secondParameter"));
@@ -139,7 +132,6 @@ sap.ui.define([
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
             var aMessageType = ["success", "information", "alert", "error", "warning", "confirm"];
-
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
                     actions: [sap.m.MessageBox.Action.NO, sap.m.MessageBox.Action.YES],
@@ -160,32 +152,24 @@ sap.ui.define([
             } else {
                 this._showMessageToast("Message6");
             }
-
-
         },
         _showMessageBox2: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
-
             /*  pType(string) > type of message box ex: information or alert etc.
                 pMessage (string)> i18n property name for the message
                 pMessageParam(array/null)> i18n property has params specify in array or else pass as null
                 pfn1(function1/null) > this is a function to be called after user presses yes 
                 pfn2(function2/null) > this is a function to be called after user presses no
-
                 you can call this below method like this
                 this._showMessageBox1("information", "i18nProper", ["i18nParamerter1if any"],
                 this._sample1.bind(this, "first paramters", "secondParameter"));
-
                 In this code all the message type will have 1 button 
             */
             var sMessage = this._geti18nText(pMessage, pMessageParam);
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
             var aMessageType = ["success", "information", "alert", "error", "warning"];
-
-
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
-
                     onClose: function (sAction) {
                         // in case for error dialog we will have a close button insttead of okay
                         if (sAction === "OK" || sAction === "CLOSE") {
@@ -203,8 +187,6 @@ sap.ui.define([
             } else {
                 this._showMessageToast("Message6");
             }
-
-
         },
         _RemoveEmptyValue: function (mParam) {
             var obj = Object.assign({}, mParam);
@@ -241,7 +223,6 @@ sap.ui.define([
             promise.resolve(oPayLoad);
             return promise;
         },
-
         /**
          * Event handler when the share by E-Mail button has been clicked
          * @public
@@ -265,7 +246,6 @@ sap.ui.define([
                 delete this._pValueHelpDialog;
                 return;
             }
-
             if (this._ViewImageDialog) {
                 if (this._ViewImageDialog.isOpen()) {
                     this._ViewImageDialog.close();
@@ -277,7 +257,6 @@ sap.ui.define([
         onPainterValueHelpRequest: function (oEvent) {
             var sInputValue = oEvent.getSource().getValue(),
                 oView = this.getView(), oModelControl = oView.getModel("oModelControl");
-
             if (!this._pValueHelpDialog) {
                 this._pValueHelpDialog = Fragment.load({
                     id: oView.getId(),
@@ -342,7 +321,6 @@ sap.ui.define([
                 ],
                 false
             );
-
             oEvent.getSource().getBinding("items").filter([oFilter]);
         },
         onPainterValueHelpClose: function (oEvent) {
@@ -360,26 +338,19 @@ sap.ui.define([
             oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
             oModelControl.setProperty("/AddFields/PainterDivision", obj.DivisionId);
             oModelControl.setProperty("/AddFields/PainterZone", obj.ZoneId);
-
             oModelControl.setProperty("/AddFields/PainterDepot", "");
             //Fallback as Preliminary context not supported
             this._getDepot(obj.DepotId);
-
         },
         _getDepot: function (sDepotId) {
             if (!sDepotId) return;
-
             var sPath = this.getModel().createKey("/MasterDepotSet", {
                 Id: sDepotId
             }),
                 oModel = this.getModel("oModelControl");
-
             this.getModel().read(sPath, {
                 success: ele => oModel.setProperty("/AddFields/PainterDepot", ele.Depot)
             })
-
         },
-
     });
-
 });

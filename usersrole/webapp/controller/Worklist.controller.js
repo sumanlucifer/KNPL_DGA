@@ -175,7 +175,7 @@ sap.ui.define(
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Role";
-                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                oBindingParams.sorter.push(new Sorter("Status", true));
                 var oFilter = this._CreateFilter();
                 if (oFilter) {
                     oBindingParams.filters.push(oFilter);
@@ -204,7 +204,6 @@ sap.ui.define(
                             aCurrentFilterValues.push(
                                 new Filter("Status", FilterOperator.EQ, oViewFilter[prop]));
                         }
-
                     }
                 }
                 var endFilter = new Filter({
@@ -233,20 +232,24 @@ sap.ui.define(
                 var oTable = this.getView().byId("idWorkListTable1");
                 oTable.rebindTable();
             },
-            onListItemPress: function (oEvent) {
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
-                    Mode: "Display"
-                });
+       
+            onPressActiveDeactive: function(oEve)
+            {
+                var iId = oEve.getSource().getBindingContext().getObject().Id,
+                sButton = oEve.getSource().getTooltip().trim().toLowerCase(),
+                sStatus = sButton === "activate" ? 1 : 0,
+                sActivaeMsg = this._geti18nText("ActivateMsgConfirm"),
+                sDeactivateMsg = this._geti18nText("DeactivateMsgConfirm"),
+                sMessage = sButton === "activate" ? sActivaeMsg : sDeactivateMsg;
+                this._showMessageBox("information", sMessage, "", this.onActivateDeactivateServiceCall.bind(this,iId, sStatus));
+
             },
-            onDeActiveItemPress: function (oEve) {
-            var iId = oEve.getSource().getBindingContext().getObject().Id;
-                //console.log(oPayLoad);
+            onActivateDeactivateServiceCall: function (iId,sStatus) {
+               
                 var oPayLoad = {
-                    "Status": 0
+                    "Status": sStatus
                 };
+             
                 var oDataModel = this.getView().getModel();
                 oDataModel.update(`/Users(${iId})`, oPayLoad, {
                     success: function (data) {
@@ -257,21 +260,20 @@ sap.ui.define(
                     }.bind(this),
                 });
             },
-            onPressActivate: function (oEve) {
-                var oPayLoad = {
-                    "Status": 1
-                };
-                var iId = oEve.getSource().getBindingContext().getObject().Id;
-                var oDataModel = this.getView().getModel();
-                oDataModel.update(`/Users(${iId})`, oPayLoad, {
-                    success: function (data) {
-                        var oTable = this.getView().byId("idWorkListTable1");
-                        oTable.rebindTable();
-                    }.bind(this),
-                    error: function (data) {
-                    }.bind(this),
-                });
-            }
+            onSort: function (oEvent) {
+                var oTable = this.getView().byId("idWorkListTable1");
+                oTable.rebindTable();
+            },
+            // onSearch:function(oEvent){
+            //     var aFilters = [];
+            //     var sQuery = oEvent.getSource().getValue();
+            //     if (sQuery && sQuery.length > 0) {
+            //     aFilters.push( this.createFilter("Name", FilterOperator.Contains, sQuery, true) );
+            //     }
+            //     var oTable = this.byId("idWorkListTable1");
+            //     var oBinding = oTable.getBinding("items");
+            //     oBinding.filter(aFilters);
+            //     },
         }
         );
     }
