@@ -86,7 +86,9 @@ sap.ui.define([
                 resourcePath: "com.knpl.dga.dgamanage",
                 AddFields: {
                     Pincode: "",
-                    SalesGroup: ""
+                    SalesGroup: "",
+                    JoiningDate:"",
+                    ExitDate:""
                 },
                 MultiCombo: {
                     Dealers: []

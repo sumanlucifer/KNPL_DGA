@@ -109,7 +109,11 @@ sap.ui.define([
                 DepotId: "",
                 DGADealers: [],
                 StateId:"",
-                TownId:""
+                TownId:"",
+                EmployeeId:"",
+                JoiningDate:null,
+                ExitDate:null,
+                WorkLocationId:""
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
