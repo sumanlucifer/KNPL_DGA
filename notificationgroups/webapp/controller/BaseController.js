@@ -235,6 +235,55 @@ sap.ui.define([
 
 
         },
+        _propertyToBlank: function (aArray, aModel2) {
+            var aProp = aArray;
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            if (aModel2) {
+                oModelView = oView.getModel("oModelControl");
+            }
+            for (var x of aProp) {
+                var oGetProp = oModelView.getProperty("/" + x);
+                if (Array.isArray(oGetProp)) {
+                    oModelView.setProperty("/" + x, []);
+                    //oView.byId(x.substring(x.indexOf("/") + 1)).fireChange();
+                } else if (oGetProp === null) {
+                    oModelView.setProperty("/" + x, null);
+                } else if (oGetProp instanceof Date) {
+                    oModelView.setProperty("/" + x, null);
+                } else if (typeof oGetProp === "boolean") {
+                    oModelView.setProperty("/" + x, false);
+                } else {
+                    oModelView.setProperty("/" + x, "");
+                }
+            }
+            oModelView.refresh(true);
+        },
+
+        _ValidateForm: function () {
+            var oView = this.getView();
+            var oValidate = new Validator();
+            var othat = this;
+            var oForm = oView.byId("ObjectPageLayout");
+            var bFlagValidate = oValidate.validate(oForm);
+            if (!bFlagValidate) {
+                othat._showMessageToast("Message3")
+                return false;
+            }
+            return true;
+        },
+        _ValidateMembers:function(){
+            console.log("Method Trigerred")
+            var oView = this.getView();
+            var oModelData = oView.getModel("oModelControl").getData();
+            if(oModelData["Rbtn"]["TarGrp"] === 0){
+                if(oModelData["MultiCombo"]["Members"].length === 0){
+                    this._showMessageToast("Message10")
+                    return false;
+                }
+            }
+            return true;
+        },
         _RemoveEmptyValue: function (mParam) {
             var obj = Object.assign({}, mParam);
             // remove string values
@@ -295,7 +344,7 @@ sap.ui.define([
             var aMembers = [];
             for (var x of aSelectedMember) {
                 iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
-                if (iDealers >= 0) {
+                if (iMembers >= 0) {
 
                     aMembers.push(oPayload["Members"][iMembers]);
                 } else {
@@ -376,6 +425,9 @@ sap.ui.define([
                     return;
                 }
             }
+        },
+        onRbChnageMain:function(oEvent){
+            this._propertyToBlank(["MultiCombo/Members"],true)
         },
         // painter value help request
         onValueHelpRequestedPainter: function () {

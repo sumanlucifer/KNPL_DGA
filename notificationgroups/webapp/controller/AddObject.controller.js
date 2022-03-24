@@ -107,23 +107,15 @@ sap.ui.define([
 
         onPressSave: function () {
             var bValidateForm = this._ValidateForm();
+            var bVlidateMember= this._ValidateMembers.bind(this);
             if (bValidateForm) {
-                this._postDataToSave();
+                if(bVlidateMember()){
+                    this._postDataToSave();
+                }            
             }
 
         },
-        _ValidateForm: function () {
-            var oView = this.getView();
-            var oValidate = new Validator();
-            var othat = this;
-            var oForm = oView.byId("FormObjectData");
-            var bFlagValidate = oValidate.validate(oForm);
-            if (!bFlagValidate) {
-                othat._showMessageToast("Message3")
-                return false;
-            }
-            return true;
-        },
+        
         _postDataToSave: function () {
             /*
              * Author: manik saluja
