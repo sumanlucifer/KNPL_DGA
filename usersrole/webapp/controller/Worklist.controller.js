@@ -203,6 +203,27 @@ sap.ui.define(
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
                                 new Filter("Status", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "Search") {
+                            aFlaEmpty = true;
+                            aCurrentFilterValues.push(
+                                new Filter(
+                                    [
+                                        new Filter({
+                                            path: "Name",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "Role/Name",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        })
+                                    ],
+                                    false
+                                )
+                            );
                         }
                     }
                 }
@@ -232,24 +253,19 @@ sap.ui.define(
                 var oTable = this.getView().byId("idWorkListTable1");
                 oTable.rebindTable();
             },
-       
-            onPressActiveDeactive: function(oEve)
-            {
+            onPressActiveDeactive: function (oEve) {
                 var iId = oEve.getSource().getBindingContext().getObject().Id,
-                sButton = oEve.getSource().getTooltip().trim().toLowerCase(),
-                sStatus = sButton === "activate" ? 1 : 0,
-                sActivaeMsg = this._geti18nText("ActivateMsgConfirm"),
-                sDeactivateMsg = this._geti18nText("DeactivateMsgConfirm"),
-                sMessage = sButton === "activate" ? sActivaeMsg : sDeactivateMsg;
-                this._showMessageBox("information", sMessage, "", this.onActivateDeactivateServiceCall.bind(this,iId, sStatus));
-
+                    sButton = oEve.getSource().getTooltip().trim().toLowerCase(),
+                    sStatus = sButton === "activate" ? 1 : 0,
+                    sActivaeMsg = this._geti18nText("ActivateMsgConfirm"),
+                    sDeactivateMsg = this._geti18nText("DeactivateMsgConfirm"),
+                    sMessage = sButton === "activate" ? sActivaeMsg : sDeactivateMsg;
+                this._showMessageBox("information", sMessage, "", this.onActivateDeactivateServiceCall.bind(this, iId, sStatus));
             },
-            onActivateDeactivateServiceCall: function (iId,sStatus) {
-               
+            onActivateDeactivateServiceCall: function (iId, sStatus) {
                 var oPayLoad = {
                     "Status": sStatus
                 };
-             
                 var oDataModel = this.getView().getModel();
                 oDataModel.update(`/Users(${iId})`, oPayLoad, {
                     success: function (data) {
