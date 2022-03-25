@@ -25,7 +25,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGAId", "leadingProperty": "DGAId", "columnIndex": 2 ,"sortProperty": "DGAId","filterProperty": "DGAId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/UniqueId", "leadingProperty": "DGA/UniqueId", "columnIndex": 2 ,"sortProperty": "DGA/UniqueId","filterProperty": "DGA/UniqueId"}'/>
                     </customData>
                     <Text text="{i18n>DGAId}"/>
                 </Column>
@@ -96,7 +96,7 @@
                     <cells>
                         <Text text="{ConsumerName}"/>
                         <Text text="{DGA/GivenName} {DGA/FamilyName}"/>
-                        <Text text="{DGAId}"/>
+                        <Text text="{DGA/UniqueId}"/>
                         <!-- <Text text="{path:'PrimaryNum',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/> -->
                         <Text text="{PrimaryNum}"/>
                         <Text text="{LeadServiceType/Name}"/>
