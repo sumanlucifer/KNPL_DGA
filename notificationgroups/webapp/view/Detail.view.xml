@@ -3,7 +3,7 @@
 	<uxap:ObjectPageLayout id="ObjectPageLayoutEdit" showAnchorBar="true" showFooter="true" subSectionLayout="TitleOnLeft"
 	busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0" class="sapUiResponsiveContentPadding">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="Add Notification Group">
+			<uxap:ObjectPageHeader objectTitle="{i28n>NotificationGroupDeatils}">
                 <uxap:breadcrumbs>
                     <Breadcrumbs  currentLocationText="Group Details">
                         <Link text="Notification Groups" press="onCancel"/>
@@ -15,28 +15,28 @@
 			<uxap:ObjectPageSection title="{i18n>Group}">
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection>
-						<core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm1" type="XML"/>
+						<!-- <core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm1" type="XML"/> -->
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
             <uxap:ObjectPageSection title="{i18n>TargetGroup}">
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection>
-							<core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm2" type="XML"/>
+							<!-- <core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm2" type="XML"/> -->
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
              <uxap:ObjectPageSection title=" " visible="{= ${oModelControl>/Rbtn/TarGrp} === 1 }" >
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection>
-                            	<core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm3" type="XML"/>
+                            	<!-- <core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm3" type="XML"/> -->
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
 			<uxap:ObjectPageSection title="{i18n>Members}"  visible="{= ${oModelControl>/Rbtn/TarGrp} === 0 }">
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection>
-                            	<core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm4" type="XML"/>
+                            	<!-- <core:Fragment fragmentName="com.knpl.dga.notificationgroups.view.fragments.AddForm4" type="XML"/> -->
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
