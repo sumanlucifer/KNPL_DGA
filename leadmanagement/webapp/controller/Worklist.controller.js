@@ -192,7 +192,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGA,LeadServiceType,State,LeadStatus";
+                oBindingParams.parameters["expand"] = "DGA,LeadServiceType,State,LeadStatus,Depot";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
@@ -279,7 +279,7 @@ sap.ui.define(
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "DGAId",
+                                            path: "DGA/UniqueId",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
