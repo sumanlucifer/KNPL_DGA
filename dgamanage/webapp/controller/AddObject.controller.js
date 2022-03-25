@@ -108,12 +108,12 @@ sap.ui.define([
                 DivisionId: "",
                 DepotId: "",
                 DGADealers: [],
-                StateId:"",
-                TownId:"",
-                EmployeeId:"",
-                JoiningDate:null,
-                ExitDate:null,
-                WorkLocationId:""
+                StateId: "",
+                TownId: "",
+                EmployeeId: "",
+                JoiningDate: null,
+                ExitDate: null,
+                WorkLocationId: ""
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -149,8 +149,11 @@ sap.ui.define([
             * Purpose: Method is triggered when we have click save on the add form
             */
             var bValidateForm = this._ValidateForm();
+            var bValidateDealer = this._ValidateDealer.bind(this);
             if (bValidateForm) {
-                this._postDataToSave();
+                if (bValidateDealer()) {
+                    this._postDataToSave();
+                }
             }
 
         },
@@ -166,11 +169,21 @@ sap.ui.define([
             var othat = this;
             var oForm = oView.byId("FormObjectData");
             var bFlagValidate = oValidate.validate(oForm, true);
+
             if (!bFlagValidate) {
                 othat._showMessageToast("Message3")
                 return false;
             }
             return true;
+        },
+        _ValidateDealer: function () {
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+            if (oModelControl.getProperty("/MultiCombo/Dealers").length === 0) {
+                this._showMessageToast("Message7");
+                return false;
+            }
+            return true
         },
         _postDataToSave: function () {
             /*
@@ -185,9 +198,10 @@ sap.ui.define([
              */
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
-            oModelControl.setProperty("/PageBusy", true);
+            //oModelControl.setProperty("/PageBusy", true);
             var othat = this;
             var c1, c1B, c2, c3, c4;
+            var aFailureCallback = this._onCreationFailed.bind(this);
             c1 = othat._CheckEmptyFieldsPostPayload();
             c1.then(function (oPayload) {
                 c1B = othat._AddMultiComboData(oPayload);
@@ -199,7 +213,7 @@ sap.ui.define([
                             oModelControl.setProperty("/PageBusy", false);
                             othat.onNavToHome();
                         })
-                    })
+                    }, aFailureCallback)
                 })
             })
 
@@ -243,11 +257,25 @@ sap.ui.define([
                         resolve(data);
                     },
                     error: function (data) {
-                        othat._showMessageToast("Message4")
+                        //othat._showMessageToast("Message4")
                         reject(data);
                     },
                 });
             });
+        },
+        _onCreationFailed: function (mParam1) {
+             // mParam1 > error object
+            this.getView().getModel("oModelControl").getProperty("/PageBusy", false);
+            var sMessage;
+            if (mParam1.statusCode == 409) {
+                sMessage = "Message8";
+            } else if (mParam1.statusCode == 417) {
+                sMessage = "";
+            } else {
+                sMessage = "10";
+            }
+            this._showMessageBox2("error", sMessage);
+
         }
 
     });
