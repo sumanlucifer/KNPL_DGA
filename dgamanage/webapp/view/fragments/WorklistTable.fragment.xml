@@ -84,12 +84,12 @@
                     </customData>
                     <Text text="{i18n>MainObject} {i18n>Status}"/>
                 </Column> -->
-                 <Column hAlign="Begin">
+                 <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Actions", "columnIndex": 10}'/>
                     </customData>
                     <Text text="{i18n>Actions}"/>
-                </Column>
+                </Column> -->
 
             </columns>
             <items>
@@ -110,10 +110,10 @@
                          <Text text="{ComplaintType/ComplaintType}"/>
                       
                         <ObjectStatus text="{parts:['ComplaintStatus','ParentComplaintId'],formatter:'.formatter.fmtLowerCase'}" state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Error' }"/> -->
-                           <HBox >
+                           <!-- <HBox > -->
                                             <!-- <Button icon="sap-icon://edit" press="onEditListItemPress" type="Transparent" tooltip="{i18n>Edit}"/>
 							                <Button icon="sap-icon://delete" press="onPressDelete" type="Transparent" tooltip="{i18n>Delete}"/> -->
-                                        </HBox>
+                                        <!-- </HBox> -->
                     </cells>
                 </ColumnListItem>
             </items>

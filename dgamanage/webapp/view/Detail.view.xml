@@ -32,10 +32,14 @@
                          <Avatar fallbackIcon="sap-icon://picture" displaySize="L" class="sapUiTinyMarginBegin"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>DGAFullname}" text="{GivenName} {FamilyName}"/>
                         <ObjectAttribute title="{i18n>Mobile}" text="{Mobile}"/>
-                         <ObjectAttribute title="{i18n>Location}" text="{TownId}"/>
+                            <ObjectAttribute title="{i18n>JoiningDate}" text="{path:'JoiningDate', type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'} }"/>
                             <ObjectAttribute title="{i18n>PinCode}" text="{Pincode/Name}"/>
+                            <ObjectAttribute title="{i18n>Zone}" text="{Zone}"/>
+                    </layout:VerticalLayout >
+                        <layout:VerticalLayout  class="sapUiSmallMarginEnd" >
+                          <ObjectAttribute title="{i18n>Division}" text="{DivisionId}"/>
+                            <ObjectAttribute title="{i18n>Depot}" text="{DepotId}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"/>
