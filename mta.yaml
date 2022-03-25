@@ -74,6 +74,10 @@ modules:
       - comknpldganotificationgroups.zip
       name: comknpldganotificationgroups
       target-path: resources/
+    - artifacts:
+      - comknpldgafeatureaccess.zip
+      name: comknpldgafeatureaccess
+      target-path: resources/
 - name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
@@ -147,6 +151,16 @@ modules:
 - name: comknpldganotificationgroups
   type: html5
   path: notificationgroups
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgafeatureaccess
+  type: html5
+  path: featureaccess
   build-parameters:
     build-result: dist
     builder: custom
