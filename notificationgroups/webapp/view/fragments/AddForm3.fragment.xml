@@ -4,15 +4,15 @@
             <f:content>
             
                 <Label text="{i18n>Zone}" />
-                  <MultiComboBox required="true" selectedKeys="{path:'oModelControl>/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/MasterZoneSet' }"  selectionChange="onMultyZoneChange" >
+                  <MultiComboBox  required="true" selectedKeys="{path:'oModelControl>/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/MasterZoneSet' }"  selectionChange="onMultyZoneChange" >
 					<core:Item key="{Id}" text="{Id}"/>
 				</MultiComboBox>
                 <Label text="{i18n>Division}"/>
-                <MultiComboBox id="idPVhDivision"  selectedKeys="{oModelControl>/MultiCombo/Division}" items="{ path : '/MasterDivisionSet'}" selectionChange="onMultyDivisionChange" >
+                <MultiComboBox editable="{= ${oModelControl>/MultiCombo/Zone}.length > 0 }" id="idDivision"  selectedKeys="{oModelControl>/MultiCombo/Division}" items="{ path : '/MasterDivisionSet'}" selectionChange="onMultyDivisionChange" >
 					<core:Item key="{Id}" text="{Id}"/>
 				</MultiComboBox>
                 <Label text="{i18n>Depot}" />
-                <MultiInput id="idDepot" tokens="{oModelControl>/MultiCombo/Depot}" valueHelpRequest="onValueHelpRequestedDepot">
+                <MultiInput  editable="{= ${oModelControl>/MultiCombo/Division}.length > 0 }" id="multiInputDepotAdd" tokens="{oModelControl>/MultiCombo/Depot}" valueHelpRequest="onValueHelpRequestedDepot">
 	                <tokens>
                         <Token editable="false" text="{oModelControl>DepotId}" key="{oModelControl>DepotId}"/>
                     </tokens>

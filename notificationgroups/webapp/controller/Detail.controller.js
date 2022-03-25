@@ -86,7 +86,7 @@ sap.ui.define(
                     var oData = oModel.getData();
                     var othat = this;
                     oModel.setProperty("/PageBusy", true);
-                    c1 = othat._CheckLoginData();
+                    c1 = othat._dummyPromise();
                     c1.then(function () {
                         c2 = othat._getDisplayData(oData["bindProp"]);
                         c2.then(function () {

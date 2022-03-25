@@ -1,9 +1,9 @@
 <mvc:View controllerName="com.knpl.dga.notificationgroups.controller.AddObject" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
 	xmlns:u="sap.ui.unified" xmlns:uxap="sap.uxap" xmlns:l="sap.ui.layout">
 	<uxap:ObjectPageLayout id="ObjectPageLayout" showAnchorBar="true" showFooter="true" subSectionLayout="TitleOnLeft"
-	busy="{objectView>/busy}" busyIndicatorDelay="0" class="sapUiResponsiveContentPadding">
+	busy="{oModelControl>/PageBusy}" busyIndicatorDelay="0" class="sapUiResponsiveContentPadding">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="Add Notification Group">
+			<uxap:ObjectPageHeader objectTitle="{i18n>AddNotificationGroup}">
                 <uxap:breadcrumbs>
                     <Breadcrumbs  currentLocationText="Group Details">
                         <Link text="Notification Groups" press="onCancel"/>
