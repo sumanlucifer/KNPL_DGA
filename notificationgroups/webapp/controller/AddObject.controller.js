@@ -83,8 +83,8 @@ sap.ui.define([
                 NotificationGroupZone: [],
                 NotificationGroupDivision: [],
                 NotificationGroupDepot: [],
+                NotificationGroupPainterType: [],
                 NotificationGroupPainterArcheType: [],
-                NotificationGroupPainterType: []
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -141,7 +141,7 @@ sap.ui.define([
                             c3 = othat._uploadFile(oPayload);
                             c3.then(function () {
                                 oModelControl.setProperty("/PageBusy", false);
-                                //othat.onNavToHome();
+                                othat.onNavToHome();
                             })
                         })
                     })
@@ -154,23 +154,24 @@ sap.ui.define([
         },
      
         _CreateObject: function (oPayLoad) {
-            console.log(oPayLoad);
+            //console.log(oPayLoad);
             var othat = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
+            //console.log(oModelControl)
             return new Promise((resolve, reject) => {
-                resolve();
-                // oDataModel.create("/"+oModelControl.getProperty("/EntitySet"), oPayLoad, {
-                //     success: function (data) {
-                //         othat._showMessageToast("Message2")
-                //         resolve(data);
-                //     },
-                //     error: function (data) {
-                //         othat._showMessageToast("Message4")
-                //         reject(data);
-                //     },
-                // });
+                //resolve();
+                oDataModel.create("/"+oModelControl.getProperty("/EntitySet"), oPayLoad, {
+                    success: function (data) {
+                        othat._showMessageToast("Message2")
+                        resolve(data);
+                    },
+                    error: function (data) {
+                        othat._showMessageToast("Message4")
+                        reject(data);
+                    },
+                });
             });
         }
 
