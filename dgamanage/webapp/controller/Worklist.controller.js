@@ -82,7 +82,7 @@ sap.ui.define(
                     PinCodeId: ""
                 };
                 var aFiterAddFileds = {
-                    PinCode:""
+                    PinCode: ""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -123,7 +123,7 @@ sap.ui.define(
                     //c2 = othat._getLoggedInInfo();
                     c2 = othat._dummyFunction();
                     c2.then(function () {
-                        c3 = othat._dummyFunction();
+                        c3 = othat._initTableData();
                         c3.then(function () {
                             oModelControl.setProperty("/PageBusy", false)
                         })
@@ -207,6 +207,10 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
+                var oTable = oView.byId("idWorkListTable1");
+                if (oTable) {
+                    oTable.rebindTable();
+                }
                 //oView.byId("idWorkListTable1").rebindTable();
                 promise.resolve();
                 return promise;
