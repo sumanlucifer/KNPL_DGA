@@ -133,7 +133,7 @@ sap.ui.define([
                 duration: 6000
             })
         },
-        _showMessageBox1: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
+        _showMessageBox: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
             // 
             /*pType(string) > type of message box ex: information or alert etc.
               pMessage (string)> i18n property name for the message

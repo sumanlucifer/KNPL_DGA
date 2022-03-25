@@ -52,6 +52,12 @@
                     </customData>
                     <Text text="{i18n>ReqStatus}"/>
                 </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Remark", "leadingProperty": "Remark", "columnIndex": 7 ,"sortProperty": "Remark","filterProperty": "Remark"}'/>
+                    </customData>
+                    <Text text="{i18n>Remark}"/>
+                </Column>
                  <Column hAlign="Begin" >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Actions"}'/>
@@ -71,9 +77,10 @@
                               <Text text="{= ${ReassignedContractorName}  ? ${ReassignedContractorName} : ${ReassignedContractor/Name} }"/>
                         <ObjectStatus text="{ReassignmentStatus/Name}" 
            class="sapUiSmallMarginBegin" state="{= ${ReassignmentStatus/Name} === 'Pending' ? 'Warning' : ${ReassignmentStatus/Name} === 'Rejected' ? 'Error' :  ${ReassignmentStatus/Name} === 'Accepted' ? 'Success' : 'Error'}"/>
+                          <Text text="{Remark}"/>
                            <HBox>
-                         <Button visible="{= ${ReassignmentStatus/Name} === 'Accepted' ? false : ${ReassignmentStatus/Name} === 'Rejected' ? false: true }" text="{i18n>Accept}" tooltip="{i18n>Accpect}"  type="Accept" press="onDeactivate2"></Button>
-                         <Button  class="sapUiSmallMarginBegin" visible="{= ${ReassignmentStatus/Name} === 'Accepted' ? false : ${ReassignmentStatus/Name} === 'Rejected' ? false: true }"  text="{i18n>Reject}"  press="onPressActiveDeactive" type="Reject" tooltip="{i18n>Reject}"/>
+                         <Button visible="{= ${ReassignmentStatus/Name} === 'Accepted' ? false : ${ReassignmentStatus/Name} === 'Rejected' ? false: true }" text="{i18n>Approve}" tooltip="{i18n>Accepted}"  type="Accept" press="onPressApproveReject"></Button>
+                         <Button  class="sapUiTinyMarginBegin" visible="{= ${ReassignmentStatus/Name} === 'Accepted' ? false : ${ReassignmentStatus/Name} === 'Rejected' ? false: true }"  text="{i18n>Reject}"  press="onPressApproveReject" type="Reject" tooltip="{i18n>Rejected}"/>
                                         </HBox>  
                     </cells>
                 </ColumnListItem>

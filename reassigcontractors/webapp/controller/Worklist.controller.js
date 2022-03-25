@@ -277,6 +277,29 @@ sap.ui.define(
             onResetFilterBar: function () {
                 this._ResetFilterBar();
             },
+            onPressApproveReject: function (oEve) {
+                var iId = oEve.getSource().getBindingContext().getObject().ID,
+                    sButton = oEve.getSource().getTooltip().trim().toLowerCase(),
+                    sStatus = sButton === "accepted" ? "2" : "rejected" ? "3": "1",
+                    sAcceptedMsg = this._geti18nText("AcceptMsgConfirm"),
+                    sRejectedMsg = this._geti18nText("RejectedMsgConfirm"),
+                    sMessage = sButton === "accepted" ? sAcceptedMsg : "rejected" ? sRejectedMsg: 1;
+                this._showMessageBox("information", sMessage, "", this.onApproveRejectServiceCall.bind(this, iId, sStatus));
+            },
+            onApproveRejectServiceCall: function (iId, sStatus) {
+                var oPayLoad = {
+                    "ReassignmentStatusId": sStatus
+                };
+                var oDataModel = this.getView().getModel();
+                oDataModel.update(`/ContractorReassignmentRequests(${iId})/ReassignmentStatusId`, oPayLoad, {
+                    success: function (data) {
+                        var oTable = this.getView().byId("idWorkListTable1");
+                        oTable.rebindTable();
+                    }.bind(this),
+                    error: function (data) {
+                    }.bind(this),
+                });
+            },
         }
         );
     }
