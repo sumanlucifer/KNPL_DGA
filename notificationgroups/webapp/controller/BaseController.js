@@ -260,24 +260,29 @@ sap.ui.define([
             oModelView.refresh(true);
         },
 
-        _ValidateForm: function () {
+        _ValidateForm: function (mParam) {
             var oView = this.getView();
             var oValidate = new Validator();
             var othat = this;
-            var oForm = oView.byId("ObjectPageLayout");
-            var bFlagValidate = oValidate.validate(oForm,true);
+            if (mParam === "Edit") {
+                var oForm = oView.byId("ObjectPageLayoutEdit");
+            } else {
+                var oForm = oView.byId("ObjectPageLayout");
+            }
+
+            var bFlagValidate = oValidate.validate(oForm, true);
             if (!bFlagValidate) {
                 othat._showMessageToast("Message3")
                 return false;
             }
             return true;
         },
-        _ValidateMembers:function(){
-         
+        _ValidateMembers: function () {
+
             var oView = this.getView();
             var oModelData = oView.getModel("oModelControl").getData();
-            if(oModelData["Rbtn"]["TarGrp"] === 0){
-                if(oModelData["MultiCombo"]["Members"].length === 0){
+            if (oModelData["Rbtn"]["TarGrp"] === 0) {
+                if (oModelData["MultiCombo"]["Members"].length === 0) {
                     this._showMessageToast("Message10")
                     return false;
                 }
@@ -333,28 +338,33 @@ sap.ui.define([
             return promise;
         },
         _CreateMultiComboPayload: function (oPayload) {
-            console.log("oPayload")
             var promise = $.Deferred();
             var oView = this.getView();
             var oModelView = oView.getModel("oModelView");
             var oModelControl = oView.getModel("oModelControl");
+            var sMode = oModelControl.getProperty("/mode");
+            var sResults = ""
+            if (sMode === "Edit") {
+                sResults = "/results"
+            }
             // Members - 
-            var aExistingMember = oModelView.getProperty("/Members");
+            var aExistingMember = oModelView.getProperty("/Members" + sResults);
             var aSelectedMember = oModelControl.getProperty("/MultiCombo/Members")
             var iMembers = -1;
             var aMembers = [];
             for (var x of aSelectedMember) {
-                iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
-                if (iMembers >= 0) {
+                // iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
+                // if (iMembers >= 0) {
 
-                    aMembers.push(oPayload["Members"][iMembers]);
-                } else {
-                    aMembers.push({ Id: parseInt(x["Id"]) });
-                }
+                //     aMembers.push(aExistingMember[iMembers]);
+                // } else {
+                //     aMembers.push({ Id: parseInt(x["Id"]) });
+                // }
+                aMembers.push({ Id: parseInt(x["Id"]) });
             }
             oPayload["Members"] = aMembers;
             // zone 
-            var aExistingZone = oModelView.getProperty("/NotificationGroupZone");
+            var aExistingZone = oModelView.getProperty("/NotificationGroupZone" + sResults);
             var aSelectedMember = oModelControl.getProperty("/MultiCombo/Zone");
             var iZone = -1;
             var aZone = [];
@@ -362,7 +372,7 @@ sap.ui.define([
                 iZone = aExistingZone.findIndex(item => item["ZoneId"] === x)
                 if (iZone >= 0) {
 
-                    aZone.push(oPayload["NotificationGroupZone"][iZone]);
+                    aZone.push(aExistingZone[iZone]);
                 } else {
                     aZone.push({ ZoneId: x });
                 }
@@ -370,7 +380,7 @@ sap.ui.define([
             oPayload["NotificationGroupZone"] = aZone;
 
             // Division
-            var aExistingZone = oModelView.getProperty("/NotificationGroupDivision");
+            var aExistingZone = oModelView.getProperty("/NotificationGroupDivision" + sResults);
             var aSelectedMember = oModelControl.getProperty("/MultiCombo/Division")
             var iZone = -1;
             var aZone = [];
@@ -378,7 +388,7 @@ sap.ui.define([
                 iZone = aExistingZone.findIndex(item => item["DivisionId"] === x)
                 if (iZone >= 0) {
 
-                    aZone.push(oPayload["NotificationGroupDivision"][iZone]);
+                    aZone.push(aExistingZone[iZone]);
                 } else {
                     aZone.push({ DivisionId: x });
                 }
@@ -386,7 +396,7 @@ sap.ui.define([
             oPayload["NotificationGroupDivision"] = aZone;
 
             // // Depot
-            var aExistingZone = oModelView.getProperty("/NotificationGroupDepot");
+            var aExistingZone = oModelView.getProperty("/NotificationGroupDepot" + sResults);
             var aSelectedMember = oModelControl.getProperty("/MultiCombo/Depot")
             var iZone = -1;
             var aZone = [];
@@ -394,7 +404,7 @@ sap.ui.define([
                 iZone = aExistingZone.findIndex(item => item["DepotId"] === x["DepotId"])
                 if (iZone >= 0) {
 
-                    aZone.push(oPayload["NotificationGroupDepot"][iZone]);
+                    aZone.push(aExistingZone[iZone]);
                 } else {
                     aZone.push({ DepotId: x["DepotId"] });
                 }
@@ -402,7 +412,7 @@ sap.ui.define([
             oPayload["NotificationGroupDepot"] = aZone;
 
             // // Painter Type 
-            var aExistingZone = oModelView.getProperty("/NotificationGroupPainterType");
+            var aExistingZone = oModelView.getProperty("/NotificationGroupPainterType" + sResults);
             var aSelectedMember = oModelControl.getProperty("/MultiCombo/PainterType")
             var iZone = -1;
             var aZone = [];
@@ -415,21 +425,21 @@ sap.ui.define([
                     aZone.push({ PainterTypeId: parseInt(x) });
                 }
             }
-             oPayload["NotificationGroupPainterType"] = aZone;
-             // ArcheType
-              var aExistingZone = oModelView.getProperty("/NotificationGroupPainterArcheType");
-              var aSelectedMember = oModelControl.getProperty("/MultiCombo/ArcheType")
-              var iZone = -1;
-              var aZone = [];
-              for (var x of aSelectedMember) {
-                  iZone = aExistingZone.findIndex(item => item["PainterArcheTypeId"] === parseInt(x))
-                  if (iZone >= 0) {
-  
-                      aZone.push(oPayload["NotificationGroupPainterArcheType"][iZone]);
-                  } else {
-                        aZone.push({ PainterArcheTypeId: parseInt(x) });
-                  }
-              }
+            oPayload["NotificationGroupPainterType"] = aZone;
+            // ArcheType
+            var aExistingZone = oModelView.getProperty("/NotificationGroupPainterArcheType" + sResults);
+            var aSelectedMember = oModelControl.getProperty("/MultiCombo/ArcheType")
+            var iZone = -1;
+            var aZone = [];
+            for (var x of aSelectedMember) {
+                iZone = aExistingZone.findIndex(item => item["PainterArcheTypeId"] === parseInt(x))
+                if (iZone >= 0) {
+
+                    aZone.push(oPayload["NotificationGroupPainterArcheType"][iZone]);
+                } else {
+                    aZone.push({ PainterArcheTypeId: parseInt(x) });
+                }
+            }
             oPayload["NotificationGroupPainterArcheType"] = aZone;
             promise.resolve(oPayload);
             return promise
@@ -505,8 +515,8 @@ sap.ui.define([
                 }
             }
         },
-        onRbChnageMain:function(oEvent){
-            this._propertyToBlank(["MultiCombo/Members","MultiCombo/Zone","MultiCombo/Division","MultiCombo/Depot","MultiCombo/PainterType","MultiCombo/ArcheType"],true)
+        onRbChnageMain: function (oEvent) {
+            this._propertyToBlank(["MultiCombo/Members", "MultiCombo/Zone", "MultiCombo/Division", "MultiCombo/Depot", "MultiCombo/PainterType", "MultiCombo/ArcheType"], true)
         },
         // painter value help request
         onValueHelpRequestedPainter: function () {
@@ -786,7 +796,7 @@ sap.ui.define([
                 oValueHelpDialog.update();
             });
         },
-        
+
         removeDuplicates: function (originalArray, prop) {
             var newArray = [];
             var lookupObject = {};
@@ -941,14 +951,14 @@ sap.ui.define([
             this._oMultiInput = this.getView().byId("multiInputDepotAdd");
             this.oColModel = new JSONModel({
                 cols: [{
-                        label: "Depot Id",
-                        template: "Id",
-                        width: "10rem",
-                    },
-                    {
-                        label: "Depot",
-                        template: "Depot",
-                    }
+                    label: "Depot Id",
+                    template: "Id",
+                    width: "10rem",
+                },
+                {
+                    label: "Depot",
+                    template: "Depot",
+                }
                 ],
             });
 

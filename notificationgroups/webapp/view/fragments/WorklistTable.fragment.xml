@@ -41,7 +41,7 @@
 							<Text text="{TotalMembers}"/>
 							<Text text="{= ${CreatorName}=== null ? 'SYSTEM' : ${CreatorName} }"/>
                             <FlexBox >
-							<Button icon="sap-icon://edit"  visible="{= ${IsDefault} !== true }" press="onEdit" type="Transparent" tooltip="Edit"/>
+							<Button icon="sap-icon://edit"  visible="{= ${IsDefault} !== true }" press="onPressEdit" type="Transparent" tooltip="Edit"/>
 							<Button icon="sap-icon://delete" visible="{= ${IsDefault} !== true }" press="onDelete" type="Transparent" tooltip="Delete"/>
                             </FlexBox>
                         </cells>

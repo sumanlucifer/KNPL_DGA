@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  
+        <f:SimpleForm class="addForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+            <f:content>
+            
+                <Label text="{i18n>Zone}" />
+                <MultiInput editable="false"  tokens="{path:'NotificationGroupZone/'}" >
+                    <tokens>
+                       <Token editable="false" text="{ZoneId}" key="{ZoneId}"/>
+                    </tokens>
+                </MultiInput>
+                <Label text="{i18n>Division}"/>
+                <MultiInput editable="false"  tokens="{path:'NotificationGroupDivision/'}" >
+                    <tokens>
+                       <Token editable="false" text="{DivisionId}" key="{DivisionId}"/>
+                    </tokens>
+                </MultiInput>
+                <Label text="{i18n>Depot}" />
+                <MultiInput editable="false"  tokens="{path:'NotificationGroupDepot/'}" >
+                    <tokens>
+                       <Token editable="false" text="{DepotId}" key="{DepotId}"/>
+                    </tokens>
+                </MultiInput>
+           
+            </f:content>
+        </f:SimpleForm>
+   
+</core:FragmentDefinition>

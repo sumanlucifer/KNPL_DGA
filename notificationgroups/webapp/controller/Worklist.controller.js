@@ -346,6 +346,15 @@ sap.ui.define(
                 });
 
             },
+            onPressEdit: function (oEvent) {
+                var oBj = oEvent.getSource().getBindingContext().getObject();
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("Detail", {
+                    Id: oBj["Id"],
+                    Mode: "Edit"
+                });
+
+            },
             onZoneChange: function (oEvent) {
                 var sId = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();

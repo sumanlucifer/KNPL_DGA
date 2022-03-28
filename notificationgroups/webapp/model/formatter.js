@@ -10,8 +10,8 @@ sap.ui.define([], function () {
          * @returns {string} sValue with 2 digits rounded
          */
         fmtLowerCase: function (mParam) {
-            if(!mParam){
-                return 
+            if (!mParam) {
+                return
             }
             var sStatus = "";
 
@@ -62,6 +62,40 @@ sap.ui.define([], function () {
                 return "Warning";
             }
             return "Error";
+        },
+        fmtDisplaySection3: function (mParam1, mParam2, mParam3) {
+            if (mParam1 === 'Edit') {
+                if (mParam3 === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            if (mParam1 === 'Display') {
+                if (mParam2 === false) {
+                    return false;
+                } else {
+                    return true
+                }
+            }
+
+        },
+        fmtDisplaySection4: function (mParam1, mParam2, mParam3) {
+          
+            if (mParam1 === 'Edit') {
+                if (mParam3 === false) {
+                    return true;
+                }
+                return false;
+            }
+            if (mParam1 === 'Display') {
+                if (mParam2 === false) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
         },
     };
 
