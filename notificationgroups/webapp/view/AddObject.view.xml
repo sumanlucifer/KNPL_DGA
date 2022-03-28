@@ -6,7 +6,7 @@
 			<uxap:ObjectPageHeader objectTitle="{i18n>AddNotificationGroup}">
                 <uxap:breadcrumbs>
                     <Breadcrumbs  currentLocationText="Group Details">
-                        <Link text="Notification Groups" press="onCancel"/>
+                        <Link text="Notification Groups" press="onNavToHome"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
             </uxap:ObjectPageHeader>

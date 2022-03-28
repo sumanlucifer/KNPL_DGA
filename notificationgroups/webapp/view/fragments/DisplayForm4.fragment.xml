@@ -1,0 +1,68 @@
+<core:FragmentDefinition xmlns:html="http://www.w3.org/1999/xhtml" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  
+   <Table  delete="onDeleteMember" width="auto"
+							items="{path: 'Members/',parameters:{expand:'Painter'}}"
+							headerText="{i18n>colGroupMembers}" growing="true" noDataText="{i18n>tableNoDataText}">
+							<headerToolbar>
+								<Toolbar>
+									<ToolbarSpacer/>
+									
+                                    
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column>
+									<Text text="{i18n>Name}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>Mobile}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>MembershipId}"/>
+								</Column>
+                                <Column>
+									<Text text="{i18n>Zone}"/>
+								</Column>
+                                <Column>
+									<Text text="{i18n>Division}"/>
+								</Column>
+                                <Column>
+									<Text text="{i18n>Depot}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+                                    <FlexBox>
+                               
+                                    <Text text="{Painter/Name}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+									<FlexBox >
+                               
+                                    <Text text="{Painter/Mobile}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+                                      <FlexBox >
+                                  
+                                    <Text text="{Painter/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+
+                                    
+                                     <FlexBox >
+                   
+                                    <Text text="{Painter/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+                                     <FlexBox >
+                                
+                                    <Text text="{Painter/DivisionId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+                                    <FlexBox >
+                                   
+                                    <Text text="{Painter/DepotId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    </FlexBox>
+                                    <!-- <Text text="{objectView>Role/Role}" visible="{= ${objectView>IsArchived} !== true }"/> -->
+                                    </cells>
+                                </ColumnListItem>
+							</items>
+						</Table>
+   
+</core:FragmentDefinition>
