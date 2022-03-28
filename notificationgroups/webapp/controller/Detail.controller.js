@@ -11,6 +11,7 @@ sap.ui.define(
         "../controller/Validator",
         "sap/ui/core/ValueState",
         "../model/formatter",
+        "../model/customMulti"
     ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -26,13 +27,15 @@ sap.ui.define(
         Sorter,
         Validator,
         ValueState,
-        formatter
+        formatter,
+        customMulti
     ) {
         "use strict";
 
         return BaseController.extend(
             "com.knpl.dga.notificationgroups.controller.Detail", {
             formatter: formatter,
+            customMulti: customMulti,
 
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
@@ -73,6 +76,7 @@ sap.ui.define(
                 };
                 var oModel = new JSONModel(oData);
                 this.getView().setModel(oModel, "oModelDisplay");
+
                 if (sMode == "Edit") {
                     this._initEditData();
                 } else {
@@ -169,7 +173,7 @@ sap.ui.define(
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "Members/Painter";
+                var exPand = "Members/Painter,NotificationGroupZone,NotificationGroupDivision,NotificationGroupDepot";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
@@ -192,11 +196,32 @@ sap.ui.define(
                 var oViewModel = oView.getModel("oModelView");
                 var sReceivers = [];
                 var sInitialReceivers = oViewModel.getProperty("/Members/results");
-                for(var x of sInitialReceivers){
-                    sReceivers.push( Object.assign({}, x));
+                for (var x of sInitialReceivers) {
+                    sReceivers.push(Object.assign({}, x));
                 }
                 oModelControl.setProperty("/MultiCombo/Members", sReceivers);
-              
+                // zone multicombo with selectedkeys
+                var sReceivers = [];
+                var sInitialReceivers = oViewModel.getProperty("/NotificationGroupZone/results");
+                for (var x of sInitialReceivers) {
+                    sReceivers.push(x["ZoneId"]);
+                }
+                oModelControl.setProperty("/MultiCombo/Zone", sReceivers);
+
+                var sReceivers = [];
+                var sInitialReceivers = oViewModel.getProperty("/NotificationGroupDivision/results");
+                for (var x of sInitialReceivers) {
+                    sReceivers.push(x["DivisionId"]);
+                }
+                oModelControl.setProperty("/MultiCombo/Division", sReceivers);
+
+                var sReceivers = [];
+                var sInitialReceivers = oViewModel.getProperty("/NotificationGroupDepot/results");
+                for (var x of sInitialReceivers) {
+                    sReceivers.push({DepotId:x["DepotId"]});
+                }
+                oModelControl.setProperty("/MultiCombo/Depot", sReceivers);
+                
                 promise.resolve();
                 return promise;
 
@@ -277,7 +302,7 @@ sap.ui.define(
             },
 
             _LoadFragment: function (mParam, sVBoxId) {
-               
+
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
@@ -342,7 +367,7 @@ sap.ui.define(
                 var oDataModel = oView.getModel();
                 var oModelControl = oView.getModel("oModelControl");
                 var sProp = oModelControl.getProperty("/bindProp")
-               console.log(oPayLoad,oModelControl)
+                console.log(oPayLoad, oModelControl)
                 return new Promise((resolve, reject) => {
                     oDataModel.update("/" + sProp, oPayLoad, {
                         success: function (data) {
@@ -351,7 +376,7 @@ sap.ui.define(
                         },
                         error: function (data) {
                             MessageToast.show(othat._showMessageToast("Message2"));
-                         
+
                             reject(data);
                         },
                     });

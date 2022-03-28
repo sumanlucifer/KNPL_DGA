@@ -67,24 +67,32 @@ sap.ui.define([], function () {
             if (mParam1 === 'Edit') {
                 if (mParam3 === false) {
                     return false;
+                } else {
+                    return true;
                 }
             }
             if (mParam1 === 'Display') {
                 if (mParam2 === false) {
                     return false;
+                } else {
+                    return true
                 }
             }
 
         },
         fmtDisplaySection4: function (mParam1, mParam2, mParam3) {
+          
             if (mParam1 === 'Edit') {
                 if (mParam3 === false) {
                     return true;
                 }
+                return false;
             }
             if (mParam1 === 'Display') {
                 if (mParam2 === false) {
                     return true;
+                } else {
+                    return false;
                 }
             }
 

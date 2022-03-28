@@ -17,14 +17,14 @@
                         <Token editable="false" text="{oModelControl>DepotId}" key="{oModelControl>DepotId}"/>
                     </tokens>
 	            </MultiInput>
-                   <Label text="{i18n>PainterType}" />
+                   <!-- <Label text="{i18n>PainterType}" />
                 <MultiComboBox selectedKeys="{oModelControl>/MultiCombo/PainterType}" items="{path:'/MasterPainterTypeSet', filters : [ { path : 'IsArchived' , operator : 'EQ' , value1 : false } ] }">
 					<core:Item key="{Id}" text="{PainterType}"/>
 				</MultiComboBox>
                 <Label text="{i18n>ArcheType}" />
                 <MultiComboBox selectedKeys="{oModelControl>/MultiCombo/ArcheType}"  items="{path:'/MasterArcheTypeSet', filters : [ { path : 'IsArchived' , operator : 'EQ' , value1 : false } ] }">
 					<core:Item key="{Id}" text="{ArcheType}"/>
-				</MultiComboBox>
+				</MultiComboBox> -->
            
             </f:content>
         </f:SimpleForm>

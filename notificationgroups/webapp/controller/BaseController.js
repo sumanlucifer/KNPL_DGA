@@ -372,7 +372,7 @@ sap.ui.define([
                 iZone = aExistingZone.findIndex(item => item["ZoneId"] === x)
                 if (iZone >= 0) {
 
-                    aZone.push(oPayload["NotificationGroupZone"][iZone]);
+                    aZone.push(aExistingZone[iZone]);
                 } else {
                     aZone.push({ ZoneId: x });
                 }
@@ -388,7 +388,7 @@ sap.ui.define([
                 iZone = aExistingZone.findIndex(item => item["DivisionId"] === x)
                 if (iZone >= 0) {
 
-                    aZone.push(oPayload["NotificationGroupDivision"][iZone]);
+                    aZone.push(aExistingZone[iZone]);
                 } else {
                     aZone.push({ DivisionId: x });
                 }
@@ -404,7 +404,7 @@ sap.ui.define([
                 iZone = aExistingZone.findIndex(item => item["DepotId"] === x["DepotId"])
                 if (iZone >= 0) {
 
-                    aZone.push(oPayload["NotificationGroupDepot"][iZone]);
+                    aZone.push(aExistingZone[iZone]);
                 } else {
                     aZone.push({ DepotId: x["DepotId"] });
                 }
