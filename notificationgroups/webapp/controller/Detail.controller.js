@@ -81,7 +81,7 @@ sap.ui.define(
 
             },
             _initDisplayData: function () {
-                var c1, c2, c3, c3b, c3c,c3d;
+                var c1, c2, c3, c3b, c3c, c3d;
                 var oModel = this.getView().getModel("oModelDisplay");
                 var oData = oModel.getData();
                 var othat = this;
@@ -111,24 +111,56 @@ sap.ui.define(
                 var oModel = oView.getModel("oModelDisplay");
                 var sProp = oModel.getProperty("/bindProp")
                 var oData = oModel.getData();
-                var c1, c2, c3, c4;
+                var c1, c2, c3, c3b, c3c, c3d, c4, c5;
                 var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                 oModel.setProperty("/PageBusy", true);
                 c1.then(function () {
                     c1.then(function () {
                         c2 = othat._setInitViewModel();
                         c2.then(function () {
-                            c3 = othat._LoadFragment("AddComplaint");
+                            c3 = othat._LoadFragment("AddForm1", "oVbox1");
                             c3.then(function () {
-                                c4 = othat._getDisplayData(sProp);
-                                c4.then(function () {
-                                    oModel.setProperty("/PageBusy", false);
+                                c3b = othat._LoadFragment("AddForm2", "oVbox2");
+                                c3b.then(function () {
+                                    c3c = othat._LoadFragment("AddForm3", "oVbox3");
+                                    c3c.then(function () {
+                                        c3d = othat._LoadFragment("AddForm4", "oVbox4");
+                                        c3d.then(function () {
+                                            c4 = othat._setRadiobuttonData();
+                                            c4.then(function () {
+                                                c5 = othat._getEditMultiComboData();
+                                                c5.then(function () {
+                                                    oModel.setProperty("/PageBusy", false);
+                                                })
+                                            })
+                                        })
+                                    })
                                 })
-
                             })
                         })
                     })
                 })
+
+            },
+            _setRadiobuttonData: function () {
+                var promise = jQuery.Deferred();
+                var oView = this.getView();
+                var oData = oView.getModel("oModelView").getData();
+                var oModel = oView.getModel("oModelControl");
+                var oRbtn = oModel.getProperty("/Rbtn");
+                var aBoleanProps = {
+                    IsTargetGroup: "TarGrp"
+                };
+                for (var a in aBoleanProps) {
+
+                    if (oData[a] === true) {
+                        oRbtn[aBoleanProps[a]] = 1;
+                    } else {
+                        oRbtn[aBoleanProps[a]] = 0;
+                    }
+                }
+                promise.resolve(oData);
+                return promise;
 
             },
             _setInitViewModel: function () {
@@ -137,7 +169,7 @@ sap.ui.define(
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "ComplaintType";
+                var exPand = "Members/Painter";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
@@ -152,6 +184,22 @@ sap.ui.define(
                         error: function () { },
                     });
                 });
+            },
+            _getEditMultiComboData: function () {
+                var promise = jQuery.Deferred();
+                var oView = this.getView();
+                var oModelControl = oView.getModel("oModelControl");
+                var oViewModel = oView.getModel("oModelView");
+                var sReceivers = [];
+                var sInitialReceivers = oViewModel.getProperty("/Members/results");
+                for(var x of sInitialReceivers){
+                    sReceivers.push( Object.assign({}, x));
+                }
+                oModelControl.setProperty("/MultiCombo/Members", sReceivers);
+              
+                promise.resolve();
+                return promise;
+
             },
             _CheckLoginData: function () {
                 var promise = jQuery.Deferred();
@@ -229,6 +277,7 @@ sap.ui.define(
             },
 
             _LoadFragment: function (mParam, sVBoxId) {
+               
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
@@ -244,9 +293,12 @@ sap.ui.define(
 
             },
             onPressSave: function () {
-                var bValidateForm = this._ValidateForm();
+                var bValidateForm = this._ValidateForm("Edit");
+                var bVlidateMember = this._ValidateMembers.bind(this);
                 if (bValidateForm) {
-                    this._postDataToSave();
+                    if (bVlidateMember()) {
+                        this._postDataToSave();
+                    }
                 }
 
             },
@@ -258,22 +310,30 @@ sap.ui.define(
                  * Purpose: Payload is ready and we have to send the same based to server but before that we have to modify it slighlty
                  */
                 var oView = this.getView();
-                var oModelControl = oView.getModel("oModelControl");
+                var oModelControl = oView.getModel("oModelDisplay");
                 oModelControl.setProperty("/PageBusy", true);
                 var othat = this;
                 var c1, c2, c3;
+                var c1, c1b, c1c, c2, c3, c4;
                 c1 = othat._CheckEmptyFieldsPostPayload();
                 c1.then(function (oPayload) {
-                    c2 = othat._UpdatedObject(oPayload)
-                    c2.then(function () {
-                        c3 = othat._uploadFile();
-                        c3.then(function () {
-                            oModelControl.setProperty("/PageBusy", false);
-                            othat.onNavToHome();
+                    c1b = othat._CreateRadioButtonPayload(oPayload);
+                    c1b.then(function (oPayload) {
+                        c1c = othat._CreateMultiComboPayload(oPayload)
+                        c1c.then(function (oPayload) {
+                            c2 = othat._UpdatedObject(oPayload)
+                            c2.then(function (oPayload) {
+                                c3 = othat._uploadFile(oPayload);
+                                c3.then(function () {
+                                    oModelControl.setProperty("/PageBusy", false);
+                                    othat.onNavToHome();
+                                })
+                            })
                         })
-                    })
-                })
 
+                    })
+
+                })
 
             },
             _UpdatedObject: function (oPayLoad) {
@@ -282,7 +342,7 @@ sap.ui.define(
                 var oDataModel = oView.getModel();
                 var oModelControl = oView.getModel("oModelControl");
                 var sProp = oModelControl.getProperty("/bindProp")
-                //console.log(sProp,oPayLoad)
+               console.log(oPayLoad,oModelControl)
                 return new Promise((resolve, reject) => {
                     oDataModel.update("/" + sProp, oPayLoad, {
                         success: function (data) {
@@ -291,7 +351,7 @@ sap.ui.define(
                         },
                         error: function (data) {
                             MessageToast.show(othat.geti18nText("Message2"));
-                            oModelControl.setProperty("/PageBusy", false);
+                         
                             reject(data);
                         },
                     });
