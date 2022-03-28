@@ -17,7 +17,7 @@
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
 
-         <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+         <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >
             <columns>
                 <Column hAlign="Begin">
                     <customData>
@@ -73,12 +73,12 @@
                     </customData>
                     <Text text="{i18n>BankDetailsStatus}"/>
                 </Column>
-                <Column hAlign="Begin">
+                <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 9 ,"sortProperty": "Id","filterProperty": "Id"}'/>
                     </customData>
                     <Text text="{i18n>Id}"/>
-                </Column>
+                </Column> -->
             
                
                 
@@ -97,7 +97,7 @@
                         <Text />
                         <Text />
                         <Text />
-                       <Text text="{ID}" />
+                       <!-- <Text text="{ID}" /> -->
                         
 
                     </cells>

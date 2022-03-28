@@ -340,6 +340,7 @@ sap.ui.define(
                 var othat = this;
                 var c1, c2, c3;
                 c1 = othat._CheckEmptyFieldsPostPayload();
+                var aFailureCallback = this._onCreationFailed.bind(this);
                 c1.then(function (oPayload) {
                     c2 = othat._UpdatedObject(oPayload)
                     c2.then(function () {
@@ -348,7 +349,7 @@ sap.ui.define(
                             oModelControl.setProperty("/PageBusy", false);
                             othat.onNavToHome();
                         })
-                    })
+                    }, aFailureCallback)
                 })
 
 
@@ -419,7 +420,7 @@ sap.ui.define(
                             resolve(data);
                         },
                         error: function (data) {
-                            MessageToast.show(othat._geti18nText("Message2"));
+                            //MessageToast.show(othat._geti18nText("Message2"));
                             oModelControl.setProperty("/PageBusy", false);
                             reject(data);
                         },

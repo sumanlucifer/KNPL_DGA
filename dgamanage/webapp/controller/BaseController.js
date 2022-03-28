@@ -68,6 +68,7 @@ sap.ui.define([
             //     oRouter.navTo("worklist", {}, true);
             // }
         },
+      
         _AddObjectControlModel: function (mParam1, mParam2) {
             /*
              * Author: manik saluja
@@ -269,6 +270,20 @@ sap.ui.define([
             }
             promise.resolve(oPayLoad);
             return promise;
+        },
+        _onCreationFailed: function (mParam1) {
+            // mParam1 > error object
+
+            var sMessage;
+            if (mParam1.statusCode == 409) {
+                sMessage = "Message8";
+            } else if (mParam1.statusCode == 417) {
+                sMessage = "Message9";
+            } else {
+                sMessage = "Message9";
+            }
+            this._showMessageBox2("error", sMessage);
+
         },
         _uploadFile: function (oPayLoad) {
             var promise = jQuery.Deferred();
