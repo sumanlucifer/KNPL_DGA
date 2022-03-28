@@ -278,10 +278,16 @@ sap.ui.define([
             return promise;
         },
         _CreateRadioButtonPayload: function (oPayLoad) {
+             /*
+             * Author: manik saluja
+             * Date: 24-March-2022
+             * Language:  JS
+             * Purpose: This method is used to send the radiobutton data to the backend.
+             */
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var aBoleanProps = {
-                //IsTargetGroup: "TarGrp"
+                IsTargetGroup: "TarGrp"
             };
             var oModelControl = oView.getModel("oModelControl");
             var oPropRbtn = oModelControl.getProperty("/Rbtn");
@@ -296,12 +302,24 @@ sap.ui.define([
             return promise;
         },
         _CreateMultiComboPayload: function (oPayload) {
+             /*
+             * Author: manik saluja
+             * Date: 24-March-2022
+             * Language:  JS
+             * Purpose: This method is used to send the multicombo box with tokens or multi select popover data to the payload.
+             */
             var promise = $.Deferred();
             var oView = this.getView();
             var oModelView = oView.getModel("oModelView");
             var oModelControl = oView.getModel("oModelControl");
+            var sMode = oModelControl.getProperty("/mode");
+            var sResults = ""
+            if (sMode === "Edit") {
+                sResults = "/results"
+            }
+
             // Members - 
-            // var aExistingMember = oModelView.getProperty("/Members");
+            // var aExistingMember = oModelView.getProperty("/Members" + sResults);
             // var aSelectedMember = oModelControl.getProperty("/MultiCombo/Members")
             // var iMembers = -1;
             // var aMembers = [];
@@ -309,30 +327,41 @@ sap.ui.define([
             //     iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
             //     if (iMembers >= 0) {
 
-            //         aMembers.push(oPayload["Members"][iMembers]);
+            //         aMembers.push(aExistingMember[iMembers]);
             //     } else {
             //         aMembers.push({ Id: parseInt(x["Id"]) });
             //     }
             // }
             // oPayload["Members"] = aMembers;
             // // zone 
-            // var aExistingZone = oModelView.getProperty("/NotificationGroupZone");
+            // var aExistingMember = oModelView.getProperty("/NotificationGroupZone" + sResults);
             // var aSelectedMember = oModelControl.getProperty("/MultiCombo/Zone");
-            // var iZone = -1;
-            // var aZone = [];
+            // var iMembers = -1;
+            // var aMembers = [];
             // for (var x of aSelectedMember) {
-            //     iZone = aExistingZone.findIndex(item => item["ZoneId"] === x)
-            //     if (iZone >= 0) {
+            //     iMembers = aExistingMember.findIndex(item => item["ZoneId"] === x)
+            //     if (iMembers >= 0) {
 
-            //         aZone.push(oPayload["NotificationGroupZone"][iZone]);
+            //         aMembers.push(aExistingMember[iZone]);
             //     } else {
-            //         aZone.push({ ZoneId: x });
+            //         aMembers.push({ ZoneId: x });
             //     }
             // }
             // oPayload["NotificationGroupZone"] = aZone;
             promise.resolve(oPayload);
             return promise
 
+        },
+        _CreatePayLoadTable:function(oPayload){
+            var promise = $.Deferred();
+             /*
+             * Author: manik saluja
+             * Date: 24-March-2022
+             * Language:  JS
+             * Purpose: This method is used to send the data from the ui5 control to the payload.
+             */
+            promise.resolve(oPayload);
+            return promise;
         },
         _onCreationFailed: function (mParam1) {
             // mParam1 > error object
