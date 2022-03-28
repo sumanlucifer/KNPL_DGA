@@ -257,26 +257,14 @@ sap.ui.define([
                         resolve(data);
                     },
                     error: function (data) {
+                        oModelControl.getProperty("/PageBusy", false);
                         //othat._showMessageToast("Message4")
                         reject(data);
                     },
                 });
             });
         },
-        _onCreationFailed: function (mParam1) {
-             // mParam1 > error object
-            this.getView().getModel("oModelControl").getProperty("/PageBusy", false);
-            var sMessage;
-            if (mParam1.statusCode == 409) {
-                sMessage = "Message8";
-            } else if (mParam1.statusCode == 417) {
-                sMessage = "";
-            } else {
-                sMessage = "10";
-            }
-            this._showMessageBox2("error", sMessage);
-
-        }
+   
 
     });
 
