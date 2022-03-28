@@ -4,27 +4,23 @@
             <f:content>
             
                 <Label text="{i18n>Zone}" />
-                  <MultiComboBox  required="true" selectedKeys="{path:'oModelControl>/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/MasterZoneSet' }"  selectionChange="onMultyZoneChange" >
-					<core:Item key="{Id}" text="{Id}"/>
-				</MultiComboBox>
-                <Label text="{i18n>Division}"/>
-                <MultiComboBox editable="{= ${oModelControl>/MultiCombo/Zone}.length > 0 }" id="idDivision"  selectedKeys="{oModelControl>/MultiCombo/Division}" items="{ path : '/MasterDivisionSet'}" selectionChange="onMultyDivisionChange" >
-					<core:Item key="{Id}" text="{Id}"/>
-				</MultiComboBox>
-                <Label text="{i18n>Depot}" />
-                <MultiInput  editable="{= ${oModelControl>/MultiCombo/Division}.length > 0 }" id="multiInputDepotAdd" tokens="{oModelControl>/MultiCombo/Depot}" valueHelpRequest="onValueHelpRequestedDepot">
-	                <tokens>
-                        <Token editable="false" text="{oModelControl>DepotId}" key="{oModelControl>DepotId}"/>
+                <MultiInput editable="false"  tokens="{path:'NotificationGroupZone/'}" >
+                    <tokens>
+                       <Token editable="false" text="{ZoneId}" key="{ZoneId}"/>
                     </tokens>
-	            </MultiInput>
-                   <Label text="{i18n>PainterType}" />
-                <MultiComboBox selectedKeys="{oModelControl>/MultiCombo/PainterType}" items="{path:'/MasterPainterTypeSet', filters : [ { path : 'IsArchived' , operator : 'EQ' , value1 : false } ] }">
-					<core:Item key="{Id}" text="{PainterType}"/>
-				</MultiComboBox>
-                <Label text="{i18n>ArcheType}" />
-                <MultiComboBox selectedKeys="{oModelControl>/MultiCombo/ArcheType}"  items="{path:'/MasterArcheTypeSet', filters : [ { path : 'IsArchived' , operator : 'EQ' , value1 : false } ] }">
-					<core:Item key="{Id}" text="{ArcheType}"/>
-				</MultiComboBox>
+                </MultiInput>
+                <Label text="{i18n>Division}"/>
+                <MultiInput editable="false"  tokens="{path:'NotificationGroupDivision/'}" >
+                    <tokens>
+                       <Token editable="false" text="{DivisionId}" key="{DivisionId}"/>
+                    </tokens>
+                </MultiInput>
+                <Label text="{i18n>Depot}" />
+                <MultiInput editable="false"  tokens="{path:'NotificationGroupDepot/'}" >
+                    <tokens>
+                       <Token editable="false" text="{DepotId}" key="{DepotId}"/>
+                    </tokens>
+                </MultiInput>
            
             </f:content>
         </f:SimpleForm>
