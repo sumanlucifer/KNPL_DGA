@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="com.knpl.dga.com.knpl.dga.insights..controller.App"
+	controllerName="com.knpl.dga.insights..controller.App"
 	displayBlock="true"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">

@@ -26,7 +26,7 @@ sap.ui.define(
         "use strict";
 
         return BaseController.extend(
-            "com.knpl.dga.com.knpl.dga.insights..controller.Worklist", {
+            "com.knpl.dga.controller.Worklist", {
             formatter: formatter,
 
             /* =========================================================== */
@@ -55,7 +55,7 @@ sap.ui.define(
                         PinCode:""
                     },
                     PageBusy: true,
-                    resourcePath: "com.knpl.dga.com.knpl.dga.insights."
+                    resourcePath: "com.knpl.dga.insights."
                 };
                 var oMdlCtrl = new JSONModel(oDataControl);
                 this.getView().setModel(oMdlCtrl, "oModelControl");

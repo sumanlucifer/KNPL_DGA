@@ -3,7 +3,7 @@ sap.ui.define([
 ], function (BaseController) {
 	"use strict";
 
-	return BaseController.extend("com.knpl.dga.com.knpl.dga.insights..controller.NotFound", {
+	return BaseController.extend("com.knpl.dga.insights..controller.NotFound", {
 
 		/**
 		 * Navigates to the worklist when the link is pressed
