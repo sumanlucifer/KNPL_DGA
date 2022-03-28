@@ -346,11 +346,11 @@ sap.ui.define(
                 return new Promise((resolve, reject) => {
                     oDataModel.update("/" + sProp, oPayLoad, {
                         success: function (data) {
-                            MessageToast.show(othat.geti18nText("Message1"));
+                            MessageToast.show(othat._showMessageToast("Message1"));
                             resolve(data);
                         },
                         error: function (data) {
-                            MessageToast.show(othat.geti18nText("Message2"));
+                            MessageToast.show(othat._showMessageToast("Message2"));
                          
                             reject(data);
                         },
