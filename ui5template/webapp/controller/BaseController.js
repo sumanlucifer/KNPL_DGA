@@ -10,7 +10,7 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox,Filter,FilterOperator) {
+], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox, Filter, FilterOperator) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -31,7 +31,7 @@ sap.ui.define([
         getRouter: function () {
             return UIComponent.getRouterFor(this);
         },
-        _dummyPromise:function(oPayload){
+        _dummyPromise: function (oPayload) {
             var promise = $.Deferred();
             promise.resolve(oPayload);
             return promise;
@@ -78,6 +78,9 @@ sap.ui.define([
             //     oRouter.navTo("worklist", {}, true);
             // }
         },
+        onNavToHome2: function () {
+            this.getRouter().navTo("worklist", {}, true);
+        },
         _AddObjectControlModel: function (mParam1, mParam2) {
             /*
              * Author: manik saluja
@@ -93,15 +96,15 @@ sap.ui.define([
                 mode: mParam1,
                 Id: mParam2,
                 bindProp: "PainterComplainsSet(" + mParam2 + ")",
-                EntitySet:"PainterComplainsSet",
+                EntitySet: "PainterComplainsSet",
                 resourcePath: "com.knpl.dga.ui5template",
-                AddFields:{
-                    PainterMobile:"",
-                    PainterName:"",
-                    PainterMembershipId:"",
-                    PainterZone:"",
-                    PainterDivision:"",
-                    PainterDepot:""
+                AddFields: {
+                    PainterMobile: "",
+                    PainterName: "",
+                    PainterMembershipId: "",
+                    PainterZone: "",
+                    PainterDivision: "",
+                    PainterDepot: ""
                 }
             };
             var oModelControl = new JSONModel(oDataControl)
@@ -121,6 +124,7 @@ sap.ui.define([
             }
             return true;
         },
+
         /**
          * Getter for the resource bundle.
          * @public
@@ -153,7 +157,7 @@ sap.ui.define([
             var sMessage = this._geti18nText(pMessage, pMessageParam);
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
-            var aMessageType = ["success", "information", "alert","error", "warning", "confirm"];
+            var aMessageType = ["success", "information", "alert", "error", "warning", "confirm"];
 
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
@@ -179,7 +183,7 @@ sap.ui.define([
 
         },
         _showMessageBox2: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
-            
+
             /*  pType(string) > type of message box ex: information or alert etc.
                 pMessage (string)> i18n property name for the message
                 pMessageParam(array/null)> i18n property has params specify in array or else pass as null
@@ -196,7 +200,7 @@ sap.ui.define([
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
             var aMessageType = ["success", "information", "alert", "error", "warning"];
-           
+
 
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
@@ -221,6 +225,28 @@ sap.ui.define([
 
 
         },
+        _propertyToBlank: function (aArray, sModelName) {
+            var aProp = aArray;
+            var oView = this.getView();
+            var oModelView = oView.getModel(sModelName);
+            for (var x of aProp) {
+                var oGetProp = oModelView.getProperty("/" + x);
+                if (Array.isArray(oGetProp)) {
+                    oModelView.setProperty("/" + x, []);
+                    //oView.byId(x.substring(x.indexOf("/") + 1)).fireChange();
+                } else if (oGetProp === null) {
+                    oModelView.setProperty("/" + x, null);
+                } else if (oGetProp instanceof Date) {
+                    oModelView.setProperty("/" + x, null);
+                } else if (typeof oGetProp === "boolean") {
+                    oModelView.setProperty("/" + x, false);
+                } else {
+                    oModelView.setProperty("/" + x, "");
+                }
+            }
+            oModelView.refresh(true);
+        },
+
         _RemoveEmptyValue: function (mParam) {
             var obj = Object.assign({}, mParam);
             // remove string values
@@ -250,6 +276,77 @@ sap.ui.define([
             }
             promise.resolve(oPayLoad);
             return promise;
+        },
+        _CreateRadioButtonPayload: function (oPayLoad) {
+            var promise = jQuery.Deferred();
+            var oView = this.getView();
+            var aBoleanProps = {
+                //IsTargetGroup: "TarGrp"
+            };
+            var oModelControl = oView.getModel("oModelControl");
+            var oPropRbtn = oModelControl.getProperty("/Rbtn");
+            for (var key in aBoleanProps) {
+                if (oPropRbtn[aBoleanProps[key]] === 0) {
+                    oPayLoad[key] = false;
+                } else {
+                    oPayLoad[key] = true;
+                }
+            }
+            promise.resolve(oPayLoad);
+            return promise;
+        },
+        _CreateMultiComboPayload: function (oPayload) {
+            var promise = $.Deferred();
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            var oModelControl = oView.getModel("oModelControl");
+            // Members - 
+            // var aExistingMember = oModelView.getProperty("/Members");
+            // var aSelectedMember = oModelControl.getProperty("/MultiCombo/Members")
+            // var iMembers = -1;
+            // var aMembers = [];
+            // for (var x of aSelectedMember) {
+            //     iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
+            //     if (iMembers >= 0) {
+
+            //         aMembers.push(oPayload["Members"][iMembers]);
+            //     } else {
+            //         aMembers.push({ Id: parseInt(x["Id"]) });
+            //     }
+            // }
+            // oPayload["Members"] = aMembers;
+            // // zone 
+            // var aExistingZone = oModelView.getProperty("/NotificationGroupZone");
+            // var aSelectedMember = oModelControl.getProperty("/MultiCombo/Zone");
+            // var iZone = -1;
+            // var aZone = [];
+            // for (var x of aSelectedMember) {
+            //     iZone = aExistingZone.findIndex(item => item["ZoneId"] === x)
+            //     if (iZone >= 0) {
+
+            //         aZone.push(oPayload["NotificationGroupZone"][iZone]);
+            //     } else {
+            //         aZone.push({ ZoneId: x });
+            //     }
+            // }
+            // oPayload["NotificationGroupZone"] = aZone;
+            promise.resolve(oPayload);
+            return promise
+
+        },
+        _onCreationFailed: function (mParam1) {
+            // mParam1 > error object
+
+            var sMessage;
+            if (mParam1.statusCode == 409) {
+                sMessage = "Message8";
+            } else if (mParam1.statusCode == 417) {
+                sMessage = "";
+            } else {
+                sMessage = "10";
+            }
+            this._showMessageBox2("error", sMessage);
+
         },
         _uploadFile: function (oPayLoad) {
             var promise = jQuery.Deferred();
@@ -298,7 +395,7 @@ sap.ui.define([
             return this._formFragments;
         },
 
-        _onDialogClose:function(){
+        _onDialogClose: function () {
             /*
                 Internal method to handle the closure of all the dialogs
                 if dialog 1 is open first and on top over that dialog 2 is open
@@ -308,7 +405,7 @@ sap.ui.define([
                 to get destroyed
             */
             if (this._pValueHelpDialog) {
-                
+
                 this._pValueHelpDialog.destroy();
                 delete this._pValueHelpDialog;
                 return;
@@ -324,12 +421,12 @@ sap.ui.define([
         // painter value help request
         onPainterValueHelpRequest: function (oEvent) {
             var sInputValue = oEvent.getSource().getValue(),
-                oView = this.getView(),oModelControl=oView.getModel("oModelControl");
+                oView = this.getView(), oModelControl = oView.getModel("oModelControl");
 
             if (!this._pValueHelpDialog) {
                 this._pValueHelpDialog = Fragment.load({
                     id: oView.getId(),
-                    name:oModelControl.getProperty("/resourcePath")+".view.fragments.PainterValueHelpDialog",
+                    name: oModelControl.getProperty("/resourcePath") + ".view.fragments.PainterValueHelpDialog",
                     controller: this,
                 }).then(function (oDialog) {
                     oView.addDependent(oDialog);
@@ -397,7 +494,7 @@ sap.ui.define([
             var oSelectedItem = oEvent.getParameter("selectedItem");
             oEvent.getSource().getBinding("items").filter([]);
             var oViewModel = this.getView().getModel("oModelView"),
-             oModelControl = this.getView().getModel("oModelControl")  ;
+                oModelControl = this.getView().getModel("oModelControl");
             if (!oSelectedItem) {
                 return;
             }
@@ -406,13 +503,13 @@ sap.ui.define([
             oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
             oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
             oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
-            oModelControl.setProperty("/AddFields/PainterDivision",obj.DivisionId );
-            oModelControl.setProperty("/AddFields/PainterZone",obj.ZoneId );
+            oModelControl.setProperty("/AddFields/PainterDivision", obj.DivisionId);
+            oModelControl.setProperty("/AddFields/PainterZone", obj.ZoneId);
 
-            oModelControl.setProperty("/AddFields/PainterDepot", ""  ); 
+            oModelControl.setProperty("/AddFields/PainterDepot", "");
             //Fallback as Preliminary context not supported
-         
-            
+
+
         }
 
     });
