@@ -290,6 +290,46 @@ sap.ui.define([
             promise.resolve(oPayLoad);
             return promise;
         },
+        onJoiningDate: function (oEvent) {
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
+            var oDateNow = new Date().setHours(0, 0, 0, 0);
+            var oExitDate = oModelView.getProperty("/ExitDate")
+            var oDate = oEvent.getSource().getDateValue();
+            if (oDate > oDateNow) {
+                this._showMessageToast("Message10")
+                oModelControl.setProperty("/AddFields/JoiningDate", "");
+                oModelView.setProperty("/JoiningDate", null);
+                return;
+            }
+            if (oExitDate) {
+                if (oDate > oExitDate) {
+                    this._showMessageToast("Message11")
+                    oModelControl.setProperty("/AddFields/JoiningDate", "");
+                    oModelView.setProperty("/JoiningDate", null);
+                    return;
+                }
+            }
+
+
+        },
+        onExitDateChange: function (oEvent) {
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
+            var oJoinDate = oModelView.getProperty("/JoiningDate")
+            var oDate = oEvent.getSource().getDateValue();
+            if (oJoinDate) {
+                if (oDate < oJoinDate) {
+                    this._showMessageToast("Message12")
+                    oModelControl.setProperty("/AddFields/ExitDate", "");
+                    oModelView.setProperty("/ExitDate", null);
+                    return;
+                }
+            }
+
+        },
 
         /**
          * Event handler when the share by E-Mail button has been clicked
@@ -354,7 +394,7 @@ sap.ui.define([
                 return;
             }
             // Dealers Valuehelp
-            
+
             if (sPath === "/DealerSet") {
                 if (sValue.length > 0) {
                     var aFilter = new Filter({
