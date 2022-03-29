@@ -68,7 +68,7 @@ sap.ui.define([
             //     oRouter.navTo("worklist", {}, true);
             // }
         },
-      
+
         _AddObjectControlModel: function (mParam1, mParam2) {
             /*
              * Author: manik saluja
@@ -88,8 +88,8 @@ sap.ui.define([
                 AddFields: {
                     Pincode: "",
                     SalesGroup: "",
-                    JoiningDate:"",
-                    ExitDate:""
+                    JoiningDate: "",
+                    ExitDate: ""
                 },
                 MultiCombo: {
                     Dealers: []
@@ -354,10 +354,11 @@ sap.ui.define([
                 return;
             }
             // Dealers Valuehelp
-            if (sPath === "/MasterDealers") {
+            debugger;
+            if (sPath === "/Dealers") {
                 if (sValue.length > 0) {
                     var aFilter = new Filter({
-                        path: "Name",
+                        path: "DealerName",
                         operator: "Contains",
                         value1: sValue,
                         caseSensitive: false,
@@ -469,7 +470,7 @@ sap.ui.define([
                 }.bind(this))
             }
         },
-        _handleSalesGroupConfirm:function(oEvent){
+        _handleSalesGroupConfirm: function (oEvent) {
             var oSelectedItem = oEvent.getParameter("selectedItem");
             var oViewModel = this.getView().getModel("oModelView"),
                 oModelControl = this.getView().getModel("oModelControl");
@@ -530,7 +531,7 @@ sap.ui.define([
             for (var a of oSelected) {
                 oBj = a.getObject();
                 aDealers.push({
-                    Name: oBj["Name"],
+                    Name: oBj["DealerName"],
                     Id: oBj["Id"],
                 });
             }
