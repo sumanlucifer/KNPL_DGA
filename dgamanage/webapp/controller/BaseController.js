@@ -354,8 +354,8 @@ sap.ui.define([
                 return;
             }
             // Dealers Valuehelp
-            debugger;
-            if (sPath === "/Dealers") {
+            
+            if (sPath === "/DealerSet") {
                 if (sValue.length > 0) {
                     var aFilter = new Filter({
                         path: "DealerName",
