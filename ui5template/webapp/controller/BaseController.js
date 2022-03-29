@@ -358,7 +358,7 @@ sap.ui.define([
              * Author: manik saluja
              * Date: 24-March-2022
              * Language:  JS
-             * Purpose: This method is used to send the data from the ui5 control to the payload.
+             * Purpose: This method is used to send the data from the ui5 table control to the payload.
              */
             promise.resolve(oPayload);
             return promise;
@@ -423,7 +423,35 @@ sap.ui.define([
 
             return this._formFragments;
         },
+        _handlePValueHelpSearch: function (oEvent) {
+            /*
+             * Author: manik saluja
+             * Date: 29-March-2022
+             * Language:  JS
+             * Purpose: This method is used to manage the search for the dialog boxes or value help dialogs
+             * 
+             */
+            var sValue = oEvent.getParameter("value").trim();
+            var sPath = oEvent.getParameter("itemsBinding").getPath();
+            // Pincodes Valuehelp
+            if (sPath === "/MasterPincodes") {
+                if (sValue.length > 0) {
+                    var aFilter = new Filter({
+                        path: "Name",
+                        operator: "Contains",
+                        value1: sValue,
+                        caseSensitive: false,
+                    });
+                } else {
+                    var aFilter = [];
+                }
+                this._PinCodeValueHelp
+                    .getBinding("items")
+                    .filter(aFilter, "Application");
+                return;
+            }
 
+        },
         _onDialogClose: function () {
             /*
                 Internal method to handle the closure of all the dialogs
