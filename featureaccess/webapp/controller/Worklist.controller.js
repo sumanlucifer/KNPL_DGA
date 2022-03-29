@@ -24,15 +24,12 @@ sap.ui.define(
         MessageToast
     ) {
         "use strict";
-
         return BaseController.extend(
             "com.knpl.dga.featureaccess.controller.Worklist", {
             formatter: formatter,
-
             /* =========================================================== */
             /* lifecycle methods                                           */
             /* =========================================================== */
-
             /**
              * Called when the worklist controller is instantiated.
              * @public
@@ -48,17 +45,14 @@ sap.ui.define(
                         ZoneId: "",
                         DivisionId: "",
                         DepotId: "",
-
                     },
-                    PageBusy: true
+                    PageBusy: false
                 };
                 var oMdlCtrl = new JSONModel(oDataControl);
                 this.getView().setModel(oMdlCtrl, "oModelControl");
                 oRouter
                     .getRoute("worklist")
                     .attachMatched(this._onRouteMatched, this);
-
-
             },
             _ResetFilterBar: function () {
                 var aCurrentFilterValues = [];
@@ -69,13 +63,11 @@ sap.ui.define(
                     ZoneId: "",
                     DivisionId: "",
                     DepotId: "",
-
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
-                var oTable = this.getView().byId("idWorkListTable1");
+                var oTable = this.getView().byId("idWorkListTable");
                 oTable.rebindTable();
-
             },
             _onRouteMatched: function () {
                 this._InitData();
@@ -89,10 +81,8 @@ sap.ui.define(
                  */
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("Add");
-
             },
             _InitData: function () {
-
                 /*
                  * Author: manik saluja
                  * Date: 02-Dec-2021
@@ -101,25 +91,22 @@ sap.ui.define(
                  * 1. get the logged in users informaion. 2.rebind the table to load data and apply filters 3. perform other operations that are required at the time 
                  * of loading the application
                  */
-
                 var othat = this;
                 var oView = this.getView();
                 var oModelControl = oView.getModel("oModelControl");
                 var c1, c2, c3, c4;
-                oModelControl.setProperty("/PageBusy", true)
-                c1 = othat._addSearchFieldAssociationToFB();
-                c1.then(function () {
-                    c2 = othat._dummyPromise();
-                    c2.then(function () {
-                        c3 = othat._initTableData();
-                        c3.then(function () {
-                            oModelControl.setProperty("/PageBusy", false)
-                        })
-                    })
-                })
-
+                // oModelControl.setProperty("/PageBusy", true)
+                // c1 = othat._addSearchFieldAssociationToFB();
+                // c1.then(function () {
+                //     c2 = othat._dummyPromise();
+                //     c2.then(function () {
+                //         c3 = othat._initTableData();
+                //         c3.then(function () {
+                //             oModelControl.setProperty("/PageBusy", false)
+                //         })
+                //     })
+                // })
             },
-
             _addSearchFieldAssociationToFB: function () {
                 /*
                  * Author: manik saluja
@@ -143,7 +130,6 @@ sap.ui.define(
                 }
                 promise.resolve();
                 return promise;
-
             },
             _getLoggedInInfo: function () {
                 /*
@@ -178,7 +164,6 @@ sap.ui.define(
                     promise.resolve();
                     return promise;
                 }
-
             },
             _initTableData: function () {
                 /*
@@ -190,8 +175,8 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
-                if (oView.byId("idWorkListTable1")) {
-                    oView.byId("idWorkListTable1").rebindTable();
+                if (oView.byId("idWorkListTable")) {
+                    oView.byId("idWorkListTable").rebindTable();
                 }
                 promise.resolve();
                 return promise;
@@ -204,34 +189,35 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Painter,ComplaintType";
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
-
+                oBindingParams.parameters["expand"] = "AppFeature";
+                oBindingParams.filters.push(new Filter("DGATypeId", sap.ui.model.FilterOperator.EQ, "1"));
+                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 // Apply Filters
-                var oFilter = this._CreateFilter();
-                if (oFilter) {
-                    oBindingParams.filters.push(oFilter);
-                }
-
+                // var oFilter = this._CreateFilter();
+                // if (oFilter) {
+                //     oBindingParams.filters.push(oFilter);
+                // }
+            },
+            onsharedDGAFeature:function(oEvent){
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "AppFeature";
+                oBindingParams.filters.push(new Filter("DGATypeId", sap.ui.model.FilterOperator.EQ, "2"));
             },
             onFilterBarSearch: function () {
                 var oView = this.getView();
-                oView.byId("idWorkListTable1").rebindTable();
+                oView.byId("idWorkListTable").rebindTable();
             },
             _CreateFilter: function () {
                 var aCurrentFilterValues = [];
                 var oViewFilter = this.getView()
                     .getModel("oModelControl")
                     .getProperty("/filterBar");
-
                 var aFlaEmpty = false;
                 // init filters - is archived and complaint type id is 1
                 aCurrentFilterValues.push(
                     new Filter("IsArchived", FilterOperator.EQ, false));
                 aCurrentFilterValues.push(
                     new Filter("ComplaintTypeId", FilterOperator.NE, 1));
-
-
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
@@ -286,7 +272,6 @@ sap.ui.define(
                         }
                     }
                 }
-
                 var endFilter = new Filter({
                     filters: aCurrentFilterValues,
                     and: true,
@@ -297,67 +282,51 @@ sap.ui.define(
                     return false;
                 }
             },
-
             onResetFilterBar: function () {
                 this._ResetFilterBar();
             },
-
-
-            onListItemPress: function (oEvent) {
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
-                    Mode: "Display"
+            // onNavBack: function (oEvent) {
+            //     var oHistory = History.getInstance();
+            //     var sPreviousHash = oHistory.getPreviousHash();
+            //     if (sPreviousHash !== undefined) {
+            //         window.history.go(-1);
+            //     } else {
+            //         var oRouter = this.getOwnerComponent().getRouter();
+            //         oRouter.navTo("RoutePList", {}, true);
+            //     }
+            // },
+            onChange: function (oEve) {
+                var iDGATypeId = oEve.getSource().getBindingContext().getObject().DGATypeId;
+                var iFeatureId = oEve.getSource().getBindingContext().getObject().FeatureId;
+                var iId = oEve.getSource().getBindingContext().getObject().Id,
+              
+                 sButton = oEve.getSource().getState(),
+                 
+                    sStatus = sButton === true ? true : false,
+                    sActivaeMsg = this._geti18nText("ActivateMsgConfirm"),
+                    sDeactivateMsg = this._geti18nText("DeactivateMsgConfirm"),
+                    sMessage = sButton === true ? sActivaeMsg : sDeactivateMsg;
+                this._showMessageBox("information", sMessage, "", this.onActivateDeactivateServiceCall.bind(this, iId, sStatus, iDGATypeId, iFeatureId));
+            },
+            onActivateDeactivateServiceCall: function (iId, sStatus, iDGATypeId, iFeatureId) {
+                var oPayLoad = {
+                        "Id": iId,
+                        "DGATypeId": iDGATypeId,
+                        "FeatureId": iFeatureId,
+                        "IsActive": sStatus
+                };
+                var oDataModel = this.getView().getModel();
+                oDataModel.update(`/MapFeaturePermission(${iId})`, oPayLoad, {
+                    success: function (data) {
+                        var oTable = this.getView().byId("idWorkListTable");
+                        oTable.rebindTable();
+                        var oTable = this.getView().byId("idsharedTable");
+                        oTable.rebindTable();
+                    }.bind(this),
+                    error: function (data) {
+                    }.bind(this),
                 });
-
             },
-            onZoneChange: function (oEvent) {
-                var sId = oEvent.getSource().getSelectedKey();
-                var oView = this.getView();
-                // setting value for division
-                var oDivision = oView.byId("idDivision");
-                oDivision.clearSelection();
-                oDivision.setValue("");
-                var oDivItems = oDivision.getBinding("items");
-                oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
-                //setting the data for depot;
-                var oDepot = oView.byId("idDepot");
-                oDepot.clearSelection();
-                oDepot.setValue("");
-                // clearning data for dealer
-            },
-            onDivisionChange: function (oEvent) {
-                var sKey = oEvent.getSource().getSelectedKey();
-                var oView = this.getView();
-                var oDepot = oView.byId("idDepot");
-                var oDepBindItems = oDepot.getBinding("items");
-                oDepot.clearSelection();
-                oDepot.setValue("");
-                oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
-            },
-
-            onPressDelete: function (oEvent) {
-                var oView = this.getView();
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                this._showMessageBox1("information", "Message5", [oBj["ComplaintCode"]],
-                    this._DeleteComplaints.bind(this, "first paramters", "secondParameter")
-                );
-            },
-            _DeleteComplaints: function (mParam1, mParam2) {
-                // after deleting the entity make sure that we are calling the refresh just on the table and not on thw whole model
-                MessageToast.show("Message5")
-            },
-
-            onEditListItemPress: function (oEvent) {
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
-                    Mode: "Edit"
-                });
-
-            }
         }
         );
     }
