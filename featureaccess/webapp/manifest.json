@@ -4,11 +4,11 @@
         "id": "com.knpl.dga.featureaccess",
         "type": "application",
         "i18n": "i18n/i18n.properties",
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
         "applicationVersion": {
             "version": "0.0.1"
         },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
         "resources": "resources.json",
         "dataSources": {
             "mainService": {
@@ -29,7 +29,7 @@
                         "additionalParameters": "allowed"
                     },
                     "semanticObject": "Manage",
-                    "action": "PaintReq",
+                    "action": "Feature",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
                     "icon": "sap-icon://activity-individual"
@@ -93,7 +93,6 @@
             "LoginInfo": {
                 "type": "sap.ui.model.json.JSONModel"
             }
-
         },
         "routing": {
             "config": {
@@ -109,7 +108,8 @@
                 },
                 "async": true
             },
-            "routes": [{
+            "routes": [
+                {
                     "pattern": "",
                     "name": "worklist",
                     "target": [
