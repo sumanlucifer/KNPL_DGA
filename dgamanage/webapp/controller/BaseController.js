@@ -68,7 +68,7 @@ sap.ui.define([
             //     oRouter.navTo("worklist", {}, true);
             // }
         },
-      
+
         _AddObjectControlModel: function (mParam1, mParam2) {
             /*
              * Author: manik saluja
@@ -88,8 +88,8 @@ sap.ui.define([
                 AddFields: {
                     Pincode: "",
                     SalesGroup: "",
-                    JoiningDate:"",
-                    ExitDate:""
+                    JoiningDate: "",
+                    ExitDate: ""
                 },
                 MultiCombo: {
                     Dealers: []
@@ -290,6 +290,46 @@ sap.ui.define([
             promise.resolve(oPayLoad);
             return promise;
         },
+        onJoiningDate: function (oEvent) {
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
+            var oDateNow = new Date().setHours(0, 0, 0, 0);
+            var oExitDate = oModelView.getProperty("/ExitDate")
+            var oDate = oEvent.getSource().getDateValue();
+            if (oDate > oDateNow) {
+                this._showMessageToast("Message10")
+                oModelControl.setProperty("/AddFields/JoiningDate", "");
+                oModelView.setProperty("/JoiningDate", null);
+                return;
+            }
+            if (oExitDate) {
+                if (oDate > oExitDate) {
+                    this._showMessageToast("Message11")
+                    oModelControl.setProperty("/AddFields/JoiningDate", "");
+                    oModelView.setProperty("/JoiningDate", null);
+                    return;
+                }
+            }
+
+
+        },
+        onExitDateChange: function (oEvent) {
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
+            var oJoinDate = oModelView.getProperty("/JoiningDate")
+            var oDate = oEvent.getSource().getDateValue();
+            if (oJoinDate) {
+                if (oDate < oJoinDate) {
+                    this._showMessageToast("Message12")
+                    oModelControl.setProperty("/AddFields/ExitDate", "");
+                    oModelView.setProperty("/ExitDate", null);
+                    return;
+                }
+            }
+
+        },
 
         /**
          * Event handler when the share by E-Mail button has been clicked
@@ -354,10 +394,11 @@ sap.ui.define([
                 return;
             }
             // Dealers Valuehelp
-            if (sPath === "/MasterDealers") {
+
+            if (sPath === "/DealerSet") {
                 if (sValue.length > 0) {
                     var aFilter = new Filter({
-                        path: "Name",
+                        path: "DealerName",
                         operator: "Contains",
                         value1: sValue,
                         caseSensitive: false,
@@ -469,7 +510,7 @@ sap.ui.define([
                 }.bind(this))
             }
         },
-        _handleSalesGroupConfirm:function(oEvent){
+        _handleSalesGroupConfirm: function (oEvent) {
             var oSelectedItem = oEvent.getParameter("selectedItem");
             var oViewModel = this.getView().getModel("oModelView"),
                 oModelControl = this.getView().getModel("oModelControl");
@@ -530,7 +571,7 @@ sap.ui.define([
             for (var a of oSelected) {
                 oBj = a.getObject();
                 aDealers.push({
-                    Name: oBj["Name"],
+                    Name: oBj["DealerName"],
                     Id: oBj["Id"],
                 });
             }

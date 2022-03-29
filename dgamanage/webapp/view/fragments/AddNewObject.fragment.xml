@@ -19,9 +19,9 @@
                 <Label text="{i18n>EmployeeId}"/>
                 <Input value="{path:'oModelView>/EmployeeId', type:'sap.ui.model.type.String', constraints:{search:'^([a-zA-Z0-9 _-]+)$'}}" required="true" />
                 <Label text="{i18n>JoiningDate}" />
-                <DatePicker required="true" placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" dateValue="{oModelView>/JoiningDate}" value="{path:'oModelControl>/AddFields/JoiningDate', type:'sap.ui.model.type.Date',formatOptions:{source:{pattern:'dd/MM/YYYY'} ,pattern:'dd/MM/YYYY',strictParsing:true},constraints:{minimum:'01/01/2022'}}" valueStateText="{i18n>ValueStateMessage1}" ></DatePicker>
+                <DatePicker required="true" placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" change=".onJoiningDate" dateValue="{oModelView>/JoiningDate}" value="{path:'oModelControl>/AddFields/JoiningDate', type:'sap.ui.model.type.Date',formatOptions:{source:{pattern:'dd/MM/YYYY'} ,pattern:'dd/MM/YYYY',strictParsing:true},constraints:{minimum:'01/01/2022'}}" valueStateText="{i18n>ValueStateMessage1}" ></DatePicker>
                 <Label text="{i18n>ExitDate}" />
-                <DatePicker placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" dateValue="{oModelView>/ExitDate}"  value="{path:'oModelControl>/AddFields/ExitDate', type:'sap.ui.model.type.Date', formatOptions:{source:{pattern:'dd/MM/YYYY'}, pattern:'dd/MM/YYYY', strictParsing:true} }"  ></DatePicker>
+                <DatePicker placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" dateValue="{oModelView>/ExitDate}"  change="onExitDateChange"  value="{path:'oModelControl>/AddFields/ExitDate', type:'sap.ui.model.type.Date', formatOptions:{source:{pattern:'dd/MM/YYYY'}, pattern:'dd/MM/YYYY', strictParsing:true} }"  ></DatePicker>
                 <core:Title text="{i18n>LocationDetails}" />
                   
                  <Label text="{i18n>Zone}" />
