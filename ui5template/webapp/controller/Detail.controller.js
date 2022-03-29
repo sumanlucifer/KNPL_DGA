@@ -330,7 +330,7 @@ sap.ui.define(
                 var othat = this;
                 var oView = this.getView();
                 var oDataModel = oView.getModel();
-                var oModelControl = oView.getModel("oModelControl");
+                var oModelControl = oView.getModel("oModelDisplay");
                 var sProp = oModelControl.getProperty("/bindProp")
                 //console.log(sProp,oPayLoad)
                 return new Promise((resolve, reject) => {

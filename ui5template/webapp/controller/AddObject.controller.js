@@ -148,7 +148,7 @@ sap.ui.define([
                         resolve(data);
                     },
                     error: function (data) {
-                        
+                        oModelControl.setProperty("/PageBusy", false);
                         reject(data);
                     },
                 });
