@@ -40,7 +40,6 @@
                     "semanticObject": "Manage",
                     "action": "DGAMgmt",
                     "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
                     "icon": "sap-icon://employee",
                     "indicatorDataSource": {
                         "dataSource": "KNPL_DGA_API",
