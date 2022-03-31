@@ -213,6 +213,7 @@ sap.ui.define([
                 In this code all the message type will have 1 button 
             */
             var sMessage = this._geti18nText(pMessage, pMessageParam);
+            console.log(sMessage);
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
             var aMessageType = ["success", "information", "alert", "error", "warning"];
@@ -276,13 +277,9 @@ sap.ui.define([
 
             var sMessage;
             if (mParam1.statusCode == 409) {
-                sMessage = "Message8";
-            } else if (mParam1.statusCode == 417) {
-                sMessage = "Message9";
-            } else {
-                sMessage = "Message9";
+                this._showMessageBox2("error", "Message13", [mParam1.responseText]);
+             
             }
-            this._showMessageBox2("error", sMessage);
 
         },
         _uploadFile: function (oPayLoad) {
@@ -397,12 +394,23 @@ sap.ui.define([
 
             if (sPath === "/DealerSet") {
                 if (sValue.length > 0) {
-                    var aFilter = new Filter({
-                        path: "DealerName",
-                        operator: "Contains",
-                        value1: sValue,
-                        caseSensitive: false,
-                    });
+                    var aFilter = new Filter(
+                        [
+                            new Filter({
+                                path: "DealerName",
+                                operator: "Contains",
+                                value1: sValue,
+                                caseSensitive: false
+                            }),
+                            new Filter({
+                                path: "Id",
+                                operator: "Contains",
+                                value1: sValue,
+                                caseSensitive: false
+                            })
+                        ],
+                        false
+                    )
 
 
                 } else {
