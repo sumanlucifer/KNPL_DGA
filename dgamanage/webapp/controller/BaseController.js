@@ -276,13 +276,9 @@ sap.ui.define([
 
             var sMessage;
             if (mParam1.statusCode == 409) {
-                sMessage = "Message8";
-            } else if (mParam1.statusCode == 417) {
-                sMessage = "Message9";
-            } else {
-                sMessage = "Message9";
+                sMessage = "Message13";
             }
-            this._showMessageBox2("error", sMessage);
+            this._showMessageBox2("error", sMessage, mParam1["reponseText"]);
 
         },
         _uploadFile: function (oPayLoad) {
