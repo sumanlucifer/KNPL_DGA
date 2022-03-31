@@ -28,11 +28,16 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "Feature",
+                    "semanticObject": "Feature",
+                    "action": "Manage",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
-                    "icon": "sap-icon://activity-individual"
+                    "icon": "sap-icon://activity-individual",
+                    "indicatorDataSource": {
+                        "dataSource": "KNPL_DGA_API",
+                        "path": "/dynamic_dest/KNPL_DGA_API/api/v2/odata.svc/MapFeaturePermission/$count?$filter=IsArchived eq false",
+                        "refresh": 0
+                    }
                 }
             }
         }
