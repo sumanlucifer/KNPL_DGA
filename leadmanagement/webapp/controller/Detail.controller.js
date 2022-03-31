@@ -184,7 +184,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "LeadSource,SourceContractor,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGA,SourceDealer";
+                var exPand = "PreEstimation,LeadSource,SourceContractor,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGA,SourceDealer";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -209,11 +209,15 @@ sap.ui.define(
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 if (sKey == "1") {
-                    oView.byId("PreEstTbl").rebindTable();
-                    //oView.byId("HistoryTable").rebindTable();
+                    oView.byId("PreEstTbl1").rebindTable();
+                    oView.byId("PreEstTbl2").rebindTable();
+                    oView.byId("PreEstTbl3").rebindTable();
+                    oView.byId("PreEstTbl4").rebindTable();
                 } else if (sKey == "2") {
-                    oView.byId("QuotationTbl").rebindTable();
-                    //oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
+                    oView.byId("QuotationTbl1").rebindTable();
+                    oView.byId("QuotationTbl2").rebindTable();
+                    oView.byId("QuotationTbl3").rebindTable();
+                    oView.byId("QuotationTbl4").rebindTable();
                 } else if (sKey == "3") {
                     oView.byId("idMaterialsReqTable1").rebindTable();
                     oView.byId("idMaterialsReqTable2").rebindTable();
@@ -223,21 +227,61 @@ sap.ui.define(
                 }
             },
             // before binding methods of the smart tables
-            onBeforeRebindPreReq: function (oEvent) {
+            onBeforeRebindPreReq1: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "PreEstimationAreas";
-                mBindingParams.parameters["navigation"] = { "PreEstimations": "PreEstimationAreas" };
-                mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
-                // mBindingParams.filters.push(new Filter("PONumber", FilterOperator.EQ, sPONumber));
-                 mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                // var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqId", FilterOperator.EQ, 1);
+                // mBindingParams.filters.push(oPaintingReqIdFiler);
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeRebindPreReq2: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                // var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqId", FilterOperator.EQ, 2);
+                // mBindingParams.filters.push(oPaintingReqIdFiler);
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeRebindPreReq3: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                // var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqId", FilterOperator.EQ, 3);
+                // mBindingParams.filters.push(oPaintingReqIdFiler);
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeRebindPreReq4: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                // var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqId", FilterOperator.EQ, 4);
+                // mBindingParams.filters.push(oPaintingReqIdFiler);
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeRebindQuotReq1: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                // var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqId", FilterOperator.EQ, 4);
+                // mBindingParams.filters.push(oPaintingReqIdFiler);
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeRebindQuotReq2: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                // var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqId", FilterOperator.EQ, 4);
+                // mBindingParams.filters.push(oPaintingReqIdFiler);
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeRebindQuotReq3: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                // var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqId", FilterOperator.EQ, 4);
+                // mBindingParams.filters.push(oPaintingReqIdFiler);
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeRebindQuotReq4: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                // var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqId", FilterOperator.EQ, 4);
+                // mBindingParams.filters.push(oPaintingReqIdFiler);
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
             onBeforeRebindQuotation: function (oEvent) {
-                var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "QuotationAreas/QuotationSelectedProducts/MasterProduct";
-                mBindingParams.parameters["navigation"] = { "Quotations": "QuotationAreas" };
-                mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
-                // mBindingParams.filters.push(new Filter("PONumber", FilterOperator.EQ, sPONumber));
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                // var mBindingParams = oEvent.getParameter("bindingParams");
+                // mBindingParams.parameters["expand"] = "QuotationAreas/QuotationSelectedProducts/MasterProduct";
+                // mBindingParams.parameters["navigation"] = { "Quotations": "QuotationAreas" };
+                // mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
+                // // mBindingParams.filters.push(new Filter("PONumber", FilterOperator.EQ, sPONumber));
+                // mBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
             onBeforeBindMatReqTbl1: function (oEvent) {
                 var oView = this.getView();

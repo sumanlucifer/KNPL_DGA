@@ -40,7 +40,7 @@
                     "semanticObject": "Manage",
                     "action": "Leads",
                     "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
+                    "subTitle": "",
                     "icon": "sap-icon://add-activity"
                 }
             }
