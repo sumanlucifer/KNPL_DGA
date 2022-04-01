@@ -49,10 +49,10 @@ sap.ui.define(
                         Status: "",
                         Search: "",
                         DGAType: "",
-                        Pincode:""
+                        Pincode: ""
                     },
-                    AddFields:{
-                        PinCode:""
+                    AddFields: {
+                        PinCode: ""
                     },
                     PageBusy: true,
                     resourcePath: "com.knpl.dga.insights."
@@ -66,17 +66,17 @@ sap.ui.define(
             _onRouteMatched: function () {
                 this._InitData();
             },
-            onPressAddObject: function () {
-                /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
-                 * Language:  JS
-                 * Purpose: Navigation to add object view and controller
-                 */
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Add");
+            // onPressAddObject: function () {
+            //     /*
+            //      * Author: manik saluja
+            //      * Date: 02-Dec-2021
+            //      * Language:  JS
+            //      * Purpose: Navigation to add object view and controller
+            //      */
+            //     var oRouter = this.getOwnerComponent().getRouter();
+            //     oRouter.navTo("Add");
 
-            },
+            // },
             _InitData: function () {
 
                 /*
@@ -135,6 +135,29 @@ sap.ui.define(
                 return promise;
 
             },
+            // _bindLeadByStatusTbl: function () {
+            //     var promise = jQuery.Deferred();
+            //     var oView = this.getView();
+            //     var oDateFormat = sap.ui.core.format.DateFormat.getInstance({pattern: "yyyy-MM-dd"});   
+            //     var dCurrentDate =  oDateFormat.format(new Date());
+            //     var oTable = oView.byId("idLeadByStatus");
+            //     debugger
+            //     oTable.bindItems({
+            //         path: "/KpiDashboardResponse",
+            //         template: oView.byId("idTblLeadByStatusTemplate"),
+            //         templateShareable: true,
+            //         parameters: {
+            //             expand: 'leadCountByStatus',
+            //             custom: {
+            //                 StartDate: "" + dCurrentDate + "",
+            //                 EndDate: "" + dCurrentDate + "",
+            //                 DGAId: "0"
+            //             }
+            //         }
+            //     })
+            //     promise.resolve();
+            //     return promise;
+            // },
             _getLoggedInInfo: function () {
                 /*
                  * Author: manik saluja
@@ -184,24 +207,24 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-            onBindTblDGAList: function (oEvent) {
-                /*
-                 * Author: Akhil Jain
-                 * Date: 15-Mar-2022
-                 * Language:  JS
-                 * Purpose: init binding method for the table.
-                 */
-                var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGA,LeadServiceType,State,LeadStatus,Depot";
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            // onBindTblDGAList: function (oEvent) {
+            //     /*
+            //      * Author: Akhil Jain
+            //      * Date: 15-Mar-2022
+            //      * Language:  JS
+            //      * Purpose: init binding method for the table.
+            //      */
+            //     var oBindingParams = oEvent.getParameter("bindingParams");
+            //     oBindingParams.parameters["expand"] = "DGA,LeadServiceType,State,LeadStatus,Depot";
+            //     oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
-                // Apply Filters
-                var oFilter = this._CreateFilter();
-                if (oFilter) {
-                    oBindingParams.filters.push(oFilter);
-                }
+            //     // Apply Filters
+            //     var oFilter = this._CreateFilter();
+            //     if (oFilter) {
+            //         oBindingParams.filters.push(oFilter);
+            //     }
 
-            },
+            // },
             onFilterBarGo: function () {
                 var oView = this.getView();
                 oView.byId("idWorkListTable1").rebindTable();
@@ -330,7 +353,7 @@ sap.ui.define(
                     Status: "",
                     Search: "",
                     DGAType: "",
-                    Pincode:""
+                    Pincode: ""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);

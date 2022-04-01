@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns:core="sap.ui.core">
-    <smartTable:SmartTable id="idWorkListTable1" header="{i18n>MainObject} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="Leads" beforeRebindTable="onBindTblDGAList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="Id" >
+    xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+    <!-- <smartTable:SmartTable id="idWorkListTable1" header="{i18n>MainObject} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="Leads" beforeRebindTable="onBindTblDGAList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="Id" >
         <smartTable:customToolbar>
 			<OverflowToolbar>
                 <ToolbarSpacer />
@@ -97,7 +97,6 @@
                         <Text text="{ConsumerName}"/>
                         <Text text="{DGA/GivenName} {DGA/FamilyName}"/>
                         <Text text="{DGA/UniqueId}"/>
-                        <!-- <Text text="{path:'PrimaryNum',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/> -->
                         <Text text="{PrimaryNum}"/>
                         <Text text="{LeadServiceType/Name}"/>
                         <Text text="{Pincode}"/>
@@ -107,13 +106,14 @@
                         <Text text="{Depot/Depot}"/>
                         <Text text="{Stage}"/>
                         <ObjectStatus text="{path:'LeadStatus/Name',formatter:'.formatter.fmtLowerCase'}" state="{= ${LeadStatus/Name} === 'Converted' ? 'Success' : ${LeadStatus/Name} === 'In Pipeline'  ? 'Warning' : ${LeadStatus/Name} === 'Lost' ? 'Error' : 'None' }"/>
-                        <HBox>
-                            <!-- <Button icon="sap-icon://edit" press="onEditListItemPress" type="Transparent" tooltip="{i18n>Edit}"/>
-                            <Button icon="sap-icon://delete" press="onPressDelete" type="Transparent" tooltip="{i18n>Delete}"/> -->
-                        </HBox>
+                        
                     </cells>
                 </ColumnListItem>
             </items>
         </Table>
-    </smartTable:SmartTable>
+    </smartTable:SmartTable> -->
+    
+    <l:VerticalLayout width="100%">
+        <core:Fragment fragmentName="com.knpl.dga.insights.view.fragments.leadByStatus" type="XML" class="sapUiMediumMarginBottom"/>
+    </l:VerticalLayout>
 </core:FragmentDefinition>

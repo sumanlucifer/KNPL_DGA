@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
+    <Table id="idLeadByStatus" growing="true" growingThreshold="10" width="auto" noDataText="{i18n>tableNoDataText}" growingScrollToLoad="false" busyIndicatorDelay="{oModelView>/tableBusyDelay}">
+        <columns>
+            <Column>
+                <Text text="Category" />
+            </Column>
+            <Column>
+                <Text text="Count" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="Total" />
+                    <Text text="{Leads/$count}" />
+                </cells>
+            </ColumnListItem>
+            <ColumnListItem>
+                <cells>
+                    <Text text="Pipeline" />
+                    <Text text="2" />
+                </cells>
+            </ColumnListItem>
+            <ColumnListItem>
+                <cells>
+                    <Text text="Converted" />
+                    <Text text="2" />
+                </cells>
+            </ColumnListItem>
+            <ColumnListItem>
+                <cells>
+                    <Text text="Lost" />
+                    <Text text="2" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>
