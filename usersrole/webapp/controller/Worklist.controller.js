@@ -257,10 +257,8 @@ sap.ui.define(
                 var iId = oEve.getSource().getBindingContext().getObject().Id,
                     sButton = oEve.getSource().getTooltip().trim().toLowerCase(),
                     sStatus = sButton === "activate" ? 1 : 0,
-                    sActivaeMsg = this._geti18nText("ActivateMsgConfirm"),
-                    sDeactivateMsg = this._geti18nText("DeactivateMsgConfirm"),
-                    sMessage = sButton === "activate" ? sActivaeMsg : sDeactivateMsg;
-                this._showMessageBox("information", sMessage, "", this.onActivateDeactivateServiceCall.bind(this, iId, sStatus));
+                    sMessage = sButton === "activate" ? "Activate" : "Deactivate";
+                this._showMessageBox("information", "MsgConfirm", [sMessage],  this.onActivateDeactivateServiceCall.bind(this, iId, sStatus));
             },
             onActivateDeactivateServiceCall: function (iId, sStatus) {
                 var oPayLoad = {
