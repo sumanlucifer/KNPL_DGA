@@ -299,14 +299,10 @@ sap.ui.define(
                 var iDGATypeId = oEve.getSource().getBindingContext().getObject().DGATypeId;
                 var iFeatureId = oEve.getSource().getBindingContext().getObject().FeatureId;
                 var iId = oEve.getSource().getBindingContext().getObject().Id,
-              
                  sButton = oEve.getSource().getState(),
-                 
                     sStatus = sButton === true ? true : false,
-                    sActivaeMsg = this._geti18nText("ActivateMsgConfirm"),
-                    sDeactivateMsg = this._geti18nText("DeactivateMsgConfirm"),
-                    sMessage = sButton === true ? sActivaeMsg : sDeactivateMsg;
-                this._showMessageBox("information", sMessage, "", this.onActivateDeactivateServiceCall.bind(this, iId, sStatus, iDGATypeId, iFeatureId));
+                    sMessage = sButton === true ? "Activate" : "Deactivate";
+                this._showMessageBox("information","MsgConfirm", [sMessage], this.onActivateDeactivateServiceCall.bind(this, iId, sStatus, iDGATypeId, iFeatureId));
             },
             onActivateDeactivateServiceCall: function (iId, sStatus, iDGATypeId, iFeatureId) {
                 var oPayLoad = {
