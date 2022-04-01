@@ -239,6 +239,7 @@ sap.ui.define([
                     aDealers.push({ DealerId: x["Id"] });
                 }
             }
+            oPayload["DGADealers"] = aDealers;
             // var aExistingData = oModelView.getProperty("/ServicePincodes");
             // var aSelectedData = oModelControl.getProperty("/MultiCombo/Pincode2")
             // var iData = -1;
@@ -252,7 +253,7 @@ sap.ui.define([
             //         aDealers.push({ PincodeId: x["Id"] });
             //     }
             // }
-            // oPayload["ServicePincodes"] = aDealers;
+            // oPayload["ServicePincodes"] = aDataFinal;
             promise.resolve(oPayload);
             return promise
 
