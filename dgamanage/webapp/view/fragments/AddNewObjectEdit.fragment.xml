@@ -17,7 +17,8 @@
                 <Label text="{i18n>JoiningDate}" />
                 <Text text="{path:'oModelView>/JoiningDate',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY', UTC:false, strictParsing:true} }" />
                 <Label text="{i18n>ExitDate}" />
-                <Text text="{path:'oModelView>/ExitDate', type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY', UTC:false, strictParsing:true} }" />
+                <DatePicker placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" dateValue="{oModelView>/ExitDate}"  change="onExitDateChange"  value="{path:'oModelControl>/AddFields/ExitDate', type:'sap.ui.model.type.Date', formatOptions:{source:{pattern:'dd/MM/YYYY'}, pattern:'dd/MM/YYYY', strictParsing:true} }"  ></DatePicker>
+                
                 <core:Title text="{i18n>LocationDetails}" />
                   
                  <Label text="{i18n>Zone}" />
@@ -25,8 +26,8 @@
                 <Label text="{i18n>Division}" />
                 <Text text="{path : 'oModelView>/Division/Id'}"  />
                 <Label text="{i18n>Depot}" />
-                     <Text text="{path : 'oModelView>/Depot/Depot'}"  />
-                        <Label text="{i18n>PinCode}" />
+               <Text text="{path : 'oModelView>/Depot/Depot'}"  />
+               <Label text="{i18n>PinCode}" />
                 <Text text="{oModelView>/Pincode/Name}"  />
                 <Label text="{i18n>WorkLocation}"/>
                 <Text text="{oModelView>/WorkLocation/Name}"/>
