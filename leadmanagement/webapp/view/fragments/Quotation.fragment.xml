@@ -5,18 +5,31 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
-    xmlns:tt="sap.ui.table">
-<smartTable:SmartTable id="QuotationTbl" entitySet="Quotations" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false"
+    xmlns:tt="sap.ui.table">    
+    <l:VerticalLayout width="100%">
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.QuotationTbl1" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.QuotationTbl2" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.QuotationTbl3" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.QuotationTbl4" type="XML" class="sapUiMediumMarginBottom"/>
+        <Toolbar width="90%">
+            <ToolbarSpacer/>
+            <Label text="{i18n>OverallCosting} : " design="Bold"/>
+            <Label id="idQuotOCTotal" text="{Total}" design="Bold"/>
+        </Toolbar>
+        <Toolbar width="90%">
+            <ToolbarSpacer/>
+            <Label id="idQuotDiscountLbl" text="{i18n>Discount} ({Discount}%): " design="Bold"/>
+            <Label id="idQuotDiscount" text="{DiscountAmount}" design="Bold"/>
+        </Toolbar>
+        <Toolbar width="90%">
+            <ToolbarSpacer/>
+            <Label text="{i18n>GrandTotal} : " design="Bold"/>
+            <Label id="idQuotGTotal" text="{GrandTotal}" design="Bold"/>
+        </Toolbar>
+    </l:VerticalLayout>
+<!-- <smartTable:SmartTable id="QuotationTbl" entitySet="Quotations" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false"
     useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="false" enableAutoColumnWidth="true"
     beforeRebindTable="onBeforeRebindQuotation" ignoreFromPersonalisation="" initiallyVisibleFields="Id" >
-        <!-- layout data used to make the table growing but the filter bar fixed -->
-        <!-- <smartTable:customToolbar>
-            <OverflowToolbar design="Transparent">
-                <ToolbarSpacer/>
-                <Button text="{i18n>manageBOQ}" press="navToManageBOQApp"/>
-                <Button icon="sap-icon://refresh" press="onRefreshBOQItems"/>
-            </OverflowToolbar>
-        </smartTable:customToolbar> -->
         <tt:TreeTable id="QuoteTreeTbl" selectionMode="None" enableColumnReordering="true" expandFirstLevel="true" visibleRowCountMode="Interactive">
             <tt:columns>
              
@@ -111,19 +124,7 @@
                     <tt:template>
                         <Text text="{GrandTotal}"  />
                     </tt:template>
-                </tt:Column>
-                 <!--       <tt:Column hAlign="Center">
-               
-                <Label text="LeadId"/>
-                    <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadId", "leadingProperty": "LeadId",
-                            "columnIndex": 10 ,"sortProperty": "LeadId","filterProperty": "LeadId"}'/>
-                    </tt:customData>
-                    <tt:template>
-                        <Text text="{LeadId}" wrapping="false"></Text>
-                    </tt:template>
-                </tt:Column> -->
-                                
+                </tt:Column>                                
                   <tt:Column hAlign="Center">
                     <Label text="{i18n>Id}" />
                     <tt:customData>
@@ -135,6 +136,6 @@
                 </tt:Column> 
             </tt:columns>
         </tt:TreeTable>
-    </smartTable:SmartTable>
+    </smartTable:SmartTable> -->
 
 </core:FragmentDefinition>

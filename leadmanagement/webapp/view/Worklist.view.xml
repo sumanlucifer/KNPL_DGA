@@ -42,7 +42,13 @@
                                     <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/Pincode'}" />
                                 </fb:control>
                             </fb:FilterGroupItem>
-
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>Status}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <ComboBox id="idStatus" placeholder="{i18n>Enter} {i18n>Status}" selectionChange="onStatusChange"  items="{/MasterLeadStatus}" selectedKey="{path:'oModelControl>/filterBar/StatusId' }">
+                                        <core:Item text="{Name} " key="{Id}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
                             <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="DGAType" label="{i18n>DGA} {i18n>Type}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                     <ComboBox placeholder="{i18n>Select} {i18n>MainObject} {i18n>Type}" selectionChange="onZoneChange"  items="{path:'/MasterDGATypes',filters:[{path:'IsArchived',operator:'EQ' , value1:false}]}" selectedKey="{path:'oModelControl>/filterBar/DGAType'}">
