@@ -387,6 +387,11 @@ sap.ui.define([
             })
 
         },
+        _bindViewElement: function(sElementId, sBindingPath) {
+            var oView = this.getView();
+            var oElement = oView.byId(sElementId);
+            oElement.bindElement(sBindingPath);
+        }
 
     });
 

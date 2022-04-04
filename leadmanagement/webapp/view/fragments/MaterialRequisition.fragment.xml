@@ -20,11 +20,11 @@
                 <Text text="{path : 'Remark'}"  />
             </f:content>
         </f:SimpleForm>
-        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.MaterialReqTable1" type="XML" class="sapUiMediumMarginBottom"/>
-        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.MaterialReqTable2" type="XML" class="sapUiMediumMarginBottom"/>
-        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.MaterialReqTable3" type="XML" class="sapUiMediumMarginBottom"/>
-        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.MaterialReqTable4" type="XML" class="sapUiMediumMarginBottom"/>
-        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.MaterialReqTable5" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable1" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable2" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable3" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable4" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable5" type="XML" class="sapUiMediumMarginBottom"/>
     </l:VerticalLayout>
     
 
