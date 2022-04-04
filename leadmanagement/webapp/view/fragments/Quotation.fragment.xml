@@ -7,10 +7,10 @@
     xmlns:core="sap.ui.core"
     xmlns:tt="sap.ui.table">    
     <l:VerticalLayout width="100%">
-        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.QuotationTbl1" type="XML" class="sapUiMediumMarginBottom"/>
-        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.QuotationTbl2" type="XML" class="sapUiMediumMarginBottom"/>
-        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.QuotationTbl3" type="XML" class="sapUiMediumMarginBottom"/>
-        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.QuotationTbl4" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.quotation.QuotationTbl1" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.quotation.QuotationTbl2" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.quotation.QuotationTbl3" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.quotation.QuotationTbl4" type="XML" class="sapUiMediumMarginBottom"/>
         <Toolbar width="90%">
             <ToolbarSpacer/>
             <Label text="{i18n>OverallCosting} : " design="Bold"/>

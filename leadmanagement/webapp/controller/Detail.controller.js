@@ -214,7 +214,6 @@ sap.ui.define(
                     oView.byId("PreEstTbl3").rebindTable();
                     oView.byId("PreEstTbl4").rebindTable();
                 } else if (sKey == "2") {
-                    console.log("Quotation selected");
                     oView.byId("QuotationTbl1").rebindTable();
                     oView.byId("QuotationTbl2").rebindTable();
                     oView.byId("QuotationTbl3").rebindTable();
@@ -227,175 +226,143 @@ sap.ui.define(
                     oView.byId("idMaterialsReqTable5").rebindTable();
                 }
             },
+
+            _bindPreEstimationTbl: function (oEvent,iPaintingReqId) {
+                var promise = jQuery.Deferred();
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.parameters["expand"] = "PreEstimationSelectedProducts,PreEstimation";
+                var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
+                var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, iPaintingReqId);
+                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                promise.resolve();
+                return promise;
+            },
+
+            _bindQuotationTbl: function (oEvent, iPaintingReqId) {
+                var promise = jQuery.Deferred();
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.parameters["expand"] = "QuotationSelectedProducts,RoomType,Quotation";
+                var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
+                var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, iPaintingReqId);
+                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                promise.resolve();
+                return promise;
+            },
+
+            _bindMRTbl: function (oEvent, iPaintingReqId) {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "Product,ProductShade";
+                var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
+                var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, iPaintingReqId);
+                oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+
             // before binding methods of the smart tables
             onBeforeRebindPreReq1: function (oEvent) {
                 var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "PreEstimationSelectedProducts,PreEstimation";
-                var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, 1);
-                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
-                var oBindingObject = oEvent.getSource().getBindingContext().getObject();
-                var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                var oFooter = oView.byId("idTotalInterior");
-                var oGrandTotal = oView.byId("idPreEstGTotal");
-                oFooter.bindElement("/"+sPreEstimationPath);
-                oGrandTotal.bindElement("/"+sPreEstimationPath);
+                var c1 = this._bindPreEstimationTbl(oEvent,1);
+                var othat = this;
+                c1.then( () => {
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
+                    this._bindViewElement("idTotalInterior","/"+sPreEstimationPath);
+                    this._bindViewElement("idPreEstGTotal","/"+sPreEstimationPath);
+                });
             },
             onBeforeRebindPreReq2: function (oEvent) {
                 var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "PreEstimationSelectedProducts,PreEstimation";
-                var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, 2);
-                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
-                var oBindingObject = oEvent.getSource().getBindingContext().getObject();
-                var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                var oFooter = oView.byId("idTotalExterior");
-                oFooter.bindElement("/"+sPreEstimationPath);
+                var c1 = this._bindPreEstimationTbl(oEvent,2);
+                var othat = this;
+                c1.then( () => {
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
+                    this._bindViewElement("idTotalExterior","/"+sPreEstimationPath);
+                });
             },
             onBeforeRebindPreReq3: function (oEvent) {
                 var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "PreEstimationSelectedProducts,PreEstimation";
-                var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, 3);
-                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
-                var oBindingObject = oEvent.getSource().getBindingContext().getObject();
-                var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                var oFooter = oView.byId("idTotalWC");
-                oFooter.bindElement("/"+sPreEstimationPath);
+                var c1 = this._bindPreEstimationTbl(oEvent,3);
+                var othat = this;
+                c1.then( () => {
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
+                    this._bindViewElement("idTotalWC","/"+sPreEstimationPath);
+                });
             },
             onBeforeRebindPreReq4: function (oEvent) {
                 var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "PreEstimationSelectedProducts,PreEstimation";
-                var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, 4);
-                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
-                var oBindingObject = oEvent.getSource().getBindingContext().getObject();
-                var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                var oFooter = oView.byId("idTotalCC");
-                oFooter.bindElement("/"+sPreEstimationPath);
+                var c1 = this._bindPreEstimationTbl(oEvent,4);
+                var othat = this;
+                c1.then( () => {
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
+                    this._bindViewElement("idTotalCC","/"+sPreEstimationPath);
+                });
             },
             onBeforeRebindQuotReq1: function (oEvent) {
                 var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "QuotationSelectedProducts,RoomType,Quotation";
-                var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, 1);
-                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
-                var oBindingObject = oEvent.getSource().getBindingContext().getObject();
-                var sQuotationPath = oBindingObject.Quotation.__list[0];
-                var oFooter = oView.byId("idTotalQuotInterior");
-                var oQTotal = oView.byId("idQuotOCTotal");
-                var oQDiscountLbl = oView.byId("idQuotDiscountLbl");
-                var oQDiscount = oView.byId("idQuotDiscount");
-                var oQGrandTotal = oView.byId("idQuotGTotal");
-                oFooter.bindElement("/"+sQuotationPath);
-                oQTotal.bindElement("/"+sQuotationPath);
-                oQDiscountLbl.bindElement("/"+sQuotationPath);
-                oQDiscount.bindElement("/"+sQuotationPath);
-                oQGrandTotal.bindElement("/"+sQuotationPath);
+                var c1 = this._bindQuotationTbl(oEvent,1);
+                var othat = this;
+                c1.then( () => {
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sQuotationPath = oBindingObject.Quotation.__list[0];
+                    this._bindViewElement("idTotalQuotInterior","/"+sQuotationPath);
+                    this._bindViewElement("idQuotOCTotal","/"+sQuotationPath);
+                    this._bindViewElement("idQuotDiscountLbl","/"+sQuotationPath);
+                    this._bindViewElement("idQuotDiscount","/"+sQuotationPath);
+                    this._bindViewElement("idQuotGTotal","/"+sQuotationPath);
+                });
             },
             onBeforeRebindQuotReq2: function (oEvent) {
                 var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "QuotationSelectedProducts,RoomType,Quotation";
-                var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, 2);
-                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
-                var oBindingObject = oEvent.getSource().getBindingContext().getObject();
-                var sQuotationPath = oBindingObject.Quotation.__list[0];
-                var oFooter = oView.byId("idTotalQuotExterior");
-                oFooter.bindElement("/"+sQuotationPath);
+                var c1 = this._bindQuotationTbl(oEvent,2);
+                var othat = this;
+                c1.then( () => {
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sQuotationPath = oBindingObject.Quotation.__list[0];
+                    this._bindViewElement("idTotalQuotExterior","/"+sQuotationPath);
+                });
             },
             onBeforeRebindQuotReq3: function (oEvent) {
                 var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "QuotationSelectedProducts,RoomType,Quotation";
-                var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, 3);
-                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
-                var oBindingObject = oEvent.getSource().getBindingContext().getObject();
-                var sQuotationPath = oBindingObject.Quotation.__list[0];
-                var oFooter = oView.byId("idTotalQuotWC");
-                oFooter.bindElement("/"+sQuotationPath);
+                var c1 = this._bindQuotationTbl(oEvent,3);
+                var othat = this;
+                c1.then( () => {
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sQuotationPath = oBindingObject.Quotation.__list[0];
+                    this._bindViewElement("idTotalQuotWC","/"+sQuotationPath);
+                });
             },
             onBeforeRebindQuotReq4: function (oEvent) {
                 var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "QuotationSelectedProducts,RoomType,Quotation";
-                var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, 4);
-                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
-                var sQuotationPath = oBindingObject.Quotation.__list[0];
-                var oFooter = oView.byId("idTotalQuotCC");
-                oFooter.bindElement("/"+sQuotationPath);
-            },
-            onBeforeRebindQuotation: function (oEvent) {
-                // var mBindingParams = oEvent.getParameter("bindingParams");
-                // mBindingParams.parameters["expand"] = "QuotationAreas/QuotationSelectedProducts/MasterProduct";
-                // mBindingParams.parameters["navigation"] = { "Quotations": "QuotationAreas" };
-                // mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
-                // // mBindingParams.filters.push(new Filter("PONumber", FilterOperator.EQ, sPONumber));
-                // mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                var c1 = this._bindQuotationTbl(oEvent,4);
+                var othat = this;
+                c1.then( () => {
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sQuotationPath = oBindingObject.Quotation.__list[0];
+                    this._bindViewElement("idTotalQuotCC","/"+sQuotationPath);
+                });
             },
             onBeforeBindMatReqTbl1: function (oEvent) {
-                var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Product,ProductShade";
-                var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, 1);
-                oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                this._bindMRTbl(oEvent,1);
             },
             onBeforeBindMatReqTbl2: function (oEvent) {
-                var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Product,ProductShade";
-                var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, 2);
-                oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                this._bindMRTbl(oEvent,2);
             },
             onBeforeBindMatReqTbl3: function (oEvent) {
-                var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Product,ProductShade";
-                var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, 3);
-                oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                this._bindMRTbl(oEvent,3);
             },
             onBeforeBindMatReqTbl4: function (oEvent) {
-                var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Product,ProductShade";
-                var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
-                var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, 4);
-                oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                this._bindMRTbl(oEvent,4);
             },
             onBeforeBindMatReqTbl5: function (oEvent) {
                 var oView = this.getView();
