@@ -198,7 +198,7 @@ sap.ui.define(
                 //     oBindingParams.filters.push(oFilter);
                 // }
             },
-            onsharedDGAFeature:function(oEvent){
+            onsharedDGAFeature: function (oEvent) {
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "AppFeature";
                 oBindingParams.filters.push(new Filter("DGATypeId", sap.ui.model.FilterOperator.EQ, "2"));
@@ -285,31 +285,22 @@ sap.ui.define(
             onResetFilterBar: function () {
                 this._ResetFilterBar();
             },
-            // onNavBack: function (oEvent) {
-            //     var oHistory = History.getInstance();
-            //     var sPreviousHash = oHistory.getPreviousHash();
-            //     if (sPreviousHash !== undefined) {
-            //         window.history.go(-1);
-            //     } else {
-            //         var oRouter = this.getOwnerComponent().getRouter();
-            //         oRouter.navTo("RoutePList", {}, true);
-            //     }
-            // },
             onChange: function (oEve) {
                 var iDGATypeId = oEve.getSource().getBindingContext().getObject().DGATypeId;
                 var iFeatureId = oEve.getSource().getBindingContext().getObject().FeatureId;
                 var iId = oEve.getSource().getBindingContext().getObject().Id,
-                 sButton = oEve.getSource().getState(),
-                    sStatus = sButton === true ? true : false,
-                    sMessage = sButton === true ? "Activate" : "Deactivate";
-                this._showMessageBox("information","MsgConfirm", [sMessage], this.onActivateDeactivateServiceCall.bind(this, iId, sStatus, iDGATypeId, iFeatureId));
+                    sButton = oEve.getSource(),
+                    sButtonState = oEve.getSource().getState(),
+                    sStatus = sButtonState === true ? true : false,
+                    sMessage = sButtonState === true ? "Activate" : "Deactivate";
+                this._showMessageBox("information", "MsgConfirm", [sMessage], this.onActivateDeactivateServiceCall.bind(this, iId, sStatus, iDGATypeId, iFeatureId), this.onPressNo.bind(this, sButton));
             },
             onActivateDeactivateServiceCall: function (iId, sStatus, iDGATypeId, iFeatureId) {
                 var oPayLoad = {
-                        "Id": iId,
-                        "DGATypeId": iDGATypeId,
-                        "FeatureId": iFeatureId,
-                        "IsActive": sStatus
+                    "Id": iId,
+                    "DGATypeId": iDGATypeId,
+                    "FeatureId": iFeatureId,
+                    "IsActive": sStatus
                 };
                 var oDataModel = this.getView().getModel();
                 oDataModel.update(`/MapFeaturePermission(${iId})`, oPayLoad, {
@@ -323,7 +314,10 @@ sap.ui.define(
                     }.bind(this),
                 });
             },
-        }
-        );
+            onPressNo: function (oSwitch) {
+                var bState = oSwitch.getState() === true ? false : true;
+                oSwitch.setState(bState);
+            }
+        });
     }
 );

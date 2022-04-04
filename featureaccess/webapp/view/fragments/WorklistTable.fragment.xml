@@ -21,7 +21,7 @@
                 <ColumnListItem press="onListItemPress">
                     <cells>
                         <Text text="{AppFeature/Name}"/>
-                        	<Switch state="{IsActive}" change="onChange">
+                        	<Switch id="idSwitch" state="{IsActive}" change="onChange">
 				<layoutData>
 					<FlexItemData growFactor="1" />
 				</layoutData>
