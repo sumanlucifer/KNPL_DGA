@@ -49,7 +49,8 @@ sap.ui.define(
                         Status: "",
                         Search: "",
                         DGAType: "",
-                        Pincode:""
+                        Pincode:"",
+                        StatusId: ""
                     },
                     AddFields:{
                         PinCode:""
@@ -192,7 +193,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGA,LeadServiceType,State,LeadStatus,Depot";
+                oBindingParams.parameters["expand"] = "DGA,LeadServiceType,State,LeadStatus,Depot,PaintingReqSlab";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
@@ -247,6 +248,10 @@ sap.ui.define(
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("Pincode", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "StatusId") {
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("LeadStatusId", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "DepotId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
@@ -295,6 +300,18 @@ sap.ui.define(
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "Stage",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "PaintingReqSlab/LeadSubStatus",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
                                         })
                                     ],
                                     false
@@ -330,7 +347,8 @@ sap.ui.define(
                     Status: "",
                     Search: "",
                     DGAType: "",
-                    Pincode:""
+                    Pincode:"",
+                    StatusId: ""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);

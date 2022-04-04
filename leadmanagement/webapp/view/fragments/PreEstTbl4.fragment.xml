@@ -3,8 +3,7 @@
                            id="PreEstTbl4"
                             editable="false"
                             width="100%"
-                            entitySet="Leads"
-                            tableBindingPath="PreEstimation(1)/PreEstimationAreas"
+                            entitySet="PreEstimationAreas"
                             beforeRebindTable="onBeforeRebindPreReq4"
                             tableType="ResponsiveTable"
                             showRowCount="true"
@@ -18,7 +17,7 @@
                             initialNoDataText="{i18n>tableNoDataText}"
                             header="{i18n>ConstructionChemical}" >
 
-        <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
             <columns>
                 <Column hAlign="Begin">
                     <customData>
@@ -62,7 +61,7 @@
                     </customData>
                     <Text text="{i18n>RateAccToArea}"/>
                     <footer>
-                        <Text text="{TotalConstructionChemicalCosting}" binding="{./PreEstimation(1)}"/>
+                        <Text id="idTotalCC" text="{TotalConstructionChemicalCosting}"/>
                     </footer>
                 </Column>
             </columns>

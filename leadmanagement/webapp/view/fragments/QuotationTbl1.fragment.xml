@@ -3,8 +3,7 @@
                            id="QuotationTbl1"
                             editable="false"
                             width="100%"
-                            entitySet="Leads"
-                            tableBindingPath="Quotation(1)/QuotationAreas"
+                            entitySet="QuotationAreas"
                             beforeRebindTable="onBeforeRebindQuotReq1"
                             tableType="ResponsiveTable"
                             showRowCount="true"
@@ -18,7 +17,7 @@
                             initialNoDataText="{i18n>tableNoDataText}"
                             header="{i18n>Interior}" >
 
-        <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
             <columns>
                 <Column hAlign="Begin">
                     <customData>
@@ -67,12 +66,16 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "RateAccToArea", "leadingProperty": "RateAccToArea", "sortProperty": "RateAccToArea", "filterProperty": "RateAccToArea", "columnIndex": 7 }'/>
                     </customData>
                     <Text text="{i18n>RateAccToArea}"/>
+                    <footer>
+                        <Text id="idTotalQuotInterior" text="{TotalInteriorCosting}"/>
+                    </footer>
                 </Column>
             </columns>
             <items>
                 <ColumnListItem>
                     <cells>                  
-                       <Text text="{Type}"/>
+                       <Text text="{Type}"/> 
+                       <Text text="{RoomType/Name}"/>
                        <Text text="{ClassType}"/>
                        <Text text="{SystemType}"/>
                        <Text text="{VAType}"/>

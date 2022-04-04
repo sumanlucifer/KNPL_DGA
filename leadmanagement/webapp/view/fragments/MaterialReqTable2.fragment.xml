@@ -17,7 +17,7 @@
                             initialNoDataText="{i18n>tableNoDataText}"
                             header="{i18n>Exterior}">
 
-        <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
             <columns>
                 <Column hAlign="Begin">
                     <customData>

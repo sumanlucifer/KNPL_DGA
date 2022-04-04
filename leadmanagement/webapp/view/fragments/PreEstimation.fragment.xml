@@ -11,6 +11,11 @@
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.PreEstTbl2" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.PreEstTbl3" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.PreEstTbl4" type="XML" class="sapUiMediumMarginBottom"/>
+        <Toolbar width="90%">
+            <ToolbarSpacer/>
+            <Label text="{i18n>GrandTotal} : " design="Bold"/>
+            <Label id="idPreEstGTotal" text="{GrandTotal}" design="Bold"/>
+        </Toolbar>
     </l:VerticalLayout>
 
 <!-- <smartTable:SmartTable id="PreEstTbl" entitySet="Leads" tableBindingPath="PreEstimation" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false"
