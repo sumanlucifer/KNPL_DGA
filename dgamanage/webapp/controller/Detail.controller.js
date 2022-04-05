@@ -262,6 +262,7 @@ sap.ui.define(
             onIcnTbarChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
+                var oModel = oView.getModel();
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
                 } else if (sKey == "2") {
@@ -271,11 +272,13 @@ sap.ui.define(
                 }
             },
             // #smart table filters
-            onBeforeRebindHistoryTable: function (oEvent) {
+            onBeforeRebindDealersTable: function (oEvent) {
                 var oView = this.getView();
+                var sDgaId = oView.getModel("oModelDisplay").getProperty("/Id");
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Dealer";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+
             },
             onBeforeBindLeadsTable: function (oEvent) {
                 var oView = this.getView();
@@ -288,6 +291,7 @@ sap.ui.define(
 
             },
             onBeforeBindContractorTbl: function (oEvent) {
+                console.log("contractor table trigerred");
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Contractor";

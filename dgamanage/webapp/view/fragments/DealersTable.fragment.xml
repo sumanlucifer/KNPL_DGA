@@ -2,7 +2,7 @@
     <smartTable:SmartTable
                             id="Dealerstable"
                             editable="false"
-                            beforeRebindTable="onBeforeRebindHistoryTable"                    
+                            beforeRebindTable="onBeforeRebindDealersTable"                    
                             tableBindingPath="DGADealers/"
                             tableType="ResponsiveTable"
                             showRowCount="true"
@@ -31,42 +31,42 @@
                     </customData>
                     <Text text="{i18n>PhoneNumber}"/>
                 </Column>
-                <Column hAlign="Begin">
+                <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/SAPCode", "leadingProperty": "Dealer/SAPCode", "columnIndex": 2 ,"sortProperty": "Dealer/SAPCode","filterProperty": "Dealer/SAPCode"}'/>
                     </customData>
                     <Text text="{i18n>SapCode}"/>
-                </Column>
-                 <Column hAlign="Begin">
+                </Column> -->
+                 <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/SAPGroupName", "leadingProperty": "Dealer/SAPGroupName", "columnIndex": 3 ,"sortProperty": "Dealer/SAPGroupName","filterProperty": "Dealer/SAPGroupName"}'/>
                     </customData>
                     <Text text="{i18n>SapGroupName}"/>
-                </Column>
+                </Column> -->
                 <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/FiscalYear", "leadingProperty": "Dealer/FiscalYear", "columnIndex": 4 ,"sortProperty": "Dealer/FiscalYear","filterProperty": "Dealer/FiscalYear"}'/>
                     </customData>
                     <Text text="{i18n>FiscalYear}"/>
                 </Column>
-                 <Column hAlign="Begin">
+                 <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/Visits", "leadingProperty": "Dealer/Visits", "columnIndex": 5 ,"sortProperty": "Dealer/Visits","filterProperty": "Dealer/Visits"}'/>
                     </customData>
                     <Text text="{i18n>Visits}"/>
-                </Column>
-                 <Column hAlign="Begin">
+                </Column> -->
+                 <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/TotalMappedContractor", "leadingProperty": "Dealer/TotalMappedContractor", "columnIndex": 6 ,"sortProperty": "Dealer/TotalMappedContractor","filterProperty": "Dealer/TotalMappedContractor"}'/>
                     </customData>
                     <Text text="{i18n>TotalMappedContractor}"/>
-                </Column>
-                 <Column hAlign="Begin">
+                </Column> -->
+                 <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/LeadsProvided", "leadingProperty": "Dealer/LeadsProvided", "columnIndex": 7 ,"sortProperty": "Dealer/LeadsProvided","filterProperty": "Dealer/LeadsProvided"}'/>
                     </customData>
                     <Text text="{i18n>LeadsProvided}"/>
-                </Column>
+                </Column> -->
                 <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 8 ,"sortProperty": "Id","filterProperty": "Id"}'/>
@@ -84,12 +84,12 @@
                  
                        <Text text="{Dealer/Name}" />
                        <Text text="{Dealer/PhoneNumber}"/>
-                       <Text  text="{Dealer/SAPCode}" />
-                        <Text text="{Dealer/SAPGroupName}"/>
+                       <!-- <Text  text="{Dealer/SAPCode}" /> -->
+                        <!-- <Text text="{Dealer/SAPGroupName}"/> -->
                         <Text text="{Dealer/FiscalYear}"/>
-                        <Text text="{Dealer/Visits}" />
-                        <Text text="{Dealer/TotalMappedContractor}"/>
-                        <Text text="{Dealer/LeadsProvided}"/>
+                        <!-- <Text text="{Dealer/Visits}" /> -->
+                        <!-- <Text text="{Dealer/TotalMappedContractor}"/> -->
+                        <!-- <Text text="{Dealer/LeadsProvided}"/> -->
 
                        <!-- <Text text="{Id}" /> -->
                         

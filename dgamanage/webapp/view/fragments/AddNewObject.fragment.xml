@@ -39,7 +39,7 @@
                 <Label text="{i18n>LinkDealer}" visible="{= ${oModelControl>/mode} === 'Add'}" required="true" />
                 <MultiInput visible="{= ${oModelControl>/mode} === 'Add'}"  placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDealersValueHelp" tokens="{path:'oModelControl>/MultiCombo/Dealers'}">
                     <tokens>
-                        <Token text="{oModelControl>Name}" key="{oModelControl>Id}"/>
+                        <Token text="{oModelControl>Name} - {oModelControl>Id}" key="{oModelControl>Id}"/>
                     </tokens>
                 </MultiInput>
                 <Label text="{i18n>WorkLocation}"  />
