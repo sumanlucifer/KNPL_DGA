@@ -181,7 +181,7 @@ sap.ui.define(
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,WorkLocation";
+                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,LinkedContractors,WorkLocation";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
@@ -238,7 +238,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,WorkLocation";
+                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,WorkLocation,LinkedContractors";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -264,12 +264,18 @@ sap.ui.define(
                 var oView = this.getView();
                 var oModel = oView.getModel();
                 var sEntitySet = oView.getModel("oModelDisplay").getProperty("/bindProp");
-               
+
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(sEntitySet);
                     console.log(sEntitySet);
                 } else if (sKey == "2") {
-                    oView.byId("idContractorTable").setEntitySet(sEntitySet);
+                    var oTable = oView.byId("idContractorTable")
+                    oTable.bindItems({
+                        path: "LinkedContractors/",
+                        template: oView.byId("oColumListItemContrators"),
+                        templateShareable: true,
+                    })
+
                 } else if (sKey == "3") {
                     oView.byId("idLeadsTable").rebindTable();
                 }
@@ -297,10 +303,10 @@ sap.ui.define(
                 console.log("contractor table trigerred");
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Contractor";
-                var oFiler = new Filter("IsLinked", FilterOperator.EQ, true);
-                oBindingParams.filters.push(oFiler);
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                // oBindingParams.parameters["expand"] = "Contractor";
+                // var oFiler = new Filter("IsLinked", FilterOperator.EQ, true);
+                // oBindingParams.filters.push(oFiler);
+                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
 
             _LoadFragment: function (mParam) {

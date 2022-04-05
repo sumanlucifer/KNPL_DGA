@@ -24,10 +24,16 @@
                 "uri": "KNPL_DGA_API/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
-                    "annotations": [],
+                    "annotations": [
+                        "annotation0"
+                    ],
                     "localUri": "localService/metadata.xml",
                     "odataVersion": "2.0"
                 }
+            },
+            "annotation0": {
+                "type": "ODataAnnotation",
+                "uri": "annotation/annotation.xml"
             }
         },
         "crossNavigation": {
