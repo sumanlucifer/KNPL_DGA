@@ -10,10 +10,10 @@
                             useVariantManagement="false"
                             useTablePersonalisation="true"
                             demandPopin="true"
-                            enableAutoBinding="false"
+                            enableAutoBinding="true"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            initiallyVisibleFields="Id,DealerId,DGAId,Dealer/Name,Dealer/PhoneNumber,Dealer/SAPCode,Dealer/FiscalYear,Dealer/Visits,Dealer/TotalMappedContractor,Dealer/LeadsProvided"
+                            initiallyVisibleFields="Id,DealerId,DGAId,Dealer/Name,Dealer/PhoneNumber,Dealer/FiscalYear,Dealer/Visits,Dealer/TotalMappedContractor,Dealer/LeadsProvided"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
 
@@ -31,39 +31,39 @@
                     </customData>
                     <Text text="{i18n>PhoneNumber}"/>
                 </Column>
-                <Column hAlign="Begin">
+               <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/SAPCode", "leadingProperty": "Dealer/SAPCode", "columnIndex": 2 ,"sortProperty": "Dealer/SAPCode","filterProperty": "Dealer/SAPCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/SAPCode",  "columnIndex": 2 ,"sortProperty": "Dealer/SAPCode","filterProperty": "Dealer/SAPCode"}'/>
                     </customData>
                     <Text text="{i18n>SapCode}"/>
                 </Column> 
-                <Column hAlign="Begin">
+                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/SAPGroupName", "leadingProperty": "Dealer/SAPGroupName", "columnIndex": 3 ,"sortProperty": "Dealer/SAPGroupName","filterProperty": "Dealer/SAPGroupName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/SAPGroupName",  "columnIndex": 3 ,"sortProperty": "Dealer/SAPGroupName","filterProperty": "Dealer/SAPGroupName"}'/>
                     </customData>
                     <Text text="{i18n>SapGroupName}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/FiscalYear", "leadingProperty": "Dealer/FiscalYear", "columnIndex": 4 ,"sortProperty": "Dealer/FiscalYear","filterProperty": "Dealer/FiscalYear"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/FiscalYear",  "columnIndex": 4 ,"sortProperty": "Dealer/FiscalYear","filterProperty": "Dealer/FiscalYear"}'/>
                     </customData>
                     <Text text="{i18n>FiscalYear}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/Visits", "leadingProperty": "Dealer/Visits", "columnIndex": 5 ,"sortProperty": "Dealer/Visits","filterProperty": "Dealer/Visits"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/Visits",  "columnIndex": 5 ,"sortProperty": "Dealer/Visits","filterProperty": "Dealer/Visits"}'/>
                     </customData>
                     <Text text="{i18n>Visits}"/>
                 </Column> 
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/TotalMappedContractor", "leadingProperty": "Dealer/TotalMappedContractor", "columnIndex": 6 ,"sortProperty": "Dealer/TotalMappedContractor","filterProperty": "Dealer/TotalMappedContractor"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/TotalMappedContractor",  "columnIndex": 6 ,"sortProperty": "Dealer/TotalMappedContractor","filterProperty": "Dealer/TotalMappedContractor"}'/>
                     </customData>
                     <Text text="{i18n>TotalMappedContractor}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/LeadsProvided", "leadingProperty": "Dealer/LeadsProvided", "columnIndex": 7 ,"sortProperty": "Dealer/LeadsProvided","filterProperty": "Dealer/LeadsProvided"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/LeadsProvided", "columnIndex": 7 ,"sortProperty": "Dealer/LeadsProvided","filterProperty": "Dealer/LeadsProvided"}'/>
                     </customData>
                     <Text text="{i18n>LeadsProvided}"/>
                 </Column>

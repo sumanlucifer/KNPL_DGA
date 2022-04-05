@@ -3,7 +3,7 @@
                             id="idContractorTable"
                             editable="false"
                             beforeRebindTable="onBeforeBindContractorTbl"                    
-                            tableBindingPath="DGAContractors/"
+                            tableBindingPath="LinkedContractors/"
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"

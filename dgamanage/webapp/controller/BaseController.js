@@ -443,7 +443,7 @@ sap.ui.define([
 
             // Dealers Valuehelp
 
-            if (sPath === "/DealerSet") {
+            if (sPath === "/MasterDealers") {
                 if (sValue.length > 0) {
                     var aFilter = new Filter(
                         [
