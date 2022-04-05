@@ -93,7 +93,7 @@ sap.ui.define([
                 },
                 MultiCombo: {
                     Dealers: [],
-                    Pincode2:[]
+                    Pincode2: []
                 }
             };
             var oModelControl = new JSONModel(oDataControl)
@@ -279,7 +279,7 @@ sap.ui.define([
             var sMessage;
             if (mParam1.statusCode == 409) {
                 this._showMessageBox2("error", "Message13", [mParam1.responseText]);
-             
+
             }
 
         },
@@ -287,6 +287,46 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             promise.resolve(oPayLoad);
             return promise;
+        },
+        onPayrollChange: function () {
+            var oView = this.getView();
+            var oModel = oView.getModel("oModelView");
+            oModel.setProperty("/EmployeeId", "");
+        },
+        onEmployeeIdChange: function () {
+            var oView = this.getView();
+            var oData = oView.getModel();
+            var oViewModel = oView.getModel("oModelView");
+            var oPayload = oViewModel.getData();
+            var oModelControl = oView.getModel("oModelControl");
+            oModelControl.setProperty("/PageBusy", true);
+            var aFilter = [];
+
+            if(oPayload["PayrollCompanyId"]){
+                aFilter.push(new Filter("PayrollCompanyId", FilterOperator.EQ, oPayload["PayrollCompanyId"]))
+            }
+            aFilter.push(new Filter("EmployeeId", FilterOperator.EQ, oPayload["EmployeeId"]))
+            oData.read("/DGAs", {
+                urlParameters: {
+                    //$select: "AccountNumber,IfscCode"
+                },
+                filters: aFilter,
+                success: function (oData) {
+
+                    if (oData["results"].length > 0) {
+                       
+                        oViewModel.setProperty("/EmployeeId", "");
+                        this._showMessageToast("Message14",[oPayload["EmployeeId"]])
+                        
+                    }
+                    oModelControl.setProperty("/PageBusy", false);
+                }.bind(this),
+                error: function () {
+                    oModelControl.setProperty("/PageBusy", false);
+                }
+
+            })
+
         },
         onJoiningDate: function (oEvent) {
             var oView = this.getView();
@@ -386,20 +426,20 @@ sap.ui.define([
                 } else {
                     var aFilter = [];
                 }
-                if(this._PinCodeValueHelp){
+                if (this._PinCodeValueHelp) {
                     this._PinCodeValueHelp
-                    .getBinding("items")
-                    .filter(aFilter, "Application");
+                        .getBinding("items")
+                        .filter(aFilter, "Application");
                 }
-                if(this._PinCodeValueHelp2){
+                if (this._PinCodeValueHelp2) {
                     this._PinCodeValueHelp2
-                    .getBinding("items")
-                    .filter(aFilter, "Application");
+                        .getBinding("items")
+                        .filter(aFilter, "Application");
                 }
-               
+
                 return;
             }
-           
+
             // Dealers Valuehelp
 
             if (sPath === "/DealerSet") {
@@ -585,7 +625,7 @@ sap.ui.define([
         },
         _handlePinCodeValueHelpConfirm2: function (oEvent) {
             // this method is overwritten for the pincode in the worklist view
-          
+
             var oSelected = oEvent.getParameter("selectedContexts");
             var oView = this.getView();
             var oModel = oView.getModel("oModelControl");

@@ -11,13 +11,13 @@
                 <Label text="{i18n>SalesGroup}" />
                <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleSalesGropValueHelp" value="{path:'oModelControl>/AddFields/SalesGroup', type:'sap.ui.model.type.String', constraints:{minLength:1} }" required="true"/>
               <Label text="{i18n>PayrollCompany}" />
-                <ComboBox items="{path:'/MasterPayrollCompanies',sorter:{path:'Name'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{path:'oModelView>/PayrollCompanyId',type :'sap.ui.model.type.String', constraints:{minLength:1} }" required="true" >
+                <ComboBox change="onPayrollChange" items="{path:'/MasterPayrollCompanies',sorter:{path:'Name'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{path:'oModelView>/PayrollCompanyId',type :'sap.ui.model.type.String', constraints:{minLength:1} }" required="true" >
                     <items>
                         <core:Item text="{Name}" key="{Id}" />
                     </items>
                 </ComboBox>
                 <Label text="{i18n>EmployeeId}"/>
-                <Input value="{path:'oModelView>/EmployeeId', type:'sap.ui.model.type.String', constraints:{search:'^([a-zA-Z0-9 _-]+)$'}}" required="true" />
+                <Input change="onEmployeeIdChange" value="{path:'oModelView>/EmployeeId', type:'sap.ui.model.type.String', constraints:{search:'^([a-zA-Z0-9 _-]+)$'}}" required="true" />
                 <Label text="{i18n>JoiningDate}" />
                 <DatePicker required="true" placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" change=".onJoiningDate" dateValue="{oModelView>/JoiningDate}" value="{path:'oModelControl>/AddFields/JoiningDate', type:'sap.ui.model.type.Date',formatOptions:{source:{pattern:'dd/MM/YYYY'} ,pattern:'dd/MM/YYYY',strictParsing:true},constraints:{minimum:'01/01/2022'}}" valueStateText="{i18n>ValueStateMessage1}" ></DatePicker>
                 <Label text="{i18n>ExitDate}" />
