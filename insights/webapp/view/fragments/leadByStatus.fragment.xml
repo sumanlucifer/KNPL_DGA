@@ -1,5 +1,12 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
-    <Table id="idLeadByStatus" growing="true" growingThreshold="10" width="auto" noDataText="{i18n>tableNoDataText}" growingScrollToLoad="false" busyIndicatorDelay="{oModelView>/tableBusyDelay}">
+    <!-- <Table id="idLeadByStatus" growing="true" growingThreshold="10" width="auto" noDataText="{i18n>tableNoDataText}" growingScrollToLoad="false" busyIndicatorDelay="{oModelView>/tableBusyDelay}">
+        <headerToolbar>
+            <Toolbar>
+                <content>
+                    <Title text="{i18n>leadsByStatus}" level="H2"/>
+                </content>
+            </Toolbar>
+        </headerToolbar>
         <columns>
             <Column>
                 <Text text="Category" />
@@ -8,31 +15,41 @@
                 <Text text="Count" />
             </Column>
         </columns>
-        <items>
-            <ColumnListItem>
+        <dependents>                
+            <ColumnListItem id="idTblLeadByStatusTemplate">
                 <cells>
-                    <Text text="Total" />
-                    <Text text="{Leads/$count}" />
+                    <Text text="{NAME}" />
+                    <Text text="{VALUE}" />
                 </cells>
             </ColumnListItem>
-            <ColumnListItem>
-                <cells>
-                    <Text text="Pipeline" />
-                    <Text text="2" />
-                </cells>
-            </ColumnListItem>
-            <ColumnListItem>
-                <cells>
-                    <Text text="Converted" />
-                    <Text text="2" />
-                </cells>
-            </ColumnListItem>
-            <ColumnListItem>
-                <cells>
-                    <Text text="Lost" />
-                    <Text text="2" />
-                </cells>
-            </ColumnListItem>
-        </items>
-    </Table>
+        </dependents>
+    </Table> -->
+
+    <smartTable:SmartTable id="idLeadByStatus" header="{i18n>leadsByStatus}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="LeadCountByStatus" beforeRebindTable="rebindLeadByStatusTbl" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" >
+
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
+            <columns>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "NAME", "leadingProperty": "NAME", "columnIndex": 0 ,"sortProperty": "NAME","filterProperty": "NAME"}'/>
+                    </customData>
+                    <Text text="{i18n>category}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "VALUE", "leadingProperty": "VALUE", "columnIndex": 1 ,"sortProperty": "VALUE","filterProperty": "VALUE"}'/>
+                    </customData>
+                    <Text text="{i18n>count}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{NAME}"/>
+                        <Text text="{VALUE}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
 </core:FragmentDefinition>

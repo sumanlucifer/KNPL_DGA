@@ -31,8 +31,8 @@
                     "semanticObject": "Insights",
                     "action": "Display",
                     "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
-                    "icon": ""
+                    "subTitle": "",
+                    "icon": "sap-icon://manager-insight"
                 }
             }
         }

@@ -41,18 +41,11 @@ sap.ui.define(
                 var oRouter = this.getOwnerComponent().getRouter();
                 var oDataControl = {
                     filterBar: {
-                        ZoneId: "",
-                        DivisionId: "",
-                        DepotId: "",
-                        StartDate: null,
-                        EndDate: null,
-                        Status: "",
-                        Search: "",
-                        DGAType: "",
-                        Pincode: ""
+                        StartDate: new Date(),
+                        EndDate: new Date(),
+                        DGAId: null
                     },
                     AddFields: {
-                        PinCode: ""
                     },
                     PageBusy: true,
                     resourcePath: "com.knpl.dga.insights."
@@ -93,7 +86,7 @@ sap.ui.define(
                 var oModelControl = oView.getModel("oModelControl");
                 var c1, c2, c3, c4;
                 oModelControl.setProperty("/PageBusy", true)
-                c1 = othat._addSearchFieldAssociationToFB();
+                c1 = othat._dummyFunction();
                 c1.then(function () {
                     c2 = othat._dummyFunction();
                     c2.then(function () {
@@ -135,29 +128,41 @@ sap.ui.define(
                 return promise;
 
             },
-            // _bindLeadByStatusTbl: function () {
-            //     var promise = jQuery.Deferred();
-            //     var oView = this.getView();
-            //     var oDateFormat = sap.ui.core.format.DateFormat.getInstance({pattern: "yyyy-MM-dd"});   
-            //     var dCurrentDate =  oDateFormat.format(new Date());
-            //     var oTable = oView.byId("idLeadByStatus");
-            //     debugger
-            //     oTable.bindItems({
-            //         path: "/KpiDashboardResponse",
-            //         template: oView.byId("idTblLeadByStatusTemplate"),
-            //         templateShareable: true,
-            //         parameters: {
-            //             expand: 'leadCountByStatus',
-            //             custom: {
-            //                 StartDate: "" + dCurrentDate + "",
-            //                 EndDate: "" + dCurrentDate + "",
-            //                 DGAId: "0"
-            //             }
-            //         }
-            //     })
-            //     promise.resolve();
-            //     return promise;
-            // },
+            rebindLeadByStatusTbl: function (oEvent) {
+                // var promise = jQuery.Deferred();
+                // var oTable = oView.byId("idLeadByStatus");
+                // oTable.bindItems({
+                //     path: "/LeadCountByStatus",
+                //     template: oView.byId("idTblLeadByStatusTemplate"),
+                //     templateShareable: true,
+                //     parameters: {
+                //         custom: {
+                //             StartDate: "" + dCurrentDate + "",
+                //             EndDate: "" + dCurrentDate + "",
+                //             DGAId: "0"
+                //         }
+                //     }
+                // })
+                // promise.resolve();
+                // return promise;
+                var oView = this.getView();
+                var oDateFormat = sap.ui.core.format.DateFormat.getInstance({pattern: "yyyy-MM-dd"});   
+                // // var dCurrentDate =  oDateFormat.format(new Date());
+                var oMdlCtrl = oView.getModel("oModelControl");
+                var dStartDate = oDateFormat.format(oMdlCtrl.getProperty("/filterBar/StartDate"));
+                var dEndDate = oDateFormat.format(oMdlCtrl.getProperty("/filterBar/EndDate"));
+                var oCustom = {
+                                StartDate: "" + dStartDate + "",
+                                EndDate: "" + dEndDate + "",
+                                DGAId: "0"
+                            };
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.sorter.push(new sap.ui.model.Sorter('LEAD_STATUS_ID', true));
+                if (oCustom) {
+                    oBindingParams.parameters.custom = oCustom;
+                }               
+            },
+
             _getLoggedInInfo: function () {
                 /*
                  * Author: manik saluja
@@ -207,27 +212,10 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-            // onBindTblDGAList: function (oEvent) {
-            //     /*
-            //      * Author: Akhil Jain
-            //      * Date: 15-Mar-2022
-            //      * Language:  JS
-            //      * Purpose: init binding method for the table.
-            //      */
-            //     var oBindingParams = oEvent.getParameter("bindingParams");
-            //     oBindingParams.parameters["expand"] = "DGA,LeadServiceType,State,LeadStatus,Depot";
-            //     oBindingParams.sorter.push(new Sorter("CreatedAt", true));
-
-            //     // Apply Filters
-            //     var oFilter = this._CreateFilter();
-            //     if (oFilter) {
-            //         oBindingParams.filters.push(oFilter);
-            //     }
-
-            // },
+            
             onFilterBarGo: function () {
                 var oView = this.getView();
-                oView.byId("idWorkListTable1").rebindTable();
+                oView.byId("idLeadByStatus").rebindTable();
             },
             _CreateFilter: function () {
                 var aCurrentFilterValues = [];
@@ -345,15 +333,9 @@ sap.ui.define(
             _ResetFilterBar: function () {
                 var aCurrentFilterValues = [];
                 var aResetProp = {
-                    ZoneId: "",
-                    DivisionId: "",
-                    DepotId: "",
-                    StartDate: null,
-                    EndDate: null,
-                    Status: "",
-                    Search: "",
-                    DGAType: "",
-                    Pincode: ""
+                    StartDate: new Date(),
+                    EndDate: new Date(),
+                    DGAId: null
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -385,6 +367,37 @@ sap.ui.define(
                 );
                 this._onDialogClose();
             },
+
+            onPressTodayFilter: function (oEvent) {
+                var oView = this.getView();
+                var oDateFormat = sap.ui.core.format.DateFormat.getInstance({pattern: "yyyy-MM-dd"}); 
+                var dEndDate = new Date();
+                var dStartDate = new Date();
+                var oMdlCtrl = oView.getModel("oModelControl");
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/StartDate",dStartDate);
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/EndDate",dEndDate);
+                this.onFilterBarGo();
+            },
+            
+            onPressMTDFilter: function (oEvent) {
+                var oView = this.getView();
+                var dEndDate = new Date();
+                var dStartDate = new Date(dEndDate.getFullYear(), dEndDate.getMonth(), 1);
+                var oMdlCtrl = oView.getModel("oModelControl");
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/StartDate",dStartDate);
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/EndDate",dEndDate);
+                this.onFilterBarGo();
+            },
+            
+            onPressYTDFilter: function (oEvent) {
+                var oView = this.getView();
+                var dEndDate = new Date();
+                var dStartDate = new Date(dEndDate.getFullYear(), 0, 1);
+                var oMdlCtrl = oView.getModel("oModelControl");
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/StartDate",dStartDate);
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/EndDate",dEndDate);
+                this.onFilterBarGo();
+            }
 
             // onPressDelete: function (oEvent) {
             //     var oView = this.getView();

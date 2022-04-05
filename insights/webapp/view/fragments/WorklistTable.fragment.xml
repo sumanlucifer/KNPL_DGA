@@ -114,6 +114,12 @@
     </smartTable:SmartTable> -->
     
     <l:VerticalLayout width="100%">
+        <Toolbar>
+            <ToolbarSpacer/>
+            <Button text="Today" press="onPressTodayFilter"/>
+            <Button text="MTD" press="onPressMTDFilter"/>
+            <Button text="YTD" press="onPressYTDFilter"/>
+        </Toolbar>
         <core:Fragment fragmentName="com.knpl.dga.insights.view.fragments.leadByStatus" type="XML" class="sapUiMediumMarginBottom"/>
     </l:VerticalLayout>
 </core:FragmentDefinition>
