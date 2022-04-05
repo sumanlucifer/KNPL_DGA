@@ -184,7 +184,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "PreEstimation,Quotation,LeadSource,SourceContractor,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGA,SourceDealer";
+                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGA,SourceDealer";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -391,6 +391,30 @@ sap.ui.define(
                     return promise;
                 });
             },
+
+            onPreEstDownload: function (oEvent) {
+                var sServiceURL = this.getView().getModel().sServiceUrl;
+                var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
+                var sURL = sServiceURL + "/"+ sPreEstimationPath + "/$value";
+                sap.m.URLHelper.redirect(sURL, true);
+            },
+
+            onQuotDownload: function (oEvent) {
+                var sServiceURL = this.getView().getModel().sServiceUrl;
+                var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                var sQuotationPath = oBindingObject.Quotation.__list[0];
+                var sURL = sServiceURL + "/"+ sQuotationPath + "/$value";
+                sap.m.URLHelper.redirect(sURL, true);
+            },
+
+            onMRDownload: function (oEvent) {
+                var sServiceURL = this.getView().getModel().sServiceUrl;
+                var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                var sMaterialRequisitionPath = oBindingObject.MaterialRequisition.__list[0];
+                var sURL = sServiceURL + "/"+ sMaterialRequisitionPath + "/$value";
+                sap.m.URLHelper.redirect(sURL, true);
+            }
             // onPressSave: function () {
             //     var bValidateForm = this._ValidateForm();
             //     if (bValidateForm) {
