@@ -263,10 +263,11 @@ sap.ui.define(
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 var oModel = oView.getModel();
+                var sEntitySet = oView.getModel("oModelDisplay").getProperty("/bindProp");
                 if (sKey == "1") {
-                    oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
+                    oView.byId("Dealerstable").setEntitySet(sEntitySet);
                 } else if (sKey == "2") {
-                    oView.byId("idContractorTable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
+                    oView.byId("idContractorTable").setEntitySet(sEntitySet);
                 } else if (sKey == "3") {
                     oView.byId("idLeadsTable").rebindTable();
                 }
