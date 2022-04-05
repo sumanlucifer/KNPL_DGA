@@ -302,10 +302,11 @@ sap.ui.define([
             oModelControl.setProperty("/PageBusy", true);
             var aFilter = [];
 
-            if(oPayload["PayrollCompanyId"]){
+            if (oPayload["PayrollCompanyId"]) {
                 aFilter.push(new Filter("PayrollCompanyId", FilterOperator.EQ, oPayload["PayrollCompanyId"]))
             }
-            aFilter.push(new Filter("EmployeeId", FilterOperator.EQ, oPayload["EmployeeId"]))
+            var sEmpId = oPayload["EmployeeId"]
+            aFilter.push(new Filter("EmployeeId", FilterOperator.EQ, sEmpId))
             oData.read("/DGAs", {
                 urlParameters: {
                     //$select: "AccountNumber,IfscCode"
@@ -314,10 +315,10 @@ sap.ui.define([
                 success: function (oData) {
 
                     if (oData["results"].length > 0) {
-                       
+
                         oViewModel.setProperty("/EmployeeId", "");
-                        this._showMessageToast("Message14",[oPayload["EmployeeId"]])
-                        
+                        this._showMessageToast("Message14", [sEmpId]);
+
                     }
                     oModelControl.setProperty("/PageBusy", false);
                 }.bind(this),
