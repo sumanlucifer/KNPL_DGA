@@ -265,7 +265,6 @@ sap.ui.define(
                 var oModel = oView.getModel();
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
-                   
                 } else if (sKey == "2") {
                     oView.byId("idContractorTable").setEntitySet(oView.getModel("oModelDisplay").getProperty("/bindProp"));
                 } else if (sKey == "3") {
@@ -292,6 +291,7 @@ sap.ui.define(
 
             },
             onBeforeBindContractorTbl: function (oEvent) {
+                console.log("contractor table trigerred");
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Contractor";
