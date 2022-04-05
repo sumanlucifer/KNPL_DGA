@@ -108,6 +108,7 @@ sap.ui.define([
                 DivisionId: "",
                 DepotId: "",
                 DGADealers: [],
+                ServicePincodes: [],
                 StateId: "",
                 TownId: "",
                 EmployeeId: "",
@@ -239,6 +240,20 @@ sap.ui.define([
                 }
             }
             oPayload["DGADealers"] = aDealers;
+            // var aExistingData = oModelView.getProperty("/ServicePincodes");
+            // var aSelectedData = oModelControl.getProperty("/MultiCombo/Pincode2")
+            // var iData = -1;
+            // var aDataFinal = [];
+            // for (var x of aSelectedData) {
+            //     iData = aExistingData.findIndex(item => item["Id"] === x["Id"])
+            //     if (iData >= 0) {
+            //         //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
+            //         aDataFinal.push(oPayload["ServicePincodes"][iData]);
+            //     } else {
+            //         aDealers.push({ PincodeId: x["Id"] });
+            //     }
+            // }
+            // oPayload["ServicePincodes"] = aDataFinal;
             promise.resolve(oPayload);
             return promise
 
@@ -264,7 +279,7 @@ sap.ui.define([
                 });
             });
         },
-   
+
 
     });
 

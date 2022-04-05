@@ -366,8 +366,6 @@ sap.ui.define(
                         key: "ACTIVATED"
                     }, {
                         key: "DEACTIVATED"
-                    }, {
-                        key: "NOT_CONTACTABLE"
                     }],
                     oModelControl = oView.getModel("oModelDisplay"),
                     sCurrentStatus = null,//oView.getBindingContext().getProperty("ActivationStatus"),
