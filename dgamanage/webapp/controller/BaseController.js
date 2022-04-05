@@ -92,8 +92,7 @@ sap.ui.define([
                     ExitDate: ""
                 },
                 MultiCombo: {
-                    Dealers: [],
-                    Pincode2: []
+                    Dealers: []
                 }
             };
             var oModelControl = new JSONModel(oDataControl)
@@ -279,7 +278,7 @@ sap.ui.define([
             var sMessage;
             if (mParam1.statusCode == 409) {
                 this._showMessageBox2("error", "Message13", [mParam1.responseText]);
-
+             
             }
 
         },
@@ -287,47 +286,6 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             promise.resolve(oPayLoad);
             return promise;
-        },
-        onPayrollChange: function () {
-            var oView = this.getView();
-            var oModel = oView.getModel("oModelView");
-            oModel.setProperty("/EmployeeId", "");
-        },
-        onEmployeeIdChange: function () {
-            var oView = this.getView();
-            var oData = oView.getModel();
-            var oViewModel = oView.getModel("oModelView");
-            var oPayload = oViewModel.getData();
-            var oModelControl = oView.getModel("oModelControl");
-            oModelControl.setProperty("/PageBusy", true);
-            var aFilter = [];
-
-            if (oPayload["PayrollCompanyId"]) {
-                aFilter.push(new Filter("PayrollCompanyId", FilterOperator.EQ, oPayload["PayrollCompanyId"]))
-            }
-            var sEmpId = oPayload["EmployeeId"]
-            aFilter.push(new Filter("EmployeeId", FilterOperator.EQ, sEmpId))
-            oData.read("/DGAs", {
-                urlParameters: {
-                    //$select: "AccountNumber,IfscCode"
-                },
-                filters: aFilter,
-                success: function (oData) {
-
-                    if (oData["results"].length > 0) {
-
-                        oViewModel.setProperty("/EmployeeId", "");
-                        this._showMessageToast("Message14", [sEmpId]);
-
-                    }
-                    oModelControl.setProperty("/PageBusy", false);
-                }.bind(this),
-                error: function () {
-                    oModelControl.setProperty("/PageBusy", false);
-                }
-
-            })
-
         },
         onJoiningDate: function (oEvent) {
             var oView = this.getView();
@@ -427,20 +385,11 @@ sap.ui.define([
                 } else {
                     var aFilter = [];
                 }
-                if (this._PinCodeValueHelp) {
-                    this._PinCodeValueHelp
-                        .getBinding("items")
-                        .filter(aFilter, "Application");
-                }
-                if (this._PinCodeValueHelp2) {
-                    this._PinCodeValueHelp2
-                        .getBinding("items")
-                        .filter(aFilter, "Application");
-                }
-
+                this._PinCodeValueHelp
+                    .getBinding("items")
+                    .filter(aFilter, "Application");
                 return;
             }
-
             // Dealers Valuehelp
 
             if (sPath === "/DealerSet") {
@@ -525,11 +474,6 @@ sap.ui.define([
                 delete this._PinCodeValueHelp;
                 return;
             }
-            if (this._PinCodeValueHelp2) {
-                this._PinCodeValueHelp2.destroy();
-                delete this._PinCodeValueHelp2;
-                return;
-            }
             if (this._DealerValueHelpDialog) {
                 this._DealerValueHelpDialog.destroy();
                 delete this._DealerValueHelpDialog;
@@ -574,22 +518,6 @@ sap.ui.define([
                 }.bind(this))
             }
         },
-        _handlePinCodeValueHelp2: function () {
-            /*
-            * Author: manik saluja
-            * Date: 15-Mar-2022
-            * Language:  JS
-            * Purpose:  Used to handle the pin code pop over in the add dga and edit dga.
-            */
-            var oView = this.getView();
-            if (!this._PinCodeValueHelp2) {
-                this._getViewFragment("PinCodeValueHelp2").then(function (oControl) {
-                    this._PinCodeValueHelp2 = oControl;
-                    oView.addDependent(this._PinCodeValueHelp2);
-                    this._PinCodeValueHelp2.open();
-                }.bind(this))
-            }
-        },
         _handleSalesGroupConfirm: function (oEvent) {
             var oSelectedItem = oEvent.getParameter("selectedItem");
             var oViewModel = this.getView().getModel("oModelView"),
@@ -621,27 +549,6 @@ sap.ui.define([
                 obj["Id"]
             );
 
-            this._onDialogClose();
-
-        },
-        _handlePinCodeValueHelpConfirm2: function (oEvent) {
-            // this method is overwritten for the pincode in the worklist view
-
-            var oSelected = oEvent.getParameter("selectedContexts");
-            var oView = this.getView();
-            var oModel = oView.getModel("oModelControl");
-            var aDealers = [],
-                oBj;
-            for (var a of oSelected) {
-                oBj = a.getObject();
-                aDealers.push({
-                    Name: oBj["Name"],
-                    Id: oBj["Id"],
-                });
-            }
-
-            oModel.setProperty("/MultiCombo/Pincode2", aDealers);
-            oModel.refresh(true);
             this._onDialogClose();
 
         },
