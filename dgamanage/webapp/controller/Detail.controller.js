@@ -264,8 +264,10 @@ sap.ui.define(
                 var oView = this.getView();
                 var oModel = oView.getModel();
                 var sEntitySet = oView.getModel("oModelDisplay").getProperty("/bindProp");
+               
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(sEntitySet);
+                    console.log(sEntitySet);
                 } else if (sKey == "2") {
                     oView.byId("idContractorTable").setEntitySet(sEntitySet);
                 } else if (sKey == "3") {
