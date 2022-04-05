@@ -448,7 +448,7 @@ sap.ui.define([
                     var aFilter = new Filter(
                         [
                             new Filter({
-                                path: "DealerName",
+                                path: "Name",
                                 operator: "Contains",
                                 value1: sValue,
                                 caseSensitive: false
@@ -672,7 +672,7 @@ sap.ui.define([
             for (var a of oSelected) {
                 oBj = a.getObject();
                 aDealers.push({
-                    Name: oBj["DealerName"],
+                    Name: oBj["Name"],
                     Id: oBj["Id"],
                 });
             }

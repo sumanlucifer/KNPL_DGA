@@ -7,7 +7,7 @@
         growingThreshold="8"
         rememberSelections="true"
 		class="sapUiPopupWithPadding"
-		items="{path:'oData2>/DealerSet',sorter:{path:'DealerName'},parameters:{select:'Id,DealerName'} }"
+		items="{path:'/MasterDealers',sorter:{path:'Name'},parameters:{select:'Id,Name'} }"
 	    search="_handlePValueHelpSearch"
 		confirm="_handleDealersValueHelpConfirm"
         cancel="_onDialogClose"
@@ -15,7 +15,7 @@
 		<StandardListItem
 			iconDensityAware="false"
 			iconInset="false"
-            title="{oData2>DealerName} - {oData2>Id}"
+            title="{Name} - {Id}"
 			 />
 	</SelectDialog>
 </core:FragmentDefinition>
