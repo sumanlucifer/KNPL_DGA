@@ -1,6 +1,23 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
-   
-         <Table id="idContractorTable" growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >
+    <smartTable:SmartTable
+                            id="idContractorTable"
+                            editable="false"
+                            beforeRebindTable="onBeforeBindContractorTbl"                    
+                            tableBindingPath="LinkedContractors/"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="true"
+                            demandPopin="true"
+                            enableAutoBinding="true"
+                            placeToolbarInTable="true"
+                            persistencyKey="HistoryPersistenceKey"
+                            initiallyVisibleFields="Id,Contractor/Name"
+                             initialNoDataText="{i18n>tableNoDataText}"
+                          >
+
+         <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >
             <columns>
                 <!-- <Column hAlign="Begin">
                     <customData>
@@ -57,54 +74,35 @@
                     <Text text="{i18n>BankDetailsStatus}"/>
                 </Column> -->
                 <Column hAlign="Begin">
-                    <Text text="{i18n>Name}"/>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ContractorId", "leadingProperty": "ContractorId", "columnIndex": 9 ,"sortProperty": "ContractorId","filterProperty": "ContractorId"}'/>
+                    </customData>
+                    <Text text="{i18n>Id}"/>
                 </Column>
-              <Column hAlign="Begin">
-                    <Text text="{i18n>Mobile}"/>
-             </Column>
-               <Column hAlign="Begin">
-                    <Text text="{i18n>MembershipCard}"/>
-             </Column>
-            <Column hAlign="Begin">
-                    <Text text="{i18n>Points}"/>
-             </Column>
-              <Column hAlign="Begin">
-                    <Text text="{i18n>Category}"/>
-             </Column>
-            <Column hAlign="Begin">
-                    <Text text="{i18n>DealerName}"/>
-             </Column>
-             <Column hAlign="Begin">
-                    <Text text="{i18n>DealerCode}"/>
-             </Column> 
-                <Column hAlign="Begin">
-                    <Text text="{i18n>KycStatus}"/>
-             </Column> 
-               <Column hAlign="Begin">
-                    <Text text="{i18n>BankStatus}"/>
-             </Column> 
+            
+               
+                
 
             </columns>
-            <dependents >
-                <ColumnListItem id="oColumListItemContrators">
+            <items>
+                <ColumnListItem>
                     <cells>
                  
                        <!-- <Text text="{Contractor/Name}" /> -->
-                      
-                       <Text text="{Name}" />
-                        <Text text="{Mobile}" />
-                        <Text text="{MembershipCard}" />
-                         <Text text="{RewardPoints}" />
-                         <Text text="{Slab}" />
-                          <Text text="{DealerName}" />
-                            <Text text="{DealerCode}" />
-                                <Text text="{KYCStatus}" />
-                                  <Text text="{BankDetailsStatus}" />
+                       <Text />
+                       <Text />
+                        <Text />
+                        <Text />
+                        <Text />
+                        <Text />
+                        <Text />
+                        <Text />
+                       <Text text="{ContractorId}" />
+                        
+
                     </cells>
                 </ColumnListItem>
-            </dependents >
-            <items>
             </items>
         </Table>
-   
+    </smartTable:SmartTable>
 </core:FragmentDefinition>
