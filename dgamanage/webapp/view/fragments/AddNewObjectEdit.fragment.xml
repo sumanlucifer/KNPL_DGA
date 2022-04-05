@@ -27,7 +27,7 @@
                 <Text text="{path : 'oModelView>/Division/Id'}"  />
                 <Label text="{i18n>Depot}" />
                <Text text="{path : 'oModelView>/Depot/Depot'}"  />
-               <Label text="{i18n>PinCode}" />
+               <Label text="{i18n>Location} {i18n>PinCode}" />
                 <Text text="{oModelView>/Pincode/Name}"  />
                 <Label text="{i18n>WorkLocation}"/>
                 <Text text="{oModelView>/WorkLocation/Name}"/>
