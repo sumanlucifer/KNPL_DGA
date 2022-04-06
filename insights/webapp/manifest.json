@@ -31,8 +31,8 @@
                     "semanticObject": "Insights",
                     "action": "Display",
                     "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
-                    "icon": ""
+                    "subTitle": "",
+                    "icon": "sap-icon://manager-insight"
                 }
             }
         }
@@ -82,7 +82,16 @@
             "": {
                 "dataSource": "mainService",
                 "preload": true,
-                "settings": {}
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "defaultUpdateMethod": "Put",
+                    "useBatch": false
+                }
+            },
+            "LoginInfo": {
+                "type": "sap.ui.model.json.JSONModel"
             }
         },
         "resources": {

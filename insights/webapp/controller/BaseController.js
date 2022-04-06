@@ -16,7 +16,7 @@ sap.ui.define([
     // shortcut for sap.m.URLHelper
     var URLHelper = mobileLibrary.URLHelper;
 
-    return Controller.extend("com.knpl.dga.com.knpl.dga.insights..controller.BaseController", {
+    return Controller.extend("com.knpl.dga.insights..controller.BaseController", {
         /**
          * Convenience method for accessing the router.
          * @public
@@ -84,7 +84,7 @@ sap.ui.define([
                 mode: mParam1,
                 LeadId: mParam2,
                 bindProp: "Leads(" + mParam2 + ")",
-                resourcePath: "com.knpl.dga.com.knpl.dga.insights.",
+                resourcePath: "com.knpl.dga.insights.",
                 AddFields: {
                     Pincode: ""
                 }

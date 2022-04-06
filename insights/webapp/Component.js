@@ -4,7 +4,7 @@ sap.ui.define([
     "com/knpl/dga/insights/model/models",
     "./controller/ErrorHandler"
 ],
-    function (UIComponent, Device, models) {
+    function (UIComponent, Device, models, ErrorHandler) {
         "use strict";
 
         return UIComponent.extend("com.knpl.dga.insights.Component", {
