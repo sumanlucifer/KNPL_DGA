@@ -70,6 +70,10 @@ sap.ui.define(
                     resourcePath: "com.knpl.dga.dgamanage",
                     ChangeStatus: {
 
+                    },
+                    Performance: {
+                        StartDate: new Date(new Date().setDate(1)),
+                        EndDate: new Date()
                     }
                 };
                 var oModel = new JSONModel(oData);
@@ -278,6 +282,11 @@ sap.ui.define(
 
                 } else if (sKey == "3") {
                     oView.byId("idLeadsTable").rebindTable();
+                } else if (sKey == "4") {
+                    oView.byId("idLeadByStatus").rebindTable();
+                    oView.byId("idLeadBySource").rebindTable();
+                    oView.byId("idBusinessGenValByCategory").rebindTable();
+                    oView.byId("idBusinessGenVolByCategory").rebindTable();
                 }
             },
             // #smart table filters
@@ -308,7 +317,26 @@ sap.ui.define(
                 // oBindingParams.filters.push(oFiler);
                 // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
-
+            // #perfrmance smart table
+            rebindLeadByStatusTbl: function (oEvent) {
+                var oView = this.getView();
+                var oModelDisplay = oView.getModel("oModelDisplay")
+                var sDgaId = oModelDisplay.getProperty("/Id")
+                var oDateFormat = sap.ui.core.format.DateFormat.getInstance({ pattern: "yyyy-MM-dd" });
+                var dStartDate = oDateFormat.format(oModelDisplay.getProperty("/Performance/StartDate"));
+                var dEndDate = oDateFormat.format(oModelDisplay.getProperty("/Performance/EndDate"));
+                var oCustom = {
+                    StartDate: "" + dStartDate + "",
+                    EndDate: "" + dEndDate + "",
+                    DGAId: "" + sDgaId + "",
+                };
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                // oBindingParams.sorter.push(new sap.ui.model.Sorter('LEAD_STATUS_ID', true));
+                if (oCustom) {
+                    oBindingParams.parameters.custom = oCustom;
+                }
+            },
+       
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();

@@ -68,7 +68,7 @@
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.LeadsTable" type="XML"/>
                         </IconTabFilter>
                            <IconTabFilter  text="{i18n>Performance}" key="4" >
-                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.InsightsLayout" type="XML"/>
                         </IconTabFilter>
                            <IconTabFilter  text="{i18n>AttendanceAndVisits}" key="5" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>

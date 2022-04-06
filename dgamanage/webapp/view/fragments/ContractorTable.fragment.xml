@@ -63,7 +63,7 @@
                     <Text text="{i18n>Mobile}"/>
              </Column>
                <Column hAlign="Begin">
-                    <Text text="{i18n>MembershipCard}"/>
+                    <Text text="{i18n>MembershipId}"/>
              </Column>
             <Column hAlign="Begin">
                     <Text text="{i18n>Points}"/>
@@ -81,7 +81,7 @@
                     <Text text="{i18n>KycStatus}"/>
              </Column> 
                <Column hAlign="Begin">
-                    <Text text="{i18n>BankStatus}"/>
+                    <Text text="{i18n>BankDetailsStatus}"/>
              </Column> 
 
             </columns>

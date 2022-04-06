@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">    
+    <l:VerticalLayout width="100%">
+        <!-- <Toolbar>
+            <ToolbarSpacer/>
+            <Button text="Today" press="onPressTodayFilter"/>
+            <Button text="MTD" press="onPressMTDFilter"/>
+            <Button text="YTD" press="onPressYTDFilter"/>
+        </Toolbar> -->
+        <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.leadByStatus" type="XML" class="sapUiMediumMarginBottom"/>
+         <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.leadBySource" type="XML" class="sapUiMediumMarginBottom"/>
+       <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.businessGenValByCategory" type="XML" class="sapUiMediumMarginBottom"/>
+       <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.businessGenVolByCategory" type="XML" class="sapUiMediumMarginBottom"/>
+    </l:VerticalLayout>
+</core:FragmentDefinition>
