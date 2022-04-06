@@ -181,7 +181,7 @@ sap.ui.define(
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,LinkedContractors,WorkLocation";
+                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,LinkedContractors,WorkLocation,ServicePincodes";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
@@ -238,7 +238,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,WorkLocation,LinkedContractors";
+                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,WorkLocation,LinkedContractors,ServicePincodes/Pincode";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({

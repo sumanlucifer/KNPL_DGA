@@ -38,6 +38,12 @@
 
               <Label text="{i18n>Location} {i18n>PinCode}" />
                 <Text text="{Pincode/Name}"  />
+                  <Label text="{i18n>Service} {i18n>PinCode}" />
+                 <MultiInput editable="false" tokens="{path:'ServicePincodes/'}">
+                    <tokens>
+                        <Token text="{Pincode/Name}" />
+                    </tokens>
+                 </MultiInput>
                 <Label text="{i18n>State}" />
                   <Text text="{path:'State/Name'}" />
                 <Label text="{i18n>City}"  />
