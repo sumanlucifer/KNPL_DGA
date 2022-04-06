@@ -129,25 +129,8 @@ sap.ui.define(
 
             },
             rebindLeadByStatusTbl: function (oEvent) {
-                // var promise = jQuery.Deferred();
-                // var oTable = oView.byId("idLeadByStatus");
-                // oTable.bindItems({
-                //     path: "/LeadCountByStatus",
-                //     template: oView.byId("idTblLeadByStatusTemplate"),
-                //     templateShareable: true,
-                //     parameters: {
-                //         custom: {
-                //             StartDate: "" + dCurrentDate + "",
-                //             EndDate: "" + dCurrentDate + "",
-                //             DGAId: "0"
-                //         }
-                //     }
-                // })
-                // promise.resolve();
-                // return promise;
                 var oView = this.getView();
                 var oDateFormat = sap.ui.core.format.DateFormat.getInstance({pattern: "yyyy-MM-dd"});   
-                // // var dCurrentDate =  oDateFormat.format(new Date());
                 var oMdlCtrl = oView.getModel("oModelControl");
                 var dStartDate = oDateFormat.format(oMdlCtrl.getProperty("/filterBar/StartDate"));
                 var dEndDate = oDateFormat.format(oMdlCtrl.getProperty("/filterBar/EndDate"));
@@ -157,7 +140,7 @@ sap.ui.define(
                                 DGAId: "0"
                             };
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.sorter.push(new sap.ui.model.Sorter('LEAD_STATUS_ID', true));
+                // oBindingParams.sorter.push(new sap.ui.model.Sorter('LEAD_STATUS_ID', true));
                 if (oCustom) {
                     oBindingParams.parameters.custom = oCustom;
                 }               
@@ -216,6 +199,9 @@ sap.ui.define(
             onFilterBarGo: function () {
                 var oView = this.getView();
                 oView.byId("idLeadByStatus").rebindTable();
+                oView.byId("idLeadBySource").rebindTable();
+                oView.byId("idBusinessGenValByCategory").rebindTable();
+                oView.byId("idBusinessGenVolByCategory").rebindTable();
             },
             _CreateFilter: function () {
                 var aCurrentFilterValues = [];

@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
+    <smartTable:SmartTable id="idBusinessGenVolByCategory" header="{i18n>BusinessGenVolByCategory}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="BusinessGenerationVolumeByCategory" beforeRebindTable="rebindLeadByStatusTbl" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" >
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
+            <columns>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "NAME", "leadingProperty": "NAME", "columnIndex": 0 ,"sortProperty": "NAME","filterProperty": "NAME"}'/>
+                    </customData>
+                    <Text text="{i18n>category}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "VALUE", "leadingProperty": "VALUE", "columnIndex": 1 ,"sortProperty": "VALUE","filterProperty": "VALUE"}'/>
+                    </customData>
+                    <Text text="{i18n>count}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{NAME}"/>
+                        <Text text="{VALUE}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>
