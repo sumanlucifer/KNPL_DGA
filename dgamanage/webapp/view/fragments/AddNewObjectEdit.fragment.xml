@@ -29,6 +29,12 @@
                <Text text="{path : 'oModelView>/Depot/Depot'}"  />
                <Label text="{i18n>Location} {i18n>PinCode}" />
                 <Text text="{oModelView>/Pincode/Name}"  />
+                <Label text="{i18n>Service} {i18n>PinCode}" />
+                 <MultiInput editable="false" tokens="{path:'oModelView>/ServicePincodes/results'}">
+                    <tokens>
+                        <Token text="{oModelView>Pincode/Name}" />
+                    </tokens>
+                 </MultiInput>
                 <Label text="{i18n>WorkLocation}"/>
                 <Text text="{oModelView>/WorkLocation/Name}"/>
                 <Label text="{i18n>State}" />
