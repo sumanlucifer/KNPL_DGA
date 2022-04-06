@@ -181,7 +181,7 @@ sap.ui.define(
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,LinkedContractors,WorkLocation,ServicePincodes";
+                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,LinkedContractors,WorkLocation,ServicePincodes/Pincode";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
