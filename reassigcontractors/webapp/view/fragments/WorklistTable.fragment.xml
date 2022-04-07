@@ -40,11 +40,11 @@
                     </customData>
                     <Text text="{i18n>ContractorName}"/>
                 </Column>
-                 <Column hAlign="Begin" >
+                 <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReassignedContractorName", "leadingProperty": "ReassignedContractorName,ReassignedContractor/Name", "columnIndex": 5 }'/>
                     </customData>
-                    <Text text="{i18n>reassigncontractor}"/>
+                    <Text  text="{i18n>reassigncontractor}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
@@ -58,7 +58,7 @@
                     </customData>
                     <Text text="{i18n>Remark}"/>
                 </Column>
-                 <Column hAlign="Begin" >
+                 <Column width="14%" >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Actions"}'/>
                     </customData>
@@ -74,9 +74,9 @@
                         <Text text="{Lead/PrimaryNum}"/>
                          <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
                         <Text class="sapUiSmallMarginBegin" text="{PreviousContractor/Name}"/>
-                              <Text text="{= ${ReassignedContractorName}  ? ${ReassignedContractorName} : ${ReassignedContractor/Name} }"/>
+                              <Text  text="{= ${ReassignedContractorName}  ? ${ReassignedContractorName} : ${ReassignedContractor/Name} }"/>
                         <ObjectStatus text="{ReassignmentStatus/Name}" 
-           class="sapUiSmallMarginBegin" state="{= ${ReassignmentStatus/Name} === 'Pending' ? 'Warning' : ${ReassignmentStatus/Name} === 'Rejected' ? 'Error' :  ${ReassignmentStatus/Name} === 'Accepted' ? 'Success' : 'Error'}"/>
+            state="{= ${ReassignmentStatus/Name} === 'Pending' ? 'Warning' : ${ReassignmentStatus/Name} === 'Rejected' ? 'Error' :  ${ReassignmentStatus/Name} === 'Accepted' ? 'Success' : 'Error'}"/>
                           <Text text="{Remark}"/>
                            <HBox>
                          <Button visible="{= ${ReassignmentStatus/Name} === 'Accepted' ? false : ${ReassignmentStatus/Name} === 'Rejected' ? false: true }" text="{i18n>Approve}" tooltip="{i18n>Accepted}"  type="Accept" press="onPressApproveReject"></Button>
