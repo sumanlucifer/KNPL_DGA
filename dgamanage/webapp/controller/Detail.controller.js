@@ -74,6 +74,10 @@ sap.ui.define(
                     Performance: {
                         StartDate: new Date(new Date().setDate(1)),
                         EndDate: new Date()
+                    },
+                    MultiCombo: {
+                        Dealers: [],
+                        Pincode2: []
                     }
                 };
                 var oModel = new JSONModel(oData);
@@ -338,7 +342,7 @@ sap.ui.define(
                     oBindingParams.parameters.custom = oCustom;
                 }
             },
-       
+
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
@@ -350,6 +354,43 @@ sap.ui.define(
                     promise.resolve();
                     return promise;
                 });
+            },
+            _handleDealersValueHelpConfirm: function (oEvent) {
+                var oSelected = oEvent.getParameter("selectedContexts");
+                var oView = this.getView();
+                var oModelDisplay = oView.getModel("oModelDisplay");
+                var aDealersSelected = [],
+                    oBj;
+                for (var a of oSelected) {
+                    oBj = a.getObject();
+                    aDealersSelected.push({
+                        //Name: oBj["Name"],
+                        Id: oBj["Id"],
+                    });
+                }
+
+                // oModel.setProperty("/MultiCombo/Dealers", aDealers);
+                // oModel.refresh(true);
+                // this._onDialogClose();
+                //
+                var aExistingDealers = []//oModelView.getProperty("/DGADealers");
+                var aSelectedDealers = aDealersSelected
+                var iDealers = -1;
+                var aDealers = [];
+                for (var x of aSelectedDealers) {
+                    iDealers = aExistingDealers.findIndex(item => item["Id"] === x["Id"])
+                    if (iDealers >= 0) {
+                        //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
+                        aDealers.push(oPayload["DGADealers"][iDealers]);
+                    } else {
+                        aDealers.push({ DealerId: x["Id"] });
+                    }
+                }
+                console.log(aDealers);
+                //oPayload["DGADealers"] = aDealers;
+
+                // oModel.refresh(true);
+                this._onDialogClose();
             },
             onPressSave: function () {
                 var bValidateForm = this._ValidateForm();
