@@ -50,7 +50,9 @@ sap.ui.define(
                         Search: "",
                         DGAType: "",
                         Pincode:"",
-                        StatusId: ""
+                        StatusId: "",
+                        ServiceTypeId: "",
+                        ServiceSubTypeId: ""
                     },
                     AddFields:{
                         PinCode:""
@@ -266,6 +268,14 @@ sap.ui.define(
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("LeadStatusId", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "ServiceTypeId") {
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("LeadServiceTypeId", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "ServiceSubTypeId") {
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("LeadServiceSubTypeId", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "DepotId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(

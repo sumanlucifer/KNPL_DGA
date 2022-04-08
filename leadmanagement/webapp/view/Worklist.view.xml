@@ -49,6 +49,20 @@
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="ServiceType" label="{i18n>ServiceType}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <ComboBox id="idServiceType" placeholder="{i18n>Enter} {i18n>ServiceType}" selectionChange="onServiceTypeChange"  items="{/MasterLeadServiceTypes}" selectedKey="{path:'oModelControl>/filterBar/ServiceTypeId' }">
+                                        <core:Item text="{Name} " key="{Id}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="SubType" label="{i18n>ServiceSubType}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <ComboBox id="idSubType" placeholder="{i18n>Enter} {i18n>ServiceSubType}" selectionChange="onServiceSubTypeChange"  items="{/MasterServiceSubTypes}" selectedKey="{path:'oModelControl>/filterBar/ServiceSubTypeId' }">
+                                        <core:Item text="{Name} " key="{Id}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem> -->
                             <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="DGAType" label="{i18n>DGA} {i18n>Type}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                     <ComboBox placeholder="{i18n>Select} {i18n>MainObject} {i18n>Type}" selectionChange="onZoneChange"  items="{path:'/MasterDGATypes',filters:[{path:'IsArchived',operator:'EQ' , value1:false}]}" selectedKey="{path:'oModelControl>/filterBar/DGAType'}">
