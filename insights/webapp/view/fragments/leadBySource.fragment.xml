@@ -4,19 +4,19 @@
             <columns>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "NAME", "leadingProperty": "NAME", "columnIndex": 0 ,"sortProperty": "NAME","filterProperty": "NAME"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name", "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </customData>
                     <Text text="{i18n>category}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "VALUE", "leadingProperty": "VALUE", "columnIndex": 1 ,"sortProperty": "VALUE","filterProperty": "VALUE"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Value", "leadingProperty": "Value", "columnIndex": 1 ,"sortProperty": "Value","filterProperty": "Value"}'/>
                     </customData>
                     <Text text="{i18n>count}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PERCENT", "leadingProperty": "PERCENT", "columnIndex": 2 ,"sortProperty": "PERCENT","filterProperty": "PERCENT"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Percent", "leadingProperty": "Percent", "columnIndex": 2 ,"sortProperty": "Percent","filterProperty": "Percent"}'/>
                     </customData>
                     <Text text="{i18n>percentage}"/>
                 </Column>
@@ -24,9 +24,9 @@
             <items>
                 <ColumnListItem>
                     <cells>
-                        <Text text="{NAME}"/>
-                        <Text text="{VALUE}"/>
-                        <Text text="{PERCENT}"/>
+                        <Text text="{Name}"/>
+                        <Text text="{Value}"/>
+                        <Text text="{Percent}"/>
                     </cells>
                 </ColumnListItem>
             </items>

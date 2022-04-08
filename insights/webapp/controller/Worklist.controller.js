@@ -202,6 +202,8 @@ sap.ui.define(
                 oView.byId("idLeadBySource").rebindTable();
                 oView.byId("idBusinessGenValByCategory").rebindTable();
                 oView.byId("idBusinessGenVolByCategory").rebindTable();
+                oView.byId("idBusinessGenValByClassification").rebindTable();
+                oView.byId("idBusinessGenVolByClassification").rebindTable();
             },
             _CreateFilter: function () {
                 var aCurrentFilterValues = [];
