@@ -96,7 +96,7 @@ sap.ui.define(
                 oModelControl.setProperty("/PageBusy", true)
                 c1 = othat._addSearchFieldAssociationToFB();
                 c1.then(function () {
-                    c2 = othat._dummyFunction();
+                    c2 = othat._initTableData();
                     c2.then(function () {
                         c3 = othat._dummyFunction();
                         c3.then(function () {
@@ -135,6 +135,20 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
 
+            },
+            _initTableData: function () {
+                /*
+                 * Author: manik saluja
+                 * Date: 02-Dec-2021
+                 * Language:  JS
+                 * Purpose: Used to load the table data and trigger the on before binding method.
+                 */
+                var promise = jQuery.Deferred();
+                var oView = this.getView();
+                var othat = this;
+                oView.byId("idWorkListTable1").rebindTable();
+                promise.resolve();
+                return promise;
             },
             _getLoggedInInfo: function () {
                 /*
