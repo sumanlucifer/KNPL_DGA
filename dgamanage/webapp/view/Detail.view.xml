@@ -50,7 +50,7 @@
             </f:DynamicPageHeader>
         </f:header>
         <f:content>
-            <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="iconTabBar" class="sapUiResponsiveContentPadding" >
+            <IconTabBar  select="onIcnTbarChange" headerMode="Inline" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="iconTabBar" class="sapUiResponsiveContentPadding" >
                 <items>
                     <IconTabFilter  text="{i18n>BasicDetails}" key="0" >
                         <VBox id="oVBoxAddObjectPage" width="100%">
@@ -67,7 +67,7 @@
                          <IconTabFilter  text="{i18n>Leads}" key="3" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.LeadsTable" type="XML"/>
                         </IconTabFilter>
-                           <IconTabFilter  text="{i18n>Performance}" key="4" >
+                        <IconTabFilter  text="{i18n>Performance}" key="4" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.InsightsLayout" type="XML"/>
                         </IconTabFilter>
                            <IconTabFilter  text="{i18n>AttendanceAndVisits}" key="5" >
