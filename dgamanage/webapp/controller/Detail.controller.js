@@ -275,7 +275,7 @@ sap.ui.define(
 
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(sEntitySet);
-                    console.log(sEntitySet);
+                    //console.log(sEntitySet);
                 } else if (sKey == "2") {
                     var oTable = oView.byId("idContractorTable")
                     oTable.bindItems({
