@@ -606,24 +606,7 @@ sap.ui.define([
 
             this._onDialogClose();
         },
-        _handlePinCodeValueHelpConfirm: function (oEvent) {
-            // this method is overwritten for the pincode in the worklist view
-            var oSelectedItem = oEvent.getParameter("selectedItem");
-            var oViewModel = this.getView().getModel("oModelView"),
-                oModelControl = this.getView().getModel("oModelControl");
-            var obj = oSelectedItem.getBindingContext().getObject();
-            oModelControl.setProperty(
-                "/AddFields/PinCode",
-                obj["Name"]
-            );
-            oViewModel.setProperty(
-                "/PincodeId",
-                obj["Id"]
-            );
-
-            this._onDialogClose();
-
-        },
+       
         _handlePinCodeValueHelpConfirm2: function (oEvent) {
             // this method is overwritten for the pincode in the worklist view
 
