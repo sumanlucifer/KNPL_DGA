@@ -20,10 +20,10 @@
                 </ComboBox>
                 <Label text="{i18n>District}" />
                 <Input required="true" maxLength="100" editable="{= ${oModelView>/StateId} !== '' }" value="{path : 'oModelView>/District' , type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :100, search :'^[a-zA-Z0-9]{1}[wW]*' } }"></Input>
-                <Label text="{i18n>Town}" />
-                <ComboBox required="true" enabled="true" items="{path:'/MasterTowns',sorter:{path:'Name'}}" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/StateId} !== '' }" selectedKey="{path:'oModelView>/CityOrTown' , type : 'sap.ui.model.type.String', constraints : {minLength :1 } }" id="cmbCity">
+                <Label text="{i18n>City}"  />
+                <ComboBox items="{path:'/MasterCities', sorter:{path:'City'}}" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/StateId} !== '' }"  selectedKey="{path:'oModelView>/CityOrTown', type:'sap.ui.model.type.String', constraints:{minLength:1} }" id="cmbCity" required="true">
                     <items>
-                        <core:Item text="{Name}" key="{Name}" />
+                        <core:Item text="{City}" key="{Id}" />
                     </items>
                 </ComboBox>
                 <Label text="{i18n>Address}" />
