@@ -16,6 +16,16 @@
                             initiallyVisibleFields="Id,DealerId,DGAId,Dealer/Name,Dealer/PhoneNumber,Dealer/FiscalYear,Dealer/Visits,Dealer/TotalMappedContractor,Dealer/LeadsProvided"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
+        	<smartTable:customToolbar>
+			<OverflowToolbar>
+                      
+                        <ToolbarSpacer />
+                        
+                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>AddNewDealer}" press="handleDealersValueHelp" />
+
+                        
+                    </OverflowToolbar>
+		</smartTable:customToolbar>
 
         <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >
             <columns>
