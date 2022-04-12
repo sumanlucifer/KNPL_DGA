@@ -34,6 +34,8 @@
 
                 <Label text="{i18n>Depot}" />
              <Text text="{path : 'Depot/Depot'}"  />
+                 <Label text="{i18n>WorkLocation}"/>
+                <Text text="{WorkLocation/Name}"/>
   <Label text="{i18n>Service} {i18n>PinCode}" />
                  <MultiInput editable="false" tokens="{path:'ServicePincodes/'}">
                     <tokens>
