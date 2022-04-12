@@ -42,7 +42,7 @@
                 <ColumnListItem>
                     <cells>                  
                        <Text text="{Product/ProductName}"/>
-                       <Text text="{ProductShade/Name}"/>
+                       <Text text="{ProductShade/ShadeName}"/>
                        <Text text="{Volume}"/>
                     </cells>
                 </ColumnListItem>
