@@ -10,51 +10,51 @@
                     </customData>
                     <Text text="{i18n>DGAName}"/>
                 </Column>
-                <!-- <Column >
+                <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/Id", "leadingProperty": "Lead/Id", "columnIndex": 1 ,"sortProperty": "Lead/Id","filterProperty": "Lead/Id"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Id", "leadingProperty": "DGA/Id", "columnIndex": 1 ,"sortProperty": "DGA/Id","filterProperty": "DGA/Id"}'/>
                     </customData>
-                    <Text text="{i18n>leadId}"/>
-                </Column> -->
+                    <Text text="{i18n>DgaId}"/>
+                </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/ConsumerName", "leadingProperty": "Lead/ConsumerName", "columnIndex": 1 ,"sortProperty": "Lead/ConsumerName","filterProperty": "Lead/ConsumerName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/ConsumerName", "leadingProperty": "Lead/ConsumerName", "columnIndex": 2 ,"sortProperty": "Lead/ConsumerName","filterProperty": "Lead/ConsumerName"}'/>
                     </customData>
                     <Text text="{i18n>ConsumerName}"/>
                 </Column>
                   <Column hAlign="Begin"> 
                      <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/PrimaryNum", "leadingProperty": "Lead/PrimaryNum", "columnIndex": 2 ,"sortProperty": "Lead/PrimaryNum","filterProperty": "Lead/PrimaryNum"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/PrimaryNum", "leadingProperty": "Lead/PrimaryNum", "columnIndex": 3 ,"sortProperty": "Lead/PrimaryNum","filterProperty": "Lead/PrimaryNum"}'/>
                     </customData>
                     <Text text="{i18n>conPhoneNo} {i18n>PhoneNo}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 3 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 4 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>ReqDate}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PreviousContractor/Name", "leadingProperty": "PreviousContractor/Name", "columnIndex": 4 ,"sortProperty": "PreviousContractor/Name","filterProperty": "PreviousContractor/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PreviousContractor/Name", "leadingProperty": "PreviousContractor/Name", "columnIndex": 5 ,"sortProperty": "PreviousContractor/Name","filterProperty": "PreviousContractor/Name"}'/>
                     </customData>
                     <Text text="{i18n>ContractorName}"/>
                 </Column>
                  <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ReassignedContractorName", "leadingProperty": "ReassignedContractorName,ReassignedContractor/Name", "columnIndex": 5 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReassignedContractorName", "leadingProperty": "ReassignedContractorName,ReassignedContractor/Name", "columnIndex": 6 }'/>
                     </customData>
                     <Text  text="{i18n>reassigncontractor}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ReassignmentStatus/Name", "leadingProperty": "ReassignmentStatus/Name", "columnIndex": 6 ,"sortProperty": "ReassignmentStatus/Name","filterProperty": "ReassignmentStatus/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReassignmentStatus/Name", "leadingProperty": "ReassignmentStatus/Name", "columnIndex": 7 ,"sortProperty": "ReassignmentStatus/Name","filterProperty": "ReassignmentStatus/Name"}'/>
                     </customData>
                     <Text text="{i18n>ReqStatus}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Remark", "leadingProperty": "Remark", "columnIndex": 7 ,"sortProperty": "Remark","filterProperty": "Remark"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Remark", "leadingProperty": "Remark", "columnIndex": 8 ,"sortProperty": "Remark","filterProperty": "Remark"}'/>
                     </customData>
                     <Text text="{i18n>Remark}"/>
                 </Column>
@@ -69,10 +69,10 @@
                 <ColumnListItem press="onListItemPress">
                     <cells>
                         <Text text="{DGA/GivenName}"/>
-                         <!-- <Text text="{Lead/Id}"/> -->
+                         <Text text="{DGA/Id}"/>
                          <Text text="{Lead/ConsumerName}"/>
                         <Text text="{Lead/PrimaryNum}"/>
-                         <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                         <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                         <Text class="sapUiSmallMarginBegin" text="{PreviousContractor/Name}"/>
                               <Text  text="{= ${ReassignedContractorName}  ? ${ReassignedContractorName} : ${ReassignedContractor/Name} }"/>
                         <ObjectStatus text="{ReassignmentStatus/Name}" 
