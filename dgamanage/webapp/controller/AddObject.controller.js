@@ -160,7 +160,7 @@ sap.ui.define([
          
             oViewModel.setProperty("/StateId", obj["StateId"]);
             var cmbxcity = oView.byId("cmbCity");
-            cmbxcity.clearSelection();
+            
             cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
             oViewModel.setProperty("/TownId", obj["CityId"]);
             cmbxcity.setSelectedKey(obj["CityId"]);
