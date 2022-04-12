@@ -15,6 +15,18 @@
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
+
+                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>ReqStatus}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <ComboBox placeholder="{i18n>Enter} {i18n>Status}" selectedKey="{oModelControl>/filterBar/ReassignmentStatus}">
+                                        <core:Item text="Accepted" key="Accepted"/>
+                                        <core:Item text="Rejected" key="Rejected"/>
+                                        <core:Item text="Pending" key="Pending"/>
+                                      
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
                              <fb:FilterGroupItem  groupName="__$INTERNAL$" name="Division" label="{i18n>ContractorName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                       <!-- <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>ContractorName}" id="idDivision" selectionChange="onDivisionChange"  selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">

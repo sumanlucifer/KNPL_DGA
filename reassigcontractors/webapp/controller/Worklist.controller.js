@@ -40,7 +40,7 @@ sap.ui.define(
                     filterBar: {
                         StartDate: null,
                         EndDate: null,
-                        Status: "",
+                        ReassignmentStatus: "",
                         Search: "",
                         ZoneId: "",
                         DivisionId: "",
@@ -59,7 +59,7 @@ sap.ui.define(
                 var aResetProp = {
                     StartDate: null,
                     EndDate: null,
-                    Status: "",
+                    ReassignmentStatus: "",
                     Search: "",
                     DGA: "",
                     preContractName: "",
@@ -192,7 +192,7 @@ sap.ui.define(
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Lead,DGA,PreviousContractor,ReassignedContractor,ReassignmentStatus";
-                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                // oBindingParams.sorter.push(new Sorter("ReassignmentStatus/Name", true));
                 // Apply Filters
                 var oFilter = this._CreateFilter();
                 if (oFilter) {
@@ -216,13 +216,15 @@ sap.ui.define(
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
                                 new Filter("DGA/GivenName", FilterOperator.EQ, oViewFilter[prop]));
-                        }
-                        else if (prop === "preContractName") {
+                        } else if (prop === "preContractName") {
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
                                 new Filter("PreviousContractor/Name", FilterOperator.EQ, oViewFilter[prop]));
-                        }
-                        else if (prop === "Search") {
+                        }else if (prop === "ReassignmentStatus") {
+                            aFlaEmpty = true;
+                            aCurrentFilterValues.push(
+                                new Filter("ReassignmentStatus/Name", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "Search") {
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
                                 new Filter(
