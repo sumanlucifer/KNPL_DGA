@@ -115,11 +115,7 @@ sap.ui.define([
                 JoiningDate: null,
                 ExitDate: null,
                 WorkLocationId: "",
-                CreatedBy:null,
-                CreatedByDetails:{
-                    Name:"Manik",
-                    Email:"manik094"
-                }
+                CreatedBy:null
 
             }
             var oModel1 = new JSONModel(oDataView);
@@ -161,7 +157,7 @@ sap.ui.define([
                 "/PincodeId",
                 obj["Id"]
             );
-            console.log(obj)
+         
             oViewModel.setProperty("/StateId", obj["StateId"]);
             var cmbxcity = oView.byId("cmbCity");
             cmbxcity.clearSelection();
