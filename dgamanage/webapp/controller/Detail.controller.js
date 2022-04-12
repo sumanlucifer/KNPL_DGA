@@ -243,6 +243,7 @@ sap.ui.define(
             },
 
             _getDisplayData: function (oProp) {
+                
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
