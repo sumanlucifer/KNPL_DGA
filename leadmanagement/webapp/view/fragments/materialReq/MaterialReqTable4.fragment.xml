@@ -27,7 +27,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ProductShade/Name", "leadingProperty": "ProductShade/Name", "sortProperty": "ProductShade/Name", "filterProperty": "ProductShade/Name", "columnIndex": 1 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ProductShade/ShadeName", "leadingProperty": "ProductShade/ShadeName", "sortProperty": "ProductShade/ShadeName", "filterProperty": "ProductShade/ShadeName", "columnIndex": 1 }'/>
                     </customData>
                     <Text text="{i18n>ProductShade}"/>
                 </Column>
