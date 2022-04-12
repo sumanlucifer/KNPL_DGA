@@ -114,7 +114,13 @@ sap.ui.define([
                 EmployeeId: "",
                 JoiningDate: null,
                 ExitDate: null,
-                WorkLocationId: ""
+                WorkLocationId: "",
+                CreatedBy:null,
+                CreatedByDetails:{
+                    Name:"Manik",
+                    Email:"manik094"
+                }
+
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -155,11 +161,13 @@ sap.ui.define([
                 "/PincodeId",
                 obj["Id"]
             );
+            console.log(obj)
             oViewModel.setProperty("/StateId", obj["StateId"]);
             var cmbxcity = oView.byId("cmbCity");
             cmbxcity.clearSelection();
             cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
             oViewModel.setProperty("/TownId", obj["CityId"]);
+            cmbxcity.setSelectedKey(obj["CityId"])
             this._onDialogClose();
 
         },
