@@ -11,9 +11,13 @@
         <f:content>
           <core:Title text="{i18n>Personal} {i18n>Details}" />
             <Label text="{i18n>MainObject} {i18n>FullName}" />
-                     <Text text="{path : 'GivenName'}"  />
+              <Text text="{path : 'GivenName'}"  />
                  <Label text="{i18n>OfficialMobileNo}" />
                  <Text text="{path : 'Mobile'}"  />
+                   <Label text="{i18n>ActivationStatus}" />
+                  <ObjectStatus  text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/>
+                   <Label text="{i18n>ActivationStatusReason}" />
+                 <Text text="{path : 'ActivationStatusChangeReason'}"  />
               <core:Title text="{i18n>BasicDetails}" />
                 <Label text="{i18n>SalesGroup}" />
                 <Text text="{path : 'SaleGroup/Name'}"  />
@@ -36,7 +40,7 @@
              <Text text="{path : 'Depot/Depot'}"  />
                  <Label text="{i18n>WorkLocation}"/>
                 <Text text="{WorkLocation/Name}"/>
-  <Label text="{i18n>Service} {i18n>PinCode}" />
+                 <Label text="{i18n>Service} {i18n>PinCode}" />
                  <MultiInput editable="false" tokens="{path:'ServicePincodes/'}">
                     <tokens>
                         <Token text="{Pincode/Name}" />

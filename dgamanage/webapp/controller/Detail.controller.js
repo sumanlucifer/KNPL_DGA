@@ -488,6 +488,7 @@ sap.ui.define(
                         success: function () {
                             MessageToast.show(`Status has been changed to ${oPayload.ActivationStatus}`);
                             this._onDialogClose();
+                            this.getView().getElementBinding().refresh();
                         }.bind(this)
                     })
             },
