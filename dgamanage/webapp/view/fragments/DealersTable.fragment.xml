@@ -43,7 +43,7 @@
                 </Column>
                <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Id","leadingProperty":"Id",  "columnIndex": 2 ,"sortProperty": "Id","filterProperty": "Id"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DealerId","leadingProperty":"DealerId",  "columnIndex": 2 ,"sortProperty": "DealerId","filterProperty": "DealerId"}'/>
                     </customData>
                     <Text text="{i18n>SapCode}"/>
                 </Column> 
@@ -94,7 +94,7 @@
                  
                        <Text text="{Dealer/Name}" />
                        <Text text="{Dealer/PhoneNumber}"/>
-                       <Text  text="{Id}" /> 
+                       <Text  text="{DealerId}" /> 
                        <Text text="{Dealer/SAPGroupName}"/>
                         <Text text="{Dealer/FiscalYear}"/>
                         <Text text="{Dealer/Visits}" /> 

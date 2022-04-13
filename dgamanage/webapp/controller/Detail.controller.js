@@ -480,16 +480,16 @@ sap.ui.define(
                     this._showMessageToast("Message16")
                     return;
                 }
-                this.onCloseStatus();     
+                
                 var sPath = this.getView().getBindingContext().getPath();
-                //console.log(oPayload);
-                // this.getView().getModel().update(sPath +
-                //     "/ActivationStatus", oPayload, {
-                //         success: function () {
-                //             MessageToast.show(`Status has been changed to ${oPayload.ActivationStatus}`);
-                //             this.onCloseStatus();
-                //         }.bind(this)
-                //     })
+                console.log(oPayload);
+                this.getView().getModel().update(sPath +
+                    "/ActivationStatus", oPayload, {
+                        success: function () {
+                            MessageToast.show(`Status has been changed to ${oPayload.ActivationStatus}`);
+                            this._onDialogClose();
+                        }.bind(this)
+                    })
             },
 
 
