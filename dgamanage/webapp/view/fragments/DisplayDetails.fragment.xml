@@ -14,8 +14,8 @@
               <Text text="{path : 'GivenName'}"  />
                  <Label text="{i18n>OfficialMobileNo}" />
                  <Text text="{path : 'Mobile'}"  />
-                   <Label text="{i18n>ActivationStatus}" />
-                  <ObjectStatus  text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/>
+                   <!-- <Label text="{i18n>ActivationStatus}" />
+                  <ObjectStatus  text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/> -->
                    <Label text="{i18n>ActivationStatusReason}" />
                  <Text text="{path : 'ActivationStatusChangeReason'}"  />
               <core:Title text="{i18n>BasicDetails}" />

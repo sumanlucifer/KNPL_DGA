@@ -52,7 +52,7 @@ sap.ui.define([], function () {
 
         },
         fmtStatusColorChange: function (mParam) {
-            if (mParam === "Activated") {
+            if (mParam === "ACTIVATED") {
                 return "Success";
             }
             if (mParam === "PUBLISHED") {
