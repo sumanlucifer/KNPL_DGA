@@ -66,9 +66,15 @@
                     </customData>
                     <Text text="{i18n>PinCode}"/>
                 </Column>
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PayrollCompany/Name","leadingProperty": "PayrollCompany/Name", "columnIndex": 9 ,"sortProperty": "PayrollCompany/Name","filterProperty": "PayrollCompany/Name" }'/>
+                    </customData>
+                    <Text text="{i18n>PayrollCompany}"/>
+                </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Status","leadingProperty": "Status", "columnIndex": 9 ,"sortProperty": "Status","filterProperty": "Status" }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status","leadingProperty": "Status", "columnIndex": 10 ,"sortProperty": "Status","filterProperty": "Status" }'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
@@ -104,6 +110,7 @@
                                    <Text text="{Division/Id}"/>
                                     <Text text="{Depot/Depot}"/>
                                     <Text text="{Pincode/Name}"/>
+                                     <Text text="{PayrollCompany/Name}"/>
                                     <ObjectStatus text="{Status}" state="{path:'Status',formatter:'.formatter.fmtStatusColorChange'}"/>
                         <!-- <Text text="{ComplaintCode}"/> -->
                           <!--

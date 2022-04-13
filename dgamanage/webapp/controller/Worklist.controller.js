@@ -49,7 +49,8 @@ sap.ui.define(
                         Status: "",
                         Search: "",
                         DGAType: "",
-                        PinCodeId: ""
+                        PinCodeId: "",
+                        PayrollCompanyId:""
                     },
                     FilterAddFileds: {
                         PinCode: ""
@@ -79,7 +80,8 @@ sap.ui.define(
                     Status: "",
                     Search: "",
                     DGAType: "",
-                    PinCodeId: ""
+                    PinCodeId: "",
+                    PayrollCompanyId:""
                 };
                 var aFiterAddFileds = {
                     PinCode: ""
@@ -224,7 +226,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGAType,Division,Depot,Pincode";
+                oBindingParams.parameters["expand"] = "DGAType,Division,Depot,Pincode,PayrollCompany";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
@@ -285,6 +287,11 @@ sap.ui.define(
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("DGATypeId", FilterOperator.EQ, oViewFilter[prop]));
+                        }  else if (prop === "PayrollCompanyId") {
+
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("PayrollCompanyId", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "PinCodeId") {
 
                             aFlaEmpty = false;

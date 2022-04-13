@@ -45,6 +45,15 @@
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
+                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="PayrollCompany" label="{i18n>PayrollCompany}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                       <ComboBox placeholder="{i18n>Select} {i18n>PayrollCompany}" items="{path:'/MasterPayrollCompanies',sorter:{path:'Name'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{path:'oModelControl>/filterBar/PayrollCompanyId'}"  >
+                                        <items>
+                                            <core:Item text="{Name}" key="{Id}" />
+                                        </items>
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="PinCode" label="{i18n>PinCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                     <Input placeholder="{i18n>Select} {i18n>PinCode}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/FilterAddFileds/PinCode'}" />
