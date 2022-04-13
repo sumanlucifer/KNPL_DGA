@@ -23,7 +23,7 @@
                 <Label text="{i18n>City}"  />
                 <ComboBox items="{path:'/MasterCities', sorter:{path:'City'}}" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/StateId} !== '' }"  selectedKey="{path:'oModelView>/CityOrTown', type:'sap.ui.model.type.String', constraints:{minLength:1} }" id="cmbCity" required="true">
                     <items>
-                        <core:Item text="{City}" key="{Id}" />
+                        <core:Item text="{City}" key="{City}" />
                     </items>
                 </ComboBox>
                 <Label text="{i18n>Address}" />
