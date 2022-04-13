@@ -44,7 +44,7 @@
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"  class="sapUiSmallMarginEnd"/>
                    
-                          <ObjectStatus class="sapMObjectStatusLarge" text="{Status}" state="{ path:'Status',formatter:'.formatter.fmtStatusColorChange' }"/>
+                             <ObjectStatus class="sapMObjectStatusLarge" text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/> 
                     </layout:VerticalLayout>
                     <!-- <layout:VerticalLayout>
                         <Label  text="{i18n>ActivationStatus}:"/>
