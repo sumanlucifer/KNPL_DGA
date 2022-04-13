@@ -61,6 +61,9 @@ sap.ui.define([], function () {
             if (mParam === "PENDING") {
                 return "Warning";
             }
+            if (mParam === "DEACTIVATED") {
+                return "Error";
+            }
             return "None";
         },
         fmtStatusColorChange2: function (mParam) {
