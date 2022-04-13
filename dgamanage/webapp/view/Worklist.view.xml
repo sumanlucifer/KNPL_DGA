@@ -59,16 +59,14 @@
                                     <Input placeholder="{i18n>Select} {i18n>PinCode}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/FilterAddFileds/PinCode'}" />
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>MainObject} {i18n>Status}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>MainObject} {i18n>Status}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                      <ComboBox id="idStatus" placeholder="{i18n>Select} {i18n>MainObject} {i18n>Status}" selectionChange="onStatusChange" selectedKey="{path:'oModelControl>/filterBar/Status' }">
-                                       <core:Item text="{i18n>Registered}" key="REGISTERED"/>
-                                        <core:Item text="{i18n>Inreview}" key="INREVIEW"/>
-                                        <core:Item text="{i18n>Resolved}" key="RESOLVED"/>
-                                        <core:Item text="{i18n>Withdrawn}" key="WITHDRAWN"/>
+                                       <core:Item text="{i18n>Activated}" key="ACTIVATED"/>
+                                        <core:Item text="{i18n>DeActivated}" key="DEACTIVATED"/>
                                     </ComboBox>
                                 </fb:control>
-                            </fb:FilterGroupItem> -->
+                            </fb:FilterGroupItem>
                         </fb:filterGroupItems>
                     </fb:FilterBar>
                 </f:content>
