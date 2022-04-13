@@ -115,7 +115,6 @@ sap.ui.define([
                 JoiningDate: null,
                 ExitDate: null,
                 WorkLocationId: "",
-                CreatedBy:null
 
             }
             var oModel1 = new JSONModel(oDataView);
