@@ -448,7 +448,7 @@ sap.ui.define(
                         key: "DEACTIVATED"
                     }],
                     oModelControl = oView.getModel("oModelDisplay"),
-                    sCurrentStatus = null,//oView.getBindingContext().getProperty("ActivationStatus"),
+                    sCurrentStatus = oView.getBindingContext().getProperty("ActivationStatus"),
                     oChangeStatus = {
                         aApplicableStatus: aStatus.filter(ele => ele.key != sCurrentStatus),
                         oPayload: {
@@ -472,10 +472,15 @@ sap.ui.define(
             },
             onConfirmStatus: function () {
                 var oPayload = this.getView().getModel("oModelDisplay").getProperty("/ChangeStatus/oPayload");
-                if (!oPayload.ActivationStatus)
+                if (!oPayload.ActivationStatus){
+                    this._showMessageToast("Message15")
                     return;
-                if (!oPayload.ActivationStatusChangeReason)
+                }
+                if (!oPayload.ActivationStatusChangeReason){
+                    this._showMessageToast("Message16")
                     return;
+                }
+                this.onCloseStatus();     
                 var sPath = this.getView().getBindingContext().getPath();
                 //console.log(oPayload);
                 // this.getView().getModel().update(sPath +
