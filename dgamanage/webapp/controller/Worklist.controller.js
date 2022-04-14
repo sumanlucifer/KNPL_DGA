@@ -263,7 +263,8 @@ sap.ui.define(
                         } else if (prop === "EndDate") {
                             // converstions are made as the difference between utc and the server time
                             aFlaEmpty = false;
-                            var oDate = oViewFilter[prop].setDate(oViewFilter[prop].getDate() + 1);
+                            var oDate = new Date(oViewFilter[prop]).setDate(oViewFilter[prop].getDate() + 1);
+                           
                             aCurrentFilterValues.push(
                                 new Filter("CreatedAt", FilterOperator.LT, oDate));
                         } else if (prop === "Status") {
