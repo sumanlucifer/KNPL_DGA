@@ -31,7 +31,7 @@
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <ObjectAttribute title="{i18n>DGAName}" text="{DGA/GivenName} {DGA/FamilyName}"/>
                         <ObjectAttribute title="{i18n>DealerName}" text="{SourceDealer/Name}"/>
-                        <ObjectAttribute title="{i18n>ContractorName}" text="{SourceContractor/Name}"/>
+                        <ObjectAttribute title="{i18n>AssignedContractorName}" text="{path: 'AssignedContractors' , formatter: '.formatter.fmtCommaSepratedAssignedContractor'}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBegin">
                         <Label  text="{i18n>Status}:"/>
