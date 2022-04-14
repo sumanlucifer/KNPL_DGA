@@ -1,34 +1,68 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable id="idWorkListTable1" requestAtLeastFields="Id" header="{i18n>MainObject} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="Users" beforeRebindTable="onBindTblUserList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" demandPopin="false">
+    <smartTable:SmartTable id="idWorkListTable1" requestAtLeastFields="Id" header="{i18n>MainObject} {i18n>List}" 
+    enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}"
+    editable="false" entitySet="Admins" 
+     beforeRebindTable="onBindTblUserList" tableType="ResponsiveTable" 
+     showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" demandPopin="false">
         <smartTable:customToolbar>
 			<OverflowToolbar design="Transparent">
-                        <!-- <ToolbarSpacer />
-                        	<OverflowToolbarButton icon="sap-icon://sort" tooltip="Sort" text="Sort" press="onSort"/> -->
-                        <!-- <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Add} {i18n>MainObject}" press="onPressAddObject"/> -->
+                         <ToolbarSpacer />
+                        	<!-- <OverflowToolbarButton icon="sap-icon://sort" tooltip="Sort" text="Sort" press="onSort"/> --> 
+                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Add} {i18n>MainObject}" press="onPressAddObject"/>
                     </OverflowToolbar>
 		</smartTable:customToolbar>
         <Table growing="true"  growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
             <columns>
-                <Column hAlign="Begin">
+                <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name", "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </customData>
                     <Text text="{i18n>Name}"/>
                 </Column>
-                 <Column hAlign="Begin">
+                <Column width="10%">
                     <customData>
-                       <core:CustomData key="p13nData" value='\{"columnKey": "Role/Name", "leadingProperty": "Role/Name", "columnIndex": 1 ,"sortProperty": "Role/Name","filterProperty": "Role/Name"}'/>
+                       <core:CustomData key="p13nData" value='\{"columnKey": "Mobile", "leadingProperty": "Mobile", "columnIndex": 1 ,"sortProperty": "Mobile","filterProperty": "Mobile"}'/>
                     </customData>
-                    <Text text="{i18n>Role}"/>
+                    <Text text="{i18n>mobileNo}"/>
                 </Column>
-                <Column hAlign="Begin">
+                <Column width="20%" >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status", "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                       <core:CustomData key="p13nData" value='\{"columnKey": "Email", "leadingProperty": "Email", "columnIndex": 2 ,"sortProperty": "Email","filterProperty": "Email"}'/>
+                    </customData>
+                    <Text text="{i18n>email}"/>
+                </Column>
+                 <Column width="6%">
+                    <customData>
+                       <core:CustomData key="p13nData" value='\{"columnKey": "Role/Role", "leadingProperty": "Role/Role", "columnIndex": 3 ,"sortProperty": "Role/Role","filterProperty": "Role/Role"}'/>
+                    </customData>
+                    <Text text="{i18n>adminRole}"/>
+                </Column>
+                <Column width="9%">
+                    <customData>
+                       <core:CustomData key="p13nData" value='\{"columnKey": "UserType/UserType", "leadingProperty": "UserType/UserType", "columnIndex": 4 ,"sortProperty": "UserType/UserType","filterProperty": "UserType/UserType"}'/>
+                    </customData>
+                    <Text text="{i18n>usertype}"/>
+                </Column>
+                <Column width="6%">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status", "columnIndex": 5 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column> 
+                <Column width="6%">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions"}'/>
+                    </customData>
+                    <Text text="{i18n>Edit}"/>
+                </Column>
+                 <Column width="9%">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions"}'/>
+                    </customData>
+                    <Text text="{i18n>remove}"/>
+                </Column>
                  <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Actions"}'/>
@@ -40,11 +74,16 @@
                 <ColumnListItem press="onListItemPress">
                     <cells>
                          <Text text="{Name}"/>
-                         <Text text="{Role/Name}"/>
+                            <Text text="{Mobile}"/>
+                             <Text  text="{Email}"/>
+                          <Text text="{Role/Role}"/>
+                          <Text class="sapUiTinyMarginBegin" text="{UserType/UserType}"/>
                         <ObjectStatus text="{path:'Status',formatter:'.formatter.fmttext'}" state="{= ${Status} === 1  ? 'Success' : 'Error' }"/> 
+                           <Button icon="sap-icon://edit"  type="Transparent" press="onPressEdit" tooltip="Edit"></Button>
+                           <Button icon="sap-icon://delete"  type="Transparent" press="onPressRemoveUser" tooltip="Remove"></Button>
                          <HBox >
-                                            <Button text="{i18n>Deactivate}"  enabled="{= ${Status} === 1  ? true : false }" press="onPressActiveDeactive" type="Reject" tooltip="{i18n>Deactivate}"/>
-							                <Button text="{i18n>Activate}" enabled="{= ${Status} === 1  ? false : true }"  class="sapUiTinyMarginBegin" press="onPressActiveDeactive" type="Accept" tooltip="{i18n>Activate}"/>
+                                            <Button width="100%" text="{i18n>Deactivate}"  enabled="{= ${Status} === 1  ? true : false }" press="onPressActiveDeactive" type="Reject" tooltip="{i18n>Deactivate}"/>
+							                <Button   text="{i18n>Activate}" enabled="{= ${Status} === 1  ? false : true }"  class="sapUiSmallMarginEnd" press="onPressActiveDeactive" type="Accept" tooltip="{i18n>Activate}"/>
                                         </HBox>
                     </cells>
                 </ColumnListItem>

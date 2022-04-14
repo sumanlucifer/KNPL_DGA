@@ -134,19 +134,22 @@
                     "target": [
                         "object"
                     ]
+                },
+                {
+                    "pattern": "EditUser/{userId}",
+                    "name": "EditUser",
+                    "target": "TargetEditUser"
                 }
             ],
             "targets": {
                 "worklist": {
                     "viewName": "Worklist",
                     "viewId": "worklist",
-                    "viewLevel": 1,
                     "title": "{i18n>worklistViewTitle}"
                 },
                 "object": {
                     "viewName": "AddObject",
-                    "viewId": "object",
-                    "viewLevel": 2
+                    "viewId": "object"
                 },
                 "objectNotFound": {
                     "viewName": "ObjectNotFound",
@@ -154,8 +157,12 @@
                 },
                 "Detail": {
                     "viewName": "Detail",
-                    "viewId": "Detail",
-                    "viewLevel": 2
+                    "viewId": "Detail"
+                },
+                "TargetEditUser": {
+                
+                    "viewId": "EditUser",
+                    "viewName": "EditUser"
                 },
                 "notFound": {
                     "viewName": "NotFound",

@@ -41,6 +41,7 @@ sap.ui.define(
                         StartDate: null,
                         EndDate: null,
                         Role: "",
+                        UserType:"",
                         Search: ""
                     },
                     PageBusy: false
@@ -174,7 +175,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Role";
+                oBindingParams.parameters["expand"] = "Role, UserType";
                 oBindingParams.sorter.push(new Sorter("Status", true));
                 var oFilter = this._CreateFilter();
                 if (oFilter) {
@@ -194,11 +195,11 @@ sap.ui.define(
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
-                        if (prop === "Role") {
+                        if (prop === "UserType") {
                             // Role Filter selection
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
-                                new Filter("Role/Name", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("UserType/UserType", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "Status") {
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
@@ -215,7 +216,7 @@ sap.ui.define(
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "Role/Name",
+                                            path: "UserType/UserType",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
@@ -245,6 +246,7 @@ sap.ui.define(
                 var aResetProp = {
                     StartDate: null,
                     Role: "",
+                    UserType:"",
                     Search: "",
                     Status: ""
                 };
@@ -265,7 +267,7 @@ sap.ui.define(
                     "Status": sStatus
                 };
                 var oDataModel = this.getView().getModel();
-                oDataModel.update(`/Users(${iId})`, oPayLoad, {
+                oDataModel.update(`/Admins(${iId})`, oPayLoad, {
                     success: function (data) {
                         var oTable = this.getView().byId("idWorkListTable1");
                         oTable.rebindTable();
@@ -278,16 +280,32 @@ sap.ui.define(
                 var oTable = this.getView().byId("idWorkListTable1");
                 oTable.rebindTable();
             },
-            // onSearch:function(oEvent){
-            //     var aFilters = [];
-            //     var sQuery = oEvent.getSource().getValue();
-            //     if (sQuery && sQuery.length > 0) {
-            //     aFilters.push( this.createFilter("Name", FilterOperator.Contains, sQuery, true) );
-            //     }
-            //     var oTable = this.byId("idWorkListTable1");
-            //     var oBinding = oTable.getBinding("items");
-            //     oBinding.filter(aFilters);
-            //     },
+
+            onPressEdit: function (oEvent) {
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                //var selectedUserId = oEvent.getSource().getBindingContext("data").getPath();
+                var oItem = oEvent.getSource();
+                oRouter.navTo("EditUser", {
+                    userId: "1"
+                });
+                //console.log(selectedUserId);
+            },
+
+            // onPressRemoveUser: function (oEvent) {
+            //     var object = oEvent.getSource().getBindingContext().getObject();
+            //     sap.m.MessageBox.warning("Are you sure to delete this attachment?", {
+            //         actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+            //         styleClass: "messageBoxError",
+            //         onClose: function (oAction) {
+            //             if (oAction === sap.m.MessageBox.Action.YES) {
+            //                 this.deleteServiceCall(object);
+    
+            //             }
+    
+            //         }.bind(this),
+            //     });
+            // },
+            
         }
         );
     }

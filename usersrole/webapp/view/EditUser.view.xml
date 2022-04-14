@@ -1,0 +1,106 @@
+<mvc:View controllerName="com.knpl.dga.usersrole.controller.EditUser" class="sapUiSizeCompact" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+xmlns:l="sap.ui.layout"
+xmlns:core="sap.ui.core"
+xmlns:f="sap.ui.layout.form">
+<Page
+id="editUser"
+floatingFooter="true"
+ title="Edit User"
+         class="sapUiContentPadding"
+        >
+        <VBox class="sapUiSmallMargin">
+        <f:SimpleForm id="editUserForm"
+			editable="true"
+			layout="ColumnLayout"
+			title="User Details"
+			columnsM="2"
+			columnsL="3"
+			columnsXL="4"
+			><f:content>
+            <Label text="Name" labelFor="name" design="Bold" required="true"/>
+				<Input id="name" 
+        	                type="Text"
+                            liveChange="onLiveChangeInputValidate"
+                            value="{ 
+                                  path : 'data>Name', 
+                                  type : 'sap.ui.model.type.String', 
+                                  constraints : { 
+                                      minLength : 1,
+                                       maxLength :25
+                                  }
+                              }"
+                        placeholder="Enter Name ..."
+        				valueStateText="Enter a valid Name. Maximum 25 characters." />
+				<Label text="Email" labelFor="email" design="Bold" required="true" />
+		<Input id="email" 
+        	                type="Text"
+                            value="{ 
+                                  path : 'data>Email', 
+                                  type : 'sap.ui.model.type.String', 
+                                  constraints : { search : '^[\\w-]+(?:\\.[\\w-]+)*@(?:[\\w-]+\\.)+[a-zA-Z]{2,7}$' }
+                              }"
+        				placeholder="Enter Email ..."
+        				valueStateText="Email must not be empty or Enter Valid Email-id"/>
+				<Label text="Mobile" labelFor="mobile" design="Bold" required="true" />
+		<Input id="mobile" 
+        	                type="Number"
+                            value="{ 
+                                  path : 'data>Mobile', 
+                                  type : 'sap.ui.model.type.String', 
+                                   constraints : { 
+                                      minLength : 10,
+                                      maxLength: 10
+                                  }
+                                  }"
+        				placeholder="Enter Mobile Number ..."
+        				valueStateText="Mobile Number must not be empty or Enter a valid Mobile Number" />
+         <Label text="Country Code" labelFor="countrycode" design="Bold" required="true" />
+		<Input id="countrycode" 
+        	                type="Text"
+                            editable="false"
+                            value="{ 
+                                  path : '/countrycode', 
+                                  type : 'sap.ui.model.type.String', 
+                                  constraints : { 
+                                      minLength : 1
+                                  }
+                              }"
+        				placeholder="Enter Country Code ..."
+        				valueStateText="Country Code must not be empty."/>
+            <Label text="Role" labelFor="role" design="Bold" required="true" />
+        	<Select
+            id="role"
+            change="onRoleChange"
+            selectedKey="{data>RoleId}"
+            valueStateText="Role must not be empty."
+			items="{path: 'data>/MasterAdminRoleSet',
+                filters: {path: 'IsArchived', operator: 'EQ', value1: false}}">
+				<core:Item key="{data>Id}" text="{data>Description}" />
+			</Select>
+            <Label text="User Type" labelFor="UserType" design="Bold"/>
+            <Select
+            id="iduserType"
+            selectedKey="{data>UserTypeId}"
+            valueStateText="UserType must not be empty."
+			items="{path: 'data>/MasterUserTypeSet'}">
+				<core:Item key="{data>Id}" text="{data>Description}" />
+			</Select>
+			</f:content>
+		</f:SimpleForm>
+	</VBox>
+    <footer>
+			<OverflowToolbar>
+               
+				<ToolbarSpacer />
+                <Button text="Cancel"
+                press="onCancelPress"
+						>
+				</Button>
+				<Button text="Save"
+                type="Emphasized"
+						press="update">
+				</Button>
+			</OverflowToolbar>
+		</footer>
+    </Page>
+</mvc:View>
