@@ -13,6 +13,7 @@
                             enableAutoBinding="false"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
+                            requestAtLeastFields="Id"
                             initiallyVisibleFields="ConsumerName,PrimaryNum,LeadServiceType/Name,State/Name,Zone,DivisionId,Depot/Depot,Pincode,Stage,LeadStatus/Name"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
@@ -91,7 +92,7 @@
 
             </columns>
             <items>
-                <ColumnListItem>
+                <ColumnListItem press="onListItemPressLeads" type="Navigation">
                     <cells>
                  
                        <Text text="{ConsumerName}" />

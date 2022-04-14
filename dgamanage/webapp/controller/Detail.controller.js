@@ -273,7 +273,7 @@ sap.ui.define(
                 var oView = this.getView();
                 var oModel = oView.getModel();
                 var sEntitySet = oView.getModel("oModelDisplay").getProperty("/bindProp");
-
+                
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(sEntitySet);
                     //console.log(sEntitySet);
@@ -505,6 +505,7 @@ sap.ui.define(
             },
 
 
+
             _UpdatedObject: function (oPayLoad) {
                 var othat = this;
                 var oView = this.getView();
@@ -526,7 +527,32 @@ sap.ui.define(
                         },
                     });
                 });
-            }
+            },
+            onListItemPressLeads: function (oEvent) {
+                var oBj = oEvent.getSource().getBindingContext().getObject();
+                this.Navigate({
+                    target: {
+                        semanticObject: "Manage",
+                        action: "Leads",
+                        params: {
+                            LeadId: oBj["Id"]
+                        }
+                    }
+                });
+            },
+            Navigate: function (oSemAct) {
+                if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService) {
+                    var oCrossAppNav = sap.ushell.Container.getService("CrossApplicationNavigation");
+                    oCrossAppNav.toExternal({
+                        target: {
+                            semanticObject: oSemAct.target.semanticObject,
+                            action: oSemAct.target.action
+                        },
+                        params: oSemAct.target.params
+                    })
+                }
+            },
+
 
 
         }
