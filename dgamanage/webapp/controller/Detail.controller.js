@@ -118,27 +118,27 @@ sap.ui.define(
                 var c1, c2, c2A, c3, c4;
                 var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                 oModel.setProperty("/PageBusy", true);
+
                 c1.then(function () {
-                    c1.then(function () {
-                        c2 = othat._setInitViewModel();
-                        c2.then(function () {
-                            c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
-                            c2A.then(function () {
-                                c3 = othat._LoadFragment("AddNewObjectEdit");
-                                c3.then(function () {
-                                    c4 = othat._SetFiltersForControls();
-                                    c4.then(function (oPayLoad) {
-                                        othat._setEditPopoverData(oPayLoad);
-                                        c4.then(function () {
-                                            oModel.setProperty("/PageBusy", false);
-                                        })
+                    c2 = othat._setInitViewModel();
+                    c2.then(function () {
+                        c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
+                        c2A.then(function () {
+                            c3 = othat._LoadFragment("AddNewObjectEdit");
+                            c3.then(function () {
+                                c4 = othat._SetFiltersForControls();
+                                c4.then(function (oPayLoad) {
+                                    othat._setEditPopoverData(oPayLoad);
+                                    c4.then(function () {
+                                        oModel.setProperty("/PageBusy", false);
                                     })
                                 })
                             })
-
                         })
+
                     })
                 })
+
 
             },
             _setEditPopoverData: function (oPayLoad) {
@@ -189,7 +189,7 @@ sap.ui.define(
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,LinkedContractors,WorkLocation,ServicePincodes/Pincode";
+                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,WorkLocation,ServicePincodes/Pincode";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
@@ -243,7 +243,7 @@ sap.ui.define(
             },
 
             _getDisplayData: function (oProp) {
-                
+
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
@@ -439,7 +439,18 @@ sap.ui.define(
 
 
             },
+            _ReoveEditPayloadProps: function (oPayLoad) {
+                var promise = $.Deferred();
+                var aArrayRemoveProp1 = [];
 
+                for (var x of aArrayRemoveProp) {
+                    if (oPayLoad.hasOwnProperty(x)) {
+                        delete oPayLoad[x];
+                    }
+                }
+                //"ServicePincodes/Pincode"
+                return promise;
+            },
             onChangeStatus: function () {
                 var oView = this.getView(),
                     aStatus = [{
@@ -461,7 +472,7 @@ sap.ui.define(
                 if (!this._ChangeStatus) {
                     // load asynchronous XML fragment
                     this._getViewFragment("ChangeStatus").then(function (oControl) {
-                       // console.log(oControl)
+                        // console.log(oControl)
                         this._ChangeStatus = oControl;
                         oView.addDependent(this._ChangeStatus);
                         this._ChangeStatus.open();
@@ -472,25 +483,25 @@ sap.ui.define(
             },
             onConfirmStatus: function () {
                 var oPayload = this.getView().getModel("oModelDisplay").getProperty("/ChangeStatus/oPayload");
-                if (!oPayload.ActivationStatus){
+                if (!oPayload.ActivationStatus) {
                     this._showMessageToast("Message15")
                     return;
                 }
-                if (!oPayload.ActivationStatusChangeReason){
+                if (!oPayload.ActivationStatusChangeReason) {
                     this._showMessageToast("Message16")
                     return;
                 }
-                
+
                 var sPath = this.getView().getBindingContext().getPath();
                 console.log(oPayload);
                 this.getView().getModel().update(sPath +
                     "/ActivationStatus", oPayload, {
-                        success: function () {
-                            MessageToast.show(`Status has been changed to ${oPayload.ActivationStatus}`);
-                            this._onDialogClose();
-                            this.getView().getElementBinding().refresh();
-                        }.bind(this)
-                    })
+                    success: function () {
+                        MessageToast.show(`Status has been changed to ${oPayload.ActivationStatus}`);
+                        this._onDialogClose();
+                        this.getView().getElementBinding().refresh();
+                    }.bind(this)
+                })
             },
 
 
