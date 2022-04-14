@@ -60,20 +60,32 @@ sap.ui.define([], function () {
             return "Error";
         },
         fmtQuotProducts: function (mParam1) {
-           // mParam1 > QuotationSelectedProducts
+            // mParam1 > QuotationSelectedProducts
             if (mParam1) {
                 var aProd = []
                 var oModel = this.getView().getModel();
-                var oObj,oObj2;
+                var oObj, oObj2;
                 for (var x of mParam1) {
                     oObj = oModel.getProperty("/" + x);
                     oObj2 = oModel.getProperty("/" + oObj["MasterProduct"]["__ref"])
                     aProd.push(oObj2["ProductName"]);
                 }
-              
+
                 return aProd.join(" ")
             }
             return ""
+        },
+        fmtCommaSepratedAssignedContractor: function (mParam) {
+            if (mParam === null)
+                return "";
+            var contractorArray = [];
+            for (var i in mParam) {
+                var contractorKey = mParam[i];
+                var contractorObject = this.getView().getModel().getProperty("/" + contractorKey);
+                contractorArray.push(contractorObject.ContractorName);
+            }
+            var commaSeparatedString = contractorArray.join(", ");
+            return commaSeparatedString;
         }
     };
 

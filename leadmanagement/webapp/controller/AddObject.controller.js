@@ -156,10 +156,11 @@ sap.ui.define([
                         oModelControl.setProperty("/PageBusy", false);
                         othat.onNavToHome();
                     })
+                },
+                function(){
+                    oModelControl.setProperty("/PageBusy", false);
                 })
             })
-
-
         },
         _CreateObject: function (oPayLoad) {
             // console.log(oPayLoad);
