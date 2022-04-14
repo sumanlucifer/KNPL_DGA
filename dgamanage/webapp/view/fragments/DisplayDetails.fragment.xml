@@ -17,7 +17,7 @@
                    <!-- <Label text="{i18n>ActivationStatus}" />
                   <ObjectStatus  text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/> -->
                    <Label text="{i18n>ActivationStatusReason}" />
-                 <Text text="{path : 'ActivationStatusChangeReason'}"  />
+                 <Text text="{path : 'ActivationStatusChangeReason', formatter:'.formatter.fmtCheckNull'}"  />
               <core:Title text="{i18n>BasicDetails}" />
                 <Label text="{i18n>SalesGroup}" />
                 <Text text="{path : 'SaleGroup/Name'}"  />
@@ -28,7 +28,7 @@
                 <Label text="{i18n>JoiningDate}" />
                 <Text text="{path:'JoiningDate',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY', UTC:false, strictParsing:true} }" />
                 <Label text="{i18n>ExitDate}" />
-                <Text text="{path:'ExitDate', type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY', UTC:false, strictParsing:true} }" />
+                <Text text="{path:'ExitDate', type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY', UTC:false, strictParsing:true} , formatter:'.formatter.fmtCheckNull'}" />
                 <core:Title text="{i18n>LocationDetails}" />
                  <Label text="{i18n>Zone}" />
                  <Text text="{path : 'Zone'}"  />
