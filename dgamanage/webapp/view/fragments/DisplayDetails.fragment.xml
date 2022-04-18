@@ -16,7 +16,7 @@
                  <Text text="{path : 'Mobile'}"  />
                    <!-- <Label text="{i18n>ActivationStatus}" />
                   <ObjectStatus  text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/> -->
-                   <Label text="{i18n>ActivationStatusReason}" />
+                   <Label text="{i18n>StatusChangeReason}" />
                  <Text text="{path : 'ActivationStatusChangeReason', formatter:'.formatter.fmtCheckNull'}"  />
               <core:Title text="{i18n>BasicDetails}" />
                 <Label text="{i18n>SalesGroup}" />

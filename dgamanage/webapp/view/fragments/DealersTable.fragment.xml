@@ -59,12 +59,12 @@
                     </customData>
                     <Text text="{i18n>FiscalYear}"/>
                 </Column>
-                 <Column hAlign="Begin">
+                 <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/Visits",  "columnIndex": 5 ,"sortProperty": "Dealer/Visits","filterProperty": "Dealer/Visits"}'/>
                     </customData>
                     <Text text="{i18n>Visits}"/>
-                </Column> 
+                </Column>  -->
                 <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/TotalMappedContractor",  "columnIndex": 6 ,"sortProperty": "Dealer/TotalMappedContractor","filterProperty": "Dealer/TotalMappedContractor"}'/>
@@ -97,7 +97,7 @@
                        <Text  text="{DealerId}" /> 
                        <Text text="{Dealer/SAPGroupName}"/>
                         <Text text="{Dealer/FiscalYear}"/>
-                        <Text text="{Dealer/Visits}" /> 
+                        <!-- <Text text="{Dealer/Visits}" />  -->
                         <Text text="{Dealer/TotalMappedContractor}"/>
                         <Text text="{Dealer/LeadsProvided}"/>
 
