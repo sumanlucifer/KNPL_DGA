@@ -8,8 +8,8 @@
             <Button text="MTD" press="onPressMTDFilter"/>
             <Button text="YTD" press="onPressYTDFilter"/>
         </Toolbar>
-        <core:Fragment fragmentName="com.knpl.dga.insights.view.fragments.leadByStatus" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.insights.view.fragments.leadBySource" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.insights.view.fragments.leadByStatus" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.insights.view.fragments.businessGenValByCategory" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.insights.view.fragments.businessGenVolByCategory" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.insights.view.fragments.businessGenValByClassification" type="XML" class="sapUiMediumMarginBottom"/>
