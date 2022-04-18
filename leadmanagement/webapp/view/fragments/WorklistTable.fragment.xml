@@ -13,21 +13,21 @@
             <columns>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 0 ,"sortProperty": "Id","filterProperty": "Id"}'/>
-                    </customData>
-                    <Text text="{i18n>MainObject} {i18n>Id}"/>
-                </Column>
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/UniqueId", "leadingProperty": "DGA/UniqueId", "columnIndex": 1 ,"sortProperty": "DGA/UniqueId","filterProperty": "DGA/UniqueId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/UniqueId", "leadingProperty": "DGA/UniqueId", "columnIndex": 0 ,"sortProperty": "DGA/UniqueId","filterProperty": "DGA/UniqueId"}'/>
                     </customData>
                     <Text text="{i18n>DGAId}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 2 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 1 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
                     </customData>
                     <Text text="{i18n>DGAName}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 2 ,"sortProperty": "Id","filterProperty": "Id"}'/>
+                    </customData>
+                    <Text text="{i18n>MainObject} {i18n>Id}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
@@ -112,9 +112,9 @@
             <items>
                 <ColumnListItem press="onListItemPress" type="Navigation">
                     <cells>
-                        <Text text="{Id}"/>
                         <Text text="{DGA/UniqueId}"/>
                         <Text text="{DGA/GivenName} {DGA/FamilyName}"/>
+                        <Text text="{Id}"/>
                         <Text text="{ConsumerName}"/>
                         <!-- <Text text="{path:'PrimaryNum',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/> -->
                         <Text text="{PrimaryNum}"/>
