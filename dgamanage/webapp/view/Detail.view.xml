@@ -90,7 +90,7 @@
              
               <!-- <Button press=".onApproval(true)" visible="{= ${oModelDisplay>/mode}==='Display'}" text="{i18n>Approve}"  type="Accept"  /> -->
              <Button press="onPressSave" visible="{= ${oModelDisplay>/mode}==='Edit'}"  text="{i18n>Save}" type="Emphasized" />
-             <Button press="onPressEdit" visible="{= ${oModelDisplay>/mode}==='Display'}"  text="{i18n>Edit}" type="Emphasized" />
+             <Button press="onPressEdit" visible="{= ${oModelDisplay>/mode}==='Display'}" enabled="{= ${ActivationStatus}=== 'ACTIVATED' }" text="{i18n>Edit}" type="Emphasized" />
           
         
             </OverflowToolbar>
