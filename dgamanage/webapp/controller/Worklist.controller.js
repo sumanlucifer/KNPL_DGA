@@ -50,7 +50,7 @@ sap.ui.define(
                         Search: "",
                         DGAType: "",
                         PinCodeId: "",
-                        PayrollCompanyId:""
+                        PayrollCompanyId: ""
                     },
                     FilterAddFileds: {
                         PinCode: ""
@@ -63,6 +63,18 @@ sap.ui.define(
                 oRouter
                     .getRoute("worklist")
                     .attachMatched(this._onRouteMatched, this);
+                var startupParams;
+                if (this.getOwnerComponent().getComponentData()) {
+                    startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                }
+                // console.log(startupParams);
+                if (startupParams) {
+                    if (startupParams.hasOwnProperty("DgaId")) {
+                        if (startupParams["DgaId"].length > 0) {
+                            this._onNavToDetails(startupParams["DgaId"][0]);
+                        }
+                    }
+                }
 
 
             },
@@ -81,7 +93,7 @@ sap.ui.define(
                     Search: "",
                     DGAType: "",
                     PinCodeId: "",
-                    PayrollCompanyId:""
+                    PayrollCompanyId: ""
                 };
                 var aFiterAddFileds = {
                     PinCode: ""
@@ -264,7 +276,7 @@ sap.ui.define(
                             // converstions are made as the difference between utc and the server time
                             aFlaEmpty = false;
                             var oDate = new Date(oViewFilter[prop]).setDate(oViewFilter[prop].getDate() + 1);
-                           
+
                             aCurrentFilterValues.push(
                                 new Filter("CreatedAt", FilterOperator.LT, oDate));
                         } else if (prop === "Status") {
@@ -288,7 +300,7 @@ sap.ui.define(
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("DGATypeId", FilterOperator.EQ, oViewFilter[prop]));
-                        }  else if (prop === "PayrollCompanyId") {
+                        } else if (prop === "PayrollCompanyId") {
 
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
@@ -376,7 +388,13 @@ sap.ui.define(
                 });
 
             },
-
+            _onNavToDetails:function(mParam1){
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("Detail", {
+                    Id: mParam1,
+                    Mode: "Display"
+                });
+            },
 
             onPressDelete: function (oEvent) {
                 var oView = this.getView();
