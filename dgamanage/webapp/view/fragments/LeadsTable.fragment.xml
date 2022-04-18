@@ -104,7 +104,7 @@
                         <Text text="{Depot/Depot}"/>
                         <Text text="{Pincode}"/>
                         <Text text="{Stage}"/>
-                         <Text text="{LeadStatus/Name}"/>
+                        <ObjectStatus text="{path:'LeadStatus/Name',formatter:'.formatter.fmtLowerCase'}" state="{= ${LeadStatus/Name} === 'Converted' ? 'Success' : ${LeadStatus/Name} === 'In Pipeline'  ? 'Warning' : ${LeadStatus/Name} === 'Lost' ? 'Error' : 'None' }"/>
                        <!-- <Text text="{Id}" /> -->
                         
 
