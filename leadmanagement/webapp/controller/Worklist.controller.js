@@ -40,7 +40,7 @@ sap.ui.define(
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
                 if (this.getOwnerComponent().getComponentData()) {
-                    startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                    var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
                 }
                 // console.log(startupParams);
                 if (startupParams) {
