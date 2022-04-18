@@ -184,7 +184,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGA,SourceDealer";
+                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGA,SourceDealer,Dealer";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
