@@ -39,6 +39,20 @@ sap.ui.define(
              */
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
+                if (this.getOwnerComponent().getComponentData()) {
+                    startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                }
+                // console.log(startupParams);
+                if (startupParams) {
+                    if (startupParams.hasOwnProperty("LeadId")) {
+                        if (startupParams["LeadId"].length > 0) {
+                            oRouter.navTo("Detail", {
+                                Id: startupParams["LeadId"][0],
+                                Mode: "Display"
+                            });
+                        }
+                    }
+                }
                 var oDataControl = {
                     filterBar: {
                         ZoneId: "",
@@ -49,13 +63,13 @@ sap.ui.define(
                         Status: "",
                         Search: "",
                         DGAType: "",
-                        Pincode:"",
+                        Pincode: "",
                         StatusId: "",
                         ServiceTypeId: "",
                         ServiceSubTypeId: ""
                     },
-                    AddFields:{
-                        PinCode:""
+                    AddFields: {
+                        PinCode: ""
                     },
                     PageBusy: true,
                     resourcePath: "com.knpl.dga.leadmanagement"
@@ -371,7 +385,7 @@ sap.ui.define(
                     Status: "",
                     Search: "",
                     DGAType: "",
-                    Pincode:"",
+                    Pincode: "",
                     StatusId: ""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
