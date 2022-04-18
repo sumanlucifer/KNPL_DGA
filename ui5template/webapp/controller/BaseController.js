@@ -278,12 +278,12 @@ sap.ui.define([
             return promise;
         },
         _CreateRadioButtonPayload: function (oPayLoad) {
-             /*
-             * Author: manik saluja
-             * Date: 24-March-2022
-             * Language:  JS
-             * Purpose: This method is used to send the radiobutton data to the backend.
-             */
+            /*
+            * Author: manik saluja
+            * Date: 24-March-2022
+            * Language:  JS
+            * Purpose: This method is used to send the radiobutton data to the backend.
+            */
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var aBoleanProps = {
@@ -302,12 +302,12 @@ sap.ui.define([
             return promise;
         },
         _CreateMultiComboPayload: function (oPayload) {
-             /*
-             * Author: manik saluja
-             * Date: 24-March-2022
-             * Language:  JS
-             * Purpose: This method is used to send the multicombo box with tokens or multi select popover data to the payload.
-             */
+            /*
+            * Author: manik saluja
+            * Date: 24-March-2022
+            * Language:  JS
+            * Purpose: This method is used to send the multicombo box with tokens or multi select popover data to the payload.
+            */
             var promise = $.Deferred();
             var oView = this.getView();
             var oModelView = oView.getModel("oModelView");
@@ -352,29 +352,29 @@ sap.ui.define([
             return promise
 
         },
-        _CreatePayLoadTable:function(oPayload){
+        _CreatePayLoadTable: function (oPayload) {
             var promise = $.Deferred();
-             /*
-             * Author: manik saluja
-             * Date: 24-March-2022
-             * Language:  JS
-             * Purpose: This method is used to send the data from the ui5 table control to the payload.
-             */
+            /*
+            * Author: manik saluja
+            * Date: 24-March-2022
+            * Language:  JS
+            * Purpose: This method is used to send the data from the ui5 table control to the payload.
+            */
             promise.resolve(oPayload);
             return promise;
         },
         _onCreationFailed: function (mParam1) {
             // mParam1 > error object
-
-            var sMessage;
-            if (mParam1.statusCode == 409) {
-                sMessage = "Message8";
-            } else if (mParam1.statusCode == 417) {
-                sMessage = "";
-            } else {
-                sMessage = "10";
+            if (mParam1) {
+                if (mParam1.hasOwnProperty("statusCode")) {
+                    if (mParam1.statusCode == 409) {
+                        this._showMessageBox2("error", "Message13", [mParam1.responseText]);
+                    }
+                }
             }
-            this._showMessageBox2("error", sMessage);
+
+            var oModelControl = oView.getModel("oModelDisplay");
+            oModelControl.setProperty("/PageBusy", false);
 
         },
         _uploadFile: function (oPayLoad) {

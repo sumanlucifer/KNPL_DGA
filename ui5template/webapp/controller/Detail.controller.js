@@ -292,6 +292,18 @@ sap.ui.define(
                 });
 
             },
+            _ReoveEditPayloadProps: function (oPayLoad) {
+                var promise = $.Deferred();
+                var aArrayRemoveProp1 = [];
+
+                for (var x of aArrayRemoveProp) {
+                    if (oPayLoad.hasOwnProperty(x)) {
+                        delete oPayLoad[x];
+                    }
+                }
+                //"ServicePincodes/Pincode"
+                return promise;
+            },
             onPressSave: function () {
                 var bValidateForm = this._ValidateForm();
                 if (bValidateForm) {

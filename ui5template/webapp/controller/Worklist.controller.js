@@ -54,9 +54,22 @@ sap.ui.define(
                 };
                 var oMdlCtrl = new JSONModel(oDataControl);
                 this.getView().setModel(oMdlCtrl, "oModelControl");
+                var startupParams;
+                if (this.getOwnerComponent().getComponentData()) {
+                    startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                }
+                // console.log(startupParams);
+                if (startupParams) {
+                    if (startupParams.hasOwnProperty("DgaId")) {
+                        if (startupParams["DgaId"].length > 0) {
+                            this._onNavToDetails(startupParams["DgaId"][0]);
+                        }
+                    }
+                }
                 oRouter
                     .getRoute("worklist")
                     .attachMatched(this._onRouteMatched, this);
+
 
 
             },
@@ -308,6 +321,14 @@ sap.ui.define(
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("Detail", {
                     Id: oBj["Id"],
+                    Mode: "Display"
+                });
+
+            },
+            _onNavToDetails: function (mParam1) {
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("Detail", {
+                    Id: mParam1,
                     Mode: "Display"
                 });
 
