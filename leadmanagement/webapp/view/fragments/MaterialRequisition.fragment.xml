@@ -18,10 +18,10 @@
             <f:content>
                 <core:Title text="{i18n>Dealer} {i18n>Details}" />
                 <Label text="{i18n>Dealer} {i18n>Name}" />
-                <Text text="{path : 'ComplaintType/ComplaintType'}"  />
+                <Text text="{path : 'Dealer/Id'}"  />
                 <core:Title text=" " />
                 <Label text="{i18n>Dealer} {i18n>Code}" />
-                <Text text="{path : 'Remark'}"  />
+                <Text text="{path : 'Dealer/Name'}"  />
             </f:content>
         </f:SimpleForm>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable1" type="XML" class="sapUiMediumMarginBottom"/>
