@@ -19,8 +19,8 @@
                    <Label text="{i18n>StatusChangeReason}" />
                  <Text text="{path : 'ActivationStatusChangeReason', formatter:'.formatter.fmtCheckNull'}"  />
               <core:Title text="{i18n>BasicDetails}" />
-                <Label text="{i18n>SalesGroup}" />
-                <Text text="{path : 'SaleGroup/Name'}"  />
+                <!-- <Label text="{i18n>SalesGroup}" />
+                <Text text="{path : 'SaleGroup/Name'}"  /> -->
                   <Label text="{i18n>PayrollCompany}" />
                 <Text text="{path : 'PayrollCompany/Name'}"  />
                   <Label text="{i18n>EmployeeId}"/>
