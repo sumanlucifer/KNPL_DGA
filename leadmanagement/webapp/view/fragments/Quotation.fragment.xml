@@ -17,18 +17,18 @@
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.quotation.QuotationTbl4" type="XML" class="sapUiMediumMarginBottom"/>
         <Toolbar width="90%">
             <ToolbarSpacer/>
-            <Label text="{i18n>OverallCosting} : " design="Bold"/>
-            <Label id="idQuotOCTotal" text="{Total}" design="Bold"/>
+            <Label text="{i18n>Total} : " design="Bold"/>
+            <Label id="idQuotOCTotal" text="{i18n>Rupee} {Total}" design="Bold"/>
         </Toolbar>
         <Toolbar width="90%">
             <ToolbarSpacer/>
-            <Label id="idQuotDiscountLbl" text="{i18n>Discount} ({Discount}%): " design="Bold"/>
-            <Label id="idQuotDiscount" text="{DiscountAmount}" design="Bold"/>
+            <Label id="idQuotDiscountLbl" text="{i18n>Discount} ({Discount}%) : " design="Bold"/>
+            <Label id="idQuotDiscount" text="{i18n>Rupee} {DiscountAmount}" design="Bold"/>
         </Toolbar>
         <Toolbar width="90%">
             <ToolbarSpacer/>
             <Label text="{i18n>GrandTotal} : " design="Bold"/>
-            <Label id="idQuotGTotal" text="{GrandTotal}" design="Bold"/>
+            <Label id="idQuotGTotal" text="{i18n>Rupee} {GrandTotal}" design="Bold"/>
         </Toolbar>
     </l:VerticalLayout>
 <!-- <smartTable:SmartTable id="QuotationTbl" entitySet="Quotations" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false"

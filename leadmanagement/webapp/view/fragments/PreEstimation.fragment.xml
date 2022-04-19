@@ -18,7 +18,7 @@
         <Toolbar width="90%">
             <ToolbarSpacer/>
             <Label text="{i18n>GrandTotal} : " design="Bold"/>
-            <Label id="idPreEstGTotal" text="{GrandTotal}" design="Bold"/>
+            <Label id="idPreEstGTotal" text="{i18n>Rupee} {GrandTotal}" design="Bold"/>
         </Toolbar>
     </l:VerticalLayout>
 
