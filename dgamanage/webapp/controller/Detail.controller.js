@@ -301,7 +301,7 @@ sap.ui.define(
                 var oView = this.getView();
                 var sDgaId = oView.getModel("oModelDisplay").getProperty("/Id");
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Dealer";
+                oBindingParams.parameters["expand"] = "Dealer/DealerSalesDetails";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
             },

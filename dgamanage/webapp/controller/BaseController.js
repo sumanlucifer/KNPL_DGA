@@ -385,6 +385,7 @@ sap.ui.define([
         onZoneChange: function (oEvent) {
             var sId = oEvent.getSource().getSelectedKey();
             var oView = this.getView();
+            var oModelContorl = oView.getModel("oModelControl")
             // setting value for division
             var oDivision = oView.byId("idDivision");
             oDivision.clearSelection();
@@ -396,15 +397,24 @@ sap.ui.define([
             oDepot.clearSelection();
             oDepot.setValue("");
             // clearning data for dealer
+            oModelContorl.setProperty("/MultiCombo/Dealers", []);            
         },
         onDivisionChange: function (oEvent) {
             var sKey = oEvent.getSource().getSelectedKey();
             var oView = this.getView();
+            var oModelContorl = oView.getModel("oModelControl");
             var oDepot = oView.byId("idDepot");
             var oDepBindItems = oDepot.getBinding("items");
             oDepot.clearSelection();
             oDepot.setValue("");
             oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
+            // clearning data for dealer
+            oModelContorl.setProperty("/MultiCombo/Dealers", []);           
+        },
+        onDepotChange:function(){
+            var oView = this.getView();
+            var oModelContorl = oView.getModel("oModelControl");
+            oModelContorl.setProperty("/MultiCombo/Dealers", []);         
         },
         _handlePValueHelpSearch: function (oEvent) {
             /*
@@ -606,7 +616,7 @@ sap.ui.define([
 
             this._onDialogClose();
         },
-       
+
         _handlePinCodeValueHelpConfirm2: function (oEvent) {
             // this method is overwritten for the pincode in the worklist view
 
@@ -641,10 +651,38 @@ sap.ui.define([
                 this._getViewFragment("DealersValueHelp").then(function (oControl) {
                     this._DealerValueHelpDialog = oControl;
                     oView.addDependent(this._DealerValueHelpDialog);
-                    this._DealerValueHelpDialog.open();
+                    this._onApplyFilterDealers();
+                    //this._DealerValueHelpDialog.open();
                 }.bind(this));
             }
 
+        },
+        _onApplyFilterDealers: function () {
+            var sDepotiId = this.getView()
+                .getModel("oModelView")
+                .getProperty("/DepotId");
+
+
+            var oFilter = new Filter(
+                [
+
+                    new Filter(
+                        "DealerSalesDetails/Depot",
+                        FilterOperator.EQ,
+                        sDepotiId
+                    ),
+                ]
+            );
+
+
+            if (sDepotiId.trim() == "") {
+                this._DealerValueHelpDialog.getBinding("items").filter([]);
+            } else {
+                this._DealerValueHelpDialog.getBinding("items").filter(oFilter);
+            }
+
+            // open value help dialog filtered by the input value
+            this._DealerValueHelpDialog.open();
         },
         _handleDealersValueHelpConfirm: function (oEvent) {
             var oSelected = oEvent.getParameter("selectedContexts");
