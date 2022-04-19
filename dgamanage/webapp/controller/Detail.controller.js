@@ -273,7 +273,7 @@ sap.ui.define(
                 var oView = this.getView();
                 var oModel = oView.getModel();
                 var sEntitySet = oView.getModel("oModelDisplay").getProperty("/bindProp");
-                
+
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(sEntitySet);
                     //console.log(sEntitySet);
@@ -360,6 +360,7 @@ sap.ui.define(
                 var oSelected = oEvent.getParameter("selectedContexts");
                 var oView = this.getView();
                 var oModelDisplay = oView.getModel("oModelDisplay");
+                var sDgaId = oModelDisplay.getProperty("/Id")
                 var aDealersSelected = [],
                     oBj;
                 for (var a of oSelected) {
@@ -384,10 +385,31 @@ sap.ui.define(
                         //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
                         aDealers.push(oPayload["DGADealers"][iDealers]);
                     } else {
-                        aDealers.push({ DealerId: x["Id"] });
+                        aDealers.push({ DealerId: x["Id"], DGAOd: sDgaId });
                     }
                 }
-                console.log(aDealers);
+
+                var oDataModel = oView.getModel();
+                var oPayload = {
+                    MapDGADealers: aDealers
+                }
+                console.log(oPayload);
+                /*
+                    var c1,c2;
+                    var othat = this;
+                    oModelDisplay.setProperty("/PageBusy",true);
+                    oDataModel.create("/MapDGADealersList",oPayload,{
+                        success:function(oEvent){
+                             oModelDisplay.setProperty("/PageBusy",true);
+                             this.getView().getElementBinding().refresh(true);
+                             this._showMessageToast("Message17")
+                        }.bind(this),
+                        error:function(oEvent){
+                             oModelDisplay.setProperty("/PageBusy",false);
+                        }
+                    })
+
+                */
                 //oPayload["DGADealers"] = aDealers;
 
                 // oModel.refresh(true);
