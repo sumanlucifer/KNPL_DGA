@@ -396,7 +396,8 @@ sap.ui.define(
                 var sServiceURL = this.getView().getModel().sServiceUrl;
                 var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                 var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                var sURL = sServiceURL + "/"+ sPreEstimationPath + "/$value";
+                var sTokenCode = this.getView().getModel().oData[sPreEstimationPath].TokenCode;
+                var sURL = sServiceURL + "/"+ sPreEstimationPath + "/$value?Token="+ sTokenCode;
                 sap.m.URLHelper.redirect(sURL, true);
             },
 
@@ -404,7 +405,8 @@ sap.ui.define(
                 var sServiceURL = this.getView().getModel().sServiceUrl;
                 var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                 var sQuotationPath = oBindingObject.Quotation.__list[0];
-                var sURL = sServiceURL + "/"+ sQuotationPath + "/$value";
+                var sTokenCode = this.getView().getModel().oData[sQuotationPath].TokenCode;
+                var sURL = sServiceURL + "/"+ sQuotationPath + "/$value?Token="+ sTokenCode;
                 sap.m.URLHelper.redirect(sURL, true);
             },
 
@@ -412,7 +414,8 @@ sap.ui.define(
                 var sServiceURL = this.getView().getModel().sServiceUrl;
                 var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                 var sMaterialRequisitionPath = oBindingObject.MaterialRequisition.__list[0];
-                var sURL = sServiceURL + "/"+ sMaterialRequisitionPath + "/$value";
+                var sTokenCode = this.getView().getModel().oData[sMaterialRequisitionPath].TokenCode;
+                var sURL = sServiceURL + "/"+ sMaterialRequisitionPath + "/$value?Token="+ sTokenCode;
                 sap.m.URLHelper.redirect(sURL, true);
             }
             // onPressSave: function () {
