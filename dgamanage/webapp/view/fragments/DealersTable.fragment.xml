@@ -13,7 +13,8 @@
                             enableAutoBinding="true"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            initiallyVisibleFields="Id,DealerId,DGAId,Dealer/Name,Dealer/PhoneNumber,Dealer/FiscalYear,Dealer/Visits,Dealer/TotalMappedContractor,Dealer/LeadsProvided"
+                            requestAtLeastFields="Dealer/DealerSalesDetails/SalesGroupId"
+                            initiallyVisibleFields="Dealer/DealerSalesDetails/SalesGroupId"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
         	<smartTable:customToolbar>
@@ -49,13 +50,13 @@
                 </Column> 
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/SAPGroupName",  "columnIndex": 3 ,"sortProperty": "Dealer/SAPGroupName","filterProperty": "Dealer/SAPGroupName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/DealerSalesDetails/SalesGroupId",  "columnIndex": 3 ,"sortProperty": "Dealer/DealerSalesDetails/SalesGroupId","filterProperty": "Dealer/DealerSalesDetails/SalesGroupId"}'/>
                     </customData>
                     <Text text="{i18n>SapGroupName}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/FiscalYear",  "columnIndex": 4 ,"sortProperty": "Dealer/FiscalYear","filterProperty": "Dealer/FiscalYear"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/FiscalYear","leadingProperty":"Dealer/FiscalYear",  "columnIndex": 4 ,"sortProperty": "Dealer/FiscalYear","filterProperty": "Dealer/FiscalYear"}'/>
                     </customData>
                     <Text text="{i18n>FiscalYear}"/>
                 </Column>
@@ -67,13 +68,13 @@
                 </Column>  -->
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/TotalMappedContractor",  "columnIndex": 6 ,"sortProperty": "Dealer/TotalMappedContractor","filterProperty": "Dealer/TotalMappedContractor"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TotalMappedContractors","columnIndex": 6 ,"leadingProperty":"TotalMappedContractors",  "sortProperty": "TotalMappedContractors","filterProperty": "TotalMappedContractors"}'/>
                     </customData>
                     <Text text="{i18n>TotalMappedContractor}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/LeadsProvided", "columnIndex": 7 ,"sortProperty": "Dealer/LeadsProvided","filterProperty": "Dealer/LeadsProvided"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadsProvided","leadingProperty":"LeadsProvided", "columnIndex": 7 ,"sortProperty": "LeadsProvided","filterProperty": "LeadsProvided"}'/>
                     </customData>
                     <Text text="{i18n>LeadsProvided}"/>
                 </Column>
@@ -95,11 +96,11 @@
                        <Text text="{Dealer/Name}" />
                        <Text text="{Dealer/PhoneNumber}"/>
                        <Text  text="{DealerId}" /> 
-                       <Text text="{Dealer/SAPGroupName}"/>
+                       <Text text="{Dealer/DealerSalesDetails/SalesGroupId}"/>
                         <Text text="{Dealer/FiscalYear}"/>
                         <!-- <Text text="{Dealer/Visits}" />  -->
-                        <Text text="{Dealer/TotalMappedContractor}"/>
-                        <Text text="{Dealer/LeadsProvided}"/>
+                        <Text text="{TotalMappedContractors}"/>
+                        <Text text="{LeadsProvided}"/>
 
                        <!-- <Text text="{Id}" /> -->
                         
