@@ -61,7 +61,7 @@
                     </customData>
                     <Text text="{i18n>RateAccToArea}"/>
                     <footer>
-                        <Text id="idTotalQuotExterior" text="{TotalExteriorCosting}"/>
+                        <Text id="idTotalQuotExterior" text="{i18n>Rupee} {TotalExteriorCosting}"/>
                     </footer>
                 </Column>
             </columns>
@@ -72,9 +72,9 @@
                        <Text text="{ClassType}"/>
                        <Text text="{SystemType}"/>
                        <Text text="{VAType}"/>
-                       <Text text="{RatePerSqFt}"/>
+                       <Text text="{i18n>Rupee} {RatePerSqFt}"/>
                        <Text text="{Area}"/>
-                       <Text text="{RateAccToArea}"/>
+                       <Text text="{i18n>Rupee} {RateAccToArea}"/>
                     </cells>
                 </ColumnListItem>
             </items>
