@@ -273,7 +273,7 @@ sap.ui.define(
                 var oView = this.getView();
                 var oModel = oView.getModel();
                 var sEntitySet = oView.getModel("oModelDisplay").getProperty("/bindProp");
-                
+
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(sEntitySet);
                     //console.log(sEntitySet);
@@ -360,6 +360,7 @@ sap.ui.define(
                 var oSelected = oEvent.getParameter("selectedContexts");
                 var oView = this.getView();
                 var oModelDisplay = oView.getModel("oModelDisplay");
+                var sDgaId = oModelDisplay.getProperty("/Id")
                 var aDealersSelected = [],
                     oBj;
                 for (var a of oSelected) {
@@ -384,14 +385,52 @@ sap.ui.define(
                         //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
                         aDealers.push(oPayload["DGADealers"][iDealers]);
                     } else {
-                        aDealers.push({ DealerId: x["Id"] });
+                        aDealers.push({ DealerId: x["Id"], DGAId: sDgaId });
                     }
                 }
-                console.log(aDealers);
+
+                var oDataModel = oView.getModel();
+                var oPayload = {
+                    MapDGADealers: aDealers
+                }
+                console.log(oPayload);
+
+                oModelDisplay.setProperty("/PageBusy", true);
+                oDataModel.create("/MapDGADealersList", oPayload, {
+                    success: function (oEvent) {
+                        oModelDisplay.setProperty("/PageBusy", true);
+                        this.getView().getElementBinding().refresh(true);
+                        this._showMessageToast("Message17")
+                    }.bind(this),
+                    error: function (oEvent) {
+                        oModelDisplay.setProperty("/PageBusy", false);
+                    }
+                })
+
+
                 //oPayload["DGADealers"] = aDealers;
 
                 // oModel.refresh(true);
                 this._onDialogClose();
+            },
+            handleDealersValueHelp: function () {
+                /*
+                * Author: manik saluja
+                * Date: 15-Mar-2022
+                * Language:  JS
+                * Purpose:  This method is used to open the popover for selecting the linked dealers in the 
+                * add dga form. 
+                */
+                var oView = this.getView();
+                if (!this._DealerValueHelpDialog) {
+                    this._getViewFragment("DealersValueHelp").then(function (oControl) {
+                        this._DealerValueHelpDialog = oControl;
+                        oView.addDependent(this._DealerValueHelpDialog);
+                        //this._onApplyFilterDealers();
+                        this._DealerValueHelpDialog.open();
+                    }.bind(this));
+                }
+    
             },
             onPressSave: function () {
                 var bValidateForm = this._ValidateForm();
