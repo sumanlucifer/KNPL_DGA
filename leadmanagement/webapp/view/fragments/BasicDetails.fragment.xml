@@ -14,27 +14,27 @@
     columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false" title="{i18n>Contact} {i18n>Details}">
         <f:content>
             <Label text="{i18n>MainObject} {i18n>ConsumerName}" />
-            <Text text="{path : 'ConsumerName'}"  />
+            <Text text="{path : 'ConsumerName',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>WhatsappNo}" />
-            <Text text="{path : 'PrimaryNum'}"  />
+            <Text text="{path : 'PrimaryNum',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>SecondaryNo}" />
-            <Text text="{path : 'SecondaryNum'}"  />
+            <Text text="{path : 'SecondaryNum',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>Email}" />
-            <Text text="{path : 'Email'}"  />
+            <Text text="{path : 'Email',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>CarpetArea}({i18n>SqFt})" />
-            <Text text="{path : 'CarpetArea'}"  />
+            <Text text="{path : 'CarpetArea',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>Pincode}" />
-            <Text text="{path : 'Pincode'}"  />
+            <Text text="{path : 'Pincode',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>State}" />
-            <Text text="{path : 'State/Name'}"  />
+            <Text text="{path : 'State/Name',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>District}" />
-            <Text text="{path : 'District'}"  />
+            <Text text="{path : 'District',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>Town}/{i18n>City}" />
-            <Text text="{path : 'CityOrTown'}"  />
+            <Text text="{path : 'CityOrTown',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>Address}" />
-            <Text text="{path : 'Address'}"  />
+            <Text text="{path : 'Address',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>Landmark}" />
-            <Text text="{path : 'Landmark'}"  />
+            <Text text="{path : 'Landmark',formatter:'.formatter.fmtCheckNull'}"  />
         </f:content>
     </f:SimpleForm>
     <f:SimpleForm id="SourceDetailsData" editable="false" layout="ResponsiveGridLayout" 
@@ -43,7 +43,7 @@
     columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false" title="{i18n>Source} {i18n>Details}">
         <f:content>
             <Label text="{i18n>Selected} {i18n>Source}" />
-            <Text text="{path : 'LeadSource/Name'}"  />
+            <Text text="{path : 'LeadSource/Name',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>ContractorName}" visible="{= ${LeadSourceId} === '3'? true : false}"/>
             <Text text="{= ${SourceContractorId} ? ${SourceContractor/Name} : ${SourceNewContractorName}}" visible="{= ${LeadSourceId} === '3'}"/>
             <Label text="{i18n>ContractorMobile}" visible="{= ${LeadSourceId} === '3'}"/>
@@ -64,13 +64,13 @@
     columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false" title="{i18n>ServiceAndPainting} {i18n>Details}">
         <f:content>
             <Label text="{i18n>ServiceType}" />
-            <Text text="{path : 'LeadServiceType/Name'}"  />
+            <Text text="{path : 'LeadServiceType/Name',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>PaintingType}" />
-            <Text text="{path : 'PaintType/Name'}"  />
+            <Text text="{path : 'PaintType/Name',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>PaintingReqDays}" />
-            <Text text="{path : 'PaintingReqSlab/Name'}"  />
+            <Text text="{path : 'PaintingReqSlab/Name',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>SubType}" />
-            <Text text="{path : 'PaintingReqSlab/LeadSubStatus'}"  />
+            <Text text="{path : 'PaintingReqSlab/LeadSubStatus',formatter:'.formatter.fmtCheckNull'}"  />
             <!-- <Label text="{i18n>PaintingReq}" />
             <Text text="{path : 'SourceContractor/Name'}"  /> -->
         </f:content>
