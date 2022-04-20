@@ -29,7 +29,7 @@
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                   <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                         <Avatar fallbackIcon="sap-icon://picture" displaySize="L" class="sapUiTinyMarginBegin"/>
+                         <Avatar  src="{path:'__metadata',formatter:'.formatter.fmtGenerateImageUrl'}" fallbackIcon="sap-icon://picture" displaySize="L" class="sapUiTinyMarginBegin"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <ObjectAttribute title="{i18n>Mobile}" text="{Mobile}"/>
