@@ -12,13 +12,13 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="{i18n>ID}: {Id}"/>
+                    <Label text="{i18n>MainObject} {i18n>ID}: {Id}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="{i18n>ID}: {Id}"/>
+                    <Label text="{i18n>MainObject} {i18n>ID}: {Id}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
-                    <Title text="{i18n>ID}: {Id}"/>
+                    <Title text="{i18n>MainObject} {i18n>ID}: {Id}"/>
                 </f:snappedTitleOnMobile>
                 <!-- <f:actions>
                     <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>Validate}" />
