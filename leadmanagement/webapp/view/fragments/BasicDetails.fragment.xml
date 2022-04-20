@@ -64,7 +64,7 @@
     columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false" title="{i18n>ServiceAndPainting} {i18n>Details}">
         <f:content>
             <Label text="{i18n>ServiceType}" />
-            <Text text="{path : 'LeadServiceType/Name',formatter:'.formatter.fmtCheckNull'}"  />
+            <Text text="{= ${LeadServiceSubTypeId} ? ${LeadServiceType/Name} (${LeadServiceSubType/ServiceSubType}) : ${LeadServiceType/Name} }"  />
             <Label text="{i18n>PaintingType}" />
             <Text text="{path : 'PaintType/Name',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>PaintingReqDays}" />
