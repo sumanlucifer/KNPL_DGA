@@ -45,17 +45,17 @@
             <Label text="{i18n>Selected} {i18n>Source}" />
             <Text text="{path : 'LeadSource/Name',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>ContractorName}" visible="{= ${LeadSourceId} === '3'? true : false}"/>
-            <Text text="{= ${SourceContractorId} ? ${SourceContractor/Name} : ${SourceNewContractorName}}" visible="{= ${LeadSourceId} === '3'}"/>
+            <Text text="{= ${SourceContractorId} ? ${SourceContractor/Name} ? ${SourceContractor/Name} : 'NA' : ${SourceNewContractorName} ? ${SourceNewContractorName} : 'NA'}" visible="{= ${LeadSourceId} === '3'}"/>
             <Label text="{i18n>ContractorMobile}" visible="{= ${LeadSourceId} === '3'}"/>
-            <Text text="{= ${SourceContractorId} ? ${SourceContractor/Mobile} : ${SourceNewContractorMobile}}" visible="{= ${LeadSourceId} === '3'}"/>
+            <Text text="{= ${SourceContractorId} ? ${SourceContractor/Mobile} ? ${SourceContractor/Mobile} : 'NA' : ${SourceNewContractorMobile} ? ${SourceNewContractorMobile} : 'NA' }" visible="{= ${LeadSourceId} === '3'}"/>
             <Label text="{i18n>DealerName}" visible="{= ${LeadSourceId} === '2'}"/>
-            <Text text="{= ${SourceDealerId} ? ${SourceDealer/Name} : 'NA' }" visible="{= ${LeadSourceId} === '2'}"/>
+            <Text text="{= ${SourceDealerId} ? ${SourceDealer/Name} ? ${SourceDealer/Name} : 'NA' : 'NA' }" visible="{= ${LeadSourceId} === '2'}"/>
             <Label text="{i18n>DealerMobile}" visible="{= ${LeadSourceId} === '2'}"/>
-            <Text text="{= ${SourceDealerId} ? ${SourceDealer/PhoneNumber} : 'NA' }" visible="{= ${LeadSourceId} === '2'}"/>
+            <Text text="{= ${SourceDealerId} ? ${SourceDealer/PhoneNumber} ? ${SourceDealer/PhoneNumber} : 'NA' : 'NA' }" visible="{= ${LeadSourceId} === '2'}"/>
             <Label text="{i18n>ConsumerName}" visible="{= ${LeadSourceId} === '5'}"/>
-            <Text text="{= ${SourceConsumerId} ? ${SourceConsumer/ConsumerName} : ${SourceNewConsumerName} }" visible="{= ${LeadSourceId} === '2'}"/>
+            <Text text="{= ${SourceConsumerId} ? ${SourceConsumer/ConsumerName} ? ${SourceConsumer/ConsumerName} : 'NA' : ${SourceNewConsumerName} ? ${SourceNewConsumerName}: 'NA' }" visible="{= ${LeadSourceId} === '2'}"/>
             <Label text="{i18n>ConsumerMobile}" visible="{= ${LeadSourceId} === '5'}"/>
-            <Text text="{= ${SourceConsumerId} ? ${SourceConsumer/PrimaryNum} : ${SourceNewConsumerNum} }" visible="{= ${LeadSourceId} === '2'}"/>
+            <Text text="{= ${SourceConsumerId} ? ${SourceConsumer/PrimaryNum} ? ${SourceConsumer/PrimaryNum} : 'NA' : ${SourceNewConsumerNum} ? ${SourceNewConsumerNum} : 'NA' }" visible="{= ${LeadSourceId} === '2'}"/>
         </f:content>
     </f:SimpleForm>
     <f:SimpleForm id="ServiceDetailsData" editable="false" layout="ResponsiveGridLayout" 
