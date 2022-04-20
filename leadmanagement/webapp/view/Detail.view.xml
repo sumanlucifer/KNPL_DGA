@@ -51,7 +51,7 @@
                     </layout:VerticalLayout> -->
                     <layout:VerticalLayout class="sapUiSmallMarginBegin">
                         <Label  text="{i18n>MobNo}:"/>
-                        <ObjectStatus class="sapMObjectStatusLarge" text="{path:'PrimaryNum',formatter:'.formatter.fmtCheckNull'}" state="None"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{path:'DGA/Mobile',formatter:'.formatter.fmtCheckNull'}" state="None"/>
                     </layout:VerticalLayout>
                     <!-- <layout:VerticalLayout class="sapUiSmallMarginBegin">
                         <Label  text="{i18n>Visits}:"/>
