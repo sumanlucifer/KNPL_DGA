@@ -264,6 +264,16 @@ sap.ui.define([
             promise.resolve(oPayLoad);
             return promise;
         },
+        _onCreationFailed: function (mParam1) {
+            // mParam1 > error object
+            var sMessage;
+            if (mParam1.statusCode == 409) {
+                this._showMessageBox2("error", "Message13", [mParam1.responseText]);
+            }
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+            oModelControl.setProperty("/PageBusy", false);
+        },
         _uploadFile: function (oPayLoad) {
             var promise = jQuery.Deferred();
             promise.resolve(oPayLoad);

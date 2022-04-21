@@ -27,6 +27,10 @@ sap.ui.define([
 
 			this._oModel.attachRequestFailed(function (oEvent) {
 				var oParams = oEvent.getParameters();
+                // handled in the view.
+                if (oParams.response.statusCode == "409") {
+                    return;
+                }
 				// An entity that was not found in the service is also throwing a 404 error in oData.
 				// We already cover this case with a notFound target so we skip it here.
 				// A request that cannot be sent to the server is a technical error that we have to handle though
