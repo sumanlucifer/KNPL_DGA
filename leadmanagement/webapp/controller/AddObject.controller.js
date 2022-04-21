@@ -147,6 +147,7 @@ sap.ui.define([
             oModelControl.setProperty("/PageBusy", true);
             var othat = this;
             var c1, c2, c3, c4;
+            var aFailureCallback = this._onCreationFailed.bind(this);
             c1 = othat._CheckEmptyFieldsPostPayload();
             c1.then(function (oPayload) {
                 c2 = othat._CreateObject(oPayload)
@@ -156,10 +157,7 @@ sap.ui.define([
                         oModelControl.setProperty("/PageBusy", false);
                         othat.onNavToHome();
                     })
-                },
-                function(){
-                    oModelControl.setProperty("/PageBusy", false);
-                })
+                }, aFailureCallback)
             })
         },
         _CreateObject: function (oPayLoad) {
