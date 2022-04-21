@@ -398,9 +398,9 @@ sap.ui.define(
                 oModelDisplay.setProperty("/PageBusy", true);
                 oDataModel.create("/MapDGADealersList", oPayload, {
                     success: function (oEvent) {
-                        oModelDisplay.setProperty("/PageBusy", true);
+                        oModelDisplay.setProperty("/PageBusy", false);
                         this.getView().getElementBinding().refresh(true);
-                        this._showMessageToast("Message17")
+                        this._showMessageToast("Message17");
                     }.bind(this),
                     error: function (oEvent) {
                         oModelDisplay.setProperty("/PageBusy", false);
