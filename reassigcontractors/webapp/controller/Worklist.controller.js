@@ -283,12 +283,14 @@ sap.ui.define(
                 var iId = oEve.getSource().getBindingContext().getObject().ID,
                     sButton = oEve.getSource().getTooltip().trim().toLowerCase(),
                     sStatus = sButton === "accepted" ? "2" : "rejected" ? "3": "1",
-                    sMessage = sButton === "accepted" ? "Approve" : "Reject";
-                this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this, iId, sStatus));
+                    sMessage = sButton === "accepted" ? "Approve" : "Reject",
+                    sAccptRejctCheck = sButton === "accepted" ?  this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this, iId, sStatus)) :  this._showMessageBox("remark", "MsgConfirm", [sMessage], "", "", iId, sStatus); 
+                // this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this, iId, sStatus));
             },
-            onApproveRejectServiceCall: function (iId, sStatus) {
+            onApproveRejectServiceCall: function (iId, sStatus,Note) {
                 var oPayLoad = {
-                    "ReassignmentStatusId": sStatus
+                    "ReassignmentStatusId": sStatus,
+                    "Remark" : Note
                 };
                 var oDataModel = this.getView().getModel();
                 oDataModel.update(`/ContractorReassignmentRequests(${iId})/ReassignmentStatusId`, oPayLoad, {
