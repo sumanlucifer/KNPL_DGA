@@ -10,12 +10,10 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox,Filter,FilterOperator) {
+], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox, Filter, FilterOperator) {
     "use strict";
-
     // shortcut for sap.m.URLHelper
     var URLHelper = mobileLibrary.URLHelper;
-
     return Controller.extend("com.knpl.dga.ui5template.controller.BaseController", {
         /**
          * Convenience method for accessing the router.
@@ -31,7 +29,7 @@ sap.ui.define([
         getRouter: function () {
             return UIComponent.getRouterFor(this);
         },
-        _dummyPromise:function(oPayload){
+        _dummyPromise: function (oPayload) {
             var promise = $.Deferred();
             promise.resolve(oPayload);
             return promise;
@@ -45,7 +43,6 @@ sap.ui.define([
         getModel: function (sName) {
             return this.getView().getModel(sName);
         },
-
         /**
          * Convenience method for setting the view model.
          * @public
@@ -58,7 +55,6 @@ sap.ui.define([
         },
         onNavToHome: function () {
             var sPreviousHash = History.getInstance().getPreviousHash();
-
             if (sPreviousHash !== undefined) {
                 history.go(-1);
             } else {
@@ -66,7 +62,6 @@ sap.ui.define([
             }
             // var oHistory = History.getInstance();
             // var sPreviousHash = oHistory.getPreviousHash();
-
             // if (sPreviousHash !== undefined) {
             //     window.history.go(-1);
             // } else {
@@ -89,15 +84,15 @@ sap.ui.define([
                 mode: mParam1,
                 ComplainId: mParam2,
                 bindProp: "PainterComplainsSet(" + mParam2 + ")",
-                EntitySet:"PainterComplainsSet",
+                EntitySet: "PainterComplainsSet",
                 resourcePath: "com.knpl.dga.ui5template",
-                AddFields:{
-                    PainterMobile:"",
-                    PainterName:"",
-                    PainterMembershipId:"",
-                    PainterZone:"",
-                    PainterDivision:"",
-                    PainterDepot:""
+                AddFields: {
+                    PainterMobile: "",
+                    PainterName: "",
+                    PainterMembershipId: "",
+                    PainterZone: "",
+                    PainterDivision: "",
+                    PainterDepot: ""
                 }
             };
             var oModelControl = new JSONModel(oDataControl)
@@ -133,14 +128,13 @@ sap.ui.define([
                 duration: 6000
             })
         },
-        _showMessageBox: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
+        _showMessageBox: function (pType, pMessage, pMessageParam, pfn1, pfn2, iId, sStatus) {
             // 
             /*pType(string) > type of message box ex: information or alert etc.
               pMessage (string)> i18n property name for the message
               pMessageParam(array/null)> i18n property has params specify in array or else pass as null
               pfn1(function1/null) > this is a function to be called after user presses yes 
               pfn2(function2/null) > this is a function to be called after user presses no
-
               you can call this below method like this
               this._showMessageBox1("information", "i18nProper", ["i18nParamerter1if any"],
               this._sample1.bind(this, "first paramters", "secondParameter"));
@@ -149,54 +143,84 @@ sap.ui.define([
             var sMessage = this._geti18nText(pMessage, pMessageParam);
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
-            var aMessageType = ["success", "information", "alert","error", "warning", "confirm"];
-
+            var aMessageType = ["success", "information", "alert", "error", "warning", "confirm", "remark"];
             if (aMessageType.indexOf(sPtye) >= 0) {
-                MessageBox[sPtye](sMessage, {
-                    actions: [sap.m.MessageBox.Action.NO, sap.m.MessageBox.Action.YES],
-                    emphasizedAction: MessageBox.Action.YES,
-                    onClose: function (sAction) {
-                        if (sAction === "YES") {
-                            if (pfn1) {
-                                pfn1();
+                if (sPtye === "remark") {
+                    var Note = "";
+                    var D1 = new sap.m.Dialog({
+                        title: 'Please Enter Remarks ',
+                        type: 'Message',
+                        content: [
+                            new sap.m.TextArea('confirmDialogTextarea', {
+                                width: '100%',
+                                placeholder: 'Add Remarks'
+                            })
+                        ],
+                        beginButton: new sap.m.Button({
+                            text: 'Ok',
+                            press: function () {
+                                Note = sap.ui.getCore().byId('confirmDialogTextarea').getValue();
+                                if (Note.length > 0) {
+                                    othat.onApproveRejectServiceCall(iId, sStatus, Note)
+                                    D1.close();
+                                } else {
+                                    sap.m.MessageToast.show("Enter Remarks to Reject");
+                                } // sap.m.MessageToast.show("Request Approved");
                             }
-                        } else {
-                            if (pfn2) {
-                                pfn2();
-                            };
+                        }),
+                        endButton: new sap.m.Button({
+                            text: 'Cancel',
+                            press: function () {
+                                D1.close();
+                                return false;
+                            }
+                        }),
+                        afterClose: function () {
+                            D1.destroy();
                         }
-                    }
-                });
-                return
-            } else {
+                    });
+                    D1.open();
+                }
+                else {
+                    MessageBox[sPtye](sMessage, {
+                        actions: [sap.m.MessageBox.Action.NO, sap.m.MessageBox.Action.YES],
+                        emphasizedAction: MessageBox.Action.YES,
+                        onClose: function (sAction) {
+                            if (sAction === "YES") {
+                                if (pfn1) {
+                                    pfn1();
+                                }
+                            } else {
+                                if (pfn2) {
+                                    pfn2();
+                                };
+                            }
+                        }
+                    });
+                    return
+                }
+            }
+            else {
                 this._showMessageToast("Message6");
             }
-
-
         },
         _showMessageBox2: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
-            
             /*  pType(string) > type of message box ex: information or alert etc.
                 pMessage (string)> i18n property name for the message
                 pMessageParam(array/null)> i18n property has params specify in array or else pass as null
                 pfn1(function1/null) > this is a function to be called after user presses yes 
                 pfn2(function2/null) > this is a function to be called after user presses no
-
                 you can call this below method like this
                 this._showMessageBox1("information", "i18nProper", ["i18nParamerter1if any"],
                 this._sample1.bind(this, "first paramters", "secondParameter"));
-
                 In this code all the message type will have 1 button 
             */
             var sMessage = this._geti18nText(pMessage, pMessageParam);
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
             var aMessageType = ["success", "information", "alert", "error", "warning"];
-           
-
             if (aMessageType.indexOf(sPtye) >= 0) {
                 MessageBox[sPtye](sMessage, {
-
                     onClose: function (sAction) {
                         // in case for error dialog we will have a close button insttead of okay
                         if (sAction === "OK" || sAction === "CLOSE") {
@@ -214,8 +238,6 @@ sap.ui.define([
             } else {
                 this._showMessageToast("Message6");
             }
-
-
         },
         _RemoveEmptyValue: function (mParam) {
             var obj = Object.assign({}, mParam);
@@ -252,7 +274,6 @@ sap.ui.define([
             promise.resolve(oPayLoad);
             return promise;
         },
-
         /**
          * Event handler when the share by E-Mail button has been clicked
          * @public
@@ -281,7 +302,6 @@ sap.ui.define([
                 oModel = oView.getModel("oModelDisplay");
             }
             var othat = this;
-
             this._formFragments = Fragment.load({
                 id: oView.getId(),
                 name: oModel.getProperty("/resourcePath") + ".view.fragments." + sFragmentName,
@@ -289,27 +309,21 @@ sap.ui.define([
             }).then(function (oFragament) {
                 return oFragament;
             });
-
-
             return this._formFragments;
         },
-
-        _onDialogClose:function(){
+        _onDialogClose: function () {
             /*
                 Internal method to handle the closure of all the dialogs
                 if dialog 1 is open first and on top over that dialog 2 is open
                 then dialog 2 code for closure should be written before dialog 1
-
                 value help with select dialog box wont require to close they just are required 
                 to get destroyed
             */
             if (this._pValueHelpDialog) {
-                
                 this._pValueHelpDialog.destroy();
                 delete this._pValueHelpDialog;
                 return;
             }
-
             if (this._ViewImageDialog) {
                 if (this._ViewImageDialog.isOpen()) {
                     this._ViewImageDialog.close();
@@ -320,12 +334,11 @@ sap.ui.define([
         // painter value help request
         onPainterValueHelpRequest: function (oEvent) {
             var sInputValue = oEvent.getSource().getValue(),
-                oView = this.getView(),oModelControl=oView.getModel("oModelControl");
-
+                oView = this.getView(), oModelControl = oView.getModel("oModelControl");
             if (!this._pValueHelpDialog) {
                 this._pValueHelpDialog = Fragment.load({
                     id: oView.getId(),
-                    name:oModelControl.getProperty("/resourcePath")+".view.fragments.PainterValueHelpDialog",
+                    name: oModelControl.getProperty("/resourcePath") + ".view.fragments.PainterValueHelpDialog",
                     controller: this,
                 }).then(function (oDialog) {
                     oView.addDependent(oDialog);
@@ -386,14 +399,13 @@ sap.ui.define([
                 ],
                 false
             );
-
             oEvent.getSource().getBinding("items").filter([oFilter]);
         },
         onPainterValueHelpClose: function (oEvent) {
             var oSelectedItem = oEvent.getParameter("selectedItem");
             oEvent.getSource().getBinding("items").filter([]);
             var oViewModel = this.getView().getModel("oModelView"),
-             oModelControl = this.getView().getModel("oModelControl")  ;
+                oModelControl = this.getView().getModel("oModelControl");
             if (!oSelectedItem) {
                 return;
             }
@@ -402,15 +414,10 @@ sap.ui.define([
             oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
             oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
             oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
-            oModelControl.setProperty("/AddFields/PainterDivision",obj.DivisionId );
-            oModelControl.setProperty("/AddFields/PainterZone",obj.ZoneId );
-
-            oModelControl.setProperty("/AddFields/PainterDepot", ""  ); 
+            oModelControl.setProperty("/AddFields/PainterDivision", obj.DivisionId);
+            oModelControl.setProperty("/AddFields/PainterZone", obj.ZoneId);
+            oModelControl.setProperty("/AddFields/PainterDepot", "");
             //Fallback as Preliminary context not supported
-         
-            
         }
-
     });
-
 });
