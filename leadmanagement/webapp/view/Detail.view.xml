@@ -33,27 +33,27 @@
                         <ObjectAttribute title="{i18n>DealerName}" text="{path:'Dealer/Name',formatter:'.formatter.fmtCheckNull'}"/>
                         <ObjectAttribute title="{i18n>AssignedContractorName}" text="{path: 'AssignedContractors' , formatter: '.formatter.fmtCommaSepratedAssignedContractor'}"/>
                     </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginBegin">
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>Status}:"/>
-                        <ObjectStatus class="sapMObjectStatusLarge" text="{path:'LeadStatus/Name',formatter:'.formatter.fmtCheckNull'}" state="{= ${LeadStatus/Name} === 'Converted' ? 'Success' : ${LeadStatus/Name} === 'In Pipeline'  ? 'Warning' : ${LeadStatus/Name} === 'Lost' ? 'Error' : 'None' }"/>
+                        <ObjectStatus text="{path:'LeadStatus/Name',formatter:'.formatter.fmtCheckNull'}" state="{= ${LeadStatus/Name} === 'Converted' ? 'Success' : ${LeadStatus/Name} === 'In Pipeline'  ? 'Warning' : ${LeadStatus/Name} === 'Lost' ? 'Error' : 'None' }"/>
                     </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginBegin">
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>Stage}:"/>
-                        <ObjectStatus class="sapMObjectStatusLarge" text="{path:'Stage',formatter:'.formatter.fmtCheckNull'}" state="None"/>
+                        <ObjectStatus text="{path:'Stage',formatter:'.formatter.fmtCheckNull'}" state="None"/>
                     </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginBegin">
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>Source}:"/>
                           <ObjectStatus class="sapMObjectStatusLarge" text="{path:'LeadSource/Name',formatter:'.formatter.fmtCheckNull'}" state="None"/>
                     </layout:VerticalLayout>
-                    <!-- <layout:VerticalLayout class="sapUiSmallMarginBegin">
+                    <!-- <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>LeadOwnerName}:"/>
                         <ObjectStatus class="sapMObjectStatusLarge" text="{ConsumerName}" state="None"/>
                     </layout:VerticalLayout> -->
-                    <layout:VerticalLayout class="sapUiSmallMarginBegin">
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>MobNo}:"/>
-                        <ObjectStatus class="sapMObjectStatusLarge" text="{path:'DGA/Mobile',formatter:'.formatter.fmtCheckNull'}" state="None"/>
+                        <ObjectStatus text="{path:'DGA/Mobile',formatter:'.formatter.fmtCheckNull'}" state="None"/>
                     </layout:VerticalLayout>
-                    <!-- <layout:VerticalLayout class="sapUiSmallMarginBegin">
+                    <!-- <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>Visits}:"/>
                         <ObjectStatus class="sapMObjectStatusLarge" text="{LeadSource/Name}" state="None"/>
                     </layout:VerticalLayout> -->
