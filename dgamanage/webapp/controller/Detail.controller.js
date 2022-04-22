@@ -124,7 +124,7 @@ sap.ui.define(
                     c2.then(function () {
                         c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
                         c2A.then(function () {
-                            c3 = othat._LoadFragment("AddNewObjectEdit");
+                            c3 = othat._LoadFragment("AddNewObject");
                             c3.then(function () {
                                 c4 = othat._SetFiltersForControls();
                                 c4.then(function (oPayLoad) {
@@ -162,21 +162,27 @@ sap.ui.define(
                 var oView = this.getView();
                 var oModelView = oView.getModel("oModelView");
                 var oPayload = oModelView.getData();
-                // set filers for Division, Depot
-                // var sZoneId = oPayload["Zone"];
-                // if (sZoneId !== null) {
-                //     oView
-                //         .byId("idDivision")
-                //         .getBinding("items")
-                //         .filter(new Filter("Zone", FilterOperator.EQ, sZoneId));
-                // }
-                // var sDivisionId = oPayload["DivisionId"];
-                // if (sDivisionId !== null) {
-                //     oView
-                //         .byId("idDepot")
-                //         .getBinding("items")
-                //         .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
-                // }
+                var oCity = oView.byId("cmbCity"),
+                    sStateKey = oPayload["StateId"] || "",
+                    oBindingCity = oCity.getBinding("items");
+                if (sStateKey !== "") {
+                    oBindingCity.filter(new Filter("StateId", FilterOperator.EQ, sStateKey));
+                }
+               
+                var sZoneId = oPayload["Zone"];
+                if (sZoneId !== null) {
+                    oView
+                        .byId("idDivision")
+                        .getBinding("items")
+                        .filter(new Filter("Zone", FilterOperator.EQ, sZoneId));
+                }
+                var sDivisionId = oPayload["DivisionId"];
+                if (sDivisionId !== null) {
+                    oView
+                        .byId("idDepot")
+                        .getBinding("items")
+                        .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
+                }
                 promise.resolve(oPayload);
                 return promise;
 
@@ -199,6 +205,7 @@ sap.ui.define(
 
                             var oModel = new JSONModel(data);
                             oView.setModel(oModel, "oModelView");
+                            oModel.refresh(true)
                             resolve(data);
                         },
                         error: function () { },
@@ -430,7 +437,7 @@ sap.ui.define(
                         this._DealerValueHelpDialog.open();
                     }.bind(this));
                 }
-    
+
             },
             onPressSave: function () {
                 var bValidateForm = this._ValidateForm();

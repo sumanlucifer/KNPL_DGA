@@ -723,6 +723,39 @@ sap.ui.define([
             }
 
         },
+        _handlePinCodeValueHelpConfirm: function (oEvent) {
+            // this method is overwritten for the pincode in the worklist view
+            var oView = this.getView();
+            var oSelectedItem = oEvent.getParameter("selectedItem");
+            var oViewModel = this.getView().getModel("oModelView"),
+                oModelControl = this.getView().getModel("oModelControl");
+            var obj = oSelectedItem.getBindingContext().getObject();
+            oModelControl.setProperty(
+                "/AddFields/PinCode",
+                obj["Name"]
+            );
+            oViewModel.setProperty(
+                "/PincodeId",
+                obj["Id"]
+            );
+         
+            oViewModel.setProperty("/StateId", obj["StateId"]);
+            var cmbxcity = oView.byId("cmbCity");
+            
+            cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
+            oViewModel.setProperty("/TownId", obj["CityId"]);
+            cmbxcity.setSelectedKey(obj["CityId"]);
+            this._onDialogClose();
+
+        },
+        onStateChange: function (oEvent) {
+            var oView = this.getView();
+            var sId = oEvent.getSource().getSelectedKey();
+            var cmbxcity = oView.byId("cmbCity");
+            cmbxcity.clearSelection();
+            cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, sId));
+        },
+
 
 
 
