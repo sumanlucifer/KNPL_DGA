@@ -115,7 +115,7 @@ sap.ui.define(
                 var sProp = oModel.getProperty("/bindProp")
                 oModel.setProperty("/mode", "Edit");
                 var oData = oModel.getData();
-                var c1, c2, c2A, c3, c4;
+                var c1, c2, c2A, c3, c4, c5, c6, c7;
                 var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                 oModel.setProperty("/PageBusy", true);
 
@@ -128,9 +128,13 @@ sap.ui.define(
                             c3.then(function () {
                                 c4 = othat._SetFiltersForControls();
                                 c4.then(function (oPayLoad) {
-                                    othat._setEditPopoverData(oPayLoad);
-                                    c4.then(function () {
-                                        oModel.setProperty("/PageBusy", false);
+                                    c5 = othat._setEditPopoverData(oPayLoad);
+                                    c5.then(function (oPayLoad) {
+                                        c6 = othat._dummyPromise(oPayLoad)
+                                        c6.then(function () {
+                                            oModel.setProperty("/PageBusy", false);
+                                        })
+
                                     })
                                 })
                             })
@@ -141,11 +145,32 @@ sap.ui.define(
 
 
             },
+            _setAdditioanFlags: function (oPayLoad) {
+                var promise = $.Deferred();
+                var oModel = this.getModel("oModelControl");
+                var pattern = "dd/MM/yyyy";
+                var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                    pattern: pattern
+                });
+                oDateFormat.format(oPayLoad["JoiningDate"])
+                console.log(oPayLoad)
+                console.log(oDateFormat.format(oPayLoad["JoiningDate"]))
+                // var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                //     format: "dd/MM/YYYY"
+                // });
+                //console.log(oPayLoad)
+                //console.log(oDateFormat.format(oPayLoad["JoiningDate"]))
+                promise.resolve(oPayLoad);
+                return promise;
+            },
             _setEditPopoverData: function (oPayLoad) {
                 var promise = $.Deferred();
                 // set the data for pin code poper
                 var oModeControl = this.getModel("oModelControl");
-                oModeControl.setProperty("/AddFields/PinCode", oPayLoad["Pincode"]["Name"])
+                if(oPayLoad["Pincode"]){
+                    oModeControl.setProperty("/AddFields/PinCode", oPayLoad["Pincode"]["Name"])
+                }
+               
 
                 var aArra1 = [];
 
@@ -159,7 +184,7 @@ sap.ui.define(
                 }
                 oModeControl.setProperty("/MultiCombo/Pincode2", aArra1);
                 promise.resolve(oPayLoad);
-                return oPayLoad;
+                return promise;
             },
             onPressEdit: function () {
                 var oView = this.getView();
@@ -206,7 +231,8 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
-                var oModel = oView.getModel("oModelDisplay")
+                var oModel = oView.getModel("oModelDisplay");
+                var oModelControl = this.getModel("oModelControl")
                 var oProp = oModel.getProperty("/bindProp");
                 var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,WorkLocation,ServicePincodes/Pincode";
                 return new Promise((resolve, reject) => {
@@ -217,7 +243,18 @@ sap.ui.define(
                         success: function (data) {
 
                             var oModel = new JSONModel(data);
+                            var pattern = "dd/MM/yyyy";
+                            var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                                pattern: pattern
+                            });
+                            
+                            var aDate1 = oDateFormat.format(data["JoiningDate"]);
+                            var aDate2 =  oDateFormat.format(data["ExitDate"]);
+                            oModelControl.setProperty("/AddFields/JoiningDate",aDate1);
+                            oModelControl.setProperty("/AddFields/ExitDate",aDate2);
+
                             oView.setModel(oModel, "oModelView");
+                            console.log(data);
                             oModel.refresh(true)
                             resolve(data);
                         },

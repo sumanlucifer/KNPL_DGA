@@ -296,6 +296,7 @@ sap.ui.define([
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
+            console.log(oModelControl.getData())
             return new Promise((resolve, reject) => {
                 //resolve();
                 oDataModel.create("/DGAs", oPayLoad, {
