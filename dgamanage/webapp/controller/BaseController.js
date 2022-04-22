@@ -658,11 +658,12 @@ sap.ui.define([
 
         },
         _onApplyFilterDealers: function () {
-            var sMode = this.getModel("oModelControl").getProperty("mode");
-            if (sMode === "Edit") {
+            var sModeel = this.getModel("oModelControl") ||  this.getModel("oModelDisplay");
+            var sMode = sModeel.getProperty("/mode");
+            if (sMode === "Display") {
                 var sDepotiId = this.getView().getElementBinding().getBoundContext().getObject()["DepotId"];
 
-            } else if (sMode === "Add") {
+            } else if (sMode === "Add" || sMode === "Edit") {
                 var sDepotiId = this.getView()
                     .getModel("oModelView")
                     .getProperty("/DepotId");
