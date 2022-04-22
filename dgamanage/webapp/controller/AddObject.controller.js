@@ -101,7 +101,7 @@ sap.ui.define([
             var oDataView = {
                 GivenName: "",
                 Mobile: "",
-                SaleGroupId: "",
+                //SaleGroupId: "",
                 PincodeId: "",
                 PayrollCompanyId: "",
                 Zone: "",
