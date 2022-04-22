@@ -397,7 +397,7 @@ sap.ui.define([
             oDepot.clearSelection();
             oDepot.setValue("");
             // clearning data for dealer
-            oModelContorl.setProperty("/MultiCombo/Dealers", []);            
+            oModelContorl.setProperty("/MultiCombo/Dealers", []);
         },
         onDivisionChange: function (oEvent) {
             var sKey = oEvent.getSource().getSelectedKey();
@@ -409,12 +409,12 @@ sap.ui.define([
             oDepot.setValue("");
             oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
             // clearning data for dealer
-            oModelContorl.setProperty("/MultiCombo/Dealers", []);           
+            oModelContorl.setProperty("/MultiCombo/Dealers", []);
         },
-        onDepotChange:function(){
+        onDepotChange: function () {
             var oView = this.getView();
             var oModelContorl = oView.getModel("oModelControl");
-            oModelContorl.setProperty("/MultiCombo/Dealers", []);         
+            oModelContorl.setProperty("/MultiCombo/Dealers", []);
         },
         _handlePValueHelpSearch: function (oEvent) {
             /*
@@ -658,9 +658,16 @@ sap.ui.define([
 
         },
         _onApplyFilterDealers: function () {
-            var sDepotiId = this.getView()
-                .getModel("oModelView")
-                .getProperty("/DepotId");
+            var sMode = this.getModel("oModelControl").getProperty("mode");
+            if (sMode === "Edit") {
+                var sDepotiId = this.getView().getElementBinding().getBoundContext().getObject()["DepotId"];
+
+            } else if (sMode === "Add") {
+                var sDepotiId = this.getView()
+                    .getModel("oModelView")
+                    .getProperty("/DepotId");
+            }
+
 
 
             var oFilter = new Filter(
@@ -738,10 +745,10 @@ sap.ui.define([
                 "/PincodeId",
                 obj["Id"]
             );
-         
+
             oViewModel.setProperty("/StateId", obj["StateId"]);
             var cmbxcity = oView.byId("cmbCity");
-            
+
             cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
             oViewModel.setProperty("/TownId", obj["CityId"]);
             cmbxcity.setSelectedKey(obj["CityId"]);
@@ -756,7 +763,7 @@ sap.ui.define([
             cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, sId));
         },
 
-        
+
 
 
 
