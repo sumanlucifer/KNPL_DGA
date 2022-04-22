@@ -115,7 +115,7 @@ sap.ui.define(
                 var sProp = oModel.getProperty("/bindProp")
                 oModel.setProperty("/mode", "Edit");
                 var oData = oModel.getData();
-                var c1, c2, c2A, c3, c4;
+                var c1, c2, c2A, c3, c4, c5, c6, c7;
                 var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                 oModel.setProperty("/PageBusy", true);
 
@@ -124,13 +124,17 @@ sap.ui.define(
                     c2.then(function () {
                         c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
                         c2A.then(function () {
-                            c3 = othat._LoadFragment("AddNewObjectEdit");
+                            c3 = othat._LoadFragment("AddNewObject");
                             c3.then(function () {
                                 c4 = othat._SetFiltersForControls();
                                 c4.then(function (oPayLoad) {
-                                    othat._setEditPopoverData(oPayLoad);
-                                    c4.then(function () {
-                                        oModel.setProperty("/PageBusy", false);
+                                    c5 = othat._setEditPopoverData(oPayLoad);
+                                    c5.then(function (oPayLoad) {
+                                        c6 = othat._dummyPromise(oPayLoad)
+                                        c6.then(function () {
+                                            oModel.setProperty("/PageBusy", false);
+                                        })
+
                                     })
                                 })
                             })
@@ -141,12 +145,46 @@ sap.ui.define(
 
 
             },
+            _setAdditioanFlags: function (oPayLoad) {
+                var promise = $.Deferred();
+                var oModel = this.getModel("oModelControl");
+                var pattern = "dd/MM/yyyy";
+                var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                    pattern: pattern
+                });
+                oDateFormat.format(oPayLoad["JoiningDate"])
+                console.log(oPayLoad)
+                console.log(oDateFormat.format(oPayLoad["JoiningDate"]))
+                // var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                //     format: "dd/MM/YYYY"
+                // });
+                //console.log(oPayLoad)
+                //console.log(oDateFormat.format(oPayLoad["JoiningDate"]))
+                promise.resolve(oPayLoad);
+                return promise;
+            },
             _setEditPopoverData: function (oPayLoad) {
                 var promise = $.Deferred();
                 // set the data for pin code poper
+                var oModeControl = this.getModel("oModelControl");
+                if(oPayLoad["Pincode"]){
+                    oModeControl.setProperty("/AddFields/PinCode", oPayLoad["Pincode"]["Name"])
+                }
+               
 
-                promise.resolve(oPayLoad)
-                return oPayLoad;
+                var aArra1 = [];
+
+                if (oPayLoad["ServicePincodes"]["results"].length > 0) {
+                    for (var x of oPayLoad["ServicePincodes"]["results"]) {
+                        aArra1.push({
+                            Id: x["Id"],
+                            Name: x["Pincode"]["Name"],
+                        });
+                    }
+                }
+                oModeControl.setProperty("/MultiCombo/Pincode2", aArra1);
+                promise.resolve(oPayLoad);
+                return promise;
             },
             onPressEdit: function () {
                 var oView = this.getView();
@@ -162,21 +200,27 @@ sap.ui.define(
                 var oView = this.getView();
                 var oModelView = oView.getModel("oModelView");
                 var oPayload = oModelView.getData();
-                // set filers for Division, Depot
-                // var sZoneId = oPayload["Zone"];
-                // if (sZoneId !== null) {
-                //     oView
-                //         .byId("idDivision")
-                //         .getBinding("items")
-                //         .filter(new Filter("Zone", FilterOperator.EQ, sZoneId));
-                // }
-                // var sDivisionId = oPayload["DivisionId"];
-                // if (sDivisionId !== null) {
-                //     oView
-                //         .byId("idDepot")
-                //         .getBinding("items")
-                //         .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
-                // }
+                var oCity = oView.byId("cmbCity"),
+                    sStateKey = oPayload["StateId"] || "",
+                    oBindingCity = oCity.getBinding("items");
+                if (sStateKey !== "") {
+                    oBindingCity.filter(new Filter("StateId", FilterOperator.EQ, sStateKey));
+                }
+
+                var sZoneId = oPayload["Zone"];
+                if (sZoneId !== null) {
+                    oView
+                        .byId("idDivision")
+                        .getBinding("items")
+                        .filter(new Filter("Zone", FilterOperator.EQ, sZoneId));
+                }
+                var sDivisionId = oPayload["DivisionId"];
+                if (sDivisionId !== null) {
+                    oView
+                        .byId("idDepot")
+                        .getBinding("items")
+                        .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
+                }
                 promise.resolve(oPayload);
                 return promise;
 
@@ -187,9 +231,10 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
-                var oModel = oView.getModel("oModelDisplay")
+                var oModel = oView.getModel("oModelDisplay");
+                var oModelControl = this.getModel("oModelControl")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,WorkLocation,ServicePincodes/Pincode";
+                var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,WorkLocation,ServicePincodes/Pincode";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
@@ -198,7 +243,19 @@ sap.ui.define(
                         success: function (data) {
 
                             var oModel = new JSONModel(data);
+                            var pattern = "dd/MM/yyyy";
+                            var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                                pattern: pattern
+                            });
+                            
+                            var aDate1 = oDateFormat.format(data["JoiningDate"]);
+                            var aDate2 =  oDateFormat.format(data["ExitDate"]);
+                            oModelControl.setProperty("/AddFields/JoiningDate",aDate1);
+                            oModelControl.setProperty("/AddFields/ExitDate",aDate2);
+
                             oView.setModel(oModel, "oModelView");
+                            console.log(data);
+                            oModel.refresh(true)
                             resolve(data);
                         },
                         error: function () { },
@@ -247,7 +304,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "SaleGroup,PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,WorkLocation,LinkedContractors,ServicePincodes/Pincode";
+                var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,WorkLocation,LinkedContractors,ServicePincodes/Pincode";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -413,29 +470,29 @@ sap.ui.define(
                 // oModel.refresh(true);
                 this._onDialogClose();
             },
-            handleDealersValueHelp: function () {
-                /*
-                * Author: manik saluja
-                * Date: 15-Mar-2022
-                * Language:  JS
-                * Purpose:  This method is used to open the popover for selecting the linked dealers in the 
-                * add dga form. 
-                */
-                var oView = this.getView();
-                if (!this._DealerValueHelpDialog) {
-                    this._getViewFragment("DealersValueHelp").then(function (oControl) {
-                        this._DealerValueHelpDialog = oControl;
-                        oView.addDependent(this._DealerValueHelpDialog);
-                        //this._onApplyFilterDealers();
-                        this._DealerValueHelpDialog.open();
-                    }.bind(this));
-                }
-    
-            },
+            // handleDealersValueHelp: function () {
+            //     /*
+            //     * Author: manik saluja
+            //     * Date: 15-Mar-2022
+            //     * Language:  JS
+            //     * Purpose:  This method is used to open the popover for selecting the linked dealers in the 
+            //     * add dga form. 
+            //     */
+            //     var oView = this.getView();
+            //     if (!this._DealerValueHelpDialog) {
+            //         this._getViewFragment("DealersValueHelp").then(function (oControl) {
+            //             this._DealerValueHelpDialog = oControl;
+            //             oView.addDependent(this._DealerValueHelpDialog);
+            //             this._onApplyFilterDealers();
+            //             this._DealerValueHelpDialog.open();
+            //         }.bind(this));
+            //     }
+
+            // },
             onPressSave: function () {
                 var bValidateForm = this._ValidateForm();
                 if (bValidateForm) {
-                    this._postDataToSave();
+                    this._postDataToSave()
                 }
 
             },
@@ -462,18 +519,22 @@ sap.ui.define(
                 var oModelControl = oView.getModel("oModelDisplay");
                 oModelControl.setProperty("/PageBusy", true);
                 var othat = this;
-                var c1, c2, c3;
+                var c1, c1b, c2, c3;
                 c1 = othat._CheckEmptyFieldsPostPayload();
                 var aFailureCallback = this._onCreationFailed.bind(this);
                 c1.then(function (oPayload) {
-                    c2 = othat._UpdatedObject(oPayload)
-                    c2.then(function () {
-                        c3 = othat._uploadFile();
-                        c3.then(function () {
-                            oModelControl.setProperty("/PageBusy", false);
-                            othat.onNavToHome();
-                        })
-                    }, aFailureCallback)
+                    var c1b = othat._AddMultiComboDataEdit(oPayload);
+                    c1b.then(function (oPayload) {
+                        c2 = othat._UpdatedObject(oPayload)
+                        c2.then(function () {
+                            c3 = othat._uploadFile();
+                            c3.then(function () {
+                                oModelControl.setProperty("/PageBusy", false);
+                                othat.onNavToHome();
+                            })
+                        }, aFailureCallback)
+                    })
+
                 })
 
 
@@ -543,7 +604,34 @@ sap.ui.define(
                 })
             },
 
+            _AddMultiComboDataEdit: function (oPayload) {
+                var promise = $.Deferred();
+                var oView = this.getView();
+                var oModelView = oView.getModel("oModelView");
+                var oModelControl = oView.getModel("oModelControl");
+                var sMode = oModelControl.getProperty("/mode");
+                var sResults = ""
+                if (sMode === "Edit") {
+                    sResults = "/results"
+                }
+                var aExistingData = oModelView.getProperty("/ServicePincodes" + sResults);
+                var aSelectedData = oModelControl.getProperty("/MultiCombo/Pincode2")
+                var iData = -1;
+                var aDataFinal = [];
+                for (var x of aSelectedData) {
+                    iData = aExistingData.findIndex(item => item["Id"] === x["Id"])
+                    if (iData >= 0) {
+                        //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
+                        aDataFinal.push(aExistingData[iData]);
+                    } else {
+                        aDataFinal.push({ PincodeId: x["Id"] });
+                    }
+                }
+                oPayload["ServicePincodes"] = aDataFinal;
+                promise.resolve(oPayload);
+                return promise
 
+            },
 
             _UpdatedObject: function (oPayLoad) {
                 var othat = this;
