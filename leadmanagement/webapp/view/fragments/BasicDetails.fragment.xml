@@ -53,9 +53,9 @@
             <Label text="{i18n>DealerMobile}" visible="{= ${LeadSourceId} === '2'}"/>
             <Text text="{= ${SourceDealerId} ? ${SourceDealer/PhoneNumber} ? ${SourceDealer/PhoneNumber} : 'NA' : 'NA' }" visible="{= ${LeadSourceId} === '2'}"/>
             <Label text="{i18n>ConsumerName}" visible="{= ${LeadSourceId} === '5'}"/>
-            <Text text="{= ${SourceConsumerId} ? ${SourceConsumer/ConsumerName} ? ${SourceConsumer/ConsumerName} : 'NA' : ${SourceNewConsumerName} ? ${SourceNewConsumerName}: 'NA' }" visible="{= ${LeadSourceId} === '2'}"/>
+            <Text text="{= ${SourceConsumerId} ? ${SourceConsumer/ConsumerName} ? ${SourceConsumer/ConsumerName} : 'NA' : ${SourceNewConsumerName} ? ${SourceNewConsumerName}: 'NA' }" visible="{= ${LeadSourceId} === '5'}"/>
             <Label text="{i18n>ConsumerMobile}" visible="{= ${LeadSourceId} === '5'}"/>
-            <Text text="{= ${SourceConsumerId} ? ${SourceConsumer/PrimaryNum} ? ${SourceConsumer/PrimaryNum} : 'NA' : ${SourceNewConsumerNum} ? ${SourceNewConsumerNum} : 'NA' }" visible="{= ${LeadSourceId} === '2'}"/>
+            <Text text="{= ${SourceConsumerId} ? ${SourceConsumer/PrimaryNum} ? ${SourceConsumer/PrimaryNum} : 'NA' : ${SourceNewConsumerNum} ? ${SourceNewConsumerNum} : 'NA' }" visible="{= ${LeadSourceId} === '5'}"/>
         </f:content>
     </f:SimpleForm>
     <f:SimpleForm id="ServiceDetailsData" editable="false" layout="ResponsiveGridLayout" 
