@@ -192,7 +192,7 @@ sap.ui.define(
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Lead,DGA,PreviousContractor,ReassignedContractor,ReassignmentStatus";
-                // oBindingParams.sorter.push(new Sorter("ReassignmentStatus/Name", true));
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 // Apply Filters
                 var oFilter = this._CreateFilter();
                 if (oFilter) {
