@@ -43,11 +43,11 @@
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>Source}:"/>
-                          <ObjectStatus class="sapMObjectStatusLarge" text="{path:'LeadSource/Name',formatter:'.formatter.fmtCheckNull'}" state="None"/>
+                          <ObjectStatus text="{path:'LeadSource/Name',formatter:'.formatter.fmtCheckNull'}" state="None"/>
                     </layout:VerticalLayout>
                     <!-- <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>LeadOwnerName}:"/>
-                        <ObjectStatus class="sapMObjectStatusLarge" text="{ConsumerName}" state="None"/>
+                        <ObjectStatus text="{ConsumerName}" state="None"/>
                     </layout:VerticalLayout> -->
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>MobNo}:"/>
@@ -55,7 +55,7 @@
                     </layout:VerticalLayout>
                     <!-- <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>Visits}:"/>
-                        <ObjectStatus class="sapMObjectStatusLarge" text="{LeadSource/Name}" state="None"/>
+                        <ObjectStatus text="{LeadSource/Name}" state="None"/>
                     </layout:VerticalLayout> -->
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
