@@ -9,7 +9,7 @@
     <l:VerticalLayout width="100%">
         <Toolbar>
             <ToolbarSpacer/>
-            <Button id="idMRDownload" icon="sap-icon://download" press="onMRDownload"/>
+            <Button id="idMRDownload" icon="sap-icon://download" enabled="{= ${MaterialRequisition}.length > 0 ? true : false }" press="onMRDownload"/>
         </Toolbar>
         <f:SimpleForm id="MRDetailsData" editable="false" layout="ResponsiveGridLayout" 
             labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
