@@ -111,7 +111,7 @@
                         <Text  text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Mobile} : ${ReassignedContractorNumber}  }"/>
                         <ObjectStatus text="{ReassignmentStatus/Name}" 
             state="{= ${ReassignmentStatus/Name} === 'Pending' ? 'Warning' : ${ReassignmentStatus/Name} === 'Rejected' ? 'Error' :  ${ReassignmentStatus/Name} === 'Accepted' ? 'Success' : 'Error'}"/>
-                        <Text text="{Description}"/>
+                        <ExpandableText maxCharacters="10" overflowMode="Popover" text="{Description}"/>
                       <ExpandableText maxCharacters="10" overflowMode="Popover" text="{Remark}" />
                         <HBox>
                          <Button visible="{= ${ReassignmentStatus/Name} === 'Accepted' ? false : ${ReassignmentStatus/Name} === 'Rejected' ? false: true }" text="{i18n>Approve}" tooltip="{i18n>Accepted}"  type="Accept" press="onPressApproveReject"></Button>
