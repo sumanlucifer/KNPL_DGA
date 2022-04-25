@@ -9,7 +9,7 @@
     <l:VerticalLayout width="100%">
         <Toolbar>
             <ToolbarSpacer/>
-            <Button id="idQuotDownload" icon="sap-icon://download" press="onQuotDownload"/>
+            <Button id="idQuotDownload" icon="sap-icon://download" enabled="{= ${Quotation}.length > 0 ? true : false }" press="onQuotDownload"/>
         </Toolbar>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.quotation.QuotationTbl1" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.quotation.QuotationTbl2" type="XML" class="sapUiMediumMarginBottom"/>

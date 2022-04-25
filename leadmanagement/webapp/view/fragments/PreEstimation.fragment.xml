@@ -9,7 +9,7 @@
     <l:VerticalLayout width="100%">
         <Toolbar>
             <ToolbarSpacer/>
-            <Button id="idPreEstDownload" icon="sap-icon://download" press="onPreEstDownload"/>
+            <Button id="idPreEstDownload" icon="sap-icon://download" enabled="{= ${PreEstimation}.length > 0 ? true : false }" press="onPreEstDownload"/>
         </Toolbar>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.preEstimation.PreEstTbl1" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.preEstimation.PreEstTbl2" type="XML" class="sapUiMediumMarginBottom"/>
