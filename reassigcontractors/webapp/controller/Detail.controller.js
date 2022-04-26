@@ -56,16 +56,15 @@ sap.ui.define(
                     var sMode = window.decodeURIComponent(
                         oEvent.getParameter("arguments").Mode
                     );
-                    this._SetDisplayData(sId, sMode);
+                    this._SetDisplayData(sId);
 
                 },
 
-                _SetDisplayData: function (oProp, sMode) {
+                _SetDisplayData: function (oProp) {
                     var oData = {
-                        mode: sMode,
-                        bindProp: "PainterComplainsSet(" + oProp + ")",
+                        bindProp: "ContractorReassignmentRequests(" + oProp + ")",
                         Id: oProp,
-                        EntitySet:"PainterComplainsSet",
+                        EntitySet:"ContractorReassignmentRequests",
                         PageBusy: true,
                         IcnTabKey: "0",
                         resourcePath: "com.knpl.dga.ui5template",
@@ -73,11 +72,12 @@ sap.ui.define(
                     };
                     var oModel = new JSONModel(oData);
                     this.getView().setModel(oModel, "oModelDisplay");
-                    if (sMode == "Edit") {
-                        this._initEditData();
-                    } else {
-                        this._initDisplayData();
-                    }
+                    // if (sMode == "Edit") {
+                    //     this._initEditData();
+                    // } else {
+                    //     this._initDisplayData();
+                    // }
+                    this._initDisplayData();
 
                 },
                 _initDisplayData: function () {
@@ -86,43 +86,19 @@ sap.ui.define(
                     var oData = oModel.getData();
                     var othat = this;
                     oModel.setProperty("/PageBusy", true);
-                    c1 = othat._CheckLoginData();
-                    c1.then(function () {
+                    // c1 = othat._CheckLoginData();
+                  
+                  
                         c2 = othat._getDisplayData(oData["bindProp"]);
                         c2.then(function () {
                             c3 = othat._LoadFragment("DisplayDetails");
                             c3.then(function () {
                                 oModel.setProperty("/PageBusy", false)
                             })
-                        })
-                    })
+                        });
+                    
                 },
-                _initEditData: function () {
-                    var oView = this.getView();
-                    var othat = this;
-                    var oModel = oView.getModel("oModelDisplay");
-                    var sProp=oModel.getProperty("/bindProp")
-                    var oData = oModel.getData();
-                    var c1, c2, c3,c4;
-                    var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
-                    oModel.setProperty("/PageBusy", true);
-                    c1.then(function () {
-                        c1.then(function () {
-                            c2 = othat._setInitViewModel();
-                            c2.then(function () {
-                                c3 = othat._LoadFragment("AddComplaint");
-                                c3.then(function () {
-                                    c4 = othat._getDisplayData(sProp);
-                                    c4.then(function () {
-                                        oModel.setProperty("/PageBusy", false);
-                                    })
-
-                                })
-                            })
-                        })
-                    })
-
-                },
+              
                 _setInitViewModel: function () {
                     var promise = jQuery.Deferred();
                     var oView = this.getView();
@@ -186,7 +162,7 @@ sap.ui.define(
                     var promise = jQuery.Deferred();
                     var oView = this.getView();
 
-                    var exPand = "Painter,ComplaintType,ComplaintSubtype";
+                    var exPand = "Lead,DGA,PreviousContractor,ReassignedContractor,ReassignmentStatus";
                     var othat = this;
                     if (oProp.trim() !== "") {
                         oView.bindElement({

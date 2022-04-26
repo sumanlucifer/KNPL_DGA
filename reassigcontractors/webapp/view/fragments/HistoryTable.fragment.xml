@@ -3,7 +3,7 @@
                             id="HistoryTable"
                             editable="false"
                             beforeRebindTable="onBeforeRebindHistoryTable"                    
-                            entitySet="PainterComplainsHistorySet"
+                            entitySet=""
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"

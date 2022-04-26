@@ -7,7 +7,7 @@
                     <Title text="{ComplaintType/ComplaintType}"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>Update} {i18n>MainObject}">
+                    <Breadcrumbs currentLocationText="{i18n>Details}">
                         <Link text="{i18n>MainObject}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
@@ -20,26 +20,25 @@
                 <f:snappedTitleOnMobile>
                     <Title text="{ComplaintType/ComplaintType}"/>
                 </f:snappedTitleOnMobile>
-                <f:actions>
+                <!-- <f:actions>
                     <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>Validate}" />
-                </f:actions>
+                </f:actions> -->
             </f:DynamicPageTitle>
         </f:title>
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>PainterName}" text="{Painter/Name}"/>
-                        <ObjectAttribute title="{i18n>MembershipId}" text="{Painter/MembershipCard}"/>
+                        <ObjectAttribute title="{i18n>DgaName}" text="{DGA/GivenName}"/>
+                        <ObjectAttribute title="{i18n>LeadId}" text="{LeadId}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
-                        <Label  text="{i18n>MainObject} {i18n>Details}:"  />
-                        <ObjectAttribute  text="{ComplaintSubtype/ComplaintSubtype}"/>
+                        <Label  text="{i18n>requestId}:"  />
+                        <ObjectAttribute  text="{ID}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"/>
-                   
-                          <ObjectStatus class="sapMObjectStatusLarge" text="{ComplaintStatus}" state="None"/>
+                          <ObjectStatus class="sapMObjectStatusTiny" text="{ReassignmentStatus/Name}" state="None"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
@@ -50,26 +49,22 @@
                     <IconTabFilter  text="{i18n>Overview}" key="0" >
                         <VBox id="oVBoxAddObjectPage" width="100%">
                         </VBox>
-                        
-                        
                         </IconTabFilter>
                          <IconTabFilter  text="{i18n>History}" key="1" >
-                             <core:Fragment fragmentName="com.knpl.dga.ui5template.view.fragments.HistoryTable" type="XML"/>
+                            <core:Fragment fragmentName="com.knpl.dga.ui5template.view.fragments.HistoryTable" type="XML"/>
                         </IconTabFilter>
-                         
+                         <IconTabFilter  text="{i18n>excutionlog}" key="2" >
+                             <!-- <core:Fragment fragmentName="com.knpl.dga.ui5template.view.fragments.HistoryTable" type="XML"/> -->
+                        </IconTabFilter>
                     </items>
                 </IconTabBar>
         </f:content>
         <f:footer>
-         
             <OverflowToolbar>
               <ToolbarSpacer/>
               <Button press="onNavToHome" type="Ghost"  text="{i18n>Cancel}"  />
-             
               <Button press=".onApproval(true)" visible="{= ${oModelDisplay>/mode}==='Display'}" text="{i18n>Approve}"  type="Accept"  />
              <Button press="onPressSave" visible="{= ${oModelDisplay>/mode}==='Edit'}"  text="{i18n>Save}" type="Emphasized" />
-          
-        
             </OverflowToolbar>
         </f:footer>
     </f:DynamicPage>

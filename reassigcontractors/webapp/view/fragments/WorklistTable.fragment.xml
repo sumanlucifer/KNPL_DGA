@@ -4,87 +4,63 @@
     <smartTable:SmartTable  class="sapUiResponsiveContentPadding" id="idWorkListTable1" entitySet="ContractorReassignmentRequests" header="{i18n>contractorreassignrequest}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}"  editable="false"  beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="ID,ReassignedContractorId" >
         <Table sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
             <columns>
-             <Column width="6%" >
+             <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "LeadId", "leadingProperty": "LeadId", "columnIndex": 0 ,"sortProperty": "LeadId","filterProperty": "LeadId"}'/>
                     </customData>
                     <Text text="{i18n>LeadId}"/>
                 </Column>
-                <Column  width="6%">
+                <Column>
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 1 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
                     </customData>
-                    <Text text="{i18n>DGAName}"/>
+                    <Text text="{i18n>DgaName}"/>
                 </Column>
-                <Column  width="6%">
+                <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Id", "leadingProperty": "DGA/Id", "columnIndex": 2 ,"sortProperty": "DGA/Id","filterProperty": "DGA/Id"}'/>
-                    </customData>
-                    <Text text="{i18n>DgaId}"/>
-                </Column>
-                <Column  width="7%">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/ConsumerName", "leadingProperty": "Lead/ConsumerName", "columnIndex": 3 ,"sortProperty": "Lead/ConsumerName","filterProperty": "Lead/ConsumerName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/ConsumerName", "leadingProperty": "Lead/ConsumerName", "columnIndex": 2 ,"sortProperty": "Lead/ConsumerName","filterProperty": "Lead/ConsumerName"}'/>
                     </customData>
                     <Text text="{i18n>ConsumerName}"/>
                 </Column>
-                  <Column width="7%"> 
+                  <Column> 
                      <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/PrimaryNum", "leadingProperty": "Lead/PrimaryNum", "columnIndex": 4 ,"sortProperty": "Lead/PrimaryNum","filterProperty": "Lead/PrimaryNum"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/PrimaryNum", "leadingProperty": "Lead/PrimaryNum", "columnIndex": 3 ,"sortProperty": "Lead/PrimaryNum","filterProperty": "Lead/PrimaryNum"}'/>
                     </customData>
                     <Text text="{i18n>conPhoneNo} {i18n>PhoneNo}"/>
                 </Column>
-                <Column width="7%">
+                <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 5 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 4 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>ReqDate}"/>
                 </Column>
-                 <Column width="7%">
+                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PreviousContractor/Name", "leadingProperty": "PreviousContractor/Name", "columnIndex": 6 ,"sortProperty": "PreviousContractor/Name","filterProperty": "PreviousContractor/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReassignedContractorName", "leadingProperty": "ReassignedContractorName,ReassignedContractor/Name", "columnIndex": 5 }'/>
                     </customData>
-                    <Text text="{i18n>ContractorName}"/>
+                    <Text text="{i18n>reassigncontractor}"/>
                 </Column>
-                <Column width="7%">
+                <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PreviousContractor/Mobile", "leadingProperty": "PreviousContractor/Mobile", "columnIndex": 7 ,"sortProperty": "PreviousContractor/Mobile","filterProperty": "PreviousContractor/Mobile"}'/>
-                    </customData>
-                    <Text text="{i18n>ContractorMobile}"/>
-                </Column>
-                 <Column width="7%">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PreviousContractor/MembershipCard", "leadingProperty": "PreviousContractor/MembershipCard", "columnIndex": 8 ,"sortProperty": "PreviousContractor/MembershipCard","filterProperty": "PreviousContractor/MembershipCard"}'/>
-                    </customData>
-                    <Text text="{i18n>MembershipCard}"/>
-                </Column>
-                 <Column width="7%">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ReassignedContractorName", "leadingProperty": "ReassignedContractorName,ReassignedContractor/Name", "columnIndex": 9 }'/>
-                    </customData>
-                    <Text  text="{i18n>reassigncontractor}"/>
-                </Column>
-                <Column width="7%">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ReassignedContractorNumber", "leadingProperty": "ReassignedContractorNumber,ReassignedContractor/Mobile", "columnIndex": 10 }'/>
-                    </customData>
-                    <Text text="{i18n>ContractorPhoneno}"/>
-                </Column>
-                <Column width="7%">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ReassignmentStatus/Name", "leadingProperty": "ReassignmentStatus/Name", "columnIndex": 11 ,"sortProperty": "ReassignmentStatus/Name","filterProperty": "ReassignmentStatus/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReassignmentStatus/Name", "leadingProperty": "ReassignmentStatus/Name", "columnIndex": 6 ,"sortProperty": "ReassignmentStatus/Name","filterProperty": "ReassignmentStatus/Name"}'/>
                     </customData>
                     <Text text="{i18n>ReqStatus}"/>
                 </Column>
-                <Column width="7%">
+                 <Column width="5%">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Description", "leadingProperty": "Description", "columnIndex": 12 ,"sortProperty": "Description","filterProperty": "Description"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Zone", "leadingProperty": "DGA/Zone", "columnIndex": 7 ,"sortProperty": "DGA/Zone","filterProperty": "DescrDGA/Zone"}'/>
                     </customData>
-                    <Text text="{i18n>Description}"/>
+                    <Text text="{i18n>Zone}"/>
                 </Column>
-                <Column width="7%">
+                 <Column width="7%">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Remark", "leadingProperty": "Remark", "columnIndex": 13 ,"sortProperty": "Remark","filterProperty": "Remark"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/DivisionId", "leadingProperty": "DGA/DivisionId", "columnIndex": 8 ,"sortProperty": "DGA/DivisionId","filterProperty": "DGA/DivisionId"}'/>
+                    </customData>
+                    <Text text="{i18n>Division}"/>
+                </Column>
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Remark", "leadingProperty": "Remark", "columnIndex": 9 ,"sortProperty": "Remark","filterProperty": "Remark"}'/>
                     </customData>
                     <Text text="{i18n>Remark}"/>
                 </Column>
@@ -96,23 +72,19 @@
                 </Column> 
             </columns>
             <items>
-                <ColumnListItem press="onListItemPress">
+                <ColumnListItem press="onListItemPress" type="Navigation">
                     <cells>
                         <Text text="{LeadId}"/>
                         <Text text="{DGA/GivenName}"/>
-                        <Text text="{DGA/Id}"/>
                         <Text text="{Lead/ConsumerName}"/>
                         <Text text="{Lead/PrimaryNum}"/>
                         <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
-                        <Text class="sapUiSmallMarginBegin" text="{PreviousContractor/Name}"/>
-                        <Text class="sapUiSmallMarginBegin" text="{PreviousContractor/Mobile}"/>
-                        <Text class="sapUiSmallMarginBegin" text="{PreviousContractor/MembershipCard}"/>
-                        <Text  text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Name}   : ${ReassignedContractorName}  }"/>
-                        <Text  text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Mobile} : ${ReassignedContractorNumber}  }"/>
+                        <Text text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Name}   : ${ReassignedContractorName}  }" />
                         <ObjectStatus text="{ReassignmentStatus/Name}" 
             state="{= ${ReassignmentStatus/Name} === 'Pending' ? 'Warning' : ${ReassignmentStatus/Name} === 'Rejected' ? 'Error' :  ${ReassignmentStatus/Name} === 'Accepted' ? 'Success' : 'Error'}"/>
-                        <Text text="{Description}"/>
-                        <Text text="{Remark}"/>
+                         <Text text="{DGA/Zone}"/>
+                         <Text class="sapUiSmallMarginBegin" text="{DGA/DivisionId}"/>
+                      <ExpandableText maxCharacters="10" overflowMode="Popover" text="{Remark}" />
                         <HBox>
                          <Button visible="{= ${ReassignmentStatus/Name} === 'Accepted' ? false : ${ReassignmentStatus/Name} === 'Rejected' ? false: true }" text="{i18n>Approve}" tooltip="{i18n>Accepted}"  type="Accept" press="onPressApproveReject"></Button>
                          <Button  class="sapUiTinyMarginBegin" visible="{= ${ReassignmentStatus/Name} === 'Accepted' ? false : ${ReassignmentStatus/Name} === 'Rejected' ? false: true }"  text="{i18n>Reject}"  press="onPressApproveReject" type="Reject" tooltip="{i18n>Rejected}"/>

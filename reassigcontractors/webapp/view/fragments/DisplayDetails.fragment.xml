@@ -6,17 +6,44 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
-
-    <f:SimpleForm id="DisplayData" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+     <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="4" columnsM="4" singleContainerFullSize="false">
         <f:content>
-              <core:Title text="{i18n>MainObject} {i18n>Details}" />
-                <Label text="{i18n>MainObject} {i18n>Type}" />
-                <Text text="{path : 'ComplaintType/ComplaintType'}"  />
-                <core:Title text="{i18n>RemarkDetails}" />
-                <Label text="{i18n>Remark}" />
-               <Text 
-                text="{path : 'Remark'}"  />
+            <core:Title text="{i18n>ComplaintDetails}" />
+            <!-- <Label text="{i18n>LeadId}" />
+            <Text text="{LeadId}" /> -->
+            <Label text="{i18n>ConsumerName}" />
+            <Text text="{Lead/ConsumerName}" />
+            <Label text="{i18n>conPhoneNo}"  />
+            <Text text="{Lead/PrimaryNum}"/>
+            <Label text="{i18n>ReqDate}"  />
+            <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+            <Label text="{i18n>Description}"/>
+            <ExpandableText maxCharacters="10" overflowMode="Popover" text="{Description}" />
+             <Label text="{i18n>Remark}" />
+            <Text text="{Remark}" />
+            <core:Title text="{i18n>DgaDetails}" />
+            <Label text="{i18n>DgaName}" />
+            <Text text="{DGA/GivenName}" />
+            <Label text="{i18n>DgaId}" />
+            <Text text="{DGA/Id}" />
+            <Label text="{i18n>Zone}" />
+            <Text text="{DGA/Zone}" />
+            <Label text="{i18n>Division}" />
+            <Text text="{DGA/DivisionId}" />
+            <core:Title text="{i18n>precontDetails}" />
+            <Label text="{i18n>ContractorName}"  />
+            <Text text="{PreviousContractor/Name}"/>
+            <Label text="{i18n>ContractorMobile}" />
+            <Text text="{PreviousContractor/Mobile}" />
+            <Label text="{i18n>MembershipCard}" />
+            <Text text="{PreviousContractor/MembershipCard}" />
+            <core:Title text="{i18n>reassigncontDetails}" />
+            <Label text="{i18n>reassigncontractor}" />
+            <Text text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Name}   : ${ReassignedContractorName}  }" />
+            <Label text="{i18n>ContractorPhoneno}" />
+            <Text text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Mobile} : ${ReassignedContractorNumber}  }" />
+           
+            
         </f:content>
     </f:SimpleForm>
-
 </core:FragmentDefinition>

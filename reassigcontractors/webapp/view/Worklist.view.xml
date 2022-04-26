@@ -5,36 +5,27 @@
                 <f:content>
                     <fb:FilterBar showRestoreButton="false" id="filterbar" reset="onResetFilterBar" search="onFilterBarSearch" useToolbar="false" showRestoreOnFB="true">
                         <fb:filterGroupItems>
-                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Zone" label="{i18n>DGAName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Zone" label="{i18n>Zone}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                     <!-- <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>DGAName}" selectionChange="onZoneChange"  selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
-                                        <core:Item text="{Id} " key="{Id}" />
-                                    </ComboBox> -->
-                                      <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>DGAName}" items="{/DGAs}" selectionChange="onZoneChange"  selectedKey="{path:'oModelControl>/filterBar/DGA' }">
-                                        <core:Item text="{GivenName} " key="{GivenName}" />
+                                      <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>Zone}" items="{/DGAs}" selectionChange="onZoneChange"  selectedKey="{path:'oModelControl>/filterBar/Zone' }">
+                                        <core:Item text="{Zone} " key="{Zone}" />
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
-
                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>ReqStatus}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                     <ComboBox placeholder="{i18n>Enter} {i18n>Status}" selectedKey="{oModelControl>/filterBar/ReassignmentStatus}">
                                         <core:Item text="Accepted" key="Accepted"/>
                                         <core:Item text="Rejected" key="Rejected"/>
                                         <core:Item text="Pending" key="Pending"/>
-                                      
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
-
-                             <fb:FilterGroupItem  groupName="__$INTERNAL$" name="Division" label="{i18n>ContractorName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                             <fb:FilterGroupItem  groupName="__$INTERNAL$" name="Division" label="{i18n>DivisionId}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                      <!-- <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>ContractorName}" id="idDivision" selectionChange="onDivisionChange"  selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
-                    <core:Item text="{Id}" key="{Id}" />
-                </ComboBox> -->
-                 <ComboBox  placeholder="{i18n>Enter} {i18n>ContractorName}"  id="idDivision" selectionChange="onDivisionChange" items="{/MasterContractors}" selectedKey="{path:'oModelControl>/filterBar/preContractName'}">
-                    <core:Item text="{Name}" key="{Name}" />
-                </ComboBox>
+                            <ComboBox items="{/DGAs}" placeholder="{i18n>Enter} {i18n>DivisionId}" id="idDivision" selectionChange="onDivisionChange"  selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
+                    <core:Item text="{DivisionId}" key="{DivisionId}" />
+                </ComboBox> 
                                 </fb:control>
                             </fb:FilterGroupItem>
                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="StartDate" label="{i18n>StartDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
