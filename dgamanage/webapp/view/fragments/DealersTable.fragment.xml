@@ -22,7 +22,7 @@
                       
                         <ToolbarSpacer />
                         
-                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>LinkedDealers}" press="handleDealersValueHelp" />
+                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>LinkDealer}" press="handleDealersValueHelp" />
 
                         
                     </OverflowToolbar>
