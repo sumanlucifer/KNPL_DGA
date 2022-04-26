@@ -4,7 +4,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{GivenName}"/>
+                    <Title text="{GivenName}" level="H1" titleStyle="H1"/>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs currentLocationText="{i18n>MainObject} {i18n>Details}">
@@ -44,7 +44,7 @@
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"  class="sapUiSmallMarginEnd"/>
                    
-                             <ObjectStatus class="sapMObjectStatusLarge" text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/> 
+                             <ObjectStatus class="statusTextSizeLarge" text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/> 
                     </layout:VerticalLayout>
                     <!-- <layout:VerticalLayout>
                         <Label  text="{i18n>ActivationStatus}:"/>

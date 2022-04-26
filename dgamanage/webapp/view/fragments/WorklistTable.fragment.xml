@@ -24,7 +24,7 @@
                     </customData>
                     <Text text="{i18n>MainObject} {i18n>Id}"/>
                 </Column>
-                <Column hAlign="Begin">
+                <Column hAlign="Begin" sortIndicator="Descending">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 2 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
