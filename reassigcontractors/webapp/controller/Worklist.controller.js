@@ -61,7 +61,8 @@ sap.ui.define(
                     EndDate: null,
                     ReassignmentStatus: "",
                     Search: "",
-                    DGA: "",
+                    Zone: "",
+                    DivisionId:"",
                     preContractName: "",
                     ReassignedContractName: "",
                     DepotId: "",
@@ -212,14 +213,14 @@ sap.ui.define(
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
-                        if (prop === "DGA") {
+                        if (prop === "Zone") {
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
-                                new Filter("DGA/GivenName", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "preContractName") {
+                                new Filter("DGA/Zone", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "DivisionId") {
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
-                                new Filter("PreviousContractor/Name", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("DGA/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
                         }else if (prop === "ReassignmentStatus") {
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
@@ -230,23 +231,48 @@ sap.ui.define(
                                 new Filter(
                                     [
                                         new Filter({
+                                            path: "DGA/Zone",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
                                             path: "DGA/GivenName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "PreviousContractor/Name",
+                                            path: "Lead/ConsumerName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "ReassignedContractor/Name",
+                                            path: "ReassignmentStatus/Name",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
+                                        new Filter({
+                                            path: "DGA/DivisionId",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "Remark",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "Lead/PrimaryNum",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        })                                       
+                                        
                                     ],
                                     false
                                 )
@@ -286,6 +312,22 @@ sap.ui.define(
                     sMessage = sButton === "accepted" ? "Approve" : "Reject",
                     sAccptRejctCheck = sButton === "accepted" ?  this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this, iId, sStatus)) :  this._showMessageBox("remark", "MsgConfirm", [sMessage], "", "", iId, sStatus); 
                 // this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this, iId, sStatus));
+            },
+
+            onListItemPress:function(oEvent){
+                var oRouter = this.getOwnerComponent().getRouter();
+                var oObject = oEvent.getSource().getBindingContext().getObject();
+                var sPath = oEvent
+                    .getSource()
+                    .getBindingContext()
+                    .getPath()
+                    .substr(1);
+
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("Detail", {
+                    Id: oObject["ID"],
+                });
+
             },
             onApproveRejectServiceCall: function (iId, sStatus,Note) {
                 var oPayLoad = {
