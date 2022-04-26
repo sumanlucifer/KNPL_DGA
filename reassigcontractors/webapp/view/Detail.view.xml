@@ -31,11 +31,12 @@
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <ObjectAttribute title="{i18n>DgaName}" text="{DGA/GivenName}"/>
                         <ObjectAttribute title="{i18n>LeadId}" text="{LeadId}"/>
+                         <ObjectAttribute title="{i18n>requestId}" text="{ID}"/>
                     </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
+                    <!-- <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
                         <Label  text="{i18n>requestId}:"  />
                         <ObjectAttribute  text="{ID}"/>
-                    </layout:VerticalLayout>
+                    </layout:VerticalLayout> -->
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"/>
                           <ObjectStatus class="sapMObjectStatusTiny" text="{ReassignmentStatus/Name}" state="None"/>
@@ -54,7 +55,7 @@
                             <core:Fragment fragmentName="com.knpl.dga.ui5template.view.fragments.HistoryTable" type="XML"/>
                         </IconTabFilter>
                          <IconTabFilter  text="{i18n>excutionlog}" key="2" >
-                             <!-- <core:Fragment fragmentName="com.knpl.dga.ui5template.view.fragments.HistoryTable" type="XML"/> -->
+                             <core:Fragment fragmentName="com.knpl.dga.ui5template.view.fragments.ExecutionLog" type="XML"/>
                         </IconTabFilter>
                     </items>
                 </IconTabBar>

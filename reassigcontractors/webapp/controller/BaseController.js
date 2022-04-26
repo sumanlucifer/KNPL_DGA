@@ -164,7 +164,7 @@ sap.ui.define([
                                     othat.onApproveRejectServiceCall(iId, sStatus, Note)
                                     D1.close();
                                 } else {
-                                    sap.m.MessageToast.show("Enter Remarks to Reject");
+                                    sap.m.MessageToast.show("Kindly enter a proper remarks to continue");
                                 } // sap.m.MessageToast.show("Request Approved");
                             }
                         }),

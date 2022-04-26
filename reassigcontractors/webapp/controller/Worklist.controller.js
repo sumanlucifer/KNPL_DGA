@@ -62,7 +62,7 @@ sap.ui.define(
                     ReassignmentStatus: "",
                     Search: "",
                     Zone: "",
-                    DivisionId:"",
+                    DivisionId: "",
                     preContractName: "",
                     ReassignedContractName: "",
                     DepotId: "",
@@ -221,7 +221,7 @@ sap.ui.define(
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
                                 new Filter("DGA/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
-                        }else if (prop === "ReassignmentStatus") {
+                        } else if (prop === "ReassignmentStatus") {
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
                                 new Filter("ReassignmentStatus/Name", FilterOperator.EQ, oViewFilter[prop]));
@@ -271,8 +271,13 @@ sap.ui.define(
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
-                                        })                                       
-                                        
+                                        }),
+                                        new Filter({
+                                            path: "LeadId",
+                                            operator: "EQ",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        })
                                     ],
                                     false
                                 )
@@ -308,13 +313,12 @@ sap.ui.define(
             onPressApproveReject: function (oEve) {
                 var iId = oEve.getSource().getBindingContext().getObject().ID,
                     sButton = oEve.getSource().getTooltip().trim().toLowerCase(),
-                    sStatus = sButton === "accepted" ? "2" : "rejected" ? "3": "1",
+                    sStatus = sButton === "accepted" ? "2" : "rejected" ? "3" : "1",
                     sMessage = sButton === "accepted" ? "Approve" : "Reject",
-                    sAccptRejctCheck = sButton === "accepted" ?  this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this, iId, sStatus)) :  this._showMessageBox("remark", "MsgConfirm", [sMessage], "", "", iId, sStatus); 
+                    sAccptRejctCheck = sButton === "accepted" ? this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this, iId, sStatus)) : this._showMessageBox("remark", "MsgConfirm", [sMessage], "", "", iId, sStatus);
                 // this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this, iId, sStatus));
             },
-
-            onListItemPress:function(oEvent){
+            onListItemPress: function (oEvent) {
                 var oRouter = this.getOwnerComponent().getRouter();
                 var oObject = oEvent.getSource().getBindingContext().getObject();
                 var sPath = oEvent
@@ -322,17 +326,15 @@ sap.ui.define(
                     .getBindingContext()
                     .getPath()
                     .substr(1);
-
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("Detail", {
                     Id: oObject["ID"],
                 });
-
             },
-            onApproveRejectServiceCall: function (iId, sStatus,Note) {
+            onApproveRejectServiceCall: function (iId, sStatus, Note) {
                 var oPayLoad = {
                     "ReassignmentStatusId": sStatus,
-                    "Remark" : Note
+                    "Remark": Note
                 };
                 var oDataModel = this.getView().getModel();
                 oDataModel.update(`/ContractorReassignmentRequests(${iId})/ReassignmentStatusId`, oPayLoad, {
