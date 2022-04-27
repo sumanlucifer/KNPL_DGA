@@ -134,6 +134,38 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
+
+            onZoneChange: function (oEvent) {
+                var sId = oEvent.getSource().getSelectedKey();
+                var oView = this.getView();
+                var oModelContorl = oView.getModel("oModelControl")
+                // setting value for division
+                var oDivision = oView.byId("idDivision");
+                oDivision.clearSelection();
+                oDivision.setValue("");
+                var oDivItems = oDivision.getBinding("items");
+                oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
+                //setting the data for depot;
+                // var oDepot = oView.byId("idDepot");
+                // oDepot.clearSelection();
+                // oDepot.setValue("");
+                // clearning data for dealer
+                // oModelContorl.setProperty("/MultiCombo/Dealers", []);
+            },
+            // onDivisionChange: function (oEvent) {
+            //     var sKey = oEvent.getSource().getSelectedKey();
+            //     var oView = this.getView();
+            //     var oModelContorl = oView.getModel("oModelControl");
+            //     var oDepot = oView.byId("idDepot");
+            //     var oDepBindItems = oDepot.getBinding("items");
+            //     oDepot.clearSelection();
+            //     oDepot.setValue("");
+            //     oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
+            //     // clearning data for dealer
+            //     // oModelContorl.setProperty("/MultiCombo/Dealers", []);
+            // },
+
+
             _getLoggedInInfo: function () {
                 /*
                  * Author: manik saluja
@@ -213,7 +245,7 @@ sap.ui.define(
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
-                        if (prop === "Zone") {
+                        if (prop === "ZoneId") {
                             aFlaEmpty = true;
                             aCurrentFilterValues.push(
                                 new Filter("DGA/Zone", FilterOperator.EQ, oViewFilter[prop]));
@@ -274,7 +306,7 @@ sap.ui.define(
                                         }),
                                         new Filter({
                                             path: "LeadId",
-                                            operator: "EQ",
+                                            operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         })
