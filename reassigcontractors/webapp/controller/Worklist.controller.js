@@ -62,6 +62,7 @@ sap.ui.define(
                     ReassignmentStatus: "",
                     Search: "",
                     Zone: "",
+                    ZoneId:"",
                     DivisionId: "",
                     preContractName: "",
                     ReassignedContractName: "",
