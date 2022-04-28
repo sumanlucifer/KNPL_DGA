@@ -45,6 +45,7 @@ sap.ui.define(
                         ZoneId: "",
                         DivisionId: "",
                         DepotId: "",
+                        LeadId:""
                     },
                     PageBusy: false
                 };
@@ -64,9 +65,8 @@ sap.ui.define(
                     Zone: "",
                     ZoneId:"",
                     DivisionId: "",
-                    preContractName: "",
-                    ReassignedContractName: "",
                     DepotId: "",
+                    LeadId:""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -135,7 +135,6 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-
             onZoneChange: function (oEvent) {
                 var sId = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
@@ -165,8 +164,6 @@ sap.ui.define(
             //     // clearning data for dealer
             //     // oModelContorl.setProperty("/MultiCombo/Dealers", []);
             // },
-
-
             _getLoggedInInfo: function () {
                 /*
                  * Author: manik saluja
@@ -304,9 +301,13 @@ sap.ui.define(
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "LeadId",
+                                            operator: "EQ",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
                                         })
-                                        
-                                        
                                     ],
                                     false
                                 )
