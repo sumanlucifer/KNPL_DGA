@@ -95,27 +95,7 @@ sap.ui.define(
                     })
                 });
             },
-            _setInitViewModel: function () {
-                var promise = jQuery.Deferred();
-                var oView = this.getView();
-                var othat = this;
-                var oModel = oView.getModel("oModelDisplay")
-                var oProp = oModel.getProperty("/bindProp");
-                var exPand = "ComplaintType";
-                return new Promise((resolve, reject) => {
-                    oView.getModel().read("/" + oProp, {
-                        urlParameters: {
-                            $expand: exPand,
-                        },
-                        success: function (data) {
-                            var oModel = new JSONModel(data);
-                            oView.setModel(oModel, "oModelView");
-                            resolve();
-                        },
-                        error: function () { },
-                    });
-                });
-            },
+          
             _CheckLoginData: function () {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
@@ -174,13 +154,7 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-            onIcnTbarChange1: function (oEvent) {
-                var sKey = oEvent.getSource().getSelectedKey();
-                var oView = this.getView();
-                if (sKey == "1") {
-                    oView.byId("HistoryTable").rebindTable();
-                }
-            },
+          
             onBeforeRebindHistoryTable: function (oEvent) {
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
@@ -203,7 +177,7 @@ sap.ui.define(
             _setWfData: function () {
                 //TODO: format subject FORCETAT
                 var oView = this.getView();
-                var oModelControl = oView.getModel("oModelControl");
+                var oModelControl = oView.getModel("oModelView");
                 var aWfData = this.oWorkflowModel.getData(),
                     taskSet = new Set([
                         "WORKFLOW_STARTED",
@@ -215,14 +189,15 @@ sap.ui.define(
                     ]);
                 aWfData = aWfData.filter(ele => taskSet.has(ele.type));
                 this.oWorkflowModel.setData(aWfData);
-                oModelControl.setProperty("/PageBusy", false)
+                oModelView.setProperty("/PageBusy", false)
             },
             _getExecLogData: function () {
                 var promise = jQuery.Deferred();
                 //for Test case scenerios delete as needed
                 var oView = this.getView();
                 var oData = oView.getModel("oModelView").getData();
-                var sWorkFlowInstanceId = oData["WorkflowInstanceId"];
+                // var sWorkFlowInstanceId = oData["WorkflowInstanceId"];
+                var sWorkFlowInstanceId = "0bca39c3-c55f-11ec-a2a9-eeee0a85c968";
                 var oModel = this.getView().getModel("oModelDisplay");
                 oModel.setProperty("/PageBusy", true)
                 if (sWorkFlowInstanceId) {
