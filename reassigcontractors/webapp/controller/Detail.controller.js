@@ -38,8 +38,8 @@ sap.ui.define(
                 this.oWorkflowModel = new JSONModel();
                 this.oWorkflowModel.attachRequestCompleted(this._setWfData, this);
                 this.getView().setModel(this.oWorkflowModel, "wfmodel");
-                var oModelView = new JSONModel();
-                this.getView().setModel(oModelView, "oModelView");
+                // var oModelView = new JSONModel();
+                // this.getView().setModel(oModelView, "oModelView");
                 //End
                 oRouter.getRoute("Detail").attachMatched(this._onRouteMatched, this);
                 sap.ui.getCore().attachValidationError(function (oEvent) {
@@ -177,7 +177,7 @@ sap.ui.define(
             _setWfData: function () {
                 //TODO: format subject FORCETAT
                 var oView = this.getView();
-                var oModelControl = oView.getModel("oModelView");
+                var oModelControl = oView.getModel("oModelDisplay");
                 var aWfData = this.oWorkflowModel.getData(),
                     taskSet = new Set([
                         "WORKFLOW_STARTED",
@@ -189,15 +189,15 @@ sap.ui.define(
                     ]);
                 aWfData = aWfData.filter(ele => taskSet.has(ele.type));
                 this.oWorkflowModel.setData(aWfData);
-                oModelView.setProperty("/PageBusy", false)
+                oModelControl.setProperty("/PageBusy", false)
             },
             _getExecLogData: function () {
                 var promise = jQuery.Deferred();
                 //for Test case scenerios delete as needed
                 var oView = this.getView();
-                var oData = oView.getModel("oModelView").getData();
-                // var sWorkFlowInstanceId = oData["WorkflowInstanceId"];
-                var sWorkFlowInstanceId = "0bca39c3-c55f-11ec-a2a9-eeee0a85c968";
+                var oData = oView.getElementBinding().getBoundContext().getObject();
+                var sWorkFlowInstanceId = oData["WorkflowInstanceId"];
+                // var sWorkFlowInstanceId = "0bca39c3-c55f-11ec-a2a9-eeee0a85c968";
                 var oModel = this.getView().getModel("oModelDisplay");
                 oModel.setProperty("/PageBusy", true)
                 if (sWorkFlowInstanceId) {
@@ -206,6 +206,7 @@ sap.ui.define(
                         sWorkFlowInstanceId +
                         "/execution-logs";
                     this.oWorkflowModel.loadData(sUrl);
+                    
                 } else {
                     this.oWorkflowModel.setData([]);
                     oModel.setProperty("/PageBusy", false);
