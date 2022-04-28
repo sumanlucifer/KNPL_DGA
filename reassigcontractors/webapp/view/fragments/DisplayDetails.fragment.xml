@@ -32,19 +32,19 @@
             <Text text="{DGA/DivisionId}" />
             <core:Title text="{i18n>precontDetails}" />
             <Label text="{i18n>ContractorName}"  />
-            <Text text="{PreviousContractor/Name}"/>
+         <Text text="{= ${PreviousContractorId} ? ${PreviousContractor} ? ${PreviousContractor/Name} : 'NA' : ${PreviousContractor/Name} ? ${PreviousContractor/Name} : 'NA' }" />
+            <!-- <Text text="{= ${PreviousContractorId}  ? ${PreviousContractor/Name} : 'NA' }"/> -->
             <Label text="{i18n>ContractorMobile}" />
-            <Text text="{PreviousContractor/Mobile}" />
+            <Text text="{= ${PreviousContractorId} ? ${PreviousContractor} ? ${PreviousContractor/Mobile}   : 'NA': ${PreviousContractor/Mobile} ? ${PreviousContractor/Mobile} : 'NA'  }" />
             <Label text="{i18n>MembershipCard}" />
-            <Text text="{PreviousContractor/MembershipCard}" />
+            <Text text="{= ${PreviousContractorId} ? ${PreviousContractor} ? ${PreviousContractor/MembershipCard}   : 'NA' : ${PreviousContractor/MembershipCard} ? ${PreviousContractor/MembershipCard} : 'NA'}" />
             <core:Title text="{i18n>reassigncontDetails}" />
             <Label text="{i18n>reassigncontractor}" />
-            <Text text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Name}   : ${ReassignedContractorName}  }" />
+            <Text text="{= ${ReassignedContractorId} ? ${ReassignedContractor} ? ${ReassignedContractor/Name} :'NA'  : ${ReassignedContractor/Name} ? ${ReassignedContractor/Name} :'NA' }" />
             <Label text="{i18n>ContractorPhoneno}" />
-            <Text text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Mobile} : ${ReassignedContractorNumber}  }" />
+            <Text text="{= ${ReassignedContractorId} ? ${ReassignedContractor} ? ${ReassignedContractor/Mobile} :'NA'  : ${ReassignedContractor/Mobile} ? ${ReassignedContractor/Mobile} :'NA' }" />
             <Label text="{i18n>MembershipCard}" />
-            <Text text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/MembershipCard} :'NA' }" />
-            
+            <Text text="{= ${ReassignedContractorId} ? ${ReassignedContractor} ? ${ReassignedContractor/MembershipCard} :'NA'  : ${ReassignedContractor/MembershipCard} ? ${ReassignedContractor/MembershipCard} :'NA' }" />
         </f:content>
     </f:SimpleForm>
 </core:FragmentDefinition>

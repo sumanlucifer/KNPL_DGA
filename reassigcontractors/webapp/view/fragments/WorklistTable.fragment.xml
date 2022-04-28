@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable  class="sapUiResponsiveContentPadding" id="idWorkListTable1" entitySet="ContractorReassignmentRequests" header="{i18n>contractorreassignrequest}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}"  editable="false"  beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="ID,ReassignedContractorId,LeadId" >
+    <smartTable:SmartTable  class="sapUiResponsiveContentPadding" id="idWorkListTable1" entitySet="ContractorReassignmentRequests" header="{i18n>contractorreassignrequest}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}"  editable="false"  beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="ID,ReassignedContractorId,PreviousContractorId,LeadId" >
         <Table sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
             <columns>
              <Column >
