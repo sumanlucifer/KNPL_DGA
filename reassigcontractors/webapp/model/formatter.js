@@ -39,9 +39,7 @@ sap.ui.define([], function () {
         REFERENCED_SUBFLOW_COMPLETED: "sap-icon://process",
         REFERENCED_SUBFLOW_FAILED: "sap-icon://process"
     }
-
     return {
-
         /**
          * Rounds the number unit value to 2 digits
          * @public
@@ -49,25 +47,55 @@ sap.ui.define([], function () {
          * @returns {string} sValue with 2 digits rounded
          */
         fmtLowerCase: function (mParam) {
-            if(!mParam){
-                return 
+            if (!mParam) {
+                return
             }
             var sStatus = "";
-
             if (mParam.split("_").length > 1) {
                 var mArray = mParam.split("_");
-
             } else {
                 var mArray = mParam.split(" ");
-
             }
             for (var x of mArray) {
                 var a = x.toLowerCase() + " ";
                 var b = a[0].toUpperCase() + a.slice(1);
-
                 sStatus += b;
             }
             return sStatus;
+        },
+        ExecutionLogTitle: function (sSubject, sType) {
+            //   return t.getText("EXECUTION_LOG_TYPE_" + e, [r])
+            //   if("FORCETAT" == sSubject) return "Manual Escalation";
+            switch (sSubject) {
+                case "FORCETAT": return "Manual Escalation";
+                case "PENDING_FOR_APPROVAL": return "Pending for Approval"
+            }
+            switch (sType) {
+                case "USERTASK_CANCELED_BY_BOUNDARY_EVENT": return "Auto Escalation";
+                case "WORKFLOW_STARTED": return "Complaint raised";
+                case "WORKFLOW_COMPLETED": return "Complaint closed";
+                case "WORKFLOW_CANCELED": return "Complaint withdrawn";
+                case "USERTASK_COMPLETED": return "Complaint resolved";
+            }
+            return sSubject;
+        },
+        formatLogIcon: function (sStatus) {
+            return wfIcons[sStatus];
+        },
+        ExecutionLogUserName: function (aEmails) {
+            return !!(aEmails) ? aEmails.join(" ") : " ";
+        },
+        ExecutionLogDateTime: function (dValue) {
+            if (!dValue) {
+                return "";
+            }
+            var localDate = new Date(dValue);
+            var pattern = "dd/MM/yyyy hh:mm a";
+            var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                pattern: pattern
+            });
+            var oNow = new Date(localDate);
+            return oDateFormat.format(oNow);
         },
         fmtCheckNull: function (mParam1) {
             if (!mParam1) {
@@ -86,9 +114,7 @@ sap.ui.define([], function () {
                     );
                 }
             }
-
             return "";
-
         },
         fmtStatusColorChange: function (mParam) {
             if (mParam === "APPROVED") {
@@ -103,5 +129,4 @@ sap.ui.define([], function () {
             return "Error";
         },
     };
-
 });

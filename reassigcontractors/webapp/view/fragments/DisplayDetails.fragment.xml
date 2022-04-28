@@ -42,7 +42,8 @@
             <Text text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Name}   : ${ReassignedContractorName}  }" />
             <Label text="{i18n>ContractorPhoneno}" />
             <Text text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Mobile} : ${ReassignedContractorNumber}  }" />
-           
+            <!-- <Label text="{i18n>MembershipCard}" />
+            <Text text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/MembershipCard} : ${ReassignedContractorNumber} }" /> -->
             
         </f:content>
     </f:SimpleForm>
