@@ -4,25 +4,13 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{ComplaintType/ComplaintType}"/>
+                    <Title text="{Lead/ConsumerName}"/>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs currentLocationText="{i18n>Details}">
                         <Link text="{i18n>MainObject}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
-                <f:expandedContent>
-                    <Label text="{ComplaintCode}"/>
-                </f:expandedContent>
-                <f:snappedContent>
-                    <Label text="{ComplaintCode}"/>
-                </f:snappedContent>
-                <f:snappedTitleOnMobile>
-                    <Title text="{ComplaintType/ComplaintType}"/>
-                </f:snappedTitleOnMobile>
-                <!-- <f:actions>
-                    <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>Validate}" />
-                </f:actions> -->
             </f:DynamicPageTitle>
         </f:title>
         <f:header>
@@ -33,13 +21,12 @@
                         <ObjectAttribute title="{i18n>LeadId}" text="{LeadId}"/>
                          <ObjectAttribute title="{i18n>requestId}" text="{ID}"/>
                     </layout:VerticalLayout>
-                    <!-- <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
-                        <Label  text="{i18n>requestId}:"  />
-                        <ObjectAttribute  text="{ID}"/>
-                    </layout:VerticalLayout> -->
+                   
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"/>
-                          <ObjectStatus class="sapMObjectStatusTiny" text="{ReassignmentStatus/Name}" state="None"/>
+                         <ObjectStatus class="statusTextSizeLarge" text="{ReassignmentStatus/Name}" 
+            state="{= ${ReassignmentStatus/Name} === 'Pending' ? 'Warning' : ${ReassignmentStatus/Name} === 'Rejected' ? 'Error' :  ${ReassignmentStatus/Name} === 'Accepted' ? 'Success' : 'Error'}"/>
+                          <!-- <ObjectStatus class="sapMObjectStatusTiny" text="{ReassignmentStatus/Name}" state="None"/> -->
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>

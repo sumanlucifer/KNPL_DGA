@@ -1,12 +1,12 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable  class="sapUiResponsiveContentPadding" id="idWorkListTable1" entitySet="ContractorReassignmentRequests" header="{i18n>contractorreassignrequest}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}"  editable="false"  beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="ID,ReassignedContractorId,PreviousContractorId,LeadId" >
+    <smartTable:SmartTable  class="sapUiResponsiveContentPadding" id="idWorkListTable1" entitySet="ContractorReassignmentRequests" header="{i18n>contractorreassignrequest}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}"  editable="false"  beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="ID,ReassignedContractorId,PreviousContractorId" >
         <Table sticky="ColumnHeaders,HeaderToolbar" growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
             <columns>
              <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadId", "leadingProperty": "LeadId", "columnIndex": 0 ,"sortProperty": "LeadId","filterProperty": "LeadId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/Id", "leadingProperty": "Lead/Id", "columnIndex": 0 ,"sortProperty": "Lead/Id","filterProperty": "Lead/Id"}'/>
                     </customData>
                     <Text text="{i18n>LeadId}"/>
                 </Column>
@@ -74,7 +74,7 @@
             <items>
                 <ColumnListItem press="onListItemPress" type="Navigation">
                     <cells>
-                        <Text text="{LeadId}"/>
+                        <Text text="{Lead/Id}"/>
                         <Text text="{DGA/Zone}"/>
                         <Text class="sapUiSmallMarginBegin" text="{DGA/DivisionId}"/>
                         <Text text="{DGA/GivenName}"/>
