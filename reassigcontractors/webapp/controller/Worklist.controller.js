@@ -44,8 +44,7 @@ sap.ui.define(
                         Search: "",
                         ZoneId: "",
                         DivisionId: "",
-                        DepotId: "",
-                        LeadId:""
+                        DepotId: ""
                     },
                     PageBusy: false
                 };
@@ -63,10 +62,9 @@ sap.ui.define(
                     ReassignmentStatus: "",
                     Search: "",
                     Zone: "",
-                    ZoneId:"",
+                    ZoneId: "",
                     DivisionId: "",
-                    DepotId: "",
-                    LeadId:""
+                    DepotId: ""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -240,23 +238,37 @@ sap.ui.define(
                     .getModel("oModelControl")
                     .getProperty("/filterBar");
                 var aFlaEmpty = false;
+                // init filters - is archived 
+                aCurrentFilterValues.push(
+                    new Filter("IsArchived", FilterOperator.EQ, false));
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
-                        if (prop === "ZoneId") {
-                            aFlaEmpty = true;
+                        if (prop === "StartDate") {
+                            // converstions are made as the difference between utc and the server time
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
+                        } else if (prop === "EndDate") {
+                            // converstions are made as the difference between utc and the server time
+                            aFlaEmpty = false;
+                            var oDate = new Date(oViewFilter[prop]).setDate(oViewFilter[prop].getDate() + 1);
+                            aCurrentFilterValues.push(
+                                new Filter("CreatedAt", FilterOperator.LT, oDate));
+                        } else if (prop === "ReassignmentStatus") {
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("ReassignmentStatus/Name", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "ZoneId") {
+                            aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("DGA/Zone", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "DivisionId") {
-                            aFlaEmpty = true;
+                            aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("DGA/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "ReassignmentStatus") {
-                            aFlaEmpty = true;
-                            aCurrentFilterValues.push(
-                                new Filter("ReassignmentStatus/Name", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "Search") {
-                            aFlaEmpty = true;
+                        }  else if (prop === "Search") {
+                            aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter(
                                     [
@@ -301,29 +313,17 @@ sap.ui.define(
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "LeadId",
-                                            operator: "EQ",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
                                         })
+                                        // new Filter({
+                                        //     path: "Lead/Id",
+                                        //     operator: "EQ",
+                                        //     value1: oViewFilter[prop].trim(),
+                                        //     caseSensitive: false
+                                        // })
                                     ],
                                     false
                                 )
                             );
-                        }
-                        else if (prop === "StartDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = true;
-                            aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
-                        } else if (prop === "EndDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = true;
-                            var oDate = oViewFilter[prop].setDate(oViewFilter[prop].getDate() + 1);
-                            aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.LT, oDate));
                         }
                     }
                 }
@@ -331,12 +331,117 @@ sap.ui.define(
                     filters: aCurrentFilterValues,
                     and: true,
                 });
-                if (aFlaEmpty) {
+                if (!aFlaEmpty) {
                     return endFilter;
                 } else {
                     return false;
                 }
             },
+            // _CreateFilter: function () {
+            //     var aCurrentFilterValues = [];
+            //     var oViewFilter = this.getView()
+            //         .getModel("oModelControl")
+            //         .getProperty("/filterBar");
+            //     var aFlaEmpty = false;
+            //     aCurrentFilterValues.push(
+            //         new Filter("IsArchived", FilterOperator.EQ, false));
+            //     // filter bar filters
+            //     for (let prop in oViewFilter) {
+            //         if (oViewFilter[prop]) {
+            //             if (prop === "ZoneId") {
+            //                 aFlaEmpty = false;
+            //                 aCurrentFilterValues.push(
+            //                     new Filter("DGA/Zone", FilterOperator.EQ, oViewFilter[prop]));
+            //             } else if (prop === "DivisionId") {
+            //                 aFlaEmpty = false;
+            //                 aCurrentFilterValues.push(
+            //                     new Filter("DGA/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
+            //             } else if (prop === "ReassignmentStatus") {
+            //                 aFlaEmpty = false;
+            //                 aCurrentFilterValues.push(
+            //                     new Filter("ReassignmentStatus/Name", FilterOperator.EQ, oViewFilter[prop]));
+            //             } else if (prop === "Search") {
+            //                 aFlaEmpty = false;
+            //                 aCurrentFilterValues.push(
+            //                     new Filter(
+            //                         [
+            //                             new Filter({
+            //                                 path: "DGA/Zone",
+            //                                 operator: "Contains",
+            //                                 value1: oViewFilter[prop].trim(),
+            //                                 caseSensitive: false
+            //                             }),
+            //                             new Filter({
+            //                                 path: "DGA/GivenName",
+            //                                 operator: "Contains",
+            //                                 value1: oViewFilter[prop].trim(),
+            //                                 caseSensitive: false
+            //                             }),
+            //                             new Filter({
+            //                                 path: "Lead/ConsumerName",
+            //                                 operator: "Contains",
+            //                                 value1: oViewFilter[prop].trim(),
+            //                                 caseSensitive: false
+            //                             }),
+            //                             new Filter({
+            //                                 path: "ReassignmentStatus/Name",
+            //                                 operator: "Contains",
+            //                                 value1: oViewFilter[prop].trim(),
+            //                                 caseSensitive: false
+            //                             }),
+            //                             new Filter({
+            //                                 path: "DGA/DivisionId",
+            //                                 operator: "Contains",
+            //                                 value1: oViewFilter[prop].trim(),
+            //                                 caseSensitive: false
+            //                             }),
+            //                             new Filter({
+            //                                 path: "Remark",
+            //                                 operator: "Contains",
+            //                                 value1: oViewFilter[prop].trim(),
+            //                                 caseSensitive: false
+            //                             }),
+            //                             new Filter({
+            //                                 path: "Lead/PrimaryNum",
+            //                                 operator: "Contains",
+            //                                 value1: oViewFilter[prop].trim(),
+            //                                 caseSensitive: false
+            //                             }),
+            //                             new Filter({
+            //                                 path: "Lead/Id",
+            //                                 operator: "EQ",
+            //                                 value1: oViewFilter[prop].trim(),
+            //                                 caseSensitive: false
+            //                             })
+            //                         ],
+            //                         false
+            //                     )
+            //                 );
+            //             }
+            //             else if (prop === "StartDate") {
+            //                 // converstions are made as the difference between utc and the server time
+            //                 aFlaEmpty = false;
+            //                 aCurrentFilterValues.push(
+            //                     new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
+            //             } else if (prop === "EndDate") {
+            //                 // converstions are made as the difference between utc and the server time
+            //                 aFlaEmpty = false;
+            //                 var oDate = oViewFilter[prop].setDate(oViewFilter[prop].getDate() + 1);
+            //                 aCurrentFilterValues.push(
+            //                     new Filter("CreatedAt", FilterOperator.LT, oDate));
+            //             }
+            //         }
+            //     }
+            //     var endFilter = new Filter({
+            //         filters: aCurrentFilterValues,
+            //         and: true,
+            //     });
+            //     if (aFlaEmpty) {
+            //         return endFilter;
+            //     } else {
+            //         return false;
+            //     }
+            // },
             onResetFilterBar: function () {
                 this._ResetFilterBar();
             },
