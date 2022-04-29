@@ -35,6 +35,8 @@
             <Text text="{path : 'Address',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>Landmark}" />
             <Text text="{path : 'Landmark',formatter:'.formatter.fmtCheckNull'}"  />
+            <Label text="{i18n>CreatedAt}" />
+            <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"  />
         </f:content>
     </f:SimpleForm>
     <f:SimpleForm id="SourceDetailsData" editable="false" layout="ResponsiveGridLayout" 
