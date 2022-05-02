@@ -90,6 +90,10 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+  requires:
+  - name: dga-workflow
+    parameters:
+      content-target: true
 - name: comknpldgaleadmanagement
   type: html5
   path: leadmanagement
@@ -172,5 +176,10 @@ resources:
     service: xsuaa
     service-name: knpl-dga-web-xsuaa-service
     service-plan: application
+- name: dga-workflow
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: workflow
+    service-plan: standard
 parameters:
   deploy_mode: html5-repo
