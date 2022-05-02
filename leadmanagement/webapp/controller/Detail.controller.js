@@ -184,7 +184,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGA,SourceDealer,Dealer,LeadServiceSubType";
+                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGA,SourceDealer,Dealer,LeadServiceSubType,SourceConsumer,LeadSelectedPaintingRequests,LeadSelectedPaintingRequests/MasterPaintingReq";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -236,7 +236,7 @@ sap.ui.define(
                 var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
                 var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, iPaintingReqId);
                 mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                // mBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 promise.resolve();
                 return promise;
             },
@@ -250,7 +250,7 @@ sap.ui.define(
                 var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
                 var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, iPaintingReqId);
                 mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
-                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                // mBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 promise.resolve();
                 return promise;
             },
