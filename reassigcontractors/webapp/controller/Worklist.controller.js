@@ -238,6 +238,7 @@ sap.ui.define(
                     .getModel("oModelControl")
                     .getProperty("/filterBar");
                 var aFlaEmpty = false;
+                var numbers = /^[0-9]+$/;
                 // init filters - is archived 
                 aCurrentFilterValues.push(
                     new Filter("IsArchived", FilterOperator.EQ, false));
@@ -267,7 +268,7 @@ sap.ui.define(
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("DGA/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
-                        }  else if (prop === "Search") {
+                        } else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter(
@@ -313,13 +314,13 @@ sap.ui.define(
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "Lead/Id",
+                                            operator: "EQ",
+                                            value1: oViewFilter[prop].trim().match(numbers) === null ? null : oViewFilter[prop].trim(),
+                                            caseSensitive: false
                                         })
-                                        // new Filter({
-                                        //     path: "Lead/Id",
-                                        //     operator: "EQ",
-                                        //     value1: oViewFilter[prop].trim(),
-                                        //     caseSensitive: false
-                                        // })
                                     ],
                                     false
                                 )
