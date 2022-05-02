@@ -18,7 +18,7 @@
             <Label text="{i18n>ReqDate}"  />
             <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
             <Label text="{i18n>Description}"/>
-            <ExpandableText maxCharacters="10" overflowMode="Popover" text="{Description}" />
+            <ExpandableText overflowMode="Popover" text="{Description}" />
              <Label text="{i18n>Remark}" />
             <Text text="{Remark}" />
             <core:Title text="{i18n>DgaDetails}" />
