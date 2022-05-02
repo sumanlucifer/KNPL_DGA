@@ -73,8 +73,21 @@
             <Text text="{path : 'PaintingReqSlab/Name',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>SubType}" />
             <Text text="{path : 'PaintingReqSlab/LeadSubStatus',formatter:'.formatter.fmtCheckNull'}"  />
-            <!-- <Label text="{i18n>PaintingReq}" />
-            <Text text="{path : 'SourceContractor/Name'}"  /> -->
+            <Label text="{i18n>PaintingReq}" />
+            <VBox items="{
+                    path: 'LeadSelectedPaintingRequests'
+                }">
+                <Text text="{MasterPaintingReq/Name}"/>
+            </VBox>
+            <!-- <List
+                items="{
+                    path: 'LeadSelectedPaintingRequests'
+                }" 
+                backgroundDesign="Transparent"
+                showSeparators="None">
+                <StandardListItem
+                    title="{MasterPaintingReq/Name}"/>
+            </List> -->
         </f:content>
     </f:SimpleForm>
     </items>
