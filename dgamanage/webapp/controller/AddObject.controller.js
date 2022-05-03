@@ -115,6 +115,7 @@ sap.ui.define([
                 JoiningDate: null,
                 ExitDate: null,
                 WorkLocationId: "",
+                ChildTowns:[]
 
             }
             var oModel1 = new JSONModel(oDataView);
@@ -156,23 +157,20 @@ sap.ui.define([
                 "/PincodeId",
                 obj["Id"]
             );
-         
-            oViewModel.setProperty("/StateId", obj["StateId"]);
-            var cmbxcity = oView.byId("cmbCity");
+            var aServicePincode = [{Name:obj["Name"],Id:obj["Id"]}]
+            oModelControl.setProperty("/MultiCombo/Pincode2", aServicePincode);
+            // oViewModel.setProperty("/StateId", obj["StateId"]);
+            // var cmbxcity = oView.byId("cmbCity");
             
-            cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
-            oViewModel.setProperty("/TownId", obj["CityId"]);
-            cmbxcity.setSelectedKey(obj["CityId"]);
+            // cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
+            // oViewModel.setProperty("/TownId", obj["CityId"]);
+            // cmbxcity.setSelectedKey(obj["CityId"]);
             this._onDialogClose();
 
         },
-        onStateChange: function (oEvent) {
-            var oView = this.getView();
-            var sId = oEvent.getSource().getSelectedKey();
-            var cmbxcity = oView.byId("cmbCity");
-            cmbxcity.clearSelection();
-            cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, sId));
-        },
+        // onStateChange: function (oEvent) {
+        //    console.log("new state change")
+        // },
 
         onPressSave: function () {
             /*

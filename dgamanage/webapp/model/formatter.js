@@ -81,6 +81,18 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
+        fmtChildTowns:function(mParam1){
+            console.log(mParam1)
+            var aArray = []
+            if(mParam1){
+                for (var x of mParam1){
+                    aArray.push(x["TownName"] +" - "+ x["TownId"])
+                }
+            }
+           
+            return aArray.join(", ")
+            
+        }
     };
 
 });
