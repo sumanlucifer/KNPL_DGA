@@ -33,7 +33,7 @@
                     <core:Item text="{Id}" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>Depot}" />
-                <ComboBox required="true" selectionChange="onDepotChange" editable="{= ${oModelView>/DivisionId}!=='' }" id="idDepot" items="{/MasterDepots}" selectedKey="{path:'oModelView>/DepotId',type:'sap.ui.model.type.String',constraints:{minLength:1} }">
+                <ComboBox required="true" selectionChange="onDepotChange" editable="{= ${oModelView>/DivisionId}!=='' }" id="idDepot" items="{path:'/MasterDepots',parameters:{expand:'State'}}" selectedKey="{path:'oModelView>/DepotId',type:'sap.ui.model.type.String',constraints:{minLength:1} }">
                     <core:Item text="{Depot} ( {Id} )" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>LinkDealer}" visible="{= ${oModelControl>/mode} === 'Add'}" required="true" />
@@ -42,34 +42,40 @@
                         <Token text="{oModelControl>Name} - {oModelControl>Id}" key="{oModelControl>Id}"/>
                     </tokens>
                 </MultiInput>
-                <Label text="{i18n>WorkLocation}"  />
-                <ComboBox  items="{path:'/MasterWorkingLocations', sorter:{path:'Name'}}" valueStateText="{i18n>ValueStateMessage3}" editable="{= ${oModelView>/Zone} !== '' }"  selectedKey="{path:'oModelView>/WorkLocationId', type:'sap.ui.model.type.String', constraints:{minLength:1} }"  required="true">
+                
+                <Label text="{i18n>State}" />
+                <ComboBox enabled="true" selectionChange="onStateChange" id="cmBxState" editable="false" items="{path:'/MasterStates',sorter:{path:'Name'}}" required="true" selectedKey="{path:'oModelView>/StateId', type:'sap.ui.model.type.String', constraints:{minLength:1}  }" >
                     <items>
                         <core:Item text="{Name}" key="{Id}" />
                     </items>
                 </ComboBox>
+                <Label text="{i18n>JobLocation}"  />
+                <ComboBox id="cmbxJobLoc" change="onJobLocChange" items="{path:'/MasterWorkLocations'}" editable="{= ${oModelView>/StateId}!== '' }" valueStateText="{i18n>ValueStateMessage3}"   selectedKey="{path:'oModelView>/WorkLocationId', type:'sap.ui.model.type.String', constraints:{minLength:1} }"  required="true">
+                    <items>
+                        <core:Item text="{TownName}" key="{Id}" />
+                    </items>
+                </ComboBox>
+                <Label text="{i18n>ChildTown}"/>
+                <TextArea editable="false" value="{path:'oModelControl>/MultiCombo/ChildTowns', formatter:'.formatter.fmtChildTowns'}"></TextArea>
+                <Label text="{i18n>Requirement}"/>
+                <Text text="{oModelView>/AllocatedDGACount}" />
+                    <Label text="{i18n>Location} {i18n>PinCode}" />
+               <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/PinCode', type:'sap.ui.model.type.String', constraints:{minLength:1} }" required="true"/>
                    <Label text="{i18n>Service} {i18n>PinCode}" />
                <MultiInput   placeholder="{i18n>placeHolder1}"   valueHelpOnly="true"  valueHelpRequest="_handlePinCodeValueHelp2" tokens="{path:'oModelControl>/MultiCombo/Pincode2'}">
                     <tokens>
                         <Token text="{oModelControl>Name}" key="{oModelControl>Id}"/>
                     </tokens>
                 </MultiInput>
-                <Label text="{i18n>Location} {i18n>PinCode}" />
-               <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/PinCode', type:'sap.ui.model.type.String', constraints:{minLength:1} }" required="true"/>
-              
-                <Label text="{i18n>State}" />
-                <ComboBox enabled="true" id="cmBxState" selectionChange="onStateChange" items="{path:'/MasterStates',sorter:{path:'Name'}}" required="true" selectedKey="{path:'oModelView>/StateId', type:'sap.ui.model.type.String', constraints:{minLength:1}  }" >
-                    <items>
-                        <core:Item text="{Name}" key="{Id}" />
-                    </items>
-                </ComboBox>
+            
+<!--               
                 <Label text="{i18n>City}"  />
                 <ComboBox items="{path:'/MasterCities', sorter:{path:'City'}}" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/StateId} !== '' }"  selectedKey="{path:'oModelView>/TownId', type:'sap.ui.model.type.String', constraints:{minLength:1} }" id="cmbCity" required="true">
                     <items>
                         <core:Item text="{City}" key="{Id}" />
                     </items>
                 </ComboBox>
-               
+                -->
            
             </f:content>
         </f:SimpleForm>

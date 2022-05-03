@@ -93,7 +93,8 @@ sap.ui.define([
                 },
                 MultiCombo: {
                     Dealers: [],
-                    Pincode2: []
+                    Pincode2: [],
+                    ChildTowns: []
                 }
             };
             var oModelControl = new JSONModel(oDataControl)
@@ -261,7 +262,7 @@ sap.ui.define([
             //1.Clone the payload and convert string to integer values based on odata model entity
             var oPayLoad = this._RemoveEmptyValue(oModelData);
             var inTegerProperty = [
-
+                "AllocatedDGACount"
             ];
             for (var y of inTegerProperty) {
                 if (oPayLoad.hasOwnProperty(y)) {
@@ -385,7 +386,8 @@ sap.ui.define([
         onZoneChange: function (oEvent) {
             var sId = oEvent.getSource().getSelectedKey();
             var oView = this.getView();
-            var oModelContorl = oView.getModel("oModelControl")
+            var oModelContorl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
             // setting value for division
             var oDivision = oView.byId("idDivision");
             oDivision.clearSelection();
@@ -398,11 +400,13 @@ sap.ui.define([
             oDepot.setValue("");
             // clearning data for dealer
             oModelContorl.setProperty("/MultiCombo/Dealers", []);
+            oModelView.setProperty("/StateId", "");
         },
         onDivisionChange: function (oEvent) {
             var sKey = oEvent.getSource().getSelectedKey();
             var oView = this.getView();
             var oModelContorl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
             var oDepot = oView.byId("idDepot");
             var oDepBindItems = oDepot.getBinding("items");
             oDepot.clearSelection();
@@ -410,12 +414,61 @@ sap.ui.define([
             oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
             // clearning data for dealer
             oModelContorl.setProperty("/MultiCombo/Dealers", []);
+            oModelView.setProperty("/StateId", "");
         },
-        onDepotChange: function () {
+        onDepotChange: function (oEvent) {
             var oView = this.getView();
             var oModelContorl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
             oModelContorl.setProperty("/MultiCombo/Dealers", []);
+            oModelView.setProperty("/StateId", "");
+            var oState = oView.byId("cmBxState");
+            var oBj = oEvent.getSource().getSelectedItem().getBindingContext().getObject()
+            var sStateId = oBj.State["__ref"].match(/\d{1,}/)[0];
+            oState.setSelectedKey(sStateId);
+            oState.fireSelectionChange();
         },
+        onStateChange: function (oEvent) {
+            var sId = oEvent.getSource().getSelectedKey();
+            var oView = this.getView();
+            var oCmbx = oView.byId("cmbxJobLoc");
+            oCmbx.clearSelection();
+            oView.byId("cmbxJobLoc").getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, sId));
+
+        },
+        onJobLocChange: function (oEvent) {
+            var oView = this.getView();
+            var oModel = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
+            var oBj = oEvent.getSource().getSelectedItem().getBindingContext().getObject()
+            oModelView.setProperty("/AllocatedDGACount",oBj["AllocatedDGACount"])
+            var oData = oView.getModel();
+            var oFilter = new Filter([
+                new Filter("ParentTownId", FilterOperator.EQ, oBj["ParentTownId"]),
+                new Filter("TownId", FilterOperator.NE, oBj["ParentTownId"])
+            ], true)
+          
+            oData.read("/MasterWorkLocations", {
+                urlParameters: {
+
+                },
+                filters: [oFilter],
+                success: function (oData) {
+                    if (oData["results"].length > 0) {
+                        oModel.setProperty("/MultiCombo/ChildTowns", oData["results"]);
+                        //oModel.refresh(true);
+                    } else {
+                        oModel.setProperty("/MultiCombo/ChildTowns", [])
+                    }
+                    console.log(oModel,oData)
+                }.bind(this),
+                error: function () {
+
+                }
+
+            })
+        },
+
         _handlePValueHelpSearch: function (oEvent) {
             /*
             * Author: manik saluja
@@ -625,12 +678,25 @@ sap.ui.define([
             var oModel = oView.getModel("oModelControl");
             var aDealers = [],
                 oBj;
+            var oModelView = oView.getModel("oModelView");
+            var SLocationPincodeId = oModelView.getProperty("/PincodeId");
+            var sLocaPincodeName = oModel.getProperty("/AddFields/PinCode");
             for (var a of oSelected) {
                 oBj = a.getObject();
                 aDealers.push({
                     Name: oBj["Name"],
                     Id: oBj["Id"],
                 });
+            }
+            // check pincode already exist or not
+            if (SLocationPincodeId) {
+                var iDealers = aDealers.findIndex(item => item["Id"] == SLocationPincodeId);
+                if (iDealers <= 0) {
+                    aDealers.push({
+                        Name: sLocaPincodeName,
+                        Id: SLocationPincodeId
+                    })
+                }
             }
 
             oModel.setProperty("/MultiCombo/Pincode2", aDealers);
@@ -658,7 +724,7 @@ sap.ui.define([
 
         },
         _onApplyFilterDealers: function () {
-            var sModeel = this.getModel("oModelControl") ||  this.getModel("oModelDisplay");
+            var sModeel = this.getModel("oModelControl") || this.getModel("oModelDisplay");
             var sMode = sModeel.getProperty("/mode");
             if (sMode === "Display") {
                 var sDepotiId = this.getView().getElementBinding().getBoundContext().getObject()["DepotId"];
@@ -746,22 +812,16 @@ sap.ui.define([
                 "/PincodeId",
                 obj["Id"]
             );
-
-            oViewModel.setProperty("/StateId", obj["StateId"]);
-            var cmbxcity = oView.byId("cmbCity");
-
-            cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
-            oViewModel.setProperty("/TownId", obj["CityId"]);
-            cmbxcity.setSelectedKey(obj["CityId"]);
+            var aServicePincode = [{Name:obj["Name"],Id:obj["Id"]}]
+            oModelControl.setProperty("/MultiCombo/Pincode2", aServicePincode);
+            // oViewModel.setProperty("/StateId", obj["StateId"]);
+            // var cmbxcity = oView.byId("cmbCity");
+            
+            // cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
+            // oViewModel.setProperty("/TownId", obj["CityId"]);
+            // cmbxcity.setSelectedKey(obj["CityId"]);
             this._onDialogClose();
 
-        },
-        onStateChange: function (oEvent) {
-            var oView = this.getView();
-            var sId = oEvent.getSource().getSelectedKey();
-            var cmbxcity = oView.byId("cmbCity");
-            cmbxcity.clearSelection();
-            cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, sId));
         },
 
 
