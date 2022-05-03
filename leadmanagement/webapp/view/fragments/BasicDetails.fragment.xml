@@ -37,7 +37,9 @@
             <Text text="{path : 'Landmark',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>CreatedAt}" />
             <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"  />
-        </f:content>
+            <Label text="{= ${LeadStatusId} === '1' ? '' : ${LeadStatusId} === '2'  ? 'Lead Converted Reason' : ${LeadStatusId} === '3' ? 'Lead Lost Reason' : 'Lead Short Closure Reason' }"/>
+            <Text  text="{parts:['LeadStatusId','IsSamplingRequired', 'AdvancePaymentCollected','LeadLostReasonId','LeadLostReason/Name', 'CompetitionBrand/Name', 'CompetitorServiceType/Name', 'LeadLostMsg','ShortClosureReason/Name','ShortClosureMsg'],formatter:'.formatter.fmtStatusHeader'}"/>
+    </f:content>
     </f:SimpleForm>
     <f:SimpleForm id="SourceDetailsData" editable="false" layout="ResponsiveGridLayout" 
     labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
@@ -58,6 +60,7 @@
             <Text text="{= ${SourceConsumerId} ? ${SourceConsumer/ConsumerName} ? ${SourceConsumer/ConsumerName} : 'NA' : ${SourceNewConsumerName} ? ${SourceNewConsumerName}: 'NA' }" visible="{= ${LeadSourceId} === '5'}"/>
             <Label text="{i18n>ConsumerMobile}" visible="{= ${LeadSourceId} === '5'}"/>
             <Text text="{= ${SourceConsumerId} ? ${SourceConsumer/PrimaryNum} ? ${SourceConsumer/PrimaryNum} : 'NA' : ${SourceNewConsumerNum} ? ${SourceNewConsumerNum} : 'NA' }" visible="{= ${LeadSourceId} === '5'}"/>
+         
         </f:content>
     </f:SimpleForm>
     <f:SimpleForm id="ServiceDetailsData" editable="false" layout="ResponsiveGridLayout" 
