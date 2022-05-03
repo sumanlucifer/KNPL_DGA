@@ -262,7 +262,7 @@ sap.ui.define([
             //1.Clone the payload and convert string to integer values based on odata model entity
             var oPayLoad = this._RemoveEmptyValue(oModelData);
             var inTegerProperty = [
-
+                "AllocatedDGACount"
             ];
             for (var y of inTegerProperty) {
                 if (oPayLoad.hasOwnProperty(y)) {
@@ -439,8 +439,9 @@ sap.ui.define([
         onJobLocChange: function (oEvent) {
             var oView = this.getView();
             var oModel = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
             var oBj = oEvent.getSource().getSelectedItem().getBindingContext().getObject()
-          
+            oModelView.setProperty("/AllocatedDGACount",oBj["AllocatedDGACount"])
             var oData = oView.getModel();
             var oFilter = new Filter([
                 new Filter("ParentTownId", FilterOperator.EQ, oBj["ParentTownId"]),

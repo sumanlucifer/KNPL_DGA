@@ -58,7 +58,7 @@
                 <Label text="{i18n>ChildTown}"/>
                 <TextArea editable="false" value="{path:'oModelControl>/MultiCombo/ChildTowns', formatter:'.formatter.fmtChildTowns'}"></TextArea>
                 <Label text="{i18n>Requirement}"/>
-                <Text text="{}" />
+                <Text text="{oModelView>/AllocatedDGACount}" />
                     <Label text="{i18n>Location} {i18n>PinCode}" />
                <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/PinCode', type:'sap.ui.model.type.String', constraints:{minLength:1} }" required="true"/>
                    <Label text="{i18n>Service} {i18n>PinCode}" />
@@ -68,14 +68,14 @@
                     </tokens>
                 </MultiInput>
             
-              
+<!--               
                 <Label text="{i18n>City}"  />
                 <ComboBox items="{path:'/MasterCities', sorter:{path:'City'}}" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/StateId} !== '' }"  selectedKey="{path:'oModelView>/TownId', type:'sap.ui.model.type.String', constraints:{minLength:1} }" id="cmbCity" required="true">
                     <items>
                         <core:Item text="{City}" key="{Id}" />
                     </items>
                 </ComboBox>
-               
+                -->
            
             </f:content>
         </f:SimpleForm>

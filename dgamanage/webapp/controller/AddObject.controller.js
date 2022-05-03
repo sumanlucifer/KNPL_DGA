@@ -110,12 +110,13 @@ sap.ui.define([
                 DGADealers: [],
                 ServicePincodes: [],
                 StateId: "",
-                TownId: "",
+                //TownId: "",
                 EmployeeId: "",
                 JoiningDate: null,
                 ExitDate: null,
                 WorkLocationId: "",
-                ChildTowns:[]
+                ChildTowns:[],
+                AllocatedDGACount:""
 
             }
             var oModel1 = new JSONModel(oDataView);
@@ -229,7 +230,7 @@ sap.ui.define([
              */
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
-            //oModelControl.setProperty("/PageBusy", true);
+            oModelControl.setProperty("/PageBusy", true);
             var othat = this;
             var c1, c1B, c2, c3, c4;
             var aFailureCallback = this._onCreationFailed.bind(this);
@@ -284,6 +285,14 @@ sap.ui.define([
                 }
             }
             oPayload["ServicePincodes"] = aDataFinal;
+            var aExistingData = oModelView.getProperty("/ChildTowns");
+            var aSelectedData = oModelControl.getProperty("/MultiCombo/ChildTowns")
+            var iData = -1;
+            var aDataFinal = [];
+            for (var x of aSelectedData) {
+                    aDataFinal.push({ WorkLocationId: x["Id"] });
+            }
+            oPayload["ChildTowns"] = aDataFinal;
             promise.resolve(oPayload);
             return promise
 

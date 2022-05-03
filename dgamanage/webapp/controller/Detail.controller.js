@@ -153,13 +153,8 @@ sap.ui.define(
                     pattern: pattern
                 });
                 oDateFormat.format(oPayLoad["JoiningDate"])
-                console.log(oPayLoad)
-                console.log(oDateFormat.format(oPayLoad["JoiningDate"]))
-                // var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
-                //     format: "dd/MM/YYYY"
-                // });
-                //console.log(oPayLoad)
-                //console.log(oDateFormat.format(oPayLoad["JoiningDate"]))
+
+
                 promise.resolve(oPayLoad);
                 return promise;
             },
@@ -167,13 +162,12 @@ sap.ui.define(
                 var promise = $.Deferred();
                 // set the data for pin code poper
                 var oModeControl = this.getModel("oModelControl");
-                if(oPayLoad["Pincode"]){
+                if (oPayLoad["Pincode"]) {
                     oModeControl.setProperty("/AddFields/PinCode", oPayLoad["Pincode"]["Name"])
                 }
-               
+
 
                 var aArra1 = [];
-
                 if (oPayLoad["ServicePincodes"]["results"].length > 0) {
                     for (var x of oPayLoad["ServicePincodes"]["results"]) {
                         aArra1.push({
@@ -183,6 +177,18 @@ sap.ui.define(
                     }
                 }
                 oModeControl.setProperty("/MultiCombo/Pincode2", aArra1);
+                var aArray2 = [];
+                if (oPayLoad["ChildTowns"]["results"].length > 0) {
+                    for (var x of oPayLoad["ChildTowns"]["results"]) {
+                        aArray2.push({
+                            Id: x["WorkLocationId"],
+                            TownName: x["WorkLocation"]["TownName"],
+                            TownId: x["WorkLocation"]["TownId"]
+                        });
+                    }
+                }
+                oModeControl.setProperty("/MultiCombo/ChildTowns", aArray2);
+
                 promise.resolve(oPayLoad);
                 return promise;
             },
@@ -200,13 +206,16 @@ sap.ui.define(
                 var oView = this.getView();
                 var oModelView = oView.getModel("oModelView");
                 var oPayload = oModelView.getData();
-                var oCity = oView.byId("cmbCity"),
-                    sStateKey = oPayload["StateId"] || "",
-                    oBindingCity = oCity.getBinding("items");
-                if (sStateKey !== "") {
-                    oBindingCity.filter(new Filter("StateId", FilterOperator.EQ, sStateKey));
+                // var oCity = oView.byId("cmbCity"),
+                //     sStateKey = oPayload["StateId"] || "",
+                //     oBindingCity = oCity.getBinding("items");
+                // if (sStateKey !== "") {
+                //     oBindingCity.filter(new Filter("StateId", FilterOperator.EQ, sStateKey));
+                // }
+                var sStateKey = oPayload["StateId"];
+                if (sStateKey !== null) {
+                    oView.byId("cmbxJobLoc").getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, sStateKey));
                 }
-
                 var sZoneId = oPayload["Zone"];
                 if (sZoneId !== null) {
                     oView
@@ -234,7 +243,7 @@ sap.ui.define(
                 var oModel = oView.getModel("oModelDisplay");
                 var oModelControl = this.getModel("oModelControl")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,WorkLocation,ServicePincodes/Pincode";
+                var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,WorkLocation,ServicePincodes/Pincode,ChildTowns/WorkLocation";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
@@ -247,11 +256,11 @@ sap.ui.define(
                             var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
                                 pattern: pattern
                             });
-                            
+
                             var aDate1 = oDateFormat.format(data["JoiningDate"]);
-                            var aDate2 =  oDateFormat.format(data["ExitDate"]);
-                            oModelControl.setProperty("/AddFields/JoiningDate",aDate1);
-                            oModelControl.setProperty("/AddFields/ExitDate",aDate2);
+                            var aDate2 = oDateFormat.format(data["ExitDate"]);
+                            oModelControl.setProperty("/AddFields/JoiningDate", aDate1);
+                            oModelControl.setProperty("/AddFields/ExitDate", aDate2);
 
                             oView.setModel(oModel, "oModelView");
                             console.log(data);
@@ -304,7 +313,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,DGAContractors,WorkLocation,LinkedContractors,ServicePincodes/Pincode";
+                var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,State,DGAContractors,WorkLocation,LinkedContractors,ServicePincodes/Pincode,ChildTowns/WorkLocation";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -628,6 +637,14 @@ sap.ui.define(
                     }
                 }
                 oPayload["ServicePincodes"] = aDataFinal;
+                var aExistingData = oModelView.getProperty("/ChildTowns" + sResults);
+                var aSelectedData = oModelControl.getProperty("/MultiCombo/ChildTowns")
+                var iData = -1;
+                var aDataFinal = [];
+                for (var x of aSelectedData) {
+                    aDataFinal.push({ WorkLocationId: x["Id"] });
+                }
+                oPayload["ChildTowns"] = aDataFinal;
                 promise.resolve(oPayload);
                 return promise
 
