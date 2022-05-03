@@ -812,13 +812,14 @@ sap.ui.define([
                 "/PincodeId",
                 obj["Id"]
             );
-
-            oViewModel.setProperty("/StateId", obj["StateId"]);
-            var cmbxcity = oView.byId("cmbCity");
-
-            cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
-            oViewModel.setProperty("/TownId", obj["CityId"]);
-            cmbxcity.setSelectedKey(obj["CityId"]);
+            var aServicePincode = [{Name:obj["Name"],Id:obj["Id"]}]
+            oModelControl.setProperty("/MultiCombo/Pincode2", aServicePincode);
+            // oViewModel.setProperty("/StateId", obj["StateId"]);
+            // var cmbxcity = oView.byId("cmbCity");
+            
+            // cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
+            // oViewModel.setProperty("/TownId", obj["CityId"]);
+            // cmbxcity.setSelectedKey(obj["CityId"]);
             this._onDialogClose();
 
         },
