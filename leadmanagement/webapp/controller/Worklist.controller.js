@@ -350,6 +350,11 @@ sap.ui.define(
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "PaintingReqSlab/LeadSubStatus",
+                                            operator: "EQ",
+                                            value1: null
                                         })
                                     ],
                                     false
