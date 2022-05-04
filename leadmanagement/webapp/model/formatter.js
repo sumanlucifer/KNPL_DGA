@@ -150,7 +150,10 @@ sap.ui.define([], function () {
                 else
                     contractorArray.push(contractorObject.ContractorName);
             }
-            var commaSeparatedString = contractorArray.join(", ");
+            if(contractorArray.length)
+                var commaSeparatedString = contractorArray.join(", ");
+            else
+                commaSeparatedString = 'NA';
             return commaSeparatedString;
         }
     };
