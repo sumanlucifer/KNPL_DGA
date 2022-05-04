@@ -84,7 +84,7 @@
                         <Text text="{= ${ReassignedContractorId}  ? ${ReassignedContractor/Name}   : ${ReassignedContractorName}  }" />
                         <ObjectStatus text="{ReassignmentStatus/Name}" 
             state="{= ${ReassignmentStatus/Name} === 'Pending' ? 'Warning' : ${ReassignmentStatus/Name} === 'Rejected' ? 'Error' :  ${ReassignmentStatus/Name} === 'Accepted' ? 'Success' : 'Error'}"/>
-                      <ExpandableText maxCharacters="10" overflowMode="Popover" text="{Remark}" />
+                      <ExpandableText maxCharacters="20" overflowMode="Popover" text="{Remark}" />
                         <HBox>
                          <Button visible="{= ${ReassignmentStatus/Name} === 'Accepted' ? false : ${ReassignmentStatus/Name} === 'Rejected' ? false: true }" text="{i18n>Approve}" tooltip="{i18n>Accepted}"  type="Accept" press="onPressApproveReject"></Button>
                          <Button  class="sapUiTinyMarginBegin" visible="{= ${ReassignmentStatus/Name} === 'Accepted' ? false : ${ReassignmentStatus/Name} === 'Rejected' ? false: true }"  text="{i18n>Reject}"  press="onPressApproveReject" type="Reject" tooltip="{i18n>Rejected}"/>
