@@ -709,7 +709,7 @@ sap.ui.define([
             // check pincode already exist or not
             if (SLocationPincodeId) {
                 var iDealers = aDealers.findIndex(item => item["Id"] == SLocationPincodeId);
-                if (iDealers <= 0) {
+                if (iDealers < 0) {
                     aDealers.push({
                         Name: sLocaPincodeName,
                         Id: SLocationPincodeId
