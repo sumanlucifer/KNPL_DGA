@@ -39,6 +39,8 @@
             <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"  />
             <Label text="{= ${LeadStatusId} === '1' ? '' : ${LeadStatusId} === '2'  ? 'Lead Converted Reason' : ${LeadStatusId} === '3' ? 'Lead Lost Reason' : 'Lead Short Closure Reason' }"/>
             <Text  text="{parts:['LeadStatusId','IsSamplingRequired', 'AdvancePaymentCollected','LeadLostReasonId','LeadLostReason/Name', 'CompetitionBrand/Name', 'CompetitorServiceType/Name', 'LeadLostMsg','ShortClosureReason/Name','ShortClosureMsg'],formatter:'.formatter.fmtStatusHeader'}"/>
+            <Label text="{18n>LeadLostMsg}" visible="{= ${LeadStatusId} === '3' ? true : false}"/>
+            <Text text="{= ${LeadLostMsg} ? ${LeadLostMsg} : 'NA' }" visible="{= ${LeadStatusId} === '3' ? true : false}"/>
     </f:content>
     </f:SimpleForm>
     <f:SimpleForm id="SourceDetailsData" editable="false" layout="ResponsiveGridLayout" 
@@ -77,13 +79,15 @@
             <Label text="{i18n>SubType}" />
             <Text text="{path : 'PaintingReqSlab/LeadSubStatus',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>PaintingReq}" />
-            <VBox items="{
-                    path: 'LeadSelectedPaintingRequests'
-                }"
-                visible="{= ${LeadSelectedPaintingRequests}.length > 0 ? true : false}">
-                <Text text="{MasterPaintingReq/Name}"/>
+            <VBox>
+                <VBox items="{
+                        path: 'LeadSelectedPaintingRequests'
+                    }"
+                    visible="{= ${LeadSelectedPaintingRequests}.length > 0 ? true : false}">
+                    <Text text="{MasterPaintingReq/Name}"/>
+                </VBox>
+                <Text text="NA" visible="{= ${LeadSelectedPaintingRequests}.length > 0 ? false : true}"/>
             </VBox>
-            <Text text="NA" visible="{= ${LeadSelectedPaintingRequests}.length > 0 ? false : true}"/>
             <!-- <List
                 items="{
                     path: 'LeadSelectedPaintingRequests'
