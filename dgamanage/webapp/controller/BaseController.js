@@ -431,9 +431,27 @@ sap.ui.define([
         onStateChange: function (oEvent) {
             var sId = oEvent.getSource().getSelectedKey();
             var oView = this.getView();
+            var oModelView=oView.getModel("oModelView");
             var oCmbx = oView.byId("cmbxJobLoc");
+            var aFilter = [];
+            var sZone=oModelView.getProperty("/Zone");
+            var sDivision=oModelView.getProperty("/DivisionId");
+            var sDepot=oModelView.getProperty("/DepotId");
+            if(sZone){
+                aFilter.push(new Filter("Zone",FilterOperator.EQ,sZone))
+            }
+            if(sDivision){
+                aFilter.push(new Filter("DivisionId",FilterOperator.EQ,sDivision))
+            }
+            if(sDepot){
+                aFilter.push(new Filter("DepotId",FilterOperator.EQ,sDepot));
+            }
+            if(sId){
+                aFilter.push(new Filter("StateId", FilterOperator.EQ, sId));
+            }
+            var aFilterMain = new Filter(aFilter,true);
             oCmbx.clearSelection();
-            oView.byId("cmbxJobLoc").getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, sId));
+            oView.byId("cmbxJobLoc").getBinding("items").filter(aFilterMain);
 
         },
         onJobLocChange: function (oEvent) {

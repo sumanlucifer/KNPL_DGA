@@ -181,7 +181,7 @@ sap.ui.define([
             * Purpose: Method is triggered when we have click save on the add form
             */
             var bValidateForm = this._ValidateForm();
-            var bValidateDealer = this._ValidateDealer.bind(this);
+            var bValidateDealer = this._ValidateEmptyFields.bind(this);
             if (bValidateForm) {
                 if (bValidateDealer()) {
                     this._postDataToSave();
@@ -208,11 +208,16 @@ sap.ui.define([
             }
             return true;
         },
-        _ValidateDealer: function () {
+        _ValidateEmptyFields: function () {
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
-            if (oModelControl.getProperty("/MultiCombo/Dealers").length === 0) {
+
+            if (oModelControl.getProperty("/MultiCombo/Dealers").length === 0 && oModelControl.getProperty("/mode")==="Add" ) {
                 this._showMessageToast("Message7");
+                return false;
+            }
+            if (oModelControl.getProperty("/MultiCombo/Pincode2").length === 0) {
+                this._showMessageToast("Message18");
                 return false;
             }
             return true

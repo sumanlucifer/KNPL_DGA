@@ -61,7 +61,7 @@
                 <Text text="{oModelView>/AllocatedDGACount}" />
                     <Label text="{i18n>Location} {i18n>PinCode}" />
                <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/PinCode', type:'sap.ui.model.type.String', constraints:{minLength:1} }" required="true"/>
-                   <Label text="{i18n>Service} {i18n>PinCode}" />
+                   <Label text="{i18n>Service} {i18n>PinCode}" required="true" />
                <MultiInput   placeholder="{i18n>placeHolder1}"   valueHelpOnly="true"  valueHelpRequest="_handlePinCodeValueHelp2" tokens="{path:'oModelControl>/MultiCombo/Pincode2'}">
                     <tokens>
                         <Token text="{oModelControl>Name}" key="{oModelControl>Id}"/>
