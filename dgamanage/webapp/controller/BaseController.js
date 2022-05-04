@@ -274,6 +274,20 @@ sap.ui.define([
             promise.resolve(oPayLoad);
             return promise;
         },
+        _ValidateEmptyFields: function () {
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+
+            if (oModelControl.getProperty("/MultiCombo/Dealers").length === 0 && oModelControl.getProperty("/mode")==="Add" ) {
+                this._showMessageToast("Message7");
+                return false;
+            }
+            if (oModelControl.getProperty("/MultiCombo/Pincode2").length === 0) {
+                this._showMessageToast("Message18");
+                return false;
+            }
+            return true
+        },
         _onCreationFailed: function (mParam1) {
             // mParam1 > error object
 
@@ -431,9 +445,27 @@ sap.ui.define([
         onStateChange: function (oEvent) {
             var sId = oEvent.getSource().getSelectedKey();
             var oView = this.getView();
+            var oModelView=oView.getModel("oModelView");
             var oCmbx = oView.byId("cmbxJobLoc");
+            var aFilter = [];
+            var sZone=oModelView.getProperty("/Zone");
+            var sDivision=oModelView.getProperty("/DivisionId");
+            var sDepot=oModelView.getProperty("/DepotId");
+            if(sZone){
+                aFilter.push(new Filter("Zone",FilterOperator.EQ,sZone))
+            }
+            if(sDivision){
+                aFilter.push(new Filter("DivisionId",FilterOperator.EQ,sDivision))
+            }
+            if(sDepot){
+                aFilter.push(new Filter("DepotId",FilterOperator.EQ,sDepot));
+            }
+            if(sId){
+                aFilter.push(new Filter("StateId", FilterOperator.EQ, sId));
+            }
+            var aFilterMain = new Filter(aFilter,true);
             oCmbx.clearSelection();
-            oView.byId("cmbxJobLoc").getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, sId));
+            oView.byId("cmbxJobLoc").getBinding("items").filter(aFilterMain);
 
         },
         onJobLocChange: function (oEvent) {
@@ -691,7 +723,7 @@ sap.ui.define([
             // check pincode already exist or not
             if (SLocationPincodeId) {
                 var iDealers = aDealers.findIndex(item => item["Id"] == SLocationPincodeId);
-                if (iDealers <= 0) {
+                if (iDealers < 0) {
                     aDealers.push({
                         Name: sLocaPincodeName,
                         Id: SLocationPincodeId

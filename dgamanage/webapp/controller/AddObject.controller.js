@@ -181,9 +181,9 @@ sap.ui.define([
             * Purpose: Method is triggered when we have click save on the add form
             */
             var bValidateForm = this._ValidateForm();
-            var bValidateDealer = this._ValidateDealer.bind(this);
+            var bValidateFields = this._ValidateEmptyFields.bind(this);
             if (bValidateForm) {
-                if (bValidateDealer()) {
+                if (bValidateFields()) {
                     this._postDataToSave();
                 }
             }
@@ -208,15 +208,7 @@ sap.ui.define([
             }
             return true;
         },
-        _ValidateDealer: function () {
-            var oView = this.getView();
-            var oModelControl = oView.getModel("oModelControl");
-            if (oModelControl.getProperty("/MultiCombo/Dealers").length === 0) {
-                this._showMessageToast("Message7");
-                return false;
-            }
-            return true
-        },
+      
         _postDataToSave: function () {
             /*
              * Author: manik saluja
