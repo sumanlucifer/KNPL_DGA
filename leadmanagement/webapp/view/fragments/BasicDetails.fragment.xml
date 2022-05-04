@@ -69,7 +69,7 @@
     columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false" title="{i18n>ServiceAndPainting} {i18n>Details}">
         <f:content>
             <Label text="{i18n>ServiceType}" />
-            <Text text="{= ${LeadServiceSubTypeId} ? ${LeadServiceType/Name} + ' (' + ${LeadServiceSubType/ServiceSubType} + ')' : ${LeadServiceType/Name} }"  />
+            <Text text="{= ${LeadServiceSubTypeId} ? ${LeadServiceType/Name} ? ${LeadServiceType/Name} + ' (' + ${LeadServiceSubType/ServiceSubType} + ')' : 'NA' : ${LeadServiceType/Name} ? ${LeadServiceType/Name} : 'NA' }"  />
             <Label text="{i18n>PaintingType}" />
             <Text text="{path : 'PaintType/Name',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>PaintingReqDays}" />
@@ -79,9 +79,11 @@
             <Label text="{i18n>PaintingReq}" />
             <VBox items="{
                     path: 'LeadSelectedPaintingRequests'
-                }">
+                }"
+                visible="{= ${LeadSelectedPaintingRequests}.length > 0 ? true : false}">
                 <Text text="{MasterPaintingReq/Name}"/>
             </VBox>
+            <Text text="NA" visible="{= ${LeadSelectedPaintingRequests}.length > 0 ? false : true}"/>
             <!-- <List
                 items="{
                     path: 'LeadSelectedPaintingRequests'

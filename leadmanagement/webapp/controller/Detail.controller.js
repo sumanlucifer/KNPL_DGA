@@ -184,7 +184,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGA,SourceDealer,Dealer,LeadServiceSubType,SourceConsumer,LeadSelectedPaintingRequests,LeadSelectedPaintingRequests/MasterPaintingReq,LeadLostReason,CompetitionBrand,CompetitorServiceType,ShortClosureReason";
+                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGA,SourceDealer,Dealer,LeadServiceSubType,SourceConsumer,LeadSelectedPaintingRequests,LeadSelectedPaintingRequests/MasterPaintingReq,LeadLostReason,CompetitionBrand,CompetitorServiceType,ShortClosureReason,AssignedContractors/Contractor";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -275,6 +275,7 @@ sap.ui.define(
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
                     this._bindViewElement("idTotalInterior","/"+sPreEstimationPath);
+                    this._bindViewElement("idLblTotalInterior","/"+sPreEstimationPath);
                     this._bindViewElement("idPreEstGTotal","/"+sPreEstimationPath);
                 });
             },
@@ -286,6 +287,7 @@ sap.ui.define(
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
                     this._bindViewElement("idTotalExterior","/"+sPreEstimationPath);
+                    this._bindViewElement("idLblTotalExterior","/"+sPreEstimationPath);
                 });
             },
             onBeforeRebindPreReq3: function (oEvent) {
@@ -296,6 +298,7 @@ sap.ui.define(
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
                     this._bindViewElement("idTotalWC","/"+sPreEstimationPath);
+                    this._bindViewElement("idLblTotalWC","/"+sPreEstimationPath);
                 });
             },
             onBeforeRebindPreReq4: function (oEvent) {
@@ -306,6 +309,7 @@ sap.ui.define(
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
                     this._bindViewElement("idTotalCC","/"+sPreEstimationPath);
+                    this._bindViewElement("idLblTotalCC","/"+sPreEstimationPath);
                 });
             },
             onBeforeRebindQuotReq1: function (oEvent) {
@@ -316,6 +320,7 @@ sap.ui.define(
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sQuotationPath = oBindingObject.Quotation.__list[0];
                     this._bindViewElement("idTotalQuotInterior","/"+sQuotationPath);
+                    this._bindViewElement("idLblTotalQuotInterior","/"+sQuotationPath);
                     this._bindViewElement("idQuotOCTotal","/"+sQuotationPath);
                     this._bindViewElement("idQuotDiscountLbl","/"+sQuotationPath);
                     this._bindViewElement("idQuotDiscount","/"+sQuotationPath);
@@ -330,6 +335,7 @@ sap.ui.define(
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sQuotationPath = oBindingObject.Quotation.__list[0];
                     this._bindViewElement("idTotalQuotExterior","/"+sQuotationPath);
+                    this._bindViewElement("idLblTotalQuotExterior","/"+sQuotationPath);
                 });
             },
             onBeforeRebindQuotReq3: function (oEvent) {
@@ -340,6 +346,7 @@ sap.ui.define(
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sQuotationPath = oBindingObject.Quotation.__list[0];
                     this._bindViewElement("idTotalQuotWC","/"+sQuotationPath);
+                    this._bindViewElement("idLblTotalQuotWC","/"+sQuotationPath);
                 });
             },
             onBeforeRebindQuotReq4: function (oEvent) {
@@ -350,6 +357,7 @@ sap.ui.define(
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sQuotationPath = oBindingObject.Quotation.__list[0];
                     this._bindViewElement("idTotalQuotCC","/"+sQuotationPath);
+                    this._bindViewElement("idLblTotalQuotCC","/"+sQuotationPath);
                 });
             },
             onBeforeBindMatReqTbl1: function (oEvent) {

@@ -75,79 +75,79 @@ sap.ui.define([], function () {
             }
             return ""
         },
-        fmtStatusHeader: function (leadeStatusId, IsSamplingRequired, AdvancePaymentCollected,LeadLostReasonId, exp1, exp2, exp3,LeadLostMsg,ShortReasonMsg1, ShortReasonMsg2 ) {
-           
+        fmtStatusHeader: function (leadeStatusId, IsSamplingRequired, AdvancePaymentCollected, LeadLostReasonId, exp1, exp2, exp3, LeadLostMsg, ShortReasonMsg1, ShortReasonMsg2) {
+
             if (leadeStatusId === "2") {
-                if (IsSamplingRequired === 0 && AdvancePaymentCollected === 0  ) {
-                
-                        var text="Sampling Required = No, Advance Payment collected=No";  
-                        return text;
-                      }
-                      else if(IsSamplingRequired === 1 && AdvancePaymentCollected === 1  )
-                      {
-                        var text="Sampling Required = Yes, Advance Payment collected=Yes"; 
-                        return text;
-                      }
-                      else if(IsSamplingRequired === 1 || AdvancePaymentCollected === 0  )
-                      {
-                        var text="Sampling Required = Yes, Advance Payment collected=No"; 
-                        return text;
-                      }
-                      else if(IsSamplingRequired === 0 || AdvancePaymentCollected === 1  )
-                      {
-                        var text="Sampling Required = No, Advance Payment collected=Yes"; 
-                        return text;
-                      }
+                if (IsSamplingRequired === 0 && AdvancePaymentCollected === 0) {
+
+                    var text = "Sampling Required = No, Advance Payment collected=No";
+                    return text;
+                }
+                else if (IsSamplingRequired === 1 && AdvancePaymentCollected === 1) {
+                    var text = "Sampling Required = Yes, Advance Payment collected=Yes";
+                    return text;
+                }
+                else if (IsSamplingRequired === 1 || AdvancePaymentCollected === 0) {
+                    var text = "Sampling Required = Yes, Advance Payment collected=No";
+                    return text;
+                }
+                else if (IsSamplingRequired === 0 || AdvancePaymentCollected === 1) {
+                    var text = "Sampling Required = No, Advance Payment collected=Yes";
+                    return text;
+                }
             }
             if (leadeStatusId === "3") {
 
-                if(LeadLostReasonId !== null )
-                {
-                if(LeadLostReasonId === "1"){
-                  if (LeadLostMsg !== null ) {
-                
-                        var text= `${LeadLostMsg} ${exp1} ${exp2} ${exp3}`;  
-                        return text;
-                      }
-                      else{
-                         var text= "NA";  
-                        return text;
+                if (LeadLostReasonId !== null) {
+                    if (LeadLostReasonId === "1") {
+                        if (LeadLostMsg !== null) {
 
-                      }
+                            var text = `${LeadLostMsg} ${exp1} ${exp2} ${exp3}`;
+                            return text;
+                        }
+                        else {
+                            var text = "NA";
+                            return text;
+
+                        }
                     }
-                    else{
-                        if(exp1 !== null)
-                        {
-                        var text= `${exp1}`;  
-                        return text;
+                    else {
+                        if (exp1 !== null) {
+                            var text = `${exp1}`;
+                            return text;
                         }
                     }
                 }
-               }
-                  if (leadeStatusId === "4")
-            {
-                if(ShortReasonMsg2 !== null)
-                {
-                 var text= `${ShortReasonMsg2}`  
-                return text;
+            }
+            if (leadeStatusId === "4") {
+                if (ShortReasonMsg2 !== null) {
+                    var text = `${ShortReasonMsg2}`
+                    return text;
                 }
-                if(ShortReasonMsg1 !== null)
-                {
-                var text= `${ShortReasonMsg1}`  
-                return text; 
+                if (ShortReasonMsg1 !== null) {
+                    var text = `${ShortReasonMsg1}`
+                    return text;
                 }
             }
-         return text;
+            return text;
         },
 
         fmtCommaSepratedAssignedContractor: function (mParam) {
+            debugger
             if (mParam === null)
                 return "";
             var contractorArray = [];
             for (var i in mParam) {
                 var contractorKey = mParam[i];
                 var contractorObject = this.getView().getModel().getProperty("/" + contractorKey);
-                contractorArray.push(contractorObject.ContractorName);
+                if (contractorObject.ContractorId) {
+                    if (contractorObject.Contractor) {
+                        var contractorDetails = this.getView().getModel().getProperty("/" + contractorObject.Contractor.__ref);
+                        contractorArray.push(contractorDetails.Name);
+                    }
+                }
+                else
+                    contractorArray.push(contractorObject.ContractorName);
             }
             var commaSeparatedString = contractorArray.join(", ");
             return commaSeparatedString;
