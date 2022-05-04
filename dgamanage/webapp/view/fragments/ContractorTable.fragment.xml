@@ -45,8 +45,8 @@
                          <Text text="{Rating}" />
                           <Text text="{Dealer/Name}" />
                             <Text text="{Dealer/Id}" />
-                                <Text text="{Contractor/PainterKycDetails/Status}" />
-                                  <Text text="{Contractor/PainterBankDetails/Status}" />
+                                <Text text="{Contractor/KYCStatus}" />
+                                  <Text text="{Contractor/BankDetailsStatus}" />
                     </cells>
                 </ColumnListItem>
             </dependents >
