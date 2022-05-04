@@ -100,17 +100,18 @@ sap.ui.define([], function () {
 
                 if (LeadLostReasonId !== null) {
                     if (LeadLostReasonId === "1") {
-                        if (LeadLostMsg !== null) {
-
-                            var text = `${LeadLostMsg} ${exp1} ${exp2} ${exp3}`;
+                        if (exp1 !== null|| exp2 !==null || exp3 !==null) {
+                         var text = `${exp1}, ${exp2}, ${exp3}`;
+                        return text;
+                        }if(LeadLostMsg !== null){
+                        var text = `${LeadLostMsg}`;
                             return text;
                         }
                         else {
                             var text = "NA";
                             return text;
-
-                        }
-                    }
+                             }
+                            }
                     else {
                         if (exp1 !== null) {
                             var text = `${exp1}`;
@@ -133,7 +134,7 @@ sap.ui.define([], function () {
         },
 
         fmtCommaSepratedAssignedContractor: function (mParam) {
-            debugger
+            
             if (mParam === null)
                 return "";
             var contractorArray = [];
