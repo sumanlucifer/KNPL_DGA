@@ -59,9 +59,8 @@
                 <items>
                     <IconTabFilter  text="{i18n>BasicDetails}" key="0" >
                         <VBox id="oVBoxAddObjectPage" width="100%">
+                            
                           </VBox>
-                        
-                        
                         </IconTabFilter>
                          <IconTabFilter  text="{i18n>LinkedDealers}" key="1" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.DealersTable" type="XML"/>

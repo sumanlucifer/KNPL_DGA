@@ -336,7 +336,7 @@ sap.ui.define(
 
             },
 
-        
+            //#Icontabar change
             onIcnTbarChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
