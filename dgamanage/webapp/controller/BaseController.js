@@ -274,6 +274,20 @@ sap.ui.define([
             promise.resolve(oPayLoad);
             return promise;
         },
+        _ValidateEmptyFields: function () {
+            var oView = this.getView();
+            var oModelControl = oView.getModel("oModelControl");
+
+            if (oModelControl.getProperty("/MultiCombo/Dealers").length === 0 && oModelControl.getProperty("/mode")==="Add" ) {
+                this._showMessageToast("Message7");
+                return false;
+            }
+            if (oModelControl.getProperty("/MultiCombo/Pincode2").length === 0) {
+                this._showMessageToast("Message18");
+                return false;
+            }
+            return true
+        },
         _onCreationFailed: function (mParam1) {
             // mParam1 > error object
 

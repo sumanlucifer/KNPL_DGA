@@ -98,14 +98,42 @@ sap.ui.define(
                 // c1 = othat._CheckLoginData();
                 c1 = othat._dummyPromise();
                 c1.then(function () {
-                    c2 = othat._getDisplayData(oData["bindProp"]);
+                    c2 = othat._LoadFragment("DisplayDetails");
                     c2.then(function () {
-                        c3 = othat._LoadFragment("DisplayDetails");
+                        c3 = othat._getDisplayData(oData["bindProp"]);
                         c3.then(function () {
                             oModel.setProperty("/PageBusy", false)
                         })
                     })
                 })
+            },
+            _getDisplayData: function (oProp) {
+
+                var promise = jQuery.Deferred();
+                var oView = this.getView();
+                var oModel = oView.getModel("oModelDisplay");
+                var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,State,DGAContractors,WorkLocation,LinkedContractors,ServicePincodes/Pincode,ChildTowns/WorkLocation";
+                var othat = this;
+                if (oProp.trim() !== "") {
+                    return new Promise((resolve,reject)=>{
+                        oView.bindElement({
+                            path: "/" + oProp,
+                            parameters: {
+                                expand: exPand
+                            },
+                            events: {
+                                dataRequested: function (oEvent) {
+                                   
+                                },
+                                dataReceived: function (oEvent) {
+                                    resolve();
+                                },
+                            },
+                        });
+                    })
+                    
+                }
+              
             },
             _initEditData: function () {
                 var oView = this.getView();
@@ -308,32 +336,7 @@ sap.ui.define(
 
             },
 
-            _getDisplayData: function (oProp) {
-
-                var promise = jQuery.Deferred();
-                var oView = this.getView();
-
-                var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,State,DGAContractors,WorkLocation,LinkedContractors,ServicePincodes/Pincode,ChildTowns/WorkLocation";
-                var othat = this;
-                if (oProp.trim() !== "") {
-                    oView.bindElement({
-                        path: "/" + oProp,
-                        parameters: {
-                            expand: exPand
-                        },
-                        events: {
-                            dataRequested: function (oEvent) {
-                                //  oView.setBusy(true);
-                            },
-                            dataReceived: function (oEvent) {
-                                //  oView.setBusy(false);
-                            },
-                        },
-                    });
-                }
-                promise.resolve();
-                return promise;
-            },
+        
             onIcnTbarChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
@@ -500,8 +503,11 @@ sap.ui.define(
             // },
             onPressSave: function () {
                 var bValidateForm = this._ValidateForm();
+                var bValidateFields = this._ValidateEmptyFields.bind(this);
                 if (bValidateForm) {
-                    this._postDataToSave()
+                    if (bValidateFields()) {
+                        this._postDataToSave();
+                    }
                 }
 
             },

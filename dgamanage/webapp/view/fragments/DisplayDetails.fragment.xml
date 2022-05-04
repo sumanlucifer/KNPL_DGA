@@ -43,7 +43,12 @@
                  <Label text="{i18n>JobLocation}"/>
                 <Text text="{WorkLocation/TownName}"/>
                 <Label text="{i18n>ChildTown}" />
-                <TextArea editable="false" value="{path:'ChildTowns',formatter:'.formatter.fmtChildTowns2'}"  />
+                  <MultiInput editable="false" tokens="{path:'ChildTowns/'}">
+                    <tokens>
+                        <Token text="{WorkLocation/TownName} - {WorkLocation/TownId}" />
+                    </tokens>
+                 </MultiInput>
+                <!-- <TextArea editable="false" value="{path:'ChildTowns',formatter:'.formatter.fmtChildTowns2'}"  /> -->
                  <Label text="{i18n>Requirement}"/>
                 <Text text="{AllocatedDGACount}" />
               <Label text="{i18n>Location} {i18n>PinCode}" />
