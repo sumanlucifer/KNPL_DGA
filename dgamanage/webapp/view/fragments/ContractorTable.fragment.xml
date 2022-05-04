@@ -2,60 +2,7 @@
    
          <Table id="idContractorTable" growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >
             <columns>
-                <!-- <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Contractor/Name", "leadingProperty": "Contractor/Name", "columnIndex": 0 ,"sortProperty": "Contractor/Name","filterProperty": "Contractor/Name"}'/>
-                    </customData>
-                    <Text text="{i18n>Name}"/>
-                </Column>
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PhoneNumber","columnIndex":1 }'/>
-                    </customData>
-                    <Text text="{i18n>PhoneNumber}"/>
-                </Column>
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "NppId","columnIndex":2 }'/>
-                    </customData>
-                    <Text text="{i18n>NppId}"/>
-                </Column>
-                 <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Points","columnIndex":3 }'/>
-                    </customData>
-                    <Text text="{i18n>Points}"/>
-                </Column>
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Category","columnIndex":4 }'/>
-                    </customData>
-                    <Text text="{i18n>Category}"/>
-                </Column>
-                 <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DealerName","columnIndex":5 }'/>
-                    </customData>
-                    <Text text="{i18n>DealerName}"/>
-                </Column>
-                 <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DealerCode","columnIndex":6 }'/>
-                    </customData>
-                    <Text text="{i18n>DealerCode}"/>
-                </Column>
-                 <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "KycStatus","columnIndex":7 }'/>
-                    </customData>
-                    <Text text="{i18n>KycStatus}"/>
-                </Column>
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "BankStatus","columnIndex":8 }'/>
-                    </customData>
-                    <Text text="{i18n>BankDetailsStatus}"/>
-                </Column> -->
+
                 <Column hAlign="Begin">
                     <Text text="{i18n>Name}"/>
                 </Column>
@@ -91,13 +38,13 @@
                  
                        <!-- <Text text="{Contractor/Name}" /> -->
                       
-                       <Text text="{Name}" />
-                        <Text text="{Mobile}" />
-                        <Text text="{MembershipCard}" />
+                       <Text text="{ContractorName}" />
+                        <Text text="{Contractor/Mobile}" />
+                        <Text text="{Contractor/MembershipCard}" />
                          <Text text="{RewardPoints}" />
-                         <Text text="{Slab}" />
-                          <Text text="{DealerName}" />
-                            <Text text="{DealerCode}" />
+                         <Text text="{Rating}" />
+                          <Text text="{Dealer/Name}" />
+                            <Text text="{Dealer/Id}" />
                                 <Text text="{KYCStatus}" />
                                   <Text text="{BankDetailsStatus}" />
                     </cells>

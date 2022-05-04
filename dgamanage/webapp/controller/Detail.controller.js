@@ -341,17 +341,24 @@ sap.ui.define(
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 var oModel = oView.getModel();
-                var sEntitySet = oView.getModel("oModelDisplay").getProperty("/bindProp");
-
+                var oModel1 =  oView.getModel("oModelDisplay");
+                var sEntitySet =oModel1.getProperty("/bindProp");
+                var sDgaId = oModel1.getProperty("/Id");
+                console.log(sDgaId)
                 if (sKey == "1") {
                     oView.byId("Dealerstable").setEntitySet(sEntitySet);
                     //console.log(sEntitySet);
                 } else if (sKey == "2") {
                     var oTable = oView.byId("idContractorTable")
                     oTable.bindItems({
-                        path: "LinkedContractors/",
+                        path: "/MapDGAContractors",
                         template: oView.byId("oColumListItemContrators"),
                         templateShareable: true,
+                        parameters: {
+                            expand: 'Contractor,Dealer',
+                        },
+                        filters:[new Filter("DGAId",FilterOperator.EQ,sDgaId)]
+
                     })
 
                 } else if (sKey == "3") {
