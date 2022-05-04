@@ -500,6 +500,25 @@ sap.ui.define([
 
             })
         },
+        onTokenUpdate: function (oEvent) {
+            if (oEvent.getParameter("type") === "removed") {
+                var oView = this.getView();
+                var oModel = oView.getModel("oModelControl");
+                var sPath = oEvent.getSource().getBinding("tokens").getPath();
+                var aArray = oModel.getProperty(sPath);
+                var aNewArray;
+                var aRemovedTokens = oEvent.getParameter("removedTokens");
+                var aRemovedKeys = [];
+                aRemovedTokens.forEach(function (item) {
+                    aRemovedKeys.push(item.getKey());
+                });
+                aNewArray = aArray.filter(function (item) {
+                    return aRemovedKeys.indexOf(item["Id"]) < 0;
+                });
+                oModel.setProperty(sPath, aNewArray);
+                
+            }
+        },
 
         _handlePValueHelpSearch: function (oEvent) {
             /*

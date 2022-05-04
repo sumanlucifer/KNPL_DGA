@@ -336,7 +336,7 @@ sap.ui.define(
 
             },
 
-        
+            //#Icontabar change
             onIcnTbarChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
@@ -357,7 +357,7 @@ sap.ui.define(
                         parameters: {
                             expand: 'Contractor,Dealer',
                         },
-                        filters:[new Filter("DGAId",FilterOperator.EQ,sDgaId)]
+                        filters:[new Filter("DGAId",FilterOperator.EQ,sDgaId),new Filter("IsLinked",FilterOperator.EQ,true)]
 
                     })
 
