@@ -99,15 +99,7 @@ sap.ui.define(
                 var c1, c2, c3, c4;
                 // oModelControl.setProperty("/PageBusy", true)
                 c1 = othat._addSearchFieldAssociationToFB();
-                // c1.then(function () {
-                //     c2 = othat._dummyPromise();
-                //     c2.then(function () {
-                //         c3 = othat._initTableData();
-                //         c3.then(function () {
-                //             oModelControl.setProperty("/PageBusy", false)
-                //         })
-                //     })
-                // })
+
             },
             _addSearchFieldAssociationToFB: function () {
                 /*
@@ -143,25 +135,9 @@ sap.ui.define(
                 oDivision.setValue("");
                 var oDivItems = oDivision.getBinding("items");
                 oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
-                //setting the data for depot;
-                // var oDepot = oView.byId("idDepot");
-                // oDepot.clearSelection();
-                // oDepot.setValue("");
-                // clearning data for dealer
-                // oModelContorl.setProperty("/MultiCombo/Dealers", []);
+
             },
-            // onDivisionChange: function (oEvent) {
-            //     var sKey = oEvent.getSource().getSelectedKey();
-            //     var oView = this.getView();
-            //     var oModelContorl = oView.getModel("oModelControl");
-            //     var oDepot = oView.byId("idDepot");
-            //     var oDepBindItems = oDepot.getBinding("items");
-            //     oDepot.clearSelection();
-            //     oDepot.setValue("");
-            //     oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
-            //     // clearning data for dealer
-            //     // oModelContorl.setProperty("/MultiCombo/Dealers", []);
-            // },
+
             _getLoggedInInfo: function () {
                 /*
                  * Author: manik saluja
@@ -338,111 +314,6 @@ sap.ui.define(
                     return false;
                 }
             },
-            // _CreateFilter: function () {
-            //     var aCurrentFilterValues = [];
-            //     var oViewFilter = this.getView()
-            //         .getModel("oModelControl")
-            //         .getProperty("/filterBar");
-            //     var aFlaEmpty = false;
-            //     aCurrentFilterValues.push(
-            //         new Filter("IsArchived", FilterOperator.EQ, false));
-            //     // filter bar filters
-            //     for (let prop in oViewFilter) {
-            //         if (oViewFilter[prop]) {
-            //             if (prop === "ZoneId") {
-            //                 aFlaEmpty = false;
-            //                 aCurrentFilterValues.push(
-            //                     new Filter("DGA/Zone", FilterOperator.EQ, oViewFilter[prop]));
-            //             } else if (prop === "DivisionId") {
-            //                 aFlaEmpty = false;
-            //                 aCurrentFilterValues.push(
-            //                     new Filter("DGA/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
-            //             } else if (prop === "ReassignmentStatus") {
-            //                 aFlaEmpty = false;
-            //                 aCurrentFilterValues.push(
-            //                     new Filter("ReassignmentStatus/Name", FilterOperator.EQ, oViewFilter[prop]));
-            //             } else if (prop === "Search") {
-            //                 aFlaEmpty = false;
-            //                 aCurrentFilterValues.push(
-            //                     new Filter(
-            //                         [
-            //                             new Filter({
-            //                                 path: "DGA/Zone",
-            //                                 operator: "Contains",
-            //                                 value1: oViewFilter[prop].trim(),
-            //                                 caseSensitive: false
-            //                             }),
-            //                             new Filter({
-            //                                 path: "DGA/GivenName",
-            //                                 operator: "Contains",
-            //                                 value1: oViewFilter[prop].trim(),
-            //                                 caseSensitive: false
-            //                             }),
-            //                             new Filter({
-            //                                 path: "Lead/ConsumerName",
-            //                                 operator: "Contains",
-            //                                 value1: oViewFilter[prop].trim(),
-            //                                 caseSensitive: false
-            //                             }),
-            //                             new Filter({
-            //                                 path: "ReassignmentStatus/Name",
-            //                                 operator: "Contains",
-            //                                 value1: oViewFilter[prop].trim(),
-            //                                 caseSensitive: false
-            //                             }),
-            //                             new Filter({
-            //                                 path: "DGA/DivisionId",
-            //                                 operator: "Contains",
-            //                                 value1: oViewFilter[prop].trim(),
-            //                                 caseSensitive: false
-            //                             }),
-            //                             new Filter({
-            //                                 path: "Remark",
-            //                                 operator: "Contains",
-            //                                 value1: oViewFilter[prop].trim(),
-            //                                 caseSensitive: false
-            //                             }),
-            //                             new Filter({
-            //                                 path: "Lead/PrimaryNum",
-            //                                 operator: "Contains",
-            //                                 value1: oViewFilter[prop].trim(),
-            //                                 caseSensitive: false
-            //                             }),
-            //                             new Filter({
-            //                                 path: "Lead/Id",
-            //                                 operator: "EQ",
-            //                                 value1: oViewFilter[prop].trim(),
-            //                                 caseSensitive: false
-            //                             })
-            //                         ],
-            //                         false
-            //                     )
-            //                 );
-            //             }
-            //             else if (prop === "StartDate") {
-            //                 // converstions are made as the difference between utc and the server time
-            //                 aFlaEmpty = false;
-            //                 aCurrentFilterValues.push(
-            //                     new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
-            //             } else if (prop === "EndDate") {
-            //                 // converstions are made as the difference between utc and the server time
-            //                 aFlaEmpty = false;
-            //                 var oDate = oViewFilter[prop].setDate(oViewFilter[prop].getDate() + 1);
-            //                 aCurrentFilterValues.push(
-            //                     new Filter("CreatedAt", FilterOperator.LT, oDate));
-            //             }
-            //         }
-            //     }
-            //     var endFilter = new Filter({
-            //         filters: aCurrentFilterValues,
-            //         and: true,
-            //     });
-            //     if (aFlaEmpty) {
-            //         return endFilter;
-            //     } else {
-            //         return false;
-            //     }
-            // },
             onResetFilterBar: function () {
                 this._ResetFilterBar();
             },
@@ -451,7 +322,7 @@ sap.ui.define(
                     sButton = oEve.getSource().getTooltip().trim().toLowerCase(),
                     sStatus = sButton === "accepted" ? "2" : "rejected" ? "3" : "1",
                     sMessage = sButton === "accepted" ? "Approve" : "Reject",
-                    sAccptRejctCheck = sButton === "accepted" ? this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this, iId, sStatus)) : this._showMessageBox("remark", "MsgConfirm", [sMessage], "", "", iId, sStatus);
+                    sAccptRejctCheck = sButton === "accepted" ? this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this,iId, sStatus, "Approved")) : this._showMessageBox("remark", "MsgConfirm", [sMessage], "", "", iId, sStatus);
                 // this._showMessageBox("information", "MsgConfirm", [sMessage], this.onApproveRejectServiceCall.bind(this, iId, sStatus));
             },
             onListItemPress: function (oEvent) {
