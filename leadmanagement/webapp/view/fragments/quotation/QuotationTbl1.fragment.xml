@@ -9,7 +9,7 @@
                             showRowCount="true"
                             useExportToExcel="false"
                             useVariantManagement="false"
-                            useTablePersonalisation="true"
+                            useTablePersonalisation="false"
                             demandPopin="true"
                             enableAutoBinding="false"
                             placeToolbarInTable="true"
@@ -24,6 +24,9 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "Type", "leadingProperty": "Type", "sortProperty": "Type", "filterProperty": "Type", "columnIndex": 0 }'/>
                     </customData>
                     <Text text="{i18n>Type}"/>
+                    <footer>
+                        <Text id="idLblTotalQuotInterior" text="{= ${TotalInteriorCosting} ? ${i18n>TotalInteriorCosting} : '' }"/>
+                    </footer>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
@@ -67,7 +70,7 @@
                     </customData>
                     <Text text="{i18n>RateAccToArea}"/>
                     <footer>
-                        <Text id="idTotalQuotInterior" text="{i18n>Rupee} {TotalInteriorCosting}"/>
+                        <Text id="idTotalQuotInterior" text="{= ${TotalInteriorCosting} ? ${i18n>Rupee} + '' + ${TotalInteriorCosting} : '' }"/>
                     </footer>
                 </Column>
             </columns>
