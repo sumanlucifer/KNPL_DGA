@@ -41,12 +41,12 @@
                        <Text text="{ContractorName}" />
                         <Text text="{Contractor/Mobile}" />
                         <Text text="{Contractor/MembershipCard}" />
-                         <Text text="{RewardPoints}" />
+                         <Text text="{Contractor/RewardPoints}" />
                          <Text text="{Rating}" />
                           <Text text="{Dealer/Name}" />
                             <Text text="{Dealer/Id}" />
-                                <Text text="{KYCStatus}" />
-                                  <Text text="{BankDetailsStatus}" />
+                                <Text text="{Contractor/PainterKycDetails/Status}" />
+                                  <Text text="{Contractor/PainterBankDetails/Status}" />
                     </cells>
                 </ColumnListItem>
             </dependents >

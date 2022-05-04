@@ -357,7 +357,7 @@ sap.ui.define(
                         parameters: {
                             expand: 'Contractor,Dealer',
                         },
-                        filters:[new Filter("DGAId",FilterOperator.EQ,sDgaId)]
+                        filters:[new Filter("DGAId",FilterOperator.EQ,sDgaId),new Filter("IsLinked",FilterOperator.EQ,true)]
 
                     })
 
