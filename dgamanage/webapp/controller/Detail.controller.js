@@ -115,7 +115,7 @@ sap.ui.define(
                 var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,State,DGAContractors,WorkLocation,LinkedContractors,ServicePincodes/Pincode,ChildTowns/WorkLocation";
                 var othat = this;
                 if (oProp.trim() !== "") {
-                    return new Promise((resolve,reject)=>{
+                    return new Promise((resolve, reject) => {
                         oView.bindElement({
                             path: "/" + oProp,
                             parameters: {
@@ -123,7 +123,7 @@ sap.ui.define(
                             },
                             events: {
                                 dataRequested: function (oEvent) {
-                                   
+
                                 },
                                 dataReceived: function (oEvent) {
                                     resolve();
@@ -131,9 +131,9 @@ sap.ui.define(
                             },
                         });
                     })
-                    
+
                 }
-              
+
             },
             _initEditData: function () {
                 var oView = this.getView();
@@ -341,8 +341,8 @@ sap.ui.define(
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 var oModel = oView.getModel();
-                var oModel1 =  oView.getModel("oModelDisplay");
-                var sEntitySet =oModel1.getProperty("/bindProp");
+                var oModel1 = oView.getModel("oModelDisplay");
+                var sEntitySet = oModel1.getProperty("/bindProp");
                 var sDgaId = oModel1.getProperty("/Id");
                 console.log(sDgaId)
                 if (sKey == "1") {
@@ -357,7 +357,7 @@ sap.ui.define(
                         parameters: {
                             expand: 'Contractor,Dealer',
                         },
-                        filters:[new Filter("DGAId",FilterOperator.EQ,sDgaId),new Filter("IsLinked",FilterOperator.EQ,true)]
+                        filters: [new Filter("DGAId", FilterOperator.EQ, sDgaId), new Filter("IsLinked", FilterOperator.EQ, true)]
 
                     })
 
@@ -446,11 +446,14 @@ sap.ui.define(
                         Id: oBj["Id"],
                     });
                 }
-
+                if (aDealersSelected.length < 1) {
+                    this._showMessageToast("Message20");
+                    this._onDialogClose();
+                    return;
+                }
                 // oModel.setProperty("/MultiCombo/Dealers", aDealers);
                 // oModel.refresh(true);
                 // this._onDialogClose();
-                //
                 var aExistingDealers = []//oModelView.getProperty("/DGADealers");
                 var aSelectedDealers = aDealersSelected
                 var iDealers = -1;
@@ -469,7 +472,7 @@ sap.ui.define(
                 var oPayload = {
                     MapDGADealers: aDealers
                 }
-                console.log(oPayload);
+
 
                 oModelDisplay.setProperty("/PageBusy", true);
                 oDataModel.create("/MapDGADealersList", oPayload, {
@@ -670,7 +673,7 @@ sap.ui.define(
                 var oDataModel = oView.getModel();
                 var oModelControl = oView.getModel("oModelControl");
                 var sProp = oModelControl.getProperty("/bindProp")
-                console.log(sProp,oPayLoad)
+                console.log(sProp, oPayLoad)
                 return new Promise((resolve, reject) => {
                     oDataModel.update("/" + sProp, oPayLoad, {
                         success: function (data) {
