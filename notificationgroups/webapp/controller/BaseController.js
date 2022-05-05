@@ -90,8 +90,8 @@ sap.ui.define([
                 Pagetitle: mParam1 === "Add" ? "Add" : "Edit",
                 mode: mParam1,
                 Id: mParam2,
-                bindProp: "NotificationGroupSet(" + mParam2 + ")",
-                EntitySet: "NotificationGroupSet",
+                bindProp: "NotificationGroups(" + mParam2 + ")",
+                EntitySet: "NotificationGroups",
                 resourcePath: "com.knpl.dga.notificationgroups",
                 AddFields: {
                     PainterMobile: "",
@@ -523,36 +523,40 @@ sap.ui.define([
             this._oMultiInput = this.getView().byId("multiInputPainterAdd");
             this.oColModel = new JSONModel({
                 cols: [{
-                    label: "Membership ID",
-                    template: "Painter/MembershipCard",
+                    label: "Name",
+                    template: "GivenName",
                 },
                 {
                     label: "Name",
                     template: "Painter/Name",
                 },
                 {
-                    label: "Mobile Number",
-                    template: "Painter/Mobile",
+                    label: "Unique Id",
+                    template: "UniqueId",
                 },
                 {
                     label: "Zone",
-                    template: "Painter/ZoneId",
+                    template: "Zone",
                 },
                 {
                     label: "Division",
-                    template: "Painter/DivisionId",
+                    template: "DivisionId",
                 },
                 {
                     label: "Depot",
-                    template: "Painter/Depot/Depot",
+                    template: "DepotId",
                 },
                 {
-                    label: "Painter Type",
-                    template: "Painter/PainterType/PainterType",
+                    label: "Pincode",
+                    template: "Pincode/Name",
                 },
                 {
-                    label: "Painter ArcheType",
-                    template: "Painter/ArcheType/ArcheType",
+                    label: "Payroll Company",
+                    template: "PayrollCompany/Name",
+                },
+                {
+                    label: "Status",
+                    template: "ActivationStatus",
                 }
                 ],
             });
@@ -561,7 +565,7 @@ sap.ui.define([
             var oFilter = new sap.ui.model.Filter({
                 filters: [
                     new Filter("IsArchived", sap.ui.model.FilterOperator.EQ, false),
-                    new Filter("PainterId", sap.ui.model.FilterOperator.GT, 0)
+                    //new Filter("PainterId", sap.ui.model.FilterOperator.GT, 0)
                 ],
                 and: true
             });
@@ -580,10 +584,10 @@ sap.ui.define([
 
                     if (oTable.bindRows) {
                         oTable.bindAggregation("rows", {
-                            path: "/UserSet",
+                            path: "/DGAs",
                             filters: [oFilter],
                             parameters: {
-                                expand: "Painter,Painter/Depot,Painter/Division,Painter/ArcheType,Painter/PainterType"
+                                expand: "DGAType,Division,Depot,Pincode,PayrollCompany"
                             },
                             events: {
                                 dataReceived: function () {
@@ -605,7 +609,7 @@ sap.ui.define([
                     }
 
                     if (oTable.bindItems) {
-                        oTable.bindAggregation("items", "/UserSet", function () {
+                        oTable.bindAggregation("items", "/DGAs", function () {
                             return new sap.m.ColumnListItem({
                                 cells: aCols.map(function (column) {
                                     return new sap.m.Label({
@@ -628,8 +632,26 @@ sap.ui.define([
         onValueHelpCancelPressPainter: function () {
             this._oValueHelpDialog.close();
         },
+        onValueHelpOkPressPainter:function(){
+            var oData = [];
+            var xUnique = new Set();
+            var aTokens = oEvent.getParameter("tokens");
 
-        onValueHelpOkPressPainter: function (oEvent) {
+            aTokens.forEach(function (ele) {
+                if (xUnique.has(ele.getKey()) == false) {
+                    oData.push({
+                        DepotId: ele.getKey()
+                    });
+                    xUnique.add(ele.getKey());
+                }
+            });
+
+            this.getView()
+                .getModel("oModelControl")
+                .setProperty("/MultiCombo/Depot", oData);
+            this._oValueHelpDialog.close();
+        },
+        onValueHelpOkPressPainter2: function (oEvent) {
             var oData = [];
             var xUnique = new Set();
             var oViewModel = this.getModel("oModelControl"),
@@ -709,17 +731,17 @@ sap.ui.define([
                     if (prop === "ZoneId") {
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
-                            new Filter("Painter/ZoneId", FilterOperator.EQ, oViewFilter[prop])
+                            new Filter("Zone", FilterOperator.EQ, oViewFilter[prop])
                         );
                     } else if (prop === "DivisionId") {
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
-                            new Filter("Painter/DivisionId", FilterOperator.EQ, oViewFilter[prop])
+                            new Filter("DivisionId", FilterOperator.EQ, oViewFilter[prop])
                         );
                     } else if (prop === "DepotId") {
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
-                            new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop])
+                            new Filter("DepotId", FilterOperator.EQ, oViewFilter[prop])
                         );
                     } else if (prop === "PainterType") {
                         aFlaEmpty = false;
@@ -878,7 +900,7 @@ sap.ui.define([
                 },
                 target: {
                     localPath: "/MultiCombo/Division",
-                    oDataPath: "/MasterDivisionSet",
+                    oDataPath: "/MasterDivisions",
                     key: "Zone"
                 }
             });
@@ -889,7 +911,7 @@ sap.ui.define([
                 },
                 target: {
                     localPath: "/MultiCombo/Depot",
-                    oDataPath: "/MasterDepotSet",
+                    oDataPath: "/MasterDepots",
                     key: "Division",
                     targetKey: "DepotId"
                 }
@@ -910,7 +932,7 @@ sap.ui.define([
                 },
                 target: {
                     localPath: "/MultiCombo/Depot",
-                    oDataPath: "/MasterDepotSet",
+                    oDataPath: "/MasterDepots",
                     key: "Division",
                     targetKey: "DepotId"
                 }
@@ -983,7 +1005,7 @@ sap.ui.define([
 
                     if (oTable.bindRows) {
                         oTable.bindAggregation("rows", {
-                            path: "/MasterDepotSet",
+                            path: "/MasterDepots",
                             events: {
                                 dataReceived: function () {
                                     this._oValueHelpDialog.update();
@@ -993,7 +1015,7 @@ sap.ui.define([
                     }
 
                     if (oTable.bindItems) {
-                        oTable.bindAggregation("items", "/MasterDepotSet", function () {
+                        oTable.bindAggregation("items", "/MasterDepots", function () {
                             return new sap.m.ColumnListItem({
                                 cells: aCols.map(function (column) {
                                     return new sap.m.Label({

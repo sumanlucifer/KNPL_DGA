@@ -31,8 +31,8 @@ server:
         ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
         backend:
           - path: /api
-            url: https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com
-            destination: KNPL_PAINTER_API
+            url: https://knpl-dga-api.cfapps.ap11.hana.ondemand.com
+            destination: KNPL_DGA_API
     - name: sap-fe-mockserver
       beforeMiddleware: fiori-tools-proxy
       configuration:

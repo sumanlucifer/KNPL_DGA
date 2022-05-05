@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
    <Table id="table" width="auto"
-				items="{ path: '/NotificationGroupSet', filters : { path : 'IsArchived' , operator : 'EQ' , value1 : false }, sorter: { path: 'Id', descending: false } }"
+				items="{ path: '/NotificationGroups', filters : { path : 'IsArchived' , operator : 'EQ' , value1 : false }, sorter: { path: 'Id', descending: false } }"
 				noDataText="{i18n>tableNoDataText}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10"
 				updateFinished=".onUpdateFinished">
 				<headerToolbar>
