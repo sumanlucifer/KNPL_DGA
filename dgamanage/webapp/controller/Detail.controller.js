@@ -1,3 +1,4 @@
++
 sap.ui.define(
     [
         "../controller/BaseController",
@@ -114,6 +115,7 @@ sap.ui.define(
                 var oModel = oView.getModel("oModelDisplay");
                 var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,State,DGAContractors,WorkLocation,LinkedContractors,ServicePincodes/Pincode,ChildTowns/WorkLocation";
                 var othat = this;
+                this.getView().setModel(new JSONModel(),"oModelView")
                 if (oProp.trim() !== "") {
                     return new Promise((resolve, reject) => {
                         oView.bindElement({
@@ -126,6 +128,7 @@ sap.ui.define(
 
                                 },
                                 dataReceived: function (oEvent) {
+
                                     resolve();
                                 },
                             },
