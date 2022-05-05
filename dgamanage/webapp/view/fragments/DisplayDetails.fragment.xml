@@ -37,7 +37,7 @@
                 <Text text="{path : 'Division/Id'}"  />
 
                 <Label text="{i18n>Depot}" />
-             <Text text="{path : 'Depot/Depot'}"  />
+             <Text text="{Depot/Depot} ( {DepotId} )"  />
                  <Label text="{i18n>State}" />
                   <Text text="{path:'State/Name'}" />
                  <Label text="{i18n>JobLocation}"/>

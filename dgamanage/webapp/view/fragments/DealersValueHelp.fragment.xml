@@ -6,7 +6,7 @@
         growing="true"
         growingThreshold="8"
         rememberSelections="true"
-        noDataText="{i18n>Message22} {DepotId}{oModelView>/DepotId}"
+        noDataText="{parts:['DepotId','oModelView>/DepotId'],formatter:'.formatter.fmtDealerValueHelp1'}"
 		class="sapUiPopupWithPadding"
 		items="{path:'/MasterDealers',sorter:{path:'Name'},parameters:{select:'Id,Name'} }"
 	    search="_handlePValueHelpSearch"

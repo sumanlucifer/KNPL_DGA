@@ -108,6 +108,14 @@ sap.ui.define([], function () {
             }
            
             return aArray.join(", ")
+        },
+        fmtDealerValueHelp1:function(mParam1,mParam2){
+            if(mParam1){
+                return this._geti18nText("Message22") + mParam1;
+            }
+            if(mParam2){
+                return this._geti18nText("Message22") + mParam2;
+            }
         }
     };
 
