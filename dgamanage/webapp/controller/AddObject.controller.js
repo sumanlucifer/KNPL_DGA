@@ -265,12 +265,12 @@ sap.ui.define([
 
         },
         _CreateObject: function (oPayLoad) {
-            console.log(oPayLoad);
+            //console.log(oPayLoad);
             var othat = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
-            console.log(oModelControl.getData())
+            //console.log(oModelControl.getData())
             return new Promise((resolve, reject) => {
                 //resolve();
                 oDataModel.create("/DGAs", oPayLoad, {
