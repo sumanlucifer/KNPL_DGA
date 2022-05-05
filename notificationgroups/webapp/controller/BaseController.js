@@ -360,7 +360,7 @@ sap.ui.define([
                 // } else {
                 //     aMembers.push({ Id: parseInt(x["Id"]) });
                 // }
-                aMembers.push({ Id: parseInt(x["Id"]) });
+                aMembers.push({ Id: x["Id"] });
             }
             oPayload["Members"] = aMembers;
             // zone 
@@ -524,39 +524,35 @@ sap.ui.define([
             this.oColModel = new JSONModel({
                 cols: [{
                     label: "Name",
-                    template: "GivenName",
-                },
-                {
-                    label: "Name",
-                    template: "Painter/Name",
+                    template: "DGA/GivenName",
                 },
                 {
                     label: "Unique Id",
-                    template: "UniqueId",
+                    template: "DGA/UniqueId",
                 },
                 {
                     label: "Zone",
-                    template: "Zone",
+                    template: "DGA/Zone",
                 },
                 {
                     label: "Division",
-                    template: "DivisionId",
+                    template: "DGA/DivisionId",
                 },
                 {
                     label: "Depot",
-                    template: "DepotId",
+                    template: "DGA/DepotId",
                 },
                 {
                     label: "Pincode",
-                    template: "Pincode/Name",
+                    template: "DGA/Pincode/Name",
                 },
                 {
                     label: "Payroll Company",
-                    template: "PayrollCompany/Name",
+                    template: "DGA/PayrollCompany/Name",
                 },
                 {
                     label: "Status",
-                    template: "ActivationStatus",
+                    template: "DGA/ActivationStatus",
                 }
                 ],
             });
@@ -565,7 +561,7 @@ sap.ui.define([
             var oFilter = new sap.ui.model.Filter({
                 filters: [
                     new Filter("IsArchived", sap.ui.model.FilterOperator.EQ, false),
-                    //new Filter("PainterId", sap.ui.model.FilterOperator.GT, 0)
+                    new Filter("DGAId", sap.ui.model.FilterOperator.GT, 0)
                 ],
                 and: true
             });
@@ -584,10 +580,10 @@ sap.ui.define([
 
                     if (oTable.bindRows) {
                         oTable.bindAggregation("rows", {
-                            path: "/DGAs",
+                            path: "/ApplicationUsers",
                             filters: [oFilter],
                             parameters: {
-                                expand: "DGAType,Division,Depot,Pincode,PayrollCompany"
+                                expand: "DGA/DGAType,DGA/Division,DGA/Depot,DGA/Pincode,DGA/PayrollCompany"
                             },
                             events: {
                                 dataReceived: function () {
@@ -609,7 +605,7 @@ sap.ui.define([
                     }
 
                     if (oTable.bindItems) {
-                        oTable.bindAggregation("items", "/DGAs", function () {
+                        oTable.bindAggregation("items", "/ApplicationUsers", function () {
                             return new sap.m.ColumnListItem({
                                 cells: aCols.map(function (column) {
                                     return new sap.m.Label({
@@ -632,7 +628,7 @@ sap.ui.define([
         onValueHelpCancelPressPainter: function () {
             this._oValueHelpDialog.close();
         },
-        onValueHelpOkPressPainter:function(){
+        onValueHelpOkPressPainter2:function(){
             var oData = [];
             var xUnique = new Set();
             var aTokens = oEvent.getParameter("tokens");
@@ -651,7 +647,7 @@ sap.ui.define([
                 .setProperty("/MultiCombo/Depot", oData);
             this._oValueHelpDialog.close();
         },
-        onValueHelpOkPressPainter2: function (oEvent) {
+        onValueHelpOkPressPainter: function (oEvent) {
             var oData = [];
             var xUnique = new Set();
             var oViewModel = this.getModel("oModelControl"),
@@ -660,11 +656,13 @@ sap.ui.define([
             if (aTokens && aTokens.length) {
                 for (var i = 0; i < aTokens.length; i++) {
                     var userData = aTokens[i].getCustomData()[0].getValue();
-                    if (userData.AdminId !== null) {
-                        var painterData = this.getModel().getData("/" + userData.Admin.__ref);
+                    console.log(userData);
+                    // if (userData.AdminId !== null) {
+                    //     var painterData = this.getModel().getData("/" + userData.Admin.__ref);
 
-                    } else if (userData.Painter !== null) {
-                        var painterData = this.getModel().getData("/" + userData.Painter.__ref);
+                    // }  
+                    if (userData["DGA"] !== null) {
+                        var painterData = this.getModel().getData("/" + userData["DGA"].__ref);
                     }
                     //var roleData = this.getModel().getData("/" + userData.Role.__ref);
                     userData.Painter = painterData;
@@ -679,17 +677,6 @@ sap.ui.define([
 
 
 
-            // aTokens.forEach(function (ele) {
-            //     if (xUnique.has(ele.getKey()) == false) {
-            //         oData.push({
-            //             Name: ele.getText(),
-            //             Id: ele.getKey()
-            //         });
-            //         xUnique.add(ele.getKey());
-            //     }
-            // });
-
-            // this.getView().getModel("objectView").setProperty("/oDetails/Receivers", oData);
             this._oValueHelpDialog.close();
         },
         onValueHelpAfterClose: function () {
