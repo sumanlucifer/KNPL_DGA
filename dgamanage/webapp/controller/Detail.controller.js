@@ -115,7 +115,7 @@ sap.ui.define(
                 var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,State,DGAContractors,WorkLocation,LinkedContractors,ServicePincodes/Pincode,ChildTowns/WorkLocation";
                 var othat = this;
                 if (oProp.trim() !== "") {
-                    return new Promise((resolve,reject)=>{
+                    return new Promise((resolve, reject) => {
                         oView.bindElement({
                             path: "/" + oProp,
                             parameters: {
@@ -123,7 +123,7 @@ sap.ui.define(
                             },
                             events: {
                                 dataRequested: function (oEvent) {
-                                   
+
                                 },
                                 dataReceived: function (oEvent) {
                                     resolve();
@@ -131,9 +131,9 @@ sap.ui.define(
                             },
                         });
                     })
-                    
+
                 }
-              
+
             },
             _initEditData: function () {
                 var oView = this.getView();
@@ -240,10 +240,8 @@ sap.ui.define(
                 // if (sStateKey !== "") {
                 //     oBindingCity.filter(new Filter("StateId", FilterOperator.EQ, sStateKey));
                 // }
-                var sStateKey = oPayload["StateId"];
-                if (sStateKey !== null) {
-                    oView.byId("cmbxJobLoc").getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, sStateKey));
-                }
+              
+              
                 var sZoneId = oPayload["Zone"];
                 if (sZoneId !== null) {
                     oView
@@ -253,10 +251,31 @@ sap.ui.define(
                 }
                 var sDivisionId = oPayload["DivisionId"];
                 if (sDivisionId !== null) {
-                    oView
-                        .byId("idDepot")
+                    console.log("Filter depot applied")
+                    oView.byId("idDepot")
                         .getBinding("items")
                         .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
+                }
+                var sDepotId = oPayload["DepotId"];
+                var sStateKey = oPayload["StateId"];
+                // workfloaction field filters
+                if (sStateKey) {
+                    var aFilter = [];
+                    if (sZoneId) {
+                        aFilter.push(new Filter("Zone", FilterOperator.EQ, sZoneId))
+                    }
+                    if (sDivisionId) {
+                        aFilter.push(new Filter("DivisionId", FilterOperator.EQ, sDivisionId))
+                    }
+                    if (sDepotId) {
+                        aFilter.push(new Filter("DepotId", FilterOperator.EQ, sDepotId));
+                    }
+                    if (sStateKey) {
+                        aFilter.push(new Filter("StateId", FilterOperator.EQ, sStateKey));
+                    }
+                    var aFilterMain = new Filter(aFilter, true);
+                   
+                    oView.byId("cmbxJobLoc").getBinding("items").filter(aFilterMain);
                 }
                 promise.resolve(oPayload);
                 return promise;
@@ -271,7 +290,7 @@ sap.ui.define(
                 var oModel = oView.getModel("oModelDisplay");
                 var oModelControl = this.getModel("oModelControl")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,WorkLocation,ServicePincodes/Pincode,ChildTowns/WorkLocation";
+                var exPand = "Pincode,ServicePincodes/Pincode,ChildTowns/WorkLocation";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
@@ -341,8 +360,8 @@ sap.ui.define(
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 var oModel = oView.getModel();
-                var oModel1 =  oView.getModel("oModelDisplay");
-                var sEntitySet =oModel1.getProperty("/bindProp");
+                var oModel1 = oView.getModel("oModelDisplay");
+                var sEntitySet = oModel1.getProperty("/bindProp");
                 var sDgaId = oModel1.getProperty("/Id");
                 console.log(sDgaId)
                 if (sKey == "1") {
@@ -357,7 +376,7 @@ sap.ui.define(
                         parameters: {
                             expand: 'Contractor,Dealer',
                         },
-                        filters:[new Filter("DGAId",FilterOperator.EQ,sDgaId),new Filter("IsLinked",FilterOperator.EQ,true)]
+                        filters: [new Filter("DGAId", FilterOperator.EQ, sDgaId), new Filter("IsLinked", FilterOperator.EQ, true)]
 
                     })
 
@@ -446,11 +465,12 @@ sap.ui.define(
                         Id: oBj["Id"],
                     });
                 }
+                if (aDealersSelected.length < 1) {
+                    this._showMessageToast("Message20");
+                    this._onDialogClose();
+                    return;
+                }
 
-                // oModel.setProperty("/MultiCombo/Dealers", aDealers);
-                // oModel.refresh(true);
-                // this._onDialogClose();
-                //
                 var aExistingDealers = []//oModelView.getProperty("/DGADealers");
                 var aSelectedDealers = aDealersSelected
                 var iDealers = -1;
@@ -469,7 +489,7 @@ sap.ui.define(
                 var oPayload = {
                     MapDGADealers: aDealers
                 }
-                console.log(oPayload);
+
 
                 oModelDisplay.setProperty("/PageBusy", true);
                 oDataModel.create("/MapDGADealersList", oPayload, {
@@ -478,36 +498,19 @@ sap.ui.define(
                         this.getView().getElementBinding().refresh(true);
                         this._showMessageToast("Message17");
                     }.bind(this),
-                    error: function (oEvent) {
+                    error: function (oData) {
                         oModelDisplay.setProperty("/PageBusy", false);
-                    }
+                        if(oData.hasOwnProperty("responseText")){
+                            if(oData["statusCode"]===409){
+                                this._showMessageBox2("error", "Message13", [oData.responseText]);
+                            }
+                        }
+                        
+                    }.bind(this)
                 })
-
-
-                //oPayload["DGADealers"] = aDealers;
-
-                // oModel.refresh(true);
                 this._onDialogClose();
             },
-            // handleDealersValueHelp: function () {
-            //     /*
-            //     * Author: manik saluja
-            //     * Date: 15-Mar-2022
-            //     * Language:  JS
-            //     * Purpose:  This method is used to open the popover for selecting the linked dealers in the 
-            //     * add dga form. 
-            //     */
-            //     var oView = this.getView();
-            //     if (!this._DealerValueHelpDialog) {
-            //         this._getViewFragment("DealersValueHelp").then(function (oControl) {
-            //             this._DealerValueHelpDialog = oControl;
-            //             oView.addDependent(this._DealerValueHelpDialog);
-            //             this._onApplyFilterDealers();
-            //             this._DealerValueHelpDialog.open();
-            //         }.bind(this));
-            //     }
 
-            // },
             onPressSave: function () {
                 var bValidateForm = this._ValidateForm();
                 var bValidateFields = this._ValidateEmptyFields.bind(this);
@@ -670,7 +673,7 @@ sap.ui.define(
                 var oDataModel = oView.getModel();
                 var oModelControl = oView.getModel("oModelControl");
                 var sProp = oModelControl.getProperty("/bindProp")
-                console.log(sProp,oPayLoad)
+                console.log(sProp, oPayLoad)
                 return new Promise((resolve, reject) => {
                     oDataModel.update("/" + sProp, oPayLoad, {
                         success: function (data) {
