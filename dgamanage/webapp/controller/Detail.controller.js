@@ -498,9 +498,15 @@ sap.ui.define(
                         this.getView().getElementBinding().refresh(true);
                         this._showMessageToast("Message17");
                     }.bind(this),
-                    error: function (oEvent) {
+                    error: function (oData) {
                         oModelDisplay.setProperty("/PageBusy", false);
-                    }
+                        if(oData.hasOwnProperty("responseText")){
+                            if(oData["statusCode"]===409){
+                                this._showMessageBox2("error", "Message13", [oData.responseText]);
+                            }
+                        }
+                        
+                    }.bind(this)
                 })
                 this._onDialogClose();
             },
