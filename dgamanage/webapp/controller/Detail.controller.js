@@ -251,7 +251,7 @@
                     }
                     var sDivisionId = oPayload["DivisionId"];
                     if (sDivisionId !== null) {
-                        console.log("Filter depot applied")
+                    
                         oView.byId("idDepot")
                             .getBinding("items")
                             .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
@@ -310,7 +310,7 @@
                                 oModelControl.setProperty("/AddFields/ExitDate", aDate2);
 
                                 oView.setModel(oModel, "oModelView");
-                                console.log(data);
+                            
                                 oModel.refresh(true)
                                 resolve(data);
                             },
@@ -363,10 +363,10 @@
                     var oModel1 = oView.getModel("oModelDisplay");
                     var sEntitySet = oModel1.getProperty("/bindProp");
                     var sDgaId = oModel1.getProperty("/Id");
-                    console.log(sDgaId)
+                
                     if (sKey == "1") {
                         oView.byId("Dealerstable").setEntitySet(sEntitySet);
-                        //console.log(sEntitySet);
+                      
                     } else if (sKey == "2") {
                         var oTable = oView.byId("idContractorTable")
                         oTable.bindItems({
@@ -411,7 +411,7 @@
 
                 },
                 onBeforeBindContractorTbl: function (oEvent) {
-                    console.log("contractor table trigerred");
+                   
                     var oView = this.getView();
                     var oBindingParams = oEvent.getParameter("bindingParams");
                     // oBindingParams.parameters["expand"] = "Contractor";
@@ -618,7 +618,7 @@
                     }
 
                     var sPath = this.getView().getBindingContext().getPath();
-                    console.log(oPayload);
+                    
                     this.getView().getModel().update(sPath +
                         "/ActivationStatus", oPayload, {
                         success: function () {
@@ -669,11 +669,11 @@
                 _UpdatedObject: function (oPayLoad) {
                     var othat = this;
                     var oView = this.getView();
-                    console.log(oPayLoad);
+                    //console.log(oPayLoad);
                     var oDataModel = oView.getModel();
                     var oModelControl = oView.getModel("oModelControl");
                     var sProp = oModelControl.getProperty("/bindProp")
-                    console.log(sProp, oPayLoad)
+                    //console.log(sProp, oPayLoad)
                     return new Promise((resolve, reject) => {
                         oDataModel.update("/" + sProp, oPayLoad, {
                             success: function (data) {

@@ -216,7 +216,6 @@ sap.ui.define([
                 In this code all the message type will have 1 button 
             */
             var sMessage = this._geti18nText(pMessage, pMessageParam);
-            console.log(sMessage);
             var sPtye = pType.trim().toLowerCase();
             var othat = this;
             var aMessageType = ["success", "information", "alert", "error", "warning"];
@@ -497,7 +496,7 @@ sap.ui.define([
                     } else {
                         oModel.setProperty("/MultiCombo/ChildTowns", [])
                     }
-                    console.log(oModel, oData)
+                   
                 }.bind(this),
                 error: function () {
 
