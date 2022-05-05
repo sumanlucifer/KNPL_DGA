@@ -253,8 +253,8 @@ sap.ui.define(
                 }
                 var sDivisionId = oPayload["DivisionId"];
                 if (sDivisionId !== null) {
-                    oView
-                        .byId("idDepot")
+                    console.log("Filter depot applied")
+                    oView.byId("idDepot")
                         .getBinding("items")
                         .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
                 }
@@ -271,7 +271,7 @@ sap.ui.define(
                 var oModel = oView.getModel("oModelDisplay");
                 var oModelControl = this.getModel("oModelControl")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "PayrollCompany,Depot,Division,DGADealers,Pincode,Town,State,WorkLocation,ServicePincodes/Pincode,ChildTowns/WorkLocation";
+                var exPand = "Pincode,ServicePincodes/Pincode,ChildTowns/WorkLocation";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
