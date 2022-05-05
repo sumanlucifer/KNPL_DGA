@@ -35,7 +35,7 @@ sap.ui.define([
 				// We already cover this case with a notFound target so we skip it here.
 				// A request that cannot be sent to the server is a technical error that we have to handle though
 				if (oParams.response.statusCode !== "404" || (oParams.response.statusCode === 404 && oParams.response.responseText.indexOf("Cannot POST") === 0)) {
-					this._showServiceError(oParams.response);
+					this._showServiceError(oParams.response.responseText);
 				}
 			}, this);
 		},
@@ -52,10 +52,9 @@ sap.ui.define([
 			}
 			this._bMessageOpen = true;
 			MessageBox.error(
-				this._sErrorText,
+				sDetails,
 				{
 					id : "serviceErrorMessageBox",
-					details: sDetails,
 					styleClass: this._oComponent.getContentDensityClass(),
 					actions: [MessageBox.Action.CLOSE],
 					onClose: function () {
