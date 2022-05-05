@@ -597,7 +597,7 @@
                     if (!this._ChangeStatus) {
                         // load asynchronous XML fragment
                         this._getViewFragment("ChangeStatus").then(function (oControl) {
-                            // console.log(oControl)
+                            /// console.log(oControl)
                             this._ChangeStatus = oControl;
                             oView.addDependent(this._ChangeStatus);
                             this._ChangeStatus.open();
