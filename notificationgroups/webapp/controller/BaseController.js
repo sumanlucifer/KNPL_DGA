@@ -718,17 +718,17 @@ sap.ui.define([
                     if (prop === "ZoneId") {
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
-                            new Filter("Zone", FilterOperator.EQ, oViewFilter[prop])
+                            new Filter("DGA/Zone", FilterOperator.EQ, oViewFilter[prop])
                         );
                     } else if (prop === "DivisionId") {
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
-                            new Filter("DivisionId", FilterOperator.EQ, oViewFilter[prop])
+                            new Filter("DGA/DivisionId", FilterOperator.EQ, oViewFilter[prop])
                         );
                     } else if (prop === "DepotId") {
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
-                            new Filter("DepotId", FilterOperator.EQ, oViewFilter[prop])
+                            new Filter("DGA/DepotId", FilterOperator.EQ, oViewFilter[prop])
                         );
                     } else if (prop === "PainterType") {
                         aFlaEmpty = false;
@@ -752,7 +752,7 @@ sap.ui.define([
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
                             new Filter({
-                                path: "Painter/MembershipCard",
+                                path: "DGA/UniqueId",
                                 operator: FilterOperator.Contains,
                                 value1: oViewFilter[prop],
                                 caseSensitive: false
@@ -762,7 +762,7 @@ sap.ui.define([
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
                             new Filter({
-                                path: "Painter/Name",
+                                path: "DGA/GivenName",
                                 operator: FilterOperator.Contains,
                                 value1: oViewFilter[prop],
                                 caseSensitive: false
@@ -772,7 +772,7 @@ sap.ui.define([
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
                             new Filter({
-                                path: "Painter/Mobile",
+                                path: "DGA/Mobile",
                                 operator: FilterOperator.Contains,
                                 value1: oViewFilter[prop]
                             })

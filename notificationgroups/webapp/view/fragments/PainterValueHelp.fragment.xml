@@ -69,11 +69,11 @@
                                 <core:Item text="{ArcheType}" key="{Id}" />
                             </m:ComboBox>
                         </fb:control>
-                    </fb:FilterGroupItem>
-                      <fb:FilterGroupItem
+                    </fb:FilterGroupItem> -->
+                      <!-- <fb:FilterGroupItem
                         groupName="__$INTERNAL$"
                         name="MembershipCard"
-                        label="Membership ID"
+                        label="Unique Id"
                         visibleInFilterBar="true">
                         <fb:control>
                             <m:Input value="{oModelControl>/Search/PainterVh/MembershipCard}" name="MembershipCard" placeholder="{i18n>MembershipId}"/>
