@@ -45,8 +45,8 @@
                          <Text text="{Rating}" />
                           <Text text="{Dealer/Name}" />
                             <Text text="{Dealer/Id}" />
-                                <Text text="{Contractor/KYCStatus}" />
-                                  <Text text="{Contractor/BankDetailsStatus}" />
+                                <Text text="{path:'Contractor/KYCStatus',formatter:'.formatter.fmtLowerCase'}" />
+                                  <Text text="{Contractor/BankDetailsStatus, formatter:'.formatter.fmtLowerCase'}" />
                     </cells>
                 </ColumnListItem>
             </dependents >
