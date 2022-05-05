@@ -451,9 +451,7 @@ sap.ui.define(
                     this._onDialogClose();
                     return;
                 }
-                // oModel.setProperty("/MultiCombo/Dealers", aDealers);
-                // oModel.refresh(true);
-                // this._onDialogClose();
+
                 var aExistingDealers = []//oModelView.getProperty("/DGADealers");
                 var aSelectedDealers = aDealersSelected
                 var iDealers = -1;
@@ -485,32 +483,9 @@ sap.ui.define(
                         oModelDisplay.setProperty("/PageBusy", false);
                     }
                 })
-
-
-                //oPayload["DGADealers"] = aDealers;
-
-                // oModel.refresh(true);
                 this._onDialogClose();
             },
-            // handleDealersValueHelp: function () {
-            //     /*
-            //     * Author: manik saluja
-            //     * Date: 15-Mar-2022
-            //     * Language:  JS
-            //     * Purpose:  This method is used to open the popover for selecting the linked dealers in the 
-            //     * add dga form. 
-            //     */
-            //     var oView = this.getView();
-            //     if (!this._DealerValueHelpDialog) {
-            //         this._getViewFragment("DealersValueHelp").then(function (oControl) {
-            //             this._DealerValueHelpDialog = oControl;
-            //             oView.addDependent(this._DealerValueHelpDialog);
-            //             this._onApplyFilterDealers();
-            //             this._DealerValueHelpDialog.open();
-            //         }.bind(this));
-            //     }
 
-            // },
             onPressSave: function () {
                 var bValidateForm = this._ValidateForm();
                 var bValidateFields = this._ValidateEmptyFields.bind(this);
