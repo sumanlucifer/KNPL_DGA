@@ -64,7 +64,7 @@
                    <Label text="{i18n>Service} {i18n>PinCode}" required="true" />
                <MultiInput tokenUpdate="onTokenUpdate"  placeholder="{i18n>placeHolder1}"   valueHelpOnly="true"  valueHelpRequest="_handlePinCodeValueHelp2" tokens="{path:'oModelControl>/MultiCombo/Pincode2'}">
                     <tokens>
-                        <Token text="{oModelControl>Name}" key="{oModelControl>Id}"/>
+                        <Token editable="{= ${oModelView>/PincodeId} === ${oModelControl>Id} ? false:true }" text="{oModelControl>Name}" key="{oModelControl>Id}"/>
                     </tokens>
                 </MultiInput>
             
