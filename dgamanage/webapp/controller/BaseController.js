@@ -95,7 +95,8 @@ sap.ui.define([
                     Dealers: [],
                     Pincode2: [],
                     ChildTowns: []
-                }
+                },
+                bSaveEnabledFlag1: true
             };
             var oModelControl = new JSONModel(oDataControl)
             oView.setModel(oModelControl, "oModelControl");
@@ -156,7 +157,7 @@ sap.ui.define([
             var oModel = this.getOwnerComponent().getModel("i18n").getResourceBundle();
             var sText = oModel.getText(mParam, mParam2);
             MessageToast.show(sText, {
-                duration: 6000
+                duration: 7000
             })
         },
         _showMessageBox1: function (pType, pMessage, pMessageParam, pfn1, pfn2) {
@@ -278,7 +279,7 @@ sap.ui.define([
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
 
-            if (oModelControl.getProperty("/MultiCombo/Dealers").length === 0 && oModelControl.getProperty("/mode")==="Add" ) {
+            if (oModelControl.getProperty("/MultiCombo/Dealers").length === 0 && oModelControl.getProperty("/mode") === "Add") {
                 this._showMessageToast("Message7");
                 return false;
             }
@@ -445,25 +446,25 @@ sap.ui.define([
         onStateChange: function (oEvent) {
             var sId = oEvent.getSource().getSelectedKey();
             var oView = this.getView();
-            var oModelView=oView.getModel("oModelView");
+            var oModelView = oView.getModel("oModelView");
             var oCmbx = oView.byId("cmbxJobLoc");
             var aFilter = [];
-            var sZone=oModelView.getProperty("/Zone");
-            var sDivision=oModelView.getProperty("/DivisionId");
-            var sDepot=oModelView.getProperty("/DepotId");
-            if(sZone){
-                aFilter.push(new Filter("Zone",FilterOperator.EQ,sZone))
+            var sZone = oModelView.getProperty("/Zone");
+            var sDivision = oModelView.getProperty("/DivisionId");
+            var sDepot = oModelView.getProperty("/DepotId");
+            if (sZone) {
+                aFilter.push(new Filter("Zone", FilterOperator.EQ, sZone))
             }
-            if(sDivision){
-                aFilter.push(new Filter("DivisionId",FilterOperator.EQ,sDivision))
+            if (sDivision) {
+                aFilter.push(new Filter("DivisionId", FilterOperator.EQ, sDivision))
             }
-            if(sDepot){
-                aFilter.push(new Filter("DepotId",FilterOperator.EQ,sDepot));
+            if (sDepot) {
+                aFilter.push(new Filter("DepotId", FilterOperator.EQ, sDepot));
             }
-            if(sId){
+            if (sId) {
                 aFilter.push(new Filter("StateId", FilterOperator.EQ, sId));
             }
-            var aFilterMain = new Filter(aFilter,true);
+            var aFilterMain = new Filter(aFilter, true);
             oCmbx.clearSelection();
             oView.byId("cmbxJobLoc").getBinding("items").filter(aFilterMain);
 
@@ -473,13 +474,17 @@ sap.ui.define([
             var oModel = oView.getModel("oModelControl");
             var oModelView = oView.getModel("oModelView");
             var oBj = oEvent.getSource().getSelectedItem().getBindingContext().getObject()
-            oModelView.setProperty("/AllocatedDGACount",oBj["AllocatedDGACount"])
+            oModelView.setProperty("/AllocatedDGACount", oBj["AllocatedDGACount"]);
+            if (parseInt(oBj["AllocatedDGACount"]) < 1) {
+                oModel.setProperty("/bSaveEnabledFlag1", false);
+                this._showMessageToast("Message19");
+            }
             var oData = oView.getModel();
             var oFilter = new Filter([
                 new Filter("ParentTownId", FilterOperator.EQ, oBj["ParentTownId"]),
                 new Filter("TownId", FilterOperator.NE, oBj["ParentTownId"])
             ], true)
-          
+
             oData.read("/MasterWorkLocations", {
                 urlParameters: {
 
@@ -492,7 +497,7 @@ sap.ui.define([
                     } else {
                         oModel.setProperty("/MultiCombo/ChildTowns", [])
                     }
-                    console.log(oModel,oData)
+                    console.log(oModel, oData)
                 }.bind(this),
                 error: function () {
 
@@ -516,7 +521,7 @@ sap.ui.define([
                     return aRemovedKeys.indexOf(item["Id"]) < 0;
                 });
                 oModel.setProperty(sPath, aNewArray);
-                
+
             }
         },
 
@@ -785,9 +790,6 @@ sap.ui.define([
                     .getModel("oModelView")
                     .getProperty("/DepotId");
             }
-
-
-
             var oFilter = new Filter(
                 [
 
@@ -798,14 +800,11 @@ sap.ui.define([
                     ),
                 ]
             );
-
-
             if (sDepotiId.trim() == "") {
                 this._DealerValueHelpDialog.getBinding("items").filter([]);
             } else {
                 this._DealerValueHelpDialog.getBinding("items").filter(oFilter);
             }
-
             // open value help dialog filtered by the input value
             this._DealerValueHelpDialog.open();
         },
@@ -822,12 +821,9 @@ sap.ui.define([
                     Id: oBj["Id"],
                 });
             }
-
             oModel.setProperty("/MultiCombo/Dealers", aDealers);
             oModel.refresh(true);
             this._onDialogClose();
-
-
         },
         onDealersTokenUpdate: function (oEvent) {
             if (oEvent.getParameter("type") === "removed") {
@@ -863,16 +859,15 @@ sap.ui.define([
                 "/PincodeId",
                 obj["Id"]
             );
-            var aServicePincode = [{Name:obj["Name"],Id:obj["Id"]}]
+            var aServicePincode = [{ Name: obj["Name"], Id: obj["Id"] }]
             oModelControl.setProperty("/MultiCombo/Pincode2", aServicePincode);
             // oViewModel.setProperty("/StateId", obj["StateId"]);
             // var cmbxcity = oView.byId("cmbCity");
-            
+
             // cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
             // oViewModel.setProperty("/TownId", obj["CityId"]);
             // cmbxcity.setSelectedKey(obj["CityId"]);
             this._onDialogClose();
-
         },
 
 

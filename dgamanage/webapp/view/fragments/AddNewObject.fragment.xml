@@ -57,7 +57,7 @@
                 </ComboBox>
                 <Label text="{i18n>ChildTown}"/>
                 <TextArea editable="false" value="{path:'oModelControl>/MultiCombo/ChildTowns', formatter:'.formatter.fmtChildTowns'}"></TextArea>
-                <Label text="{i18n>Requirement}"/>
+                <Label text="{i18n>DgaRequirement}"/>
                 <Text text="{oModelView>/AllocatedDGACount}" />
                     <Label text="{i18n>Location} {i18n>PinCode}" />
                <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/PinCode', type:'sap.ui.model.type.String', constraints:{minLength:1} }" required="true"/>
