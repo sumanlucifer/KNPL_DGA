@@ -240,10 +240,8 @@ sap.ui.define(
                 // if (sStateKey !== "") {
                 //     oBindingCity.filter(new Filter("StateId", FilterOperator.EQ, sStateKey));
                 // }
-                var sStateKey = oPayload["StateId"];
-                if (sStateKey !== null) {
-                    oView.byId("cmbxJobLoc").getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, sStateKey));
-                }
+              
+              
                 var sZoneId = oPayload["Zone"];
                 if (sZoneId !== null) {
                     oView
@@ -257,6 +255,27 @@ sap.ui.define(
                     oView.byId("idDepot")
                         .getBinding("items")
                         .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
+                }
+                var sDepotId = oPayload["DepotId"];
+                var sStateKey = oPayload["StateId"];
+                // workfloaction field filters
+                if (sStateKey) {
+                    var aFilter = [];
+                    if (sZoneId) {
+                        aFilter.push(new Filter("Zone", FilterOperator.EQ, sZoneId))
+                    }
+                    if (sDivisionId) {
+                        aFilter.push(new Filter("DivisionId", FilterOperator.EQ, sDivisionId))
+                    }
+                    if (sDepotId) {
+                        aFilter.push(new Filter("DepotId", FilterOperator.EQ, sDepotId));
+                    }
+                    if (sStateKey) {
+                        aFilter.push(new Filter("StateId", FilterOperator.EQ, sStateKey));
+                    }
+                    var aFilterMain = new Filter(aFilter, true);
+                   
+                    oView.byId("cmbxJobLoc").getBinding("items").filter(aFilterMain);
                 }
                 promise.resolve(oPayload);
                 return promise;
