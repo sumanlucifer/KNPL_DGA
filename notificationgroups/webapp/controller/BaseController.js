@@ -412,35 +412,35 @@ sap.ui.define([
             oPayload["NotificationGroupDepot"] = aZone;
 
             // // Painter Type 
-            var aExistingZone = oModelView.getProperty("/NotificationGroupPainterType" + sResults);
-            var aSelectedMember = oModelControl.getProperty("/MultiCombo/PainterType")
-            var iZone = -1;
-            var aZone = [];
-            for (var x of aSelectedMember) {
-                iZone = aExistingZone.findIndex(item => item["PainterTypeId"] === parseInt(x))
-                if (iZone >= 0) {
+            // var aExistingZone = oModelView.getProperty("/NotificationGroupPainterType" + sResults);
+            // var aSelectedMember = oModelControl.getProperty("/MultiCombo/PainterType")
+            // var iZone = -1;
+            // var aZone = [];
+            // for (var x of aSelectedMember) {
+            //     iZone = aExistingZone.findIndex(item => item["PainterTypeId"] === parseInt(x))
+            //     if (iZone >= 0) {
 
-                    aZone.push(oPayload["NotificationGroupPainterType"][iZone]);
-                } else {
-                    aZone.push({ PainterTypeId: parseInt(x) });
-                }
-            }
-            oPayload["NotificationGroupPainterType"] = aZone;
-            // ArcheType
-            var aExistingZone = oModelView.getProperty("/NotificationGroupPainterArcheType" + sResults);
-            var aSelectedMember = oModelControl.getProperty("/MultiCombo/ArcheType")
-            var iZone = -1;
-            var aZone = [];
-            for (var x of aSelectedMember) {
-                iZone = aExistingZone.findIndex(item => item["PainterArcheTypeId"] === parseInt(x))
-                if (iZone >= 0) {
+            //         aZone.push(oPayload["NotificationGroupPainterType"][iZone]);
+            //     } else {
+            //         aZone.push({ PainterTypeId: parseInt(x) });
+            //     }
+            // }
+            // oPayload["NotificationGroupPainterType"] = aZone;
+            // // ArcheType
+            // var aExistingZone = oModelView.getProperty("/NotificationGroupPainterArcheType" + sResults);
+            // var aSelectedMember = oModelControl.getProperty("/MultiCombo/ArcheType")
+            // var iZone = -1;
+            // var aZone = [];
+            // for (var x of aSelectedMember) {
+            //     iZone = aExistingZone.findIndex(item => item["PainterArcheTypeId"] === parseInt(x))
+            //     if (iZone >= 0) {
 
-                    aZone.push(oPayload["NotificationGroupPainterArcheType"][iZone]);
-                } else {
-                    aZone.push({ PainterArcheTypeId: parseInt(x) });
-                }
-            }
-            oPayload["NotificationGroupPainterArcheType"] = aZone;
+            //         aZone.push(oPayload["NotificationGroupPainterArcheType"][iZone]);
+            //     } else {
+            //         aZone.push({ PainterArcheTypeId: parseInt(x) });
+            //     }
+            // }
+            // oPayload["NotificationGroupPainterArcheType"] = aZone;
             promise.resolve(oPayload);
             return promise
 
@@ -665,7 +665,7 @@ sap.ui.define([
                         var painterData = this.getModel().getData("/" + userData["DGA"].__ref);
                     }
                     //var roleData = this.getModel().getData("/" + userData.Role.__ref);
-                    userData.Painter = painterData;
+                    userData["DGA"] = painterData;
                     //userData.Role.Role = roleData.Role;
                     aData.push(userData);
                 }
