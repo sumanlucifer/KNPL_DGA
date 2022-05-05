@@ -49,7 +49,7 @@
                     </tokens>
                  </MultiInput>
                 <!-- <TextArea editable="false" value="{path:'ChildTowns',formatter:'.formatter.fmtChildTowns2'}"  /> -->
-                 <Label text="{i18n>Requirement}"/>
+                 <Label text="{i18n>DgaRequirement}"/>
                 <Text text="{AllocatedDGACount}" />
               <Label text="{i18n>Location} {i18n>PinCode}" />
                 <Text text="{Pincode/Name}"  />
