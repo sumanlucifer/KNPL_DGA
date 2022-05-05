@@ -7,30 +7,4 @@
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Floorplan Used**<br>simple|
 |**Service Type**<br>SAP System (ABAP On Premise)|
-|**Service URL**<br>https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com/api/v2/odata.svc/
-|**Module Name**<br>notificationgroups|
-|**Application Title**<br>Notification Groups|
-|**Namespace**<br>com.knpl.dga|
-|**UI5 Theme**<br>sap_fiori_3|
-|**UI5 Version**<br>1.99.0|
-|**Enable Code Assist Libraries**<br>False|
-|**Add Eslint configuration**<br>False|
-|**Enable Telemetry**<br>True|
-
-## notificationgroups
-
-A Fiori application.
-
-### Starting the generated app
-
--   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  In order to launch the generated app, simply run the following from the generated app root folder:
-
-```
-    npm start
-```
-
-#### Pre-requisites:
-
-1. Active NodeJS LTS (Long Term Support) version and associated supported NPM version.  (See https://nodejs.org)
-
-
+|**Service URL**<br> https://knpl-dga-api.cfapps.ap11.hana.ondemand.com
