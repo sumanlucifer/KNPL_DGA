@@ -72,10 +72,11 @@ sap.ui.define([], function () {
             }
             switch (sType) {
                 case "USERTASK_CANCELED_BY_BOUNDARY_EVENT": return "Auto Escalation";
-                case "WORKFLOW_STARTED": return "Complaint raised";
-                case "WORKFLOW_COMPLETED": return "Complaint closed";
-                case "WORKFLOW_CANCELED": return "Complaint withdrawn";
-                case "USERTASK_COMPLETED": return "Complaint resolved";
+                case "WORKFLOW_STARTED": return "Request raised";
+                case "WORKFLOW_COMPLETED": return "Request closed";
+                case "WORKFLOW_CANCELED": return "Request withdrawn";
+                case "USERTASK_COMPLETED": return "Request resolved";
+                case "MAILTASK_COMPLETED": return "Mail sent";
             }
             return sSubject;
         },

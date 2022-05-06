@@ -95,7 +95,7 @@ sap.ui.define(
                     })
                 });
             },
-          
+
             _CheckLoginData: function () {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
@@ -154,7 +154,7 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-          
+
             onBeforeRebindHistoryTable: function (oEvent) {
                 var oView = this.getView();
                 var oBindingParams = oEvent.getParameter("bindingParams");
@@ -185,6 +185,7 @@ sap.ui.define(
                         "WORKFLOW_CANCELED",
                         "USERTASK_CREATED",
                         "USERTASK_COMPLETED",
+                        "MAILTASK_COMPLETED",
                         "USERTASK_CANCELED_BY_BOUNDARY_EVENT", //TODO: Change text to TAT triggered
                     ]);
                 aWfData = aWfData.filter(ele => taskSet.has(ele.type));
@@ -195,18 +196,31 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 //for Test case scenerios delete as needed
                 var oView = this.getView();
+                var oDataModel = this.getView().getModel();
                 var oData = oView.getElementBinding().getBoundContext().getObject();
                 var sWorkFlowInstanceId = oData["WorkflowInstanceId"];
                 // var sWorkFlowInstanceId = "0bca39c3-c55f-11ec-a2a9-eeee0a85c968";
                 var oModel = this.getView().getModel("oModelDisplay");
                 oModel.setProperty("/PageBusy", true)
                 if (sWorkFlowInstanceId) {
-                    var sUrl =
-                        "/comknpldgaui5template/bpmworkflowruntime/v1/workflow-instances/" +
-                        sWorkFlowInstanceId +
-                        "/execution-logs";
-                    this.oWorkflowModel.loadData(sUrl);
-                    
+                    // var sUrl =
+                    //     "/comknpldgaui5template/bpmworkflowruntime/v1/workflow-instances/" +
+                    //     sWorkFlowInstanceId +
+                    //     "/execution-logs";
+                    // this.oWorkflowModel.loadData(sUrl);
+                    oDataModel.callFunction("/GetExecutionLogs", {    // function import name
+                        method: "GET",                             // http method
+                        urlParameters: { "workFlowInstanceId": sWorkFlowInstanceId }, // function import parameters        
+                        success: function (oData, response) {
+                            var oJSONData = JSON.parse(response.data.Response);
+                            this.oWorkflowModel.setData(oJSONData);
+                            oModel.setProperty("/PageBusy", false);
+                        }.bind(this),      // callback function for success
+                        error: function (oError) {
+                            this.oWorkflowModel.setData([]);
+                            oModel.setProperty("/PageBusy", false);
+                        }                  // callback function for error
+                    });
                 } else {
                     this.oWorkflowModel.setData([]);
                     oModel.setProperty("/PageBusy", false);
@@ -217,7 +231,6 @@ sap.ui.define(
             onIcnTbarChange: function (oEvent) {
                 var oView = this.getView();
                 var sKey = oEvent.getSource().getSelectedKey();
-                console.log(sKey);
                 //oHistoryTable.rebindTable();
                 if (sKey === "0") {
                 } else if (sKey === "1") {
@@ -263,7 +276,6 @@ sap.ui.define(
                 var oDataModel = oView.getModel();
                 var oModelControl = oView.getModel("oModelControl");
                 var sProp = oModelControl.getProperty("/bindProp")
-                //console.log(sProp,oPayLoad)
                 return new Promise((resolve, reject) => {
                     oDataModel.update("/" + sProp, oPayLoad, {
                         success: function (data) {
