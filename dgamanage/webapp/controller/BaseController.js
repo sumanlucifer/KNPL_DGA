@@ -477,6 +477,8 @@ sap.ui.define([
             if (parseInt(oBj["AllocatedDGACount"]) < 1) {
                 oModel.setProperty("/bSaveEnabledFlag1", false);
                 this._showMessageToast("Message19");
+            }else{
+                oModel.setProperty("/bSaveEnabledFlag1", true);
             }
             var oData = oView.getModel();
             var oFilter = new Filter([
