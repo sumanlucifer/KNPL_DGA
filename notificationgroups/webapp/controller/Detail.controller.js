@@ -173,7 +173,7 @@ sap.ui.define(
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "Members/Painter,NotificationGroupZone,NotificationGroupDivision,NotificationGroupDepot";
+                var exPand = "Members/DGA,NotificationGroupZone,NotificationGroupDivision,NotificationGroupDepot";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
