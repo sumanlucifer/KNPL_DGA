@@ -82,9 +82,9 @@ sap.ui.define([
                 Members: [],
                 NotificationGroupZone: [],
                 NotificationGroupDivision: [],
-                NotificationGroupDepot: [],
-                NotificationGroupPainterType: [],
-                NotificationGroupPainterArcheType: [],
+                NotificationGroupDepot: []
+                //NotificationGroupPainterType: [],
+                //NotificationGroupPainterArcheType: [],
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -168,6 +168,7 @@ sap.ui.define([
                         resolve(data);
                     },
                     error: function (data) {
+                        oModelControl.setProperty("/PageBusy", false);
                         othat._showMessageToast("Message4")
                         reject(data);
                     },

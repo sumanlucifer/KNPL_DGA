@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:html="http://www.w3.org/1999/xhtml" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
   
    <Table  delete="onDeleteMember" width="auto"
-							items="{path: 'Members/',parameters:{expand:'Painter'}}"
+							items="{path: 'Members/',parameters:{expand:'DGA'}}"
 							headerText="{i18n>colGroupMembers}" growing="true" noDataText="{i18n>tableNoDataText}">
 							<headerToolbar>
 								<Toolbar>
@@ -35,29 +35,29 @@
 									<cells>
                                     <FlexBox>
                                
-                                    <Text text="{Painter/Name}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{DGA/GivenName}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
 									<FlexBox >
                                
-                                    <Text text="{Painter/Mobile}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{DGA/Mobile}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
                                       <FlexBox >
                                   
-                                    <Text text="{Painter/MembershipCard}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{DGA/UniqueId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
 
                                     
                                      <FlexBox >
                    
-                                    <Text text="{Painter/ZoneId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{DGA/Zone}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
                                      <FlexBox >
                                 
-                                    <Text text="{Painter/DivisionId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{DGA/DivisionId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
                                     <FlexBox >
                                    
-                                    <Text text="{Painter/DepotId}" visible="{= ${objectView>IsArchived} !== true }"/>
+                                    <Text text="{DGA/DepotId}" visible="{= ${objectView>IsArchived} !== true }"/>
                                     </FlexBox>
                                     <!-- <Text text="{objectView>Role/Role}" visible="{= ${objectView>IsArchived} !== true }"/> -->
                                     </cells>

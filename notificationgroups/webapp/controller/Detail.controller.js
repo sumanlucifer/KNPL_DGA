@@ -66,9 +66,9 @@ sap.ui.define(
             _SetDisplayData: function (oProp, sMode) {
                 var oData = {
                     mode: sMode,
-                    bindProp: "NotificationGroupSet(" + oProp + ")",
+                    bindProp: "NotificationGroups(" + oProp + ")",
                     Id: oProp,
-                    EntitySet: "NotificationGroupSet",
+                    EntitySet: "NotificationGroups",
                     PageBusy: true,
                     IcnTabKey: "0",
                     resourcePath: "com.knpl.dga.notificationgroups",
@@ -173,7 +173,7 @@ sap.ui.define(
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "Members/Painter,NotificationGroupZone,NotificationGroupDivision,NotificationGroupDepot";
+                var exPand = "Members/DGA,NotificationGroupZone,NotificationGroupDivision,NotificationGroupDepot";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
@@ -218,10 +218,10 @@ sap.ui.define(
                 var sReceivers = [];
                 var sInitialReceivers = oViewModel.getProperty("/NotificationGroupDepot/results");
                 for (var x of sInitialReceivers) {
-                    sReceivers.push({DepotId:x["DepotId"]});
+                    sReceivers.push({ DepotId: x["DepotId"] });
                 }
                 oModelControl.setProperty("/MultiCombo/Depot", sReceivers);
-                
+
                 promise.resolve();
                 return promise;
 
@@ -233,7 +233,6 @@ sap.ui.define(
                 var oLoginModel = oView.getModel("LoginInfo");
                 var oControlModel = oView.getModel("oModelDisplay");
                 var oLoginData = oLoginModel.getData();
-
                 if (Object.keys(oLoginData).length === 0) {
                     return new Promise((resolve, reject) => {
                         oData.callFunction("/GetLoggedInAdmin", {
@@ -270,23 +269,25 @@ sap.ui.define(
                 var exPand = "Members";
                 var othat = this;
                 if (oProp.trim() !== "") {
-                    oView.bindElement({
-                        path: "/" + oProp,
-                        parameters: {
-                            expand: exPand,
-                        },
-                        events: {
-                            dataRequested: function (oEvent) {
-                                //  oView.setBusy(true);
+                    return new Promise((resolve, reject) => {
+                        oView.bindElement({
+                            path: "/" + oProp,
+                            parameters: {
+                                expand: exPand,
                             },
-                            dataReceived: function (oEvent) {
-                                //  oView.setBusy(false);
+                            events: {
+                                dataRequested: function (oEvent) {
+                                    //  oView.setBusy(true);
+                                },
+                                dataReceived: function (oEvent) {
+                                    resolve()
+                                    //  oView.setBusy(false);
+                                },
                             },
-                        },
-                    });
+                        });
+                    })
                 }
-                promise.resolve();
-                return promise;
+
             },
             onIcnTbarChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
