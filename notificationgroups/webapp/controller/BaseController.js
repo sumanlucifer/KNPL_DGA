@@ -527,6 +527,10 @@ sap.ui.define([
                     template: "DGA/GivenName",
                 },
                 {
+                    label: "Mobile",
+                    template: "DGA/Mobile",
+                },
+                {
                     label: "Unique Id",
                     template: "DGA/UniqueId",
                 },
@@ -549,6 +553,10 @@ sap.ui.define([
                 {
                     label: "Payroll Company",
                     template: "DGA/PayrollCompany/Name",
+                },
+                {
+                    label: "DGA Type",
+                    template: "DGA/DGAType/Name",
                 },
                 {
                     label: "Status",
@@ -730,32 +738,31 @@ sap.ui.define([
                         aCurrentFilterValues.push(
                             new Filter("DGA/DepotId", FilterOperator.EQ, oViewFilter[prop])
                         );
-                    } else if (prop === "PainterType") {
+                    } else if (prop === "PayrollCompany") {
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
                             new Filter({
-                                path: "Painter/PainterTypeId",
+                                path: "DGA/PayrollCompanyId",
                                 operator: FilterOperator.EQ,
                                 value1: oViewFilter[prop]
                             })
                         );
-                    } else if (prop === "ArcheType") {
+                    } else if (prop === "DgaType") {
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
                             new Filter({
-                                path: "Painter/ArcheTypeId",
+                                path: "DGA/DGATypeId",
                                 operator: FilterOperator.EQ,
                                 value1: oViewFilter[prop]
                             })
                         );
-                    } else if (prop === "MembershipCard") {
+                    } else if (prop === "Status") {
                         aFlaEmpty = false;
                         aCurrentFilterValues.push(
                             new Filter({
-                                path: "DGA/UniqueId",
-                                operator: FilterOperator.Contains,
-                                value1: oViewFilter[prop],
-                                caseSensitive: false
+                                path: "DGA/ActivationStatus",
+                                operator: FilterOperator.EQ,
+                                value1: oViewFilter[prop]
                             })
                         );
                     } else if (prop === "Name") {
@@ -776,6 +783,39 @@ sap.ui.define([
                                 operator: FilterOperator.Contains,
                                 value1: oViewFilter[prop]
                             })
+                        );
+                    }else if (prop === "Search") {
+                        aFlaEmpty = false;
+                        aCurrentFilterValues.push(
+                            new Filter(
+                                [
+                                    new Filter({
+                                        path: "DGA/GivenName",
+                                        operator: "Contains",
+                                        value1: oViewFilter[prop].trim(),
+                                        caseSensitive: false
+                                    }),
+                                    new Filter({
+                                        path: "DGA/Mobile",
+                                        operator: "Contains",
+                                        value1: oViewFilter[prop].trim(),
+                                        caseSensitive: false
+                                    }),
+                                    new Filter({
+                                        path: "DGA/UniqueId",
+                                        operator: "Contains",
+                                        value1: oViewFilter[prop].trim(),
+                                        caseSensitive: false
+                                    }),
+                                    new Filter({
+                                        path: "DGA/Pincode/Name",
+                                        operator: "Contains",
+                                        value1: oViewFilter[prop].trim(),
+                                        caseSensitive: false
+                                    })
+                                ],
+                                false
+                            )
                         );
                     }
                 }
@@ -858,11 +898,10 @@ sap.ui.define([
                 ZoneId: "",
                 DivisionId: "",
                 DepotId: "",
-                PainterType: "",
-                ArcheType: "",
-                MembershipCard: "",
-                Name: "",
-                Mobile: ""
+                Search:"",
+                PayrollCompany:"",
+                DgaType:"",
+                Status:""
             });
             aCurrentFilterValues.push(new Filter({
                 path: "IsArchived",
