@@ -353,14 +353,13 @@ sap.ui.define([
             var iMembers = -1;
             var aMembers = [];
             for (var x of aSelectedMember) {
-                // iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
-                // if (iMembers >= 0) {
-
-                //     aMembers.push(aExistingMember[iMembers]);
-                // } else {
-                //     aMembers.push({ Id: parseInt(x["Id"]) });
-                // }
-                aMembers.push({ Id: x["Id"] });
+                iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
+                if (iMembers >= 0) {
+                    aMembers.push(aExistingMember[iMembers]);
+                } else {
+                    aMembers.push({ Id: x["Id"], RoleId:x["RoleId"] });
+                }
+                //aMembers.push({ Id: x["Id"] });
             }
             oPayload["Members"] = aMembers;
             // zone 
