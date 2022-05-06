@@ -353,7 +353,7 @@ sap.ui.define([
             var iMembers = -1;
             var aMembers = [];
             for (var x of aSelectedMember) {
-                iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
+                iMembers = aExistingMember.findIndex(item => item["Id"] === x["Id"])
                 if (iMembers >= 0) {
                     aMembers.push(aExistingMember[iMembers]);
                 } else {
