@@ -81,7 +81,7 @@ sap.ui.define([], function () {
 
         },
         fmtDisplaySection4: function (mParam1, mParam2, mParam3) {
-          
+          console.log(mParam1,mParam2,mParam3)
             if (mParam1 === 'Edit') {
                 if (mParam3 === false) {
                     return true;

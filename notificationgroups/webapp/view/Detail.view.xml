@@ -42,7 +42,7 @@
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
-			<uxap:ObjectPageSection title="{i18n>Members}"  visible="{parts:['oModelDisplay>/mode','IsTargetGroup','oModelView>/IsTargetGroup'],formatter:'.formatter.fmtDisplaySection4'}" >
+			<uxap:ObjectPageSection title="{i18n>Members}"  visible="{= ${IsTargetGroup} === false }" >
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection>
                               <VBox id="oVbox4" >
