@@ -3,7 +3,7 @@
                             id="smartHistory"
                             editable="false"
                             beforeRebindTable="onBeforeRebindHistoryTable"                    
-                            entitySet=""
+                            entitySet="ContractorReassignmentWorkflowLogs"
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"
@@ -13,27 +13,19 @@
                             enableAutoBinding="false"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            requestAtLeastFields="ComplaintId"
-                             initialNoDataText="{i18n>tableNoDataText}"
-                            ignoreFromPersonalisation="Id,SkuCode,TokenCode,RewardPoints,RewardGiftId,ResolutionOthers,ResolutionId,PainterId,IsArchived,IsSelected,CreatedAt,CreatedBy,ComplaintTypeId,ComplaintSubtypeId,AssigneUserType,EscalatedAt,InitiateForceTat,EscalationType,InitiateForceTat,UpdatedBy,ComplaintDescription">
-
+                            requestAtLeastFields="ContractorReassignmentRequestId"
+                            initialNoDataText="{i18n>tableNoDataText}">
         <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
             <columns>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintCode", "leadingProperty": "ComplaintCode", "columnIndex": 0 ,"sortProperty": "ComplaintCode","filterProperty": "ComplaintCode"}'/>
-                    </customData>
-                    <Text text="{i18n>MainObject} {i18n>Id}"/>
-                </Column>
-                 <Column hAlign="Begin">
-                    <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty": "UpdatedAt", "columnIndex": 1 ,"sortProperty": "UpdatedAt","filterProperty": "UpdatedAt"}'/>
                     </customData>
                     <Text text="{i18n>UpdatedAt}"/>
-                </Column>
-                 <Column hAlign="Begin">
+                </Column>  
+                <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintStatus", "leadingProperty": "ComplaintStatus", "columnIndex": 2 ,"sortProperty": "ComplaintStatus","filterProperty": "ComplaintStatus"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReassignmentStatus/Name", "leadingProperty": "ReassignmentStatus/Name", "columnIndex": 2 ,"sortProperty": "ReassignmentStatus/Name","filterProperty": "ReassignmentStatus/Name"}'/>
                     </customData>
                     <Text text="{i18n>MainObject} {i18n>Status}"/>
                 </Column>
@@ -45,32 +37,18 @@
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedByName", "leadingProperty": "UpdatedByName", "columnIndex": 4 ,"sortProperty": "UpdatedByName","filterProperty": "UpdatedByName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedBy", "leadingProperty": "UpdatedBy", "columnIndex": 4 ,"sortProperty": "UpdatedBy","filterProperty": "UpdatedBy"}'/>
                     </customData>
                     <Text text="{i18n>UpdatedBy}"/>
-                </Column>
-               
-                
-
+                </Column>         
             </columns>
             <items>
                 <ColumnListItem>
                     <cells>
-                    <HBox>
-                     
-                        <ObjectAttribute
-		
-			text="{ComplaintCode}"
-				
-			/>
-                    </HBox>
-                        	
-                       <Text text="{path:'UpdatedAt',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}" />
-                         <Text text="{path:'ComplaintStatus',formatter:'.formatter.fmtLowerCase'}"/>
-                           <Text text="{Remark}"/>
-                            <Text text="{UpdatedByName}"/>
-
-
+                        <Text text="{path:'UpdatedAt',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}" />
+                        <Text text="{path:'ReassignmentStatus/Name',formatter:'.formatter.fmtLowerCase'}"/>
+                        <Text text="{Remark}"/>
+                        <Text text="{UpdatedBy}"/>
                     </cells>
                 </ColumnListItem>
             </items>
