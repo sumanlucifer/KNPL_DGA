@@ -124,6 +124,9 @@ sap.ui.define([
             var cmbxcity = oView.byId("cmbCity");
             cmbxcity.clearSelection();
             cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
+            var cmbxDistrict = oView.byId("cmbDistrict");
+            cmbxDistrict.clearSelection();
+            cmbxDistrict.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
             // oViewModel.setProperty("/CityOrTown", obj["City"]);
             this._onDialogClose();
         },
