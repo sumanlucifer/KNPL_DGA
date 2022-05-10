@@ -160,7 +160,7 @@ sap.ui.define(
                 var oViewData = oView.getElementBinding().getBoundContext().getObject();
                 var sReassignId = oViewData["ID"];
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "ReassignmentStatus";
+                oBindingParams.parameters["expand"] = "ReassignmentStatus,UpdatedByDetails";
                 var oFilter = new Filter(
                     "ContractorReassignmentRequestId",
                     FilterOperator.EQ,
