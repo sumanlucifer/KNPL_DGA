@@ -7,7 +7,7 @@
         growingThreshold="8"
        rememberSelections="false"
 		class="sapUiPopupWithPadding"
-		items="{path:'/MasterPincodes',sorter:{path:'Name'},parameters:{select:'Id,Name,StateId,CityId,City/City' , expand:'City'} }"
+		items="{path:'/MasterPincodes',sorter:{path:'Name'},parameters:{select:'Id,Name,StateId,CityId,DistrictId,District/Name,City/City' , expand:'City,District'} }"
 	    search="_handlePValueHelpSearch"
 		confirm="_handlePinCodeValueHelpConfirm"
         cancel="_onDialogClose"

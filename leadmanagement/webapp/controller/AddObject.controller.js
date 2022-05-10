@@ -120,13 +120,19 @@ sap.ui.define([
                 "/Pincode",
                 obj["Name"]
             );
+            var sDistrictPath = obj["District"].__ref;
+            var sCityPath = obj["City"].__ref;
+            var sDistrictName = oView.getModel().getProperty("/"+sDistrictPath).Name;
+            var sCityName = oView.getModel().getProperty("/"+sCityPath).City;
             oViewModel.setProperty("/StateId", obj["StateId"]);
-            var cmbxcity = oView.byId("cmbCity");
-            cmbxcity.clearSelection();
-            cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
-            var cmbxDistrict = oView.byId("cmbDistrict");
-            cmbxDistrict.clearSelection();
-            cmbxDistrict.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
+            oViewModel.setProperty("/CityOrTown", sCityName);
+            oViewModel.setProperty("/District", sDistrictName);
+            // var cmbxcity = oView.byId("cmbCity");
+            // cmbxcity.clearSelection();
+            // cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
+            // var cmbxDistrict = oView.byId("cmbDistrict");
+            // cmbxDistrict.clearSelection();
+            // cmbxDistrict.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
             // oViewModel.setProperty("/CityOrTown", obj["City"]);
             this._onDialogClose();
         },
