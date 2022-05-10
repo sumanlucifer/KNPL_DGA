@@ -37,7 +37,7 @@
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedByDetails/Name", "leadingProperty": "UpdatedByDetails/Name", "columnIndex": 4 ,"sortProperty": "UpdatedByDetails/Name","filterProperty": "UpdatedByDetails/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedBy,UpdatedByDetails/Name", "leadingProperty": "UpdatedBy,UpdatedByDetails/Name", "columnIndex": 4 ,"sortProperty": "UpdatedByDetails/Name","filterProperty": "UpdatedByDetails/Name"}'/>
                     </customData>
                     <Text text="{i18n>UpdatedBy}"/>
                 </Column>         
@@ -48,7 +48,7 @@
                         <Text text="{path:'UpdatedAt',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}" />
                         <Text text="{path:'ReassignmentStatus/Name',formatter:'.formatter.fmtLowerCase'}"/>
                         <Text text="{Remark}"/>
-                        <Text text="{UpdatedByDetails/Name}"/>
+                        <Text text="{= ${UpdatedBy}==='0' ? 'Mobile User' : ${UpdatedByDetails/Name} }"/>
                     </cells>
                 </ColumnListItem>
             </items>
