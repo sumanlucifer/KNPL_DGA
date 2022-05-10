@@ -155,9 +155,18 @@ sap.ui.define(
                 return promise;
             },
           
-            onBeforeRebindHistoryTable: function (oEvent) {
+            onBeforeRebindHistoryTable: function (oEvent) { 
                 var oView = this.getView();
+                var oViewData = oView.getElementBinding().getBoundContext().getObject();
+                var sReassignId = oViewData["ID"];
                 var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "ReassignmentStatus";
+                var oFilter = new Filter(
+                    "ContractorReassignmentRequestId",
+                    FilterOperator.EQ,
+                    sReassignId,
+                );
+                oBindingParams.filters.push(oFilter);
                 oBindingParams.sorter.push(new Sorter("UpdatedAt", true));
             },
             _LoadFragment: function (mParam) {
