@@ -10,7 +10,15 @@
     <f:SimpleForm id="DisplayData" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
         <f:content>
               <core:Title text="{i18n>MainObject} {i18n>Details}" />
+              <!-- <Label text="{i18n>NotificationTitle}" />
+                <Text text="{path : 'CreatedAt'}"  />
                 <Label text="{i18n>NotificationTitle}" />
+                <Text text="{path : 'CreatedBy'}"  />
+                <Label text="{i18n>NotificationTitle}" />
+                <Text text="{path : 'UpdatedAt'}"  />
+                <Label text="{i18n>NotificationTitle}" />
+                <Text text="{path : 'UpdatedBy'}"  />
+                <Label text="{i18n>NotificationTitle}" /> -->
                 <Text text="{path : 'Subject'}"  />
                 <Label text="{i18n>RedirectionType}" />
                 <Text text="{path : 'RedirectionType'}"  />
@@ -19,7 +27,7 @@
                 <Label text="{i18n>colReceivers}" visible="{= ${IsGroupNotification} === false}" />
                 <MultiInput editable="false"  tokens="{path:'Receivers/'}"  visible="{= ${IsGroupNotification} === false}">
                                     <tokens>
-                                        <Token editable="false" text="{PainterName}" key="{Id}"/>
+                                        <Token editable="false" text="{DGAName}" key="{Id}"/>
                                     </tokens>
                                  </MultiInput>
                 <Label visible="{= ${IsGroupNotification} === true}"  text="{i18n>colGroup}"/>

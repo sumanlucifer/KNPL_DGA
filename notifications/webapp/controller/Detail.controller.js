@@ -29,11 +29,9 @@ sap.ui.define(
         formatter
     ) {
         "use strict";
-
         return BaseController.extend(
             "com.knpl.dga.notifications.controller.Detail", {
             formatter: formatter,
-
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute("Detail").attachMatched(this._onRouteMatched, this);
@@ -47,7 +45,6 @@ sap.ui.define(
                 sap.ui.getCore().attachValidationSuccess(function (oEvent) {
                     oEvent.getParameter("element").setValueState(ValueState.None);
                 });
-
             },
             _onRouteMatched: function (oEvent) {
                 var sId = window.decodeURIComponent(
@@ -57,16 +54,15 @@ sap.ui.define(
                     oEvent.getParameter("arguments").Mode
                 );
                 this._SetDisplayData(sId, sMode);
-
             },
             onAfterRendering: function () {
-
             },
             _SetDisplayData: function (oProp, sMode) {
                 var oData = {
                     mode: sMode,
-                    bindProp: "NotificationSet('" + oProp + "')",
+                    bindProp: "Notifications('" + oProp + "')",
                     Id: oProp,
+                    EntitySet: "Notifications",
                     PageBusy: true,
                     IcnTabKey: "0",
                     resourcePath: "com.knpl.dga.notifications"
@@ -78,7 +74,6 @@ sap.ui.define(
                 } else {
                     this._initDisplayData();
                 }
-
             },
             _initDisplayData: function () {
                 var c1, c2, c3;
@@ -113,17 +108,14 @@ sap.ui.define(
                         c3.then(function () {
                             c3b = othat._setAdditioanlFlags();
                             c3b.then(function () {
-                                c4 = othat._getMultiComboData();
+                                c4 = othat._getEditMultiComboData();
                                 c4.then(function () {
                                     oModel.setProperty("/PageBusy", false);
                                 })
                             })
-
                         })
                     })
-
                 })
-
             },
             _setAdditioanlFlags: function () {
                 var promise = jQuery.Deferred();
@@ -139,35 +131,35 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-            _getMultiComboData: function () {
+            _getEditMultiComboData: function () {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var oModelControl = oView.getModel("oModelControl");
                 var oViewModel = oView.getModel("oModelView");
                 var sReceivers = [];
-                var sInitialReceivers = oViewModel.getProperty("/Receivers");
-                for (var x of sInitialReceivers["results"]) {
-                    sReceivers.push({ Id: x["Id"], PainterName: x["PainterName"] })
+                var sInitialReceivers = oViewModel.getProperty("/Receivers/results");
+                for (var x of sInitialReceivers) {
+                    sReceivers.push(Object.assign({}, x));
                 }
                 oModelControl.setProperty("/MultiCombo/Receivers", sReceivers);
                 promise.resolve();
                 return promise;
-
             },
+          
+
             _setInitViewModel: function () {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
                 var oModel = oView.getModel("oModelDisplay")
                 var oProp = oModel.getProperty("/bindProp");
-                var exPand = "Receivers";
+                var exPand = "Receivers/DGA";
                 return new Promise((resolve, reject) => {
                     oView.getModel().read("/" + oProp, {
                         urlParameters: {
                             $expand: exPand,
                         },
                         success: function (data) {
-
                             var oModel = new JSONModel(data);
                             oView.setModel(oModel, "oModelView");
                             resolve();
@@ -183,7 +175,6 @@ sap.ui.define(
                 var oLoginModel = oView.getModel("LoginInfo");
                 var oControlModel = oView.getModel("oModelDisplay");
                 var oLoginData = oLoginModel.getData();
-
                 if (Object.keys(oLoginData).length === 0) {
                     return new Promise((resolve, reject) => {
                         oData.callFunction("/GetLoggedInAdmin", {
@@ -210,9 +201,7 @@ sap.ui.define(
                     promise.resolve();
                     return promise;
                 }
-
             },
-
             _getDisplayData: function (oProp) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
@@ -250,7 +239,6 @@ sap.ui.define(
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.sorter.push(new Sorter("UpdatedAt", true));
             },
-
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
@@ -264,19 +252,16 @@ sap.ui.define(
                     promise.resolve();
                     return promise;
                 });
-
             },
             onPressSave: function (sStatusType) {
                 //SCHEDULED DRAFT
                 var bValidateForm = this._ValidateForm();
                 var bValidateReceivers = this._CheckReceivers.bind(this);
-
                 if (bValidateForm) {
                     if (bValidateReceivers()) {
                         this._postDataToSave(sStatusType);
                     }
                 }
-
             },
             _postDataToSave: function (sStatusType) {
                 /*
@@ -287,7 +272,7 @@ sap.ui.define(
                  */
                 var oView = this.getView();
                 var oModelControl = oView.getModel("oModelDisplay");
-                oModelControl.setProperty("/PageBusy", true);
+                // oModelControl.setProperty("/PageBusy", true);
                 var othat = this;
                 var c1, c1A, c2, c3, c4;
                 c1 = othat._CheckEmptyFieldsPostPayload(sStatusType);
@@ -298,17 +283,12 @@ sap.ui.define(
                         c2.then(function () {
                             c3 = othat._uploadFile();
                             c3.then(function () {
-                                oModelControl.setProperty("/PageBusy", false);
+                                // oModelControl.setProperty("/PageBusy", false);
                                 othat.onNavToHome();
                             })
                         })
                     })
-
                 })
-
-
-
-
             },
             _UpdatedObject: function (oPayLoad) {
                 var othat = this;
@@ -331,10 +311,7 @@ sap.ui.define(
                     });
                 });
             }
-
-
         }
-
         );
     }
 );

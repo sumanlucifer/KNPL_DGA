@@ -2,7 +2,7 @@
     
     xmlns:core="sap.ui.core">
 <Table id="table" width="auto"
-							items="{ path: '/NotificationSet', parameters : { expand : 'Group, Receivers, Redirection' }, filters : [ { path : 'IsArchived' , operator : 'EQ' , value1 : false }, { path : 'IsSystemGenerated' , operator : 'EQ' , value1 : false }, { path : 'NotificationStatus' , operator : 'EQ' , value1 : 'DRAFT' } ], sorter: { path: 'UpdatedAt', descending: true } }"
+							items="{ path: '/Notifications', parameters : { expand : 'Group, Receivers, Redirection' }, filters : [ { path : 'IsArchived' , operator : 'EQ' , value1 : false }, { path : 'IsSystemGenerated' , operator : 'EQ' , value1 : false }, { path : 'NotificationStatus' , operator : 'EQ' , value1 : 'DRAFT' } ], sorter: { path: 'UpdatedAt', descending: true } }"
 							noDataText="{i18n>tableNoDataText}"  growing="true" growingThreshold="10" growingScrollToLoad="false"
 							updateFinished=".onUpdateFinished">
 							<headerToolbar>

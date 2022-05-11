@@ -1,12 +1,10 @@
 <core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:l="sap.ui.layout" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m"  xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
-  
         <f:SimpleForm class="addForm" id="FormObjectData" editable="true" layout="ResponsiveGridLayout" title="{oModelControl>/Pagetitle} {i18n>MainObject}" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
             <f:content>
                 <core:Title text="{i18n>MainObject} {i18n>Details}" />
                 <Label text="{i18n>NotificationTitle}" />
                   <Input required="true" maxLength="300" width="100%"
                 value="{path : 'oModelView>/Subject', type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :500, search :'^[a-zA-Z0-9]{1}[wW]*' } }" />
-              
                  <Label text="{i18n>RedirectionType}" />
                  	<ComboBox width="100%" selectedKey="{oModelView>/RedirectionType}" change="onRedirectionChange" >
 									<items>
@@ -16,22 +14,21 @@
 					</ComboBox>
                     <Label visible="{= ${oModelView>/RedirectionType} === 'SCREEN'}"  text="{i18n>colRedirectionTo}"/>
 								<ComboBox visible="{= ${oModelView>/RedirectionType} === 'SCREEN'}" required="true" width="100%" selectedKey="{path:'oModelView>/RedirectionTo', type:'sap.ui.model.type.String', constraints:{minLength:1 } }"
-									items="{ path: '/MasterRedirectionSet' }" >
+									items="{ path: '/MasterRedirections' }" >
 									<core:Item key="{RedirectionKey}" text="{RedirectionValue}"/>
 								</ComboBox>
                     <Label visible="{= ${oModelView>/RedirectionType} === 'LINK'}"  text="{i18n>colRedirectionTo}"/>
 								<Input visible="{= ${oModelView>/RedirectionType} === 'LINK'}" width="100%" required="true"  value="{path:'oModelView>/RedirectionTo',type:'sap.ui.model.type.String', constraints:{minLength:1 } }"
 									placeholder="{i18n>linkPlaceHolder}" />
                 <Label required="true" text="{i18n>colReceivers}" visible="{= ${oModelView>/IsGroupNotification} === false}" />
-								
                                  <MultiInput id="multiInputPainterAdd" selectedKey="{oModelControl>/Keys}"  tokens="{path:'oModelControl>/MultiCombo/Receivers'}" valueHelpRequest="onValueHelpRequestedPainter" visible="{= ${oModelView>/IsGroupNotification} === false}">
                                     <tokens>
-                                        <Token editable="false" text="{oModelControl>PainterName}" key="{oModelControl>Id}"/>
+                                        <Token editable="false" text="{oModelControl>DGAName}" key="{oModelControl>Id}"/>
                                     </tokens>
                                  </MultiInput>
                 	<Label visible="{= ${oModelView>/IsGroupNotification} === true}"  text="{i18n>colGroup}"/>
 								<ComboBox id="idGroupCombo" visible="{= ${oModelView>/IsGroupNotification} === true}" width="100%" selectedKey="{path:'oModelView>/GroupId', type:'sap.ui.model.type.String',constraints:{minLength:1}}"
-									items="{ path: '/NotificationGroupSet',filters: [{ path : 'IsArchived' , operator : 'EQ' , value1 : false }] }" required="true">
+									items="{ path: '/NotificationGroups',filters: [{ path : 'IsArchived' , operator : 'EQ' , value1 : false }] }" required="true">
 									<core:Item key="{Id}" text="{GroupName}"/>
 								</ComboBox>
                <Label  text="{i18n>colScheduledDate}" visible="{= ${oModelView>/IsLater} === true}"/>
@@ -50,16 +47,13 @@
 									<layoutData>
 										<FlexItemData growFactor="1"/>
 									</layoutData>
-				</Switch>
-
+				                </Switch>
                 <Label text="{i18n>colIsLater}"/>
 								<Switch state="{oModelView>/IsLater}" customTextOn="Yes" customTextOff="No" >
 									<layoutData>
 										<FlexItemData growFactor="1"/>
 									</layoutData>
 								</Switch>
-           
             </f:content>
         </f:SimpleForm>
-   
 </core:FragmentDefinition>

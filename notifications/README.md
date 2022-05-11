@@ -7,7 +7,7 @@
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Floorplan Used**<br>simple|
 |**Service Type**<br>SAP System (ABAP On Premise)|
-|**Service URL**<br>https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com/api/v2/odata.svc/
+<!-- |**Service URL**<br>https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com/api/v2/odata.svc/
 |**Module Name**<br>notifications|
 |**Application Title**<br>Notification Groups|
 |**Namespace**<br>com.knpl.dga|
@@ -31,6 +31,8 @@ A Fiori application.
 
 #### Pre-requisites:
 
-1. Active NodeJS LTS (Long Term Support) version and associated supported NPM version.  (See https://nodejs.org)
+1. Active NodeJS LTS (Long Term Support) version and associated supported NPM version.  (See https://nodejs.org) -->
+
+|**Service URL**<br> https://knpl-dga-api.cfapps.ap11.hana.ondemand.com
 
 
