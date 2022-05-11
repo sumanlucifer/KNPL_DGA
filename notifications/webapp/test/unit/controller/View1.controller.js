@@ -1,7 +1,7 @@
 /*global QUnit*/
 
 sap.ui.define([
-	"comknpldga/ui5template/controller/View1.controller"
+	"comknpldga/notifications/controller/View1.controller"
 ], function (Controller) {
 	"use strict";
 

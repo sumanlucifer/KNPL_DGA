@@ -131,7 +131,7 @@ sap.ui.define([
              */
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
-            oModelControl.setProperty("/PageBusy", true);
+            // oModelControl.setProperty("/PageBusy", true);
             var othat = this;
             var c1, c1A, c2, c3, c4;
             c1 = othat._CheckEmptyFieldsPostPayload(sStatusType);
@@ -142,7 +142,7 @@ sap.ui.define([
                     c2.then(function () {
                         c3 = othat._uploadFile();
                         c3.then(function () {
-                            oModelControl.setProperty("/PageBusy", false);
+                            // oModelControl.setProperty("/PageBusy", false);
                             othat.onNavToHome();
                         })
                     })
@@ -162,7 +162,7 @@ sap.ui.define([
             console.log(oModelControl.getData())
             return new Promise((resolve, reject) => {
                 //resolve();
-                oDataModel.create("/NotificationSet", oPayLoad, {
+                oDataModel.create("/Notifications", oPayLoad, {
                     success: function (data) {
                         othat._showMessageToast("Message2")
                         resolve(data);
