@@ -43,7 +43,7 @@
                <!-- <Input  maxLength="250" width="100%"
                 value="{path : 'oModelView>/Body', type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :500, search :'^[a-zA-Z0-9]{1}[wW]*' } }" required="true" /> -->
               <TextArea  required="true" width="100%" 
-              value="{path : 'oModelView>/Body', type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :500, search :'^[a-zA-Z0-9]{1}[wW]*' } }" rows="4" maxLength="250" placeholder="{i18n>MessagePlaceHolder}" showExceededText="false"/>
+              value="{path : 'oModelView>/Body', type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :200, search :'^[a-zA-Z0-9]{1}[wW]*' } }" rows="4" maxLength="200" placeholder="{i18n>MessagePlaceHolder}" showExceededText="false"/>
                 <Label text="{i18n>colIsGroupNotification}"/>
 								<Switch change="onSwitch1Change" state="{oModelView>/IsGroupNotification}" customTextOn="Yes" customTextOff="No" >
 									<layoutData>
