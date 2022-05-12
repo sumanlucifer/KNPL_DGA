@@ -4,11 +4,11 @@
         "id": "com.knpl.dga.notifications",
         "type": "application",
         "i18n": "i18n/i18n.properties",
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
         "applicationVersion": {
             "version": "0.0.1"
         },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
         "resources": "resources.json",
         "dataSources": {
             "mainService": {
@@ -28,10 +28,15 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "PaintReq",
+                    "semanticObject": "Notifications",
+                    "action": "Manage",
                     "title": "{{flpTitle}}",
-                    "icon": "sap-icon://message-popup"
+                    "icon": "sap-icon://bell",
+                    "indicatorDataSource": {
+                        "dataSource": "KNPL_DGA_API",
+                        "path": "/dynamic_dest/KNPL_DGA_API/api/v2/odata.svc/Notifications/$count?$filter=IsArchived eq false",
+                        "refresh": 0
+                    }
                 }
             }
         }
