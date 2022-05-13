@@ -66,7 +66,8 @@ sap.ui.define(
                         Pincode: "",
                         StatusId: "",
                         ServiceTypeId: "",
-                        ServiceSubTypeId: ""
+                        ServiceSubTypeId: "",
+                        SubType:""
                     },
                     AddFields: {
                         PinCode: ""
@@ -290,6 +291,10 @@ sap.ui.define(
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("LeadServiceSubTypeId", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "SubType") {
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("PaintingReqSlab/LeadSubStatus", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "DepotId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
@@ -333,29 +338,24 @@ sap.ui.define(
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
-                                        new Filter({
-                                            path: "LeadServiceType/Name",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
+                                        // new Filter({
+                                        //     path: "LeadServiceType/Name",
+                                        //     operator: "Contains",
+                                        //     value1: oViewFilter[prop].trim(),
+                                        //     caseSensitive: false
+                                        // }),
                                         new Filter({
                                             path: "Stage",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
-                                        new Filter({
-                                            path: "PaintingReqSlab/LeadSubStatus",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "PaintingReqSlab/LeadSubStatus",
-                                            operator: "EQ",
-                                            value1: null
-                                        })
+                                        // new Filter({
+                                        //     path: "PaintingReqSlab/LeadSubStatus",
+                                        //     operator: "Contains",
+                                        //     value1: oViewFilter[prop].trim(),
+                                        //     caseSensitive: false
+                                        // })
                                     ],
                                     false
                                 )
