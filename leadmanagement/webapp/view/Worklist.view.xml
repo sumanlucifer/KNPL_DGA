@@ -56,6 +56,17 @@
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="SubType" label="{i18n>SubType}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <ComboBox id="idSubType" placeholder="{i18n>Enter} {i18n>SubType}" selectionChange="onSubTypeChange"  selectedKey="{path:'oModelControl>/filterBar/SubType' }">
+                                        <items>
+                                            <core:Item text="{i18n>Hot}" key="Hot" />
+                                            <core:Item text="{i18n>Warm}" key="Warm" />
+                                            <core:Item text="{i18n>Cold}" key="Cold" />
+                                        </items>
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
                             <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="SubType" label="{i18n>ServiceSubType}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                     <ComboBox id="idSubType" placeholder="{i18n>Enter} {i18n>ServiceSubType}" selectionChange="onServiceSubTypeChange"  items="{/MasterServiceSubTypes}" selectedKey="{path:'oModelControl>/filterBar/ServiceSubTypeId' }">
