@@ -112,8 +112,8 @@ sap.ui.define([
             //SCHEDULED DRAFT
             var bValidateForm = this._ValidateForm();
             var bValidateReceivers = this._CheckReceivers.bind(this);
-
-            if (bValidateForm) {
+            var bValitimeVlue = this._fnValidationView();
+            if (bValidateForm && bValitimeVlue) {
                 if (bValidateReceivers()) {
                     this._postDataToSave(sStatusType);
                 }
