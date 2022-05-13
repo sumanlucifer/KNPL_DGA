@@ -84,7 +84,7 @@ sap.ui.define([
                 MultiCombo: {
                     Receivers: []
                 },
-                currDate: null,
+                currDate: new Date(),
                 ScheduledDate: null,
                 ScheduledTime: null,
                 Search: {
@@ -564,7 +564,6 @@ sap.ui.define([
                 onClose: function (sAction) {
                     if (sAction === "YES") {
                         _fnYes && _fnYes.apply(that);
-                      
                     }
                 }
             });
@@ -733,6 +732,31 @@ sap.ui.define([
                     and: true,
                 })
             );
+        },
+        _fnValidationView: function () {
+            var oView = this.getView();
+            var data = oView.getModel("oModelControl").getData();
+            if (data.ScheduledDate && data.ScheduledTime) {
+                var time = data.ScheduledTime;
+                var date = new Date(data.ScheduledDate);
+                var sDay = date.getDay(), sMonth = date.getMonth(), sYear = date.getUTCFullYear();
+                var currDate = new Date();
+                var cDay = currDate.getDay(), cMonth = currDate.getMonth(), cYear = currDate.getUTCFullYear();
+                var currTime = currDate.getHours() + ":" + currDate.getMinutes();
+                var cDateString = cDay + "-" + cMonth + "-" + cYear;
+                var sDateString = sDay + "-" + sMonth + "-" + sYear;
+                var regex = new RegExp(':', 'g');
+                var tPicker = this.getView().byId("idTimePicker");
+                if (sDateString == cDateString) {
+                    var regex = new RegExp(':', 'g');
+                    if (parseInt(tPicker.getValue().replace(regex, ''), 10) < parseInt(currTime.replace(regex, ''), 10)) {
+                        this._showMessageToast("MSG_VALDTN_ERR_STIME")
+                        tPicker.setValue(null);
+                        return false;
+                    }
+                }
+            }
+            return true;
         },
         _FilterPainterValueTable: function (oFilter, sType) {
             var oValueHelpDialog = this._oValueHelpDialog;
