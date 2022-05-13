@@ -58,12 +58,8 @@
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="SubType" label="{i18n>SubType}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <ComboBox id="idSubType" placeholder="{i18n>Enter} {i18n>SubType}" selectionChange="onSubTypeChange"  selectedKey="{path:'oModelControl>/filterBar/SubType' }">
-                                        <items>
-                                            <core:Item text="{i18n>Hot}" key="Hot" />
-                                            <core:Item text="{i18n>Warm}" key="Warm" />
-                                            <core:Item text="{i18n>Cold}" key="Cold" />
-                                        </items>
+                                    <ComboBox id="idSubType" placeholder="{i18n>Enter} {i18n>SubType}" selectionChange="onSubTypeChange" items="{/MasterPaintingReqSlab}"  selectedKey="{path:'oModelControl>/filterBar/SubType' }">
+                                        <core:Item text="{LeadSubStatus} " key="{LeadSubStatus}" />
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
