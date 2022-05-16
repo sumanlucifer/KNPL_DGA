@@ -34,7 +34,7 @@
                     "icon": "sap-icon://bell",
                     "indicatorDataSource": {
                         "dataSource": "KNPL_DGA_API",
-                        "path": "/dynamic_dest/KNPL_DGA_API/api/v2/odata.svc/Notifications/$count?$filter=IsArchived eq false",
+                        "path": "/dynamic_dest/KNPL_DGA_API/api/v2/odata.svc/Notifications/$count?$filter=IsArchived eq false and IsSystemGenerated eq false and NotificationStatus eq 'SCHEDULED'",
                         "refresh": 0
                     }
                 }
