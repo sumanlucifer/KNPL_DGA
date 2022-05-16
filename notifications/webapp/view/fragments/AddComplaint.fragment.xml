@@ -9,7 +9,7 @@
                  	<ComboBox width="100%" selectedKey="{oModelView>/RedirectionType}" change="onRedirectionChange" >
 									<items>
 										<core:Item text="{i18n>screen}" key="SCREEN"/>
-										<core:Item text="{i18n>link}" key="LINK"/>
+										<!-- <core:Item text="{i18n>link}" key="LINK"/> -->
 									</items>
 					</ComboBox>
                     <Label visible="{= ${oModelView>/RedirectionType} === 'SCREEN'}"  text="{i18n>colRedirectionTo}"/>
@@ -17,9 +17,9 @@
 									items="{ path: '/MasterRedirections' }" >
 									<core:Item key="{RedirectionKey}" text="{RedirectionValue}"/>
 								</ComboBox>
-                    <Label visible="{= ${oModelView>/RedirectionType} === 'LINK'}"  text="{i18n>colRedirectionTo}"/>
+                    <!-- <Label visible="{= ${oModelView>/RedirectionType} === 'LINK'}"  text="{i18n>colRedirectionTo}"/>
 								<Input visible="{= ${oModelView>/RedirectionType} === 'LINK'}" width="100%" required="true"  value="{path:'oModelView>/RedirectionTo',type:'sap.ui.model.type.String', constraints:{minLength:1 } }"
-									placeholder="{i18n>linkPlaceHolder}" />
+									placeholder="{i18n>linkPlaceHolder}" /> -->
                 <Label required="true" text="{i18n>colReceivers}" visible="{= ${oModelView>/IsGroupNotification} === false}" />
                                  <MultiInput id="multiInputPainterAdd" selectedKey="{oModelControl>/Keys}"  tokens="{path:'oModelControl>/MultiCombo/Receivers'}" valueHelpRequest="onValueHelpRequestedPainter" visible="{= ${oModelView>/IsGroupNotification} === false}">
                                     <tokens>
@@ -34,24 +34,24 @@
                <Label  text="{i18n>colScheduledDate}" visible="{= ${oModelView>/IsLater} === true}"/>
 				<!-- <DatePicker required="true" width="100%" valueFormat="dd MMM yyyy" displayFormat="dd MMM yyyy" value="{path:'oModelView>/ScheduledDate',type :'sap.ui.model.type.Date',formatOptions:{source: {pattern: 'dd/MM/yyyy'},pattern:'dd/MM/yyyy',constraints:{minimum:'01/01/2021'}  }}"
 					 minDate="{oModelControl>/currDate}" visible="{= ${oModelView>/IsLater} === true}" /> -->
-                   
                    <DatePicker minDate="{oModelControl>/currDate}"
                     valueStateText="Enter a valid date"
                      dateValue="{path:'oModelControl>/ScheduledDate'}"  
                      value="{path:'oModelView>/ScheduledDate', type :'sap.ui.model.type.Date',formatOptions:{source: {pattern: 'dd MMM yyyy'},pattern:'dd MMM yyyy',strictParsing:true},constraints:{minimum:'01 Jan 2021'}  }"  placeholder="DD MM YYYY" required="true" visible="{= ${oModelView>/IsLater} === true}" />
                 <Label  text="{i18n>colScheduledTime}" visible="{= ${oModelView>/IsLater} === true}" />
-				
-                
                 <TimePicker required="true" id="idTimePicker" width="100%" change="onChangeTime"  
                 dateValue="{path:'oModelControl>/ScheduledTime'}"  
                 value="{path:'oModelView>/ScheduledTime',type :'sap.ui.model.type.Time', formatOptions:{source: {pattern: 'HH:mm'}, pattern:'HH:mm' ,strictParsing:true},constraints:{ minimum: '06:00', maxLength: '23:59' } }"
 				visible="{= ${oModelView>/IsLater} === true}"	/>
                 <core:Title text="" />
+                <VBox>
                 <Label text="{i18n>Message}" />
                <!-- <Input  maxLength="250" width="100%"
                 value="{path : 'oModelView>/Body', type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :500, search :'^[a-zA-Z0-9]{1}[wW]*' } }" required="true" /> -->
               <TextArea  required="true" width="100%" 
-              value="{path : 'oModelView>/Body', type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :200, search :'^[a-zA-Z0-9]{1}[wW]*' } }" rows="4" maxLength="200" placeholder="{i18n>MessagePlaceHolder}" showExceededText="false"/>
+              value="{path : 'oModelView>/Body', type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :250, search :'^[a-zA-Z0-9]{1}[wW]*' } }" rows="4" maxLength="250" placeholder="{i18n>MessagePlaceHolder}" showExceededText="false"/>
+                 <ObjectAttribute title="Max Length" text="250 characters" />
+                </VBox>
                 <Label text="{i18n>colIsGroupNotification}"/>
 								<Switch change="onSwitch1Change" state="{oModelView>/IsGroupNotification}" customTextOn="Yes" customTextOff="No" >
 									<layoutData>
