@@ -393,8 +393,12 @@ sap.ui.define(
                     Pincode: "",
                     StatusId: ""
                 };
+                var aResetAddFields = {
+                    PinCode: ""
+                }
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
+                oViewModel.setProperty("/AddFields", aResetAddFields);
                 var oTable = this.getView().byId("idWorkListTable1");
                 oTable.rebindTable();
 

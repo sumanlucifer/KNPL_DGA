@@ -36,42 +36,60 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ClassType", "leadingProperty": "ClassType", "sortProperty": "ClassType", "filterProperty": "ClassType", "columnIndex": 2 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MoistureReading", "leadingProperty": "MoistureReading", "sortProperty": "MoistureReading", "filterProperty": "MoistureReading", "columnIndex": 2 }'/>
+                    </customData>
+                    <Text text="{i18n>MoistureReading}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ClassType", "leadingProperty": "ClassType", "sortProperty": "ClassType", "filterProperty": "ClassType", "columnIndex": 3 }'/>
                     </customData>
                     <Text text="{i18n>Class}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "SystemType", "leadingProperty": "SystemType", "sortProperty": "SystemType", "filterProperty": "SystemType", "columnIndex": 3 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "QuotationSelectedProducts/MasterProduct", "leadingProperty": "QuotationSelectedProducts/MasterProduct", "columnIndex": 4 }'/>
+                    </customData>
+                    <Text text="{i18n>Products}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "SystemType", "leadingProperty": "SystemType", "sortProperty": "SystemType", "filterProperty": "SystemType", "columnIndex": 5 }'/>
                     </customData>
                     <Text text="{i18n>System}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "VAType", "leadingProperty": "VAType", "sortProperty": "VAType", "filterProperty": "VAType", "columnIndex": 4 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "VAType", "leadingProperty": "VAType", "sortProperty": "VAType", "filterProperty": "VAType", "columnIndex": 6 }'/>
                     </customData>
                     <Text text="{i18n>ValueAddition}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "RatePerSqFt", "leadingProperty": "RatePerSqFt", "sortProperty": "RatePerSqFt", "filterProperty": "RatePerSqFt", "columnIndex": 5 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RatePerSqFt", "leadingProperty": "RatePerSqFt", "sortProperty": "RatePerSqFt", "filterProperty": "RatePerSqFt", "columnIndex": 7 }'/>
                     </customData>
                     <Text text="{i18n>Rate}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Area", "leadingProperty": "Area", "sortProperty": "Area", "filterProperty": "Area", "columnIndex": 6 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Area", "leadingProperty": "Area", "sortProperty": "Area", "filterProperty": "Area", "columnIndex": 8 }'/>
                     </customData>
                     <Text text="{i18n>AreaSqft}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "RateAccToArea", "leadingProperty": "RateAccToArea", "sortProperty": "RateAccToArea", "filterProperty": "RateAccToArea", "columnIndex": 7 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RateAccToArea", "leadingProperty": "RateAccToArea", "sortProperty": "RateAccToArea", "filterProperty": "RateAccToArea", "columnIndex": 9 }'/>
                     </customData>
                     <Text text="{i18n>RateAccToArea}"/>
                     <footer>
                         <Text id="idTotalQuotInterior" text="{= ${TotalInteriorCosting} ? ${i18n>Rupee} + '' + ${TotalInteriorCosting} : '' }"/>
                     </footer>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "QuotationSelectedProducts/MasterProductShades", "leadingProperty": "QuotationSelectedProducts/MasterProductShades", "columnIndex": 10 }'/>
+                    </customData>
+                    <Text text="{i18n>Products}"/>
                 </Column>
             </columns>
             <items>
@@ -79,12 +97,23 @@
                     <cells>                  
                        <Text text="{Type}"/> 
                        <Text text="{RoomType/Name}"/>
+                       <Text text="{MoistureReading}"/>
                        <Text text="{ClassType}"/>
+                       <VBox items="{
+                           path: 'QuotationSelectedProducts'
+                           }">
+                           <Text text="{MasterProduct/ProductName}"/>
+                        </VBox>
                        <Text text="{SystemType}"/>
                        <Text text="{VAType}"/>
                        <Text text="{i18n>Rupee} {RatePerSqFt}"/>
                        <Text text="{Area}"/>
                        <Text text="{i18n>Rupee} {RateAccToArea}"/>
+                       <VBox items="{
+                           path: 'QuotationSelectedProducts'
+                           }">
+                           <Text text="{MasterProductShades/ShadeName} ({MasterProductShades/ShadeCode})"/>
+                        </VBox>
                     </cells>
                 </ColumnListItem>
             </items>
