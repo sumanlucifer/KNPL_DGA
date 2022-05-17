@@ -9,7 +9,7 @@
                             showRowCount="true"
                             useExportToExcel="false"
                             useVariantManagement="false"
-                            useTablePersonalisation="true"
+                            useTablePersonalisation="false"
                             demandPopin="true"
                             enableAutoBinding="false"
                             placeToolbarInTable="true"
@@ -27,13 +27,19 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ProductShade/ShadeName", "leadingProperty": "ProductShade/ShadeName", "sortProperty": "ProductShade/ShadeName", "filterProperty": "ProductShade/ShadeName", "columnIndex": 1 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Product/ProductClassification", "leadingProperty": "Product/ProductClassification", "columnIndex": 1 }'/>
+                    </customData>
+                    <Text text="{i18n>ClassName}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ProductShade/ShadeName", "leadingProperty": "ProductShade/ShadeName", "sortProperty": "ProductShade/ShadeName", "filterProperty": "ProductShade/ShadeName", "columnIndex": 2 }'/>
                     </customData>
                     <Text text="{i18n>ProductShade}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Volume", "leadingProperty": "Volume", "sortProperty": "Volume", "filterProperty": "Volume", "columnIndex": 2 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Volume", "leadingProperty": "Volume", "sortProperty": "Volume", "filterProperty": "Volume", "columnIndex": 3 }'/>
                     </customData>
                     <Text text="{i18n>Volume}"/>
                 </Column>
@@ -41,7 +47,12 @@
             <items>
                 <ColumnListItem>
                     <cells>                  
-                       <Text text="{Product/ProductName}"/>
+                       <Text text="{Product/ProductName}"/>      
+                       <VBox items="{
+                           path: 'Product/ProductClassification'
+                           }">
+                           <Text text="{ClassificationName}"/>
+                        </VBox>     
                        <Text text="{ProductShade/ShadeName}"/>
                        <Text text="{Volume}"/>
                     </cells>

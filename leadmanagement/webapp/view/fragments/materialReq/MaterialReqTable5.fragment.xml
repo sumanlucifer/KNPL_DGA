@@ -9,7 +9,7 @@
                             showRowCount="true"
                             useExportToExcel="false"
                             useVariantManagement="false"
-                            useTablePersonalisation="true"
+                            useTablePersonalisation="false"
                             demandPopin="true"
                             enableAutoBinding="false"
                             placeToolbarInTable="true"

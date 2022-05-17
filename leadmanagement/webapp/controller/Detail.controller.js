@@ -246,7 +246,7 @@ sap.ui.define(
                 var oView = this.getView();
                 var sId = oView.getModel("oModelDisplay").getProperty("/Id")
                 var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.parameters["expand"] = "QuotationSelectedProducts,RoomType,Quotation";
+                mBindingParams.parameters["expand"] = "QuotationSelectedProducts,RoomType,Quotation,QuotationSelectedProducts/MasterProduct,QuotationSelectedProducts/MasterProductShades";
                 var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
                 var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, iPaintingReqId);
                 mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
@@ -259,7 +259,7 @@ sap.ui.define(
                 var oView = this.getView();
                 var sId = oView.getModel("oModelDisplay").getProperty("/Id")
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Product,ProductShade";
+                oBindingParams.parameters["expand"] = "Product,ProductShade,Product/ProductClassification";
                 var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
                 var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, iPaintingReqId);
                 oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
