@@ -63,39 +63,33 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
-        fmtDisplaySection3: function (mParam1, mParam2, mParam3) {
-            console.log(mParam1,mParam2,mParam3)
+        fmtDisplaySection3: function (mParam1, mParam2) {
+
+            console.log(mParam1, mParam2)
             if (mParam1 === 'Edit') {
-                if (mParam3 === false) {
-                    return false;
-                } else {
-                    return true;
+                if (this.getView().getModel("oModelView")) {
+                    var bTargetGroup = this.getView().getModel("oModelView").getProperty("/IsTargetGroup");
+                    return bTargetGroup;
                 }
             }
             if (mParam1 === 'Display') {
-                if (mParam2 === false) {
-                    return false;
-                } else {
-                    return true
-                }
+                return mParam2
             }
+            return false;
 
         },
         fmtDisplaySection4: function (mParam1, mParam2, mParam3) {
-          console.log(mParam1,mParam2,mParam3)
+            console.log(mParam1, mParam2, mParam3)
             if (mParam1 === 'Edit') {
-                if (mParam3 === false) {
-                    return true;
+                if (this.getView().getModel("oModelView")) {
+                    var bTargetGroup = this.getView().getModel("oModelView").getProperty("/IsTargetGroup");
+                    return !bTargetGroup;
                 }
-                return false;
             }
             if (mParam1 === 'Display') {
-                if (mParam2 === false) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return !mParam2
             }
+            return false;
 
         },
     };

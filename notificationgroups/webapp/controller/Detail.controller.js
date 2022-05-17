@@ -34,7 +34,7 @@ sap.ui.define(
 
         return BaseController.extend(
             "com.knpl.dga.notificationgroups.controller.Detail", {
-            formatter: formatter,
+                formatter: formatter,
             customMulti: customMulti,
 
             onInit: function () {
@@ -101,6 +101,7 @@ sap.ui.define(
                                 c3c = othat._LoadFragment("DisplayForm3", "oVbox3");
                                 c3c.then(function () {
                                     c3d = othat._LoadFragment("DisplayForm4", "oVbox4");
+                                    oModel.refresh(true);
                                     oModel.setProperty("/PageBusy", false)
                                 })
 
@@ -135,6 +136,7 @@ sap.ui.define(
                                                 c5 = othat._getEditMultiComboData();
                                                 c5.then(function () {
                                                     oModel.setProperty("/PageBusy", false);
+                                                    oModel.refresh(true);
                                                 })
                                             })
                                         })
