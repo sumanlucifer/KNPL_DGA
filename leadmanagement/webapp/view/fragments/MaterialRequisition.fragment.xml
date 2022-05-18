@@ -16,10 +16,12 @@
             emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
             columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
             <f:content>
+                <core:Title text="{i18n>MaterialRequisition} {i18n>Details}" />
+                <Label text="{i18n>MaterialRequisition} {i18n>Date}" />
+                <Text id="idMRDate" text="{path : 'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"  />
                 <core:Title text="{i18n>Dealer} {i18n>Details}" />
                 <Label text="{i18n>Dealer} {i18n>Name}" />
                 <Text text="{path : 'Dealer/Name'}"  />
-                <core:Title text=" " />
                 <Label text="{i18n>Dealer} {i18n>Code}" />
                 <Text text="{path : 'Dealer/Id'}"  />
             </f:content>
@@ -30,6 +32,4 @@
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable4" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable5" type="XML" class="sapUiMediumMarginBottom"/>
     </l:VerticalLayout>
-    
-
 </core:FragmentDefinition>
