@@ -370,7 +370,6 @@ sap.ui.define(
                 var c1 = this._bindMRTbl(oEvent,1);
                 var othat = this;
                 c1.then( () => {
-                    debugger;
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sMaterialRequisitionPath = oBindingObject.MaterialRequisition.__list[0];
                     this._bindViewElement("idMRDate","/"+sMaterialRequisitionPath);
