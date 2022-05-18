@@ -11,6 +11,16 @@
             <ToolbarSpacer/>
             <Button id="idQuotDownload" icon="sap-icon://download" enabled="{= ${Quotation}.length > 0 ? true : false }" press="onQuotDownload"/>
         </Toolbar>
+        <f:SimpleForm id="QuotDetailsData" editable="false" layout="ResponsiveGridLayout" 
+            labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
+            emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
+            columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+            <f:content>
+                <core:Title text="{i18n>Quotation} {i18n>Details}" />
+                <Label text="{i18n>Quotation} {i18n>Date}" />
+                <Text id="idQuotationDate" text="{path : 'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"  />
+            </f:content>
+        </f:SimpleForm>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.quotation.QuotationTbl1" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.quotation.QuotationTbl2" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.quotation.QuotationTbl3" type="XML" class="sapUiMediumMarginBottom"/>

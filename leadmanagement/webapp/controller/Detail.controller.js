@@ -256,6 +256,7 @@ sap.ui.define(
             },
 
             _bindMRTbl: function (oEvent, iPaintingReqId) {
+                var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var sId = oView.getModel("oModelDisplay").getProperty("/Id")
                 var oBindingParams = oEvent.getParameter("bindingParams");
@@ -264,6 +265,8 @@ sap.ui.define(
                 var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, iPaintingReqId);
                 oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                promise.resolve();
+                return promise;
             },
 
             // before binding methods of the smart tables
@@ -277,6 +280,7 @@ sap.ui.define(
                     this._bindViewElement("idTotalInterior","/"+sPreEstimationPath);
                     this._bindViewElement("idLblTotalInterior","/"+sPreEstimationPath);
                     this._bindViewElement("idPreEstGTotal","/"+sPreEstimationPath);
+                    this._bindViewElement("idPreEstimationDate","/"+sPreEstimationPath);
                 });
             },
             onBeforeRebindPreReq2: function (oEvent) {
@@ -325,6 +329,7 @@ sap.ui.define(
                     this._bindViewElement("idQuotDiscountLbl","/"+sQuotationPath);
                     this._bindViewElement("idQuotDiscount","/"+sQuotationPath);
                     this._bindViewElement("idQuotGTotal","/"+sQuotationPath);
+                    this._bindViewElement("idQuotationDate","/"+sQuotationPath);
                 });
             },
             onBeforeRebindQuotReq2: function (oEvent) {
@@ -361,16 +366,36 @@ sap.ui.define(
                 });
             },
             onBeforeBindMatReqTbl1: function (oEvent) {
-                this._bindMRTbl(oEvent,1);
+                var oView = this.getView();
+                var c1 = this._bindMRTbl(oEvent,1);
+                var othat = this;
+                c1.then( () => {
+                    debugger;
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sMaterialRequisitionPath = oBindingObject.MaterialRequisition.__list[0];
+                    this._bindViewElement("idMRDate","/"+sMaterialRequisitionPath);
+                });
             },
             onBeforeBindMatReqTbl2: function (oEvent) {
-                this._bindMRTbl(oEvent,2);
+                var oView = this.getView();
+                var c1 = this._bindMRTbl(oEvent,2);
+                var othat = this;
+                c1.then( () => {
+                });
             },
             onBeforeBindMatReqTbl3: function (oEvent) {
-                this._bindMRTbl(oEvent,3);
+                var oView = this.getView();
+                var c1 = this._bindMRTbl(oEvent,3);
+                var othat = this;
+                c1.then( () => {
+                });
             },
             onBeforeBindMatReqTbl4: function (oEvent) {
-                this._bindMRTbl(oEvent,4);
+                var oView = this.getView();
+                var c1 = this._bindMRTbl(oEvent,4);
+                var othat = this;
+                c1.then( () => {
+                });
             },
             onBeforeBindMatReqTbl5: function (oEvent) {
                 var oView = this.getView();
