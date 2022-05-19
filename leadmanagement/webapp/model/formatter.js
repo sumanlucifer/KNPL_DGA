@@ -141,7 +141,7 @@ sap.ui.define([], function () {
             for (var i in mParam) {
                 var contractorKey = mParam[i];
                 var contractorObject = this.getView().getModel().getProperty("/" + contractorKey);
-                if (contractorObject.ContractorId) {
+                if (contractorObject.ContractorId && contractorObject.IsActive) {
                     if (contractorObject.Contractor) {
                         var contractorDetails = this.getView().getModel().getProperty("/" + contractorObject.Contractor.__ref);
                         contractorArray.push(contractorDetails.Name);
