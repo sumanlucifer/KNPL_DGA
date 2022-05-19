@@ -100,18 +100,18 @@ sap.ui.define([], function () {
 
                 if (LeadLostReasonId !== null) {
                     if (LeadLostReasonId === "1") {
-                        if (exp1 !== null|| exp2 !==null || exp3 !==null) {
-                         var text = `${exp1}, ${exp2}, ${exp3}`;
-                        return text;
-                        }if(LeadLostMsg !== null){
-                        var text = `${LeadLostMsg}`;
+                        if (exp1 !== null || exp2 !== null || exp3 !== null) {
+                            var text = `${exp1}, ${exp2}, ${exp3}`;
+                            return text;
+                        } if (LeadLostMsg !== null) {
+                            var text = `${LeadLostMsg}`;
                             return text;
                         }
                         else {
                             var text = "NA";
                             return text;
-                             }
-                            }
+                        }
+                    }
                     else {
                         if (exp1 !== null) {
                             var text = `${exp1}`;
@@ -134,23 +134,25 @@ sap.ui.define([], function () {
         },
 
         fmtCommaSepratedAssignedContractor: function (mParam) {
-            
+
             if (mParam === null)
                 return "";
             var contractorArray = [];
             for (var i in mParam) {
                 var contractorKey = mParam[i];
                 var contractorObject = this.getView().getModel().getProperty("/" + contractorKey);
-                if (contractorObject.ContractorId && contractorObject.IsActive) {
-                    if (contractorObject.Contractor) {
-                        var contractorDetails = this.getView().getModel().getProperty("/" + contractorObject.Contractor.__ref);
-                        contractorArray.push(contractorDetails.Name);
+                if (contractorObject.IsActive) {
+                    if (contractorObject.ContractorId) {
+                        if (contractorObject.Contractor) {
+                            var contractorDetails = this.getView().getModel().getProperty("/" + contractorObject.Contractor.__ref);
+                            contractorArray.push(contractorDetails.Name);
+                        }
                     }
+                    else
+                        contractorArray.push(contractorObject.ContractorName);
                 }
-                else
-                    contractorArray.push(contractorObject.ContractorName);
             }
-            if(contractorArray.length)
+            if (contractorArray.length)
                 var commaSeparatedString = contractorArray.join(", ");
             else
                 commaSeparatedString = 'NA';

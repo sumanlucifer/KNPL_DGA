@@ -37,9 +37,9 @@
             <Text text="{path : 'Landmark',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>CreatedAt}" />
             <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"  />
-            <Label text="{= ${LeadStatusId} === '1' ? '' : ${LeadStatusId} === '2'  ? 'Lead Converted Reason' : ${LeadStatusId} === '3' ? 'Lead Lost Reason' : 'Lead Short Closure Reason' }"/>
+            <Label text="{= ${LeadStatusId} === '1' ? '' : ${LeadStatusId} === '2'  ? 'Lead Converted Reason' : ${LeadStatusId} === '3' ? 'Lead Lost Reason' : ${LeadStatusId} === '4' ? 'Lead Short Closure Reason' : '' }"/>
             <Text  text="{parts:['LeadStatusId','IsSamplingRequired', 'AdvancePaymentCollected','LeadLostReasonId','LeadLostReason/Name', 'CompetitionBrand/Name', 'CompetitorServiceType/Name', 'LeadLostMsg','ShortClosureReason/Name','ShortClosureMsg'],formatter:'.formatter.fmtStatusHeader'}"/>
-            <Label text="{18n>LeadLostMsg}" visible="{= ${LeadStatusId} === '3' ? true : false}"/>
+            <Label text="{i18n>LeadLostMsg}" visible="{= ${LeadStatusId} === '3' ? true : false}"/>
             <Text text="{= ${LeadLostMsg} ? ${LeadLostMsg} : 'NA' }" visible="{= ${LeadStatusId} === '3' ? true : false}"/>
     </f:content>
     </f:SimpleForm>
