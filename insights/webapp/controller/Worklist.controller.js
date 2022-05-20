@@ -378,9 +378,14 @@ sap.ui.define(
             },
             
             onPressYTDFilter: function (oEvent) {
+                debugger;
                 var oView = this.getView();
                 var dEndDate = new Date();
-                var dStartDate = new Date(dEndDate.getFullYear(), 0, 1);
+                var iCurrentMonth = dEndDate.getMonth();
+                if(iCurrentMonth < 3)
+                    var dStartDate = new Date(dEndDate.getFullYear()-1, 3, 1);
+                else
+                    dStartDate = new Date(dEndDate.getFullYear(), 3, 1);
                 var oMdlCtrl = oView.getModel("oModelControl");
                 var dStartDate = oMdlCtrl.setProperty("/filterBar/StartDate",dStartDate);
                 var dStartDate = oMdlCtrl.setProperty("/filterBar/EndDate",dEndDate);
