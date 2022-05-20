@@ -378,7 +378,6 @@ sap.ui.define(
             },
             
             onPressYTDFilter: function (oEvent) {
-                debugger;
                 var oView = this.getView();
                 var dEndDate = new Date();
                 var iCurrentMonth = dEndDate.getMonth();
