@@ -264,7 +264,7 @@ sap.ui.define(
                 var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
                 var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, iPaintingReqId);
                 oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 promise.resolve();
                 return promise;
             },
@@ -403,7 +403,7 @@ sap.ui.define(
                 oBindingParams.parameters["expand"] = "Equipment";
                 var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
                 oBindingParams.filters.push(oFiler);
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
