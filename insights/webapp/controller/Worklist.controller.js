@@ -1,3 +1,5 @@
+
+
 sap.ui.define(
     [
         "./BaseController",
@@ -130,20 +132,20 @@ sap.ui.define(
             },
             rebindLeadByStatusTbl: function (oEvent) {
                 var oView = this.getView();
-                var oDateFormat = sap.ui.core.format.DateFormat.getInstance({pattern: "yyyy-MM-dd"});   
+                var oDateFormat = sap.ui.core.format.DateFormat.getInstance({ pattern: "yyyy-MM-dd" });
                 var oMdlCtrl = oView.getModel("oModelControl");
                 var dStartDate = oDateFormat.format(oMdlCtrl.getProperty("/filterBar/StartDate"));
                 var dEndDate = oDateFormat.format(oMdlCtrl.getProperty("/filterBar/EndDate"));
                 var oCustom = {
-                                StartDate: "" + dStartDate + "",
-                                EndDate: "" + dEndDate + "",
-                                DGAId: "0"
-                            };
+                    StartDate: "" + dStartDate + "",
+                    EndDate: "" + dEndDate + "",
+                    DGAId: "0"
+                };
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 // oBindingParams.sorter.push(new sap.ui.model.Sorter('LEAD_STATUS_ID', true));
                 if (oCustom) {
                     oBindingParams.parameters.custom = oCustom;
-                }               
+                }
             },
 
             _getLoggedInInfo: function () {
@@ -195,15 +197,23 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-            
-            onFilterBarGo: function () {
+
+            onFilterBarGo: function (oEvent, bSkipButtonTypeReset) {
                 var oView = this.getView();
+                if(!bSkipButtonTypeReset){
+                    this.getView().byId("mtd").setType("Default");
+                    this.getView().byId("tdy").setType("Default");
+                    this.getView().byId("ytd").setType("Default");
+                }
                 oView.byId("idLeadByStatus").rebindTable();
                 oView.byId("idLeadBySource").rebindTable();
                 oView.byId("idBusinessGenValByCategory").rebindTable();
                 oView.byId("idBusinessGenVolByCategory").rebindTable();
                 oView.byId("idBusinessGenValByClassification").rebindTable();
                 oView.byId("idBusinessGenVolByClassification").rebindTable();
+                // this.getView().byId("mtd").setType("Default");
+                // this.getView().byId("tdy").setType("Default");
+                // this.getView().byId("ytd").setType("Default");
             },
             _CreateFilter: function () {
                 var aCurrentFilterValues = [];
@@ -315,6 +325,10 @@ sap.ui.define(
             },
 
             onResetFilterBar: function () {
+                var oView = this.getView();
+                this.getView().byId("mtd").setType("Default");
+                this.getView().byId("tdy").setType("Default");
+                this.getView().byId("ytd").setType("Default");
                 this._ResetFilterBar();
             },
 
@@ -325,6 +339,7 @@ sap.ui.define(
                     EndDate: new Date(),
                     DGAId: null
                 };
+
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
                 var oTable = this.getView().byId("idWorkListTable1");
@@ -357,38 +372,46 @@ sap.ui.define(
             },
 
             onPressTodayFilter: function (oEvent) {
-                var oView = this.getView();
-                var oDateFormat = sap.ui.core.format.DateFormat.getInstance({pattern: "yyyy-MM-dd"}); 
+                //var oView = this.getView();
+                var oView = this.getView().byId("tdy").setType("Emphasized");
+
+                var oDateFormat = sap.ui.core.format.DateFormat.getInstance({ pattern: "yyyy-MM-dd" });
                 var dEndDate = new Date();
                 var dStartDate = new Date();
                 var oMdlCtrl = oView.getModel("oModelControl");
-                var dStartDate = oMdlCtrl.setProperty("/filterBar/StartDate",dStartDate);
-                var dStartDate = oMdlCtrl.setProperty("/filterBar/EndDate",dEndDate);
-                this.onFilterBarGo();
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/StartDate", dStartDate);
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/EndDate", dEndDate);
+                this.onFilterBarGo(oEvent, true);
             },
-            
+
             onPressMTDFilter: function (oEvent) {
                 var oView = this.getView();
+                this.getView().byId("mtd").setType("Emphasized");
+                this.getView().byId("tdy").setType("Default");
+                this.getView().byId("ytd").setType("Default");
                 var dEndDate = new Date();
                 var dStartDate = new Date(dEndDate.getFullYear(), dEndDate.getMonth(), 1);
                 var oMdlCtrl = oView.getModel("oModelControl");
-                var dStartDate = oMdlCtrl.setProperty("/filterBar/StartDate",dStartDate);
-                var dStartDate = oMdlCtrl.setProperty("/filterBar/EndDate",dEndDate);
-                this.onFilterBarGo();
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/StartDate", dStartDate);
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/EndDate", dEndDate);
+                this.onFilterBarGo(oEvent, true);
             },
-            
+
             onPressYTDFilter: function (oEvent) {
                 var oView = this.getView();
+                this.getView().byId("ytd").setType("Emphasized");
+                this.getView().byId("tdy").setType("Default");
+                this.getView().byId("mtd").setType("Default");
                 var dEndDate = new Date();
                 var iCurrentMonth = dEndDate.getMonth();
-                if(iCurrentMonth < 3)
-                    var dStartDate = new Date(dEndDate.getFullYear()-1, 3, 1);
+                if (iCurrentMonth < 3)
+                    var dStartDate = new Date(dEndDate.getFullYear() - 1, 3, 1);
                 else
                     dStartDate = new Date(dEndDate.getFullYear(), 3, 1);
                 var oMdlCtrl = oView.getModel("oModelControl");
-                var dStartDate = oMdlCtrl.setProperty("/filterBar/StartDate",dStartDate);
-                var dStartDate = oMdlCtrl.setProperty("/filterBar/EndDate",dEndDate);
-                this.onFilterBarGo();
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/StartDate", dStartDate);
+                var dStartDate = oMdlCtrl.setProperty("/filterBar/EndDate", dEndDate);
+                this.onFilterBarGo(oEvent, true);
             }
 
             // onPressDelete: function (oEvent) {
