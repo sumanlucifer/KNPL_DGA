@@ -4,9 +4,9 @@
     <l:VerticalLayout width="100%">
         <Toolbar>
             <ToolbarSpacer/>
-            <Button text="Today" press="onPressTodayFilter"/>
-            <Button text="MTD" press="onPressMTDFilter"/>
-            <Button text="YTD" press="onPressYTDFilter"/>
+            <Button id="tdy" text="Today" press="onPressTodayFilter"/>
+            <Button id="mtd" text="MTD" press="onPressMTDFilter"/>
+            <Button id="ytd" text="YTD" press="onPressYTDFilter"/>
         </Toolbar>
         <core:Fragment fragmentName="com.knpl.dga.insights.view.fragments.leadBySource" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.insights.view.fragments.leadByStatus" type="XML" class="sapUiMediumMarginBottom"/>
