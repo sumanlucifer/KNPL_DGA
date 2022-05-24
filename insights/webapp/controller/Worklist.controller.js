@@ -375,6 +375,8 @@ sap.ui.define(
             onPressTodayFilter: function (oEvent) {
                 //var oView = this.getView();
                 var oView = this.getView().byId("tdy").setType("Emphasized");
+                var oView = this.getView().byId("mtd").setType("Default");
+                var oView = this.getView().byId("ytd").setType("Default");
 
                 var oDateFormat = sap.ui.core.format.DateFormat.getInstance({ pattern: "yyyy-MM-dd" });
                 var dEndDate = new Date();
