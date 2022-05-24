@@ -85,6 +85,7 @@ sap.ui.define(
 
                 var othat = this;
                 var oView = this.getView();
+                this.getView().byId("tdy").setType("Emphasized");
                 var oModelControl = oView.getModel("oModelControl");
                 var c1, c2, c3, c4;
                 oModelControl.setProperty("/PageBusy", true)
@@ -327,7 +328,7 @@ sap.ui.define(
             onResetFilterBar: function () {
                 var oView = this.getView();
                 this.getView().byId("mtd").setType("Default");
-                this.getView().byId("tdy").setType("Default");
+                this.getView().byId("tdy").setType("Emphasized");
                 this.getView().byId("ytd").setType("Default");
                 this._ResetFilterBar();
             },
