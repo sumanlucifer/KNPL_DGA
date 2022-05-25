@@ -95,6 +95,9 @@ sap.ui.define([], function () {
                     var text = "Sampling Required = No, Advance Payment collected=Yes";
                     return text;
                 }
+                else {
+                    return 'NA';
+                }
             }
             if (leadeStatusId === "3") {
 
