@@ -213,11 +213,13 @@ sap.ui.define(
                     oView.byId("PreEstTbl2").rebindTable();
                     oView.byId("PreEstTbl3").rebindTable();
                     oView.byId("PreEstTbl4").rebindTable();
+                    oView.byId("PreEstTbl5").rebindTable();
                 } else if (sKey == "2") {
                     oView.byId("QuotationTbl1").rebindTable();
                     oView.byId("QuotationTbl2").rebindTable();
                     oView.byId("QuotationTbl3").rebindTable();
                     oView.byId("QuotationTbl4").rebindTable();
+                    oView.byId("QuotationTbl5").rebindTable();
                 } else if (sKey == "3") {
                     oView.byId("idMaterialsReqTable1").rebindTable();
                     oView.byId("idMaterialsReqTable2").rebindTable();
@@ -316,6 +318,17 @@ sap.ui.define(
                     this._bindViewElement("idLblTotalCC","/"+sPreEstimationPath);
                 });
             },
+            onBeforeRebindPreReq5: function (oEvent) {
+                var oView = this.getView();
+                var c1 = this._bindPreEstimationTbl(oEvent,5);
+                var othat = this;
+                c1.then( () => {
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
+                    this._bindViewElement("idTotalEnamel","/"+sPreEstimationPath);
+                    this._bindViewElement("idLblTotalEnamel","/"+sPreEstimationPath);
+                });
+            },
             onBeforeRebindQuotReq1: function (oEvent) {
                 var oView = this.getView();
                 var c1 = this._bindQuotationTbl(oEvent,1);
@@ -365,12 +378,22 @@ sap.ui.define(
                     this._bindViewElement("idLblTotalQuotCC","/"+sQuotationPath);
                 });
             },
+            onBeforeRebindQuotReq5: function (oEvent) {
+                var oView = this.getView();
+                var c1 = this._bindQuotationTbl(oEvent,5);
+                var othat = this;
+                c1.then( () => {
+                    var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+                    var sQuotationPath = oBindingObject.Quotation.__list[0];
+                    this._bindViewElement("idTotalQuotEnamel","/"+sQuotationPath);
+                    this._bindViewElement("idLblTotalQuotEnamel","/"+sQuotationPath);
+                });
+            },
             onBeforeBindMatReqTbl1: function (oEvent) {
                 var oView = this.getView();
                 var c1 = this._bindMRTbl(oEvent,1);
                 var othat = this;
                 c1.then( () => {
-                    debugger;
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sMaterialRequisitionPath = oBindingObject.MaterialRequisition.__list[0];
                     this._bindViewElement("idMRDate","/"+sMaterialRequisitionPath);
