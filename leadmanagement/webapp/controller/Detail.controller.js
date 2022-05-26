@@ -226,6 +226,7 @@ sap.ui.define(
                     oView.byId("idMaterialsReqTable3").rebindTable();
                     oView.byId("idMaterialsReqTable4").rebindTable();
                     oView.byId("idMaterialsReqTable5").rebindTable();
+                    oView.byId("idMaterialsReqTable6").rebindTable();
                 }
             },
 
@@ -416,6 +417,13 @@ sap.ui.define(
             onBeforeBindMatReqTbl4: function (oEvent) {
                 var oView = this.getView();
                 var c1 = this._bindMRTbl(oEvent,4);
+                var othat = this;
+                c1.then( () => {
+                });
+            },
+            onBeforeBindMatReqTbl6: function (oEvent) {
+                var oView = this.getView();
+                var c1 = this._bindMRTbl(oEvent,5);
                 var othat = this;
                 c1.then( () => {
                 });
