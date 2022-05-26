@@ -30,6 +30,7 @@
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable2" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable3" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable4" type="XML" class="sapUiMediumMarginBottom"/>
+        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable6" type="XML" class="sapUiMediumMarginBottom"/>
         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.materialReq.MaterialReqTable5" type="XML" class="sapUiMediumMarginBottom"/>
     </l:VerticalLayout>
 </core:FragmentDefinition>

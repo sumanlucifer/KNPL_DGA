@@ -1,10 +1,10 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
     <smartTable:SmartTable
-                           id="idMaterialsReqTable2"
+                           id="idMaterialsReqTable6"
                             editable="false"
                             width="100%"
                             entitySet="MaterialRequisitionProducts"
-                            beforeRebindTable="onBeforeBindMatReqTbl2"
+                            beforeRebindTable="onBeforeBindMatReqTbl6"
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"
@@ -15,7 +15,7 @@
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
                             initialNoDataText="{i18n>tableNoDataText}"
-                            header="{i18n>Exterior}">
+                            header="{i18n>Enamel}">
 
         <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
             <columns>
@@ -47,12 +47,12 @@
             <items>
                 <ColumnListItem>
                     <cells>                  
-                       <Text text="{Product/ProductName}"/>      
+                       <Text text="{Product/ProductName}"/>
                        <VBox items="{
                            path: 'Product/ProductClassification'
                            }">
                            <Text text="{ClassificationName}"/>
-                        </VBox>     
+                        </VBox>
                         <Text text="{= ${ProductShade/ShadeCode} ? ${ProductShade/ShadeName} + ' (' + ${ProductShade/ShadeCode} + ')' : '--' }"/>
                        <Text text="{Volume}"/>
                     </cells>

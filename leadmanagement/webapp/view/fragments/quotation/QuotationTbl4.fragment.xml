@@ -83,7 +83,7 @@
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "QuotationSelectedProducts/MasterProductShades", "leadingProperty": "QuotationSelectedProducts/MasterProductShades", "columnIndex": 9 }'/>
                     </customData>
-                    <Text text="{i18n>Products}"/>
+                    <Text text="{i18n>ProductShade}"/>
                 </Column>
             </columns>
             <items>
@@ -105,7 +105,7 @@
                        <VBox items="{
                            path: 'QuotationSelectedProducts'
                            }">
-                           <Text text="{MasterProductShades/ShadeName} ({MasterProductShades/ShadeCode})"/>
+                           <Text text="{= ${MasterProductShades/ShadeCode} ? ${MasterProductShades/ShadeName} + ' (' + ${MasterProductShades/ShadeCode} + ')' : '--' }"/>
                         </VBox>
                     </cells>
                 </ColumnListItem>

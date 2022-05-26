@@ -53,7 +53,7 @@
                            }">
                            <Text text="{ClassificationName}"/>
                         </VBox>     
-                       <Text text="{ProductShade/ShadeName}"/>
+                        <Text text="{= ${ProductShade/ShadeCode} ? ${ProductShade/ShadeName} + ' (' + ${ProductShade/ShadeCode} + ')' : '--' }"/>
                        <Text text="{Volume}"/>
                     </cells>
                 </ColumnListItem>
