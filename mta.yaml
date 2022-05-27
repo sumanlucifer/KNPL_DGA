@@ -91,6 +91,10 @@ modules:
       name: comknpldgaproducts
       target-path: resources/
     - artifacts:
+      - comknpldgapayrollcompany.zip
+      name: comknpldgapayrollcompany
+      target-path: resources/
+    - artifacts:
       - comknpldgadealers.zip
       name: comknpldgadealers
       target-path: resources/
@@ -211,6 +215,16 @@ modules:
 - name: comknpldgaproducts
   type: html5
   path: products
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgapayrollcompany
+  type: html5
+  path: payrollcompany
   build-parameters:
     build-result: dist
     builder: custom
