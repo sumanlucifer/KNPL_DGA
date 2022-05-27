@@ -193,7 +193,7 @@ sap.ui.define(
                 var oView = this.getView();
                 var othat = this;
                 if (oView.byId("table")) {
-                    console.log("binding refreshed")
+                    //console.log("binding refreshed")
                     oView.byId("table").getBinding("items").refresh();
                 }
                 promise.resolve();

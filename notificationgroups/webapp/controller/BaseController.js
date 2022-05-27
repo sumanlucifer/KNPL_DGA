@@ -444,6 +444,15 @@ sap.ui.define([
             return promise
 
         },
+        _RemoveNavigationProp:function(oPayload){
+            var promise = $.Deferred();
+            console.log(oPayload,"inisde the remove navigation property method");
+            for (var y of oPayload["Members"]){
+                delete y["DGA"]
+            }
+            promise.resolve(oPayload);
+            return promise;
+        },
         _uploadFile: function (oPayLoad) {
             var promise = jQuery.Deferred();
             promise.resolve(oPayLoad);
