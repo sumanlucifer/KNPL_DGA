@@ -32,7 +32,12 @@
                     "action": "PaintReq",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
-                    "icon": "sap-icon://activity-individual"
+                    "icon": "sap-icon://add-contact",
+                    "indicatorDataSource": {
+                        "dataSource": "KNPL_Painter_API",
+                        "path": "/dynamic_dest/KNPL_PAINTER_API/api/v2/odata.svc/PainterSet/$count?$filter=IsArchived eq false",
+                        "refresh": 0
+                    }
                 }
             }
         }
