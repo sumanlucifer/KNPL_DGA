@@ -13,7 +13,7 @@ sap.ui.define(
         return BaseController.extend(
             "com.knpl.pragati.ContactPainter.controller.App", {
                 onInit: function () {
-                    this.getUserInfo();
+                    //this.getUserInfo();
                     FioriSessionService.sessionKeepAlive();
                     var oViewModel,
                         fnSetAppNotBusy,
