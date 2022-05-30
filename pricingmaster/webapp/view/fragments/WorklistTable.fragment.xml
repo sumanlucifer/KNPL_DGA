@@ -50,7 +50,7 @@
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "PaintType/Name", "leadingProperty": "PaintType/Name", "columnIndex": 5 ,"sortProperty": "PaintType/Name","filterProperty": "PaintType/Name"}'/>
                     </customData>
-                    <Text text="{i18n>PaintType}"/>
+                    <Text text="{i18n>PaintingType}"/>
                 </Column>
 
                   <Column hAlign="Begin">
@@ -75,14 +75,14 @@
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ContractorRate", "leadingProperty": "ContractorRate", "columnIndex": 9 ,"sortProperty": "ContractorRate","filterProperty": "ContractorRate"}'/>
                     </customData>
-                    <Text text="{i18n>Contractor} {i18n>Rate}"/>
+                    <Text text="{i18n>Contractor} {i18n>DGA} ({i18n>squarefit})"/>
                 </Column>
 
                   <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "DealerRate", "leadingProperty": "DealerRate", "columnIndex": 10 ,"sortProperty": "DealerRate","filterProperty": "DealerRate"}'/>
                     </customData>
-                    <Text text="{i18n>Dealer} {i18n>Rate}"/>
+                    <Text text="{i18n>Dealer} {i18n>DGA} ({i18n>squarefit})"/>
                 </Column>  
                 
                 <!-- <Column hAlign="Begin">

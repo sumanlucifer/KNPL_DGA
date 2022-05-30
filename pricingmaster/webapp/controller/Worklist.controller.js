@@ -225,6 +225,11 @@ sap.ui.define(
             onFilterBarSearch: function () {
                 var oView = this.getView();
                 oView.byId("idWorkListTable1").rebindTable();
+                //   if(this.getView().byId("idZone").getSelectedItem()===null &&
+                //     this.getView().byId("idDivision").getSelectedItem()===null &&
+                //     this.getView().byId("idDepot").getSelectedItem()===null) {
+                //       MessageBox ("Please select all Maindatory fields");
+                //     }
             },
             _CreateFilter: function () {
                 var aCurrentFilterValues = [];
@@ -233,12 +238,7 @@ sap.ui.define(
                     .getProperty("/filterBar");
 
                 var aFlaEmpty = true;
-                // init filters - is archived and complaint type id is 1
-                //  aCurrentFilterValues.push(
-                //      new Filter("IsArchived", FilterOperator.EQ, false));
-                // aCurrentFilterValues.push(
-                //     new Filter("ComplaintTypeId", FilterOperator.NE, 1));
-
+             
 
                 // filter bar filters
                 for (let prop in oViewFilter) {
@@ -292,7 +292,24 @@ sap.ui.define(
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
-                                       
+                                        new Filter({
+                                            path: "Putty",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "Primer",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "System/Name",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
                                     ],
                                     false
                                 )
@@ -373,13 +390,13 @@ sap.ui.define(
                 var oDepot = oView.byId("idDepot");
                 oDepot.clearSelection();
                 oDepot.setValue("");
-                // clearning data for dealer
+                
             },
             onDivisionChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
-                var oDepot = oView.byId("idDepot");
-                var oDepBindItems = oDepot.getBinding("items");
+                 var oDepot = oView.byId("idDepot");
+                 var oDepBindItems = oDepot.getBinding("items");
                 oDepot.clearSelection();
                 oDepot.setValue("");
                 oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));

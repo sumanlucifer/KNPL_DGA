@@ -257,101 +257,10 @@ sap.ui.define([
             }
             return obj;
         },
-        // _CheckEmptyFieldsPostPayload: function () {
-        //     var promise = jQuery.Deferred();
-        //     var oView = this.getView();
-        //     var oModel = oView.getModel("oModelView");
-        //     var oModelData = oModel.getData();
-        //     //1.Clone the payload and convert string to integer values based on odata model entity
-        //     var oPayLoad = this._RemoveEmptyValue(oModelData);
-        //     var inTegerProperty = [
-        //         "ComplaintTypeId",
-        //     ];
-        //     for (var y of inTegerProperty) {
-        //         if (oPayLoad.hasOwnProperty(y)) {
-        //             if (oPayLoad[y] !== null) {
-        //                 oPayLoad[y] = parseInt(oPayLoad[y]);
-        //             }
-        //         }
-        //     }
-        //     promise.resolve(oPayLoad);
-        //     return promise;
-        // },
-        // _CreateRadioButtonPayload: function (oPayLoad) {
-            /*
-            * Author: manik saluja
-            * Date: 24-March-2022
-            * Language:  JS
-            * Purpose: This method is used to send the radiobutton data to the backend.
-            */
-        //     var promise = jQuery.Deferred();
-        //     var oView = this.getView();
-        //     var aBoleanProps = {
-        //         IsTargetGroup: "TarGrp"
-        //     };
-        //     var oModelControl = oView.getModel("oModelControl");
-        //     var oPropRbtn = oModelControl.getProperty("/Rbtn");
-        //     for (var key in aBoleanProps) {
-        //         if (oPropRbtn[aBoleanProps[key]] === 0) {
-        //             oPayLoad[key] = false;
-        //         } else {
-        //             oPayLoad[key] = true;
-        //         }
-        //     }
-        //     promise.resolve(oPayLoad);
-        //     return promise;
-        // },
-        _CreateMultiComboPayload: function (oPayload) {
-            /*
-            * Author: manik saluja
-            * Date: 24-March-2022
-            * Language:  JS
-            * Purpose: This method is used to send the multicombo box with tokens or multi select popover data to the payload.
-            */
-            var promise = $.Deferred();
-            var oView = this.getView();
-            var oModelView = oView.getModel("oModelView");
-            var oModelControl = oView.getModel("oModelControl");
-            var sMode = oModelControl.getProperty("/mode");
-            var sResults = ""
-            if (sMode === "Edit") {
-                sResults = "/results"
-            }
-
-            // Members - 
-            // var aExistingMember = oModelView.getProperty("/Members" + sResults);
-            // var aSelectedMember = oModelControl.getProperty("/MultiCombo/Members")
-            // var iMembers = -1;
-            // var aMembers = [];
-            // for (var x of aSelectedMember) {
-            //     iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
-            //     if (iMembers >= 0) {
-
-            //         aMembers.push(aExistingMember[iMembers]);
-            //     } else {
-            //         aMembers.push({ Id: parseInt(x["Id"]) });
-            //     }
-            // }
-            // oPayload["Members"] = aMembers;
-            // // zone 
-            // var aExistingMember = oModelView.getProperty("/NotificationGroupZone" + sResults);
-            // var aSelectedMember = oModelControl.getProperty("/MultiCombo/Zone");
-            // var iMembers = -1;
-            // var aMembers = [];
-            // for (var x of aSelectedMember) {
-            //     iMembers = aExistingMember.findIndex(item => item["ZoneId"] === x)
-            //     if (iMembers >= 0) {
-
-            //         aMembers.push(aExistingMember[iZone]);
-            //     } else {
-            //         aMembers.push({ ZoneId: x });
-            //     }
-            // }
-            // oPayload["NotificationGroupZone"] = aZone;
-            promise.resolve(oPayload);
-            return promise
-
-        },
+       
+       
+        
+        
         _CreatePayLoadTable: function (oPayload) {
             var promise = $.Deferred();
             /*
@@ -383,18 +292,7 @@ sap.ui.define([
         //     return promise;
         // },
 
-        /**
-         * Event handler when the share by E-Mail button has been clicked
-         * @public
-         */
-        // onShareEmailPress: function () {
-        //     var oViewModel = (this.getModel("objectView") || this.getModel("worklistView"));
-        //     URLHelper.triggerEmail(
-        //         null,
-        //         oViewModel.getProperty("/shareSendEmailSubject"),
-        //         oViewModel.getProperty("/shareSendEmailMessage")
-        //     );
-        // },
+    
         _getViewFragment: function (sFragmentName) {
             /*
              * Author: Mamta Singh
@@ -503,100 +401,30 @@ sap.ui.define([
             */
           
         
-        // // painter value help request
-        // onPainterValueHelpRequest: function (oEvent) {
-        //     var sInputValue = oEvent.getSource().getValue(),
-        //         oView = this.getView(), oModelControl = oView.getModel("oModelControl");
+       
+       
 
-        //     if (!this._pValueHelpDialog) {
-        //         this._pValueHelpDialog = Fragment.load({
-        //             id: oView.getId(),
-        //             name: oModelControl.getProperty("/resourcePath") + ".view.fragments.PainterValueHelpDialog",
-        //             controller: this,
-        //         }).then(function (oDialog) {
-        //             oView.addDependent(oDialog);
-        //             return oDialog;
-        //         });
+        // onPainterValueHelpClose: function (oEvent) {
+        //     var oSelectedItem = oEvent.getParameter("selectedItem");
+        //     oEvent.getSource().getBinding("items").filter([]);
+        //     var oViewModel = this.getView().getModel("oModelView"),
+        //         oModelControl = this.getView().getModel("oModelControl");
+        //     if (!oSelectedItem) {
+        //         return;
         //     }
-        //     this._pValueHelpDialog.then(function (oDialog) {
-        //         // Create a filter for the binding
-        //         oDialog
-        //             .getBinding("items")
-        //             .filter([
-        //                 new Filter(
-        //                     [
-        //                         new Filter(
-        //                             {
-        //                                 path: "Name",
-        //                                 operator: "Contains",
-        //                                 value1: sInputValue.trim(),
-        //                                 caseSensitive: false
-        //                             }
-        //                         ),
-        //                         new Filter(
-        //                             {
-        //                                 path: "Mobile",
-        //                                 operator: "Contains",
-        //                                 value1: sInputValue.trim(),
-        //                                 caseSensitive: false
-        //                             }
-        //                         ),
-        //                     ],
-        //                     false
-        //                 ),
-        //             ]);
-        //         // Open ValueHelpDialog filtered by the input's value
-        //         oDialog.open(sInputValue);
-        //     });
-        // },
-        // onPainterValueHelpSearch: function (oEvent) {
-        //     var sValue = oEvent.getParameter("value");
-        //     var oFilter = new Filter(
-        //         [
-        //             new Filter(
-        //                 {
-        //                     path: "Name",
-        //                     operator: "Contains",
-        //                     value1: sValue.trim(),
-        //                     caseSensitive: false
-        //                 }
-        //             ),
-        //             new Filter(
-        //                 {
-        //                     path: "Mobile",
-        //                     operator: "Contains",
-        //                     value1: sValue.trim(),
-        //                     caseSensitive: false
-        //                 }
-        //             )
-        //         ],
-        //         false
-        //     );
+        //     var obj = oSelectedItem.getBindingContext().getObject();
+        //     oViewModel.setProperty("/PainterId", obj["Id"]);
+        //     oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
+        //     oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
+        //     oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
+        //     oModelControl.setProperty("/AddFields/PainterDivision", obj.DivisionId);
+        //     oModelControl.setProperty("/AddFields/PainterZone", obj.ZoneId);
 
-        //     oEvent.getSource().getBinding("items").filter([oFilter]);
-        // },
-
-        onPainterValueHelpClose: function (oEvent) {
-            var oSelectedItem = oEvent.getParameter("selectedItem");
-            oEvent.getSource().getBinding("items").filter([]);
-            var oViewModel = this.getView().getModel("oModelView"),
-                oModelControl = this.getView().getModel("oModelControl");
-            if (!oSelectedItem) {
-                return;
-            }
-            var obj = oSelectedItem.getBindingContext().getObject();
-            oViewModel.setProperty("/PainterId", obj["Id"]);
-            oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
-            oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
-            oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
-            oModelControl.setProperty("/AddFields/PainterDivision", obj.DivisionId);
-            oModelControl.setProperty("/AddFields/PainterZone", obj.ZoneId);
-
-            oModelControl.setProperty("/AddFields/PainterDepot", "");
-            //Fallback as Preliminary context not supported
+        //     oModelControl.setProperty("/AddFields/PainterDepot", "");
+        //     //Fallback as Preliminary context not supported
 
 
-        }
+        // }
 
     });
 

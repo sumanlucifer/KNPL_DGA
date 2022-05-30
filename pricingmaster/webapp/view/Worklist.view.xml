@@ -22,7 +22,7 @@
                                </fb:FilterGroupItem>
                                <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                   <fb:control>
-                                      <Input enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" required="true" placeholder="{i18n>Enter} {i18n>Depot}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleDepotValueHelp"  value="{path:'oModelControl>/AddFields/Depot'}"/>
+                                      <Input id="idDepot" enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" required="true" placeholder="{i18n>Enter} {i18n>Depot}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleDepotValueHelp"  value="{path:'oModelControl>/AddFields/Depot'}"/>
                                     
                                    </fb:control>
                                </fb:FilterGroupItem>
@@ -57,9 +57,9 @@
                                        </ComboBox>
                                  </fb:control>
                               </fb:FilterGroupItem>
-                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="Paint Type" label="{i18n>PaintType}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="Paint Type" label="{i18n>PaintingType}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                    <fb:control>
-                                        <ComboBox placeholder="{i18n>Select} {i18n>PaintType}" items="{path:'/MasterPaintTypes',sorter:{path:'Name'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{path:'oModelControl>/filterBar/PaintTypeId'}"  >
+                                        <ComboBox placeholder="{i18n>Select} {i18n>PaintingType}" items="{path:'/MasterPaintTypes',sorter:{path:'Name'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{path:'oModelControl>/filterBar/PaintTypeId'}"  >
                                              <items>
                                                 <core:Item text="{Name}" key="{Id}" />
                                              </items>
