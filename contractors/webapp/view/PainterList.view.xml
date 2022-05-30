@@ -158,7 +158,7 @@
             class="sapUiResponsiveContentPadding">
             <items>
             <IconTabFilter text="{i18n>allpainters}" key="allpainters">
-            <Table  id="idPainterTable" growing="true" growingThreshold="20" growingScrollToLoad="false" updateFinished="onUpdateFinished" width="auto" items="{path: '/PainterSet',sorter:{path:'CreatedAt',descending:true},filters:[{path:'IsArchived',operator:'EQ',value1:false}], parameters:{expand:'AgeGroup,Preference/Language,PainterBankDetails,PrimaryDealerDetails,PainterKycDetails,PainterType',select:'Id,RegistrationStatus,Name,MembershipCard,CreatedAt,Mobile,PrimaryDealerDetails/DealerName,Preference/Language/Language,PainterKycDetails/Status,PainterBankDetails/Status,ProfileCompleted,CallBackReqOrComplainFlag' }}" noDataText="{i18n>tableNoDataText}"  busyIndicatorDelay="{oModelView>/tableBusyDelay}">
+            <Table  id="idPainterTable" growing="true" growingThreshold="20" growingScrollToLoad="false" updateFinished="onUpdateFinished" width="auto" items="{path: '/PainterSet',sorter:{path:'CreatedAt',descending:true},filters:[{path:'IsArchived',operator:'EQ',value1:false}], parameters:{expand:'AgeGroup,Preference/Language,PainterBankDetails,PrimaryDealerDetails,PainterKycDetails,PainterType',select:'Id,ZoneId,DivisionId,DepotId,RegistrationStatus,Name,MembershipCard,CreatedAt,Mobile,PrimaryDealerDetails/DealerName,Preference/Language/Language,PainterKycDetails/Status,PainterBankDetails/Status,ProfileCompleted,CallBackReqOrComplainFlag' }}" noDataText="{i18n>tableNoDataText}"  busyIndicatorDelay="{oModelView>/tableBusyDelay}">
                 <headerToolbar>
                     <Toolbar>
                         <Title text="{oModelView>/pageTitle}"/>
@@ -184,32 +184,40 @@
                     <Column width="10%">
                         <Text text="{i18n>MembershipId}"/>
                     </Column>
-                    <Column>
+                    <!-- <Column>
                         <Text text="{i18n>RegistrationDate}"/>
-                    </Column>
+                    </Column> -->
                     <Column>
                         <Text text="{i18n>MobileNumber}"/>
                     </Column>
-                 
+                    <Column>
+                        <Text text="{i18n>Zone}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>Division}"/>
+                    </Column>
+                      <Column>
+                        <Text text="{i18n>Depot}"/>
+                    </Column>
                     <Column>
                         <Text text="{i18n>LinkPrimaryDealer}"/>
                     </Column>
-                    <Column>
+                    <!-- <Column>
                         <Text text="{i18n>PreferredLanguage}"/>
-                    </Column>
+                    </Column> -->
                     <Column>
                         <Text text="{i18n>KycStatus}"/>
                     </Column>
                     <Column>
                         <Text text="{i18n>BankDetailsStatus}"/>
                     </Column>
-                    <Column>
+                    <!-- <Column>
                         <Text text="{i18n>ProfileCompleted}"/>
-                    </Column>
-                 
+                    </Column> -->
+<!--                  
                     <Column width="8%">
                         <Text text="{i18n>Action}"/>
-                    </Column>
+                    </Column> -->
                 </columns>
 
                 <items>
@@ -224,14 +232,17 @@
                                 <Text text="{MembershipCard}" visible="{= ${MembershipCard} !== null }"/>
                                 <Button tooltip="{i18n>GenerateMId}" width="100%" text="{i18n>GenerateMId}" type="Ghost" press="onGenMemId"  visible="{= ${MembershipCard}===null }"/>
                             </VBox>
-                            <Text text="{path:'CreatedAt',formatter:'.fmtDate' }"/>
+                            <!-- <Text text="{path:'CreatedAt',formatter:'.fmtDate' }"/> -->
                             <Text text="{Mobile}"/>
+                               <Text text="{ZoneId}"/>
+                                <Text text="{DivisionId}"/>
+                                   <Text text="{DepotId}"/>
                             <FlexBox >
                             <Text visible="{= ${PrimaryDealerDetails}===null}" text="Not Linked"/>
                             <Text text="{PrimaryDealerDetails/DealerName}"/>
                             </FlexBox>
                             
-                            <Text text="{path:'Preference/Language/Language'}"/>
+                            <!-- <Text text="{path:'Preference/Language/Language'}"/> -->
                             <FlexBox >
                             <ObjectStatus visible="{= ${PainterKycDetails} === null}" text="Not Submitted" state="Error"/>
                             <ObjectStatus text="{path: 'PainterKycDetails/Status', formatter: '.fmtStatus'}"
@@ -242,7 +253,7 @@
                              <ObjectStatus text="{path: 'PainterBankDetails/Status', formatter: '.fmtStatus'}"
                             state="{= ${PainterBankDetails/Status} === 'APPROVED'? 'Success' : undefined || ${PainterBankDetails/Status} === 'REJECTED'? 'Error' : undefined || ${PainterBankDetails/Status} === 'INPROGRESS'? 'Warning' : undefined || ${PainterBankDetails/Status} === 'PENDING'? 'Warning' : undefined}"/>
                             </FlexBox>
-                            <Text text="{= ${ProfileCompleted}===true?'Yes':'No'}"/>
+                            <!-- <Text text="{= ${ProfileCompleted}===true?'Yes':'No'}"/> -->
                             <!-- <HBox justifyContent="End">
                                  <core:Icon class="sapUiTinyMarginTop" tooltip="{i18n>Pending1}" src="sap-icon://pending" color="#1C4C98" visible="{CallBackReqOrComplainFlag}" />
                                 <Button tooltip="{i18n>Edit}" visible="{= ${ActivationStatus} !== 'DEACTIVATED'  }" icon="sap-icon://edit" type="Transparent" press="onListItemPress"></Button>
