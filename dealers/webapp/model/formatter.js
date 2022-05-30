@@ -10,8 +10,8 @@ sap.ui.define([], function () {
          * @returns {string} sValue with 2 digits rounded
          */
         fmtLowerCase: function (mParam) {
-            if(!mParam){
-                return 
+            if (!mParam) {
+                return
             }
             var sStatus = "";
 
@@ -52,16 +52,12 @@ sap.ui.define([], function () {
 
         },
         fmtStatusColorChange: function (mParam) {
-            if (mParam === "APPROVED") {
+            if (mParam === "Activated")
                 return "Success";
-            }
-            if (mParam === "PUBLISHED") {
-                return "Success";
-            }
-            if (mParam === "PENDING") {
-                return "Warning";
-            }
-            return "Error";
+            else if (mParam === "Deactivated")
+                return "Error";
+            else
+                return "None";
         },
     };
 

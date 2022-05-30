@@ -41,14 +41,8 @@ sap.ui.define(
                 var oRouter = this.getOwnerComponent().getRouter();
                 var oDataControl = {
                     filterBar: {
-                        StartDate: null,
-                        EndDate: null,
-                        Status: "",
                         Search: "",
-                        ZoneId: "",
-                        DivisionId: "",
                         DepotId: "",
-
                     },
                     PageBusy: true
                 };
@@ -66,12 +60,7 @@ sap.ui.define(
                         }
                     }
                 }
-                oRouter
-                    .getRoute("worklist")
-                    .attachMatched(this._onRouteMatched, this);
-
-
-
+                oRouter.getRoute("worklist").attachMatched(this._onRouteMatched, this);
             },
             _ResetFilterBar: function () {
                 var aCurrentFilterValues = [];
@@ -82,7 +71,6 @@ sap.ui.define(
                     ZoneId: "",
                     DivisionId: "",
                     DepotId: "",
-
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -209,7 +197,7 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-            onBindTblComplainList: function (oEvent) {
+            onBindTblDealerList: function (oEvent) {
                 /*
                  * Author: manik saluja
                  * Date: 02-Dec-2021
@@ -217,15 +205,13 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Painter,ComplaintType";
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                oBindingParams.parameters["expand"] = "DealerSalesDetails,Leads";
+                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
                 var oFilter = this._CreateFilter();
-                if (oFilter) {
+                if (oFilter) 
                     oBindingParams.filters.push(oFilter);
-                }
-
             },
             onFilterBarSearch: function () {
                 var oView = this.getView();
@@ -237,57 +223,54 @@ sap.ui.define(
                     .getModel("oModelControl")
                     .getProperty("/filterBar");
 
-                var aFlaEmpty = false;
-                // init filters - is archived and complaint type id is 1
-                aCurrentFilterValues.push(
-                    new Filter("IsArchived", FilterOperator.EQ, false));
-                aCurrentFilterValues.push(
-                    new Filter("ComplaintTypeId", FilterOperator.NE, 1));
-
+                var aFlaEmpty = true;
+                // aCurrentFilterValues.push(
+                    // new Filter("IsArchived", FilterOperator.EQ, false));
 
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
-                        if (prop === "StartDate") {
-                            // converstions are made as the difference between utc and the server time
+                        if (prop === "DepotId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
-                        } else if (prop === "EndDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = false;
-                            var oDate = new Date(oViewFilter[prop]).setDate(oViewFilter[prop].getDate() + 1);
-                            aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.LT, oDate));
-                        } else if (prop === "Status") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("ComplaintStatus", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "ZoneId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DvisionId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DepotId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("DealerSalesDetails/Depot", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter(
                                     [
                                         new Filter({
-                                            path: "Painter/Name",
+                                            path: "Name",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "ComplaintCode",
+                                            path: "PhoneNumber",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "PlantCode",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "DealerSalesDetails/SalesGroupId",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "FiscalYear",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "CustomerCategory",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false

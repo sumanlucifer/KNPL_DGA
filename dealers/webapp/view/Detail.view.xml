@@ -4,42 +4,34 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{ComplaintType/ComplaintType}"/>
+                    <Title text="{Name}"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>Update} {i18n>MainObject}">
-                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
+                    <Breadcrumbs currentLocationText="{i18n>MainObject} {i18n>Details}">
+                        <Link text="{i18n>MainObject2}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
-                <f:expandedContent>
-                    <Label text="{ComplaintCode}"/>
+                <!-- <f:expandedContent>
+                    <Label text="{Name}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="{ComplaintCode}"/>
+                    <Label text="{Name}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
-                    <Title text="{ComplaintType/ComplaintType}"/>
-                </f:snappedTitleOnMobile>
-                <f:actions>
+                    <Title text="{Name}"/>
+                </f:snappedTitleOnMobile> -->
+                <!-- <f:actions>
                     <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>Validate}" />
-                </f:actions>
+                </f:actions> -->
             </f:DynamicPageTitle>
         </f:title>
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>PainterName}" text="{Painter/Name}"/>
-                        <ObjectAttribute title="{i18n>MembershipId}" text="{Painter/MembershipCard}"/>
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
-                        <Label  text="{i18n>MainObject} {i18n>Details}:"  />
-                        <ObjectAttribute  text="{ComplaintSubtype/ComplaintSubtype}"/>
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout>
-                        <Label  text="{i18n>Status}:"/>
-                   
-                          <ObjectStatus class="sapMObjectStatusLarge" text="{ComplaintStatus}" state="None"/>
+                        <ObjectAttribute title="{i18n>PhoneNumber}" text="{PhoneNumber}"/>
+                        <ObjectAttribute title="{i18n>SalesGroupId}" text="{DealerSalesDetails/SalesGroupId}"/>
+                        <ObjectAttribute title="{i18n>SalesGroupName}" text=""/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
@@ -47,30 +39,24 @@
         <f:content>
             <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="iconTabBar" class="sapUiResponsiveContentPadding" >
                 <items>
-                    <IconTabFilter  text="{i18n>Overview}" key="0" >
+                    <IconTabFilter  text="{i18n>BasicDetails}" key="0" >
                         <VBox id="oVBoxAddObjectPage" width="100%">
                         </VBox>
-                        
-                        
-                        </IconTabFilter>
-                         <IconTabFilter  text="{i18n>History}" key="1" >
-                             <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.HistoryTable" type="XML"/>
-                        </IconTabFilter>
-                         
-                    </items>
-                </IconTabBar>
+                    </IconTabFilter>
+                    <IconTabFilter  text="{i18n>DGA}" key="1" >
+                            <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.DGATable" type="XML"/>
+                    </IconTabFilter>
+                    <IconTabFilter  text="{i18n>LinkedContractors}" key="2" >
+                            <!-- <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.HistoryTable" type="XML"/> -->
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
         </f:content>
-        <f:footer>
-         
+        <!-- <f:footer>
             <OverflowToolbar>
               <ToolbarSpacer/>
               <Button press="onNavToHome" type="Ghost"  text="{i18n>Cancel}"  />
-             
-              <Button press=".onApproval(true)" visible="{= ${oModelDisplay>/mode}==='Display'}" text="{i18n>Approve}"  type="Accept"  />
-             <Button press="onPressSave" visible="{= ${oModelDisplay>/mode}==='Edit'}"  text="{i18n>Save}" type="Emphasized" />
-          
-        
             </OverflowToolbar>
-        </f:footer>
+        </f:footer> -->
     </f:DynamicPage>
 </mvc:View>
