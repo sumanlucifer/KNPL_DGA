@@ -47,9 +47,19 @@ sap.ui.define(
                         Search: "",
                         ZoneId: "",
                         DivisionId: "",
-                        DepotId: "",
+                        Depot:"",
+                        CategoryId: "",
+                        ClassId: "",
+                        ProductId: "",
+                        PaintTypeId: "",
+                        PlanId: "",
+
 
                     },
+                    
+                    AddFields: {
+                       Depot: ""
+                     },
                     PageBusy: true
                 };
                 var oMdlCtrl = new JSONModel(oDataControl);
@@ -59,13 +69,13 @@ sap.ui.define(
                     startupParams = this.getOwnerComponent().getComponentData().startupParameters;
                 }
                 // console.log(startupParams);
-                if (startupParams) {
-                    if (startupParams.hasOwnProperty("DgaId")) {
-                        if (startupParams["DgaId"].length > 0) {
-                            this._onNavToDetails(startupParams["DgaId"][0]);
-                        }
-                    }
-                }
+                // if (startupParams) {
+                //     if (startupParams.hasOwnProperty("DgaId")) {
+                //         if (startupParams["DgaId"].length > 0) {
+                //             this._onNavToDetails(startupParams["DgaId"][0]);
+                //         }
+                //     }
+                // }
                 oRouter
                     .getRoute("worklist")
                     .attachMatched(this._onRouteMatched, this);
@@ -73,23 +83,7 @@ sap.ui.define(
 
 
             },
-            _ResetFilterBar: function () {
-                var aCurrentFilterValues = [];
-                var aResetProp = {
-                    StartDate: null,
-                    Status: "",
-                    Search: "",
-                    ZoneId: "",
-                    DivisionId: "",
-                    DepotId: "",
-
-                };
-                var oViewModel = this.getView().getModel("oModelControl");
-                oViewModel.setProperty("/filterBar", aResetProp);
-                var oTable = this.getView().byId("idWorkListTable1");
-                oTable.rebindTable();
-
-            },
+          
             _onRouteMatched: function () {
                 this._InitData();
             },
@@ -121,7 +115,7 @@ sap.ui.define(
                 var c1, c2, c3, c4;
                 oModelControl.setProperty("/PageBusy", true)
                 c1 = othat._addSearchFieldAssociationToFB();
-                c1.then(function () {
+               c1.then(function () {
                     c2 = othat._dummyPromise();
                     c2.then(function () {
                         c3 = othat._initTableData();
@@ -203,30 +197,31 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
-                if (oView.byId("idWorkListTable1")) {
+                // if (oView.byId("idWorkListTable1")) {
+
                     oView.byId("idWorkListTable1").rebindTable();
-                }
+                // }
                 promise.resolve();
                 return promise;
             },
-            onBindTblComplainList: function (oEvent) {
+            onBindTblPriceList: function (oEvent) {
                 /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
+                 * Author: Mamta Singh
+                 * Date: 28-may-2022
                  * Language:  JS
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Painter,ComplaintType";
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                oBindingParams.parameters["expand"] = "ProductCategory,Class,Product,PaintType,System,Plan,ValueAddition";
+               // oBindingParams.sorter.push(new Sorter("ProductCategory/Name", true));
 
-                // Apply Filters
+            //    Apply Filters
                 var oFilter = this._CreateFilter();
                 if (oFilter) {
                     oBindingParams.filters.push(oFilter);
                 }
 
-            },
+             },
             onFilterBarSearch: function () {
                 var oView = this.getView();
                 oView.byId("idWorkListTable1").rebindTable();
@@ -237,61 +232,67 @@ sap.ui.define(
                     .getModel("oModelControl")
                     .getProperty("/filterBar");
 
-                var aFlaEmpty = false;
+                var aFlaEmpty = true;
                 // init filters - is archived and complaint type id is 1
-                aCurrentFilterValues.push(
-                    new Filter("IsArchived", FilterOperator.EQ, false));
-                aCurrentFilterValues.push(
-                    new Filter("ComplaintTypeId", FilterOperator.NE, 1));
+                //  aCurrentFilterValues.push(
+                //      new Filter("IsArchived", FilterOperator.EQ, false));
+                // aCurrentFilterValues.push(
+                //     new Filter("ComplaintTypeId", FilterOperator.NE, 1));
 
 
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
-                        if (prop === "StartDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
-                        } else if (prop === "EndDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = false;
-                            var oDate = new Date(oViewFilter[prop]).setDate(oViewFilter[prop].getDate() + 1);
-                            aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.LT, oDate));
-                        } else if (prop === "Status") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("ComplaintStatus", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "ZoneId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DvisionId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DepotId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "Search") {
+                        //  if (prop === "ZoneId") {
+                        //     aFlaEmpty = false;
+                        //     aCurrentFilterValues.push(
+                        //         new Filter("Id", FilterOperator.EQ, oViewFilter[prop]));
+                        //    }
+                        //      if (prop === "DivisionId") {
+                        //      aFlaEmpty = false;
+                        //      aCurrentFilterValues.push(
+                        //          new Filter("DivisionId", FilterOperator.EQ, oViewFilter[prop]));
+                      
+                        
+                        //   }
+                            if (prop === "Depot") {
+                             aFlaEmpty = false;
+                             aCurrentFilterValues.push(
+                                new Filter("DepotCode", FilterOperator.EQ, oViewFilter[prop]));
+
+                          }
+                           else if (prop === "CategoryId") {
+                             aFlaEmpty = false;
+                             aCurrentFilterValues.push(
+                                    new Filter("ProductCategoryId", FilterOperator.EQ, oViewFilter[prop]));
+                          } else if (prop === "ClassId") {
+                             aFlaEmpty = false;
+                             aCurrentFilterValues.push(
+                                        new Filter("ClassId", FilterOperator.EQ, oViewFilter[prop]));
+                          } else if (prop === "ProductId") {
+                             aFlaEmpty = false;
+                             aCurrentFilterValues.push(
+                                         new Filter("ProductId", FilterOperator.EQ, oViewFilter[prop]));
+                          } else if (prop === "PaintTypeId") {
+                             aFlaEmpty = false;
+                             aCurrentFilterValues.push(
+                                         new Filter("PaintTypeId", FilterOperator.EQ, oViewFilter[prop]));
+                          } else if (prop === "PlanId") {
+                             aFlaEmpty = false;
+                             aCurrentFilterValues.push(
+                                         new Filter("PlanId", FilterOperator.EQ, oViewFilter[prop]));
+                            } else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter(
                                     [
                                         new Filter({
-                                            path: "Painter/Name",
+                                            path: "ValueAddition/Name",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
-                                        new Filter({
-                                            path: "ComplaintCode",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        })
+                                       
                                     ],
                                     false
                                 )
@@ -313,6 +314,32 @@ sap.ui.define(
 
             onResetFilterBar: function () {
                 this._ResetFilterBar();
+            },
+
+            _ResetFilterBar: function () {
+                var aCurrentFilterValues = [];
+                var aResetProp = {
+                    StartDate: null,
+                     Search: "",
+                    ZoneId: "",
+                    DivisionId: "",
+                     Depot:"",
+                    CategoryId: "",
+                    ClassId: "",
+                    ProductId: "",
+                    PaintTypeId: "",
+                    PlanId: ""
+                };  
+                  
+                // var aFilterAddFields = {
+                //     Depot: ""
+                // };
+                
+                var oViewModel = this.getView().getModel("oModelControl");
+                oViewModel.setProperty("/filterBar", aResetProp);
+                var oTable = this.getView().byId("idWorkListTable1");
+                oTable.rebindTable();
+
             },
 
 
@@ -358,17 +385,17 @@ sap.ui.define(
                 oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
             },
 
-            onPressDelete: function (oEvent) {
-                var oView = this.getView();
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                this._showMessageBox1("information", "Message5", [oBj["ComplaintCode"]],
-                    this._DeleteComplaints.bind(this, "first paramters", "secondParameter")
-                );
-            },
-            _DeleteComplaints: function (mParam1, mParam2) {
-                // after deleting the entity make sure that we are calling the refresh just on the table and not on thw whole model
-                MessageToast.show("Message5")
-            },
+            // onPressDelete: function (oEvent) {
+            //     var oView = this.getView();
+            //     var oBj = oEvent.getSource().getBindingContext().getObject();
+            //     this._showMessageBox1("information", "Message5", [oBj["ComplaintCode"]],
+            //         this._DeleteComplaints.bind(this, "first paramters", "secondParameter")
+            //     );
+            // },
+            // _DeleteComplaints: function (mParam1, mParam2) {
+            //     // after deleting the entity make sure that we are calling the refresh just on the table and not on thw whole model
+            //     MessageToast.show("Message5")
+            // },
 
             onEditListItemPress: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();
