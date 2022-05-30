@@ -7,7 +7,7 @@ sap.ui.define([
 
 	Opa5.extendConfig({
 		arrangements: new Startup(),
-		viewNamespace: "com.knpl.dga.ui5template.view.",
+		viewNamespace: "com.knpl.pragati.ContactPainter.view.",
 		autoWait: true
 	});
 });

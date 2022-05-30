@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.knpl.dga.ui5template",
+        "id": "com.knpl.pragati.ContactPainter",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "title": "{{appTitle}}",
@@ -23,7 +23,7 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "com-knpl-dga-ui5template-inbound": {
+                "com-knpl-pragati-ContactPainter-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
@@ -76,7 +76,7 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "com.knpl.dga.ui5template.i18n.i18n"
+                    "bundleName": "com.knpl.pragati.ContactPainter.i18n.i18n"
                 }
             },
             "": {
@@ -90,16 +90,18 @@
                     "useBatch": false
                 }
             },
+            "uploadModel": {
+                "type": "sap.ui.model.json.JSONModel"
+            },
             "LoginInfo": {
                 "type": "sap.ui.model.json.JSONModel"
             }
-
         },
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
-                "viewPath": "com.knpl.dga.ui5template.view",
+                "viewPath": "com.knpl.pragati.ContactPainter.view",
                 "controlId": "app",
                 "controlAggregation": "pages",
                 "bypassed": {
@@ -109,57 +111,69 @@
                 },
                 "async": true
             },
-            "routes": [{
+            "routes": [
+                {
+                    "name": "RoutePList",
                     "pattern": "",
-                    "name": "worklist",
                     "target": [
-                        "worklist"
+                        "TargetPList"
                     ]
                 },
                 {
-                    "pattern": "Detail/{Mode}/{Id}",
-                    "name": "Detail",
+                    "name": "RouteAddEditP",
+                    "pattern": "PainterAdd",
                     "target": [
-                        "Detail"
+                        "TargetRouteAddEditP"
                     ]
                 },
                 {
-                    "pattern": "Add",
-                    "name": "Add",
+                    "name": "RouteProfile",
+                    "pattern": "Profile/{mode}/{prop}",
                     "target": [
-                        "object"
+                        "TargetProfile"
+                    ]
+                },
+                {
+                    "name": "RouteAdditionalRequestDetail",
+                    "pattern": "AdditionalRequestDetail/{Id}/{Pid}",
+                    "target": [
+                        "TargetAdditionalRequestDetail"
                     ]
                 }
             ],
             "targets": {
-                "worklist": {
-                    "viewName": "Worklist",
-                    "viewId": "worklist",
-                    "viewLevel": 1,
-                    "title": "{i18n>worklistViewTitle}"
+                "TargetPList": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "PainterList",
+                    "viewName": "PainterList"
                 },
-                "object": {
-                    "viewName": "AddObject",
-                    "viewId": "object",
-                    "viewLevel": 2
+                "TargetRouteAddEditP": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "AddEditPainter",
+                    "viewName": "AddEditPainter"
                 },
-                "objectNotFound": {
-                    "viewName": "ObjectNotFound",
-                    "viewId": "objectNotFound"
+                "TargetProfile": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "ProfilePainter",
+                    "viewName": "ProfilePainter"
                 },
-                "Detail": {
-                    "viewName": "Detail",
-                    "viewId": "Detail",
-                    "viewLevel": 2
-                },
-                "notFound": {
-                    "viewName": "NotFound",
-                    "viewId": "notFound"
+                "TargetAdditionalRequestDetail": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "AdditionalRequestDetail",
+                    "viewName": "AdditionalRequestDetail"
                 }
             }
         },
         "rootView": {
-            "viewName": "com.knpl.dga.ui5template.view.App",
+            "viewName": "com.knpl.pragati.ContactPainter.view.App",
             "type": "XML",
             "async": true,
             "id": "app"

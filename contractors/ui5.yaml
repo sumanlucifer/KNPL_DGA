@@ -2,7 +2,7 @@
 
 specVersion: "2.5"
 metadata:
-  name: com.knpl.dga.ui5template
+  name: com.knpl.pragati.ContactPainter
 type: application
 server:
   customMiddleware:
@@ -28,5 +28,5 @@ server:
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:
-        component: com.knpl.dga.ui5template
+        component: com.knpl.pragati.ContactPainter
         ui5Theme: sap_fiori_3

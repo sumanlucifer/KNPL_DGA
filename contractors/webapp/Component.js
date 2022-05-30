@@ -7,7 +7,7 @@ sap.ui.define([
     function (UIComponent, Device, models,ErrorHandler) {
         "use strict";
 
-        return UIComponent.extend("com.knpl.dga.ui5template.Component", {
+        return UIComponent.extend("com.knpl.pragati.ContactPainter.Component", {
 
             metadata : {
                 manifest: "json"

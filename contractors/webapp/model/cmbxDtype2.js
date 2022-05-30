@@ -4,7 +4,7 @@ sap.ui.define(
     "use strict";
 
     return SimpleType.extend(
-      "com.knpl.dga.ui5template.model.cmbxDtype2",
+      "com.knpl.pragati.ContactPainter.model.cmbxDtype2",
       {
         formatValue: function (oValue) {
          

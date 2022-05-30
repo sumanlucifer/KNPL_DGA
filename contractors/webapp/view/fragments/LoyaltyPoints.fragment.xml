@@ -1,0 +1,277 @@
+<core:FragmentDefinition     xmlns="sap.m"    xmlns:smartTable="sap.ui.comp.smarttable"   xmlns:core="sap.ui.core">
+	<IconTabBar
+		id="idIconTabBarNoIcons"
+		expanded="{device>/isNoPhone}"
+        selectedKey="{oModelControl2>/IctabBarLoyalty}"
+		class="sapUiResponsiveContentPadding">
+		<items>
+			<IconTabFilter text="{i18n>Table1RewardsHeading}" key="accrued">
+			
+                    <smartTable:SmartTable
+                            id="smrtLoyalty"
+                            editable="false"
+                            beforeRebindTable="onBeforeRebind"                    
+                            entitySet="PainterPointsHistorySet"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="true"
+                            demandPopin="true"
+                            enableAutoBinding="false"
+                            placeToolbarInTable="true"
+                            persistencyKey="LoyaltySmartTableKey"
+                            initialNoDataText="{i18n>tableNoDataText}"
+                            ignoreFromPersonalisation="Id,IsSelected,TransactionAt,PainterTransactionHistoryId,PainterId,CreatedBy,UpdatedAt,UpdatedBy,IsArchived">
+                        <Table  growing="true" growingThreshold="10" growingScrollToLoad="false"  noDataText="{i18n>tableNoDataText}"  >
+                                <columns>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PointType", "leadingProperty": "PointType", "columnIndex": 0 ,"sortProperty": "PointType","filterProperty": "PointType"}'/>
+                                        </customData>
+                                          <Text text="{i18n>Type}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "RewardPoints", "leadingProperty": "RewardPoints", "columnIndex": 1 ,"sortProperty": "RewardPoints","filterProperty": "RewardPoints"}'/>
+                                        </customData>
+                                          <Text text="{i18n>EarnedPoints}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "TotalPoints", "leadingProperty": "TotalPoints", "columnIndex": 2 ,"sortProperty": "TotalPoints","filterProperty": "TotalPoints"}'/>
+                                        </customData>
+                                          <Text text="{i18n>TotalPoints}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 3 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                        </customData>
+                                          <Text text="{i18n>DateAndTime}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PointTransactionType", "leadingProperty": "PointTransactionType", "columnIndex": 4 ,"sortProperty": "PointTransactionType","filterProperty": "PointTransactionType"}'/>
+                                        </customData>
+                                         <Text text="{i18n>TransactionType}"/>
+                                    </Column>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "ProductDetails", "leadingProperty": "ProductDetails", "columnIndex": 5}'/>
+                                        </customData>
+                                         <Text text="{i18n>ProductDetails}"/>
+                                    </Column>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Offer", "leadingProperty": "Offer", "columnIndex": 6}'/>
+                                        </customData>
+                                         <Text text="{i18n>OfferCode}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                               <Text text="{path:'PointType',formatter:'.fmtStatusType'}" />
+                                               <Text text="{parts:['RewardPoints','PointTransactionType'], formatter:'.formatter.fmtCheckSettlemnetPoints'}" />
+                                               <Text text="{path:'TotalPoints'}" />
+                                               <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                                                <Text text="{path:'PointTransactionType', formatter:'.fmtLowerCase'}" />
+                                                <Text text="{= ${ProductDetails}=== null ? 'NA' : ${ProductDetails/ProductDetails} } " />
+                                                 <Text text="{= ${Offer}=== null ? 'NA' : ${Offer/OfferCode} } " />
+                                         </cells>      
+                                    </ColumnListItem>
+                                </items> 
+                            </Table> 
+                        </smartTable:SmartTable>
+                 </IconTabFilter>
+			<IconTabFilter text="Redeemed Gifts" key="redeemed">
+				<smartTable:SmartTable
+                            id="smrtLoyalty1"
+                            editable="false"
+                            beforeRebindTable="onBeforeRebindRdmd"                    
+                            entitySet="PainterPointsHistorySet"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="true"
+                            demandPopin="true"
+                            enableAutoBinding="false"
+                            placeToolbarInTable="true"
+                            persistencyKey="LoyaltySmartTableKey"
+                            initialNoDataText="{i18n>tableNoDataText}"
+                            ignoreFromPersonalisation="Id,IsSelected,TransactionAt,PainterTransactionHistoryId,PainterId,CreatedBy,UpdatedAt,UpdatedBy,IsArchived">
+                        <Table growing="true" growingThreshold="10" growingScrollToLoad="false"   noDataText="{i18n>tableNoDataText}"  >
+                                <columns>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PointType", "leadingProperty": "PointType", "columnIndex": 0 ,"sortProperty": "PointType","filterProperty": "PointType"}'/>
+                                        </customData>
+                                          <Text text="{i18n>Type}"/>
+                                    </Column>
+                                     <!-- <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "RewardPoints", "leadingProperty": "RewardPoints", "columnIndex": 1 ,"sortProperty": "RewardPoints","filterProperty": "RewardPoints"}'/>
+                                        </customData>
+                                          <Text text="{i18n>EarnedPoints}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "TotalPoints", "leadingProperty": "TotalPoints", "columnIndex": 2 ,"sortProperty": "TotalPoints","filterProperty": "TotalPoints"}'/>
+                                        </customData>
+                                          <Text text="{i18n>TotalPoints}"/>
+                                    </Column> -->
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Offer", "type":"date", "leadingProperty": "Offer", "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                        </customData>
+                                          <Text text="{i18n>OfferTitle}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 2 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                        </customData>
+                                          <Text text="{i18n>DateAndTime}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PointTransactionType", "leadingProperty": "PointTransactionType", "columnIndex": 3 ,"sortProperty": "PointTransactionType","filterProperty": "PointTransactionType"}'/>
+                                        </customData>
+                                         <Text text="{i18n>TransactionType}"/>
+                                    </Column>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "GiftRedemption", "leadingProperty": "GiftRedemption", "columnIndex": 4}'/>
+                                        </customData>
+                                         <Text text="{i18n>RewardGiftName}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "GiftRedemption/TrackingStatus", "leadingProperty": "GiftRedemption/TrackingStatus", "columnIndex": 5}'/>
+                                        </customData>
+                                         <Text text="{i18n>RedeemStatus}"/>
+                                    </Column>
+                                       <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Offer/OfferCode", "leadingProperty": "Offer/OfferCode", "columnIndex": 6}'/>
+                                        </customData>
+                                         <Text text="{i18n>OfferCode}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                               <Text text="{path:'PointType',formatter:'.fmtStatusType'}" />
+                                               <!-- <Text text="{path:'RewardPoints'}" />
+                                               <Text text="{path:'TotalPoints'}" /> -->
+                                               <Text text="{= ${Offer}=== null ? 'NA' : ${Offer/Title} } " />
+                                               <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                                                <Text text="{path:'PointTransactionType', formatter:'.fmtLowerCase'}" />
+                                                <Text text="{= ${GiftRedemption}=== null ? 'NA' : ${GiftRedemption/RewardGiftName} } "/>
+                                                <Text text="{= ${GiftRedemption}=== null ? 'NA' : ${path:'GiftRedemption/TrackingStatus',formatter:'.fmtStatusType'} }" />
+                                                  <Text text="{= ${Offer}=== null ? 'NA' : ${Offer/OfferCode} } " />
+                                         </cells>      
+                                    </ColumnListItem>
+                                </items> 
+                            </Table> 
+                        </smartTable:SmartTable>
+			</IconTabFilter>
+            	<IconTabFilter text="Redeemed Cash" key="redeemedCash">
+				<smartTable:SmartTable
+                            id="smrtLoyalty2"
+                            editable="false"
+                            beforeRebindTable="onBeforeRebindRdmdCash"                    
+                            entitySet="PainterPointsHistorySet"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="true"
+                            demandPopin="true"
+                            enableAutoBinding="false"
+                            placeToolbarInTable="true"
+                            persistencyKey="LoyaltySmartTableKey"
+                            initialNoDataText="{i18n>tableNoDataText}"
+                            ignoreFromPersonalisation="Id,IsSelected,TransactionAt,PainterTransactionHistoryId,PainterId,CreatedBy,UpdatedAt,UpdatedBy,IsArchived">
+                        <Table growing="true" growingThreshold="10" growingScrollToLoad="false"  noDataText="{i18n>tableNoDataText}" >
+                                <columns>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PointType", "leadingProperty": "PointType", "columnIndex": 0 ,"sortProperty": "PointType","filterProperty": "PointType"}'/>
+                                        </customData>
+                                          <Text text="{i18n>Type}"/>
+                                    </Column>
+                                     
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Offer", "type":"date", "leadingProperty": "Offer", "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                        </customData>
+                                          <Text text="{i18n>OfferTitle}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 2 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                        </customData>
+                                          <Text text="{i18n>DateAndTime}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PointTransactionType", "leadingProperty": "PointTransactionType", "columnIndex": 3 ,"sortProperty": "PointTransactionType","filterProperty": "PointTransactionType"}'/>
+                                        </customData>
+                                         <Text text="{i18n>TransactionType}"/>
+                                    </Column>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "RewardPoints", "leadingProperty": "RewardPoints", "columnIndex": 4}'/>
+                                        </customData>
+                                         <Text text="{i18n>RdmdPoints}"/>
+                                    </Column>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PaymentTransaction/TransactionAmount", "leadingProperty": "PaymentTransaction/TransactionAmount", "columnIndex": 5}'/>
+                                        </customData>
+                                         <Text text="{i18n>RedeemCash}"/>
+                                    </Column>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PaymentTransaction/TransactionStatus", "leadingProperty": "PaymentTransaction/TransactionStatus", "columnIndex": 6}'/>
+                                        </customData>
+                                         <Text text="{i18n>RedeemStatus}"/>
+                                    </Column>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PaymentTransaction/TransactionMessage", "leadingProperty": "PaymentTransaction/TransactionMessage", "columnIndex": 7}'/>
+                                        </customData>
+                                         <Text text="{i18n>Remark}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Offer/OfferCode", "leadingProperty": "Offer/OfferCode", "columnIndex": 8}'/>
+                                        </customData>
+                                         <Text text="{i18n>OfferCode}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                               <Text text="{path:'PointType',formatter:'.fmtStatusType'}" />
+                                               <!-- <Text text="{path:'RewardPoints'}" />
+                                               <Text text="{path:'TotalPoints'}" /> -->
+                                               <Text text="{= ${Offer}=== null ? 'NA' : ${Offer/Title} } " />
+                                               <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                                                <Text text="{path:'PointTransactionType', formatter:'.fmtLowerCase'}" />
+                                                 <Text text="{= ${PointType}=== 'OFFER_BANK_TRANSFER' ? 'NA' : ${path:'RewardPoints'} }" />
+                                                <Text text="{= ${PaymentTransaction}=== null ? 'NA' : ${path:'PaymentTransaction/TransactionAmount'} }" />
+                                                <Text text="{= ${PaymentTransaction}=== null ? 'NA' : ${path:'PaymentTransaction/TransactionStatus',formatter:'.fmtStatusType'} }" />
+                                                <Text text="{= ${PaymentTransaction}=== null ? 'NA' : ${path:'PaymentTransaction/TransactionMessage'} }" />
+                                                 <Text text="{= ${Offer}=== null ? 'NA' : ${Offer/OfferCode} } " />
+                                         </cells>      
+                                    </ColumnListItem>
+                                </items> 
+                            </Table> 
+                        </smartTable:SmartTable>
+			</IconTabFilter>
+			
+		</items>
+	</IconTabBar>
+</core:FragmentDefinition>
