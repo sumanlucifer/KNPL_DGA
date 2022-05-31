@@ -213,10 +213,6 @@
                     <Column>
                         <Text text="{i18n>BankDetailsStatus}"/>
                     </Column>
-                  
-                    <!-- <Column width="8%">
-                        <Text text="{i18n>Action}"/>
-                    </Column>  -->
                 </columns>
 
                 <items>
