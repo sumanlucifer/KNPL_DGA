@@ -112,7 +112,7 @@
                        <VBox items="{
                            path: 'QuotationSelectedProducts'
                            }">
-                           <Text text="{= ${MasterProductShades/ShadeCode} ? ${MasterProductShades/ShadeName} + ' (' + ${MasterProductShades/ShadeCode} + ')' : '--' }"/>
+                           <Text text="{= ${MasterProductShades/ShadeCode} ? ${MasterProductShades/ShadeCode} + '-' + ${MasterProductShades/ShadeName} : '--' }"/>
                         </VBox>
                     </cells>
                 </ColumnListItem>

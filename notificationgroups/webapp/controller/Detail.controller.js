@@ -342,25 +342,26 @@ sap.ui.define(
                 oModelControl.setProperty("/PageBusy", true);
                 var othat = this;
                 var c1, c2, c3;
-                var c1, c1b, c1c, c2, c3, c4;
+                var c1, c1b, c1c,c1d, c2, c3, c4;
                 c1 = othat._CheckEmptyFieldsPostPayload();
                 c1.then(function (oPayload) {
                     c1b = othat._CreateRadioButtonPayload(oPayload);
                     c1b.then(function (oPayload) {
                         c1c = othat._CreateMultiComboPayload(oPayload)
                         c1c.then(function (oPayload) {
-                            c2 = othat._UpdatedObject(oPayload)
-                            c2.then(function (oPayload) {
-                                c3 = othat._uploadFile(oPayload);
-                                c3.then(function () {
-                                    oModelControl.setProperty("/PageBusy", false);
-                                    othat.onNavToHome();
+                            c1d = othat._RemoveNavigationProp(oPayload);
+                            c1d.then(function(oPayload){
+                                c2 = othat._UpdatedObject(oPayload)
+                                c2.then(function (oPayload) {
+                                    c3 = othat._uploadFile(oPayload);
+                                    c3.then(function () {
+                                        oModelControl.setProperty("/PageBusy", false);
+                                        othat.onNavToHome();
+                                    })
                                 })
                             })
                         })
-
                     })
-
                 })
 
             },
@@ -370,16 +371,15 @@ sap.ui.define(
                 var oDataModel = oView.getModel();
                 var oModelControl = oView.getModel("oModelControl");
                 var sProp = oModelControl.getProperty("/bindProp")
-                console.log(oPayLoad, oModelControl)
+              
                 return new Promise((resolve, reject) => {
                     oDataModel.update("/" + sProp, oPayLoad, {
                         success: function (data) {
-                            MessageToast.show(othat._showMessageToast("Message1"));
+                            othat._showMessageToast("Message1");
                             resolve(data);
                         },
                         error: function (data) {
-                            MessageToast.show(othat._showMessageToast("Message2"));
-
+                            othat._showMessageToast("Message2");
                             reject(data);
                         },
                     });

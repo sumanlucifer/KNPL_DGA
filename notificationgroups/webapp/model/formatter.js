@@ -65,7 +65,7 @@ sap.ui.define([], function () {
         },
         fmtDisplaySection3: function (mParam1, mParam2) {
 
-            console.log(mParam1, mParam2)
+            //console.log(mParam1, mParam2)
             if (mParam1 === 'Edit') {
                 if (this.getView().getModel("oModelView")) {
                     var bTargetGroup = this.getView().getModel("oModelView").getProperty("/IsTargetGroup");
@@ -79,7 +79,7 @@ sap.ui.define([], function () {
 
         },
         fmtDisplaySection4: function (mParam1, mParam2, mParam3) {
-            console.log(mParam1, mParam2, mParam3)
+           // console.log(mParam1, mParam2, mParam3)
             if (mParam1 === 'Edit') {
                 if (this.getView().getModel("oModelView")) {
                     var bTargetGroup = this.getView().getModel("oModelView").getProperty("/IsTargetGroup");
