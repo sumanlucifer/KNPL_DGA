@@ -30,7 +30,7 @@
                     </m:FlexBox>
                 </uxap:snappedHeading>
                 <uxap:actions>
-                    <Button press="onChangeStatus" type="Emphasized" text="{i18n>btnChangeStatus}" />
+                    <Button visible="false" press="onChangeStatus" type="Emphasized" text="{i18n>btnChangeStatus}" />
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
 
@@ -90,7 +90,7 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Referral}" id="referral">
+            <!-- <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Referral}" id="referral">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                         <VBox renderType="Bare">
@@ -181,15 +181,16 @@
                         </VBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
-            </uxap:ObjectPageSection>
+            </uxap:ObjectPageSection> -->
         </uxap:sections>
         <uxap:footer>
             <Bar visible="{= ${IsArchived} === false}">
                 <contentRight>
                     <!-- <Button text="{i18n>UpdateName}" type="Emphasized" press="onUpdatedName"/> -->
-                    <Button id="edit"  tooltip="{i18n>Edit}" text="{i18n>Edit}" type="Emphasized" enabled="true" press="handleEditPress"/>
+                    <!-- <Button id="edit"  tooltip="{i18n>Edit}" text="{i18n>Edit}" type="Emphasized" enabled="true" press="handleEditPress"/>
                     <Button id="cancel" tooltip="{i18n>Cancel}" text="{i18n>Cancel}" type="Ghost" visible="false" press="handleCancelPress"/>
-                    <Button id="save" tooltip="{i18n>Save}" text="{i18n>Save}" type="Emphasized" visible="false"/>
+                    <Button id="save" tooltip="{i18n>Save}" text="{i18n>Save}" type="Emphasized" visible="false"/> -->
+                     
                 </contentRight>
             </Bar>
         </uxap:footer>

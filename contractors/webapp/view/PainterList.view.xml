@@ -216,7 +216,7 @@
                 </columns>
 
                 <items>
-                    <ColumnListItem press="onListItemPress1" type="Navigation">
+                    <ColumnListItem press="onListItemPress" type="Navigation">
                         <cells>
                             <HBox  >
                             <core:Icon class="sapUiTinyMarginEnd" src="{path:'RegistrationStatus',formatter:'.formatter.RegStatusIcon'}" 
