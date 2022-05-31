@@ -3525,9 +3525,9 @@ sap.ui.define(
                     var oCtrlModel2 = oView.getModel("oModelControl2");
                     oCtrlModel2.setProperty("/modeEdit", false);
                     // Show the appropriate action buttons
-                    oView.byId("edit").setVisible(!bEdit);
-                    oView.byId("save").setVisible(bEdit);
-                    oView.byId("cancel").setVisible(bEdit);
+                    // oView.byId("edit").setVisible(!bEdit);
+                    // oView.byId("save").setVisible(bEdit);
+                    // oView.byId("cancel").setVisible(bEdit);
                     // Set the right form type
                     // this._showFormFragment(bEdit ? "Change" : "Display");
                 },
