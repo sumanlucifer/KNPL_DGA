@@ -444,6 +444,24 @@ sap.ui.define(
                                                 value1: oViewFilter[prop].trim(),
                                                 caseSensitive: false
                                             }),
+                                            new Filter({
+                                                path: "Slab/Slab",
+                                                operator: "Contains",
+                                                value1: oViewFilter[prop].trim(),
+                                                caseSensitive: false
+                                            }),
+                                            new Filter({
+                                                path: "PrimaryDealerDetails/DealerName",
+                                                operator: "Contains",
+                                                value1: oViewFilter[prop].trim(),
+                                                caseSensitive: false
+                                            }),
+                                            new Filter({
+                                                path: "PrimaryDealerDetails/Id",
+                                                operator: "EQ",
+                                                value1: oViewFilter[prop].trim(),
+                                                caseSensitive: false
+                                            }),
                                         ],
                                         false
                                     )
