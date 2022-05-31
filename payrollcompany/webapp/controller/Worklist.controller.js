@@ -40,99 +40,171 @@ sap.ui.define(
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
                 var oDataControl = {
-                    filterBar: {
-                        StartDate: null,
-                        EndDate: null,
-                        Status: "",
-                        Search: "",
-                        ZoneId: "",
-                        DivisionId: "",
-                        DepotId: "",
-
+                    AddFields: {
+                        Name: ""
                     },
-                    PageBusy: true
+                    EditFields: {},
+                    PageBusy: false
                 };
                 var oMdlCtrl = new JSONModel(oDataControl);
                 this.getView().setModel(oMdlCtrl, "oModelControl");
-                var startupParams;
-                if (this.getOwnerComponent().getComponentData()) {
-                    startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                }
-                // console.log(startupParams);
-                if (startupParams) {
-                    if (startupParams.hasOwnProperty("DgaId")) {
-                        if (startupParams["DgaId"].length > 0) {
-                            this._onNavToDetails(startupParams["DgaId"][0]);
-                        }
-                    }
-                }
+
                 oRouter
                     .getRoute("worklist")
                     .attachMatched(this._onRouteMatched, this);
-
-
-
-            },
-            _ResetFilterBar: function () {
-                var aCurrentFilterValues = [];
-                var aResetProp = {
-                    StartDate: null,
-                    Status: "",
-                    Search: "",
-                    ZoneId: "",
-                    DivisionId: "",
-                    DepotId: "",
-
-                };
-                var oViewModel = this.getView().getModel("oModelControl");
-                oViewModel.setProperty("/filterBar", aResetProp);
-                var oTable = this.getView().byId("idWorkListTable1");
-                oTable.rebindTable();
-
             },
             _onRouteMatched: function () {
-                this._InitData();
+                // this._InitData();
+                this._addSearchFieldAssociationToFB();
             },
             onPressAddObject: function () {
-                /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
-                 * Language:  JS
-                 * Purpose: Navigation to add object view and controller
-                 */
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Add");
+                var oView = this.getView();
+                return new Promise(function (resolve, reject) {
+                    if (!this._AddNewPayrollCompany) {
+                        Fragment.load({
+                            id: oView.getId(),
+                            name: "com.knpl.dga.payrollcompany.view.fragments.AddNewPayrollCompany",
+                            controller: this,
+                        }).then(
+                            function (oDialog) {
+                                this._AddNewPayrollCompany = oDialog;
+                                oView.addDependent(this._AddNewPayrollCompany);
+                                this._AddNewPayrollCompany.open();
+                                resolve();
+                            }.bind(this)
+                        );
+                    } else {
+                        this._AddNewPayrollCompany.open();
+                        resolve();
+                    }
+                }.bind(this));
+            },
+            onPressEditObject: function (oEvent) {
+                var oView = this.getView();
+                var oContext = oEvent.getSource().getBindingContext();
+                var contextObject = {};
+                jQuery.extend(true, contextObject, oContext.getObject());
+                oView.getModel("oModelControl").setProperty("/EditFields", contextObject);
+                return new Promise(function (resolve, reject) {
+                    if (!this._EditPayrollCompany) {
+                        Fragment.load({
+                            id: oView.getId(),
+                            name: "com.knpl.dga.payrollcompany.view.fragments.EditPayrollCompany",
+                            controller: this,
+                        }).then(
+                            function (oDialog) {
+                                this._EditPayrollCompany = oDialog;
+                                oView.addDependent(this._EditPayrollCompany);
+                                this._EditPayrollCompany.open();
+                                resolve();
+                            }.bind(this)
+                        );
+                    } else {
+                        this._EditPayrollCompany.open();
+                        resolve();
+                    }
+                }.bind(this));
+            },
+            onPayrollCompanyDialogCancel: function () {
+                if(this._AddNewPayrollCompany){
+                    this.getView().byId("idPayrollCompanyAdd").setValueState("None");
+                    this.getView().byId("idPayrollCompanyAdd").setValueStateText("");
+                    this._AddNewPayrollCompany.close();
+                }
+                if(this._EditPayrollCompany){
+                    this.getView().byId("idPayrollCompanyEdit").setValueState("None");
+                    this.getView().byId("idPayrollCompanyEdit").setValueStateText("");
+                    this._EditPayrollCompany.close();
+                }
 
             },
-            _InitData: function () {
-
-                /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
-                 * Language:  JS
-                 * Purpose: once the view elements load we have to 
-                 * 1. get the logged in users informaion. 2.rebind the table to load data and apply filters 3. perform other operations that are required at the time 
-                 * of loading the application
-                 */
+            onPayrollCompanyDialogAdd: function(){
+                var oView = this.getView();
+                var oDataModel = this.getView().getModel();
+                var oModelContrl = oView.getModel("oModelControl");
 
                 var othat = this;
-                var oView = this.getView();
-                var oModelControl = oView.getModel("oModelControl");
-                var c1, c2, c3, c4;
-                oModelControl.setProperty("/PageBusy", true)
-                c1 = othat._addSearchFieldAssociationToFB();
-                c1.then(function () {
-                    c2 = othat._dummyPromise();
-                    c2.then(function () {
-                        c3 = othat._initTableData();
-                        c3.then(function () {
-                            oModelControl.setProperty("/PageBusy", false)
-                        })
-                    })
-                })
 
+                if(oModelContrl.getProperty("/AddFields/Name").length === 0){
+                    oView.byId("idPayrollCompanyAdd").setValueState("Error");
+                    oView.byId("idPayrollCompanyAdd").setValueStateText("Enter some value");
+                    return;
+                }
+
+                if(oModelContrl.getProperty("/AddFields/Name").length > 100){
+                    oView.byId("idPayrollCompanyAdd").setValueState("Error");
+                    oView.byId("idPayrollCompanyAdd").setValueStateText("Name must be within 100 character");
+                    return;
+                }
+
+                var c1 = this._postCreateData(oModelContrl.getProperty("/AddFields"));
+
+                c1.then(function (oData) {
+                    othat.onPayrollCompanyDialogCancel();
+                    
+                        
+                    oDataModel.refresh(true);
+                });
             },
+            _postCreateData: function (oPayLoad) {
+                var promise = jQuery.Deferred();
+                var oDataModel = this.getView().getModel();
+                var othat = this;
+                oDataModel.create("/MasterPayrollCompanies", oPayLoad, {
+                    success: function (oData) {
+                        MessageToast.show("Payroll Company Successfully Created");
+                        promise.resolve(oData);
+                        //othat.navPressBack();
+                    },
+                    error: function (a) {
+                        MessageBox.error(
+                            "Unable to create a Payroll Company due to the server issues",
+                            {
+                                title: "Error Code: " + a.statusCode,
+                            }
+                        );
+                        promise.reject(a);
+                    },
+                });
+                return promise;
+            },
+            onPayrollCompanyDialogSave: function(oEvent){
+                var oView = this.getView(), oThat=this;
+                var oData = oView.getModel();
+                var oModel = oView.getModel("oModelControl");
 
+                if(oView.byId("idPayrollCompanyEdit").getValue().length === 0){
+                    oView.byId("idPayrollCompanyEdit").setValueState("Error");
+                    oView.byId("idPayrollCompanyEdit").setValueStateText("Enter some value");
+                    return;
+                }
+
+                if(oView.byId("idPayrollCompanyEdit").getValue().length > 100){
+                    oView.byId("idPayrollCompanyEdit").setValueState("Error");
+                    oView.byId("idPayrollCompanyEdit").setValueStateText("Name must be within 100 character");
+                    return;
+                }
+
+                var oPayload = {
+                    Id:oModel.getProperty("/EditFields/Id"),
+                    Name:oModel.getProperty("/EditFields/Name"),
+                };
+                
+                var othat = this;
+                oData.update("/MasterPayrollCompanies("+Number(oModel.getProperty("/EditFields/Id"))+")", oPayload, {
+                    success: function () {
+                        oModel.setProperty("/EditFields", {});
+                           oData.refresh(true);
+                        MessageToast.show("Payroll Company Successfully Updated.");
+                        othat.onPayrollCompanyDialogCancel();
+                    },
+                    error: function (a) {
+                        MessageBox.error(othat._sErrorText, {
+                            title: "Error Code: " + a.statusCode,
+                        });
+                    },
+                });
+            },
             _addSearchFieldAssociationToFB: function () {
                 /*
                  * Author: manik saluja
@@ -148,7 +220,6 @@ sap.ui.define(
                 if (!oSearchField) {
                     // @ts-ignore
                     oBasicSearch = new sap.m.SearchField({
-                        value: "{oModelControl>/filterBar/Search}",
                         showSearchButton: true,
                         search: othat.onFilterBarSearch.bind(othat)
                     });
@@ -158,227 +229,30 @@ sap.ui.define(
                 return promise;
 
             },
-            _getLoggedInInfo: function () {
-                /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
-                 * Language:  JS
-                 * Purpose: getting the logged in details of the user
-                 */
-                var promise = jQuery.Deferred();
-                var oView = this.getView()
-                var oData = oView.getModel();
-                var oLoginModel = oView.getModel("LoginInfo");
-                var oLoginData = oLoginModel.getData()
-                if (Object.keys(oLoginData).length === 0) {
-                    return new Promise((resolve, reject) => {
-                        oData.callFunction("/GetLoggedInAdmin", {
-                            method: "GET",
-                            urlParameters: {
-                                $expand: "UserType",
-                            },
-                            success: function (data) {
-                                if (data.hasOwnProperty("results")) {
-                                    if (data["results"].length > 0) {
-                                        oLoginModel.setData(data["results"][0]);
-                                    }
-                                }
-                                resolve();
-                            },
-                        });
-                    })
-                } else {
-                    promise.resolve();
-                    return promise;
-                }
-
-            },
-            _initTableData: function () {
-                /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
-                 * Language:  JS
-                 * Purpose: Used to load the table data and trigger the on before binding method.
-                 */
-                var promise = jQuery.Deferred();
-                var oView = this.getView();
-                var othat = this;
-                if (oView.byId("idWorkListTable1")) {
-                    oView.byId("idWorkListTable1").rebindTable();
-                }
-                promise.resolve();
-                return promise;
-            },
-            onBindTblComplainList: function (oEvent) {
-                /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
-                 * Language:  JS
-                 * Purpose: init binding method for the table.
-                 */
-                var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Painter,ComplaintType";
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
-
-                // Apply Filters
-                var oFilter = this._CreateFilter();
-                if (oFilter) {
-                    oBindingParams.filters.push(oFilter);
-                }
-
-            },
             onFilterBarSearch: function () {
-                var oView = this.getView();
-                oView.byId("idWorkListTable1").rebindTable();
-            },
-            _CreateFilter: function () {
-                var aCurrentFilterValues = [];
-                var oViewFilter = this.getView()
-                    .getModel("oModelControl")
-                    .getProperty("/filterBar");
+                var filters = [];
+                var query = this.getView().byId("filterbar").getBasicSearchValue();
+                if (query && query.length > 0) {
+                    var nameFilter = new sap.ui.model.Filter({
+                        path: "Name",
+                        operator: "Contains",
+                        value1: query.trim(),
+                        caseSensitive: false
+                    });
 
-                var aFlaEmpty = false;
-                // init filters - is archived and complaint type id is 1
-                aCurrentFilterValues.push(
-                    new Filter("IsArchived", FilterOperator.EQ, false));
-                aCurrentFilterValues.push(
-                    new Filter("ComplaintTypeId", FilterOperator.NE, 1));
-
-
-                // filter bar filters
-                for (let prop in oViewFilter) {
-                    if (oViewFilter[prop]) {
-                        if (prop === "StartDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
-                        } else if (prop === "EndDate") {
-                            // converstions are made as the difference between utc and the server time
-                            aFlaEmpty = false;
-                            var oDate = new Date(oViewFilter[prop]).setDate(oViewFilter[prop].getDate() + 1);
-                            aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.LT, oDate));
-                        } else if (prop === "Status") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("ComplaintStatus", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "ZoneId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DvisionId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DepotId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "Search") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter(
-                                    [
-                                        new Filter({
-                                            path: "Painter/Name",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "ComplaintCode",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        })
-                                    ],
-                                    false
-                                )
-                            );
-                        }
-                    }
+                    filters.push(nameFilter);
                 }
 
-                var endFilter = new Filter({
-                    filters: aCurrentFilterValues,
-                    and: true,
-                });
-                if (!aFlaEmpty) {
-                    return endFilter;
-                } else {
-                    return false;
-                }
+                var list = this.getView().byId("idPayrollTable");
+                var binding = list.getBinding("items");
+                binding.filter(filters);
             },
-
             onResetFilterBar: function () {
-                this._ResetFilterBar();
-            },
-
-
-            onListItemPress: function (oEvent) {
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
-                    Mode: "Display"
-                });
+                var oList = this.getView().byId("idPayrollTable");
+                var oBinding = oList.getBinding("items");
+                oBinding.filter([]);
 
             },
-            _onNavToDetails: function (mParam1) {
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: mParam1,
-                    Mode: "Display"
-                });
-
-            },
-            onZoneChange: function (oEvent) {
-                var sId = oEvent.getSource().getSelectedKey();
-                var oView = this.getView();
-                // setting value for division
-                var oDivision = oView.byId("idDivision");
-                oDivision.clearSelection();
-                oDivision.setValue("");
-                var oDivItems = oDivision.getBinding("items");
-                oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
-                //setting the data for depot;
-                var oDepot = oView.byId("idDepot");
-                oDepot.clearSelection();
-                oDepot.setValue("");
-                // clearning data for dealer
-            },
-            onDivisionChange: function (oEvent) {
-                var sKey = oEvent.getSource().getSelectedKey();
-                var oView = this.getView();
-                var oDepot = oView.byId("idDepot");
-                var oDepBindItems = oDepot.getBinding("items");
-                oDepot.clearSelection();
-                oDepot.setValue("");
-                oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
-            },
-
-            onPressDelete: function (oEvent) {
-                var oView = this.getView();
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                this._showMessageBox1("information", "Message5", [oBj["ComplaintCode"]],
-                    this._DeleteComplaints.bind(this, "first paramters", "secondParameter")
-                );
-            },
-            _DeleteComplaints: function (mParam1, mParam2) {
-                // after deleting the entity make sure that we are calling the refresh just on the table and not on thw whole model
-                MessageToast.show("Message5")
-            },
-
-            onEditListItemPress: function (oEvent) {
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
-                    Mode: "Edit"
-                });
-
-            }
         }
         );
     }

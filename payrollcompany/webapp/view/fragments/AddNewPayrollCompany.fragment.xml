@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+
+    <Dialog binding="{oModelControl>/QRCodeData}" class="sapUiContentPadding" title="{i18n>Add} {i18n>MainObject}" >
+        <content>
+            <f:SimpleForm columnsL="2" layout="ResponsiveGridLayout"	columnsM="2"	singleContainerFullSize="false"  >
+                <Label text="{i18n>PayrollCompanyName}" />
+                <Input required="true" id="idPayrollCompanyAdd" value="{path:'oModelControl>/AddFields/Name', type : 'sap.ui.model.type.String', constraints:{ minLength:1 } }" />
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Add" press="onPayrollCompanyDialogAdd"  type="Emphasized" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onPayrollCompanyDialogCancel" />
+        </endButton>
+    </Dialog>
+   
+</core:FragmentDefinition>
