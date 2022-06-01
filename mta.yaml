@@ -102,6 +102,10 @@ modules:
       - comknpldgadealers.zip
       name: comknpldgadealers
       target-path: resources/
+    - artifacts:
+      - comknpldgaperformancetarget.zip
+      name: comknpldgaperformancetarget
+      target-path: resources/
 - name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
@@ -249,6 +253,16 @@ modules:
 - name: comknpldgadealers
   type: html5
   path: dealers
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgaperformancetarget
+  type: html5
+  path: performancetarget
   build-parameters:
     build-result: dist
     builder: custom
