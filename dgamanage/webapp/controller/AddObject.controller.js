@@ -106,7 +106,7 @@ sap.ui.define([
                 PayrollCompanyId: "",
                 Zone: "",
                 DivisionId: "",
-                DepotId: "",
+                //DepotId: "",
                 DGADealers: [],
                 ServicePincodes: [],
                 StateId: "",
@@ -116,6 +116,7 @@ sap.ui.define([
                 ExitDate: null,
                 WorkLocationId: "",
                 ChildTowns:[],
+                Positions:[],
                 AllocatedDGACount:""
 
             }
@@ -260,6 +261,21 @@ sap.ui.define([
                     aDataFinal.push({ WorkLocationId: x["Id"] });
             }
             oPayload["ChildTowns"] = aDataFinal;
+            // Depot
+            var aExistingDealers = oModelView.getProperty("/Positions");
+            var aSelectedDealers = oModelControl.getProperty("/MultiCombo/Depots")
+            var iDealers = -1;
+            var aDealers = [];
+            for (var x of aSelectedDealers) {
+                iDealers = aExistingDealers.findIndex(item => item["Id"] === x["Id"])
+                if (iDealers >= 0) {
+                    //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
+                    aDealers.push(aExistingDealers["Positions"][iDealers]);
+                } else {
+                    aDealers.push({ DepotId: x["Id"] });
+                }
+            }
+            oPayload["Positions"] = aDealers;
             promise.resolve(oPayload);
             return promise
 

@@ -33,11 +33,13 @@
                     <core:Item text="{Id}" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>Depot}" />
-                <ComboBox required="true" selectionChange="onDepotChange" editable="{= ${oModelView>/DivisionId}!=='' }" id="idDepot" items="{path:'/MasterDepots',parameters:{expand:'State'}}" selectedKey="{path:'oModelView>/DepotId',type:'sap.ui.model.type.String',constraints:{minLength:1} }">
-                    <core:Item text="{Depot} ( {Id} )" key="{Id}" />
-                </ComboBox>
+                 <MultiInput editable="{= ${oModelView>/DivisionId}!=='' }" placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDepotValueHelp" tokens="{path:'oModelControl>/MultiCombo/Depots'}">
+                    <tokens>
+                        <Token text="{oModelControl>Name} - {oModelControl>Id}" key="{oModelControl>Id}"/>
+                    </tokens>
+                </MultiInput>
                 <Label text="{i18n>LinkDealer}" visible="{= ${oModelControl>/mode} === 'Add'}" required="true" />
-                <MultiInput visible="{= ${oModelControl>/mode} === 'Add'}" editable="{= ${oModelView>/DepotId}!=='' }"  placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDealersValueHelp" tokens="{path:'oModelControl>/MultiCombo/Dealers'}">
+                <MultiInput visible="{= ${oModelControl>/mode} === 'Add'}" editable="{= ${oModelControl>/MultiCombo/Depots}.length > 0 }"  placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDealersValueHelp" tokens="{path:'oModelControl>/MultiCombo/Dealers'}">
                     <tokens>
                         <Token text="{oModelControl>Name} - {oModelControl>Id}" key="{oModelControl>Id}"/>
                     </tokens>

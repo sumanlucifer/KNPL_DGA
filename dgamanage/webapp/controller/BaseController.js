@@ -94,7 +94,8 @@ sap.ui.define([
                 MultiCombo: {
                     Dealers: [],
                     Pincode2: [],
-                    ChildTowns: []
+                    ChildTowns: [],
+                    Depots: []
                 },
                 bSaveEnabledFlag1: true
             };
@@ -409,11 +410,12 @@ sap.ui.define([
             var oDivItems = oDivision.getBinding("items");
             oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
             //setting the data for depot;
-            var oDepot = oView.byId("idDepot");
-            oDepot.clearSelection();
-            oDepot.setValue("");
+            // var oDepot = oView.byId("idDepot");
+            // oDepot.clearSelection();
+            // oDepot.setValue("");
             // clearning data for dealer
             oModelContorl.setProperty("/MultiCombo/Dealers", []);
+            oModelContorl.setProperty("/MultiCombo/Depots", []);
             oModelView.setProperty("/StateId", "");
         },
         onDivisionChange: function (oEvent) {
@@ -421,13 +423,14 @@ sap.ui.define([
             var oView = this.getView();
             var oModelContorl = oView.getModel("oModelControl");
             var oModelView = oView.getModel("oModelView");
-            var oDepot = oView.byId("idDepot");
-            var oDepBindItems = oDepot.getBinding("items");
-            oDepot.clearSelection();
-            oDepot.setValue("");
-            oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
+            //var oDepot = oView.byId("idDepot");
+            //var oDepBindItems = oDepot.getBinding("items");
+            //oDepot.clearSelection();
+            //oDepot.setValue("");
+            //oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
             // clearning data for dealer
             oModelContorl.setProperty("/MultiCombo/Dealers", []);
+            oModelContorl.setProperty("/MultiCombo/Depots", []);
             oModelView.setProperty("/StateId", "");
         },
         onDepotChange: function (oEvent) {
@@ -450,19 +453,29 @@ sap.ui.define([
             var aFilter = [];
             var sZone = oModelView.getProperty("/Zone");
             var sDivision = oModelView.getProperty("/DivisionId");
-            var sDepot = oModelView.getProperty("/DepotId");
+            var aDepot = oModelView.getProperty("/MultiCombo/Depots");
             if (sZone) {
                 aFilter.push(new Filter("Zone", FilterOperator.EQ, sZone))
             }
             if (sDivision) {
                 aFilter.push(new Filter("DivisionId", FilterOperator.EQ, sDivision))
             }
-            if (sDepot) {
-                aFilter.push(new Filter("DepotId", FilterOperator.EQ, sDepot));
+            if (aDepot.length>0) {
+                var aDepotFilter = [];
+                for (var x of aDepot ){
+                    aDepotFilter.push(new Filter("DepotId", FilterOperator.EQ, x["Id"]));
+
+                }
+                aFilter.push(new Filter({
+                    filters:aDepotFilter,
+                    and:false
+                }))
+                //aFilter.push(new Filter("DepotId", FilterOperator.EQ, sDepot));
             }
             if (sId) {
                 aFilter.push(new Filter("StateId", FilterOperator.EQ, sId));
             }
+            // filter for job location based on state id, depot id and division id
             var aFilterMain = new Filter(aFilter, true);
             oCmbx.clearSelection();
             oView.byId("cmbxJobLoc").getBinding("items").filter(aFilterMain);
@@ -477,7 +490,7 @@ sap.ui.define([
             if (parseInt(oBj["AllocatedDGACount"]) < 1) {
                 oModel.setProperty("/bSaveEnabledFlag1", false);
                 this._showMessageToast("Message19");
-            }else{
+            } else {
                 oModel.setProperty("/bSaveEnabledFlag1", true);
             }
             var oData = oView.getModel();
@@ -498,7 +511,7 @@ sap.ui.define([
                     } else {
                         oModel.setProperty("/MultiCombo/ChildTowns", [])
                     }
-                   
+
                 }.bind(this),
                 error: function () {
 
@@ -560,7 +573,36 @@ sap.ui.define([
 
                 return;
             }
+            // Depot Value Help
+            if (sPath === "/MasterDepots") {
+                if (sValue.length > 0) {
+                    var aFilter = new Filter(
+                        [
+                            new Filter({
+                                path: "Depot",
+                                operator: "Contains",
+                                value1: sValue,
+                                caseSensitive: false
+                            }),
+                            new Filter({
+                                path: "Id",
+                                operator: "Contains",
+                                value1: sValue,
+                                caseSensitive: false
+                            })
+                        ],
+                        false
+                    )
 
+
+                } else {
+                    var aFilter = [];
+                }
+                this._DepotValueHelpDialog
+                    .getBinding("items")
+                    .filter(aFilter, "Application");
+                return;
+            }
             // Dealers Valuehelp
 
             if (sPath === "/MasterDealers") {
@@ -653,6 +695,12 @@ sap.ui.define([
             if (this._DealerValueHelpDialog) {
                 this._DealerValueHelpDialog.destroy();
                 delete this._DealerValueHelpDialog;
+                return;
+            }
+            if (this._DepotValueHelpDialog) {
+                this._DepotValueHelpDialog.destroy();
+                delete this._DepotValueHelpDialog;
+                //console.log("depot value help closed")
                 return;
             }
             if (this._SalesGroupValueHelp) {
@@ -761,6 +809,84 @@ sap.ui.define([
             this._onDialogClose();
 
         },
+        handleDepotValueHelp: function () {
+            /*
+            * Author: manik saluja
+            * Date: 01-June-2022
+            * Language:  JS
+            * Purpose:  This method is used to open the popover for selecting the depot
+            * add dga form. 
+            */
+            var oView = this.getView();
+            if (!this._DepotValueHelpDialog) {
+                this._getViewFragment("DepotValueHelp").then(function (oControl) {
+                    this._DepotValueHelpDialog = oControl;
+                    oView.addDependent(this._DepotValueHelpDialog);
+                    this._onApplyFilterDepot();
+                    //this._DepotValueHelpDialog.open();
+                }.bind(this));
+            }
+
+        },
+        _onApplyFilterDepot: function () {
+            var sModeel = this.getModel("oModelControl") || this.getModel("oModelDisplay");
+            var sMode = sModeel.getProperty("/mode");
+            if (sMode === "Display") {
+                var sDivisionId = this.getView().getElementBinding().getBoundContext().getObject()["DivisionId"];
+
+            } else if (sMode === "Add" || sMode === "Edit") {
+                var sDivisionId = this.getView()
+                    .getModel("oModelView")
+                    .getProperty("/DivisionId");
+            }
+            //sDepotiId
+            var oFilter = new Filter(
+                [
+
+                    new Filter(
+                        "Division",
+                        FilterOperator.EQ,
+                        sDivisionId
+                    ),
+                ]
+            );
+            if (sDivisionId.trim() == "") {
+                this._DepotValueHelpDialog.getBinding("items").filter([]);
+            } else {
+                this._DepotValueHelpDialog.getBinding("items").filter(oFilter);
+            }
+            // open value help dialog filtered by the input value
+            this._DepotValueHelpDialog.open();
+        },
+        _handleDepotValueHelpConfirm: function (oEvent) {
+            var oSelected = oEvent.getParameter("selectedContexts");
+            var oView = this.getView();
+            var oModel = oView.getModel("oModelControl");
+            var aDealers = [],
+                oBj;
+
+            for (var a of oSelected) {
+                oBj = a.getObject();
+                console.log(oBj)
+                aDealers.push({
+                    Name: oBj["Depot"],
+                    Id: oBj["Id"],
+                });
+            }
+            if (oSelected.length > 0) {
+                var oState = oView.byId("cmBxState");
+                var oBj = oSelected[0].getObject()
+                var sStateId = oBj.State["__ref"].match(/\d{1,}/)[0];
+                var oState = oView.byId("cmBxState");
+                oState.setSelectedKey(sStateId);
+                oState.fireSelectionChange();
+            }
+            oModel.setProperty("/MultiCombo/Depots", aDealers);
+            oModel.refresh(true);
+            this._onDialogClose();
+            this._ResetDepotData();
+
+        },
         handleDealersValueHelp: function () {
             /*
             * Author: manik saluja
@@ -784,24 +910,34 @@ sap.ui.define([
             var sModeel = this.getModel("oModelControl") || this.getModel("oModelDisplay");
             var sMode = sModeel.getProperty("/mode");
             if (sMode === "Display") {
-                var sDepotiId = this.getView().getElementBinding().getBoundContext().getObject()["DepotId"];
+                var aPositions = this.getView().getElementBinding().getBoundContext().getObject()["Positions"];
+                // code for depot id
+
 
             } else if (sMode === "Add" || sMode === "Edit") {
-                var sDepotiId = this.getView()
-                    .getModel("oModelView")
-                    .getProperty("/DepotId");
+                var aDepotiId = this.getView()
+                    .getModel("oModelControl")
+                    .getProperty("/MultiCombo/Depots");
             }
-            var oFilter = new Filter(
-                [
+            // var oFilter = new Filter(
+            //     [
 
-                    new Filter(
-                        "DealerSalesDetails/Depot",
-                        FilterOperator.EQ,
-                        sDepotiId
-                    ),
-                ]
-            );
-            if (sDepotiId.trim() == "") {
+            //         new Filter(
+            //             "DealerSalesDetails/Depot",
+            //             FilterOperator.EQ,
+            //             sDepotiId
+            //         ),
+            //     ]
+            // );
+            var oFilter = [];
+            for (var x of aDepotiId) {
+                oFilter.push(new Filter(
+                    "DealerSalesDetails/Depot",
+                    FilterOperator.EQ,
+                    x["Id"]
+                ))
+            }
+            if (aDepotiId.length < 1) {
                 this._DealerValueHelpDialog.getBinding("items").filter([]);
             } else {
                 this._DealerValueHelpDialog.getBinding("items").filter(oFilter);
@@ -827,6 +963,9 @@ sap.ui.define([
             this._onDialogClose();
         },
         onDealersTokenUpdate: function (oEvent) {
+            console.log(oEvent)
+            var sPath = oEvent.getSource().getBinding("tokens").getPath();
+
             if (oEvent.getParameter("type") === "removed") {
                 var oView = this.getView();
                 var oModel = oView.getModel("oModelControl");
@@ -843,7 +982,15 @@ sap.ui.define([
                 });
                 oModel.setProperty(sPath, aNewArray);
             }
+            if (sPath === "/MultiCombo/Depots") {
+                this._ResetDepotData();
+            }
 
+
+        },
+        _ResetDepotData: function () {
+            this._propertyToBlank(["MultiCombo/Dealers"], true);
+            //this._propertyToBlank(["StateId"]);
         },
         _handlePinCodeValueHelpConfirm: function (oEvent) {
             // this method is overwritten for the pincode in the worklist view
@@ -871,6 +1018,30 @@ sap.ui.define([
             this._onDialogClose();
         },
 
+        _propertyToBlank: function (aArray, aModel2) {
+            var aProp = aArray;
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            if (aModel2) {
+                oModelView = oView.getModel("oModelControl");
+            }
+            for (var x of aProp) {
+                var oGetProp = oModelView.getProperty("/" + x);
+                if (Array.isArray(oGetProp)) {
+                    oModelView.setProperty("/" + x, []);
+                    //oView.byId(x.substring(x.indexOf("/") + 1)).fireChange();
+                } else if (oGetProp === null) {
+                    oModelView.setProperty("/" + x, null);
+                } else if (oGetProp instanceof Date) {
+                    oModelView.setProperty("/" + x, null);
+                } else if (typeof oGetProp === "boolean") {
+                    oModelView.setProperty("/" + x, false);
+                } else {
+                    oModelView.setProperty("/" + x, "");
+                }
+            }
+            oModelView.refresh(true);
+        },
 
 
 

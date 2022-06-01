@@ -2,21 +2,21 @@
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
 		<SelectDialog
-		title="{i18n>Dealers}"
+		title="{i18n>Depot}"
         growing="true"
-        growingThreshold="8"
+        growingThreshold="10"
         rememberSelections="true"
         noDataText="{i18n>tableNoDataText}"
 		class="sapUiPopupWithPadding"
-		items="{path:'/MasterDealers',sorter:{path:'Name'},parameters:{select:'Id,Name'} }"
+		items="{path:'/MasterDepots',parameters:{expand:'State'} }"
 	    search="_handlePValueHelpSearch"
-		confirm="_handleDealersValueHelpConfirm"
+		confirm="_handleDepotValueHelpConfirm"
         cancel="_onDialogClose"
-		multiSelect="true">
+		multiSelect="false">
 		<StandardListItem
 			iconDensityAware="false"
 			iconInset="false"
-            title="{Name} - {Id}"
+            title="{Depot} ( {Id} )"
 			 />
 	</SelectDialog>
 </core:FragmentDefinition>
