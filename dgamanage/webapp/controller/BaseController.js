@@ -280,7 +280,7 @@ sap.ui.define([
             var oModelControl = oView.getModel("oModelControl");
 
             if (oModelControl.getProperty("/MultiCombo/Depots").length === 0) {
-                this._showMessageToast("Message7");
+                this._showMessageToast("Message23");
                 return false;
             }
             if (oModelControl.getProperty("/MultiCombo/Dealers").length === 0 && oModelControl.getProperty("/mode") === "Add") {
