@@ -32,7 +32,7 @@
                 <ComboBox required="true" id="idDivision" editable="{= ${oModelView>/Zone}!=='' }" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelView>/DivisionId',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
                     <core:Item text="{Id}" key="{Id}" />
                 </ComboBox>
-                <Label text="{i18n>Depot}" />
+                <Label text="{i18n>Depot}" required="true" />
                  <MultiInput editable="{= ${oModelView>/DivisionId}!=='' }" placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDepotValueHelp" tokens="{path:'oModelControl>/MultiCombo/Depots'}">
                     <tokens>
                         <Token text="{oModelControl>Name} - {oModelControl>Id}" key="{oModelControl>Id}"/>

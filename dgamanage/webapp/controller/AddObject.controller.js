@@ -295,7 +295,7 @@ sap.ui.define([
                         resolve(data);
                     },
                     error: function (data) {
-                        oModelControl.getProperty("/PageBusy", false);
+                        oModelControl.setProperty("/PageBusy", false);
                         //othat._showMessageToast("Message4")
                         reject(data);
                     },

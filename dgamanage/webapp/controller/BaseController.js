@@ -279,6 +279,10 @@ sap.ui.define([
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
 
+            if (oModelControl.getProperty("/MultiCombo/Depots").length === 0) {
+                this._showMessageToast("Message7");
+                return false;
+            }
             if (oModelControl.getProperty("/MultiCombo/Dealers").length === 0 && oModelControl.getProperty("/mode") === "Add") {
                 this._showMessageToast("Message7");
                 return false;
@@ -449,11 +453,12 @@ sap.ui.define([
             var sId = oEvent.getSource().getSelectedKey();
             var oView = this.getView();
             var oModelView = oView.getModel("oModelView");
+            var oModelControl = oView.getModel("oModelControl")
             var oCmbx = oView.byId("cmbxJobLoc");
             var aFilter = [];
             var sZone = oModelView.getProperty("/Zone");
             var sDivision = oModelView.getProperty("/DivisionId");
-            var aDepot = oModelView.getProperty("/MultiCombo/Depots");
+            var aDepot = oModelControl.getProperty("/MultiCombo/Depots");
             if (sZone) {
                 aFilter.push(new Filter("Zone", FilterOperator.EQ, sZone))
             }
@@ -498,7 +503,7 @@ sap.ui.define([
                 new Filter("ParentTownId", FilterOperator.EQ, oBj["ParentTownId"]),
                 new Filter("TownId", FilterOperator.NE, oBj["ParentTownId"])
             ], true)
-
+            oModel.setProperty("/PageBusy",true)
             oData.read("/MasterWorkLocations", {
                 urlParameters: {
 
@@ -511,10 +516,10 @@ sap.ui.define([
                     } else {
                         oModel.setProperty("/MultiCombo/ChildTowns", [])
                     }
-
+                    oModel.setProperty("/PageBusy",false)
                 }.bind(this),
                 error: function () {
-
+                    oModel.setProperty("/PageBusy",false)
                 }
 
             })
@@ -867,12 +872,14 @@ sap.ui.define([
 
             for (var a of oSelected) {
                 oBj = a.getObject();
-                console.log(oBj)
+                
                 aDealers.push({
                     Name: oBj["Depot"],
                     Id: oBj["Id"],
                 });
             }
+            oModel.setProperty("/MultiCombo/Depots", aDealers);
+            oModel.refresh(true);
             if (oSelected.length > 0) {
                 var oState = oView.byId("cmBxState");
                 var oBj = oSelected[0].getObject()
@@ -881,8 +888,7 @@ sap.ui.define([
                 oState.setSelectedKey(sStateId);
                 oState.fireSelectionChange();
             }
-            oModel.setProperty("/MultiCombo/Depots", aDealers);
-            oModel.refresh(true);
+           
             this._onDialogClose();
             this._ResetDepotData();
 
