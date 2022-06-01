@@ -8,21 +8,21 @@
                         <fb:filterGroupItems>
                                <fb:FilterGroupItem groupName="__$INTERNAL$" name="Zone" label="{i18n>Zone}"  visibleInFilterBar="true" class="searchFieldLabelHidden">
                                    <fb:control>
-                                        <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>Zone}" required="true" selectionChange="onZoneChange"  items="{/MasterZones}" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
+                                        <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>Zone}"  selectionChange="onZoneChange"  items="{/MasterZones}" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
                                              <core:Item text="{Id} " key="{Id}" />
                                         </ComboBox>
                                    </fb:control>
                                </fb:FilterGroupItem>
                                <fb:FilterGroupItem groupName="__$INTERNAL$" name="Division" label="{i18n>Division}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                    <fb:control>
-                                        <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}"  required="true" placeholder="{i18n>Enter} {i18n>Division}" id="idDivision" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
+                                        <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}"   placeholder="{i18n>Enter} {i18n>Division}" id="idDivision" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
                                             <core:Item text="{Id}" key="{Id}" />
                                         </ComboBox>
                                     </fb:control>
                                </fb:FilterGroupItem>
                                <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                   <fb:control>
-                                      <Input id="idDepot" enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" required="true" placeholder="{i18n>Enter} {i18n>Depot}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleDepotValueHelp"  value="{path:'oModelControl>/AddFields/Depot'}"/>
+                                      <Input id="idDepot" enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}"  placeholder="{i18n>Enter} {i18n>Depot}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleDepotValueHelp"  value="{path:'oModelControl>/AddFields/Depot'}"/>
                                     
                                    </fb:control>
                                </fb:FilterGroupItem>

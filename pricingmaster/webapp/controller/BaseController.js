@@ -7,10 +7,11 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "../controller/Validator",
     "sap/m/MessageToast",
+    "sap/ui/Device",
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox, Filter, FilterOperator) {
+], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, Device, MessageBox, Filter, FilterOperator) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -350,7 +351,7 @@ sap.ui.define([
                 return;
             }
         },
-        _handleDepotValueHelp: function () {
+        _handleDepotValueHelp1: function () {
             /*
             * Author: Mamta Singh
             * Date: 27 may-2022
@@ -367,6 +368,61 @@ sap.ui.define([
             }
         },
 
+        _handleDepotValueHelp: function (oEvent) {
+
+
+
+            var oView = this.getView();
+            
+            if (!this._pDialog) {
+            
+            this._pDialog = Fragment.load({
+            
+            id: oView.getId(),
+            
+            name: "com.knpl.dga.pricingmaster.view.fragments.DepotValueHelp",
+            
+            controller: this
+            
+            }).then(function (oDialog) {
+            
+            oView.addDependent(oDialog);
+            
+            if (Device.system.desktop) {
+            
+            oDialog.addStyleClass("sapUiSizeCompact");
+            
+            }
+            
+            return oDialog;
+            
+            });
+            
+            }
+            
+            this._pDialog.then(function (oDialog) {
+            
+            var oList = oDialog.getAggregation("_dialog").getAggregation("content")[1];
+            
+            var sKey =  this.sDivisionKey;
+            
+            var sUserIDFilter = new sap.ui.model.Filter({
+            
+            path: "Division",
+            
+            operator: sap.ui.model.FilterOperator.EQ,
+            
+            value1: sKey
+            
+            });
+            
+            oList.getBinding("items").filter([sUserIDFilter]);
+            
+            oDialog.open();
+            
+            }.bind(this));
+            
+            },
         _handleDepotValueHelpConfirm: function (oEvent) {
             var oSelectedItem = oEvent.getParameter("selectedItem");
             var oViewModel = this.getView().getModel("oModelView"),
