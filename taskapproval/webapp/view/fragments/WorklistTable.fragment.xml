@@ -1,0 +1,140 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <smartTable:SmartTable id="idWorkListTable1" header="{i18n>MainObject} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="Leads" beforeRebindTable="onBindTblDGAList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="Id" >
+        <smartTable:customToolbar>
+			<OverflowToolbar>
+                <ToolbarSpacer />
+                <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Add} {i18n>MainObject}" press="onPressAddObject"/>
+            </OverflowToolbar>
+		</smartTable:customToolbar>
+
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
+            <columns>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/UniqueId", "leadingProperty": "DGA/UniqueId", "columnIndex": 13 ,"sortProperty": "DGA/UniqueId","filterProperty": "DGA/UniqueId"}'/>
+                    </customData>
+                    <Text text="{i18n>DGAId}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 14 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
+                    </customData>
+                    <Text text="{i18n>DGAName}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 0 ,"sortProperty": "Id","filterProperty": "Id"}'/>
+                    </customData>
+                    <Text text="{i18n>MainObject} {i18n>Id}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ConsumerName", "leadingProperty": "ConsumerName", "columnIndex": 11 ,"sortProperty": "ConsumerName","filterProperty": "ConsumerName"}'/>
+                    </customData>
+                    <Text text="{i18n>ConsumerName}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PrimaryNum", "leadingProperty": "PrimaryNum", "columnIndex": 12 ,"sortProperty": "PrimaryNum","filterProperty": "PrimaryNum"}'/>
+                    </customData>
+                    <Text text="{i18n>MobNo}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt", "columnIndex": 7 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                    </customData>
+                    <Text text="{i18n>CreatedAt}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadServiceType/Name", "leadingProperty": "LeadServiceType/Name", "columnIndex": 10 ,"sortProperty": "LeadServiceType/Name","filterProperty": "LeadServiceType/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>ServiceType}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PaintingReqSlab/LeadSubStatus", "leadingProperty": "PaintingReqSlab/LeadSubStatus", "columnIndex": 8 ,"sortProperty": "PaintingReqSlab/LeadSubStatus","filterProperty": "PaintingReqSlab/LeadSubStatus"}'/>
+                    </customData>
+                    <Text text="{i18n>SubType}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Pincode", "leadingProperty": "Pincode", "columnIndex": 5 ,"sortProperty": "Pincode","filterProperty": "Pincode"}'/>
+                    </customData>
+                    <Text text="{i18n>Pincode}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "State/Name", "leadingProperty": "State/Name", "columnIndex": 3 ,"sortProperty": "State/Name","filterProperty": "State/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>State}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Zone", "leadingProperty": "Zone", "columnIndex": 1 ,"sortProperty": "Zone","filterProperty": "Zone"}'/>
+                    </customData>
+                    <Text text="{i18n>Zone}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DivisionId", "leadingProperty": "DivisionId", "columnIndex": 2 ,"sortProperty": "DivisionId","filterProperty": "DivisionId"}'/>
+                    </customData>
+                    <Text text="{i18n>Division}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Depot/Depot", "leadingProperty": "Depot/Depot", "columnIndex": 4 ,"sortProperty": "Depot/Depot","filterProperty": "Depot/Depot"}'/>
+                    </customData>
+                    <Text text="{i18n>Depot}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Stage", "leadingProperty": "Stage", "columnIndex": 9 ,"sortProperty": "Stage","filterProperty": "Stage"}'/>
+                    </customData>
+                    <Text text="{i18n>Stage}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadStatus/Name", "leadingProperty": "LeadStatus/Name", "columnIndex": 6 ,"sortProperty": "LeadStatus/Name","filterProperty": "LeadStatus/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>Status}"/>
+                </Column>
+                <!-- <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions"}'/>
+                    </customData>
+                    <Text text="{i18n>Actions}"/>
+                </Column> -->
+
+            </columns>
+            <items>
+                <ColumnListItem press="onListItemPress" type="Navigation">
+                    <cells>
+                        <Text text="{DGA/UniqueId}"/>
+                        <Text text="{DGA/GivenName} {DGA/FamilyName}"/>
+                        <Text text="{Id}"/>
+                        <Text text="{ConsumerName}"/>
+                        <!-- <Text text="{path:'PrimaryNum',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/> -->
+                        <Text text="{PrimaryNum}"/>
+                        <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+                        <Text text="{LeadServiceType/Name}"/>
+                        <Text text="{PaintingReqSlab/LeadSubStatus}"/>
+                        <Text text="{Pincode}"/>
+                        <Text text="{State/Name}"/>
+                        <Text text="{Zone}"/>
+                        <Text text="{DivisionId}"/>
+                        <Text text="{Depot/Depot}"/>
+                        <Text text="{Stage}"/>
+                        <ObjectStatus text="{path:'LeadStatus/Name',formatter:'.formatter.fmtLowerCase'}" state="{= ${LeadStatus/Name} === 'Converted' ? 'Success' : ${LeadStatus/Name} === 'In Pipeline'  ? 'Warning' : ${LeadStatus/Name} === 'Lost' ? 'Error' : 'None' }"/>
+                        <!-- <HBox> -->
+                            <!-- <Button icon="sap-icon://edit" press="onEditListItemPress" type="Transparent" tooltip="{i18n>Edit}"/>
+                            <Button icon="sap-icon://delete" press="onPressDelete" type="Transparent" tooltip="{i18n>Delete}"/> -->
+                        <!-- </HBox> -->
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

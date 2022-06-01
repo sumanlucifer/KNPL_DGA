@@ -95,6 +95,10 @@ modules:
       name: comknpldgapayrollcompany
       target-path: resources/
     - artifacts:
+      - comknpldgataskapproval.zip
+      name: comknpldgataskapproval
+      target-path: resources/
+    - artifacts:
       - comknpldgadealers.zip
       name: comknpldgadealers
       target-path: resources/
@@ -225,6 +229,16 @@ modules:
 - name: comknpldgapayrollcompany
   type: html5
   path: payrollcompany
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgataskapproval
+  type: html5
+  path: taskapproval
   build-parameters:
     build-result: dist
     builder: custom
