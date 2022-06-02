@@ -133,6 +133,26 @@ sap.ui.define(
 
             },
 
+            // onIcnTbarChange: function (oEvent) {
+            //     var sKey = oEvent.getSource().getSelectedKey();
+            //     var oView = this.getView();
+            //     if (sKey == "0") {
+            //         oView.byId("LeadVisitTable").rebindTable();
+            //     }
+            //     else if (sKey == "1"){
+            //         oView.byId("NewLeadTable").rebindTable();
+            //     }
+            //     else if (sKey == "2"){
+            //         oView.byId("ContractorVisitCountTable").rebindTable();
+            //     }
+            //     else if (sKey == "3"){
+            //         oView.byId("NewLead").rebindTable();
+            //     }
+            //     else if (sKey == "4"){
+            //         oView.byId("LeadConversionTable").rebindTable();
+            //     }                
+            // },
+
             _addSearchFieldAssociationToFB: function () {
                 /*
                  * Author: manik saluja
