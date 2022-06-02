@@ -229,6 +229,9 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
+            sampleFunction:function(mParam1){
+                console.log(mParam1)
+            },
             onBindTblComplainList: function (oEvent) {
 
                 /*
@@ -238,7 +241,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGAType,Division,Depot,Pincode,PayrollCompany";
+                oBindingParams.parameters["expand"] = "DGAType,Division,Pincode,Positions,PayrollCompany";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
@@ -294,7 +297,7 @@ sap.ui.define(
                         } else if (prop === "DepotId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("DepotId", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Positions/DepotId", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "DGAType") {
 
                             aFlaEmpty = false;
@@ -360,6 +363,30 @@ sap.ui.define(
 
             onResetFilterBar: function () {
                 this._ResetFilterBar();
+            },
+            onZoneChange: function (oEvent) {
+                var sId = oEvent.getSource().getSelectedKey();
+                var oView = this.getView();
+                var oModelContorl = oView.getModel("oModelControl");
+                var oModelView = oView.getModel("oModelView");
+                // setting value for division
+                var oDivision = oView.byId("idDivision");
+                oDivision.clearSelection();
+                oDivision.setValue("");
+                var oDivItems = oDivision.getBinding("items");
+                oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
+            },
+            onDivisionChange: function (oEvent) {
+                var sKey = oEvent.getSource().getSelectedKey();
+                var oView = this.getView();
+                var oModelContorl = oView.getModel("oModelControl");
+                var oModelView = oView.getModel("oModelView");
+                var oDepot = oView.byId("idDepot");
+                var oDepBindItems = oDepot.getBinding("items");
+                oDepot.clearSelection();
+                oDepot.setValue("");
+                oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
+                // clearning data for dealer
             },
             _handlePinCodeValueHelpConfirm: function (oEvent) {
 

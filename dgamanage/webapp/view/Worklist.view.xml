@@ -22,7 +22,7 @@
                             </fb:FilterGroupItem>
                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                     <ComboBox enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}" selectionChange="onDepotChange"  items="{/MasterDepots}" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
+                                     <ComboBox enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}"  items="{/MasterDepots}" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
                                         <core:Item text="{Depot} ( {Id} )" key="{Id}" />
                                     </ComboBox>
                                 </fb:control>

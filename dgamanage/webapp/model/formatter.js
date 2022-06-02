@@ -81,40 +81,51 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
-        fmtChildTowns:function(mParam1){
-           
+        fmtChildTowns: function (mParam1) {
+
             var aArray = []
-            if(mParam1){
-                for (var x of mParam1){
-                    aArray.push(x["TownName"] +" - "+ x["TownId"])
+            if (mParam1) {
+                for (var x of mParam1) {
+                    aArray.push(x["TownName"] + " - " + x["TownId"])
                 }
             }
-           
+
             return aArray.join(", ")
-            
+
         },
-        fmtChildTowns2:function(mParam1){
-           
+        fmtChildTowns2: function (mParam1) {
+
             var aArray = []
-            if(mParam1){
+            if (mParam1) {
                 var oData = this.getView().getModel();
-                var sObj1,sObj2;
-                for (var x of mParam1){
-                    sObj1=oData.getProperty("/"+x);
-                    sObj2=oData.getProperty("/"+sObj1["WorkLocation"]["__ref"])
-                
-                    aArray.push(sObj2["TownName"] +" - "+ sObj2["TownId"])
+                var sObj1, sObj2;
+                for (var x of mParam1) {
+                    sObj1 = oData.getProperty("/" + x);
+                    sObj2 = oData.getProperty("/" + sObj1["WorkLocation"]["__ref"])
+
+                    aArray.push(sObj2["TownName"] + " - " + sObj2["TownId"])
                 }
             }
-           
+
             return aArray.join(", ")
         },
-        fmtDealerValueHelp1:function(mParam1,mParam2){
-            if(mParam1){
+        fmtDealerValueHelp1: function (mParam1, mParam2) {
+            if (mParam1) {
                 return this._geti18nText("Message22") + mParam1;
             }
-            if(mParam2){
+            if (mParam2) {
                 return this._geti18nText("Message22") + mParam2;
+            }
+        },
+        sampleFunction: function (mParam1) {
+            //mParam1 > 
+            if (Array.isArray(mParam1)) {
+                var oData = this.getView().getModel();
+                if (mParam1.length > 0) {
+                    for(var x in mParam1){
+                        return oData.getProperty("/" + mParam1[x])["DepotId"];
+                    }
+                }
             }
         }
     };
