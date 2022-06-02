@@ -31,7 +31,7 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "Zone", "leadingProperty": "Zone", "columnIndex": 2 ,"sortProperty": "Zone","filterProperty": "Zone"}'/>
                     </customData>
                     <Text text="{i18n>Zone}"/>
-                </Column>
+                </Column> 
 
                 <Column hAlign="Begin">
                     <customData>
@@ -42,7 +42,7 @@
 
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DepotCode", "leadingProperty": "DepotCode", "columnIndex": 4 ,"sortProperty": "DepotCode","filterProperty": "DepotCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Depot/Depot,DepotCode", "leadingProperty": "Depot/Depot,DepotCode", "columnIndex": 4 ,"sortProperty": "Depot/Depot,DepotCode","filterProperty": "Depot/Depot,DepotCode"}'/>
                     </customData>
                     <Text text="{i18n>Depot}"/>
                 </Column> 
@@ -114,9 +114,9 @@
                     <cells>
                         <Text text="{ProductCategory/Name}"/>
                         <Text text="{Class/Name}"/>
-                        <Text text="{Zone}"/>
-                        <Text text="{Division}"/>
-                        <Text text="{DepotCode}"/>
+                         <Text text="{Zone}"/> 
+                         <Text text="{Division}"/> 
+                        <Text text="{Depot/Depot}({DepotCode})"/>
                         <Text text="{Putty}"/>
                         <Text text="{Primer}"/>
                         <Text text="{Product/ProductName}"/>

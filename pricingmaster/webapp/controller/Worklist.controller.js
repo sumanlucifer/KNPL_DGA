@@ -212,7 +212,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "ProductCategory,Class,Product,PaintType,System,Plan,ValueAddition";
+                oBindingParams.parameters["expand"] = "ProductCategory,Class,Product,PaintType,System,Plan,ValueAddition,Depot";
                 // oBindingParams.sorter.push(new Sorter("ProductCategory/Name", true));
 
                 //    Apply Filters
@@ -254,7 +254,7 @@ sap.ui.define(
                         if (prop === "Depot") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("DepotCode", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Depot", FilterOperator.EQ, oViewFilter[prop]));
 
                         }
                         else if (prop === "CategoryId") {
