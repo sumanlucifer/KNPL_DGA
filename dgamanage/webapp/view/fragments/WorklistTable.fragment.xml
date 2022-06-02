@@ -108,7 +108,7 @@
                               <Text text="{DGAType/Name}"/>
                                 <Text text="{Zone}"/>
                                    <Text text="{Division/Id}"/>
-                                    <Text text="{path:'Positions/', formatter:'.formatter.sampleFunction'}"/>
+                                    <Text text="{path:'Positions/', formatter:'.formatter.GetWorkListDepot'}"/>
                                     <Text text="{Pincode/Name}"/>
                                      <Text text="{PayrollCompany/Name}"/>
                                     <ObjectStatus text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange'}"/>

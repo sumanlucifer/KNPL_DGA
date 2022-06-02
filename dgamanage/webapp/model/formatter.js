@@ -117,15 +117,18 @@ sap.ui.define([], function () {
                 return this._geti18nText("Message22") + mParam2;
             }
         },
-        sampleFunction: function (mParam1) {
-            //mParam1 > 
+        GetWorkListDepot: function (mParam1) {
+            var aArray=[];
             if (Array.isArray(mParam1)) {
+                var obj;
                 var oData = this.getView().getModel();
                 if (mParam1.length > 0) {
                     for(var x in mParam1){
-                        return oData.getProperty("/" + mParam1[x])["DepotId"];
+                        obj=oData.getProperty("/" + mParam1[x])["DepotId"];
+                        aArray.push(obj)
                     }
                 }
+                return aArray.join(" ")
             }
         }
     };
