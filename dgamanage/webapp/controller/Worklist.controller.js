@@ -337,7 +337,7 @@ sap.ui.define(
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "UniqueId",
+                                            path: "Positions/PositionCode",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false

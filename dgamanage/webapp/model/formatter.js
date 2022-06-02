@@ -117,14 +117,30 @@ sap.ui.define([], function () {
                 return this._geti18nText("Message22") + mParam2;
             }
         },
-        GetWorkListDepot: function (mParam1) {
-            var aArray=[];
+        GetWorkLisPositionId: function (mParam1) {
+
             if (Array.isArray(mParam1)) {
                 var obj;
                 var oData = this.getView().getModel();
                 if (mParam1.length > 0) {
-                    for(var x in mParam1){
-                        obj=oData.getProperty("/" + mParam1[x])["DepotId"];
+                    for (var x in mParam1) {
+                        obj = oData.getProperty("/" + mParam1[x]);
+                        if (obj["Status"] === "ACTIVATED") {
+                            return obj["PositionCode"];
+                        }
+                    }
+                }
+
+            }
+        },
+        GetWorkListDepot: function (mParam1) {
+            var aArray = [];
+            if (Array.isArray(mParam1)) {
+                var obj;
+                var oData = this.getView().getModel();
+                if (mParam1.length > 0) {
+                    for (var x in mParam1) {
+                        obj = oData.getProperty("/" + mParam1[x])["DepotId"];
                         aArray.push(obj)
                     }
                 }
