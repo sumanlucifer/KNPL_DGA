@@ -227,6 +227,7 @@ sap.ui.define(
                     oView.byId("idMaterialsReqTable4").rebindTable();
                     oView.byId("idMaterialsReqTable5").rebindTable();
                     oView.byId("idMaterialsReqTable6").rebindTable();
+                    oView.byId("idMaterialsReqTable1").rebindTable();
                 }
             },
 
