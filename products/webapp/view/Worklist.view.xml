@@ -1,52 +1,75 @@
-<mvc:View height="100%" xmlns:smartTable="sap.ui.comp.smarttable" controllerName="com.knpl.dga.products.controller.Worklist" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
-    <f:DynamicPage busyIndicatorDelay="0" busy="{oModelControl>/PageBusy}" id="dynamicPageId" headerExpanded="true">
-    
+<mvc:View
+	controllerName="com.knpl.dga.products.controller.Worklist"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+     xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:semantic="sap.f.semantic"
+    xmlns:smartTable="sap.ui.comp.smarttable">
+<f:DynamicPage headerExpanded="true">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Catalogues"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <!-- DynamicPage Header -->
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                    <fb:FilterBar showRestoreButton="false" id="filterbar" reset="onResetFilterBar" search="onFilterBarSearch" useToolbar="false" showRestoreOnFB="true">
+                    <fb:FilterBar id="filterbar" reset="onResetFilters" search="onSearch" useToolbar="false" showGoOnFB="true" showRestoreOnFB="true"> 
                         <fb:filterGroupItems>
-                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Zone" label="{i18n>Zone}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                     <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>Zone}" selectionChange="onZoneChange"  items="{/MasterZoneSet}" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
-                                        <core:Item text="{Id} " key="{Id}" />
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Search" label="Search" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                               <fb:control>
+                                    <SearchField id="idSearchInput" data:filterName="Search" value="{ViewModel>/filterBar/search}"
+                                     placeholder="{i18n>searchFilterPlaceholder}" showSearchButton="false" />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Creation Date" label="Creation Date" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                               <fb:control>
+                                    <DatePicker id="idCreationDateInput" data:filterName="Creation Date" value="{ViewModel>/filterBar/createdAt}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" placeholder="{i18n>creationDateFilterPlaceholder}"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Title" label="Title" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                 <fb:control>
+                                    <Input id="idTitleInput" data:filterName="Title" value="{ViewModel>/filterBar/title}" placeholder="{i18n>titleFilterPlaceholder}" />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Category" label="Category" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                 <fb:control>
+                                    <ComboBox
+                                    id="idCategory" 
+                                    data:filterName="Category"
+                                    value="{ViewModel>/filterBar/category}"
+                                        items="{
+                                            path: '/MasterProductCategorySet',
+                                            sorter: { path: 'Category' }
+                                        }">
+                                        <core:Item key="{Id}" text="{Category}" />
                                     </ComboBox>
+                                    <!-- <Input id="idCategory" data:filterName="Category" value="{ViewModel>/filterBar/category}" placeholder="{i18n>categoryFilterPlaceholder}" /> -->
                                 </fb:control>
                             </fb:FilterGroupItem>
-                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Division" label="{i18n>Division}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                      <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>Division}" id="idDivision" selectionChange="onDivisionChange" items="{/MasterDivisionSet}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
-                    <core:Item text="{Id}" key="{Id}" />
-                </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                     <ComboBox enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}" selectionChange="onDepotChange"  items="{/MasterDepotSet}" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
-                                        <core:Item text="{Depot} ( {Id} )" key="{Id}" />
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Classification" label="Classification" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                 <fb:control>
+                                    <ComboBox
+                                    id="idClassification" 
+                                    data:filterName="Classification"
+                                    value="{ViewModel>/filterBar/classification}"
+                                        items="{
+                                            path: '/MasterProductClassificationSet',
+                                            sorter: { path: 'Classification' }
+                                        }">
+                                        <core:Item key="{Id}" text="{Classification}" />
                                     </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-
-
-                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="StartDate" label="{i18n>StartDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                    <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/StartDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="EndDate" label="{i18n>EndDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                 <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/EndDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>MainObject} {i18n>Status}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                     <ComboBox id="idStatus" placeholder="{i18n>Select} {i18n>MainObject} {i18n>Status}" selectionChange="onStatusChange" selectedKey="{path:'oModelControl>/filterBar/Status' }">
-                                       <core:Item text="{i18n>Registered}" key="REGISTERED"/>
-                                        <core:Item text="{i18n>Inreview}" key="INREVIEW"/>
-                                        <core:Item text="{i18n>Resolved}" key="RESOLVED"/>
-                                        <core:Item text="{i18n>Withdrawn}" key="WITHDRAWN"/>
-                                    </ComboBox>
+                                    <!-- <Input id="idCategory" data:filterName="Category" value="{ViewModel>/filterBar/category}" placeholder="{i18n>categoryFilterPlaceholder}" /> -->
                                 </fb:control>
                             </fb:FilterGroupItem>
                         </fb:filterGroupItems>
@@ -54,8 +77,112 @@
                 </f:content>
             </f:DynamicPageHeader>
         </f:header>
-        <f:content>
-              <core:Fragment fragmentName="com.knpl.dga.products.view.fragments.WorklistTable" type="XML"/>
-        </f:content>
+         <f:content>
+        <smartTable:SmartTable
+                            id="idCatlogueTable"
+                            editable="false"
+                            header="{i18n>worklistTableTitle}"
+                            beforeRebindTable="fnrebindTable"                    
+                            entitySet="ProductCatalogueSet"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="true"
+                            ignoredFields="Status,UpdatedAt,UpdatedBy,ProductCategoryId,ProductClassificationId,ProductRangeId,Description,CreatedBy,IsArchived,IsSelected,Id"
+                            demandPopin="true"
+                            enableAutoBinding="true"
+                            placeToolbarInTable="true"
+                            requestAtLeastFields="Id,Status,PdfViewerCount,PdfDownloadCount,TotalPdfViewerCount,TotalPdfDownloadCount"
+                            persistencyKey="CatalogueSmartTableKey"
+                            >
+                            	<smartTable:customToolbar>
+			<OverflowToolbar>
+                        <!-- <Title text="{i18n>worklistTableTitle}" level="H4" class="stdTitleColor" /> -->
+                        <ToolbarSpacer />
+                        <Button icon="sap-icon://add" type="Emphasized" text="Add Catalogue" press="onPressAdd" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
+                    </OverflowToolbar>
+		</smartTable:customToolbar>
+                        <Table growingScrollToLoad="false" growing="true" growingThreshold="20" >
+                                <columns>
+                                 <Column hAlign="Begin" width="15%">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "ProductDetails/ProductName","type":"string", "leadingProperty": "ProductDetails/ProductName", "columnIndex": 0 }'/>
+                                        </customData>
+                                          <Text text="{i18n>name}"/>
+                                    </Column>
+                                 <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PdfViewerCount","type":"string", "leadingProperty": "PdfViewerCount", "columnIndex": 3 }'/>
+                                        </customData>
+                                          <Text text="{i18n>views}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PdfDownloadCount","type":"string", "leadingProperty": "PdfDownloadCount", "columnIndex": 4 }'/>
+                                        </customData>
+                                          <Text text="{i18n>downloads}" />
+                                    </Column>
+                                <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "TotalPdfViewerCount","type":"string", "leadingProperty": "TotalPdfViewerCount", "columnIndex": 5 }'/>
+                                        </customData>
+                                          <Text text="{i18n>totalViews}"/>
+                                    </Column>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "TotalPdfDownloadCount","type":"string", "leadingProperty": "TotalPdfDownloadCount", "columnIndex": 6 }'/>
+                                        </customData>
+                                          <Text text="{i18n>totalDownloads}"/>
+                                    </Column>
+                                   <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 7 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                        </customData>
+                                          <Text text="{i18n>date}"/>
+                                    </Column>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{ "columnIndex": 8,"columnKey":"actionStatus" }'/>
+                                        </customData>
+                                         <Text text="{i18n>status}"/>
+                                    </Column>
+                                    <Column hAlign="Begin" width="5%">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{ "columnIndex": 9,"columnKey":"edit" }'/>
+                                        </customData>
+                                         <Text text="{i18n>GenericAction}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem  type="Navigation" press="onPress">
+                                        <cells>
+                                            <Text text="{path:'ProductDetails/ProductName'}"/>
+                                            <FlexBox >
+                                            <Text text="{path:'PdfViewerCount'}" visible="{= (${PdfViewerCount} === 0) }"/>
+                                            <Link
+                                            visible="{= (${PdfViewerCount} !== 0) }"
+                                                text="{path:'PdfViewerCount'}"
+                                                press="onViewsPress"/>
+                                            </FlexBox>
+                                            <!-- <Button
+                                            icon="sap-icon://display"
+                                            text="{path:'PdfViewerCount'}"
+                                            press="onViewsPress"/> -->
+                                            <Text text="{path:'PdfDownloadCount'}"/>
+                                            <Text text="{path:'TotalPdfViewerCount'}"/>
+                                            <Text text="{path:'TotalPdfDownloadCount'}"/>
+                                            <Text text="{path:'CreatedAt',formatter:'.formatter.dateFormatter2'}"/>
+                                            <ObjectStatus text="{path: 'Status',
+                                                formatter: '.formatter.statusList'}" 
+                                                data:remarks="{Status}"
+                                                state="{= ${Status} === true? 'Success' : undefined || ${Status} === false? 'Warning' : undefined }"/>
+                                            <Button  icon="sap-icon://edit" type="Transparent" press="onPressEdit" tooltip="Edit" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
+                                        </cells>      
+                                    </ColumnListItem>
+                                </items> 
+                            </Table> 
+                        </smartTable:SmartTable>
+ </f:content>
     </f:DynamicPage>
 </mvc:View>
