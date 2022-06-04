@@ -406,6 +406,7 @@ sap.ui.define(
                 var c1 = this._bindMRTbl(oEvent,2);
                 var othat = this;
                 c1.then( () => {
+                   
                 });
             },
             onBeforeBindMatReqTbl3: function (oEvent) {
