@@ -310,13 +310,6 @@ sap.ui.define(
                                 new Filter(
                                     [
                                         new Filter({
-                                            path: "Id",
-                                            operator: oViewFilter[prop].trim().match(numbers) === null ? "NE" : "EQ",
-                                            value1: oViewFilter[prop].trim().match(numbers) === null ? null : oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-
-                                        new Filter({
                                             path: "ConsumerName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
@@ -363,6 +356,14 @@ sap.ui.define(
                                     false
                                 )
                             );
+                            if (oViewFilter[prop].trim().match(numbers)) {
+                                aCurrentFilterValues[aCurrentFilterValues.length - 1].aFilters.push(new Filter({
+                                    path: "Id",
+                                    operator: "EQ",
+                                    value1: oViewFilter[prop].trim().match(numbers) === null ? null : oViewFilter[prop].trim(),
+                                    caseSensitive: false
+                                }))
+                            }
                         }
                     }
                 }
