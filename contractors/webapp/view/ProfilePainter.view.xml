@@ -98,7 +98,7 @@
                         </VBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
-            </uxap:ObjectPageSection>
+            </uxap:ObjectPageSection> !-->
             <uxap:ObjectPageSection id="tokenSection" titleUppercase="false" title="{i18n>Tokens}" >
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
@@ -108,7 +108,7 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-            <uxap:ObjectPageSection id="learnSection" titleUppercase="false" title="{i18n>MyLearning}">
+            <!--<uxap:ObjectPageSection id="learnSection" titleUppercase="false" title="{i18n>MyLearning}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>LiveTraining}">
 
@@ -163,7 +163,7 @@
                         </VBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
-            </uxap:ObjectPageSection>
+            </uxap:ObjectPageSection> !-->
             <uxap:ObjectPageSection id="offerssection" titleUppercase="false" title="{i18n>Offers}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
@@ -173,7 +173,7 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-            <uxap:ObjectPageSection id="additionalrequest" titleUppercase="false" title="{i18n>additionalrequest}">
+            <!-- <uxap:ObjectPageSection id="additionalrequest" titleUppercase="false" title="{i18n>additionalrequest}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                         <VBox renderType="Bare">
