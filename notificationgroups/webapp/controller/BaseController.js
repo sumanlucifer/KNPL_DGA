@@ -524,7 +524,12 @@ sap.ui.define([
             }
         },
         onRbChnageMain: function (oEvent) {
-            this._propertyToBlank(["MultiCombo/Members", "MultiCombo/Zone", "MultiCombo/Division", "MultiCombo/Depot", "MultiCombo/PainterType", "MultiCombo/ArcheType"], true)
+            this._propertyToBlank(["MultiCombo/Members", "MultiCombo/Zone", "MultiCombo/Division", "MultiCombo/Depot"], true);
+            this.getView().getModel("oModelView").refresh(true);
+            this.getView().getModel("oModelControl").refresh(true);
+            this.getView().getModel("oModelDisplay").refresh(true);
+
+            
         },
         // painter value help request
         onValueHelpRequestedPainter: function () {

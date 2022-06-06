@@ -68,26 +68,47 @@ sap.ui.define([], function () {
             //console.log(mParam1, mParam2)
             if (mParam1 === 'Edit') {
                 if (this.getView().getModel("oModelView")) {
-                    var bTargetGroup = this.getView().getModel("oModelView").getProperty("/IsTargetGroup");
-                    return bTargetGroup;
+                    var bTargetGroup = this.getView().getModel("oModelControl").getProperty("/Rbtn/TarGrp");
+                    if (bTargetGroup == 0) {
+                        return false;
+                    } else if (bTargetGroup == 1) {
+                        return true;
+                    }
                 }
             }
             if (mParam1 === 'Display') {
-                return mParam2
+                var oView = this.getView();
+                if (oView.getElementBinding()) {
+                    if (oView.getElementBinding().getBoundContext()) {
+                        var bTargetGroup = oView.getElementBinding().getBoundContext().getObject()["IsTargetGroup"];
+                        return bTargetGroup;
+                    }
+                }
             }
             return false;
 
         },
         fmtDisplaySection4: function (mParam1, mParam2, mParam3) {
-           // console.log(mParam1, mParam2, mParam3)
+           
             if (mParam1 === 'Edit') {
                 if (this.getView().getModel("oModelView")) {
-                    var bTargetGroup = this.getView().getModel("oModelView").getProperty("/IsTargetGroup");
-                    return !bTargetGroup;
+                    var bTargetGroup = this.getView().getModel("oModelControl").getProperty("/Rbtn/TarGrp");
+                    if (bTargetGroup == 0) {
+                        return true;
+                    } else if (bTargetGroup == 1) {
+                        return false;
+                    }
                 }
             }
             if (mParam1 === 'Display') {
-                return !mParam2
+                var oView = this.getView();
+                if (oView.getElementBinding()) {
+                    if (oView.getElementBinding().getBoundContext()) {
+                        var bTargetGroup = oView.getElementBinding().getBoundContext().getObject()["IsTargetGroup"];
+                        return !bTargetGroup;
+                    }
+                }
+
             }
             return false;
 
