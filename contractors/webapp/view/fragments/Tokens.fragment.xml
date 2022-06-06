@@ -4,8 +4,8 @@
             <headerToolbar>
                 <Toolbar>
                     <ToolbarSpacer />
-                    <SearchField width="20%" showSearchButton="true" search="onTablesSearch" value="{oModelControl2>/Search/Tokens}"></SearchField>
-                    <Button icon="sap-icon://add" type="Emphasized"  text="{i18n>ApplyToken}" press="onPressOpenTokenDialog" enabled="{=!${IsArchived} &amp;&amp; ${ActivationStatus}!=='DEACTIVATED' }"></Button>
+                    <!-- <SearchField width="20%" showSearchButton="true" search="onTablesSearch" value="{oModelControl2>/Search/Tokens}"></SearchField>
+                    <Button icon="sap-icon://add" type="Emphasized"  text="{i18n>ApplyToken}" press="onPressOpenTokenDialog" enabled="{=!${IsArchived} &amp;&amp; ${ActivationStatus}!=='DEACTIVATED' }"></Button> -->
                 </Toolbar>
             </headerToolbar>
             <columns>
