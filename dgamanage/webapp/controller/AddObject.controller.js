@@ -82,6 +82,7 @@ sap.ui.define([
                     c2.then(function () {
                         c3 = othat._LoadAddFragment("AddNewObject");
                         c3.then(function () {
+                            oView.byId("idJoiningDate").setMaxDate(new Date());
                             oView.getModel("oModelControl").setProperty("/PageBusy", false)
                         })
                     })
