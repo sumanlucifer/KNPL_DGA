@@ -37,17 +37,6 @@ sap.ui.define(
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute("Detail").attachMatched(this._onRouteMatched, this);
-                sap.ui.getCore().attachValidationError(function (oEvent) {
-                    if (oEvent.getParameter("element").getRequired()) {
-                        oEvent.getParameter("element").setValueState(ValueState.Error);
-                    } else {
-                        oEvent.getParameter("element").setValueState(ValueState.None);
-                    }
-                });
-                sap.ui.getCore().attachValidationSuccess(function (oEvent) {
-                    oEvent.getParameter("element").setValueState(ValueState.None);
-                });
-
             },
             _onRouteMatched: function (oEvent) {
                 var sId = window.decodeURIComponent(
@@ -63,9 +52,9 @@ sap.ui.define(
             _SetDisplayData: function (oProp, sMode) {
                 var oData = {
                     mode: sMode,
-                    bindProp: "PainterComplainsSet(" + oProp + ")",
+                    bindProp: "MasterDealers('" + oProp + "')",
                     Id: oProp,
-                    EntitySet: "PainterComplainsSet",
+                    EntitySet: "MasterDealers",
                     PageBusy: true,
                     IcnTabKey: "0",
                     resourcePath: "com.knpl.dga.dealers",
@@ -74,7 +63,7 @@ sap.ui.define(
                 var oModel = new JSONModel(oData);
                 this.getView().setModel(oModel, "oModelDisplay");
                 if (sMode == "Edit") {
-                    this._initEditData();
+                    this._DummyPromise();
                 } else {
                     this._initDisplayData();
                 }
@@ -86,164 +75,30 @@ sap.ui.define(
                 var oData = oModel.getData();
                 var othat = this;
                 oModel.setProperty("/PageBusy", true);
-                c1 = othat._CheckLoginData();
+                c1 = othat._DummyPromise();
                 c1.then(function () {
                     c2 = othat._getDisplayData(oData["bindProp"]);
                     c2.then(function () {
-                        c3 = othat._LoadFragment("DisplayDetails", "oVBoxAddObjectPage");
+                        c3 = othat._LoadFragment("BasicDetails");
                         c3.then(function () {
                             oModel.setProperty("/PageBusy", false)
                         })
                     })
                 })
             },
-            _initEditData: function () {
-                var oView = this.getView();
-                var othat = this;
-                var oModel = oView.getModel("oModelDisplay");
-                var sProp = oModel.getProperty("/bindProp")
-                var oData = oModel.getData();
-                var c1, c2, c3, c4;
-                var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
-                oModel.setProperty("/PageBusy", true);
-                c1.then(function () {
-                    c1.then(function () {
-                        c2 = othat._setEditViewModel();
-                        c2.then(function () {
-                            c3 = othat._LoadFragment("AddNewObjForm", "oVBoxAddObjectPage");
-                            c3.then(function () {
-                                c4 = othat._getDisplayData(sProp);
-                                c4.then(function () {
-                                    oModel.setProperty("/PageBusy", false);
-                                })
 
-                            })
-                        })
-                    })
-                })
-
-            },
-            _setEditViewModel: function () {
-                var promise = jQuery.Deferred();
-                var oView = this.getView();
-                var othat = this;
-                var oModel = oView.getModel("oModelDisplay")
-                var oProp = oModel.getProperty("/bindProp");
-                var exPand = "ComplaintType";
-                return new Promise((resolve, reject) => {
-                    oView.getModel().read("/" + oProp, {
-                        urlParameters: {
-                            $expand: exPand,
-                        },
-                        success: function (data) {
-
-                            var oModel = new JSONModel(data);
-                            oView.setModel(oModel, "oModelView");
-                            resolve();
-                        },
-                        error: function () { },
-                    });
-                });
-            },
-            _SetEditRbtnData: function () {
-                var promise = jQuery.Deferred();
-                var oView = this.getView();
-                var oData = oView.getModel("oModelView").getData();
-                var oModel = oView.getModel("oModelControl");
-                var oRbtn = oModel.getProperty("/Rbtn");
-                var aBoleanProps = {
-                    IsTargetGroup: "TarGrp"
-                };
-                for (var a in aBoleanProps) {
-
-                    if (oData[a] === true) {
-                        oRbtn[aBoleanProps[a]] = 1;
-                    } else {
-                        oRbtn[aBoleanProps[a]] = 0;
-                    }
-                }
-                promise.resolve(oData);
-                return promise;
-
-            },
-            _SetEditMultiComboData: function () {
-                var promise = jQuery.Deferred();
-                var oView = this.getView();
-                // var oModelControl = oView.getModel("oModelControl");
-                // var oViewModel = oView.getModel("oModelView");
-                // // initial multicombo without tokens aggregation
-                // var sReceivers = [];
-                // var sInitialReceivers = oViewModel.getProperty("/NotificationGroupZone/results");
-                // for (var x of sInitialReceivers) {
-                //     sReceivers.push(x["ZoneId"]);
-                // }
-                // oModelControl.setProperty("/MultiCombo/Zone", sReceivers);
-
-                //  // initial multicombo with tokens aggregation
-                // var sReceivers = [];
-                // var sInitialReceivers = oViewModel.getProperty("/NotificationGroupDepot/results");
-                // for (var x of sInitialReceivers) {
-                //     sReceivers.push({DepotId:x["DepotId"]});
-                // }
-                // oModelControl.setProperty("/MultiCombo/Depot", sReceivers);
-
-                promise.resolve();
-                return promise;
-
-            },
-            _SetTableData: function () {
-                var promise = $.Deferred();
-                promise.resolve();
-                return promise;
-            },
-            _SetAdditioanFlags: function () {
+            _DummyPromise: function () {
                 var promise = $.Deferred();
                 // this method will be used for setting up additonal flags and filter
                 promise.resolve();
                 return promise;
-            },
-            _CheckLoginData: function () {
-                var promise = jQuery.Deferred();
-                var oView = this.getView();
-                var oData = oView.getModel();
-                var oLoginModel = oView.getModel("LoginInfo");
-                var oControlModel = oView.getModel("oModelDisplay");
-                var oLoginData = oLoginModel.getData();
-
-                if (Object.keys(oLoginData).length === 0) {
-                    return new Promise((resolve, reject) => {
-                        oData.callFunction("/GetLoggedInAdmin", {
-                            method: "GET",
-                            urlParameters: {
-                                $expand: "UserType",
-                            },
-                            success: function (data) {
-                                if (data.hasOwnProperty("results")) {
-                                    if (data["results"].length > 0) {
-                                        oLoginModel.setData(data["results"][0]);
-                                        oControlModel.setProperty(
-                                            "/LoggedInUser",
-                                            data["results"][0]
-                                        );
-                                    }
-                                }
-                                resolve();
-                            },
-                        });
-                    });
-                } else {
-                    oControlModel.setProperty("/LoggedInUser", oLoginData);
-                    promise.resolve();
-                    return promise;
-                }
-
             },
 
             _getDisplayData: function (oProp) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "Painter,ComplaintType,ComplaintSubtype";
+                var exPand = "DealerSalesDetails";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -264,104 +119,58 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
+
             onIcnTbarChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 if (sKey == "1") {
-                    oView.byId("HistoryTable").rebindTable();
+                    oView.byId("DGATable").rebindTable();
+                }
+                else if (sKey == "2") {
+                    oView.byId("ContractorTable").setModel(oView.getModel("PragatiModel"));
+                    oView.byId("ContractorTable").rebindTable();
                 }
             },
-            onBeforeRebindHistoryTable: function (oEvent) {
+
+            onBeforeRebindDGATable: function (oEvent) {
                 var oView = this.getView();
-                var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.sorter.push(new Sorter("UpdatedAt", true));
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.parameters["expand"] = "DGA,DGA/DGAType,DGA/Depot,DGA/Pincode,DGA/PayrollCompany";
+                var oDealerIdFilter = new Filter("DealerId", FilterOperator.EQ, sId );
+                mBindingParams.filters.push(oDealerIdFilter);
             },
 
-            _LoadFragment: function (mParam, mParam2) {
+            onBeforeRebindContractorTable: function (oEvent) {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.parameters["expand"] = "Slab,AgeGroup,Preference/Language,PainterBankDetails,PrimaryDealerDetails,PainterKycDetails,PainterType";
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                var oDealerIdFilter = new Filter("DealerId", FilterOperator.EQ, sId );
+                var oArchivedFilter = new Filter("IsArchived", FilterOperator.EQ, false);
+                mBindingParams.filters.push(oDealerIdFilter,oArchivedFilter);
+            },
+
+            _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
-                var oVboxProfile = oView.byId(mParam2);
+                var oVboxProfile = oView.byId("oVBoxAddObjectPage");
                 var sResourcePath = oView.getModel("oModelDisplay").getProperty("/resourcePath")
                 oVboxProfile.destroyItems();
-                return this._getViewFragment(mParam).then(function (oControl) {
-                    oView.addDependent(oControl);
-                    oVboxProfile.addItem(oControl);
+                return Fragment.load({
+                    id: oView.getId(),
+                    controller: othat,
+                    name: sResourcePath + ".view.fragments." + mParam,
+                }).then(function (oControlProfile) {
+                    oView.addDependent(oControlProfile);
+                    oVboxProfile.addItem(oControlProfile);
                     promise.resolve();
                     return promise;
                 });
-
             },
-            _ReoveEditPayloadProps: function (oPayLoad) {
-                var promise = $.Deferred();
-                var aArrayRemoveProp1 = [];
 
-                for (var x of aArrayRemoveProp) {
-                    if (oPayLoad.hasOwnProperty(x)) {
-                        delete oPayLoad[x];
-                    }
-                }
-                //"ServicePincodes/Pincode"
-                return promise;
-            },
-            onPressSave: function () {
-                var bValidateForm = this._ValidateForm();
-                if (bValidateForm) {
-                    this._postDataToSave();
-                }
-
-            },
-            _postDataToSave: function () {
-                /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
-                 * Language:  JS
-                 * Purpose: Payload is ready and we have to send the same based to server but before that we have to modify it slighlty
-                 */
-                var oView = this.getView();
-                var oModelControl = oView.getModel("oModelControl");
-                oModelControl.setProperty("/PageBusy", true);
-                var aFailureCallback = this._onCreationFailed.bind(this);
-                var othat = this;
-                var c1, c2, c3;
-                c1 = othat._CheckEmptyFieldsPostPayload();
-                c1.then(function (oPayload) {
-                    c2 = othat._UpdatedObject(oPayload)
-                    c2.then(function () {
-                        c3 = othat._uploadFile();
-                        c3.then(function () {
-                            oModelControl.setProperty("/PageBusy", false);
-                            othat.onNavToHome();
-                        })
-                    }, aFailureCallback)
-                })
-
-
-            },
-            _UpdatedObject: function (oPayLoad) {
-                var othat = this;
-                var oView = this.getView();
-                var oDataModel = oView.getModel();
-                var oModelControl = oView.getModel("oModelDisplay");
-                var sProp = oModelControl.getProperty("/bindProp")
-                //console.log(sProp,oPayLoad)
-                return new Promise((resolve, reject) => {
-                    oDataModel.update("/" + sProp, oPayLoad, {
-                        success: function (data) {
-                            MessageToast.show(othat._showMessageToast("Message1"));
-                            resolve(data);
-                        },
-                        error: function (data) {
-                            oModelControl.setProperty("/PageBusy", false);
-                            reject(data);
-                        },
-                    });
-                });
-            }
-
-
-        }
-
-        );
+        });
     }
 );

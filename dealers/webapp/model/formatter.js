@@ -10,8 +10,8 @@ sap.ui.define([], function () {
          * @returns {string} sValue with 2 digits rounded
          */
         fmtLowerCase: function (mParam) {
-            if(!mParam){
-                return 
+            if (!mParam) {
+                return
             }
             var sStatus = "";
 
@@ -52,17 +52,42 @@ sap.ui.define([], function () {
 
         },
         fmtStatusColorChange: function (mParam) {
-            if (mParam === "APPROVED") {
+            if (mParam === "Activated")
                 return "Success";
-            }
-            if (mParam === "PUBLISHED") {
-                return "Success";
-            }
-            if (mParam === "PENDING") {
-                return "Warning";
-            }
-            return "Error";
+            else if (mParam === "Deactivated")
+                return "Error";
+            else
+                return "None";
         },
+
+        RegStatusIcon: function (sRegStatus) {
+            switch (sRegStatus) {
+                case "PENDING":
+                    return "sap-icon://message-warning"
+                case "REGISTERED":
+                    return "sap-icon://message-success"
+            }
+        },
+        RegStatusColor: function (sRegStatus) {
+            switch (sRegStatus) {
+                case "PENDING":
+                    return sap.ui.core.IconColor.Critical;
+                case "REGISTERED":
+                    return sap.ui.core.IconColor.Positive;
+            }
+        },
+        fmtStatus: function (mParam) {
+            var sLetter = "";
+            if (mParam) {
+                sLetter = mParam
+                    .toLowerCase()
+                    .split(" ")
+                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(" ");
+            }
+            return sLetter;
+        },
+
     };
 
 });

@@ -1,0 +1,134 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
+    <smartTable:SmartTable
+                            id="ContractorTable"
+                            editable="false"
+                            beforeRebindTable="onBeforeRebindContractorTable"                    
+                            entitySet="PainterSet"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="true"
+                            demandPopin="true"
+                            enableAutoBinding="false"
+                            placeToolbarInTable="true"
+                            persistencyKey="HistoryPersistenceKey"
+                            requestAtLeastFields=""
+                            initialNoDataText="{i18n>tableNoDataText}"
+                            ignoreFromPersonalisation="">
+
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+            <columns>
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name", "columnIndex": 1 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                    </customData>
+                    <Text text="{i18n>Name}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MembershipCard", "leadingProperty": "MembershipCard", "columnIndex": 2 ,"sortProperty": "MembershipCard","filterProperty": "MembershipCard"}'/>
+                    </customData>
+                    <Text text="{i18n>MembershipId}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Mobile", "leadingProperty": "Mobile", "columnIndex": 3 ,"sortProperty": "Mobile","filterProperty": "Mobile"}'/>
+                    </customData>
+                    <Text text="{i18n>Mobile}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TotalPoints", "leadingProperty": "TotalPoints", "columnIndex": 4 ,"sortProperty": "TotalPoints","filterProperty": "TotalPoints"}'/>
+                    </customData>
+                    <Text text="{i18n>Points}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ZoneId", "leadingProperty": "ZoneId", "columnIndex": 5 ,"sortProperty": "ZoneId","filterProperty": "ZoneId"}'/>
+                    </customData>
+                    <Text text="{i18n>Zone}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DivisionId", "leadingProperty": "DivisionId", "columnIndex": 6 ,"sortProperty": "DivisionId","filterProperty": "DivisionId"}'/>
+                    </customData>
+                    <Text text="{i18n>Division}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DepotId", "leadingProperty": "DepotId", "columnIndex": 7 ,"sortProperty": "DepotId","filterProperty": "DepotId"}'/>
+                    </customData>
+                    <Text text="{i18n>Depot}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Slab/Slab", "leadingProperty": "Slab/Slab", "columnIndex": 8 ,"sortProperty": "Slab/Slab","filterProperty": "Slab/Slab"}'/>
+                    </customData>
+                    <Text text="{i18n>Category}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PrimaryDealerDetails/Id", "leadingProperty": "PrimaryDealerDetails/Id", "columnIndex": 9 ,"sortProperty": "PrimaryDealerDetails/Id","filterProperty": "PrimaryDealerDetails/Id"}'/>
+                    </customData>
+                    <Text text="{i18n>LinkPrimaryDealerCode}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PrimaryDealerDetails/DealerName", "leadingProperty": "PrimaryDealerDetails/DealerName", "columnIndex": 10 ,"sortProperty": "PrimaryDealerDetails/DealerName","filterProperty": "PrimaryDealerDetails/DealerName"}'/>
+                    </customData>
+                    <Text text="{i18n>LinkPrimaryDealer}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PainterKycDetails/Status", "leadingProperty": "PainterKycDetails/Status", "columnIndex": 11 ,"sortProperty": "PainterKycDetails/Status","filterProperty": "PainterKycDetails/Status"}'/>
+                    </customData>
+                    <Text text="{i18n>KycStatus}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PainterBankDetails/Status", "leadingProperty": "PainterBankDetails/Status", "columnIndex": 12 ,"sortProperty": "PainterBankDetails/Status","filterProperty": "PainterBankDetails/Status"}'/>
+                    </customData>
+                    <Text text="{i18n>BankDetailsStatus}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <HBox>
+                            <core:Icon class="sapUiTinyMarginEnd" src="{path:'RegistrationStatus',formatter:'.formatter.RegStatusIcon'}" 
+                                       color="{path:'RegistrationStatus',formatter:'.formatter.RegStatusColor'}" tooltip="{RegistrationStatus}" />
+                            <ObjectIdentifier tooltip="{Name}" title="{Name}" titleActive="true"/>
+                        </HBox>
+                        <Text text="{MembershipCard}" visible="{= ${MembershipCard} !== null }"/>
+                        <Text text="{Mobile}"/>
+                        <Text text="{TotalPoints}"/>                        
+                        <Text text="{ZoneId}"/>
+                        <Text text="{DivisionId}"/>
+                        <Text text="{DepotId}"/>
+                        <Text text="{Slab/Slab}"/>
+                        <FlexBox >
+                            <Text visible="{= ${PrimaryDealerDetails}===null}" text="Not Linked"/>
+                            <Text text="{PrimaryDealerDetails/Id}"/>
+                        </FlexBox>
+                        <FlexBox >
+                            <Text visible="{= ${PrimaryDealerDetails}===null}" text="Not Linked"/>
+                            <Text text="{PrimaryDealerDetails/DealerName}"/>
+                        </FlexBox>
+                        <FlexBox >
+                            <ObjectStatus visible="{= ${PainterKycDetails} === null}" text="Not Submitted" state="Error"/>
+                            <ObjectStatus text="{path: 'PainterKycDetails/Status', formatter: '.fmtStatus'}"
+                            state="{= ${PainterKycDetails/Status} === 'APPROVED'? 'Success' : undefined || ${PainterKycDetails/Status} === 'REJECTED'? 'Error' : undefined || ${PainterKycDetails/Status} === 'INPROGRESS'? 'Warning' : undefined || ${PainterKycDetails/Status} === 'PENDING'? 'Warning' : undefined}"/>
+                        </FlexBox>
+                        <FlexBox >
+                             <ObjectStatus visible="{= ${PainterBankDetails} === null}" text="Not Submitted" state="Error"/>
+                             <ObjectStatus text="{path: 'PainterBankDetails/Status', formatter: '.fmtStatus'}"
+                            state="{= ${PainterBankDetails/Status} === 'APPROVED'? 'Success' : undefined || ${PainterBankDetails/Status} === 'REJECTED'? 'Error' : undefined || ${PainterBankDetails/Status} === 'INPROGRESS'? 'Warning' : undefined || ${PainterBankDetails/Status} === 'PENDING'? 'Warning' : undefined}"/>
+                        </FlexBox>
+
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>
