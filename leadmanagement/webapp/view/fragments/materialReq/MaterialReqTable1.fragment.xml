@@ -15,6 +15,7 @@
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
                             initialNoDataText="{i18n>tableNoDataText}"
+                            requestAtLeastFields="ProductShade/ShadeCode"
                             header="{i18n>Interior}">
 
         <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
@@ -27,7 +28,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Product/ProductClassification", "leadingProperty": "Product/ProductClassification", "columnIndex": 1 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Product", "leadingProperty": "Product", "columnIndex": 1 }'/>
                     </customData>
                     <Text text="{i18n>ClassName}"/>
                 </Column>
@@ -48,11 +49,11 @@
                 <ColumnListItem>
                     <cells>                  
                        <Text text="{Product/ProductName}"/>        
-                       <VBox items="{
-                           path: 'Product/ProductClassification'
-                           }">
-                           <Text text="{ClassificationName}"/>
-                        </VBox>         
+                       <!-- <VBox items="{
+                           path: 'Product'
+                           }"> -->
+                        <Text text="{Product/ProductClassification/ClassificationName}"/>
+                        <!-- </VBox>          -->
                         <Text text="{= ${ProductShade/ShadeCode} ? ${ProductShade/ShadeCode} + '-' + ${ProductShade/ShadeName} : '--' }"/>
                        <Text text="{Volume}"/>
                     </cells>

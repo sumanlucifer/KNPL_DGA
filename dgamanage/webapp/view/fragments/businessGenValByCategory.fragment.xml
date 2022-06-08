@@ -12,7 +12,7 @@
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Value", "leadingProperty": "Value", "columnIndex": 1 ,"sortProperty": "Value","filterProperty": "Value"}'/>
                     </customData>
-                    <Text text="{i18n>count}"/>
+                    <Text text="{i18n>rupee}"/>
                 </Column>
             </columns>
             <items>
