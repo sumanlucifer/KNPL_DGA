@@ -52,6 +52,8 @@ sap.ui.define(
                     },
                     PageBusy: true
                 };
+
+
                 var oMdlCtrl = new JSONModel(oDataControl);
                 this.getView().setModel(oMdlCtrl, "oModelControl");
                 var startupParams;

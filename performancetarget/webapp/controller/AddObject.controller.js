@@ -26,16 +26,16 @@ sap.ui.define([
          */
         onInit: function () {
 
-            sap.ui.getCore().attachValidationError(function (oEvent) {
-                if (oEvent.getParameter("element").getRequired()) {
-                    oEvent.getParameter("element").setValueState(ValueState.Error);
-                } else {
-                    oEvent.getParameter("element").setValueState(ValueState.None);
-                }
-            });
-            sap.ui.getCore().attachValidationSuccess(function (oEvent) {
-                oEvent.getParameter("element").setValueState(ValueState.None);
-            });
+            // sap.ui.getCore().attachValidationError(function (oEvent) {
+            //     if (oEvent.getParameter("element").getRequired()) {
+            //         oEvent.getParameter("element").setValueState(ValueState.Error);
+            //     } else {
+            //         oEvent.getParameter("element").setValueState(ValueState.None);
+            //     }
+            // });
+            // sap.ui.getCore().attachValidationSuccess(function (oEvent) {
+            //     oEvent.getParameter("element").setValueState(ValueState.None);
+            // });
 
 
             var oRouter = this.getOwnerComponent().getRouter();
@@ -47,6 +47,8 @@ sap.ui.define([
             var sPainterId = oEvent.getParameter("arguments").Id;
             this._initData();
         },
+    
+        
         _initData: function () {
             var oView = this.getView();
             var othat = this;
@@ -75,10 +77,14 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var oDataView = {
-                Remark: "",
-                ComplaintTypeId: "",
-                "ComplaintSubtypeId": 8,
-                "PainterId": "",
+                Target: 0,
+                Type: "",
+                ToDate: "",
+                FromDate: "",
+                DGATypeId: "",
+                PerformanceZone: [],
+                PerformanceDivision:[],
+                PerformanceDepot: [],
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -102,10 +108,12 @@ sap.ui.define([
 
 
         onPressSave: function () {
-            var bValidateForm = this._ValidateForm();
-            if (bValidateForm) {
-                this._postDataToSave();
-            }
+            // var bValidateForm = this._ValidateForm();
+            // if (bValidateForm) {
+            //     this._postDataToSave();
+            // }
+
+            this._postDataToSave();
 
         },
         _postDataToSave: function () {
@@ -118,21 +126,36 @@ sap.ui.define([
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
             oModelControl.setProperty("/PageBusy", true);
-            var aFailureCallback = this._onCreationFailed.bind(this);
+
+var oPayload = {
+    Target: oModelControl.getProperty("/AddFields/Target"),
+    ToDate: oModelControl.getProperty("/AddFields/EndDate"),
+    FromDate: oModelControl.getProperty("/AddFields/StartDate"),
+    DGATypeId: oModelControl.getProperty("/Rbtn/TarGrp"),
+};
+
+           // var aFailureCallback = this._onCreationFailed.bind(this);
             var othat = this;
-            var c1, c2, c3, c4;
+            var c1, c1b, c1c, c2, c3, c4;
             c1 = othat._CheckEmptyFieldsPostPayload();
             c1.then(function (oPayload) {
-                c2 = othat._CreateObject(oPayload)
-                c2.then(function () {
-                    c3 = othat._uploadFile();
-                    c3.then(function () {
-                        oModelControl.setProperty("/PageBusy", false);
-                        othat.onNavToHome();
+                c1b = othat._CreateRadioButtonPayload(oPayload);
+                c1b.then(function (oPayload) {
+                    c1c=othat._CreateMultiComboPayload(oPayload)
+                    c1c.then(function(oPayload){
+                        c2 = othat._CreateObject(oPayload)
+                        // c2.then(function (oPayload) {
+                        //     c3 = othat._uploadFile(oPayload);
+                            c2.then(function () {
+                                oModelControl.setProperty("/PageBusy", false);
+                                othat.onNavToHome();
+                            })
+                        // })
                     })
-                },aFailureCallback)
+                   
+                })
+               
             })
-
 
         },
         _CreateObject: function (oPayLoad) {

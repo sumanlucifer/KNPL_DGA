@@ -20,44 +20,44 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintCode", "leadingProperty": "ComplaintCode", "columnIndex": 1 ,"sortProperty": "ComplaintCode","filterProperty": "ComplaintCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "FromDate","type":"date", "leadingProperty": "FromDate", "columnIndex": 1 ,"sortProperty": "FromDate","filterProperty": "FromDate"}'/>
                     </customData>
                     <Text text="{i18n>From}"/>
                 </Column>
 
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintType/ComplaintType", "leadingProperty": "ComplaintType/ComplaintType", "columnIndex": 2 ,"sortProperty": "ComplaintType/ComplaintType","filterProperty": "ComplaintType/ComplaintType"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ToDate","type":"date", "leadingProperty": "ToDate", "columnIndex": 2 ,"sortProperty": "ToDate","filterProperty": "ToDate"}'/>
                     </customData>
                     <Text text="{i18n>To}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 3 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGATypeId",  "leadingProperty": "DGATypeId", "columnIndex": 3 ,"sortProperty": "DGATypeId","filterProperty": "DGATypeId"}'/>
                     </customData>
                     <Text text="{i18n>DGA} {i18n>Type}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintStatus", "leadingProperty": "ComplaintStatus", "columnIndex": 4 ,"sortProperty": "ComplaintStatus","filterProperty": "ComplaintStatus"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceZone/ZoneId", "leadingProperty": "PerformanceZone/ZoneId", "columnIndex": 4 ,"sortProperty": "PerformanceZone/ZoneId","filterProperty": "PerformanceZone/ZoneId"}'/>
                     </customData>
                     <Text text="{i18n>Zone}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintStatus", "leadingProperty": "ComplaintStatus", "columnIndex": 5 ,"sortProperty": "ComplaintStatus","filterProperty": "ComplaintStatus"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceDivision/DivisionId", "leadingProperty": "PerformanceDivision/DivisionId", "columnIndex": 5 ,"sortProperty": "PerformanceDivision/DivisionId","filterProperty": "PerformanceDivision/DivisionId"}'/>
                     </customData>
                     <Text text="{i18n>Division}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintStatus", "leadingProperty": "ComplaintStatus", "columnIndex": 6 ,"sortProperty": "ComplaintStatus","filterProperty": "ComplaintStatus"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceDepot/DepotId", "leadingProperty": "PerformanceDepot/DepotId", "columnIndex": 6 ,"sortProperty": "PerformanceDepot/DepotId","filterProperty": "PerformanceDepot/DepotId"}'/>
                     </customData>
                     <Text text="{i18n>Depot}"/>
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ComplaintStatus", "leadingProperty": "ComplaintStatus", "columnIndex": 7 ,"sortProperty": "ComplaintStatus","filterProperty": "ComplaintStatus"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Target", "leadingProperty": "Target", "columnIndex": 7 ,"sortProperty": "Target","filterProperty": "Target"}'/>
                     </customData>
                     <Text text="{i18n>NewLeadVisitCount} ({i18n>Daily})"/>
                 </Column>
@@ -67,12 +67,18 @@
             <items>
                 <ColumnListItem >
                     <cells>
-                        <!-- <Text text="{Painter/Name}"/>
-                        <Text text="{ComplaintCode}"/>
-                         <Text text="{ComplaintType/ComplaintType}"/> -->
-                        <!-- <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
-                        <ObjectStatus text="{parts:['ComplaintStatus','ParentComplaintId'],formatter:'.formatter.fmtLowerCase'}" state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Error' }"/>
-                            -->
+                     <Text text="{Painter/Name}"/>
+                      
+                     <Text text="{path:'FromDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                     <Text text="{path:'ToDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                       <Text text="{DGATypeId}"/>
+                       <Text text="{PerformanceZone/ZoneId}"/>
+                        <Text text="{PerformanceDivision/DivisionId}"/>
+                         <Text text="{PerformanceDepot/DepotId}"/>
+                         <Text text="{Target}"/>
+                        
+                        <!-- <ObjectStatus text="{parts:['ComplaintStatus','ParentComplaintId'],formatter:'.formatter.fmtLowerCase'}" state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Error' }"/> -->
+                            
                     </cells>
                 </ColumnListItem>
             </items>
