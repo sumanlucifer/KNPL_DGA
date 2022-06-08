@@ -17,7 +17,7 @@ ap.ui.define([
  */
     function (BaseController, JSONModel, History, formatter, Filter, FilterOperator, MessageBox, MessageToast, Export, ExportTypeCSV) {
         "use strict";
-        return BaseController.extend("com.knpl.dga.products.controller.PainterList", {
+        return BaseController.extend("com.knpl.dga.products.controller.DGAList", {
             formatter: formatter,
             /* =========================================================== */
             /* lifecycle methods                                           */
