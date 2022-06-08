@@ -44,10 +44,10 @@
                         </VBox>
                     </IconTabFilter>
                     <IconTabFilter  text="{i18n>DGA}" key="1" >
-                            <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.DGATable" type="XML"/>
+                        <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.DGATable" type="XML"/>
                     </IconTabFilter>
                     <IconTabFilter  text="{i18n>LinkedContractors}" key="2" >
-                            <!-- <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.HistoryTable" type="XML"/> -->
+                        <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.ContractorTable" type="XML"/>
                     </IconTabFilter>
                 </items>
             </IconTabBar>

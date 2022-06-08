@@ -19,7 +19,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PhoneNumber", "leadingProperty": "PhoneNumber", "columnIndex": 3 ,"sortProperty": "PhoneNumber","filterProperty": "PhoneNumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DealerPhoneNumber/SMSNumber", "leadingProperty": "DealerPhoneNumber/SMSNumber", "columnIndex": 3 ,"sortProperty": "DealerPhoneNumber/SMSNumber","filterProperty": "DealerPhoneNumber/SMSNumber"}'/>
                     </customData>
                     <Text text="{i18n>PhoneNumber}"/>
                 </Column>
@@ -40,6 +40,12 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "DealerSalesDetails/SalesGroupId", "leadingProperty": "DealerSalesDetails/SalesGroupId", "columnIndex": 6 ,"sortProperty": "DealerSalesDetails/SalesGroupId","filterProperty": "DealerSalesDetails/SalesGroupId"}'/>
                     </customData>
                     <Text text="{i18n>SalesGroupId}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DealerSalesDetails/SalesGroup/Description", "leadingProperty": "DealerSalesDetails/SalesGroup/Description", "columnIndex": 7 ,"sortProperty": "DealerSalesDetails/SalesGroup/Description","filterProperty": "DealerSalesDetails/SalesGroup/Description"}'/>
+                    </customData>
+                    <Text text="{i18n>SalesGroupName}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
@@ -64,10 +70,11 @@
                 <ColumnListItem press="onListItemPress" type="Navigation">
                     <cells>
                         <Text text="{Name}"/>
-                        <Text text="{PhoneNumber}"/>
+                        <Text text="{DealerPhoneNumber/SMSNumber}"/>
                         <Text text="{PlantCode}"/>
                         <Text text="{DealerSalesDetails/Depot}"/>
                         <Text text="{DealerSalesDetails/SalesGroupId}"/>
+                        <Text text="{DealerSalesDetails/SalesGroup/Description}"/>
                         <Text text="{FiscalYear}"/>
                         <Text text="{CustomerCategory}"/>
                         <Text text="{= ${Leads}.length }"/>

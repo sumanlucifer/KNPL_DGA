@@ -19,6 +19,8 @@
                 <Text text="{path : 'DealerSalesDetails/Depot',formatter:'.formatter.fmtCheckNull'}"  />
                 <Label text="{i18n>SalesGroupId}" />
                 <Text text="{path : 'DealerSalesDetails/SalesGroupId',formatter:'.formatter.fmtCheckNull'}"  />
+                <Label text="{i18n>SalesGroupName}" />
+                <Text text="{path : 'DealerSalesDetails/SalesGroup/Description',formatter:'.formatter.fmtCheckNull'}"  />
                 <Label text="{i18n>FiscalYear}" />
                 <Text text="{path : 'PlantCode',formatter:'.formatter.fmtCheckNull'}"  />
                 <Label text="{i18n>CustomerCategory}" />

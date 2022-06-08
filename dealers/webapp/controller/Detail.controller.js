@@ -126,6 +126,10 @@ sap.ui.define(
                 if (sKey == "1") {
                     oView.byId("DGATable").rebindTable();
                 }
+                else if (sKey == "2") {
+                    oView.byId("ContractorTable").setModel(oView.getModel("PragatiModel"));
+                    oView.byId("ContractorTable").rebindTable();
+                }
             },
 
             onBeforeRebindDGATable: function (oEvent) {
@@ -135,6 +139,17 @@ sap.ui.define(
                 mBindingParams.parameters["expand"] = "DGA,DGA/DGAType,DGA/Depot,DGA/Pincode,DGA/PayrollCompany";
                 var oDealerIdFilter = new Filter("DealerId", FilterOperator.EQ, sId );
                 mBindingParams.filters.push(oDealerIdFilter);
+            },
+
+            onBeforeRebindContractorTable: function (oEvent) {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.parameters["expand"] = "Slab,AgeGroup,Preference/Language,PainterBankDetails,PrimaryDealerDetails,PainterKycDetails,PainterType";
+                mBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                var oDealerIdFilter = new Filter("DealerId", FilterOperator.EQ, sId );
+                var oArchivedFilter = new Filter("IsArchived", FilterOperator.EQ, false);
+                mBindingParams.filters.push(oDealerIdFilter,oArchivedFilter);
             },
 
             _LoadFragment: function (mParam) {

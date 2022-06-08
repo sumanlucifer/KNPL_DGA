@@ -19,6 +19,15 @@
                     "odataVersion": "2.0",
                     "localUri": "localService/metadata.xml"
                 }
+            },
+            "pragatiService": {
+                "uri": "/KNPL_PAINTER_API/api/v2/odata.svc/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
             }
         },
         "crossNavigation": {
@@ -86,6 +95,17 @@
             },
             "": {
                 "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "defaultUpdateMethod": "Put",
+                    "useBatch": false
+                }
+            },
+            "PragatiModel": {
+                "dataSource": "pragatiService",
                 "preload": true,
                 "settings": {
                     "defaultBindingMode": "TwoWay",

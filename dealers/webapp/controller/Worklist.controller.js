@@ -205,7 +205,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DealerSalesDetails,Leads";
+                oBindingParams.parameters["expand"] = "Leads,DealerSalesDetails/SalesGroup,DealerPhoneNumber";
                 // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
