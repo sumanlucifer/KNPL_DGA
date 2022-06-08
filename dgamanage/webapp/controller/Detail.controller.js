@@ -428,8 +428,8 @@
                     var dStartDate = oDateFormat.format(oModelDisplay.getProperty("/Performance/StartDate"));
                     var dEndDate = oDateFormat.format(oModelDisplay.getProperty("/Performance/EndDate"));
                     var oCustom = {
-                        StartDate: "" + dStartDate + "",
-                        EndDate: "" + dEndDate + "",
+                        StartDate: null,
+                        EndDate: null,
                         DGAId: "" + sDgaId + "",
                     };
                     var oBindingParams = oEvent.getParameter("bindingParams");
