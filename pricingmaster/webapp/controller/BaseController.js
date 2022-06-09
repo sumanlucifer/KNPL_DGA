@@ -7,10 +7,11 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "../controller/Validator",
     "sap/m/MessageToast",
+    "sap/ui/Device",
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, MessageBox, Filter, FilterOperator) {
+], function (Controller, UIComponent, mobileLibrary, History, Fragment, JSONModel, Validator, MessageToast, Device, MessageBox, Filter, FilterOperator) {
     "use strict";
 
     // shortcut for sap.m.URLHelper
@@ -257,101 +258,10 @@ sap.ui.define([
             }
             return obj;
         },
-        _CheckEmptyFieldsPostPayload: function () {
-            var promise = jQuery.Deferred();
-            var oView = this.getView();
-            var oModel = oView.getModel("oModelView");
-            var oModelData = oModel.getData();
-            //1.Clone the payload and convert string to integer values based on odata model entity
-            var oPayLoad = this._RemoveEmptyValue(oModelData);
-            var inTegerProperty = [
-                "ComplaintTypeId",
-            ];
-            for (var y of inTegerProperty) {
-                if (oPayLoad.hasOwnProperty(y)) {
-                    if (oPayLoad[y] !== null) {
-                        oPayLoad[y] = parseInt(oPayLoad[y]);
-                    }
-                }
-            }
-            promise.resolve(oPayLoad);
-            return promise;
-        },
-        _CreateRadioButtonPayload: function (oPayLoad) {
-            /*
-            * Author: manik saluja
-            * Date: 24-March-2022
-            * Language:  JS
-            * Purpose: This method is used to send the radiobutton data to the backend.
-            */
-            var promise = jQuery.Deferred();
-            var oView = this.getView();
-            var aBoleanProps = {
-                IsTargetGroup: "TarGrp"
-            };
-            var oModelControl = oView.getModel("oModelControl");
-            var oPropRbtn = oModelControl.getProperty("/Rbtn");
-            for (var key in aBoleanProps) {
-                if (oPropRbtn[aBoleanProps[key]] === 0) {
-                    oPayLoad[key] = false;
-                } else {
-                    oPayLoad[key] = true;
-                }
-            }
-            promise.resolve(oPayLoad);
-            return promise;
-        },
-        _CreateMultiComboPayload: function (oPayload) {
-            /*
-            * Author: manik saluja
-            * Date: 24-March-2022
-            * Language:  JS
-            * Purpose: This method is used to send the multicombo box with tokens or multi select popover data to the payload.
-            */
-            var promise = $.Deferred();
-            var oView = this.getView();
-            var oModelView = oView.getModel("oModelView");
-            var oModelControl = oView.getModel("oModelControl");
-            var sMode = oModelControl.getProperty("/mode");
-            var sResults = ""
-            if (sMode === "Edit") {
-                sResults = "/results"
-            }
-
-            // Members - 
-            // var aExistingMember = oModelView.getProperty("/Members" + sResults);
-            // var aSelectedMember = oModelControl.getProperty("/MultiCombo/Members")
-            // var iMembers = -1;
-            // var aMembers = [];
-            // for (var x of aSelectedMember) {
-            //     iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
-            //     if (iMembers >= 0) {
-
-            //         aMembers.push(aExistingMember[iMembers]);
-            //     } else {
-            //         aMembers.push({ Id: parseInt(x["Id"]) });
-            //     }
-            // }
-            // oPayload["Members"] = aMembers;
-            // // zone 
-            // var aExistingMember = oModelView.getProperty("/NotificationGroupZone" + sResults);
-            // var aSelectedMember = oModelControl.getProperty("/MultiCombo/Zone");
-            // var iMembers = -1;
-            // var aMembers = [];
-            // for (var x of aSelectedMember) {
-            //     iMembers = aExistingMember.findIndex(item => item["ZoneId"] === x)
-            //     if (iMembers >= 0) {
-
-            //         aMembers.push(aExistingMember[iZone]);
-            //     } else {
-            //         aMembers.push({ ZoneId: x });
-            //     }
-            // }
-            // oPayload["NotificationGroupZone"] = aZone;
-            promise.resolve(oPayload);
-            return promise
-
-        },
+       
+       
+        
+        
         _CreatePayLoadTable: function (oPayload) {
             var promise = $.Deferred();
             /*
@@ -377,28 +287,17 @@ sap.ui.define([
             oModelControl.setProperty("/PageBusy", false);
 
         },
-        _uploadFile: function (oPayLoad) {
-            var promise = jQuery.Deferred();
-            promise.resolve(oPayLoad);
-            return promise;
-        },
+        // _uploadFile: function (oPayLoad) {
+        //     var promise = jQuery.Deferred();
+        //     promise.resolve(oPayLoad);
+        //     return promise;
+        // },
 
-        /**
-         * Event handler when the share by E-Mail button has been clicked
-         * @public
-         */
-        onShareEmailPress: function () {
-            var oViewModel = (this.getModel("objectView") || this.getModel("worklistView"));
-            URLHelper.triggerEmail(
-                null,
-                oViewModel.getProperty("/shareSendEmailSubject"),
-                oViewModel.getProperty("/shareSendEmailMessage")
-            );
-        },
+    
         _getViewFragment: function (sFragmentName) {
             /*
-             * Author: manik saluja
-             * Date: 14-March-2022
+             * Author: Mamta Singh
+             * Date: 29-05-2022
              * Language:  JS
              * Purpose: Common method to access fragmets from folder view.fragments. this method is 
              * written so that the developer dont writes the Fragment.load again.
@@ -414,7 +313,7 @@ sap.ui.define([
 
             this._formFragments = Fragment.load({
                 id: oView.getId(),
-                name: oModel.getProperty("/resourcePath") + ".view.fragments." + sFragmentName,
+                name: "com.knpl.dga.pricingmaster" + ".view.fragments." + sFragmentName,
                 controller: othat,
             }).then(function (oFragament) {
                 return oFragament;
@@ -425,34 +324,140 @@ sap.ui.define([
         },
         _handlePValueHelpSearch: function (oEvent) {
             /*
-             * Author: manik saluja
-             * Date: 29-March-2022
+             * Author: Mamta Singh
+             * Date: 27- may-2022
              * Language:  JS
              * Purpose: This method is used to manage the search for the dialog boxes or value help dialogs
              * 
              */
             var sValue = oEvent.getParameter("value").trim();
             var sPath = oEvent.getParameter("itemsBinding").getPath();
-            // Pincodes Valuehelp
-            if (sPath === "/MasterPincodes") {
+            // Depot Valuehelp
+           
+            if (sPath === "/MasterDepots") {
                 if (sValue.length > 0) {
-                    var aFilter = new Filter({
-                        path: "Name",
+                    var aFilter = new Filter([
+                        new Filter({
+                        path: "Depot",
                         operator: "Contains",
                         value1: sValue,
-                        caseSensitive: false,
-                    });
-                } else {
-                    var aFilter = [];
-                }
-                this._PinCodeValueHelp
-                    .getBinding("items")
-                    .filter(aFilter, "Application");
+                        caseSensitive: false
+                    }), 
+                    new Filter({
+                            path: "Id",
+                            operator: "Contains",
+                            value1: sValue,
+                            caseSensitive: false
+                        }) 
+                    ], false);
+                }  
+                  else {
+                     var aFilter = [];
+                 }
+
+                oEvent.getSource().getBinding("items").filter(aFilter);
+                // this._DepotValueHelp
+                //   /   .getBinding("items")
+                //     .filter(aFilter, "Application");
                 return;
             }
+        },
+        _handleDepotValueHelp1: function () {
+            /*
+            * Author: Mamta Singh
+            * Date: 27 may-2022
+            * Language:  JS
+            * Purpose:  Used to handle the Depot code pop over in the Pricing Master.
+            */
+            var oView = this.getView();
+            if (!this._DepotValueHelp) {
+                this._getViewFragment("DepotValueHelp").then(function (oControl) {
+                    this._DepotValueHelp = oControl;
+                    oView.addDependent(this._DepotValueHelp);
+                    this._DepotValueHelp.open();
+                }.bind(this))
+            }
+        },
+
+        _handleDepotValueHelp: function (oEvent) {
+
+
+
+            var oView = this.getView();
+            
+            if (!this._pDialog) {
+            
+            this._pDialog = Fragment.load({
+            
+            id: oView.getId(),
+            
+            name: "com.knpl.dga.pricingmaster.view.fragments.DepotValueHelp",
+            
+            controller: this
+            
+            }).then(function (oDialog) {
+            
+            oView.addDependent(oDialog);
+            
+            if (Device.system.desktop) {
+            
+            oDialog.addStyleClass("sapUiSizeCompact");
+            
+            }
+            
+            return oDialog;
+            
+            });
+            
+            }
+            
+            this._pDialog.then(function (oDialog) {
+            
+            var oList = oDialog.getAggregation("_dialog").getAggregation("content")[1];
+            
+            var sKey =  this.sDivisionKey;
+            
+            var sUserIDFilter = new sap.ui.model.Filter({
+            
+            path: "Division",
+            
+            operator: sap.ui.model.FilterOperator.EQ,
+            
+            value1: sKey
+            
+            });
+            
+            oList.getBinding("items").filter([sUserIDFilter]);
+            
+            oDialog.open();
+            
+            }.bind(this));
+            
+            },
+        _handleDepotValueHelpConfirm: function (oEvent) {
+            var oSelectedItem = oEvent.getParameter("selectedItem");
+            var oViewModel = this.getView().getModel("oModelView"),
+                oModelControl = this.getView().getModel("oModelControl");
+            var obj = oSelectedItem.getBindingContext().getObject();
+            oModelControl.setProperty(
+                "/AddFields/Depot",
+                obj["Depot"]
+            );
+            oModelControl.setProperty(
+                "/filterBar/Depot",
+                obj["Depot"]
+            );
+
+            this._onDialogClose();
 
         },
         _onDialogClose: function () {
+            if (this._DepotValueHelp) {
+                this._DepotValueHelp.destroy();
+                delete this._DepotValueHelp;
+                return;
+            }
+        },
             /*
                 Internal method to handle the closure of all the dialogs
                 if dialog 1 is open first and on top over that dialog 2 is open
@@ -461,113 +466,32 @@ sap.ui.define([
                 value help with select dialog box wont require to close they just are required 
                 to get destroyed
             */
-            if (this._pValueHelpDialog) {
+          
+        
+       
+       
 
-                this._pValueHelpDialog.destroy();
-                delete this._pValueHelpDialog;
-                return;
-            }
+        // onPainterValueHelpClose: function (oEvent) {
+        //     var oSelectedItem = oEvent.getParameter("selectedItem");
+        //     oEvent.getSource().getBinding("items").filter([]);
+        //     var oViewModel = this.getView().getModel("oModelView"),
+        //         oModelControl = this.getView().getModel("oModelControl");
+        //     if (!oSelectedItem) {
+        //         return;
+        //     }
+        //     var obj = oSelectedItem.getBindingContext().getObject();
+        //     oViewModel.setProperty("/PainterId", obj["Id"]);
+        //     oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
+        //     oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
+        //     oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
+        //     oModelControl.setProperty("/AddFields/PainterDivision", obj.DivisionId);
+        //     oModelControl.setProperty("/AddFields/PainterZone", obj.ZoneId);
 
-            if (this._ViewImageDialog) {
-                if (this._ViewImageDialog.isOpen()) {
-                    this._ViewImageDialog.close();
-                    return;
-                }
-            }
-        },
-        // painter value help request
-        onPainterValueHelpRequest: function (oEvent) {
-            var sInputValue = oEvent.getSource().getValue(),
-                oView = this.getView(), oModelControl = oView.getModel("oModelControl");
-
-            if (!this._pValueHelpDialog) {
-                this._pValueHelpDialog = Fragment.load({
-                    id: oView.getId(),
-                    name: oModelControl.getProperty("/resourcePath") + ".view.fragments.PainterValueHelpDialog",
-                    controller: this,
-                }).then(function (oDialog) {
-                    oView.addDependent(oDialog);
-                    return oDialog;
-                });
-            }
-            this._pValueHelpDialog.then(function (oDialog) {
-                // Create a filter for the binding
-                oDialog
-                    .getBinding("items")
-                    .filter([
-                        new Filter(
-                            [
-                                new Filter(
-                                    {
-                                        path: "Name",
-                                        operator: "Contains",
-                                        value1: sInputValue.trim(),
-                                        caseSensitive: false
-                                    }
-                                ),
-                                new Filter(
-                                    {
-                                        path: "Mobile",
-                                        operator: "Contains",
-                                        value1: sInputValue.trim(),
-                                        caseSensitive: false
-                                    }
-                                ),
-                            ],
-                            false
-                        ),
-                    ]);
-                // Open ValueHelpDialog filtered by the input's value
-                oDialog.open(sInputValue);
-            });
-        },
-        onPainterValueHelpSearch: function (oEvent) {
-            var sValue = oEvent.getParameter("value");
-            var oFilter = new Filter(
-                [
-                    new Filter(
-                        {
-                            path: "Name",
-                            operator: "Contains",
-                            value1: sValue.trim(),
-                            caseSensitive: false
-                        }
-                    ),
-                    new Filter(
-                        {
-                            path: "Mobile",
-                            operator: "Contains",
-                            value1: sValue.trim(),
-                            caseSensitive: false
-                        }
-                    )
-                ],
-                false
-            );
-
-            oEvent.getSource().getBinding("items").filter([oFilter]);
-        },
-        onPainterValueHelpClose: function (oEvent) {
-            var oSelectedItem = oEvent.getParameter("selectedItem");
-            oEvent.getSource().getBinding("items").filter([]);
-            var oViewModel = this.getView().getModel("oModelView"),
-                oModelControl = this.getView().getModel("oModelControl");
-            if (!oSelectedItem) {
-                return;
-            }
-            var obj = oSelectedItem.getBindingContext().getObject();
-            oViewModel.setProperty("/PainterId", obj["Id"]);
-            oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
-            oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
-            oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
-            oModelControl.setProperty("/AddFields/PainterDivision", obj.DivisionId);
-            oModelControl.setProperty("/AddFields/PainterZone", obj.ZoneId);
-
-            oModelControl.setProperty("/AddFields/PainterDepot", "");
-            //Fallback as Preliminary context not supported
+        //     oModelControl.setProperty("/AddFields/PainterDepot", "");
+        //     //Fallback as Preliminary context not supported
 
 
-        }
+        // }
 
     });
 

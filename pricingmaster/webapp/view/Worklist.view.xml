@@ -6,49 +6,75 @@
                 <f:content>
                     <fb:FilterBar showRestoreButton="false" id="filterbar" reset="onResetFilterBar" search="onFilterBarSearch" useToolbar="false" showRestoreOnFB="true">
                         <fb:filterGroupItems>
-                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Zone" label="{i18n>Zone}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                     <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>Zone}" selectionChange="onZoneChange"  items="{/MasterZoneSet}" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
-                                        <core:Item text="{Id} " key="{Id}" />
-                                    </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Division" label="{i18n>Division}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                      <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>Division}" id="idDivision" selectionChange="onDivisionChange" items="{/MasterDivisionSet}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
-                    <core:Item text="{Id}" key="{Id}" />
-                </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                     <ComboBox enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}" selectionChange="onDepotChange"  items="{/MasterDepotSet}" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
-                                        <core:Item text="{Depot} ( {Id} )" key="{Id}" />
-                                    </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
+                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Zone" label="{i18n>Zone}"  visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                   <fb:control>
+                                        <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>Zone}"  selectionChange="onZoneChange"  items="{/MasterZones}" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
+                                             <core:Item text="{Id} " key="{Id}" />
+                                        </ComboBox>
+                                   </fb:control>
+                               </fb:FilterGroupItem>
+                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Division" label="{i18n>Division}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                   <fb:control>
+                                        <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}"   placeholder="{i18n>Enter} {i18n>Division}" id="idDivision" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
+                                            <core:Item text="{Id}" key="{Id}" />
+                                        </ComboBox>
+                                    </fb:control>
+                               </fb:FilterGroupItem>
+                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                  <fb:control>
+                                      <Input id="idDepot" enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}"  placeholder="{i18n>Enter} {i18n>Depot}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleDepotValueHelp"  value="{path:'oModelControl>/filterBar/Depot'}"/>
+                                    
+                                   </fb:control>
+                               </fb:FilterGroupItem>
 
 
-                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="StartDate" label="{i18n>StartDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                    <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/StartDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="EndDate" label="{i18n>EndDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                 <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/EndDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>MainObject} {i18n>Status}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                     <ComboBox id="idStatus" placeholder="{i18n>Select} {i18n>MainObject} {i18n>Status}" selectionChange="onStatusChange" selectedKey="{path:'oModelControl>/filterBar/Status' }">
-                                       <core:Item text="{i18n>Registered}" key="REGISTERED"/>
-                                        <core:Item text="{i18n>Inreview}" key="INREVIEW"/>
-                                        <core:Item text="{i18n>Resolved}" key="RESOLVED"/>
-                                        <core:Item text="{i18n>Withdrawn}" key="WITHDRAWN"/>
-                                    </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
+                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Category" label="{i18n>Category}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                   <fb:control>
+                                       <ComboBox placeholder="{i18n>Select} {i18n>Category}" items="{path:'/MasterPaintingReqs',sorter:{path:'Name'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{path:'oModelControl>/filterBar/CategoryId'}"  >
+                                           <items>
+                                               <core:Item text="{Name}" key="{Id}" />
+                                           </items>
+                                       </ComboBox>
+                                   </fb:control>
+                               </fb:FilterGroupItem>
+
+                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Class" label="{i18n>Class}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                   <fb:control>
+                                       <ComboBox placeholder="{i18n>Select} {i18n>Class}" items="{path:'/MasterServiceClassifications',sorter:{path:'Name'}}" selectedKey="{path:'oModelControl>/filterBar/ClassId'}"  >
+                                            <items>
+                                                <core:Item text="{Name}" key="{ID}" />
+                                           </items>
+                                       </ComboBox>
+                                   </fb:control>
+                               </fb:FilterGroupItem>
+                            
+                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="Product" label="{i18n>Product}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                 <fb:control>
+                                       <ComboBox placeholder="{i18n>Select} {i18n>Product}" items="{path:'/MasterProducts',sorter:{path:'ProductName'} }" selectedKey="{path:'oModelControl>/filterBar/ProductId'}"  >
+                                          <items>
+                                              <core:Item text="{ProductName}" key="{Id}" />
+                                           </items>
+                                       </ComboBox>
+                                 </fb:control>
+                              </fb:FilterGroupItem>
+                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="Paint Type" label="{i18n>PaintingType}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                   <fb:control>
+                                        <ComboBox placeholder="{i18n>Select} {i18n>PaintingType}" items="{path:'/MasterPaintTypes',sorter:{path:'Name'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{path:'oModelControl>/filterBar/PaintTypeId'}"  >
+                                             <items>
+                                                <core:Item text="{Name}" key="{Id}" />
+                                             </items>
+                                        </ComboBox>
+                                    </fb:control>
+                              </fb:FilterGroupItem>
+                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="Plan" label="{i18n>Plan}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                  <fb:control>
+                                       <ComboBox placeholder="{i18n>Select} {i18n>Plan}" items="{path:'/MasterServiceSubTypes',sorter:{path:'ServiceSubType'}}" selectedKey="{path:'oModelControl>/filterBar/PlanId'}"  >
+                                          <items>
+                                             <core:Item text="{ServiceSubType}" key="{Id}" />
+                                          </items>
+                                      </ComboBox>
+                                   </fb:control>
+                               </fb:FilterGroupItem>  
                         </fb:filterGroupItems>
                     </fb:FilterBar>
                 </f:content>

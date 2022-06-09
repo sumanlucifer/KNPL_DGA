@@ -2,7 +2,7 @@
 
 specVersion: "2.5"
 metadata:
-  name: com.knpl.dga.ui5template
+  name: com.knpl.dga.pricingmaster
 type: application
 server:
   customMiddleware:
@@ -17,8 +17,8 @@ server:
           url: https://ui5.sap.com
         backend:
           - path: /api
-            url: https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com
-            destination: KNPL_PAINTER_API
+            url: https://knpl-dga-api.cfapps.ap11.hana.ondemand.com
+            destination: KNPL_DGA_API
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -28,5 +28,5 @@ server:
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:
-        component: com.knpl.dga.ui5template
+        component: com.knpl.dga.pricingmaster
         ui5Theme: sap_fiori_3
