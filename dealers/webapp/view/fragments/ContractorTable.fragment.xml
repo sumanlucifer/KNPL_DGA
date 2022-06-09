@@ -98,7 +98,7 @@
                         <HBox>
                             <core:Icon class="sapUiTinyMarginEnd" src="{path:'RegistrationStatus',formatter:'.formatter.RegStatusIcon'}" 
                                        color="{path:'RegistrationStatus',formatter:'.formatter.RegStatusColor'}" tooltip="{RegistrationStatus}" />
-                            <ObjectIdentifier tooltip="{Name}" title="{Name}" titleActive="true"/>
+                            <Text text="{Name}" />
                         </HBox>
                         <Text text="{MembershipCard}" visible="{= ${MembershipCard} !== null }"/>
                         <Text text="{Mobile}"/>

@@ -5,24 +5,9 @@ sap.ui.define(
         "../model/formatter",
         "sap/ui/model/Filter",
         "sap/ui/model/FilterOperator",
-        "sap/m/MessageBox",
-        "sap/ui/core/Fragment",
-        "sap/ui/model/Sorter",
-        "sap/ui/Device",
         "sap/m/MessageToast"
     ],
-    function (
-        BaseController,
-        JSONModel,
-        formatter,
-        Filter,
-        FilterOperator,
-        MessageBox,
-        Fragment,
-        Sorter,
-        Device,
-        MessageToast
-    ) {
+    function (BaseController, JSONModel, formatter, Filter, FilterOperator, MessageToast) {
         "use strict";
 
         return BaseController.extend(
@@ -43,6 +28,7 @@ sap.ui.define(
                     filterBar: {
                         Search: "",
                         DepotId: "",
+                        SalesGroupId: ""
                     },
                     PageBusy: true
                 };
@@ -71,6 +57,7 @@ sap.ui.define(
                     ZoneId: "",
                     DivisionId: "",
                     DepotId: "",
+                    SalesGroupId: "",
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -210,7 +197,7 @@ sap.ui.define(
 
                 // Apply Filters
                 var oFilter = this._CreateFilter();
-                if (oFilter) 
+                if (oFilter)
                     oBindingParams.filters.push(oFilter);
             },
             onFilterBarSearch: function () {
@@ -225,7 +212,7 @@ sap.ui.define(
 
                 var aFlaEmpty = true;
                 // aCurrentFilterValues.push(
-                    // new Filter("IsArchived", FilterOperator.EQ, false));
+                // new Filter("IsArchived", FilterOperator.EQ, false));
 
                 // filter bar filters
                 for (let prop in oViewFilter) {
@@ -234,7 +221,13 @@ sap.ui.define(
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("DealerSalesDetails/Depot", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "Search") {
+                        }
+                        else if (prop === "SalesGroupId") {
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("DealerSalesDetails/SalesGroupId", FilterOperator.EQ, oViewFilter[prop]));
+                        }
+                        else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter(
@@ -246,7 +239,13 @@ sap.ui.define(
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "PhoneNumber",
+                                            path: "Id",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "DealerPhoneNumber/SMSNumber",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
@@ -258,7 +257,7 @@ sap.ui.define(
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "DealerSalesDetails/SalesGroupId",
+                                            path: "DealerSalesDetails/SalesGroup/Description",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false

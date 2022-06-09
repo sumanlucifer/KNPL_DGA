@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+		<SelectDialog
+		title="{i18n>Depot}"
+        growing="true"
+        growingThreshold="8"
+        rememberSelections="false"
+		class="sapUiPopupWithPadding"
+		items="{path:'/MasterSalesGroupSet',sorter:{path:'Id'},parameters:{select:'Id,Description'} }"
+	    search="_handlePValueHelpSearch"
+		confirm="_handleSalesGroupValueHelpConfirm"
+        cancel="_onDialogClose"
+		multiSelect="false">
+		<StandardListItem
+			iconDensityAware="false"
+			iconInset="false"
+            title="{Description} ({Id})"
+	    />
+	</SelectDialog>
+</core:FragmentDefinition>

@@ -22,9 +22,12 @@
                             </fb:FilterGroupItem> -->
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <ComboBox id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}" selectionChange="onDepotChange"  items="{/MasterDepots}" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
-                                        <core:Item text="{Depot} ( {Id} )" key="{Id}" />
-                                    </ComboBox>
+                                    <Input id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleDepotValueHelp"  value="{path:'oModelControl>/filterBar/DepotId'}"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="SalesGroup" label="{i18n>SalesGroup}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <Input id="idSalesGroup" placeholder="{i18n>Enter} {i18n>SalesGroup}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleSalesGroupValueHelp"  value="{path:'oModelControl>/filterBar/SalesGroupId'}"/>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="StartDate" label="{i18n>StartDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">

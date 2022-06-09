@@ -29,9 +29,9 @@
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>PhoneNumber}" text="{PhoneNumber}"/>
+                        <ObjectAttribute title="{i18n>PhoneNumber}" text="{DealerPhoneNumber/SMSNumber}"/>
                         <ObjectAttribute title="{i18n>SalesGroupId}" text="{DealerSalesDetails/SalesGroupId}"/>
-                        <ObjectAttribute title="{i18n>SalesGroupName}" text=""/>
+                        <ObjectAttribute title="{i18n>SalesGroupName}" text="{DealerSalesDetails/SalesGroup/Description}"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>

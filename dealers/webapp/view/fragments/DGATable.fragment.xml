@@ -27,61 +27,61 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGAId", "leadingProperty": "DGAId", "columnIndex": 0 ,"sortProperty": "DGAId","filterProperty": "DGAId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGAId", "leadingProperty": "DGAId", "columnIndex": 1 ,"sortProperty": "DGAId","filterProperty": "DGAId"}'/>
                     </customData>
                     <Text text="{i18n>DGA} {i18n>Id}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/CreatedAt", "leadingProperty": "DGA/CreatedAt", "columnIndex": 0 ,"sortProperty": "DGA/CreatedAt","filterProperty": "DGA/CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/CreatedAt", "leadingProperty": "DGA/CreatedAt", "columnIndex": 2 ,"sortProperty": "DGA/CreatedAt","filterProperty": "DGA/CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>RegistrationDate}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Mobile", "leadingProperty": "DGA/Mobile", "columnIndex": 0 ,"sortProperty": "DGA/Mobile","filterProperty": "DGA/Mobile"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Mobile", "leadingProperty": "DGA/Mobile", "columnIndex": 3 ,"sortProperty": "DGA/Mobile","filterProperty": "DGA/Mobile"}'/>
                     </customData>
                     <Text text="{i18n>Mobile}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/DGAType/Name", "leadingProperty": "DGA/DGAType/Name", "columnIndex": 0 ,"sortProperty": "DGA/DGAType/Name","filterProperty": "DGA/DGAType/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/DGAType/Name", "leadingProperty": "DGA/DGAType/Name", "columnIndex": 4 ,"sortProperty": "DGA/DGAType/Name","filterProperty": "DGA/DGAType/Name"}'/>
                     </customData>
                     <Text text="{i18n>DGAType}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Zone", "leadingProperty": "DGA/Zone", "columnIndex": 0 ,"sortProperty": "DGA/Zone","filterProperty": "DGA/Zone"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Zone", "leadingProperty": "DGA/Zone", "columnIndex": 5 ,"sortProperty": "DGA/Zone","filterProperty": "DGA/Zone"}'/>
                     </customData>
                     <Text text="{i18n>Zone}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/DivisionId", "leadingProperty": "DGA/DivisionId", "columnIndex": 0 ,"sortProperty": "DGA/DivisionId","filterProperty": "DGA/DivisionId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/DivisionId", "leadingProperty": "DGA/DivisionId", "columnIndex": 6 ,"sortProperty": "DGA/DivisionId","filterProperty": "DGA/DivisionId"}'/>
                     </customData>
                     <Text text="{i18n>Division}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Depot/Depot", "leadingProperty": "DGA/Depot/Depot", "columnIndex": 0 ,"sortProperty": "DGA/Depot/Depot","filterProperty": "DGA/Depot/Depot"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Depot/Depot", "leadingProperty": "DGA/Depot/Depot", "columnIndex": 7 ,"sortProperty": "DGA/Depot/Depot","filterProperty": "DGA/Depot/Depot"}'/>
                     </customData>
                     <Text text="{i18n>Depot}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Pincode/Name", "leadingProperty": "DGA/Pincode/Name", "columnIndex": 0 ,"sortProperty": "DGA/Pincode/Name","filterProperty": "DGA/Pincode/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Pincode/Name", "leadingProperty": "DGA/Pincode/Name", "columnIndex": 8 ,"sortProperty": "DGA/Pincode/Name","filterProperty": "DGA/Pincode/Name"}'/>
                     </customData>
                     <Text text="{i18n>Pincode}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/PayrollCompany/Name", "leadingProperty": "DGA/PayrollCompany/Name", "columnIndex": 0 ,"sortProperty": "DGA/PayrollCompany/Name","filterProperty": "DGA/PayrollCompany/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/PayrollCompany/Name", "leadingProperty": "DGA/PayrollCompany/Name", "columnIndex": 9 ,"sortProperty": "DGA/PayrollCompany/Name","filterProperty": "DGA/PayrollCompany/Name"}'/>
                     </customData>
                     <Text text="{i18n>PayrollCompany}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Status", "leadingProperty": "DGA/Status", "columnIndex": 0 ,"sortProperty": "DGA/Status","filterProperty": "DGA/Status"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Status", "leadingProperty": "DGA/Status", "columnIndex": 10 ,"sortProperty": "DGA/Status","filterProperty": "DGA/Status"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
@@ -99,7 +99,6 @@
                         <Text text="{DGA/Depot/Depot}"/>
                         <Text text="{DGA/Pincode/Name}"/>
                         <Text text="{DGA/PayrollCompany/Name}"/>
-                        <Text text="{DGA/Status}"/>
                         <ObjectStatus text="{path:'DGA/Status',formatter:'.formatter.fmtLowerCase'}" state="{path:'DGA/Status',formatter:'.formatter.fmtStatusColorChange'}"/>
                     </cells>
                 </ColumnListItem>

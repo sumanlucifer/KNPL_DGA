@@ -98,7 +98,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "DealerSalesDetails";
+                var exPand = "DealerSalesDetails/SalesGroup,DealerPhoneNumber";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
