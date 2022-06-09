@@ -24,9 +24,6 @@
                 "uri": "KNPL_DGA_API/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
-                    "annotations": [
-                        "annotation0"
-                    ],
                     "localUri": "localService/metadata.xml",
                     "odataVersion": "2.0"
                 }
@@ -97,6 +94,17 @@
             },
             "": {
                 "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "defaultUpdateMethod": "Put",
+                    "useBatch": false
+                }
+            },
+            "oData2": {
+                "dataSource": "mainService2",
                 "preload": true,
                 "settings": {
                     "defaultBindingMode": "TwoWay",

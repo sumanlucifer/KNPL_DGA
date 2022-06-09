@@ -817,7 +817,13 @@ sap.ui.define(
                             filters: [new Filter("IsArchived", FilterOperator.EQ, false), new Filter("painterId", FilterOperator.EQ, oPainterId)],
                             sorter: new Sorter("CreatedAt", true)
                         })
-                    }
+                    }else if (sId.match("LeadsSection")) {
+                        var oModel = this.getView().getModel("oData2");
+                        console.log(oModel);
+                        console.log(this.getView().byId("LeadsTable").setModel(oModel));
+                        this.getView().byId("LeadsTable").rebindTable();
+
+                    } 
 
 
                     // else if (sId.match("complainSection")) {
@@ -831,6 +837,17 @@ sap.ui.define(
                     //         sorter: new Sorter("CreatedAt", true)
                     //     });
                     // }
+                },
+                onBeforeBindLeadsSmtTable:function(oEvent){
+                    var oView = this.getView();
+                    var oPainterId = oView
+                    .getModel("oModelControl2")
+                    .getProperty("/PainterId");
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "Lead,DGA";
+                var oFilter1 = new Filter("ContractorId", FilterOperator.EQ, oPainterId);
+                //oBindingParams.filters.push(oFilter1);
+                //oBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 },
                 handleEditPress: function () {
                     this._toggleButtonsAndView(true);
