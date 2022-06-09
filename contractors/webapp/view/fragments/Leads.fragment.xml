@@ -1,0 +1,114 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
+   <smartTable:SmartTable id="LeadsTable" editable="false" beforeRebindTable="onBeforeBindLeadsSmtTable" entitySet="AssignedContractors" tableType="ResponsiveTable" showRowCount="false" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="true" enableAutoBinding="false" placeToolbarInTable="true" persistencyKey="PendingSmartTableKey" >
+      
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >
+            <columns>
+              <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadId", "leadingProperty": "LeadId", "columnIndex": 0 ,"sortProperty": "LeadId","filterProperty": "LeadId"}'/>
+                    </customData>
+                    <Text text="{i18n>Id}"/>
+                </Column>
+                  <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 1 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
+                    </customData>
+                    <Text text="{i18n>DGA}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/ConsumerName", "leadingProperty": "Lead/ConsumerName", "columnIndex": 2 ,"sortProperty": "Lead/ConsumerName","filterProperty": "Lead/ConsumerName"}'/>
+                    </customData>
+                    <Text text="{i18n>ConsumerName}"/>
+                </Column>
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/PrimaryNum", "leadingProperty": "Lead/PrimaryNum", "columnIndex": 3 ,"sortProperty": "Lead/PrimaryNum","filterProperty": "Lead/PrimaryNum"}'/>
+                    </customData>
+                    <Text text="{i18n>PhoneNumber}"/>
+                </Column>
+                  <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/Visits", "leadingProperty": "Lead/Visits", "columnIndex": 4 ,"sortProperty": "Lead/Visits","filterProperty": "Lead/Visits"}'/>
+                    </customData>
+                    <Text text="{i18n>Visits}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/CityOrTown", "leadingProperty": "Lead/CityOrTown", "columnIndex": 5 ,"sortProperty": "Lead/CityOrTown","filterProperty": "Lead/CityOrTown"}'/>
+                    </customData>
+                    <Text text="{i18n>Place}"/>
+                </Column>
+                  <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ContractorName", "leadingProperty": "ContractorName", "columnIndex": 6 ,"sortProperty": "ContractorName","filterProperty": "ContractorName"}'/>
+                    </customData>
+                    <Text text="{i18n>ContractorName}"/>
+                </Column>
+                <!-- <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/PhoneNumber", "leadingProperty": "Dealer/PhoneNumber", "columnIndex": 1 ,"sortProperty": "Dealer/PhoneNumber","filterProperty": "Dealer/PhoneNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>PhoneNumber}"/>
+                </Column>
+               <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DealerId","leadingProperty":"DealerId",  "columnIndex": 2 ,"sortProperty": "DealerId","filterProperty": "DealerId"}'/>
+                    </customData>
+                    <Text text="{i18n>SapCode}"/>
+                </Column> 
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/DealerSalesDetails/SalesGroupId",  "columnIndex": 3 ,"sortProperty": "Dealer/DealerSalesDetails/SalesGroupId","filterProperty": "Dealer/DealerSalesDetails/SalesGroupId"}'/>
+                    </customData>
+                    <Text text="{i18n>SapGroupName}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/FiscalYear","leadingProperty":"Dealer/FiscalYear",  "columnIndex": 4 ,"sortProperty": "Dealer/FiscalYear","filterProperty": "Dealer/FiscalYear"}'/>
+                    </customData>
+                    <Text text="{i18n>FiscalYear}"/>
+                </Column>
+  
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TotalMappedContractors","columnIndex": 6 ,"leadingProperty":"TotalMappedContractors",  "sortProperty": "TotalMappedContractors","filterProperty": "TotalMappedContractors"}'/>
+                    </customData>
+                    <Text text="{i18n>TotalMappedContractor}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadsProvided","leadingProperty":"LeadsProvided", "columnIndex": 7 ,"sortProperty": "LeadsProvided","filterProperty": "LeadsProvided"}'/>
+                    </customData>
+                    <Text text="{i18n>LeadsProvided}"/>
+                </Column> -->
+                <!-- <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID", "columnIndex": 8 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                    </customData>
+                    <Text text="{i18n>Id}"/>
+                </Column> -->
+            
+               
+                
+
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                     <Text text="{LeadId}" />
+                     <Text text="{DGA/GivenName}"/>
+                      <Text text="{Lead/ConsumerName}" />
+                       <Text text="{Lead/PrimaryNum}" />
+                        <Text text="{Lead/Visits}" />
+                        <Text text="{Lead/CityOrTown}" />
+                        <Text text="{ContractorName}" />
+                       <!-- <Text text="{ID}" /> -->
+                        
+
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

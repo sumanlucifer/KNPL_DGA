@@ -182,6 +182,24 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection> -->
+              <uxap:ObjectPageSection id="LinkedDealerSsection" titleUppercase="false" title="{i18n>LinkedDealer}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <VBox renderType="Bare">
+                            <core:Fragment fragmentName="com.knpl.pragati.ContactPainter.view.fragments.LinkedDealer" type="XML"/>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+              <uxap:ObjectPageSection id="LeadsSection" titleUppercase="false" title="{i18n>Leads}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <VBox renderType="Bare">
+                            <core:Fragment fragmentName="com.knpl.pragati.ContactPainter.view.fragments.Leads" type="XML"/>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
         </uxap:sections>
         <uxap:footer>
             <Bar visible="{= ${IsArchived} === false}">
