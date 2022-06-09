@@ -336,15 +336,24 @@ sap.ui.define([
            
             if (sPath === "/MasterDepots") {
                 if (sValue.length > 0) {
-                    var aFilter = new Filter({
+                    var aFilter = new Filter([
+                        new Filter({
                         path: "Depot",
                         operator: "Contains",
                         value1: sValue,
                         caseSensitive: false
-                    });  
-                } else {
-                    var aFilter = [];
-                }
+                    }), 
+                    new Filter({
+                            path: "Id",
+                            operator: "Contains",
+                            value1: sValue,
+                            caseSensitive: false
+                        }) 
+                    ], false);
+                }  
+                  else {
+                     var aFilter = [];
+                 }
 
                 oEvent.getSource().getBinding("items").filter(aFilter);
                 // this._DepotValueHelp

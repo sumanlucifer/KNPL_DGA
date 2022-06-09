@@ -15,7 +15,7 @@
 		<StandardListItem
 			iconDensityAware="false"
 			iconInset="false"
-            title="{Depot}({Id})"
+            title="{Depot} ({Id})"
 	    />
 	</SelectDialog>
 </core:FragmentDefinition>

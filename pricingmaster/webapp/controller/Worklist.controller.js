@@ -212,7 +212,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "ProductCategory,Class,Product,PaintType,System,Plan,ValueAddition,Depot";
+                oBindingParams.parameters["expand"] = "ProductCategory,Class,Product,PaintType,System,Plan,ValueAddition,Depot,Depot/MasterDivision";
                 // oBindingParams.sorter.push(new Sorter("ProductCategory/Name", true));
 
                 //    Apply Filters
@@ -242,19 +242,19 @@ sap.ui.define(
                         if (prop === "ZoneId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("Id", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Depot/MasterDivision/Zone", FilterOperator.EQ, oViewFilter[prop]));
                         }
                         if (prop === "DivisionId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("Id", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Depot/Division", FilterOperator.EQ, oViewFilter[prop]));
 
 
                         }
                         if (prop === "Depot") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("Depot", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Depot/Depot", FilterOperator.EQ, oViewFilter[prop]));
 
                         }
                         else if (prop === "CategoryId") {
@@ -344,10 +344,7 @@ sap.ui.define(
                     PlanId: ""
                 };
 
-                // var aFilterAddFields = {
-                //     Depot: ""
-                // };
-
+               
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
                 var oTable = this.getView().byId("idWorkListTable1");

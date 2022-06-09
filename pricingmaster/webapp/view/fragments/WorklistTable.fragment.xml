@@ -9,7 +9,7 @@
                     <!-- </OverflowToolbar>  -->
 		</smartTable:customToolbar>
 
-        <Table growing="true" growingThreshold="20" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
            
             <columns>
                 <Column hAlign="Begin" >
@@ -26,19 +26,19 @@
                     <Text text="{i18n>Class}"/>
                 </Column>
 
-                <!-- <Column hAlign="Begin">
+                <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Zone", "leadingProperty": "Zone", "columnIndex": 2 ,"sortProperty": "Zone","filterProperty": "Zone"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Depot/MasterDivision/Zone", "leadingProperty": "Depot/MasterDivision/Zone", "columnIndex": 2 ,"sortProperty": "Depot/MasterDivision/Zone","filterProperty": "Depot/MasterDivision/Zone"}'/>
                     </customData>
                     <Text text="{i18n>Zone}"/>
-                </Column>  -->
+                </Column> 
 
-                <!-- <Column hAlign="Begin">
+                <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Division", "leadingProperty": "Division", "columnIndex": 3 ,"sortProperty": "Division","filterProperty": "Division"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Depot/Division", "leadingProperty": "Depot/Division", "columnIndex": 3 ,"sortProperty": "Depot/Division","filterProperty": "Depot/Division"}'/>
                     </customData>
                     <Text text="{i18n>Division}"/>
-                </Column> -->
+                </Column>
 
                 <Column hAlign="Begin">
                     <customData>
@@ -114,8 +114,8 @@
                     <cells>
                         <Text text="{ProductCategory/Name}"/>
                         <Text text="{Class/Name}"/>
-                         <!-- <Text text="{Zone}"/>  -->
-                         <!-- <Text text="{Division}"/>  -->
+                         <Text text="{Depot/MasterDivision/Zone}"/> 
+                         <Text text="{Depot/Division}"/> 
                         <Text text="{Depot/Depot}({DepotCode})"/>
                         <Text text="{Putty}"/>
                         <Text text="{Primer}"/>
