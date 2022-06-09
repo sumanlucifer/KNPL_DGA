@@ -345,9 +345,11 @@ sap.ui.define([
                 } else {
                     var aFilter = [];
                 }
-                this._DepotValueHelp
-                    .getBinding("items")
-                    .filter(aFilter, "Application");
+
+                oEvent.getSource().getBinding("items").filter(aFilter);
+                // this._DepotValueHelp
+                //   /   .getBinding("items")
+                //     .filter(aFilter, "Application");
                 return;
             }
         },

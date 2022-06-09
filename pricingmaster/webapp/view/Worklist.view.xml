@@ -40,7 +40,7 @@
 
                                <fb:FilterGroupItem groupName="__$INTERNAL$" name="Class" label="{i18n>Class}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                    <fb:control>
-                                       <ComboBox placeholder="{i18n>Select} {i18n>Class}" items="{path:'/MasterClasses',sorter:{path:'Name'}}" selectedKey="{path:'oModelControl>/filterBar/ClassId'}"  >
+                                       <ComboBox placeholder="{i18n>Select} {i18n>Class}" items="{path:'/MasterServiceClassifications',sorter:{path:'Name'}}" selectedKey="{path:'oModelControl>/filterBar/ClassId'}"  >
                                             <items>
                                                 <core:Item text="{Name}" key="{ID}" />
                                            </items>
