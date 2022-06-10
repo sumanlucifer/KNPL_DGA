@@ -819,9 +819,15 @@ sap.ui.define(
                         })
                     }else if (sId.match("LeadsSection")) {
                         var oModel = this.getView().getModel("oData2");
-                        console.log(oModel);
+                       
                         console.log(this.getView().byId("LeadsTable").setModel(oModel));
                         this.getView().byId("LeadsTable").rebindTable();
+
+                    }   else if (sId.match("DgaSection")) {
+                        var oModel = this.getView().getModel("oData2");
+                      
+                        console.log(this.getView().byId("DgaSmtTable").setModel(oModel));
+                        this.getView().byId("DgaSmtTable").rebindTable();
 
                     } 
 
@@ -846,8 +852,20 @@ sap.ui.define(
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Lead,DGA";
                 var oFilter1 = new Filter("ContractorId", FilterOperator.EQ, oPainterId);
-                //oBindingParams.filters.push(oFilter1);
-                //oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                oBindingParams.filters.push(oFilter1);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                },
+                onBeforeBindDgaSmtTable:function(oEvent){
+                   
+                    var oView = this.getView();
+                    var oPainterId = oView
+                    .getModel("oModelControl2")
+                    .getProperty("/PainterId");
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "DGA/PayrollCompany,DGA/SaleGroup,Dealer,DGA/Town,DGA/Pincode";
+                 var oFilter1 = new Filter("ContractorId", FilterOperator.EQ, oPainterId);
+               oBindingParams.filters.push(oFilter1);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 },
                 handleEditPress: function () {
                     this._toggleButtonsAndView(true);

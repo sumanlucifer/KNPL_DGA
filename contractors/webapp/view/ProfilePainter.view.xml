@@ -200,6 +200,15 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
+               <uxap:ObjectPageSection id="DgaSection" titleUppercase="false" title="{i18n>DGA}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <VBox renderType="Bare">
+                            <core:Fragment fragmentName="com.knpl.pragati.ContactPainter.view.fragments.Dga" type="XML"/>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
         </uxap:sections>
         <uxap:footer>
             <Bar visible="{= ${IsArchived} === false}">
