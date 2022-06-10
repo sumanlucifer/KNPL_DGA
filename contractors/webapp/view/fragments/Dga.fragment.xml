@@ -1,0 +1,85 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
+   <smartTable:SmartTable id="DgaSmtTable" editable="false" beforeRebindTable="onBeforeBindDgaSmtTable" entitySet="MapDGAContractors" tableType="ResponsiveTable" showRowCount="false" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="true" enableAutoBinding="false" placeToolbarInTable="true" persistencyKey="PendingSmartTableKey" >
+      
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >
+            <columns>
+             <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 0 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
+                    </customData>
+                    <Text text="{i18n>Name}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/PayrollCompany/Name", "leadingProperty": "DGA/PayrollCompany/Name", "columnIndex": 1 ,"sortProperty": "DGA/PayrollCompany/Name","filterProperty": "DGA/PayrollCompany/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>PayrollCompany}"/>
+                </Column>
+                  <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/SaleGroup/Name", "leadingProperty": "DGA/SaleGroup/Name", "columnIndex": 2 ,"sortProperty": "DGA/SaleGroup/Name","filterProperty": "DGA/SaleGroup/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>SalesGroup}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/Name", "leadingProperty": "Dealer/Name", "columnIndex": 3 ,"sortProperty": "Dealer/Name","filterProperty": "Dealer/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>LinkedDealer}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Targets", "leadingProperty": "DGA/Targets", "columnIndex": 4 ,"sortProperty": "DGA/Targets","filterProperty": "DGA/Targets"}'/>
+                    </customData>
+                    <Text text="{i18n>Targets}"/>
+                </Column>
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/PerformanceTargets", "leadingProperty": "DGA/PerformanceTargets", "columnIndex": 5 ,"sortProperty": "DGA/PerformanceTargets","filterProperty": "DGA/PerformanceTargets"}'/>
+                    </customData>
+                    <Text text="{i18n>PerformanceTargets}"/>
+                </Column>
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Town/City", "leadingProperty": "DGA/Town/City", "columnIndex": 6 ,"sortProperty": "DGA/Town/City","filterProperty": "DGA/Town/City"}'/>
+                    </customData>
+                    <Text text="{i18n>Location}"/>
+                </Column>
+                   <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Pincode/Name", "leadingProperty": "DGA/Pincode/Name", "columnIndex": 7 ,"sortProperty": "DGA/Pincode/Name","filterProperty": "DGA/Pincode/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>PinCode}"/>
+                </Column>
+                <!-- <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 8 ,"sortProperty": "Id","filterProperty": "Id"}'/>
+                    </customData>
+                    <Text text="{i18n>Id}"/>
+                </Column>
+             -->
+               
+                
+
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                    <Text text="{DGA/GivenName}" />
+                     <Text text="{DGA/PayrollCompany/Name}" />
+                       <Text text="{DGA/SaleGroup/Name}" />
+                         <Text text="{Dealer/Name}" />
+                            <Text text="{DGA/Targets}" />
+                             <Text text="{DGA/PerformanceTargets}" />
+                               <Text text="{DGA/Town/City}" />
+                                 <Text text="{DGA/Pincode/Name}" />
+                  
+                       <!-- <Text text="{Id}" /> -->
+                        
+
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>
