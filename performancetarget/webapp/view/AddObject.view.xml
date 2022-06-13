@@ -39,7 +39,7 @@
                    <!-- <ComboBox class="sapUiTinyMarginEnd" width="10rem" id="idZone" placeholder="{i18n>Enter} {i18n>Zone}" selectionChange="onZoneChange"  items="{/MasterZoneSet}" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
                          <core:Item text="{Id} " key="{Id}" />
                     </ComboBox> -->
-                      <MultiComboBox class="sapUiTinyMarginEnd" required="true" width="10rem" selectedKeys="{path:'oModelControl>/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/ MasterZones' }"  selectionChange="onMultyZoneChange" >
+                      <MultiComboBox class="sapUiTinyMarginEnd" required="true" width="10rem" selectedKeys="{path:'oModelControl>/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/MasterZones' }"  selectionChange="onMultyZoneChange" >
 					<core:Item key="{Id}" text="{Id}"/>
 				     </MultiComboBox>
                     </VBox>
