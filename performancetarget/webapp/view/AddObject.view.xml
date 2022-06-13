@@ -34,12 +34,12 @@
                
                    <VBox class="sapUiTinyMargin">
                     <HBox width="100%">
-                    <VBox>
+                    <VBox >
                     <Label text="{i18n>Select} {i18n>Zone}" required="true" width="14em" />
                    <!-- <ComboBox class="sapUiTinyMarginEnd" width="10rem" id="idZone" placeholder="{i18n>Enter} {i18n>Zone}" selectionChange="onZoneChange"  items="{/MasterZoneSet}" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
                          <core:Item text="{Id} " key="{Id}" />
                     </ComboBox> -->
-                      <MultiComboBox class="sapUiTinyMarginEnd" required="true" width="10rem" selectedKeys="{path:'oModelControl>/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/MasterZoneSet' }"  selectionChange="onMultyZoneChange" >
+                      <MultiComboBox class="sapUiTinyMarginEnd" required="true" width="10rem" selectedKeys="{path:'oModelControl>/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/ MasterZones' }"  selectionChange="onMultyZoneChange" >
 					<core:Item key="{Id}" text="{Id}"/>
 				     </MultiComboBox>
                     </VBox>
@@ -49,7 +49,7 @@
                       <!-- <ComboBox class="sapUiTinyMarginEnd" width="10rem" enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>Division}" id="idDivision" selectionChange="onDivisionChange" items="{/MasterDivisionSet}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
                         <core:Item text="{Id}" key="{Id}" />
                       </ComboBox> -->
-                       <MultiComboBox  editable="{= ${oModelControl>/MultiCombo/Zone}.length > 0 }" id="idDivision" width="10rem" selectedKeys="{oModelControl>/MultiCombo/Division}" items="{ path : '/MasterDivisionSet'}" selectionChange="onMultyDivisionChange" >
+                       <MultiComboBox  editable="{= ${oModelControl>/MultiCombo/Zone}.length > 0 }" id="idDivision" width="10rem" selectedKeys="{oModelControl>/MultiCombo/Division}" items="{ path : '/MasterDivisions'}" selectionChange="onMultyDivisionChange" >
 					<core:Item key="{Id}" text="{Id}"/>
 				</MultiComboBox>
                      </VBox>
@@ -80,7 +80,7 @@
                       </VBox>
                         </HBox>
                       <VBox class="sapUiTinyMargin">
-                      <Label text="{i18n>LeadVisitCount} ({i18n>Daily})" required="true" />
+                      <Label text="{i18n>LeadVisitCount} ({i18n>Daily})" required="true" width="12em" />
                       <StepInput value="{oModelControl>/AddFields/Target}" displayValuePrecision="0"  min="0" max="20" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                 </VBox>

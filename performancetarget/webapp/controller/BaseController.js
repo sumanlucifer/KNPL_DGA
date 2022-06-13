@@ -122,7 +122,7 @@ sap.ui.define([
             var oView = this.getView();
             var oValidate = new Validator();
             var othat = this;
-            var oForm = oView.byId("FormObjectData");
+            var oForm = oView.byId("idSampleSetTarget");
             var bFlagValidate = oValidate.validate(oForm);
             if (!bFlagValidate) {
                 othat._showMessageToast("Message3")
@@ -233,8 +233,23 @@ sap.ui.define([
         },
           // Radio button event
         onRbChnageMain:function(oEvent){
+            var AddFields = {
+                Target: "",
+                StartDate: "",
+                EndDate: ""
+            },
+            MultiCombo = {
+                Zone: [],
+                Division: [],
+                Depot: [],
+            },
+            oModelControl = this.getView().getModel("oModelControl");
+
+            oModelControl.setProperty("/MultiCombo", MultiCombo);
+            oModelControl.setProperty("/AddFields", AddFields);
+
            
-             this._propertyToBlank([ "MultiCombo/Zone", "MultiCombo/Division", "MultiCombo/Depot", "StartDate", "EndDate","Target"], true)
+             // this._propertyToBlank([ "MultiCombo/Zone", "MultiCombo/Division", "MultiCombo/Depot", "StartDate", "EndDate","Target"], true)
         },
         _propertyToBlank: function (aArray, sModelName) {
             var aProp = aArray;
@@ -506,7 +521,7 @@ sap.ui.define([
                 },
                 target: {
                     localPath: "/MultiCombo/Division",
-                    oDataPath: "/MasterDivisionSet",
+                    oDataPath: "/MasterDivisions",
                     key: "Zone"
                 }
             });
@@ -517,7 +532,7 @@ sap.ui.define([
                 },
                 target: {
                     localPath: "/MultiCombo/Depot",
-                    oDataPath: "/MasterDepotSet",
+                    oDataPath: "/MasterDepots",
                     key: "Division",
                     targetKey: "DepotId"
                 }
@@ -538,7 +553,7 @@ sap.ui.define([
                 },
                 target: {
                     localPath: "/MultiCombo/Depot",
-                    oDataPath: "/MasterDepotSet",
+                    oDataPath: "/MasterDepots",
                     key: "Division",
                     targetKey: "DepotId"
                 }
@@ -611,7 +626,7 @@ sap.ui.define([
 
                     if (oTable.bindRows) {
                         oTable.bindAggregation("rows", {
-                            path: "/MasterDepotSet",
+                            path: "/MasterDepots",
                             events: {
                                 dataReceived: function () {
                                     this._oValueHelpDialog.update();
@@ -621,7 +636,7 @@ sap.ui.define([
                     }
 
                     if (oTable.bindItems) {
-                        oTable.bindAggregation("items", "/MasterDepotSet", function () {
+                        oTable.bindAggregation("items", "/MasterDepots", function () {
                             return new sap.m.ColumnListItem({
                                 cells: aCols.map(function (column) {
                                     return new sap.m.Label({
@@ -666,6 +681,24 @@ sap.ui.define([
                     and: true,
                 })
             );
+        },
+        
+        _filterTable: function (oFilter, sType) {
+            var oValueHelpDialog = this._oValueHelpDialog;
+
+            oValueHelpDialog.getTableAsync().then(function (oTable) {
+                if (oTable.bindRows) {
+                    oTable.getBinding("rows").filter(oFilter, sType || "Application");
+                }
+
+                if (oTable.bindItems) {
+                    oTable
+                        .getBinding("items")
+                        .filter(oFilter, sType || "Application");
+                }
+
+                oValueHelpDialog.update();
+            });
         },
         onValueHelpAfterOpen: function () {
             var aFilter = this._getfilterforControl();

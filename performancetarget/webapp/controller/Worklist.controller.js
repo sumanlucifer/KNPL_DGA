@@ -43,8 +43,6 @@ sap.ui.define(
                     filterBar: {
                         StartDate: null,
                         EndDate: null,
-                        Status: "",
-                        Search: "",
                         ZoneId: "",
                         DivisionId: "",
                         DepotId: "",
@@ -56,18 +54,18 @@ sap.ui.define(
 
                 var oMdlCtrl = new JSONModel(oDataControl);
                 this.getView().setModel(oMdlCtrl, "oModelControl");
-                var startupParams;
-                if (this.getOwnerComponent().getComponentData()) {
-                    startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                }
-                // console.log(startupParams);
-                if (startupParams) {
-                    if (startupParams.hasOwnProperty("DgaId")) {
-                        if (startupParams["DgaId"].length > 0) {
-                            this._onNavToDetails(startupParams["DgaId"][0]);
-                        }
-                    }
-                }
+                // var startupParams;
+                // if (this.getOwnerComponent().getComponentData()) {
+                //     startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                // }
+                // // console.log(startupParams);
+                // if (startupParams) {
+                //     if (startupParams.hasOwnProperty("DgaId")) {
+                //         if (startupParams["DgaId"].length > 0) {
+                //             this._onNavToDetails(startupParams["DgaId"][0]);
+                //         }
+                //     }
+                // }
                 oRouter
                     .getRoute("worklist")
                     .attachMatched(this._onRouteMatched, this);
@@ -122,8 +120,8 @@ sap.ui.define(
                 var oModelControl = oView.getModel("oModelControl");
                 var c1, c2, c3, c4;
                 oModelControl.setProperty("/PageBusy", true)
-                c1 = othat._addSearchFieldAssociationToFB();
-                c1.then(function () {
+                // c1 = othat._addSearchFieldAssociationToFB();
+                // c1.then(function () {
                     c2 = othat._dummyPromise();
                     c2.then(function () {
                         c3 = othat._initTableData();
@@ -131,7 +129,7 @@ sap.ui.define(
                             oModelControl.setProperty("/PageBusy", false)
                         })
                     })
-                })
+               // })
 
             },
 
@@ -239,7 +237,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Painter,ComplaintType";
+              //  oBindingParams.parameters["expand"] = "Painter,ComplaintType";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
@@ -261,10 +259,10 @@ sap.ui.define(
 
                 var aFlaEmpty = false;
                 // init filters - is archived and complaint type id is 1
-                aCurrentFilterValues.push(
-                    new Filter("IsArchived", FilterOperator.EQ, false));
-                aCurrentFilterValues.push(
-                    new Filter("ComplaintTypeId", FilterOperator.NE, 1));
+                // aCurrentFilterValues.push(
+                //     new Filter("IsArchived", FilterOperator.EQ, false));
+                // aCurrentFilterValues.push(
+                //     new Filter("ComplaintTypeId", FilterOperator.NE, 1));
 
 
                 // filter bar filters

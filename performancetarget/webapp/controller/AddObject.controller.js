@@ -108,12 +108,12 @@ sap.ui.define([
 
 
         onPressSave: function () {
-            // var bValidateForm = this._ValidateForm();
-            // if (bValidateForm) {
-            //     this._postDataToSave();
-            // }
+            var bValidateForm = this._ValidateForm();
+            if (bValidateForm) {
+                this._postDataToSave();
+            }
 
-            this._postDataToSave();
+           // this._postDataToSave();
 
         },
         _postDataToSave: function () {
