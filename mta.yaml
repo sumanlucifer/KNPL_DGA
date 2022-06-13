@@ -95,8 +95,8 @@ modules:
       name: comknpldgadealers
       target-path: resources/
     - artifacts:
-      - comknpldgacontractors.zip
-      name: comknpldgacontractors
+      - comknplpragatiContactPainter.zip
+      name: comknplpragatiContactPainter
       target-path: resources/
 - name: comknpldgaproductcatalogue
   type: html5
@@ -232,7 +232,7 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: comknpldgacontractors
+- name: comknplpragatiContactPainter
   type: html5
   path: contractors
   build-parameters:
