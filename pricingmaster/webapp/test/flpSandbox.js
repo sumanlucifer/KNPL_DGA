@@ -40,7 +40,7 @@ sap.ui.define([
 								"tileType": "sap.ushell.ui.tile.StaticTile",
 								"properties": {
 									"title": "Ui5 Template",
-									"targetURL": "#comknpldgaui5template-display"
+									"targetURL": "#comknpldgapricingmaster-display"
 								}
 							}]
 						}]
@@ -51,8 +51,8 @@ sap.ui.define([
 				"adapter": {
 					"config": {
 						"inbounds": {
-							"comknpldgaui5template-display": {
-								"semanticObject": "comknpldgaui5template",
+							"comknpldgapricingmaster-display": {
+								"semanticObject": "comknpldgapricingmaster",
 								"action": "display",
 								"description": "A Fiori application.",
 								"title": "Ui5 Template",
@@ -61,8 +61,8 @@ sap.ui.define([
 								},
 								"resolutionResult": {
 									"applicationType": "SAPUI5",
-									"additionalInformation": "SAPUI5.Component=com.knpl.dga.ui5template",
-									"url": sap.ui.require.toUrl("com/knpl/dga/ui5template")
+									"additionalInformation": "SAPUI5.Component=com.knpl.dga.pricingmaster",
+									"url": sap.ui.require.toUrl("com/knpl/dga/pricingmaster")
 								}
 							}
 						}
