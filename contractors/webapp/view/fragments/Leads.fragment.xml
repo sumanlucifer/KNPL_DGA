@@ -57,7 +57,7 @@
 
             </columns>
             <items>
-                <ColumnListItem press="onListItemPressLeads" type="Navigation" >
+                <ColumnListItem press="onLeadListItemPressLeads" type="Navigation" >
                     <cells>
                      <Text text="{LeadId}" />
                      <Text text="{DGA/GivenName}"/>

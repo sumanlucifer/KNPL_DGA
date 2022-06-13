@@ -867,14 +867,14 @@ sap.ui.define(
                 oBindingParams.filters.push(oFilter1);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
-            onListItemPressLeads: function (oEvent) {
+            onLeadListItemPressLeads: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 this.Navigate({
                     target: {
                         semanticObject: "Manage",
                         action: "Leads",
                         params: {
-                            LeadId: oBj["Id"]
+                            LeadId: oBj["LeadId"]
                         }
                     }
                 });
@@ -890,6 +890,18 @@ sap.ui.define(
                         params: oSemAct.target.params
                     })
                 }
+            },
+            onDgaListItemPress:function(){
+                var oBj = oEvent.getSource().getBindingContext().getObject();
+                this.Navigate({
+                    target: {
+                        semanticObject: "Manage",
+                        action: "DGAMgmt",
+                        params: {
+                            LeadId: oBj["DGAId"]
+                        }
+                    }
+                });
             },
             handleEditPress: function () {
                 this._toggleButtonsAndView(true);
