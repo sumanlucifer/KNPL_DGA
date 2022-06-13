@@ -891,14 +891,26 @@ sap.ui.define(
                     })
                 }
             },
-            onDgaListItemPress:function(){
+            onDgaListItemPress:function(oEvent){
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 this.Navigate({
                     target: {
                         semanticObject: "Manage",
                         action: "DGAMgmt",
                         params: {
-                            LeadId: oBj["DGAId"]
+                            DgaId: oBj["DGAId"]
+                        }
+                    }
+                });
+            },
+            onLinkPressDealerId:function(oEvent){
+                var sDealerId = oEvent.getSource().getBinding("text").getValue();
+                this.Navigate({
+                    target: {
+                        semanticObject: "Dealer",
+                        action: "Display",
+                        params: {
+                            DealerId:sDealerId
                         }
                     }
                 });

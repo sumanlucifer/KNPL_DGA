@@ -11,12 +11,13 @@
         <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="2" singleContainerFullSize="false">
             <f:content>
                 <core:Title text=""/>
+                  <Label text="{i18n>SAPCode}"/>
+                 <Link text="{path:'PrimaryDealerDetails/Id'}" press="onLinkPressDealerId" />
                 <Label text="{i18n>DealerName}"/>
                 <Text text="{path:'PrimaryDealerDetails/DealerName'}" />
                 <Label text="{i18n>PlantCode}"/>
                 <Text text="{path:'PrimaryDealerDetails/PlantCode'}" />
-                <Label text="{i18n>SAPCode}"/>
-              <Text text="{path:'PrimaryDealerDetails/Id'}" />
+              
                <Label text="{i18n>DepotCode}"/>
   <Text text="{path:'PrimaryDealerDetails/Depot'}" />
                 <core:Title text=""/>
