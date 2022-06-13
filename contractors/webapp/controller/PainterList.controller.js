@@ -224,7 +224,7 @@ sap.ui.define(
                 _initData: function () {
                     var promise = $.Deferred();
                     var oViewModel = new JSONModel({
-                        pageTitle: "Painters (0)",
+                        pageTitle: "Contractors (0)",
                         tableNoDataText: this.getResourceBundle().getText(
                             "tableNoDataText"
                         ),
