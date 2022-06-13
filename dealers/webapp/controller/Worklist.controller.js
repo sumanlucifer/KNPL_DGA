@@ -244,24 +244,24 @@ sap.ui.define(
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
-                                        new Filter({
-                                            path: "DealerPhoneNumber/SMSNumber",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
+                                        // new Filter({
+                                        //     path: "DealerPhoneNumber/SMSNumber",
+                                        //     operator: "Contains",
+                                        //     value1: oViewFilter[prop].trim(),
+                                        //     caseSensitive: false
+                                        // }),
                                         new Filter({
                                             path: "PlantCode",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
-                                        new Filter({
-                                            path: "DealerSalesDetails/SalesGroup/Description",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
+                                        // new Filter({
+                                        //     path: "DealerSalesDetails/SalesGroup/Description",
+                                        //     operator: "Contains",
+                                        //     value1: oViewFilter[prop].trim(),
+                                        //     caseSensitive: false
+                                        // }),
                                         new Filter({
                                             path: "FiscalYear",
                                             operator: "Contains",
