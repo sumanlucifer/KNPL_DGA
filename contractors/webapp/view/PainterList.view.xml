@@ -225,7 +225,7 @@
                             </HBox>
                             <VBox width="100%" >
                                 <Text text="{MembershipCard}" visible="{= ${MembershipCard} !== null }"/>
-                                <Button tooltip="{i18n>GenerateMId}" width="100%" text="{i18n>GenerateMId}" type="Ghost" press="onGenMemId"  visible="{= ${MembershipCard}===null }"/>
+                                <Button enabled="false" tooltip="{i18n>GenerateMId}" width="100%" text="{i18n>GenerateMId}" type="Ghost" press="onGenMemId"  visible="{= ${MembershipCard}===null }"/>
                             </VBox>
                           
                             <Text text="{Mobile}"/>
