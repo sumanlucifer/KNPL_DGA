@@ -2,7 +2,7 @@
 
 specVersion: "2.5"
 metadata:
-  name: com.knpl.dga.ui5template
+  name: com.knpl.dga.payrollcompany
 type: application
 server:
   customMiddleware:

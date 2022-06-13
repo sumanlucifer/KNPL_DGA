@@ -8,7 +8,7 @@
 |**Floorplan Used**<br>simple|
 |**Service Type**<br>SAP System (ABAP On Premise)|
 |**Service URL**<br>https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com/api/v2/odata.svc/
-|**Module Name**<br>ui5template|
+|**Module Name**<br>payrollcompany|
 |**Application Title**<br>Ui5 Template|
 |**Namespace**<br>com.knpl.dga|
 |**UI5 Theme**<br>sap_fiori_3|
@@ -17,7 +17,7 @@
 |**Add Eslint configuration**<br>False|
 |**Enable Telemetry**<br>True|
 
-## ui5template
+## payrollcompany
 
 A Fiori application.
 
