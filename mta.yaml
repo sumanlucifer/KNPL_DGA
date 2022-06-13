@@ -87,28 +87,16 @@ modules:
       name: comknpldgapricingmaster
       target-path: resources/
     - artifacts:
-      - comknpldgaproducts.zip
-      name: comknpldgaproducts
-      target-path: resources/
-    - artifacts:
       - comknpldgapayrollcompany.zip
       name: comknpldgapayrollcompany
-      target-path: resources/
-    - artifacts:
-      - comknpldgataskapproval.zip
-      name: comknpldgataskapproval
       target-path: resources/
     - artifacts:
       - comknpldgadealers.zip
       name: comknpldgadealers
       target-path: resources/
     - artifacts:
-      - comknpldgaperformancetarget.zip
-      name: comknpldgaperformancetarget
-      target-path: resources/
-    - artifacts:
-      - comknpldgafeedbackform.zip
-      name: comknpldgafeedbackform
+      - comknpldgacontractors.zip
+      name: comknpldgacontractors
       target-path: resources/
 - name: comknpldgaproductcatalogue
   type: html5
@@ -224,29 +212,9 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: comknpldgaproducts
-  type: html5
-  path: products
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
 - name: comknpldgapayrollcompany
   type: html5
   path: payrollcompany
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: comknpldgataskapproval
-  type: html5
-  path: taskapproval
   build-parameters:
     build-result: dist
     builder: custom
@@ -264,9 +232,9 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: comknpldgaperformancetarget
+- name: comknpldgacontractors
   type: html5
-  path: performancetarget
+  path: contractors
   build-parameters:
     build-result: dist
     builder: custom
@@ -274,16 +242,6 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: comknpldgafeedbackform
-  type: html5
-  path: feedbackform
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []   
 resources:
 - name: knpl-dga-web-destination-service
   type: org.cloudfoundry.managed-service
