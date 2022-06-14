@@ -59,8 +59,8 @@
                 </ComboBox>
                 <Label text="{i18n>ChildTown}"/>
                 <TextArea editable="false" value="{path:'oModelControl>/MultiCombo/ChildTowns', formatter:'.formatter.fmtChildTowns'}"></TextArea>
-                <Label text="{i18n>DgaActivated}"/>
-                <Text text="{oModelControl>/DGAActivated}" />
+                <Label text="{i18n>DgaActivated}" visible="{= ${oModelControl>/mode} === 'Add'}"/>
+                <Text text="{oModelControl>/DGAActivated}" visible="{= ${oModelControl>/mode} === 'Add'}" />
                 <Label text="{i18n>DgaRequirement}"/>
                 <Text text="{oModelView>/AllocatedDGACount}" />
                 <Label text="{i18n>Location} {i18n>PinCode}" />
