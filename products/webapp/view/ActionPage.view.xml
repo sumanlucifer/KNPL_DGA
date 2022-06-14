@@ -61,7 +61,7 @@
                                             forceSelection="false"
                                             width="100%"
                                             items="{
-                                                path: 'ActionViewModel>/GetProducts',
+                                                path: 'ActionViewModel>/CatalogueProducts',
                                                 sorter: { path: 'ProductName' }
                                             }">
                                             <core:Item key="{ActionViewModel>Id}" text="{ActionViewModel>ProductName}" />
