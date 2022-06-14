@@ -107,17 +107,16 @@ sap.ui.define([
                 PayrollCompanyId: "",
                 Zone: "",
                 DivisionId: "",
-                DepotId: "",
+                //DepotId: "",
                 DGADealers: [],
-                ServicePincodes: [],
                 StateId: "",
                 //TownId: "",
                 EmployeeId: "",
                 JoiningDate: null,
                 ExitDate: null,
                 WorkLocationId: "",
-                ChildTowns:[],
-                AllocatedDGACount:""
+                Positions: [],
+                AllocatedDGACount: ""
 
             }
             var oModel1 = new JSONModel(oDataView);
@@ -144,7 +143,7 @@ sap.ui.define([
                 return promise;
             });
         },
-      
+
         // onStateChange: function (oEvent) {
         //    console.log("new state change")
         // },
@@ -184,7 +183,7 @@ sap.ui.define([
             }
             return true;
         },
-      
+
         _postDataToSave: function () {
             /*
              * Author: manik saluja
@@ -239,39 +238,51 @@ sap.ui.define([
                 }
             }
             oPayload["DGADealers"] = aDealers;
-            var aExistingData = oModelView.getProperty("/ServicePincodes");
-            var aSelectedData = oModelControl.getProperty("/MultiCombo/Pincode2")
-            var iData = -1;
-            var aDataFinal = [];
-            for (var x of aSelectedData) {
-                iData = aExistingData.findIndex(item => item["Id"] === x["Id"])
-                if (iData >= 0) {
+            // service pincodes
+           
+
+            // Depot
+            var aExistingDealers = oModelView.getProperty("/Positions");
+            var aSelectedDealers = oModelControl.getProperty("/MultiCombo/Depots")
+            var iDealers = -1;
+            var aDealers = [];
+            for (var x of aSelectedDealers) {
+                iDealers = aExistingDealers.findIndex(item => item["Id"] === x["DepotId"])
+                if (iDealers >= 0) {
                     //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
-                    aDataFinal.push(oPayload["ServicePincodes"][iData]);
+                    aDealers.push(aExistingDealers["Positions"][iDealers]);
                 } else {
-                    aDataFinal.push({ PincodeId: x["Id"] });
+                    aDealers.push({ DepotId: x["Id"] });
                 }
             }
-            oPayload["ServicePincodes"] = aDataFinal;
-            var aExistingData = oModelView.getProperty("/ChildTowns");
+            oPayload["Positions"] = aDealers;
+            // here the assumption is made that the depot will always be there.
+            // child towns
             var aSelectedData = oModelControl.getProperty("/MultiCombo/ChildTowns")
-            var iData = -1;
             var aDataFinal = [];
             for (var x of aSelectedData) {
-                    aDataFinal.push({ WorkLocationId: x["Id"] });
+                aDataFinal.push({ WorkLocationId: x["Id"] });
             }
-            oPayload["ChildTowns"] = aDataFinal;
+            oPayload["Positions"][0]["ChildTowns"] = aDataFinal;
+            // Service PinCode
+            var aSelectedData = oModelControl.getProperty("/MultiCombo/Pincode2")
+            var aDataFinal = [];
+            for (var x of aSelectedData) {
+                    aDataFinal.push({ PincodeId: x["Id"] });
+            }
+            oPayload["Positions"][0]["ServicePincodes"] = aDataFinal;
+
             promise.resolve(oPayload);
             return promise
 
         },
         _CreateObject: function (oPayLoad) {
-            //console.log(oPayLoad);
+            console.log(oPayLoad);
             var othat = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
-            //console.log(oModelControl.getData())
+            console.log(oModelControl.getData())
             return new Promise((resolve, reject) => {
                 //resolve();
                 oDataModel.create("/DGAs", oPayLoad, {
@@ -280,7 +291,7 @@ sap.ui.define([
                         resolve(data);
                     },
                     error: function (data) {
-                        oModelControl.getProperty("/PageBusy", false);
+                        oModelControl.setProperty("/PageBusy", false);
                         //othat._showMessageToast("Message4")
                         reject(data);
                     },
