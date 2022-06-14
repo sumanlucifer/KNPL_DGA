@@ -41,11 +41,11 @@
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Town/City", "leadingProperty": "DGA/Town/City", "columnIndex": 6 ,"sortProperty": "DGA/Town/City","filterProperty": "DGA/Town/City"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/WorkLocation/TownName", "leadingProperty": "DGA/WorkLocation/TownName", "columnIndex": 6 ,"sortProperty": "DGA/WorkLocation/TownName","filterProperty": "DGA/WorkLocation/TownName"}'/>
                     </customData>
                     <Text text="{i18n>Location}"/>
                 </Column>
-                   <Column hAlign="Begin">
+                <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Pincode/Name", "leadingProperty": "DGA/Pincode/Name", "columnIndex": 7 ,"sortProperty": "DGA/Pincode/Name","filterProperty": "DGA/Pincode/Name"}'/>
                     </customData>
@@ -71,7 +71,7 @@
                          <Text text="{Dealer/Name}" />
                             <Text text="{DGA/Targets}" />
                              <Text text="{DGA/PerformanceTargets}" />
-                               <Text text="{DGA/Town/City}" />
+                               <Text text="{DGA/WorkLocation/TownName}" />
                                  <Text text="{DGA/Pincode/Name}" />
                   
                        <!-- <Text text="{Id}" /> -->

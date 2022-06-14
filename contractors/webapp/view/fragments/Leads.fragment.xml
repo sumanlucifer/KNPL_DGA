@@ -11,7 +11,7 @@
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 1 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/DGADetails/GivenName", "leadingProperty": "Lead/DGA/GivenName", "columnIndex": 1 ,"sortProperty": "Lead/DGA/GivenName","filterProperty": "Lead/DGA/GivenName"}'/>
                     </customData>
                     <Text text="{i18n>DGA}"/>
                 </Column>
@@ -33,15 +33,21 @@
                     </customData>
                     <Text text="{i18n>Visits}"/>
                 </Column>
+                   <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/LeadSource/Name", "leadingProperty": "Lead/LeadSource/Name", "columnIndex": 5 ,"sortProperty": "Lead/LeadSource/Name","filterProperty": "Lead/LeadSource/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>Source}"/>
+                </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/CityOrTown", "leadingProperty": "Lead/CityOrTown", "columnIndex": 5 ,"sortProperty": "Lead/CityOrTown","filterProperty": "Lead/CityOrTown"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/CityOrTown", "leadingProperty": "Lead/CityOrTown", "columnIndex": 6 ,"sortProperty": "Lead/CityOrTown","filterProperty": "Lead/CityOrTown"}'/>
                     </customData>
                     <Text text="{i18n>Place}"/>
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ContractorName", "leadingProperty": "ContractorName", "columnIndex": 6 ,"sortProperty": "ContractorName","filterProperty": "ContractorName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ContractorName", "leadingProperty": "ContractorName", "columnIndex": 7 ,"sortProperty": "ContractorName","filterProperty": "ContractorName"}'/>
                     </customData>
                     <Text text="{i18n>ContractorName}"/>
                 </Column>
@@ -60,10 +66,11 @@
                 <ColumnListItem press="onLeadListItemPressLeads" type="Navigation" >
                     <cells>
                      <Text text="{LeadId}" />
-                     <Text text="{DGA/GivenName}"/>
+                     <Text text="{Lead/DGADetails/GivenName}"/>
                       <Text text="{Lead/ConsumerName}" />
                        <Text text="{Lead/PrimaryNum}" />
                         <Text text="{Lead/Visits}" />
+                          <Text text="{Lead/LeadSource/Name}" />
                         <Text text="{Lead/CityOrTown}" />
                         <Text text="{ContractorName}" />
                        <!-- <Text text="{ID}" /> -->

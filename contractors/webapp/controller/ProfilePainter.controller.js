@@ -850,19 +850,18 @@ sap.ui.define(
                     .getModel("oModelControl2")
                     .getProperty("/PainterId");
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Lead,DGA";
+                oBindingParams.parameters["expand"] = "Lead,DGADetails,Lead/LeadSource";
                 var oFilter1 = new Filter("ContractorId", FilterOperator.EQ, oPainterId);
                 oBindingParams.filters.push(oFilter1);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
             onBeforeBindDgaSmtTable: function (oEvent) {
-
                 var oView = this.getView();
                 var oPainterId = oView
                     .getModel("oModelControl2")
                     .getProperty("/PainterId");
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGA/PayrollCompany,DGA/SaleGroup,Dealer,DGA/Town,DGA/Pincode";
+                oBindingParams.parameters["expand"] = "DGA/PayrollCompany,DGA/SaleGroup,Dealer,DGA/WorkLocation,DGA/Pincode";
                 var oFilter1 = new Filter("ContractorId", FilterOperator.EQ, oPainterId);
                 oBindingParams.filters.push(oFilter1);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
