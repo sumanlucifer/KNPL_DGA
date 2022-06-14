@@ -13,13 +13,13 @@
             <columns>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/UniqueId", "leadingProperty": "DGA/UniqueId", "columnIndex": 13 ,"sortProperty": "DGA/UniqueId","filterProperty": "DGA/UniqueId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGADetails/PositionCode", "leadingProperty": "DGADetails/PositionCode", "columnIndex": 13 ,"sortProperty": "DGADetails/PositionCode","filterProperty": "DGADetails/PositionCode"}'/>
                     </customData>
                     <Text text="{i18n>DGAId}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 14 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PositionCode/GivenName", "leadingProperty": "PositionCode/GivenName", "columnIndex": 14 ,"sortProperty": "PositionCode/GivenName","filterProperty": "PositionCode/GivenName"}'/>
                     </customData>
                     <Text text="{i18n>DGAName}"/>
                 </Column>
@@ -112,8 +112,8 @@
             <items>
                 <ColumnListItem press="onListItemPress" type="Navigation">
                     <cells>
-                        <Text text="{DGA/UniqueId}"/>
-                        <Text text="{DGA/GivenName} {DGA/FamilyName}"/>
+                        <Text text="{PositionCode/UniqueId}"/>
+                        <Text text="{PositionCode/GivenName} {PositionCode/FamilyName}"/>
                         <Text text="{Id}"/>
                         <Text text="{ConsumerName}"/>
                         <!-- <Text text="{path:'PrimaryNum',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/> -->

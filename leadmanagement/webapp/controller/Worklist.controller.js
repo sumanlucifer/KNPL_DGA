@@ -224,7 +224,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGA,LeadServiceType,State,LeadStatus,Depot,PaintingReqSlab";
+                oBindingParams.parameters["expand"] = "DGADetails,LeadServiceType,State,LeadStatus,Depot,PaintingReqSlab";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
@@ -316,19 +316,19 @@ sap.ui.define(
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "DGA/GivenName",
+                                            path: "DGADetails/GivenName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "DGA/FamilyName",
+                                            path: "DGADetails/FamilyName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "DGA/UniqueId",
+                                            path: "DGADetails/PositionCode",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
