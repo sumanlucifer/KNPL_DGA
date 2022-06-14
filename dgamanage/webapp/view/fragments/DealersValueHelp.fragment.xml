@@ -4,7 +4,7 @@
 		<SelectDialog
 		title="{i18n>Dealers}"
         growing="true"
-        growingThreshold="8"
+        growingThreshold="10"
         rememberSelections="true"
         noDataText="{i18n>tableNoDataText}"
 		class="sapUiPopupWithPadding"

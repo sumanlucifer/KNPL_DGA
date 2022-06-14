@@ -551,6 +551,7 @@ sap.ui.define([
             * Language:  JS
             * Purpose: A common method of controllers handle the search for the popovers
             */
+           console.log("method called");
             var sValue = oEvent.getParameter("value").trim();
             var sPath = oEvent.getParameter("itemsBinding").getPath();
             // Pincodes Valuehelp
@@ -658,7 +659,7 @@ sap.ui.define([
                     .filter(aFilter, "Application");
                 return;
             }
-
+           
         },
 
         _onDialogClose: function () {
@@ -907,7 +908,7 @@ sap.ui.define([
                     this._DealerValueHelpDialog = oControl;
                     oView.addDependent(this._DealerValueHelpDialog);
                     this._onApplyFilterDealers();
-                    //this._DealerValueHelpDialog.open();
+                    
                 }.bind(this));
             }
 
@@ -967,6 +968,7 @@ sap.ui.define([
             oModel.setProperty("/MultiCombo/Dealers", aDealers);
             oModel.refresh(true);
             this._onDialogClose();
+           
         },
         onDealersTokenUpdate: function (oEvent) {
             console.log(oEvent)
