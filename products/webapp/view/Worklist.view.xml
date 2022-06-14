@@ -49,10 +49,10 @@
                                     data:filterName="Category"
                                     value="{ViewModel>/filterBar/category}"
                                         items="{
-                                            path: '/MasterProductCategorySet',
-                                            sorter: { path: 'Category' }
+                                            path: '/MasterProductCategories',
+                                            sorter: { path: 'CategoryName' }
                                         }">
-                                        <core:Item key="{Id}" text="{Category}" />
+                                        <core:Item key="{Id}" text="{CategoryName}" />
                                     </ComboBox>
                                     <!-- <Input id="idCategory" data:filterName="Category" value="{ViewModel>/filterBar/category}" placeholder="{i18n>categoryFilterPlaceholder}" /> -->
                                 </fb:control>
@@ -64,12 +64,11 @@
                                     data:filterName="Classification"
                                     value="{ViewModel>/filterBar/classification}"
                                         items="{
-                                            path: '/MasterProductClassificationSet',
-                                            sorter: { path: 'Classification' }
+                                            path: '/MasterProductClassifications',
+                                            sorter: { path: 'ClassificationName' }
                                         }">
-                                        <core:Item key="{Id}" text="{Classification}" />
+                                        <core:Item key="{Id}" text="{ClassificationName}" />
                                     </ComboBox>
-                                    <!-- <Input id="idCategory" data:filterName="Category" value="{ViewModel>/filterBar/category}" placeholder="{i18n>categoryFilterPlaceholder}" /> -->
                                 </fb:control>
                             </fb:FilterGroupItem>
                         </fb:filterGroupItems>
@@ -83,7 +82,7 @@
                             editable="false"
                             header="{i18n>worklistTableTitle}"
                             beforeRebindTable="fnrebindTable"                    
-                            entitySet="ProductCatalogueSet"
+                            entitySet="ProductCatalogues"
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"
@@ -98,7 +97,6 @@
                             >
                             	<smartTable:customToolbar>
 			<OverflowToolbar>
-                        <!-- <Title text="{i18n>worklistTableTitle}" level="H4" class="stdTitleColor" /> -->
                         <ToolbarSpacer />
                         <Button icon="sap-icon://add" type="Emphasized" text="Add Catalogue" press="onPressAdd" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
                     </OverflowToolbar>

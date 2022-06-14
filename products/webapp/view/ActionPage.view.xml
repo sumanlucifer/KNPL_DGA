@@ -18,9 +18,7 @@
             </f:DynamicPageTitle>
         </f:title>
         <f:content>
-			<!-- <form:SimpleForm
-			class="sapUiForceWidthAuto sapUiResponsiveMargin" >
-				<form:content> -->
+		
             <VBox>
                          <Title  text="Catalogue Details"  />
                 <HBox>
@@ -34,10 +32,10 @@
                                                 forceSelection="false"
                                                 selectedKey="{ActionViewModel>/Category}"
                                                 items="{
-                                                    path: '/MasterProductCategorySet',
-                                                    sorter: { path: 'Category' }
+                                                    path: '/MasterProductCategories',
+                                                    sorter: { path: 'CategoryName' }
                                                 }">
-                                                <core:Item key="{Id}" text="{Category}" />
+                                                <core:Item key="{Id}" text="{CategoryName}" />
                                                  </Select>
                                         </VBox>
                                         <VBox class="sapUiMediumMarginBottom" width="80%">
@@ -49,10 +47,10 @@
                                             width="100%"
                                             selectedKey="{ActionViewModel>/Classification/}"
                                             items="{
-                                                path: '/MasterProductClassificationSet',
-                                                sorter: { path: 'Classification' }
+                                                path: '/MasterProductClassifications',
+                                                sorter: { path: 'ClassificationName' }
                                             }">
-                                            <core:Item key="{Id}" text="{Classification}" />
+                                            <core:Item key="{Id}" text="{ClassificationName}" />
                                             </Select>
                                         </VBox>
                                         <VBox class="sapUiMediumMarginBottom" width="80%">
@@ -63,21 +61,13 @@
                                             forceSelection="false"
                                             width="100%"
                                             items="{
-                                                path: 'ActionViewModel>/Products',
+                                                path: 'ActionViewModel>/GetProducts',
                                                 sorter: { path: 'ProductName' }
                                             }">
                                             <core:Item key="{ActionViewModel>Id}" text="{ActionViewModel>ProductName}" />
                                             </Select>
                                             <Input id="idInputProduct" width="100%" visible="false" value="{ActionViewModel>/Name}"/>
-                                             <!-- <Select
-                                            id="idTitle"
-                                            forceSelection="false"
-                                            width="100%"
-                                            items="{
-                                                path: 'ActionViewModel>/Products'
-                                            }">
-                                            <core:Item key="{ActionViewModel>Id}" text="{ActionViewModel>ProductName}" />
-                                            </Select> -->
+                                            
                                          </VBox>
                                         <VBox class="sapUiMediumMarginBottom" width="80%">
                                                 <Label text="Price Range:" required="true" />
@@ -87,7 +77,7 @@
                                                     width="100%"
                                                     selectedKey="{ActionViewModel>/Range}"
                                                     items="{
-                                                        path: '/MasterProductRangeSet',
+                                                        path: '/ProductPriceRanges',
                                                         sorter: { path: 'Id' }
                                                     }">
                                                     <core:Item key="{Id}" text="{Range}" />
