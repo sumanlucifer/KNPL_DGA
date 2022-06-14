@@ -1,0 +1,52 @@
+<core:FragmentDefinition xmlns="sap.m"	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core">
+   <Table id="table1" width="auto"
+				noDataText="{i18n>tableNoDataText}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10"
+				updateFinished=".onUpdateFinished">
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title id="tableHeader1" text="{oModelControl>/Table1Count}" level="H3"/>
+						<ToolbarSpacer/>
+                        <SearchField width="20%"/>
+						<Button text="{i18n>createform}" type="Emphasized" icon="sap-icon://add" press="onAddForm">
+						</Button>
+                           <Button id="idSelectFilter" icon="sap-icon://filter" press="onPressFilter"/>
+                             <Button id="idMasterButtonSort" icon="sap-icon://sort" press="onSort"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="{i18n>SrnO}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>formtype}"/>
+					</Column>
+						<Column>
+						<Text text="{i18n>formname}"/>
+					</Column>
+                    <!-- <Column>
+						<Text text="{i18n>creationdate}"/>
+					</Column>
+                     <Column>
+						<Text text="{i18n>publisedate}"/>
+					</Column>
+                     <Column>
+						<Text text="{i18n>status}"/>
+					</Column> -->
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{GroupName}"/>
+							<Text text="{TotalMembers}"/>
+                            <Text text="{TotalMembers}"/>
+                            <!-- <FlexBox >
+							<Button text="{i18n>Delete}"  press="onPressEdit" type="Transparent" tooltip="Archive"/>
+							<Button icon= "sap-icon://detail-view" press="onPressEdit" type="Transparent" tooltip="View"/>
+                            <Button  icon="sap-icon://delete" press="onDelete" type="Transparent" tooltip="Delete"/>
+                            </FlexBox> -->
+                        </cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+</core:FragmentDefinition>

@@ -1,0 +1,60 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  <Dialog  class="sapUiContentPadding" title="{i18n>create}" >
+        <content>
+        <f:SimpleForm class="addForm" id="FormObjectData2" editable="true" layout="ResponsiveGridLayout" title="{oModelControl>/Pagetitle} {i18n>Form}" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+            <f:content>
+            <VBox>
+            <Label text="{i18n>Formname}"></Label>
+               <Input>
+               </Input>
+               <Label text="{i18n>formtype}"></Label>
+                <ComboBox placeholder="Select Form Type" change="onformtypeChange">
+                    <items>
+                        <core:Item text="Lost" key="LO" />
+                        <core:Item text="Converted" key="CN" />
+                    </items>
+                </ComboBox>
+                  </VBox>
+            </f:content>
+        </f:SimpleForm>
+                  <Table id="table"
+				items=""
+				noDataText="{i18n>tableNoDataText}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10"
+				updateFinished=".onUpdateFinished1">
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title id="tableHeader2" text="{oModelControl>/Table1Count}"/>
+						<ToolbarSpacer/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="{i18n>SrnO}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>Question}"/>
+					</Column>
+						<Column>
+						<Text text="{i18n>Actions}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+                            <Text text="{GroupName}"/>
+							<Text text="{TotalMembers}"/>
+                            <FlexBox >
+							<Button icon= "sap-icon://detail-view" press="onPressEdit" type="Transparent" tooltip="View"/>
+                            </FlexBox>
+                        </cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+      </content>
+       <Toolbar>               
+     <ToolbarSpacer/>               
+      <Button  text="{i18n>Save}" type="Emphasized" press="onSaveForm"/> 
+       <Button text="{i18n>Cancel}" type="Transparent" press="onCloseForm"/>                  
+    </Toolbar>
+        </Dialog>
+</core:FragmentDefinition>

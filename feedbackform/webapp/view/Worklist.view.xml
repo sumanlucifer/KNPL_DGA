@@ -1,0 +1,35 @@
+ <mvc:View height="100%" controllerName="com.knpl.dga.feedbackform.controller.Worklist" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+    <f:DynamicPage busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
+			class="sapUiNoContentPadding" showFooter="false" id="dynamicPageId" headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>PerformanceTarget}" class="sapUiSmallMarginTopBottom"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs currentLocationText="{i18n>MainObject}">
+                        <Link text="{i18n>MainObject2}" press="onNavToHome"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="iconTabBar" class="sapUiResponsiveContentPadding" >
+                <items>
+                    <!-- set of questions tab -->
+                    <IconTabFilter  text="{i18n>Lead} {i18n>Question}" key="0" >
+                         <core:Fragment fragmentName="com.knpl.dga.feedbackform.view.fragments.setofquestion" type="XML"/> 
+                    </IconTabFilter>
+                    <!--Form tab -->
+                    <IconTabFilter  text="{i18n>Form}" key="1" >
+                        <core:Fragment fragmentName="com.knpl.dga.feedbackform.view.fragments.Form" type="XML"/>
+                    </IconTabFilter>   
+                </items>
+            </IconTabBar>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
