@@ -195,7 +195,7 @@
                     if (oPayLoad["Pincode"]) {
                         oModeControl.setProperty("/AddFields/PinCode", oPayLoad["Pincode"]["Name"])
                     }
-                    
+
                     var aArra1 = [];
                     if (oPayLoad["Positions"]["results"][0]["ServicePincodes"]["results"].length > 0) {
                         for (var x of oPayLoad["Positions"]["results"][0]["ServicePincodes"]["results"]) {
@@ -261,7 +261,7 @@
                     }
                     var sDivisionId = oPayload["DivisionId"];
                     // if (sDivisionId !== null) {
-                    
+
                     //     oView.byId("idDepot")
                     //         .getBinding("items")
                     //         .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
@@ -307,7 +307,7 @@
                                 $expand: exPand,
                             },
                             success: function (data) {
-                                
+
                                 var oModel = new JSONModel(data);
                                 var pattern = "dd/MM/yyyy";
                                 var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
@@ -320,7 +320,7 @@
                                 oModelControl.setProperty("/AddFields/ExitDate", aDate2);
 
                                 oView.setModel(oModel, "oModelView");
-                            
+
                                 oModel.refresh(true)
                                 resolve(data);
                             },
@@ -373,10 +373,10 @@
                     var oModel1 = oView.getModel("oModelDisplay");
                     var sEntitySet = oModel1.getProperty("/bindProp");
                     var sDgaId = oModel1.getProperty("/Id");
-                
+
                     if (sKey == "1") {
                         oView.byId("Dealerstable").setEntitySet(sEntitySet);
-                      
+
                     } else if (sKey == "2") {
                         var oTable = oView.byId("idContractorTable")
                         oTable.bindItems({
@@ -421,7 +421,7 @@
 
                 },
                 onBeforeBindContractorTbl: function (oEvent) {
-                   
+
                     var oView = this.getView();
                     var oBindingParams = oEvent.getParameter("bindingParams");
                     // oBindingParams.parameters["expand"] = "Contractor";
@@ -565,7 +565,8 @@
                                 c3 = othat._uploadFile();
                                 c3.then(function () {
                                     oModelControl.setProperty("/PageBusy", false);
-                                    othat.onNavToHome();
+                                    var oRouter = othat.getOwnerComponent().getRouter();
+                                    oRouter.navTo("worklist", {}, true);
                                 })
                             }, aFailureCallback)
                         })
@@ -628,7 +629,7 @@
                     }
 
                     var sPath = this.getView().getBindingContext().getPath();
-                    
+
                     this.getView().getModel().update(sPath +
                         "/ActivationStatus", oPayload, {
                         success: function () {
@@ -666,9 +667,9 @@
                     }
                     oPayload["Positions"] = aDataFinal;
                     //Service Pincode
-                    if(oPayload["Positions"][0].hasOwnProperty("ServicePincodes")){
+                    if (oPayload["Positions"][0].hasOwnProperty("ServicePincodes")) {
                         var aExistingData = oPayload["Positions"][0]["ServicePincodes"]["results"];
-                    }else {
+                    } else {
                         var aExistingData = []
                     }
                     var aSelectedData = oModelControl.getProperty("/MultiCombo/Pincode2")
@@ -685,9 +686,9 @@
                     }
                     oPayload["Positions"][0]["ServicePincodes"] = aDataFinal;
                     // child towns
-                    if(oPayload["Positions"][0].hasOwnProperty("ChildTowns")){
+                    if (oPayload["Positions"][0].hasOwnProperty("ChildTowns")) {
                         var aExistingData = oPayload["Positions"][0]["ChildTowns"]["results"];
-                    }else {
+                    } else {
                         var aExistingData = []
                     }
                     var aSelectedData = oModelControl.getProperty("/MultiCombo/ChildTowns")
@@ -716,14 +717,14 @@
                     var oModelControl = oView.getModel("oModelControl");
                     var sProp = oModelControl.getProperty("/bindProp")
                     return new Promise((resolve, reject) => {
-                        
+
                         oDataModel.update("/" + sProp, oPayLoad, {
                             success: function (data) {
                                 MessageToast.show(othat._geti18nText("Message1"));
                                 resolve(data);
                             },
                             error: function (data) {
-                                
+
                                 oModelControl.setProperty("/PageBusy", false);
                                 reject(data);
                             },
