@@ -67,13 +67,13 @@
                     <cells>
                      <Text text="{LeadId}" />
                      <Text text="{Lead/DGADetails/GivenName}"/>
-                      <Text text="{Lead/ConsumerName}" />
-                       <Text text="{Lead/PrimaryNum}" />
-                        <Text text="{Lead/Visits}" />
-                          <Text text="{Lead/LeadSource/Name}" />
-                        <Text text="{Lead/CityOrTown}" />
-                        <Text text="{ContractorName}" />
-                       <!-- <Text text="{ID}" /> -->
+                     <Text text="{Lead/ConsumerName}" />
+                     <Text text="{Lead/PrimaryNum}" />
+                     <Text text="{Lead/Visits}" />
+                     <Text text="{Lead/LeadSource/Name}" />
+                     <Text text="{Lead/CityOrTown}" />
+                     <Text text="{ContractorName}" />
+                     <!-- <Text text="{ID}" /> -->
                         
 
                     </cells>
