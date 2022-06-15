@@ -91,9 +91,6 @@ sap.ui.define([
                 this.oClassification.setEditable(false);
                 this.oProduct.setVisible(true);
                 this.oProduct.setEditable(false);
-                // this.oPreviewImage.setSrc(this.sServiceURI + this._property + "/$value?doc_type=image");
-                // this.oFileUploader.setUploadUrl(this.sServiceURI + this._property + "/$value?doc_type=image");
-                // this.oPreviewImage.setVisible(true);
                 var pdfURL = this.sServiceURI + this._property + "/$value?doc_type=pdf";
                 this.pdfBtn.setVisible(true);
                 this.imgBtn.setVisible(true);
@@ -141,9 +138,7 @@ sap.ui.define([
         openPdf: function (oEvent) {
             var oContext = oEvent.getSource().getBindingContext("ActionViewModel");
             var sSource = this.sServiceURI + this._property + "/$value?doc_type=pdf&file_name=" + oContext.getProperty("MediaName") + "&language_code=" + oContext.getProperty("LanguageCode");
-            // this._pdfViewer.setSource(sSource);
-            // this._pdfViewer.setTitle("Catalogue");
-            // this._pdfViewer.open();
+            
             sap.m.URLHelper.redirect(sSource, true)
         },
         onChangePdf: function (oEvent) {
@@ -162,7 +157,7 @@ sap.ui.define([
         _uploadToolImage: function (oData) {
             var oModel = this.getComponentModel();
             if (this._action === "add") {
-                this.oFileUploader.setUploadUrl(this.sServiceURI + "ProductCatalogueSet(" + oData.Id + ")/$value?doc_type=image&file_name=" + this.imageName);
+                this.oFileUploader.setUploadUrl(this.sServiceURI + "ProductCatalogues(" + oData.Id + ")/$value?doc_type=image&file_name=" + this.imageName);
             }
             if (!this.oFileUploader.getValue()) {
                 MessageToast.show(this.oResourceBundle.getText("fileUploaderChooseFirstValidationTxt"));
@@ -193,7 +188,7 @@ sap.ui.define([
                     //  var isValid= that.checkFileName(ele.fileName);
                     jQuery.ajax({
                         method: "PUT",
-                        url: sServiceUri + "ProductCatalogueSet(" + oData.Id + ")/$value?doc_type=pdf&file_name=" + ele.fileName + "&language_code=" + ele.LanguageCode,
+                        url: sServiceUri + "ProductCatalogues(" + oData.Id + ")/$value?doc_type=pdf&file_name=" + ele.fileName + "&language_code=" + ele.LanguageCode,
                         cache: false,
                         contentType: false,
                         processData: false,
@@ -256,7 +251,7 @@ sap.ui.define([
             this._showSuccessMsg();
         },
         onPressSaveOrUpdate: function () {
-            if (this._validateRequiredFields()) {
+            // if (this._validateRequiredFields()) {
                 var oDataModel = this.getComponentModel();
                 var oViewModel = this.getView().getModel("ActionViewModel");
                 var Competitors = JSON.parse(
@@ -302,7 +297,7 @@ sap.ui.define([
                             MessageToast.show(this.oResourceBundle.getText("fileUploaderChooseFirstValidationTxt"));
                         } else {
                             var that = this
-                            oDataModel.create("/ProductCatalogueSet", oPayload, {
+                            oDataModel.create("/ProductCatalogues", oPayload, {
                                 success: function (oData, response) {
                                     var id = oData.Id;
                                     that._uploadToolImage(oData);
@@ -329,7 +324,7 @@ sap.ui.define([
                         });
                     }
                 }
-            }
+            // }
         },
         _onLoadSuccess: function (oData) {
             if (this.oFileUploader.getValue()) {
@@ -381,12 +376,7 @@ sap.ui.define([
                 }
                 return true;
             });
-            // var bEnglishPDF = oObjectCatalogue.every(function (ele) {
-            //     if (ele.LanguageCode == "EN") {
-            //         return true
-            //     }
-            //     return false;
-            // });
+            
             var bEnglishPDF = oObjectCatalogue.find(function (ele) {
                 if (ele.LanguageCode === "EN") {
                     return true;
@@ -505,7 +495,7 @@ sap.ui.define([
             var oModel = this.getView().getModel("ActionViewModel");
             var oObject = this.getModel("ActionViewModel").getProperty("/Catalogue");
             oObject.push({
-                LanguageCode: "",
+                LanguageCode: "ENGLISH",
                 file: null,
                 fileName: ""
             });
@@ -612,16 +602,21 @@ sap.ui.define([
         onClassificationChange: function (oEvent) {
             var ClassificationId = oEvent.getParameter("selectedItem").getKey();
             var CategoryId = this.getView().byId("idCategory").getSelectedKey();
+            // ClassificationId = "POP";
+            // CategoryId = "CC";
             var Products = [];
             var that = this;
-            this.getView().getModel().read("/GetProducts", {
+            this.getView().getModel().read("/CatalogueProducts", {
                 urlParameters: {
-                    "CategoryCode": "'" + CategoryId + "'",
-                    "ClassificationCode": "'" + ClassificationId + "'"
+                    // "CategoryCode": "'" + CategoryId + "'",
+                    // "ClassificationCode": "'" + ClassificationId + "'"
+                    "CategoryCode": `'${CategoryId}'`,
+                    "ClassificationCode": `'${ClassificationId}'`
+
                 },
                 success: function (data, response) {
                     Products = data.results;
-                    that.getView().getModel("ActionViewModel").setProperty("/Products", Products);
+                    that.getView().getModel("ActionViewModel").setProperty("/CatalogueProducts", Products);
                 },
                 error: function (oError) {
                 }

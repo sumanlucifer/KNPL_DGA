@@ -231,11 +231,6 @@ sap.ui.define([
                         sValue = oControl.getValue();
                         if (sValue && sValue !== "") {
                             this.oCustom = { search: sValue };
-                            // aFilters.push(new Filter([
-                            //     new Filter({ path: "Title", operator: FilterOperator.Contains, value1: sValue.trim(), caseSensitive: false }),
-                            //     new Filter({ path: "ProductCategory/Category", operator: FilterOperator.Contains, value1: sValue.trim(), caseSensitive: false }),
-                            //     new Filter({ path: "ProductCompetitors/CompetitorProductName", operator: FilterOperator.Contains, value1: sValue.trim(), caseSensitive: false })
-                            // ], false));
                         }
                         else {
                             this.oCustom = null;
@@ -267,13 +262,13 @@ sap.ui.define([
                     case "Category":
                         sValue = oControl.getValue();
                         if (sValue && sValue !== "") {
-                            aFilters.push(new Filter({ path: "ProductCategory/Category", operator: FilterOperator.EQ, value1: sValue.trim(), caseSensitive: false }));
+                            aFilters.push(new Filter({ path: "ProductCategory/CategoryName", operator: FilterOperator.EQ, value1: sValue.trim(), caseSensitive: false }));
                         }
                         break;
                     case "Classification":
                         sValue = oControl.getValue();
                         if (sValue && sValue !== "") {
-                            aFilters.push(new Filter({ path: "ProductClassification/Classification", operator: FilterOperator.EQ, value1: sValue.trim(), caseSensitive: false }));
+                            aFilters.push(new Filter({ path: "ProductClassification/ClassificationName", operator: FilterOperator.EQ, value1: sValue.trim(), caseSensitive: false }));
                         }
                         break;
                 }

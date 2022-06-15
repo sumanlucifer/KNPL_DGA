@@ -35,16 +35,19 @@
                                                 <ColumnListItem>
                                                     <cells>
                                                         <VBox>
-                                                        <Select
+                                                        <Input value="{ActionViewModel>LanguageCode}" enabled="false">
+                                                        </Input>
+                                                        <!-- <Select
                                                             forceSelection="false"
-                                                            selectedKey="{ActionViewModel>LanguageCode}"
+                                                            selectedKey="EN"
+                                                            enabled="false"
                                                             items="{
                                                                 path: '/MasterLanguageSet',
                                                                 sorter: { path: 'Id' },
                                                                 templateShareable: true
                                                             }">
                                                             <core:Item key="{LanguageCode}" text="{Language}" />
-                                                            </Select>
+                                                            </Select> -->
                                                         </VBox>
                                                         <VBox>
                                                             <FlexBox>
@@ -103,9 +106,9 @@
                                 <ColumnListItem>
                                     <cells>
                                         <VBox>
-                                            <Select items="{path:'/MasterCompetitorCompanySet', templateShareable: true}" selectedKey="{path:'ActionViewModel>CompetitorCompanyId' }">
+                                            <Select items="{path:'/MasterCompetitionBrands', templateShareable: true}" selectedKey="{path:'ActionViewModel>CompetitorCompanyId' }">
                                                 <items>
-                                                    <core:Item text="{CompanyName}" key="{Id}" />
+                                                    <core:Item text="{Name}" key="{Id}" />
                                                 </items>
                                             </Select>
                                         </VBox>

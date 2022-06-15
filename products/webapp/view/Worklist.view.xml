@@ -163,10 +163,7 @@
                                                 text="{path:'PdfViewerCount'}"
                                                 press="onViewsPress"/>
                                             </FlexBox>
-                                            <!-- <Button
-                                            icon="sap-icon://display"
-                                            text="{path:'PdfViewerCount'}"
-                                            press="onViewsPress"/> -->
+                                          
                                             <Text text="{path:'PdfDownloadCount'}"/>
                                             <Text text="{path:'TotalPdfViewerCount'}"/>
                                             <Text text="{path:'TotalPdfDownloadCount'}"/>
