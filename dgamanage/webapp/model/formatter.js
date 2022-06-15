@@ -172,11 +172,11 @@ sap.ui.define([], function () {
                 var sObj1, sObj2;
                 for (var x in mParam1) {
                     sObj1 = oData.getProperty("/" + mParam1[x]);
-                    // for (var y in sObj1["ChildTowns"]["__list"]){
-                    //     sObj2 = oData.getProperty("/" + sObj1["ChildTowns"]["__list"][y]);
-                    //     console.log(sObj2);
-                    //     aArray.push(sObj2["WorkLocationId"]);
-                    // }
+                    for (var y in sObj1["ChildTowns"]["__list"]){
+                        sObj2 = oData.getProperty("/" + sObj1["ChildTowns"]["__list"][y]);
+                        console.log(sObj2);
+                        aArray.push(sObj2["WorkLocationId"]);
+                    }
                     
                 }
                 console.log(mParam1,sObj1);

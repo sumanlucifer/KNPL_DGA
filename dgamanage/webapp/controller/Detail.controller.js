@@ -113,7 +113,7 @@
                     var promise = jQuery.Deferred();
                     var oView = this.getView();
                     var oModel = oView.getModel("oModelDisplay");
-                    var exPand = "PayrollCompany,Division,Pincode,State,WorkLocation,Positions/ChildTowns";
+                    var exPand = "PayrollCompany,Division,Pincode,State,WorkLocation,Positions/ChildTowns/WorkLocation";
                     var othat = this;
                     if (oProp.trim() !== "") {
                         return new Promise((resolve, reject) => {
