@@ -850,7 +850,7 @@ sap.ui.define(
                     .getModel("oModelControl2")
                     .getProperty("/PainterId");
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Lead,DGADetails,Lead/LeadSource";
+                oBindingParams.parameters["expand"] = "Lead/DGADetails,Lead/LeadSource";
                 var oFilter1 = new Filter("ContractorId", FilterOperator.EQ, oPainterId);
                 oBindingParams.filters.push(oFilter1);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
