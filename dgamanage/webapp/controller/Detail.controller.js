@@ -414,7 +414,7 @@
                     var oView = this.getView();
                     var sDgaId = oView.getModel("oModelDisplay").getProperty("/Id")
                     var oBindingParams = oEvent.getParameter("bindingParams");
-                    oBindingParams.parameters["expand"] = "LeadServiceType,State,Depot,LeadStatus,DGA,PaintingReqSlab";
+                    oBindingParams.parameters["expand"] = "LeadServiceType,State,Depot,LeadStatus,PaintingReqSlab";
                     var oFiler = new Filter("DGAId", FilterOperator.EQ, sDgaId)
                     oBindingParams.filters.push(oFiler);
                     oBindingParams.sorter.push(new Sorter("CreatedAt", true));
