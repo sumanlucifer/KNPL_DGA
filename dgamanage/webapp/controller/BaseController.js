@@ -973,11 +973,20 @@ sap.ui.define([
         _onApplyFilterDealers: function () {
             var sModeel = this.getModel("oModelControl") || this.getModel("oModelDisplay");
             var sMode = sModeel.getProperty("/mode");
+            var oView =this.getView();
+            var oData = oView.getModel();
             if (sMode === "Display") {
                 var aPositions = this.getView().getElementBinding().getBoundContext().getObject()["Positions"];
+                var sObj, aDepotiId = [];
+                if(Array.isArray(aPositions["__list"])){
+                    for(var x in aPositions["__list"]){
+                        sObj = oData.getProperty("/"+aPositions["__list"][x])
+                        aDepotiId.push({Id:sObj["DepotId"]});
+                    }
+                }
                 // code for depot id
 
-
+                console.log(aDepotiId);
             } else if (sMode === "Add" || sMode === "Edit") {
                 var aDepotiId = this.getView()
                     .getModel("oModelControl")

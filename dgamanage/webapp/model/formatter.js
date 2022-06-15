@@ -167,24 +167,55 @@ sap.ui.define([], function () {
         fmtChildTowns: function (mParam1) {
 
             var aArray = []
+            if (mParam1) {
+                for (var x of mParam1) {
+                    aArray.push(x["TownName"] + " - " + x["TownId"])
+                }
+            }
+
+            return aArray.join(", ")
+
+        },
+        fmtDisplayChildTowns: function (mParam1) {
+
+            var aArray = []
             if (Array.isArray(mParam1)) {
                 var oData = this.getView().getModel();
-                var sObj1, sObj2;
+                var sObj1, sObj2,sObj3;
                 for (var x in mParam1) {
                     sObj1 = oData.getProperty("/" + mParam1[x]);
                     for (var y in sObj1["ChildTowns"]["__list"]){
                         sObj2 = oData.getProperty("/" + sObj1["ChildTowns"]["__list"][y]);
-                        console.log(sObj2);
-                        aArray.push(sObj2["WorkLocationId"]);
+                        sObj3 = oData.getProperty("/" + sObj2["WorkLocation"]["__ref"]);
+                        aArray.push(sObj3["TownName"] + "-" + sObj3["TownId"]);
                     }
                     
                 }
-                console.log(mParam1,sObj1);
+                
                 return aArray.join(", ")
             }
             return "Na"
             
         },
+        fmDisplayServicePinCode:function(mParam1){
+            var aArray = []
+            if (Array.isArray(mParam1)) {
+                var oData = this.getView().getModel();
+                var sObj1, sObj2,sObj3;
+                for (var x in mParam1) {
+                    sObj1 = oData.getProperty("/" + mParam1[x]);
+                    for (var y in sObj1["ServicePincodes"]["__list"]){
+                        sObj2 = oData.getProperty("/" + sObj1["ServicePincodes"]["__list"][y]);
+                        sObj3 = oData.getProperty("/" + sObj2["Pincode"]["__ref"]);
+                        aArray.push(sObj3["Name"]);
+                    }
+                    
+                }
+                
+                return aArray.join(", ")
+            }
+            return "Na"
+        }
     };
 
 });
