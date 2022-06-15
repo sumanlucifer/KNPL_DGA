@@ -195,19 +195,20 @@
                     if (oPayLoad["Pincode"]) {
                         oModeControl.setProperty("/AddFields/PinCode", oPayLoad["Pincode"]["Name"])
                     }
+                    
                     var aArra1 = [];
-                    if (oPayLoad["ServicePincodes"]["results"].length > 0) {
-                        for (var x of oPayLoad["ServicePincodes"]["results"]) {
+                    if (oPayLoad["Positions"]["results"][0]["ServicePincodes"]["results"].length > 0) {
+                        for (var x of oPayLoad["Positions"]["results"][0]["ServicePincodes"]["results"]) {
                             aArra1.push({
-                                Id: x["Id"],
+                                Id: x["PincodeId"],
                                 Name: x["Pincode"]["Name"],
                             });
                         }
                     }
                     oModeControl.setProperty("/MultiCombo/Pincode2", aArra1);
                     var aArray2 = [];
-                    if (oPayLoad["ChildTowns"]["results"].length > 0) {
-                        for (var x of oPayLoad["ChildTowns"]["results"]) {
+                    if (oPayLoad["Positions"]["results"][0]["ChildTowns"]["results"].length > 0) {
+                        for (var x of oPayLoad["Positions"]["results"][0]["ChildTowns"]["results"]) {
                             aArray2.push({
                                 Id: x["WorkLocationId"],
                                 TownName: x["WorkLocation"]["TownName"],
@@ -216,7 +217,16 @@
                         }
                     }
                     oModeControl.setProperty("/MultiCombo/ChildTowns", aArray2);
-
+                    var aArra3 = [];
+                    if (oPayLoad["Positions"]["results"].length > 0) {
+                        for (var x of oPayLoad["Positions"]["results"]) {
+                            aArra3.push({
+                                Id: x["DepotId"],
+                                Name: x["Depot"]["Depot"],
+                            });
+                        }
+                    }
+                    oModeControl.setProperty("/MultiCombo/Depots", aArra3);
                     promise.resolve(oPayLoad);
                     return promise;
                 },
@@ -250,13 +260,13 @@
                             .filter(new Filter("Zone", FilterOperator.EQ, sZoneId));
                     }
                     var sDivisionId = oPayload["DivisionId"];
-                    if (sDivisionId !== null) {
+                    // if (sDivisionId !== null) {
                     
-                        oView.byId("idDepot")
-                            .getBinding("items")
-                            .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
-                    }
-                    var sDepotId = oPayload["DepotId"];
+                    //     oView.byId("idDepot")
+                    //         .getBinding("items")
+                    //         .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
+                    // }
+                    var sDepotId = oPayload["Positions"]["results"][0]["DepotId"];
                     var sStateKey = oPayload["StateId"];
                     // workfloaction field filters
                     if (sStateKey) {
@@ -290,14 +300,14 @@
                     var oModel = oView.getModel("oModelDisplay");
                     var oModelControl = this.getModel("oModelControl")
                     var oProp = oModel.getProperty("/bindProp");
-                    var exPand = "Pincode,ServicePincodes/Pincode,ChildTowns/WorkLocation";
+                    var exPand = "Pincode,Positions/Depot,Positions/ChildTowns/WorkLocation,Positions/ServicePincodes/Pincode";
                     return new Promise((resolve, reject) => {
                         oView.getModel().read("/" + oProp, {
                             urlParameters: {
                                 $expand: exPand,
                             },
                             success: function (data) {
-
+                                
                                 var oModel = new JSONModel(data);
                                 var pattern = "dd/MM/yyyy";
                                 var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({

@@ -984,9 +984,7 @@ sap.ui.define([
                         aDepotiId.push({Id:sObj["DepotId"]});
                     }
                 }
-                // code for depot id
-
-                console.log(aDepotiId);
+             
             } else if (sMode === "Add" || sMode === "Edit") {
                 var aDepotiId = this.getView()
                     .getModel("oModelControl")
