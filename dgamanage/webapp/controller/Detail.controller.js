@@ -552,7 +552,7 @@
                      */
                     var oView = this.getView();
                     var oModelControl = oView.getModel("oModelDisplay");
-                    //oModelControl.setProperty("/PageBusy", true);
+                    oModelControl.setProperty("/PageBusy", true);
                     var othat = this;
                     var c1, c1b, c2, c3;
                     c1 = othat._CheckEmptyFieldsPostPayload();
@@ -565,7 +565,7 @@
                                 c3 = othat._uploadFile();
                                 c3.then(function () {
                                     oModelControl.setProperty("/PageBusy", false);
-                                    //othat.onNavToHome();
+                                    othat.onNavToHome();
                                 })
                             }, aFailureCallback)
                         })
@@ -715,7 +715,6 @@
                     var oDataModel = oView.getModel();
                     var oModelControl = oView.getModel("oModelControl");
                     var sProp = oModelControl.getProperty("/bindProp")
-                    console.log(sProp, oPayLoad)
                     return new Promise((resolve, reject) => {
                         
                         oDataModel.update("/" + sProp, oPayLoad, {
