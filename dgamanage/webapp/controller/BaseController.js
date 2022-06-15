@@ -97,7 +97,8 @@ sap.ui.define([
                     ChildTowns: [],
                     Depots: []
                 },
-                bSaveEnabledFlag1: true
+                bSaveEnabledFlag1: true,
+                DGAActivated: ""
             };
             var oModelControl = new JSONModel(oDataControl)
             oView.setModel(oModelControl, "oModelControl");
@@ -465,15 +466,15 @@ sap.ui.define([
             if (sDivision) {
                 aFilter.push(new Filter("DivisionId", FilterOperator.EQ, sDivision))
             }
-            if (aDepot.length>0) {
+            if (aDepot.length > 0) {
                 var aDepotFilter = [];
-                for (var x of aDepot ){
+                for (var x of aDepot) {
                     aDepotFilter.push(new Filter("DepotId", FilterOperator.EQ, x["Id"]));
 
                 }
                 aFilter.push(new Filter({
-                    filters:aDepotFilter,
-                    and:false
+                    filters: aDepotFilter,
+                    and: false
                 }))
                 //aFilter.push(new Filter("DepotId", FilterOperator.EQ, sDepot));
             }
@@ -490,39 +491,95 @@ sap.ui.define([
             var oView = this.getView();
             var oModel = oView.getModel("oModelControl");
             var oModelView = oView.getModel("oModelView");
-            var oBj = oEvent.getSource().getSelectedItem().getBindingContext().getObject()
-            oModelView.setProperty("/AllocatedDGACount", oBj["AllocatedDGACount"]);
-            if (parseInt(oBj["AllocatedDGACount"]) < 1) {
-                oModel.setProperty("/bSaveEnabledFlag1", false);
-                this._showMessageToast("Message19");
-            } else {
-                oModel.setProperty("/bSaveEnabledFlag1", true);
+            var oBj = oEvent.getSource().getSelectedItem().getBindingContext().getObject();
+            var oData = oView.getModel();
+            var othat = this;
+            var c1, c2, c3, c4;
+            oModel.setProperty("/PageBusy",true);
+            var c1 = othat._GetActivatedDGACount(oBj);
+            c1.then(function () {
+                c2 = othat._GetChildLocation(oBj);
+                c2.then(function () {
+                    if (oModelView.getProperty("/AllocatedDGACount") < 1) {
+                        oModel.setProperty("/bSaveEnabledFlag1", false);
+                        othat._showMessageToast("Message19");
+                    } else {
+                        oModel.setProperty("/bSaveEnabledFlag1", true);
+                    }
+                    oModel.setProperty("/PageBusy",false);
+                })
+            })
+
+         
+
+
+        },
+        _GetActivatedDGACount: function (oBj) {
+            var oView = this.getView();
+            var oData = oView.getModel();
+            var oModelControl = oView.getModel("oModelControl");
+            var oModelView = oView.getModel("oModelView");
+            var aDepot = oModelControl.getProperty("/MultiCombo/Depots");
+            var aFilter1 = [
+                new Filter("TownId", FilterOperator.EQ, oBj["ParentTownId"]),
+                new Filter("Status", FilterOperator.EQ, "ACTIVATED")
+            ];
+            if (aDepot.length > 0) {
+                for (var x of aDepot) {
+                    aFilter1.push(new Filter("DepotId", FilterOperator.EQ, x["Id"]));
+                }
             }
+            var oFilterA = new Filter(aFilter1, true);
+            return new Promise((resolve, rejected) => {
+                oData.read("/DGAPositions/$count", {
+                    filters: [oFilterA],
+                    success: function (mParam1) {
+                        oModelControl.setProperty("/DGAActivated", mParam1);
+                        var iTotal = null;
+                        if (mParam1 > 0) {
+                            iTotal = mParam1 - oBj["AllocatedDGACount"];
+                        } else {
+                            iTotal = oBj["AllocatedDGACount"];
+                        }
+                        oModelView.setProperty("/AllocatedDGACount", iTotal);
+                        resolve()
+                    },
+                    error: function (mParam1) {
+                        oModelControl.setProperty("/DGAActivated", "")
+                        rejected()
+                    }
+                })
+            })
+        },
+        _GetChildLocation: function (oBj) {
+            var othat = this;
+            var oView = this.getView();
             var oData = oView.getModel();
             var oFilter = new Filter([
                 new Filter("ParentTownId", FilterOperator.EQ, oBj["ParentTownId"]),
                 new Filter("TownId", FilterOperator.NE, oBj["ParentTownId"])
-            ], true)
-            oModel.setProperty("/PageBusy",true)
-            oData.read("/MasterWorkLocations", {
-                urlParameters: {
+            ], true);
+            var oModel = oView.getModel("oModelControl");
+            return new Promise((resolve, rejected) => {
+                oData.read("/MasterWorkLocations", {
 
-                },
-                filters: [oFilter],
-                success: function (oData) {
-                    if (oData["results"].length > 0) {
-                        oModel.setProperty("/MultiCombo/ChildTowns", oData["results"]);
-                        //oModel.refresh(true);
-                    } else {
-                        oModel.setProperty("/MultiCombo/ChildTowns", [])
-                    }
-                    oModel.setProperty("/PageBusy",false)
-                }.bind(this),
-                error: function () {
-                    oModel.setProperty("/PageBusy",false)
-                }
+                    filters: [oFilter],
+                    success: function (oData) {
+                        if (oData["results"].length > 0) {
+                            oModel.setProperty("/MultiCombo/ChildTowns", oData["results"]);
+                            oModel.refresh(true);
+                        } else {
+                            oModel.setProperty("/MultiCombo/ChildTowns", [])
+                        }
+                        resolve();
+                    }.bind(othat),
+                    error: function () {
+                        rejected();
+                    }.bind(othat)
 
-            })
+                })
+            });
+
         },
         onTokenUpdate: function (oEvent) {
             if (oEvent.getParameter("type") === "removed") {
@@ -551,7 +608,7 @@ sap.ui.define([
             * Language:  JS
             * Purpose: A common method of controllers handle the search for the popovers
             */
-           console.log("method called");
+            console.log("method called");
             var sValue = oEvent.getParameter("value").trim();
             var sPath = oEvent.getParameter("itemsBinding").getPath();
             // Pincodes Valuehelp
@@ -659,7 +716,7 @@ sap.ui.define([
                     .filter(aFilter, "Application");
                 return;
             }
-           
+
         },
 
         _onDialogClose: function () {
@@ -873,7 +930,7 @@ sap.ui.define([
 
             for (var a of oSelected) {
                 oBj = a.getObject();
-                
+
                 aDealers.push({
                     Name: oBj["Depot"],
                     Id: oBj["Id"],
@@ -889,7 +946,7 @@ sap.ui.define([
                 oState.setSelectedKey(sStateId);
                 oState.fireSelectionChange();
             }
-           
+
             this._onDialogClose();
             this._ResetDepotData();
 
@@ -908,7 +965,7 @@ sap.ui.define([
                     this._DealerValueHelpDialog = oControl;
                     oView.addDependent(this._DealerValueHelpDialog);
                     this._onApplyFilterDealers();
-                    
+
                 }.bind(this));
             }
 
@@ -916,11 +973,18 @@ sap.ui.define([
         _onApplyFilterDealers: function () {
             var sModeel = this.getModel("oModelControl") || this.getModel("oModelDisplay");
             var sMode = sModeel.getProperty("/mode");
+            var oView =this.getView();
+            var oData = oView.getModel();
             if (sMode === "Display") {
                 var aPositions = this.getView().getElementBinding().getBoundContext().getObject()["Positions"];
-                // code for depot id
-
-
+                var sObj, aDepotiId = [];
+                if(Array.isArray(aPositions["__list"])){
+                    for(var x in aPositions["__list"]){
+                        sObj = oData.getProperty("/"+aPositions["__list"][x])
+                        aDepotiId.push({Id:sObj["DepotId"]});
+                    }
+                }
+             
             } else if (sMode === "Add" || sMode === "Edit") {
                 var aDepotiId = this.getView()
                     .getModel("oModelControl")
@@ -968,7 +1032,7 @@ sap.ui.define([
             oModel.setProperty("/MultiCombo/Dealers", aDealers);
             oModel.refresh(true);
             this._onDialogClose();
-           
+
         },
         onDealersTokenUpdate: function (oEvent) {
             console.log(oEvent)
