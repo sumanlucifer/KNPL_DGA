@@ -552,7 +552,7 @@
                      */
                     var oView = this.getView();
                     var oModelControl = oView.getModel("oModelDisplay");
-                    oModelControl.setProperty("/PageBusy", true);
+                    //oModelControl.setProperty("/PageBusy", true);
                     var othat = this;
                     var c1, c1b, c2, c3;
                     c1 = othat._CheckEmptyFieldsPostPayload();
@@ -565,7 +565,7 @@
                                 c3 = othat._uploadFile();
                                 c3.then(function () {
                                     oModelControl.setProperty("/PageBusy", false);
-                                    othat.onNavToHome();
+                                    //othat.onNavToHome();
                                 })
                             }, aFailureCallback)
                         })
@@ -649,12 +649,33 @@
                     if (sMode === "Edit") {
                         sResults = "/results"
                     }
-                    var aExistingData = oModelView.getProperty("/ServicePincodes" + sResults);
+                    //Depot Related Data.
+                    var aExistingData = oModelView.getProperty("/Positions" + sResults);
+                    var aSelectedData = oModelControl.getProperty("/MultiCombo/Depots")
+                    var iData = -1;
+                    var aDataFinal = [];
+                    for (var x of aSelectedData) {
+                        iData = aExistingData.findIndex(item => item["DepotId"] === x["Id"])
+                        if (iData >= 0) {
+                            //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
+                            aDataFinal.push(aExistingData[iData]);
+                        } else {
+                            aExistingData[0]["DepotId"] = x["Id"];
+                            aDataFinal.push(aExistingData[0])
+                        }
+                    }
+                    oPayload["Positions"] = aDataFinal;
+                    //Service Pincode
+                    if(oPayload["Positions"][0].hasOwnProperty("ServicePincodes")){
+                        var aExistingData = oPayload["Positions"][0]["ServicePincodes"]["results"];
+                    }else {
+                        var aExistingData = []
+                    }
                     var aSelectedData = oModelControl.getProperty("/MultiCombo/Pincode2")
                     var iData = -1;
                     var aDataFinal = [];
                     for (var x of aSelectedData) {
-                        iData = aExistingData.findIndex(item => item["Id"] === x["Id"])
+                        iData = aExistingData.findIndex(item => item["PincodeId"] === x["Id"])
                         if (iData >= 0) {
                             //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
                             aDataFinal.push(aExistingData[iData]);
@@ -662,15 +683,26 @@
                             aDataFinal.push({ PincodeId: x["Id"] });
                         }
                     }
-                    oPayload["ServicePincodes"] = aDataFinal;
-                    var aExistingData = oModelView.getProperty("/ChildTowns" + sResults);
+                    oPayload["Positions"][0]["ServicePincodes"] = aDataFinal;
+                    // child towns
+                    if(oPayload["Positions"][0].hasOwnProperty("ChildTowns")){
+                        var aExistingData = oPayload["Positions"][0]["ChildTowns"]["results"];
+                    }else {
+                        var aExistingData = []
+                    }
                     var aSelectedData = oModelControl.getProperty("/MultiCombo/ChildTowns")
                     var iData = -1;
                     var aDataFinal = [];
                     for (var x of aSelectedData) {
-                        aDataFinal.push({ WorkLocationId: x["Id"] });
+                        iData = aExistingData.findIndex(item => item["WorkLocationId"] === x["Id"])
+                        if (iData >= 0) {
+                            //oPayload["PainterExpertise"][iExpIndex]["IsArchived"] = false;
+                            aDataFinal.push(aExistingData[iData]);
+                        } else {
+                            aDataFinal.push({ WorkLocationId: x["Id"] });
+                        }
                     }
-                    oPayload["ChildTowns"] = aDataFinal;
+                    oPayload["Positions"][0]["ChildTowns"] = aDataFinal;
                     promise.resolve(oPayload);
                     return promise
 
@@ -679,19 +711,20 @@
                 _UpdatedObject: function (oPayLoad) {
                     var othat = this;
                     var oView = this.getView();
-                    //console.log(oPayLoad);
+                    console.log(oPayLoad);
                     var oDataModel = oView.getModel();
                     var oModelControl = oView.getModel("oModelControl");
                     var sProp = oModelControl.getProperty("/bindProp")
-                    //console.log(sProp, oPayLoad)
+                    console.log(sProp, oPayLoad)
                     return new Promise((resolve, reject) => {
+                        
                         oDataModel.update("/" + sProp, oPayLoad, {
                             success: function (data) {
                                 MessageToast.show(othat._geti18nText("Message1"));
                                 resolve(data);
                             },
                             error: function (data) {
-                                //MessageToast.show(othat._geti18nText("Message2"));
+                                
                                 oModelControl.setProperty("/PageBusy", false);
                                 reject(data);
                             },

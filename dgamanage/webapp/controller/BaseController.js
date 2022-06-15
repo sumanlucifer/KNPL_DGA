@@ -502,7 +502,7 @@ sap.ui.define([
                 c2.then(function () {
                     if (oModelView.getProperty("/AllocatedDGACount") < 1) {
                         oModel.setProperty("/bSaveEnabledFlag1", false);
-                        this._showMessageToast("Message19");
+                        othat._showMessageToast("Message19");
                     } else {
                         oModel.setProperty("/bSaveEnabledFlag1", true);
                     }
