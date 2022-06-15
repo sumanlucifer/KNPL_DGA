@@ -37,28 +37,24 @@
                 <Text text="{path : 'Division/Id'}"  />
 
                 <Label text="{i18n>Depot}" />
-             <Text text="{Depot/Depot} ( {DepotId} )"  />
+             <Text text="{path:'Positions',formatter:'.formatter.fmtDisplayDepots'}"  />
                  <Label text="{i18n>State}" />
                   <Text text="{path:'State/Name'}" />
                  <Label text="{i18n>JobLocation}"/>
                 <Text text="{WorkLocation/TownName}"/>
                 <Label text="{i18n>ChildTown}" />
-                  <MultiInput editable="false" tokens="{path:'ChildTowns/'}">
-                    <tokens>
-                        <Token text="{WorkLocation/TownName} - {WorkLocation/TownId}" />
-                    </tokens>
-                 </MultiInput>
-                <!-- <TextArea editable="false" value="{path:'ChildTowns',formatter:'.formatter.fmtChildTowns2'}"  /> -->
+                <TextArea editable="false" value="{path:'Positions/',formatter:'.formatter.fmtDisplayChildTowns'}"  />
                  <Label text="{i18n>DgaRequirement}"/>
                 <Text text="{AllocatedDGACount}" />
               <Label text="{i18n>Location} {i18n>PinCode}" />
                 <Text text="{Pincode/Name}"  />
               <Label text="{i18n>Service} {i18n>PinCode}" />
-                 <MultiInput editable="false" tokens="{path:'ServicePincodes/'}">
+                <TextArea editable="false" value="{path:'Positions/',formatter:'.formatter.fmDisplayServicePinCode'}"  />
+                 <!-- <MultiInput editable="false" tokens="{path:'ServicePincodes/'}">
                     <tokens>
                         <Token text="{Pincode/Name}" />
                     </tokens>
-                 </MultiInput>
+                 </MultiInput> -->
 
                 
             

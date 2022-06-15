@@ -502,7 +502,7 @@ sap.ui.define([
                 c2.then(function () {
                     if (oModelView.getProperty("/AllocatedDGACount") < 1) {
                         oModel.setProperty("/bSaveEnabledFlag1", false);
-                        this._showMessageToast("Message19");
+                        othat._showMessageToast("Message19");
                     } else {
                         oModel.setProperty("/bSaveEnabledFlag1", true);
                     }
@@ -973,11 +973,18 @@ sap.ui.define([
         _onApplyFilterDealers: function () {
             var sModeel = this.getModel("oModelControl") || this.getModel("oModelDisplay");
             var sMode = sModeel.getProperty("/mode");
+            var oView =this.getView();
+            var oData = oView.getModel();
             if (sMode === "Display") {
                 var aPositions = this.getView().getElementBinding().getBoundContext().getObject()["Positions"];
-                // code for depot id
-
-
+                var sObj, aDepotiId = [];
+                if(Array.isArray(aPositions["__list"])){
+                    for(var x in aPositions["__list"]){
+                        sObj = oData.getProperty("/"+aPositions["__list"][x])
+                        aDepotiId.push({Id:sObj["DepotId"]});
+                    }
+                }
+             
             } else if (sMode === "Add" || sMode === "Edit") {
                 var aDepotiId = this.getView()
                     .getModel("oModelControl")
