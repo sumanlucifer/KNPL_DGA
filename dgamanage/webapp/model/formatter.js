@@ -93,22 +93,7 @@ sap.ui.define([], function () {
             return aArray.join(", ")
 
         },
-        fmtChildTowns2: function (mParam1) {
-
-            var aArray = []
-            if (mParam1) {
-                var oData = this.getView().getModel();
-                var sObj1, sObj2;
-                for (var x of mParam1) {
-                    sObj1 = oData.getProperty("/" + x);
-                    sObj2 = oData.getProperty("/" + sObj1["WorkLocation"]["__ref"])
-
-                    aArray.push(sObj2["TownName"] + " - " + sObj2["TownId"])
-                }
-            }
-
-            return aArray.join(", ")
-        },
+       
         fmtDealerValueHelp1: function (mParam1, mParam2) {
             if (mParam1) {
                 return this._geti18nText("Message22") + mParam1;
@@ -146,7 +131,60 @@ sap.ui.define([], function () {
                 }
                 return aArray.join(" ")
             }
-        }
+        },
+        fmtDisplayDepots:function(mParam1){
+            var aArray = [];
+            if(mParam1){
+                if(Array.isArray(mParam1)){
+                    var obj;
+                    var oData = this.getView().getModel();
+                    for(var x in mParam1){
+                        obj = oData.getProperty("/"+mParam1[x])
+                        aArray.push(obj["DepotId"])
+                    }
+                }
+                
+                return aArray.join(" ")
+            }
+            
+        },
+        fmtChildTowns2: function (mParam1) {
+
+            var aArray = []
+            if (mParam1) {
+                var oData = this.getView().getModel();
+                var sObj1, sObj2;
+                for (var x of mParam1) {
+                    sObj1 = oData.getProperty("/" + x);
+                    sObj2 = oData.getProperty("/" + sObj1["WorkLocation"]["__ref"])
+
+                    aArray.push(sObj2["TownName"] + " - " + sObj2["TownId"])
+                }
+            }
+
+            return aArray.join(", ")
+        },
+        fmtChildTowns: function (mParam1) {
+
+            var aArray = []
+            if (Array.isArray(mParam1)) {
+                var oData = this.getView().getModel();
+                var sObj1, sObj2;
+                for (var x in mParam1) {
+                    sObj1 = oData.getProperty("/" + mParam1[x]);
+                    // for (var y in sObj1["ChildTowns"]["__list"]){
+                    //     sObj2 = oData.getProperty("/" + sObj1["ChildTowns"]["__list"][y]);
+                    //     console.log(sObj2);
+                    //     aArray.push(sObj2["WorkLocationId"]);
+                    // }
+                    
+                }
+                console.log(mParam1,sObj1);
+                return aArray.join(", ")
+            }
+            return "Na"
+            
+        },
     };
 
 });
