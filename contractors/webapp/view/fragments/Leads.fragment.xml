@@ -11,7 +11,7 @@
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/DGADetails/GivenName", "leadingProperty": "Lead/DGA/GivenName", "columnIndex": 1 ,"sortProperty": "Lead/DGA/GivenName","filterProperty": "Lead/DGA/GivenName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Lead/DGADetails/GivenName", "leadingProperty": "Lead/DGADetails/GivenName", "columnIndex": 1 ,"sortProperty": "Lead/DGADetails/GivenName","filterProperty": "Lead/DGADetails/GivenName"}'/>
                     </customData>
                     <Text text="{i18n>DGA}"/>
                 </Column>
