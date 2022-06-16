@@ -883,7 +883,8 @@ sap.ui.define([
             console.log(sDgaDetails)
             // Reset Dga Name,
             var aFields = ["GivenName","Mobile","PayrollCompanyId","EmployeeId","JoiningDate","ExitDate"]
-            this._propertyToBlank(aFields)
+            this._propertyToBlank(aFields);
+            this._showMessageToast("Message24");
             this._onDialogClose();
         },
         _handlePinCodeValueHelp: function () {
