@@ -849,7 +849,7 @@ sap.ui.define([
             var oModelView = oView.getModel("oModelView");
             var sWorklocation = oModelView.getProperty("/WorkLocationId");
             var aPositions = oModelView.getProperty("/Positions")["results"];
-            var aFilter = [new Filter("Status", FilterOperator.EQ, "ACTIVATED"), new Filter("TownId", FilterOperator.EQ, sWorklocation)]
+            var aFilter = [new Filter("Status", FilterOperator.EQ, "ACTIVATED"),new Filter("DGAId", FilterOperator.NE,oModelView.getProperty("/Id") ), new Filter("TownId", FilterOperator.EQ, sWorklocation)]
             for (var x in aPositions) {
                 aFilter.push(new Filter("DepotId", FilterOperator.EQ, aPositions[x]["DepotId"]))
             }
@@ -859,7 +859,7 @@ sap.ui.define([
                     and: true
                 }
             );
-            //this._ReplaceDgaValueHelp.getBinding("items").filter([]);
+            //this._ReplaceDgaValueHelp.getBinding("items").filter(oFilter);
             this._ReplaceDgaValueHelp.open();
         },
         _handleReplaceDgaValueHelpConfirm:function(oEvent){
@@ -882,12 +882,8 @@ sap.ui.define([
             var sDgaDetails = oModel.getProperty("/"+obj["DGA"]["__ref"]);
             console.log(sDgaDetails)
             // Reset Dga Name,
-            oViewModel.setProperty("/GivenName",sDgaDetails["GivenName"]);
-            oViewModel.setProperty("/Mobile",sDgaDetails["Mobile"]);
-            oViewModel.setProperty("/PayrollCompanyId",sDgaDetails["PayrollCompanyId"]);
-            oViewModel.setProperty("/EmployeeId",sDgaDetails["EmployeeId"]);
-            oViewModel.setProperty("/JoiningDate",sDgaDetails["JoiningDate"]);
-            oViewModel.setProperty("/ExitDate",sDgaDetails["ExitDate"]);
+            var aFields = ["GivenName","Mobile","PayrollCompanyId","EmployeeId","JoiningDate","ExitDate"]
+            this._propertyToBlank(aFields)
             this._onDialogClose();
         },
         _handlePinCodeValueHelp: function () {
