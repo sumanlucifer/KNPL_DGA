@@ -62,8 +62,12 @@
 
                 },
                 _SetDisplayData: function (oProp, sMode) {
+                    var sModeA = sMode;
+                    if (sModeA === "ReplaceDga") {
+                        sModeA = "Edit";
+                    }
                     var oData = {
-                        mode: sMode,
+                        mode: sModeA,
                         bindProp: "DGAs(" + oProp + ")",
                         Id: oProp,
                         PageBusy: true,
@@ -85,6 +89,8 @@
                     this.getView().setModel(oModel, "oModelDisplay");
                     if (sMode == "Edit") {
                         this._initEditData();
+                    } else if (sMode.toUpperCase() === "REPLACEDGA") {
+                        //this._initEditData();
                     } else {
                         this._initDisplayData();
                     }

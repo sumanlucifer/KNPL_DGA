@@ -90,12 +90,12 @@
                     </customData>
                     <Text text="{i18n>MainObject} {i18n>Status}"/>
                 </Column> -->
-                 <!-- <Column hAlign="Begin">
+                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions", "columnIndex": 10}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions", "columnIndex": 11}'/>
                     </customData>
                     <Text text="{i18n>Actions}"/>
-                </Column> -->
+                </Column>
 
             </columns>
             <items>
@@ -112,6 +112,7 @@
                                     <Text text="{Pincode/Name}"/>
                                      <Text text="{PayrollCompany/Name}"/>
                                     <ObjectStatus text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange'}"/>
+                                    <Button text="{i18n>ReplaceDga}" press="onPressDgaReplacement" />
                         <!-- <Text text="{ComplaintCode}"/> -->
                           <!--
                          <Text text="{ComplaintType/ComplaintType}"/>

@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+		<SelectDialog
+		title="{i18n>Dga}"
+        growing="true"
+        growingThreshold="8"
+       rememberSelections="false"
+		class="sapUiPopupWithPadding"
+		items="{path:'/DGAPositions', parameters:{expand:'DGA'} }"
+	    search="_handlePValueHelpSearch"
+		confirm="_handleReplaceDgaValueHelpConfirm"
+        cancel="_onDialogClose"
+		multiSelect="false">
+		<StandardListItem
+			iconDensityAware="false"
+			iconInset="false"
+            title="{DGA/GivenName}"
+            description="{PositionCode}"
+			 />
+	</SelectDialog>
+</core:FragmentDefinition>
