@@ -219,12 +219,12 @@
                 },
                 _EditReplaceDgaAddFlags:function(){
                     var promise = $.Deferred();
-                    // var oView = this.getView();
-                    // var oModelView = oView.getModel("oModelView");
-                    // var aFields = ["GivenName","Mobile","PayrollCompanyId","EmployeeId","JoiningDate","ExitDate"]
-                    // this._propertyToBlank(aFields);
-                    // oModelView.setProperty("/ReplacedDGAId",oModelView.setProperty("/Id"));
-                    //this._showMessageToast("Message24");
+                    var oView = this.getView();
+                    var oModelView = oView.getModel("oModelView");
+                    var aFields = ["GivenName","Mobile","PayrollCompanyId","EmployeeId","JoiningDate","ExitDate"]
+                    this._propertyToBlank(aFields);
+                    oModelView.setProperty("/ReplacedDGAId",oModelView.setProperty("/Id"));
+                    this._showMessageToast("Message24");
                     promise.resolve();
                     return promise;
                 },
