@@ -79,13 +79,13 @@
                 <ObjectIdentifier title="Title" text="{ProductDetails/ProductName}"/>
                 </VBox>
                 <VBox class="sapUiMediumMarginBeginEnd">
-               <ObjectIdentifier title="Category" text="{ProductCategory/Category}"/>
+               <ObjectIdentifier title="Category" text="{ProductCategory/CategoryName}"/>
                 </VBox>
                 <VBox class="sapUiMediumMarginBeginEnd">
-                <ObjectIdentifier title="Classification" text="{ProductClassification/Classification}"/>
+                <ObjectIdentifier title="Classification" text="{ProductClassification/ClassificationName}"/>
                 </VBox>
                 <VBox class="sapUiMediumMarginBeginEnd">
-               <ObjectIdentifier title="Price Range" text="{ProductRange/Range}"/>
+               <ObjectIdentifier title="Price Range" text="{ProductPriceRange/Range}"/>
                 </VBox>
                 </HBox>
                 </VBox>
@@ -168,7 +168,9 @@
                                                 <ColumnListItem>
                                                     <cells>
                                                         <VBox>
-                                                        <Select
+                                                         <Input value="{objectView>LanguageCode}" enabled="false">
+                                                        </Input>
+                                                        <!-- <Select
                                                             forceSelection="false"
                                                             editable="false"
                                                             selectedKey="{objectView>LanguageCode}"
@@ -178,7 +180,7 @@
                                                                 templateShareable: true
                                                             }">
                                                             <core:Item key="{LanguageCode}" text="{Language}" />
-                                                            </Select>
+                                                            </Select> -->
                                                         </VBox>
                                                         <VBox>
                                                            <FlexBox class="sapUiTinyMarginBeginEnd">
@@ -211,9 +213,9 @@
                 <ColumnListItem>
                     <cells>
                         <VBox>
-                            <Select items="{path:'/MasterCompetitorCompanySet', templateShareable: true}" editable="false" selectedKey="{path:'objectView>CompetitorCompanyId' }">
+                            <Select items="{path:'/MasterCompetitionBrands', templateShareable: true}" editable="false" selectedKey="{path:'objectView>CompetitorCompanyId' }">
                                 <items>
-                                    <core:Item text="{CompanyName}" key="{Id}" />
+                                    <core:Item text="{Name}" key="{Id}" />
                                 </items>
                             </Select>
                         </VBox>

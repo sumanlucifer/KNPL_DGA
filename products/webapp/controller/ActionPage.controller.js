@@ -38,7 +38,12 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             this._action = oEvent.getParameter("arguments").action;
             this._property = oEvent.getParameter("arguments").property;
-            //this.sServiceURI = this.getOwnerComponent().getManifestObject().getEntry("/sap.app").dataSources.KNPL_DS.uri;
+           
+
+            // this.sServiceURI = this.getOwnerComponent().getManifestObject().getEntry("/sap.app").dataSources.KNPL_DS.uri;
+            this.MainModel= this.getOwnerComponent().getModel();
+            this.sServiceURI =  `${this.MainModel.sServiceUrl}/`;
+           
             var oData = {
                 busy: false,
                 action: this._action,
@@ -138,7 +143,6 @@ sap.ui.define([
         openPdf: function (oEvent) {
             var oContext = oEvent.getSource().getBindingContext("ActionViewModel");
             var sSource = this.sServiceURI + this._property + "/$value?doc_type=pdf&file_name=" + oContext.getProperty("MediaName") + "&language_code=" + oContext.getProperty("LanguageCode");
-            
             sap.m.URLHelper.redirect(sSource, true)
         },
         onChangePdf: function (oEvent) {
@@ -155,6 +159,7 @@ sap.ui.define([
             }
         },
         _uploadToolImage: function (oData) {
+            // oData.Id = 2;
             var oModel = this.getComponentModel();
             if (this._action === "add") {
                 this.oFileUploader.setUploadUrl(this.sServiceURI + "ProductCatalogues(" + oData.Id + ")/$value?doc_type=image&file_name=" + this.imageName);
@@ -251,80 +256,84 @@ sap.ui.define([
             this._showSuccessMsg();
         },
         onPressSaveOrUpdate: function () {
-            // if (this._validateRequiredFields()) {
-                var oDataModel = this.getComponentModel();
-                var oViewModel = this.getView().getModel("ActionViewModel");
-                var Competitors = JSON.parse(
-                    JSON.stringify(oViewModel.getProperty("/Competitor"))
-                ).map((item) => {
-                    var id = parseInt(item.CompetitorCompanyId);
-                    var name = item.CompetitorProductName;
-                    var list = { CompetitorCompanyId: id, CompetitorProductName: name }
-                    return list;
-                });
-                var oParam = {};
-                $.extend(true, oParam, this.entityObject);
-                //delete oParam.__metadata;
-                delete oParam.MediaList;
-                //OParams are used when update 
-                oParam.Title = oViewModel.getProperty("/Name"),
-                    oParam.Description = oViewModel.getProperty("/Name"),
-                    oParam.ProductId = oViewModel.getProperty("/Title"),
-                    oParam.ProductCategoryId = oViewModel.getProperty("/Category"),
-                    oParam.ProductClassificationId = oViewModel.getProperty("/Classification"),
-                    oParam.ProductRangeId = parseInt(oViewModel.getProperty("/Range")),
-                    oParam.ProductCompetitors = Competitors
-                if (this._action !== "edit") {
-                    var Title = this.getView().byId("idTitle").getSelectedItem().getText();
-                    //oPayload are used when create 
-                    var oPayload = {
-                        Title: Title,
-                        Description: Title,
-                        ProductId: this.getView().byId("idTitle").getSelectedItem().getKey(),
-                        ProductCategoryId: oViewModel.getProperty("/Category"),
-                        ProductClassificationId: oViewModel.getProperty("/Classification"),
-                        ProductRangeId: parseInt(oViewModel.getProperty("/Range")),
-                        ProductCompetitors: Competitors
-                    };
-                }
-                var cFiles = [];
-                cFiles.push(this.oFileUploader.getValue());
-                cFiles.push(this.oFileUploaderPdf.getValue());
-                if (cFiles) {
-                    //oViewModel.setProperty("/busy", true);
-                    if (this._action === "add") {
-                        if (!this.oFileUploader.getValue()) {
-                            MessageToast.show(this.oResourceBundle.getText("fileUploaderChooseFirstValidationTxt"));
-                        } else {
-                            var that = this
-                            oDataModel.create("/ProductCatalogues", oPayload, {
-                                success: function (oData, response) {
-                                    var id = oData.Id;
-                                    that._uploadToolImage(oData);
-                                    that._uploadPdf(oData);
-                                },
-                                error: function (oError) {
-                                    console.log("Error!");
-                                }
-                            });
-                        }
+            if (this._validateRequiredFields()) {
+            var oDataModel = this.getComponentModel();
+            var oViewModel = this.getView().getModel("ActionViewModel");
+            var Competitors = JSON.parse(
+                JSON.stringify(oViewModel.getProperty("/Competitor"))
+            ).map((item) => {
+                // var id = parseInt(item.CompetitorCompanyId);
+                var id = item.CompetitorCompanyId;
+                var name = item.CompetitorProductName;
+                var list = { CompetitorCompanyId: id, CompetitorProductName: name }
+                return list;
+            });
+            var oParam = {};
+            $.extend(true, oParam, this.entityObject);
+            //delete oParam.__metadata;
+            delete oParam.MediaList;
+            //OParams are used when update 
+            oParam.Title = oViewModel.getProperty("/Name"),
+                oParam.Description = oViewModel.getProperty("/Name"),
+                oParam.ProductId = oViewModel.getProperty("/Title"),
+                oParam.ProductCategoryId = oViewModel.getProperty("/Category"),
+                oParam.ProductClassificationId = oViewModel.getProperty("/Classification"),
+                // oParam.ProductRangeId = parseInt(oViewModel.getProperty("/Range"),
+                oParam.ProductRangeId = oViewModel.getProperty("/Range"),
+                oParam.ProductCompetitors = Competitors
+            if (this._action !== "edit") {
+                var Title = this.getView().byId("idTitle").getSelectedItem().getText();
+                //oPayload are used when create 
+                var oPayload = {
+                    Title: Title,
+                    Description: Title,
+                    ProductId: this.getView().byId("idTitle").getSelectedItem().getKey(),
+                    ProductCategoryId: oViewModel.getProperty("/Category"),
+                    ProductClassificationId: oViewModel.getProperty("/Classification"),
+                    // ProductRangeId: parseInt(oViewModel.getProperty("/Range")),
+                    ProductRangeId: oViewModel.getProperty("/Range"),
+                    ProductCompetitors: Competitors
+                };
+            }
+            var cFiles = [];
+            cFiles.push(this.oFileUploader.getValue());
+            cFiles.push(this.oFileUploaderPdf.getValue());
+            if (cFiles) {
+                //oViewModel.setProperty("/busy", true);
+                if (this._action === "add") {
+                    if (!this.oFileUploader.getValue()) {
+                        MessageToast.show(this.oResourceBundle.getText("fileUploaderChooseFirstValidationTxt"));
                     } else {
-                        var that = this;
-                        var _property = this._property;
-                        // console.log(oPayload);
-                        oDataModel.update("/" + _property, oParam, {
-                            success: function () {
-                                that._showSuccessMsg();
-                                that._updateImage(_property);
-                                that._updatePdf(_property);
+                        var that = this
+                        oDataModel.create("/ProductCatalogues", oPayload, {
+                            success: function (oData, response) {
+                                var id = oData.Id;
+                                that._uploadToolImage(oData);
+                                that._uploadPdf(oData);
+                                that.getOwnerComponent().getModel().refresh(true);
                             },
                             error: function (oError) {
                                 console.log("Error!");
                             }
                         });
                     }
+                } else {
+                    var that = this;
+                    var _property = this._property;
+                    // console.log(oPayload);
+                    oDataModel.update("/" + _property, oParam, {
+                        success: function () {
+                            that._showSuccessMsg();
+                            that._updateImage(_property);
+                            that._updatePdf(_property);
+                        },
+                        error: function (oError) {
+                            console.log("Error!");
+                        }
+                    });
                 }
-            // }
+            }
+            }
         },
         _onLoadSuccess: function (oData) {
             if (this.oFileUploader.getValue()) {
@@ -376,9 +385,8 @@ sap.ui.define([
                 }
                 return true;
             });
-            
             var bEnglishPDF = oObjectCatalogue.find(function (ele) {
-                if (ele.LanguageCode === "EN") {
+                if (ele.LanguageCode === "ENGLISH") {
                     return true;
                 }
                 return false;
@@ -612,7 +620,6 @@ sap.ui.define([
                     // "ClassificationCode": "'" + ClassificationId + "'"
                     "CategoryCode": `'${CategoryId}'`,
                     "ClassificationCode": `'${ClassificationId}'`
-
                 },
                 success: function (data, response) {
                     Products = data.results;

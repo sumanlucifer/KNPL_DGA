@@ -111,21 +111,33 @@
                                     </Column>
                                  <Column hAlign="Begin">
                                         <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "PdfViewerCount","type":"string", "leadingProperty": "PdfViewerCount", "columnIndex": 3 }'/>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PdfViewerCount","type":"string", "leadingProperty": "PdfViewerCount", "columnIndex": 1 }'/>
                                         </customData>
                                           <Text text="{i18n>views}"/>
                                     </Column>
                                      <Column hAlign="Begin">
                                         <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "PdfDownloadCount","type":"string", "leadingProperty": "PdfDownloadCount", "columnIndex": 4 }'/>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "PdfDownloadCount","type":"string", "leadingProperty": "PdfDownloadCount", "columnIndex": 2 }'/>
                                         </customData>
                                           <Text text="{i18n>downloads}" />
                                     </Column>
                                 <Column hAlign="Begin">
                                         <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "TotalPdfViewerCount","type":"string", "leadingProperty": "TotalPdfViewerCount", "columnIndex": 5 }'/>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "TotalPdfViewerCount","type":"string", "leadingProperty": "TotalPdfViewerCount", "columnIndex": 3 }'/>
                                         </customData>
                                           <Text text="{i18n>totalViews}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "ProductCategory/CategoryName","type":"string", "leadingProperty": "ProductCategory/CategoryName", "columnIndex": 4 }'/>
+                                        </customData>
+                                          <Text text="{i18n>category}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "ProductClassification/ClassificationName","type":"string", "leadingProperty": "ProductClassification/ClassificationName", "columnIndex": 5 }'/>
+                                        </customData>
+                                          <Text text="{i18n>classification}"/>
                                     </Column>
                                     <Column hAlign="Begin">
                                         <customData>
@@ -163,16 +175,19 @@
                                                 text="{path:'PdfViewerCount'}"
                                                 press="onViewsPress"/>
                                             </FlexBox>
-                                          
                                             <Text text="{path:'PdfDownloadCount'}"/>
                                             <Text text="{path:'TotalPdfViewerCount'}"/>
-                                            <Text text="{path:'TotalPdfDownloadCount'}"/>
+                                            <Text text="{path:'ProductCategory/CategoryName'}"/>
+                                             <Text text="{path:'ProductClassification/ClassificationName'}"/>
+                                              <Text text="{path:'TotalPdfDownloadCount'}"/>
+                                            
                                             <Text text="{path:'CreatedAt',formatter:'.formatter.dateFormatter2'}"/>
                                             <ObjectStatus text="{path: 'Status',
                                                 formatter: '.formatter.statusList'}" 
                                                 data:remarks="{Status}"
                                                 state="{= ${Status} === true? 'Success' : undefined || ${Status} === false? 'Warning' : undefined }"/>
                                             <Button  icon="sap-icon://edit" type="Transparent" press="onPressEdit" tooltip="Edit" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
+                                       
                                         </cells>      
                                     </ColumnListItem>
                                 </items> 

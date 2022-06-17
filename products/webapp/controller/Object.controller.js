@@ -91,12 +91,14 @@ sap.ui.define([
             var sObjectId = oEvent.getParameter("arguments").objectId;
             this._property = oEvent.getParameter("arguments").property;
             this.getModel().metadataLoaded().then(function () {
-                var sObjectPath = this.getModel().createKey("ProductCatalogueSet", {
+                var sObjectPath = this.getModel().createKey("ProductCatalogues", {
                     Id: sObjectId
                 });
                 this._bindView("/" + sObjectPath);
                 this.property = sObjectPath;
-                this.sServiceURI = this.getOwnerComponent().getManifestObject().getEntry("/sap.app").dataSources.KNPL_DS.uri;
+                //this.sServiceURI = this.getOwnerComponent().getManifestObject().getEntry("/sap.app").dataSources.KNPL_DS.uri;
+                this.MainModel= this.getOwnerComponent().getModel();
+                this.sServiceURI =  `${this.MainModel.sServiceUrl}/`;
                 this.pdfURI = this.sServiceURI + sObjectPath + "/$value?doc_type=pdf";
                 this.imgURI = this.sServiceURI + sObjectPath + "/$value?doc_type=image&time"+new Date().getTime();
                 var oModel = new JSONModel();
@@ -117,7 +119,7 @@ sap.ui.define([
             this.getView().bindElement({
                 path: sObjectPath,
                 parameters: {
-                    expand: "CreatedByDetails,UpdatedByDetails,ProductDetails,ProductCategory,ProductClassification,ProductRange,ProductCompetitors,MediaList",
+                    expand: "CreatedByDetails,UpdatedByDetails,ProductDetails,ProductCategory,ProductClassification,ProductPriceRange,ProductCompetitors,MediaList",
                     // select: "Title,CreatedAt,Status,CreatedByDetails/Name"
                 },
                 events: {
@@ -136,9 +138,10 @@ sap.ui.define([
                         var data = oEvent.getParameter('data');
                         var status=data.Status;
                         var imgSize = data.MediaList[0].MediaSize;
-                        var pdfSize = data.MediaList[1].MediaSize;
+                        
+                        var pdfSize = data.MediaList[0].MediaSize;
                         var imgName = data.MediaList[0].MediaName;
-                        var pdfName = data.MediaList[1].MediaName;
+                        var pdfName = data.MediaList[0].MediaName;
                         var productCompetitors= data.ProductCompetitors;
                         var media=data.MediaList.filter(function(ele){
                             return !ele.ContentType.includes("image");
@@ -313,7 +316,8 @@ sap.ui.define([
             var msg = 'Status Changed Successfully!';
             MessageToast.show(msg);
             var oModel = this.getView().getModel("objectView");
-            oModel.refresh();
+            oModel.refresh(true);
+            this.getOwnerComponent().getModel().refresh(true);
         },
         showWarning: function (sMsgTxt, _fnYes) {
             var that = this;
