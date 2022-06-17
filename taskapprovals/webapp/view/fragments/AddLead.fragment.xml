@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  
+        <f:SimpleForm class="addForm" id="FormObjectData" editable="true" layout="ResponsiveGridLayout" title="{oModelControl>/Pagetitle}" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+            <f:content>
+                <core:Title text="{i18n>Consumer} {i18n>Details}" />
+                <Label text="{i18n>MainObject} {i18n>OwnerName}" />
+                <Input required="true" maxLength="50" value="{path : 'oModelView>/ConsumerName' , type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :50, search :'^[a-zA-Z\\s]+$' } }"></Input>
+                <Label text="{i18n>PrimaryMobileNo}" />
+                <Input required="true" type="Number" value="{path : 'oModelView>/PrimaryNum' , type : 'sap.ui.model.type.String', constraints : {minLength :10 , maxLength :10, search :'^[0-9]{10}' } }"></Input>
+                <Label text="{i18n>Email}" />
+                <Input required="true" maxLength="100" value="{path : 'oModelView>/Email' , type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :100, search :'^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$' } }"></Input>
+                <core:Title text="{i18n>Location} {i18n>Details}" />
+                <Label text="{i18n>Pincode}" />
+                <Input required="true" valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelView>/Pincode', type : 'sap.ui.model.type.String', constraints : {minLength :1 }}" />
+                <Label text="{i18n>State}" />
+                <ComboBox required="true" enabled="true" editable="false" id="cmBxState" selectionChange="onStateChange" items="{path:'/MasterStates',sorter:{path:'Name'}}" selectedKey="{path:'oModelView>/StateId', type : 'sap.ui.model.type.String', constraints : {minLength :1 } }">
+                    <items>
+                        <core:Item text="{Name}" key="{Id}" />
+                    </items>
+                </ComboBox>
+                <Label text="{i18n>District}" />
+                <Input required="true" maxLength="100" editable="false" value="{path : 'oModelView>/District' , type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :100, search :'^[a-zA-Z0-9]{1}[wW]*' } }"></Input>
+                <!-- <ComboBox items="{path:'/MasterDistricts', sorter:{path:'Name'}}" valueStateText="Kindly select the district according to state." editable="false" selectedKey="{path:'oModelView>/District', type:'sap.ui.model.type.String', constraints:{minLength:1} }" id="cmbDistrict" required="true">
+                    <items>
+                        <core:Item text="{Name}" key="{Name}" />
+                    </items>
+                </ComboBox> -->
+                <Label text="{i18n>City}"  />
+                <Input required="true" maxLength="100" editable="false" value="{path : 'oModelView>/CityOrTown' , type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :100, search :'^[a-zA-Z0-9]{1}[wW]*' } }"></Input>
+                <!-- <ComboBox items="{path:'/MasterCities', sorter:{path:'City'}}" valueStateText="Kindly select the city according to state." editable="false"  selectedKey="{path:'oModelView>/CityOrTown', type:'sap.ui.model.type.String', constraints:{minLength:1} }" id="cmbCity" required="true">
+                    <items>
+                        <core:Item text="{City}" key="{City}" />
+                    </items>
+                </ComboBox> -->
+                <Label text="{i18n>Address}" />
+                <Input required="true" maxLength="250" value="{path : 'oModelView>/Address' , type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :250, search :'^[a-zA-Z0-9]{1}[wW]*' } }"></Input>
+                <Label text="{i18n>Landmark}" />
+                <Input required="true" maxLength="100" value="{path : 'oModelView>/Landmark' , type : 'sap.ui.model.type.String', constraints : {minLength :1 , maxLength :100, search :'^[a-zA-Z0-9]{1}[wW]*' } }"></Input>
+            </f:content>
+        </f:SimpleForm>
+   
+</core:FragmentDefinition>
