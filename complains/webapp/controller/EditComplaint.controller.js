@@ -25,6 +25,9 @@ sap.ui.define(
         "sap/m/VBox",
         "com/knpl/dga/complains/model/customInt",
         "com/knpl/dga/complains/model/cmbxDtype2",
+        "sap/m/Text",
+        "sap/m/TextArea",
+        "sap/m/library",
     ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -54,9 +57,21 @@ sap.ui.define(
         Button,
         VBox,
         customInt,
-        cmbxDtype2
+        cmbxDtype2,
+        Text,
+        TextArea,
+        mobileLibrary
     ) {
         "use strict";
+        // shortcut for sap.m.ButtonType
+	var ButtonType = mobileLibrary.ButtonType;
+
+	// shortcut for sap.m.DialogType
+	var DialogType = mobileLibrary.DialogType;
+
+	// shortcut for sap.ui.core.ValueState
+	var ValueState = library.ValueState;
+
         return BaseController.extend(
             "com.knpl.dga.complains.controller.EditComplaint", {
                 formatter: formatter,
@@ -93,10 +108,19 @@ sap.ui.define(
                     var oProp = window.decodeURIComponent(
                         oEvent.getParameter("arguments").prop
                     );
-                    var oView = this.getView();
-                    var sExpandParam =
-                        "ComplaintType,Painter,ComplaintSubtype,PainterComplainsHistory";
-                    this._initData(oProp);
+
+
+                    var oView = this.getView();                
+                    var exPand = "DGA,Lead,ResolutionDetails,ComplaintType,ConsumersSelectedIssuesRequests/MasterComplaintSubtypesReqs";
+                    var othat = this;                
+                    if (oProp.trim() !== "") {                    
+                        oView.bindElement({                        
+                            path: "/" + oProp,                        
+                            parameters: {                            
+                                expand: exPand,                        
+                            }                  
+                        });                
+                    }
                 },
                 _initData: function (oProp) {
                     this._oMessageManager.removeAllMessages();
@@ -605,72 +629,77 @@ sap.ui.define(
                     this.oQRCodeDialog.close();
                 },
                 // Begin of Debasisa changes for Token Code
-                onPressOpenTokenDialog: function (oEvent) {
+                onPressWithdraw: function (oEvent) {
                     var othat = this;
-                    var oModelControl = this.getView().getModel("oModelControl");
-                    if (!this.oDefaultDialog) {
-                        this.oDefaultDialog = new Dialog({
-                            title: "{i18n>btnValidateToken}",
-                            afterClose: function () {
-                                othat.oDefaultDialog.destroy();
-                                delete othat.oDefaultDialog;
-                                oModelControl.setProperty("/TokenCode2", "");
-                            },
-                            content: [
-                                new VBox({
-                                    alignItems: "Center",
-                                    items: [
-                                        new Input({
-                                            width: "120%",
-                                            placeholder: "Enter Token Code",
-                                            value: "{oModelControl>/TokenCode2}",
-                                        }),
-                                    ],
-                                }),
-                            ],
-                            beginButton: new Button({
-                                text: "{i18n>Cancel}",
-                                type: "Default",
-                                press: function () {
-                                    othat.oDefaultDialog.close();
-                                },
-                            }),
-                            endButton: new Button({
-                                text: "{i18n>Validate}",
-                                type: "Emphasized",
-                                press: othat.onValidateTokenCode.bind(othat)
-                            }),
-                        });
-                        // to get access to the controller's model
-                        this.getView().addDependent(this.oDefaultDialog);
+                    var oModelView = this.getView().getModel("oModelView");
+
+                    var oView = this.getView();
+                    return new Promise(function (resolve, reject) {
+                        if (!this.oDefaultDialog) {
+                            Fragment.load({
+                                id: oView.getId(),
+                                name: "com.knpl.dga.complains.view.fragments.WithdrawComments",
+                                controller: this,
+                            }).then(
+                                function (oDialog) {
+                                    this.oDefaultDialog = oDialog;
+                                    oView.addDependent(this.oDefaultDialog);
+                                    this.oDefaultDialog.open();
+                                    resolve();
+                                }.bind(this)
+                            );
+                        } else {
+                            this.oDefaultDialog.open();
+                            resolve();
+                        }
+                    }.bind(this));
+                },
+                onCommentsChange:function(oEvent){
+                    var sText = oEvent.getParameter("value");
+                    this.oDefaultDialog.getBeginButton().setEnabled(sText.length > 0);
+                    if(sText.length > 40 ){
+                        oEvent.getSource().setValue(oEvent.getSource().getValue().substring(0, 40));
                     }
-                    this.oDefaultDialog.open();
+                },
+                onWithdrawCommentClose:function () {
+                    this.oDefaultDialog.close();
+                },
+                onAfterWithdrawCommentClose: function () {
+                    othat.oDefaultDialog.destroy();
+                    delete othat.oDefaultDialog;
                 },
                 onValidateTokenCode: function (oEvent) {
                     var oView = this.getView();
                     var oModelView = oView.getModel("oModelView");
-                    var oModelControl = oView.getModel("oModelControl");
-                    var that = this;
-                    if (oModelControl.getProperty("/TokenCode2") == "") {
-                        MessageToast.show("Kindly enter the token code to continue");
-                        return;
-                    }
-                    var sTokenCode = oModelControl.getProperty("/TokenCode2").trim();
+                    var othat = this;
+                    var oContext = this.getView().getBindingContext().getObject();
+                    var sWithdrawComments = oModelView.getProperty("/withdrawComments").trim();
+                    var sPath = this.getView().getBindingContext().getPath();
+
+                    var oPayload = {
+                        "Id": oContext.Id,
+                        "DGAId": oContext.DGAId,
+                        "ComplaintStatus":"WITHDRAWN",
+                        "Remark": sWithdrawComments
+                    };
+                    
+                    // if (oModelControl.getProperty("/TokenCode2") == "") {
+                    //     MessageToast.show("Kindly enter the token code to continue");
+                    //     return;
+                    // }
                     var oData = oView.getModel();
-                    oData.callFunction("/QRCodeDetailsAdmin", {
-                        urlParameters: {
-                            qrcode: sTokenCode.toString(),
-                            painterid: oModelView.getProperty("/PainterId")
+
+                    oData.update(sPath, oPayload, {
+                        success:function(oResp){
+                            MessageToast.show("Complaint ("+oContext.ComplaintCode+") has been withdrawn!");
+                            othat.oDefaultDialog.close();
                         },
-                        success: function (oData) {
-                            if (oData !== null) {
-                                if (oData.hasOwnProperty("Status")) {
-                                    that.showQRCodedetails2.call(that, oData);
-                                }
-                            }
-                        },
-                        error: function () {},
+                        error:function(oError){
+                            othat.oDefaultDialog.close();
+                            MessageBox.error("Something wrong with withdrawn. Please try again..!");
+                        }
                     });
+                    
                 },
                 showQRCodedetails2: function (data) {
                     var oModel = this.getView().getModel("oModelControl");

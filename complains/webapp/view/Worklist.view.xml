@@ -1,12 +1,9 @@
-<mvc:View height="100%" xmlns:smartTable="sap.ui.comp.smarttable" controllerName="com.knpl.dga.complains.controller.Worklist" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+<mvc:View height="100%" xmlns:smartTable="sap.ui.comp.smarttable" controllerName="com.knpl.dga.complains.controller.Worklist" 
+    xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" 
+    xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" 
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
+	xmlns:unified="sap.ui.unified">
     <f:DynamicPage id="dynamicPageId" headerExpanded="true">
-        <!-- <f:title>
-            <f:DynamicPageTitle>
-                <f:heading>
-                    <vm:VariantManagement standardItemText="{i18n>appDescription}"></vm:VariantManagement>
-                </f:heading>
-            </f:DynamicPageTitle>
-        </f:title> -->
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
@@ -14,15 +11,42 @@
                         <fb:filterGroupItems>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="ComplaintType" label="{i18n>ComplaintType}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <ComboBox change="onComplaintsChange" placeholder="{i18n>Enter} {i18n>ComplaintType}" items="{path:'/MasterComplaintTypeSet',sorter:{path:'ComplaintType'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{oModelControl>/filterBar/ComplaintTypeId}">
+                                    <ComboBox change="onComplaintsChange" placeholder="{i18n>Enter} {i18n>ComplaintType}" items="{path:'/MasterComplainTypes',sorter:{path:'ComplaintType'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{oModelControl>/filterBar/ComplaintTypeId}">
                                         <core:Item text="{ComplaintType}" key="{Id}"/>
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="ComplaintDetails" label="{i18n>ComplaintDetails}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="ApprovalStatus" label="{i18n>ApprovalStatus}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <ComboBox enabled="{= ${oModelControl>/filterBar/ComplaintTypeId}!== '' }" id="idFileSubType"  placeholder="{i18n>Enter} {i18n>ComplaintDetails}" items="{path:'/MasterComplaintSubtypeSet',sorter:{path:'ComplaintSubtype'},filters:[{path:'Id',operator:'NE',value1:1},{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{oModelControl>/filterBar/ComplaintSubTypeId}">
-                                        <core:Item text="{ComplaintSubtype}" key="{Id}"/>
+                                    <ComboBox placeholder="{i18n>Enter} {i18n>ApprovalStatus}" selectedKey="{oModelControl>/filterBar/ApprovalStatus}">
+                                        <core:Item text="Pending" key="PENDING"/>
+                                        <core:Item text="Approved" key="APPROVED"/>
+                                        <core:Item text="Rejected" key="REJECTED"/>
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem> -->
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="LeadStage" label="{i18n>LeadStage}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <ComboBox placeholder="{i18n>Enter} {i18n>LeadStage}" selectedKey="{oModelControl>/filterBar/LeadStage}">
+                                        <core:Item text="Ongoing" key="ONGOING"/>
+                                        <core:Item text="Completed" key="COMPLETED"/>
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="ComplaintID" label="{i18n>ComplaintID}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <Input placeholder="{i18n>Enter} {i18n>ComplaintID}" id="idPayrollCompanyAdd" value="{path:'oModelControl>/filterBar/ComplaintID' }"
+                                    showValueHelp="true"
+                                    valueHelpRequest="onValueHelpRequest" />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="ComplaintStatus" label="{i18n>ComplaintStatus}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <ComboBox placeholder="{i18n>Enter} {i18n>Status}" selectedKey="{oModelControl>/filterBar/ComplaintStatus}">
+                                        <core:Item text="Registered" key="REGISTERED"/>
+                                        <core:Item text="In Review" key="INREVIEW"/>
+                                        <core:Item text="Resolved" key="RESOLVED"/>
+                                        <core:Item text="Withdrawn" key="WITHDRAWN"/>
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
@@ -36,55 +60,8 @@
                                     <DatePicker placeholder="DD/MM/YYYY"  value="{path:'oModelControl>/filterBar/EndDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Status" label="{i18n>Status}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                    <ComboBox placeholder="{i18n>Enter} {i18n>Status}" selectedKey="{oModelControl>/filterBar/ComplaintStatus}">
-                                        <core:Item text="Registered" key="REGISTERED"/>
-                                        <core:Item text="In Review" key="INREVIEW"/>
-                                        <core:Item text="Resolved" key="RESOLVED"/>
-                                        <core:Item text="Withdrawn" key="WITHDRAWN"/>
-                                    </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="ApprovalStatus" label="{i18n>ApprovalStatus}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                    <ComboBox placeholder="{i18n>Enter} {i18n>ApprovalStatus}" selectedKey="{oModelControl>/filterBar/ApprovalStatus}">
-                                        <core:Item text="Pending" key="PENDING"/>
-                                        <core:Item text="Approved" key="APPROVED"/>
-                                        <core:Item text="Rejected" key="REJECTED"/>
-                                    </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="Escalate" label="{i18n>LblEscalationLevel}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                    <ComboBox placeholder="{i18n>Enter} {i18n>LblEscalationLevel}" selectedKey="{oModelControl>/filterBar/Escalate}">
-                                        <core:Item text="{i18n>TL}" key="TL"/>
-                                        <core:Item text="{i18n>CC_PROJECT_MANAGER}" key="CC_PROJECT_MANAGER"/>
-                                        <core:Item text="{i18n>HO_MARKETING}" key="HO_MARKETING"/>
-                                    </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Zone" label="{i18n>Zone}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                     <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>Zone}" selectionChange="onZoneChange"  items="{/MasterZoneSet}" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
-                                        <core:Item text="{Id} " key="{Id}" />
-                                    </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Division" label="{i18n>Division}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                      <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>Division}" id="idDivision" selectionChange="onDivisionChange" items="{/MasterDivisionSet}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
-                    <core:Item text="{Id}" key="{Id}" />
-                </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
- <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                     <ComboBox enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}" selectionChange="onDepotChange"  items="{/MasterDepotSet}" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
-                                        <core:Item text="{Depot} ( {Id} )" key="{Id}" />
-                                    </ComboBox>
-                                </fb:control>
-                            </fb:FilterGroupItem>
+                            
+                              
 
                         </fb:filterGroupItems>
                     </fb:FilterBar>
@@ -92,33 +69,39 @@
             </f:DynamicPageHeader>
         </f:header>
         <f:content>
-            <Table id="table" growing="true" growingThreshold="10" updateFinished="onUpdateFinished" width="auto" items="{path: '/PainterComplainsSet',sorter:{path:'CreatedAt',descending:true}, filters:[{path:'ComplaintSubtypeId',operator:'NE',value1:1},{path:'IsArchived',operator:'EQ',value1:false}] , parameters:{expand:'ComplaintType,Painter,ComplaintSubtype',select:'Id,ParentComplaintId,Painter/Name,Painter/Mobile,Painter/MembershipCard,ComplaintCode,ComplaintType/ComplaintType,ComplaintSubtype/ComplaintSubtype,CreatedAt,ComplaintStatus' }}" noDataText="{i18n>tableNoDataText}" growingScrollToLoad="false">
+            <Table id="table" growing="true" growingThreshold="10" updateFinished="onUpdateFinished" width="auto" items="{path: '/Complaints',sorter:{path:'CreatedAt',descending:true}, parameters:{expand:'DGA,Lead,ResolutionDetails,ComplaintType,ConsumersSelectedIssuesRequests/MasterComplaintSubtypesReqs' }}" noDataText="{i18n>tableNoDataText}" growingScrollToLoad="false">
                 <headerToolbar>
                     <Toolbar>
                         <Title text="{worklistView>/worklistTableTitle}"/>
                         <ToolbarSpacer/>
-                        <Button icon="sap-icon://add" text="{i18n>AddComplaint}" type="Emphasized" press=".onPressAdd" tooltip="{i18n>AddComplaint}"></Button>
+                        <Button icon="sap-icon://add" text="{i18n>RaiseComplaint}" type="Emphasized" press=".onPressAdd" tooltip="{i18n>RaiseComplaint}"></Button>
                         <Button visible="false" icon="sap-icon://sort" type="Transparent" press="handleSortButtonPressed"></Button>
                     </Toolbar>
                 </headerToolbar>
                 <columns>
                     <Column>
-                        <Text text="{i18n>PainterName}"/>
+                        <Text text="{i18n>DGAName}"/>
                     </Column>
                     <Column>
-                        <Text text="{i18n>MembershipId}"/>
+                        <Text text="{i18n>DGAID}"/>
                     </Column>
                     <Column>
                         <Text text="{i18n>PrimaryMobileNo}"/>
                     </Column>
                     <Column>
-                        <Text text="{i18n>ComplaintId}"/>
+                        <Text text="{i18n>ComplaintID}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>CustomerName}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>CustomerMobileNo}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>LeadStage}"/>
                     </Column>
                     <Column>
                         <Text text="{i18n>ComplaintType}"/>
-                    </Column>
-                    <Column>
-                        <Text text="{i18n>ComplaintDetails}"/>
                     </Column>
                     <Column width="170px">
                         <Text text="{i18n>DateAndTime}"/>
@@ -131,14 +114,19 @@
                 <items>
                     <ColumnListItem press="onListItemPress" type="Navigation">
                         <cells>
-                            <Text text="{Painter/Name}"/>
-                            <Text text="{Painter/MembershipCard}"/>
-                            <Text text="{Painter/Mobile}"/>
+                            <Text text="{DGA/GivenName}"/>
+                            <Text text="{DGAId}"/>
+                            <Text text="{DGA/Mobile}"/>
                             <Text text="{ComplaintCode}"/>
+                            <Text text="{= ${IsNewConsumer} === true ? ${ConsumerName} : ${Lead/ConsumerName} }"/>
+                            <Text text="{= ${IsNewConsumer} === true ? ${ConsumerMobileNo} : ${Lead/PrimaryNum} }"/>
+                            <Text text="{LeadStage}"/>
                             <Text text="{ComplaintType/ComplaintType}"/>
-                            <Text text="{ComplaintSubtype/ComplaintSubtype}"/>
-                            <Text text="{path:'CreatedAt',formatter:'.fmtDate'}"/>
-                            <ObjectStatus text="{parts:['ComplaintStatus','ParentComplaintId'],formatter:'.fmtStatusHeader'}" state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Error' }"/>
+                            <Text text="{path:'CreatedAt', type: 'sap.ui.model.type.DateTime', 
+                            formatOptions: { 
+                                pattern: 'dd/MM/yyyy hh:mm aaa' 
+                            }}"/>
+                            <ObjectStatus text="{ComplaintStatus}" state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Warning' }"/>
                         </cells>
                     </ColumnListItem>
                 </items>

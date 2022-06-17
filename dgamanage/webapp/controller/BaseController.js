@@ -89,7 +89,8 @@ sap.ui.define([
                     Pincode: "",
                     SalesGroup: "",
                     JoiningDate: "",
-                    ExitDate: ""
+                    ExitDate: "",
+                    ReplaceDga: ""
                 },
                 MultiCombo: {
                     Dealers: [],
@@ -437,6 +438,7 @@ sap.ui.define([
             oModelContorl.setProperty("/MultiCombo/Dealers", []);
             oModelContorl.setProperty("/MultiCombo/Depots", []);
             oModelView.setProperty("/StateId", "");
+            oModelView.setProperty("/WorkLocationId", "");
         },
         onDepotChange: function (oEvent) {
             var oView = this.getView();
@@ -495,7 +497,7 @@ sap.ui.define([
             var oData = oView.getModel();
             var othat = this;
             var c1, c2, c3, c4;
-            oModel.setProperty("/PageBusy",true);
+            oModel.setProperty("/PageBusy", true);
             var c1 = othat._GetActivatedDGACount(oBj);
             c1.then(function () {
                 c2 = othat._GetChildLocation(oBj);
@@ -506,11 +508,11 @@ sap.ui.define([
                     } else {
                         oModel.setProperty("/bSaveEnabledFlag1", true);
                     }
-                    oModel.setProperty("/PageBusy",false);
+                    oModel.setProperty("/PageBusy", false);
                 })
             })
 
-         
+
 
 
         },
@@ -608,6 +610,7 @@ sap.ui.define([
             * Language:  JS
             * Purpose: A common method of controllers handle the search for the popovers
             */
+            //_ReplaceDgaValueHelp
             console.log("method called");
             var sValue = oEvent.getParameter("value").trim();
             var sPath = oEvent.getParameter("itemsBinding").getPath();
@@ -697,6 +700,36 @@ sap.ui.define([
                     .filter(aFilter, "Application");
                 return;
             }
+            // ReplaceDGA
+            if (sPath === "/DGAPositions") {
+                if (sValue.length > 0) {
+                    var aFilter = new Filter(
+                        [
+                            new Filter({
+                                path: "DGA/GivenName",
+                                operator: "Contains",
+                                value1: sValue,
+                                caseSensitive: false
+                            }),
+                            new Filter({
+                                path: "PositionCode",
+                                operator: "Contains",
+                                value1: sValue,
+                                caseSensitive: false
+                            })
+                        ],
+                        false
+                    )
+
+
+                } else {
+                    var aFilter = [];
+                }
+                this._ReplaceDgaValueHelp
+                    .getBinding("items")
+                    .filter(aFilter, "Application");
+                return;
+            }
             // sales group
             if (sPath === "/MasterSaleGroups") {
                 if (sValue.length > 0) {
@@ -771,6 +804,11 @@ sap.ui.define([
                 delete this._SalesGroupValueHelp;
                 return;
             }
+            if (this._ReplaceDgaValueHelp) {
+                this._ReplaceDgaValueHelp.destroy();
+                delete this._ReplaceDgaValueHelp;
+                return;
+            }
         },
         _handleSalesGropValueHelp: function () {
             /*
@@ -788,6 +826,66 @@ sap.ui.define([
                 }.bind(this))
             }
 
+        },
+        // handle value help open for the replace dga
+        _handleReplaceDgaValueHelp: function () {
+            /*
+            * Author: manik saluja
+            * Date: 15-Mar-2022
+            * Language:  JS
+            * Purpose:  Used to handle the pin code pop over in the add dga and edit dga.
+            */
+            var oView = this.getView();
+            if (!this._ReplaceDgaValueHelp) {
+                this._getViewFragment("ReplaceDga").then(function (oControl) {
+                    this._ReplaceDgaValueHelp = oControl;
+                    oView.addDependent(this._ReplaceDgaValueHelp);
+                    this._onApplyFilterReplaceDga();
+                }.bind(this))
+            }
+        },
+        _onApplyFilterReplaceDga: function () {
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            var sWorklocation = oModelView.getProperty("/WorkLocationId");
+            var aPositions = oModelView.getProperty("/Positions")["results"];
+            var aFilter = [new Filter("Status", FilterOperator.EQ, "ACTIVATED"),new Filter("DGAId", FilterOperator.NE,oModelView.getProperty("/Id") ), new Filter("TownId", FilterOperator.EQ, sWorklocation)]
+            for (var x in aPositions) {
+                aFilter.push(new Filter("DepotId", FilterOperator.EQ, aPositions[x]["DepotId"]))
+            }
+            var oFilter = new Filter(
+                {
+                    filters: aFilter,
+                    and: true
+                }
+            );
+            //this._ReplaceDgaValueHelp.getBinding("items").filter(oFilter);
+            this._ReplaceDgaValueHelp.open();
+        },
+        _handleReplaceDgaValueHelpConfirm:function(oEvent){
+            var oView=this.getView();
+            var oModel = oView.getModel();
+            var oSelectedItem = oEvent.getParameter("selectedItem");
+            var oViewModel = this.getView().getModel("oModelView"),
+                oModelControl = this.getView().getModel("oModelControl");
+            var obj = oSelectedItem.getBindingContext().getObject();
+            
+            oModelControl.setProperty(
+                "/AddFields/ReplaceDga",
+                obj["PositionCode"]
+            );
+            oViewModel.setProperty(
+                "/ReplacedDGAId",
+               obj["DGAId"].toString()
+            );
+            console.log(obj)
+            var sDgaDetails = oModel.getProperty("/"+obj["DGA"]["__ref"]);
+            console.log(sDgaDetails)
+            // Reset Dga Name,
+            var aFields = ["GivenName","Mobile","PayrollCompanyId","EmployeeId","JoiningDate","ExitDate"]
+            this._propertyToBlank(aFields);
+            this._showMessageToast("Message24");
+            this._onDialogClose();
         },
         _handlePinCodeValueHelp: function () {
             /*
@@ -973,18 +1071,17 @@ sap.ui.define([
         _onApplyFilterDealers: function () {
             var sModeel = this.getModel("oModelControl") || this.getModel("oModelDisplay");
             var sMode = sModeel.getProperty("/mode");
-            var oView =this.getView();
+            var oView = this.getView();
             var oData = oView.getModel();
             if (sMode === "Display") {
                 var aPositions = this.getView().getElementBinding().getBoundContext().getObject()["Positions"];
                 var sObj, aDepotiId = [];
-                if(Array.isArray(aPositions["__list"])){
-                    for(var x in aPositions["__list"]){
-                        sObj = oData.getProperty("/"+aPositions["__list"][x])
-                        aDepotiId.push({Id:sObj["DepotId"]});
+                if (Array.isArray(aPositions["__list"])) {
+                    for (var x in aPositions["__list"]) {
+                        sObj = oData.getProperty("/" + aPositions["__list"][x])
+                        aDepotiId.push({ Id: sObj["DepotId"] });
                     }
                 }
-             
             } else if (sMode === "Add" || sMode === "Edit") {
                 var aDepotiId = this.getView()
                     .getModel("oModelControl")

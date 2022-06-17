@@ -55,379 +55,80 @@ sap.ui.define(
             {
                 onInit: function () {
                     var oRouter = this.getOwnerComponent().getRouter();
-                    sap.ui.getCore().attachValidationError(function (oEvent) {
-                        if (oEvent.getParameter("element").getRequired()) {
-                            oEvent.getParameter("element").setValueState(ValueState.Error);
-                        } else {
-                            oEvent.getParameter("element").setValueState(ValueState.None);
-                        }
-                    });
-                    sap.ui.getCore().attachValidationSuccess(function (oEvent) {
-                        oEvent.getParameter("element").setValueState(ValueState.None);
-                    });
-
                     oRouter
                         .getRoute("RouteAddCmp")
                         .attachMatched(this._onRouteMatched, this);
-                    this._ValueState = library.ValueState;
-                    this._MessageType = library.MessageType;
                 },
                 _onRouteMatched: function (oEvent) {
-                    this._GetServiceData();
                     var sId = oEvent.getParameter("arguments").Id;
                     this._initData("add", "", sId);
-                },
-                _GetServiceData: function () { },
-                _initData: function (mParMode, mKey, mPainterId) {
-                    var oViewModel = new JSONModel({
-                        sIctbTitle: mParMode == "add" ? "Add" : "Edit",
+
+                    var oViewData = {
                         busy: false,
-                        mPainterKey: mKey,
-                        addComplaint: {
-                            PainterId: "",
-                            ComplaintTypeId: "",
-                            ComplaintSubtypeId: "",
-                            ResolutionId: "",
-                            TokenCode: "",
-                            RewardPoints: "",
-                            RewardGiftId: "",
-                            ResolutionOthers: "",
-                            ComplaintDescription: ""
-                        },
-                        addCompAddData: {
-                            MembershipCard: "",
-                            Mobile: "",
-                            Name: "",
-                        },
-                    });
-
-                    if (mParMode == "add") {
-                        this._showFormFragment("AddComplaint");
-                        this.getView().unbindElement();
-                    } else {
-                    }
-
-                    var oDataControl = {
-                        TokenCode: true,
-                        tokenCodeValue: "",
-                        ZoneId: "",
-                        DivisionId : "",
-                        Depot : ""
+                        newCustomer: true,
+                        LeadCustomer: true,
+                        isDGAActive: true,
+                        LeadId: "",
+                        ConsumerName: "",
+                        ConsumerMobileNo: "",
+                        NewConsumerName: "",
+                        NewConsumerMobileNo: "",
+                        Zone: "",
+                        LeadStage: 0,
+                        ComplaintType: 0,
+                        Comments: "",
+                        DGA : {
+                            PrimaryMobileNo: "",
+                            DGAName: "",
+                            Zone: "",
+                            Division: "",
+                            Depot: "",
+                            UniqueId: "",
+                            DGAID: ""
+                        }
                     };
 
-                    var oModelControl = new JSONModel(oDataControl);
-                    this.getView().setModel(oModelControl, "oModelControl");
-
-                    this._formFragments; //used for the fragments of the add and edit forms
-                    this.getView().setModel(oViewModel, "oModelView");
-                    //this._initMessage(oViewModel);
-                    this.getView().getModel().resetChanges();
-                    //used to intialize the message class for displaying the messages
-                    if (mPainterId !== "new") {
-                        this._getPainterDetails(mPainterId);
-                    }
+                    var oViewModel = new JSONModel(oViewData);
+                    this.getView().setModel(oViewModel, "oViewModel");
                 },
-                _getPainterDetails: function (mParam) {
-                    var oView = this.getView();
-                    var oData = oView.getModel();
-                    var oViewModel = oView.getModel("oModelView");
-                    var sPath = "/PainterSet(" + mParam + ")";
-                    oData.read(sPath, {
-                        urlParameters: {
-                            $expand : "Depot",
-                            $select: 'ZoneId,Id,Mobile,Name,MembershipCard,Depot/Depot'
-                        },
-                        success: function (obj) {
-                            // console.log(obj)
-                            oViewModel.setProperty(
-                                "/addCompAddData/MembershipCard",
-                                obj["MembershipCard"]
-                            );
-                            oViewModel.setProperty("/addCompAddData/Mobile", obj["Mobile"]);
-                            oViewModel.setProperty("/addCompAddData/Name", obj["Name"]);
-                            oViewModel.setProperty("/addComplaint/PainterId", obj["Id"]);
-
-                        },
-                        error: function () {
-
-                        }
-                    })
-
-
-
+                _initData: function (mParMode, mKey, mPainterId) {
+                    this._showFormFragment("AddComplaint");
                 },
 
-                onPressSave: function () {
-                    this.sServiceURI = this.getOwnerComponent(this)
-                        .getManifestObject()
-                        .getEntry("/sap.app").dataSources.mainService.uri;
-                    var oModel = this.getView().getModel("oModelView");
-                    var oValidator = new Validator();
-                    var oVbox = this.getView().byId("idVbx");
-                    var bValidation = oValidator.validate(oVbox, true);
-                    var cTbleFamily = !oModel.getProperty("/EditTb1FDL");
-                    var dTbleAssets = !oModel.getProperty("/EditTb2AST");
+                onRadioButtonSelection: function(oEvent){
+                    var oViewModel = this.getView().getModel("oViewModel");
+                    var value1 = oViewModel.getProperty("/LeadStage") === 0 ? "ONGOING" : "COMPLETED";
+                    var value2 = oViewModel.getProperty("/ComplaintType") + 2;
 
-                    if (bValidation == false) {
-                        MessageToast.show(
-                            "Kindly input all the mandatory(*) fields to continue."
-                        );
-                    }
-                    if (bValidation) {
-                        this._postDataToSave();
-                    }
+                    this._issueListFilter(value1, value2);
                 },
 
-                _postDataToSave: function () {
-                    var oView = this.getView();
-                    var oViewModel = oView.getModel("oModelView");
-                    var oAddCompData = oViewModel.getProperty("/addComplaint");
-                    var oModelContrl = oView.getModel("oModelControl");
-
-                    // if tokecode property is set to true, we have make the string empty
-                    //   if (oModelContrl.getProperty("/TokenCode") == true) {
-                    //     oAddCompData["RewardPoints"] = "";
-                    //     oAddCompData["TokenCode"] = "";
-                    //   }
-                    var oPayLoad = this._ReturnObjects(oAddCompData);
-                    var othat = this;
-                    var oData = this.getView().getModel();
-
-                    var c1, c2;
-                    c1 = this._postCreateData(oPayLoad);
-
-                    var oUploadItems = oView.byId("idUploadCollection").getItems();
-                    c1.then(function (oData) {
-                        if (oUploadItems.length > 0) {
-                            c2 = othat._checkFileUpload(oData);
-                            c2.then(function () {
-                                othat.navPressBack();
-                            });
-                        } else {
-                            othat.navPressBack();
-                        }
-                    });
-                },
-                _postCreateData: function (oPayLoad) {
-                    var promise = jQuery.Deferred();
-                    var oData = this.getView().getModel();
-                    var othat = this;
-                    oData.create("/PainterComplainsSet", oPayLoad, {
-                        success: function (oData) {
-                            MessageToast.show("Complain Successfully Created");
-                            promise.resolve(oData);
-                            //othat.navPressBack();
-                        },
-                        error: function (a) {
-                            MessageBox.error(
-                                "Unable to create a complaint due to the server issues",
-                                {
-                                    title: "Error Code: " + a.statusCode,
-                                }
-                            );
-                            promise.reject(a);
-                        },
-                    });
-                    return promise;
-                },
-                _checkFileUpload: function (oData) {
-                    var promise = jQuery.Deferred();
-                    var UploadCollection = this.getView().byId("idUploadCollection");
-                    var oItems = UploadCollection.getItems();
-                    var othat = this;
-                    var bFlag = false;
-                    if (oData.hasOwnProperty("Id")) {
-                        if (oData["Id"] !== null) {
-                            if (oItems.length > 0) {
-                                bFlag = true;
-                            }
-                        }
-                    }
-
-                    if (!bFlag) {
-                        promise.resolve("NoFileUploadRequired");
-                        return promise;
-                    }
-                    var sUrl =
-                        "/KNPL_PAINTER_API/api/v2/odata.svc/" +
-                        "PainterComplainsSet(" +
-                        oData["Id"] +
-                        ")/$value";
-
-                    var async_request = [];
-
-                    for (var x = 0; x < oItems.length; x++) {
-                        var sFile = sap.ui.getCore().byId(oItems[x].getFileUploader())
-                            .oFileUpload.files[0];
-
-                        async_request.push(
-                            jQuery.ajax({
-                                method: "PUT",
-                                url: sUrl,
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                                data: sFile,
-                                success: function (data) { },
-                                error: function () { },
-                            })
-                        );
-                    }
-                    if (oItems.length > 0) {
-                        jQuery.when.apply(null, async_request).then(
-                            function () {
-                                // console.log("File successfully uploaded")
-                                //promise.resolve("FileUpdated");
-                            },
-                            function () {
-                                //promise.resolve("FileNot Uplaoded");
-                            }
-                        );
-                    }
-                    promise.resolve();
-                    return promise;
-                },
-                _ReturnObjects: function (mParam) {
-                    var obj = Object.assign({}, mParam);
-                    var oNew = Object.entries(obj).reduce(
-                        (a, [k, v]) => (v === "" ? a : ((a[k] = v), a)),
-                        {}
+                _issueListFilter:function(value1, value2){
+                    var aFilter = [];
+                    aFilter.push( new Filter([
+                        new Filter(
+                            "LeadStage",
+                            FilterOperator.Contains,
+                            "NONE"
+                        ),
+                        new Filter(
+                            "LeadStage",
+                            FilterOperator.Contains,
+                            value1
+                        )], false)
+                    );
+                    aFilter.push(
+                        new Filter(
+                            "ComplaintTypeId",
+                            FilterOperator.EQ,
+                            value2
+                        )
                     );
 
-                    var patt1 = /Id/g;
-
-                    for (var i in oNew) {
-                        if (i.match(patt1) !== null) {
-                            oNew[i] = parseInt(oNew[i]);
-                        }
-                        if (i === "RewardPoints") {
-                            oNew[i] = parseInt(oNew[i]);
-                        }
-                    }
-                    return oNew;
+                    var oList = this.getView().byId("idList");
+                    oList.getBinding("items").filter(aFilter);
                 },
-
-                onCmpTypChange: function (oEvent) {
-                    var sKey = oEvent.getSource().getSelectedKey();
-                    var oView = this.getView();
-                    var oViewModel = oView.getModel("oModelView");
-                    var oModelControl = oView.getModel("oModelControl");
-                    var oCmbxSubType = oView.byId("idCompainSubType");
-                    var oFilter = new Filter("ComplaintTypeId", FilterOperator.EQ, sKey);
-                    oCmbxSubType.clearSelection();
-                    oCmbxSubType.setValue("");
-                    oCmbxSubType.getBinding("items").filter(oFilter);
-
-                    // clearning the inreview and the resolution
-                    //   oView.byId("scenario").setSelectedKey("");
-                    //   oView.byId("resolution").setSelectedKey("");
-                },
-                onComplainSubTypeChange: function (oEvent) {
-                    var sKey = oEvent.getSource().getSelectedKey();
-                    var oView = this.getView();
-                    var oViewModel = oView.getModel("oModelView");
-                    var oModelControl = oView.getModel("oModelControl");
-
-                    if (sKey == "2" || sKey == "3") {
-                        oViewModel.setProperty("/addComplaint/RewardPoints", "");
-                        oViewModel.setProperty("/addComplaint/TokenCode", "");
-                        // oModelControl.setProperty("/tokenCodeValue", "");
-                        // oModelControl.setProperty("/TokenCode", true);
-                    }
-                    // clearning the inreview and the resolution
-                    oViewModel.setProperty("/addComplaint/ComplaintDescription", "");
-                },
-                onSenarioChange: function (oEvent) {
-                    var sKey = oEvent.getSource().getSelectedKey();
-                    var oView = this.getView();
-                    var sSuTypeId = oView
-                        .getModel("oModelView")
-                        .getProperty("/addComplaint/ComplaintSubtypeId");
-
-                    var oResolution = oView.byId("resolution");
-                    //clearning the serction for the resolution
-                    var aFilter = [];
-                    if (sKey) {
-                        aFilter.push(new Filter("Scenario", FilterOperator.EQ, sKey));
-                    }
-                    if (sSuTypeId !== "") {
-                        aFilter.push(new Filter("TypeId", FilterOperator.EQ, sSuTypeId));
-                    }
-                    oResolution.setSelectedKey("");
-
-                    oResolution.getBinding("items").filter(aFilter);
-                },
-                onPressTokenCode: function () {
-                    var oView = this.getView();
-                    var oModelView = oView.getModel("oModelView");
-                    var oModelControl = oView.getModel("oModelControl");
-                    var oData = oView.getModel();
-                    var sPainterId = oModelView.getProperty("/addComplaint/PainterId");
-                    //  var sTokenCode = oModelControl.getProperty("/tokenCodeValue");
-
-                    if (sPainterId == "") {
-                        MessageToast.show("Kindly select a valid painter");
-                        return;
-                    }
-                    if (sTokenCode == "") {
-                        MessageToast.show("Kindly Input the token code.");
-                        return;
-                    }
-                    oData.read("/QRCodeValidationAdmin", {
-                        urlParameters: {
-                            qrcode: "'" + sTokenCode + "'",
-                            painterid: sPainterId,
-                            channel: "'Complains'",
-                        },
-                        success: function (oData) {
-                            if (oData !== null) {
-                                if (oData.hasOwnProperty("Status")) {
-                                    if (oData["Status"] == true) {
-                                        oModelView.setProperty(
-                                            "/addComplaint/RewardPoints",
-                                            oData["RewardPoints"]
-                                        );
-
-                                        var patt1 = /Id/g;
-
-                                        for (var i in oNew) {
-                                            if (i.match(patt1) !== null) {
-                                                oNew[i] = parseInt(oNew[i]);
-                                            }
-                                            if (i === "RewardPoints") {
-                                                oNew[i] = parseInt(oNew[i]);
-                                            }
-                                        }
-                                        return oNew;
-                                    }
-                                }
-                            }
-                        }
-                    });
-                },
-
-                showQRCodedetails: function (data) {
-
-                    var oModelView = this.getView().getModel("oModelView");
-                    oModelView.setProperty("/QRCodeData", data);
-
-                    if (!this.oQRCodeDialog) {
-                        Fragment.load({ type: "XML", controller: this, name: "com.knpl.dga.complains.view.fragments.QRCodeDetails" }).then(function (oDialog) {
-                            this.oQRCodeDialog = oDialog;
-                            this.getView().addDependent(oDialog);
-                            oDialog.open();
-                        }.bind(this));
-                    } else {
-                        this.oQRCodeDialog.open();
-                    }
-
-
-
-                },
-                onTokenDlgClose: function () {
-                    this.oQRCodeDialog.close();
-                },
-                onValueHelpRequest: function (oEvent) {
+                onCustomerValueHelpRequest: function (oEvent) {
                     var sInputValue = oEvent.getSource().getValue(),
                         oView = this.getView();
 
@@ -435,7 +136,7 @@ sap.ui.define(
                         this._pValueHelpDialog = Fragment.load({
                             id: oView.getId(),
                             name:
-                                "com.knpl.dga.complains.view.fragments.ValueHelpDialog",
+                                "com.knpl.dga.complains.view.fragments.CustomerValueHelpDialog",
                             controller: this,
                         }).then(function (oDialog) {
                             oView.addDependent(oDialog);
@@ -451,7 +152,7 @@ sap.ui.define(
                                     [
                                         new Filter(
                                             {
-                                                path: "Name",
+                                                path: "ConsumerName",
                                                 operator: "Contains",
                                                 value1: sInputValue.trim(),
                                                 caseSensitive: false
@@ -459,12 +160,12 @@ sap.ui.define(
                                         ),
                                         new Filter(
                                             {
-                                                path: "Mobile",
+                                                path: "PrimaryNum",
                                                 operator: "Contains",
                                                 value1: sInputValue.trim(),
                                                 caseSensitive: false
                                             }
-                                        ),
+                                        )
                                     ],
                                     false
                                 ),
@@ -473,13 +174,221 @@ sap.ui.define(
                         oDialog.open(sInputValue);
                     });
                 },
-                onValueHelpSearch: function (oEvent) {
+                onCustomerValueHelpSearch: function (oEvent) {
                     var sValue = oEvent.getParameter("value");
                     var oFilter = new Filter(
                         [
                             new Filter(
                                 {
-                                    path: "Name",
+                                    path: "ConsumerName",
+                                    operator: "Contains",
+                                    value1: sValue.trim(),
+                                    caseSensitive: false
+                                }
+                            ),
+                            new Filter(
+                                {
+                                    path: "PrimaryNum",
+                                    operator: "Contains",
+                                    value1: sValue.trim(),
+                                    caseSensitive: false
+                                }
+                            )
+                        ],
+                        false
+                    );
+
+                    oEvent.getSource().getBinding("items").filter([oFilter]);
+                },
+                onCustomerValueHelpClose: function (oEvent) {
+                    var oSelectedItem = oEvent.getParameter("selectedItem");
+                    oEvent.getSource().getBinding("items").filter([]);
+                    var oModelControl = this.getView().getModel("oViewModel")  ;
+                    if (!oSelectedItem) {
+                        return;
+                    }
+                    var obj = oSelectedItem.getBindingContext().getObject();
+                    oModelControl.setProperty("/ConsumerName",obj.ConsumerName );
+                    oModelControl.setProperty("/ConsumerMobileNo",obj.PrimaryNum );
+                    oModelControl.setProperty("/Zone",obj.Zone );
+                    oModelControl.setProperty("/LeadId",obj.Id );
+
+                    switch(obj.LeadStatusId){
+                        case 1 : oModelControl.setProperty("/LeadStage",0); break;
+                        case 2 : oModelControl.setProperty("/LeadStage",0); break;
+                        case 3 : oModelControl.setProperty("/LeadStage",1); break;
+                        case 4 : oModelControl.setProperty("/LeadStage",1); break;
+                        case 5 : oModelControl.setProperty("/LeadStage",0); break;
+                        case 6 : oModelControl.setProperty("/LeadStage",1); break;
+                        default : oModelControl.setProperty("/LeadStage",1);
+                    }
+
+                    if(obj.DGAId === null){
+                        MessageBox.information("Kindly assign DGA for selected Lead.");
+                        var DGA = {
+                            PrimaryMobileNo: "",
+                            DGAName: "",
+                            Zone: "",
+                            Division: "",
+                            Depot: "",
+                            UniqueId: "",
+                            DGAID: ""
+                        };
+                        oModelControl.setProperty("/DGA",DGA);
+                        oModelControl.setProperty("/isDGAActive",true);
+                    } else {
+                        oModelControl.setProperty("/isDGAActive",false);
+                        this._fetchDGA(Number(obj.DGAId)).then(function(oData){
+                            oModelControl.setProperty("/DGA/DGAName",oData.GivenName );
+                            oModelControl.setProperty("/DGA/PrimaryMobileNo",oData.Mobile );
+                            oModelControl.setProperty("/DGA/Zone",oData.Zone );
+                            oModelControl.setProperty("/DGA/Division",oData.DivisionId );
+                            oModelControl.setProperty("/DGA/Depot",oData.DepotId );
+                            oModelControl.setProperty("/DGA/DGAID",oData.Id );
+                        });
+                    }
+
+                    oModelControl.setProperty("/newCustomer",false );
+                    oModelControl.setProperty("/LeadCustomer",true );
+                },
+                _fetchDGA:function(id){
+                    var promise = jQuery.Deferred();
+                    var oData = this.getView().getModel();
+                    oData.read("/DGAs("+id+"L)", {
+                        success: function (oData) {
+                            promise.resolve(oData);
+                        },
+                        error: function (a) {
+                            MessageBox.error(
+                                "Unable to fetch a DGAs due to the server issues",
+                                {
+                                    title: "Error Code: " + a.statusCode,
+                                }
+                            );
+                            promise.reject(a);
+                        },
+                    });
+                    return promise;
+                },
+                onCustomerInputChange:function(oEvent){
+                    if(oEvent.getSource().getValue()){
+                        this.getView().getModel("oViewModel").setProperty("/newCustomer",false );
+                        this.getView().getModel("oViewModel").setProperty("/LeadCustomer",true );
+                        this.getView().getModel("oViewModel").setProperty("/isDGAActive",false);
+                    } else {
+                        // Removing values of DGA
+                        var DGA = {
+                            PrimaryMobileNo: "",
+                            DGAName: "",
+                            Zone: "",
+                            Division: "",
+                            Depot: "",
+                            UniqueId: "",
+                            DGAID: ""
+                        };
+                        this.getView().getModel("oViewModel").setProperty("/DGA",DGA);
+                        this.getView().getModel("oViewModel").setProperty("/newCustomer",true );
+                        this.getView().getModel("oViewModel").setProperty("/LeadCustomer",true );
+                        this.getView().getModel("oViewModel").setProperty("/isDGAActive",true);
+                        this.getView().getModel("oViewModel").setProperty("/ConsumerMobileNo","" );
+                        this.getView().getModel("oViewModel").setProperty("/Zone","" );
+                        this.getView().getModel("oViewModel").setProperty("/NewConsumerName","" );
+                        this.getView().getModel("oViewModel").setProperty("/NewConsumerMobileNo","" );
+                    }
+                },
+                onNewCustomerInputChange:function(oEvent){
+                    if(oEvent.getSource().getValue()){
+                        this.getView().getModel("oViewModel").setProperty("/newCustomer",true );
+                        this.getView().getModel("oViewModel").setProperty("/LeadCustomer",false );
+                        this.getView().getModel("oViewModel").setProperty("/isDGAActive",true);
+                        this.getView().getModel("oViewModel").setProperty("/LeadStage",1);
+                        // Removing values of DGA
+                        var DGA = {
+                            PrimaryMobileNo: "",
+                            DGAName: "",
+                            Zone: "",
+                            Division: "",
+                            Depot: "",
+                            UniqueId: "",
+                            DGAID: ""
+                        };
+                        this.getView().getModel("oViewModel").setProperty("/DGA",DGA);
+                    } else {
+                        this.getView().getModel("oViewModel").setProperty("/newCustomer",true );
+                        this.getView().getModel("oViewModel").setProperty("/LeadCustomer",true );
+                        this.getView().getModel("oViewModel").setProperty("/isDGAActive",false);
+                        this.getView().getModel("oViewModel").setProperty("/ConsumerMobileNo","" );
+                        this.getView().getModel("oViewModel").setProperty("/Zone","" );
+                        this.getView().getModel("oViewModel").setProperty("/ConsumerName","" );
+                    }
+                },
+                onDGAValueHelpRequest: function (oEvent) {
+                    var sInputValue = oEvent.getSource().getValue(),
+                        oView = this.getView(),
+                        oViewModel = this.getView().getModel("oViewModel");
+
+                    if (!this._ValueHelpDialog) {
+                        this._ValueHelpDialog = Fragment.load({
+                            id: oView.getId(),
+                            name:
+                                "com.knpl.dga.complains.view.fragments.DGAValueHelpDialog",
+                            controller: this,
+                        }).then(function (oDialog) {
+                            oView.addDependent(oDialog);
+                            return oDialog;
+                        });
+                    }
+                    this._ValueHelpDialog.then(function (oDialog) {
+                        // Create a filter for the binding
+                        oDialog
+                            .getBinding("items")
+                            .filter([
+                                new Filter(
+                                    [
+                                        new Filter(
+                                            {
+                                                path: "GivenName",
+                                                operator: "Contains",
+                                                value1: sInputValue.trim(),
+                                                caseSensitive: false
+                                            }
+                                        ),
+                                        new Filter(
+                                            [
+                                                new Filter(
+                                                    {
+                                                        path: "IsArchived",
+                                                        operator: "EQ",
+                                                        value1: false,
+                                                        caseSensitive: false
+                                                    }
+                                                ),
+                                                new Filter(
+                                                    {
+                                                        path: "Zone",
+                                                        operator: "Contains",
+                                                        value1: oViewModel.getProperty("/Zone"),
+                                                        caseSensitive: false
+                                                    }
+                                                )
+                                            ],
+                                            false
+                                        )
+                                    ],
+                                    false
+                                ),
+                            ]);
+                        // Open ValueHelpDialog filtered by the input's value
+                        oDialog.open(sInputValue);
+                    });
+                },
+                onDGAValueHelpSearch: function (oEvent) {
+                    var sValue = oEvent.getParameter("value");
+                    var oFilter = new Filter(
+                        [
+                            new Filter(
+                                {
+                                    path: "GivenName",
                                     operator: "Contains",
                                     value1: sValue.trim(),
                                     caseSensitive: false
@@ -499,66 +408,105 @@ sap.ui.define(
 
                     oEvent.getSource().getBinding("items").filter([oFilter]);
                 },
-                onValueHelpClose: function (oEvent) {
+                onDGAValueHelpClose: function (oEvent) {
                     var oSelectedItem = oEvent.getParameter("selectedItem");
                     oEvent.getSource().getBinding("items").filter([]);
-                    var oViewModel = this.getView().getModel("oModelView"),
-                     oModelControl = this.getView().getModel("oModelControl")  ;
+                    var oModelControl = this.getView().getModel("oViewModel")  ;
                     if (!oSelectedItem) {
                         return;
                     }
                     var obj = oSelectedItem.getBindingContext().getObject();
-                    oViewModel.setProperty(
-                        "/addCompAddData/MembershipCard",
-                        obj["MembershipCard"]
-                    );
-                    //  debugger;
-                    oViewModel.setProperty("/addCompAddData/Mobile", obj["Mobile"]);
-                    oViewModel.setProperty("/addCompAddData/Name", obj["Name"]);
-                    oViewModel.setProperty("/addComplaint/PainterId", obj["Id"]);
                    
-                    oModelControl.setProperty("/DivisionId",obj.DivisionId );
-                    oModelControl.setProperty("/ZoneId",obj.ZoneId );
-
-                    oModelControl.setProperty("/DepotId", ""  ); 
-                    //Fallback as Preliminary context not supported
-                    this._getDepot(obj.DepotId);
-                        //DivisionId,ZoneId
+                    oModelControl.setProperty("/DGA/DGAName",obj.GivenName );
+                    oModelControl.setProperty("/DGA/PrimaryMobileNo",obj.Mobile );
+                    oModelControl.setProperty("/DGA/Zone",obj.Zone );
+                    oModelControl.setProperty("/DGA/Division",obj.DivisionId );
+                    oModelControl.setProperty("/DGA/Depot",obj.DepotId );
+                    oModelControl.setProperty("/DGA/DGAID",obj.Id );
                 },
-                _getDepot: function(sDepotId){
-                    if(!sDepotId) return;
+                onPressSave: function () {
+                    var oModel = this.getView().getModel("oViewModel");
+                    var oValidator = new Validator();
+                    var oVbox = this.getView().byId("idVbx");
+                    var bValidation = oValidator.validate(oVbox, true);
 
-                    var sPath = this.getModel().createKey("/MasterDepotSet", {
-                        Id : sDepotId
-                    }),
-                        oModel = this.getModel("oModelControl");
-
-                    this.getModel().read(sPath, {
-                        success: ele => oModel.setProperty("/Depot",ele.Depot)
-                    })
-                    
-                },
-                onAfterRendering: function () { },
-
-                _initMessage: function (oViewModel) {
-                    this._onClearMgsClass();
-                    this._oMessageManager = sap.ui.getCore().getMessageManager();
-                    var oView = this.getView();
-
-                    oView.setModel(this._oMessageManager.getMessageModel(), "message");
-                    this._oMessageManager.registerObject(oView, true);
-                },
-                onUploadFileTypeMis: function () {
-                    MessageToast.show("Kindly upload a file of type jpg,jpeg,png");
-                },
-                onChangeResolution: function (oEvent) {
-                    var oView = this.getView();
-                    var oModel = oView.getModel("oModelView");
-                    var sKey = oEvent.getSource().getSelectedKey();
-                    if (sKey !== 90) {
-                        oModel.setProperty("/addComplaint/ResolutionOthers", "");
+                    if (bValidation && this.getView().byId("idList").getSelectedItems().length === 0) {
+                        MessageToast.show(
+                            "Kindly input all the mandatory(*) fields to continue."
+                        );
+                    } else {
+                        this._postDataToSave(oModel.getProperty("/newCustomer"));
                     }
-                    // console.log(sKey)
+                },
+
+                _postDataToSave: function (isNewCustomer) {
+                    var oView = this.getView();
+                    var oViewModel = oView.getModel("oViewModel");
+                    if(isNewCustomer){
+                        var oPayLoad = {
+                            "LeadStage": oViewModel.getProperty("/LeadStage") === 0 ? "ONGOING" : "COMPLETED",
+                            "ComplaintTypeId": oViewModel.getProperty("/ComplaintType") + 2,
+                            "Comments": oViewModel.getProperty("/Comments") ? oViewModel.getProperty("/Comments") : null,
+                            "ConsumersSelectedIssuesRequests": this._selectedItemList(),
+                            "IsNewConsumer": oViewModel.getProperty("/newCustomer"),
+                            "ConsumerName": oViewModel.getProperty("/newCustomer") ? oViewModel.getProperty("/NewConsumerName") : null,
+                            "ConsumerMobileNo": oViewModel.getProperty("/newCustomer") ? oViewModel.getProperty("/NewConsumerMobileNo") : null,
+                            "DGAId": oViewModel.getProperty("/DGA/DGAID")
+                        };
+                    }
+                    else {
+                        var oPayLoad = {
+                            "LeadId": oViewModel.getProperty("/LeadId"),
+                            "LeadStage": oViewModel.getProperty("/LeadStage") === 0 ? "ONGOING" : "COMPLETED",
+                            "ComplaintTypeId": oViewModel.getProperty("/ComplaintType") + 2,
+                            "Comments": oViewModel.getProperty("/Comments") ? oViewModel.getProperty("/Comments") : null,
+                            "ConsumersSelectedIssuesRequests": this._selectedItemList(this.getView().byId("idList").getSelectedItems()),
+                            "IsNewConsumer": oViewModel.getProperty("/newCustomer"),
+                            "ConsumerName": oViewModel.getProperty("/newCustomer") ? oViewModel.getProperty("/NewConsumerName") : null,
+                            "ConsumerMobileNo": oViewModel.getProperty("/newCustomer") ? oViewModel.getProperty("/NewConsumerMobileNo") : null,
+                            "DGAId": oViewModel.getProperty("/DGA/DGAID")
+                        };
+                    }
+                    
+                    this._postCreateData(oPayLoad);
+
+                    // c1.then(function (oData) {
+                    //     othat.navPressBack();
+                    // });
+                },
+                _postCreateData: function (oPayLoad) {
+                    var promise = jQuery.Deferred();
+                    var oData = this.getView().getModel(), othat = this;
+                    oData.create("/Complaints", oPayLoad, {
+                        success: function (oData) {
+                            // MessageToast.show("Complaint Successfully Created");
+                            var path = "Complaints(" +oData.Id+ ")" 
+                            MessageBox.success("Complaint Successfully Created.", {
+                                title: "Success",
+                                onClose: function(){
+                                    othat.navPressBack();
+                                }
+                            });
+                            promise.resolve(oData);
+                        },
+                        error: function (a) {
+                            MessageBox.error(
+                                "Unable to create a complaint due to the server issues",
+                                {
+                                    title: "Error Code: " + a.statusCode,
+                                }
+                            );
+                            promise.reject(a);
+                        },
+                    });
+                    return promise;
+                },
+                // Selected list item compose for payload 
+                _selectedItemList:function(oListItems){
+                    return oListItems.map(function(o){ return {
+                        ComplaintTypeId: o.getBindingContext().getObject("ComplaintTypeId"),
+                        ComplaintSubtypeId: o.getBindingContext().getObject("Id")
+                    }});
                 },
                 navPressBack: function () {
                     var oHistory = History.getInstance();
@@ -579,10 +527,9 @@ sap.ui.define(
                     this._getFormFragment(sFragmentName).then(function (oVBox) {
                         oView.addDependent(oVBox);
                         objSection.addItem(oVBox);
-                        othat._setUploadCollectionMethod.call(othat);
+                        othat._issueListFilter("ONGOING", 2);
                     });
                 },
-
                 _getFormFragment: function (sFragmentName) {
                     var oView = this.getView();
                     var othat = this;
@@ -598,51 +545,6 @@ sap.ui.define(
 
                     return this._formFragments;
                 },
-
-                _setUploadCollectionMethod: function () {
-                    var oUploadCollection = this.getView().byId("idUploadCollection");
-
-                    var othat = this;
-                    oUploadCollection.__proto__._setNumberOfAttachmentsTitle = function (
-                        count
-                    ) {
-                        var nItems = count || 0;
-                        var sText;
-                        // When a file is being updated to a new version, there is one more file on the server than in the list so this corrects that mismatch.
-                        if (this._oItemToUpdate) {
-                            nItems--;
-                        }
-                        if (this.getNumberOfAttachmentsText()) {
-                            sText = this.getNumberOfAttachmentsText();
-                        } else {
-                            sText = this._oRb.getText("UPLOADCOLLECTION_ATTACHMENTS", [
-                                nItems,
-                            ]);
-                        }
-                        if (!this._oNumberOfAttachmentsTitle) {
-                            this._oNumberOfAttachmentsTitle = new Title(
-                                this.getId() + "-numberOfAttachmentsTitle",
-                                {
-                                    text: sText,
-                                }
-                            );
-                        } else {
-                            this._oNumberOfAttachmentsTitle.setText(sText);
-                        }
-
-                        othat._CheckAddBtnForUpload.call(othat, nItems);
-                    };
-                },
-                _CheckAddBtnForUpload: function (mParam) {
-                    var oUploadCol = this.getView().byId("idUploadCollection");
-
-                    if (mParam == 1) {
-                        oUploadCol.setUploadButtonInvisible(true);
-                    } else if (mParam < 1) {
-                        oUploadCol.setUploadButtonInvisible(false);
-                    }
-                },
-                onExit: function () { },
             }
         );
     }

@@ -63,7 +63,8 @@ sap.ui.define([
                     title: "",
                     createdBy: "",
                     category: "",
-                    classification: ""
+                    classification: "",
+                    Status: ""
                 }
             });
             this.getView().setModel(oModel, "ViewModel");
@@ -189,7 +190,7 @@ sap.ui.define([
         getFilters: function (aCurrentFilterValues) {
             var aFilters = [];
             var aKeys = [
-                "search", "CreatedAt", "ProductDetails/ProductName", "CreatedByDetails", "ProductCategory"
+                "search", "CreatedAt", "ProductDetails/ProductName", "CreatedByDetails", "ProductCategory/CategoryName", "ProductClassification/ClassificationName", "Status"
             ];
             for (let i = 0; i < aKeys.length; i++) {
                 if (aCurrentFilterValues[i].length > 0 && aKeys[i] !== "search")
@@ -230,7 +231,21 @@ sap.ui.define([
                     case "Search":
                         sValue = oControl.getValue();
                         if (sValue && sValue !== "") {
-                            this.oCustom = { search: sValue };
+                            if(sValue.toLowerCase() === "active" ||sValue.toLowerCase() === "inactive" )
+                            {
+                                var sValue = sValue === "active" ? true : false;
+                                aFilters.push(new Filter({
+                                    path: "Status",
+                                    operator: FilterOperator.EQ,
+                                    value1: sValue,
+                                   
+                                }));
+                            }
+                            else{
+                                this.oCustom = { search: sValue };
+                            }
+                            
+                          
                         }
                         else {
                             this.oCustom = null;
@@ -259,16 +274,22 @@ sap.ui.define([
                             aFilters.push(new Filter({ path: "CreatedByDetails/Name", operator: FilterOperator.Contains, value1: sValue.trim(), caseSensitive: false }));
                         }
                         break;
+                    case "Status":
+                        sValue = oControl.getValue();
+                        if (sValue && sValue !== "") {
+                            aFilters.push(new Filter({ path: "Status", operator: FilterOperator.Contains, value1: sValue.trim(), caseSensitive: false }));
+                        }
+                        break;
                     case "Category":
                         sValue = oControl.getValue();
                         if (sValue && sValue !== "") {
-                            aFilters.push(new Filter({ path: "ProductCategory/CategoryName", operator: FilterOperator.EQ, value1: sValue.trim(), caseSensitive: false }));
+                            aFilters.push(new Filter({ path: "ProductCategory/CategoryName", operator: FilterOperator.Contains, value1: sValue.trim(), caseSensitive: false }));
                         }
                         break;
                     case "Classification":
                         sValue = oControl.getValue();
                         if (sValue && sValue !== "") {
-                            aFilters.push(new Filter({ path: "ProductClassification/ClassificationName", operator: FilterOperator.EQ, value1: sValue.trim(), caseSensitive: false }));
+                            aFilters.push(new Filter({ path: "ProductClassification/ClassificationName", operator: FilterOperator.Contains, value1: sValue.trim(), caseSensitive: false }));
                         }
                         break;
                 }
@@ -317,7 +338,8 @@ sap.ui.define([
                 title: "",
                 createdBy: "",
                 category: "",
-                classification: ""
+                classification: "",
+                Status: ""
             });
             //this.getView().byId("idCreatedByInput").setValue("");
             //var oTable = this.byId("idCatlogueTable");

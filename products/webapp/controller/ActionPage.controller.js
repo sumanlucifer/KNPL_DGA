@@ -8,11 +8,13 @@ sap.ui.define([
     'sap/ui/Device',
     "sap/m/MessageToast",
     "sap/m/MessageBox",
-    "sap/m/PDFViewer"
+    "sap/m/PDFViewer",
+    "../model/formatter",
 ], function (BaseController, Filter, FilterOperator, JSONModel, Sorter, Fragment, Device, MessageToast,
-    MessageBox, PDFViewer) {
+    MessageBox, PDFViewer, formatter) {
     "use strict";
     return BaseController.extend("com.knpl.dga.products.controller.ActionPage", {
+        formatter: formatter,
         onInit: function () {
             this.oResourceBundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
             this.oPreviewImage = this.getView().byId("idPreviewImage");
@@ -326,6 +328,7 @@ sap.ui.define([
                             that._showSuccessMsg();
                             that._updateImage(_property);
                             that._updatePdf(_property);
+                            that.getOwnerComponent().getModel().refresh(true);
                         },
                         error: function (oError) {
                             console.log("Error!");
@@ -386,7 +389,7 @@ sap.ui.define([
                 return true;
             });
             var bEnglishPDF = oObjectCatalogue.find(function (ele) {
-                if (ele.LanguageCode === "ENGLISH") {
+                if (ele.LanguageCode === "EN") {
                     return true;
                 }
                 return false;
@@ -500,10 +503,11 @@ sap.ui.define([
             oModel.refresh(true);
         },
         onAddCatalogue: function () {
+            this.getView().byId("idButton").setEnabled(false);
             var oModel = this.getView().getModel("ActionViewModel");
             var oObject = this.getModel("ActionViewModel").getProperty("/Catalogue");
             oObject.push({
-                LanguageCode: "ENGLISH",
+                LanguageCode: "EN",
                 file: null,
                 fileName: ""
             });
@@ -537,6 +541,7 @@ sap.ui.define([
             );
         },
         onPressRemoveCatalogue: function (sPath, aCatalogue) {
+            var that=this;
             var oView = this.getView();
             var oModel = oView.getModel("ActionViewModel");
             // var sPath = oEvent
@@ -569,6 +574,7 @@ sap.ui.define([
                                 aCatalogue.splice(parseInt(sPath[sPath.length - 1]), 1);
                                 var sMessage = "Catalogue Deleted!";
                                 MessageToast.show(sMessage);
+                                that.getOwnerComponent().getModel().refresh(true);
                                 oModel.refresh(true);
                             },
                             error: function () { },
@@ -580,6 +586,7 @@ sap.ui.define([
                 }
             };
             oModel.refresh(true);
+            this.getOwnerComponent().getModel().refresh(true);
         },
         onImageView: function (oEvent) {
             var oButton = oEvent.getSource();
