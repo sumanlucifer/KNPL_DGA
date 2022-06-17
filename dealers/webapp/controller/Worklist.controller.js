@@ -28,7 +28,9 @@ sap.ui.define(
                     filterBar: {
                         Search: "",
                         DepotId: "",
-                        SalesGroupId: ""
+                        SalesGroupId: "",
+                        PlantCode: "",
+                        FiscalYear: ""
                     },
                     PageBusy: true
                 };
@@ -58,6 +60,8 @@ sap.ui.define(
                     DivisionId: "",
                     DepotId: "",
                     SalesGroupId: "",
+                    PlantCode: "",
+                    FiscalYear: ""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -227,6 +231,16 @@ sap.ui.define(
                             aCurrentFilterValues.push(
                                 new Filter("DealerSalesDetails/SalesGroupId", FilterOperator.EQ, oViewFilter[prop]));
                         }
+                        else if (prop === "PlantCode") {
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("PlantCode", FilterOperator.EQ, oViewFilter[prop]));
+                        }
+                        else if (prop === "FiscalYear") {
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("FiscalYear", FilterOperator.EQ, oViewFilter[prop]));
+                        }
                         else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
@@ -240,30 +254,6 @@ sap.ui.define(
                                         }),
                                         new Filter({
                                             path: "Id",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        // new Filter({
-                                        //     path: "DealerPhoneNumber/SMSNumber",
-                                        //     operator: "Contains",
-                                        //     value1: oViewFilter[prop].trim(),
-                                        //     caseSensitive: false
-                                        // }),
-                                        new Filter({
-                                            path: "PlantCode",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        // new Filter({
-                                        //     path: "DealerSalesDetails/SalesGroup/Description",
-                                        //     operator: "Contains",
-                                        //     value1: oViewFilter[prop].trim(),
-                                        //     caseSensitive: false
-                                        // }),
-                                        new Filter({
-                                            path: "FiscalYear",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
