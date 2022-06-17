@@ -204,7 +204,7 @@
                                         c4.then(function (oPayLoad) {
                                             c5 = othat._setEditPopoverData(oPayLoad);
                                             c5.then(function (oPayLoad) {
-                                                c6 = othat._dummyPromise(oPayLoad)
+                                                c6 = othat._EditReplaceDgaAddFlags(oPayLoad)
                                                 c6.then(function () {
                                                     oModel.setProperty("/PageBusy", false);
                                                 })
@@ -216,6 +216,16 @@
                         })
                     })
 
+                },
+                _EditReplaceDgaAddFlags:function(){
+                    var promise = $.Deferred();
+                    var oView = this.getView();
+                    var oModelView = oView.getModel("oModelView");
+                    var aFields = ["GivenName","Mobile","PayrollCompanyId","EmployeeId","JoiningDate","ExitDate"]
+                    this._propertyToBlank(aFields);
+                    oModelView.setProperty("/ReplacedDGAId",oModelView.setProperty("/Id"))
+                    promise.resolve();
+                    return promise;
                 },
                 _setAdditioanFlags: function (oPayLoad) {
                     var promise = $.Deferred();
