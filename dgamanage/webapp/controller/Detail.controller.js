@@ -156,7 +156,7 @@
                     var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                     oModel.setProperty("/PageBusy", true);
                     c1.then(function () {
-                        c1A = othat._getDisplayData();
+                        c1A = othat._dummyPromise();
                         c1A.then(function () {
                             c2 = othat._setInitViewModel();
                             c2.then(function () {
@@ -188,23 +188,26 @@
                     var sProp = oModel.getProperty("/bindProp")
                     oModel.setProperty("/mode", "Edit");
                     var oData = oModel.getData();
-                    var c1, c2, c2A, c3, c4, c5, c6, c7;
+                    var c1,c1A, c2, c2A, c3, c4, c5, c6, c7;
                     var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                     oModel.setProperty("/PageBusy", true);
                     c1.then(function () {
-                        c2 = othat._setInitViewModel();
-                        c2.then(function () {
-                            c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
-                            c2A.then(function () {
-                                c3 = othat._LoadFragment("AddNewObject2");
-                                c3.then(function () {
-                                    c4 = othat._SetFiltersForControls();
-                                    c4.then(function (oPayLoad) {
-                                        c5 = othat._setEditPopoverData(oPayLoad);
-                                        c5.then(function (oPayLoad) {
-                                            c6 = othat._dummyPromise(oPayLoad)
-                                            c6.then(function () {
-                                                oModel.setProperty("/PageBusy", false);
+                        c1A = othat._getDisplayData(sProp);
+                        c1A.then(function () {
+                            c2 = othat._setInitViewModel();
+                            c2.then(function () {
+                                c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
+                                c2A.then(function () {
+                                    c3 = othat._LoadFragment("AddNewObject2");
+                                    c3.then(function () {
+                                        c4 = othat._SetFiltersForControls();
+                                        c4.then(function (oPayLoad) {
+                                            c5 = othat._setEditPopoverData(oPayLoad);
+                                            c5.then(function (oPayLoad) {
+                                                c6 = othat._dummyPromise(oPayLoad)
+                                                c6.then(function () {
+                                                    oModel.setProperty("/PageBusy", false);
+                                                })
                                             })
                                         })
                                     })
@@ -212,6 +215,7 @@
                             })
                         })
                     })
+
                 },
                 _setAdditioanFlags: function (oPayLoad) {
                     var promise = $.Deferred();
