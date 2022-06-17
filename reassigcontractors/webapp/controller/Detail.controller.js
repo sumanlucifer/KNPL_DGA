@@ -95,7 +95,6 @@ sap.ui.define(
                     })
                 });
             },
-
             _CheckLoginData: function () {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
@@ -154,10 +153,18 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-
             onBeforeRebindHistoryTable: function (oEvent) {
                 var oView = this.getView();
+                var oViewData = oView.getElementBinding().getBoundContext().getObject();
+                var sReassignId = oViewData["ID"];
                 var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "ReassignmentStatus,UpdatedByDetails";
+                var oFilter = new Filter(
+                    "ContractorReassignmentRequestId",
+                    FilterOperator.EQ,
+                    sReassignId,
+                );
+                oBindingParams.filters.push(oFilter);
                 oBindingParams.sorter.push(new Sorter("UpdatedAt", true));
             },
             _LoadFragment: function (mParam) {
