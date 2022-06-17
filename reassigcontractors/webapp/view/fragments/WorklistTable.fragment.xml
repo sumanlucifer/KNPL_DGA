@@ -12,19 +12,19 @@
                 </Column>
                  <Column width="5%">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Zone", "leadingProperty": "DGA/Zone", "columnIndex": 1 ,"sortProperty": "DGA/Zone","filterProperty": "DescrDGA/Zone"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGADetails/Zone", "leadingProperty": "DGADetails/Zone", "columnIndex": 1 ,"sortProperty": "DGADetails/Zone","filterProperty": "DGADetails/Zone"}'/>
                     </customData>
                     <Text text="{i18n>Zone}"/>
                 </Column>
                  <Column width="7%">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/DivisionId", "leadingProperty": "DGA/DivisionId", "columnIndex": 2 ,"sortProperty": "DGA/DivisionId","filterProperty": "DGA/DivisionId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGADetails/DivisionId", "leadingProperty": "DGADetails/DivisionId", "columnIndex": 2 ,"sortProperty": "DGADetails/DivisionId","filterProperty": "DGADetails/DivisionId"}'/>
                     </customData>
                     <Text text="{i18n>Division}"/>
                 </Column>
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 3 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGADetails/GivenName", "leadingProperty": "DGADetails/GivenName", "columnIndex": 3 ,"sortProperty": "DGADetails/GivenName","filterProperty": "DGADetails/GivenName"}'/>
                     </customData>
                     <Text text="{i18n>DgaName}"/>
                 </Column>
@@ -75,9 +75,9 @@
                 <ColumnListItem press="onListItemPress" type="Navigation">
                     <cells>
                         <Text text="{Lead/Id}"/>
-                        <Text text="{DGA/Zone}"/>
-                        <Text class="sapUiSmallMarginBegin" text="{DGA/DivisionId}"/>
-                        <Text text="{DGA/GivenName}"/>
+                        <Text text="{DGADetails/Zone}"/>
+                        <Text class="sapUiSmallMarginBegin" text="{DGADetails/DivisionId}"/>
+                        <Text text="{DGADetails/GivenName}"/>
                         <Text text="{Lead/ConsumerName}"/>
                         <Text text="{Lead/PrimaryNum}"/>
                         <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>

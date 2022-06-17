@@ -133,7 +133,7 @@ sap.ui.define(
             _getDisplayData: function (oProp) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
-                var exPand = "Lead,DGA,PreviousContractor,ReassignedContractor,ReassignmentStatus";
+                var exPand = "Lead,DGADetails,PreviousContractor,ReassignedContractor,ReassignmentStatus";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({

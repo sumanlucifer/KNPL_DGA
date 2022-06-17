@@ -18,18 +18,23 @@
             <Label text="{i18n>ReqDate}"  />
             <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
             <Label text="{i18n>Description}"/>
-            <ExpandableText overflowMode="Popover" text="{Description}" />
+            <ExpandableText overflowMode="Popover" text="{path : 'Description',formatter:'.formatter.fmtCheckNull'}" />
              <Label text="{i18n>Remark}" />
-            <Text text="{Remark}" />
+            <!-- <Text text="{Remark}" /> -->
+            <Text text="{path : 'Remark',formatter:'.formatter.fmtCheckNull'}" />
             <core:Title text="{i18n>DgaDetails}" />
             <Label text="{i18n>DgaName}" />
-            <Text text="{DGA/GivenName}" />
+            <!-- <Text text="{DGADetails/GivenName}" /> -->
+             <Text text="{path : 'DGADetails/GivenName',formatter:'.formatter.fmtCheckNull'}" />
             <Label text="{i18n>DgaId}" />
-            <Text text="{DGA/Id}" />
+            <!-- <Text text="{DGADetails/Id}" /> -->
+             <Text text="{path : 'DGADetails/Id',formatter:'.formatter.fmtCheckNull'}" />
             <Label text="{i18n>Zone}" />
-            <Text text="{DGA/Zone}" />
+            <!-- <Text text="{DGADetails/Zone}" /> -->
+             <Text text="{path : 'DGADetails/Zone',formatter:'.formatter.fmtCheckNull'}" />
             <Label text="{i18n>Division}" />
-            <Text text="{DGA/DivisionId}" />
+            <!-- <Text text="{DGADetails/DivisionId}" /> -->
+               <Text text="{path : 'DGADetails/DivisionId',formatter:'.formatter.fmtCheckNull'}" />
             <core:Title text="{i18n>precontDetails}" />
             <Label text="{i18n>ContractorName}"  />
          <Text text="{= ${PreviousContractorId} ? ${PreviousContractor} ? ${PreviousContractor/Name} : 'NA' : ${PreviousContractor/Name} ? ${PreviousContractor/Name} : 'NA' }" />
