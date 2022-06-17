@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+        resizable="false"
+		title="Customer"
+        growing="true"
+        growingThreshold="15"
+		items="{path:'/Leads',sorter:{path:'ConsumerName'},parameters:{select:'ConsumerName,PrimaryNum,Id,DGAId,Zone' }, 
+        filters: [ {path:'IsArchived',operator:'EQ',value1:false} ]}"
+		search=".onCustomerValueHelpSearch"
+		confirm=".onCustomerValueHelpClose"
+		cancel=".onCustomerValueHelpClose">
+		<StandardListItem 
+			title="{ConsumerName}"
+			description="Mob-{PrimaryNum}"
+            info="Lead ID: {Id}" />
+	</SelectDialog>
+</core:FragmentDefinition>

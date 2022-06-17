@@ -51,7 +51,7 @@ sap.ui.define([
             }
             return newStatus;
         },
-        fmtStatusHeader: function (sStatus, sId) {
+        fmtStatusHeader: function (sStatus) {
             var newStatus = "";
             if (sStatus === "REGISTERED") {
                 newStatus = "Registered";
@@ -69,6 +69,15 @@ sap.ui.define([
                 newStatus = "Reopen";
             }
             return newStatus;
+        },
+        fmtDate: function (mDate) {
+            var date = new Date(mDate);
+            var oDateFormat = DateFormat.getDateTimeInstance({
+                pattern: "dd/MM/YYYY h:mm a",
+                UTC: false,
+                strictParsing: false,
+            });
+            return oDateFormat.format(date);
         },
         /**
          * Getter for the resource bundle.
