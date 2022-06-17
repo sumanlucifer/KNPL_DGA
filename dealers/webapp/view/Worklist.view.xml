@@ -20,6 +20,11 @@
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem> -->
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="PlantCode" label="{i18n>PlantCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <Input id="idPlantCode" placeholder="{i18n>Enter} {i18n>PlantCode}" value="{path:'oModelControl>/filterBar/PlantCode'}"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                     <Input id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleDepotValueHelp"  value="{path:'oModelControl>/filterBar/DepotId'}"/>
@@ -28,6 +33,11 @@
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="SalesGroup" label="{i18n>SalesGroup}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                     <Input id="idSalesGroup" placeholder="{i18n>Enter} {i18n>SalesGroup}"  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleSalesGroupValueHelp"  value="{path:'oModelControl>/filterBar/SalesGroupId'}"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="FiscalYear" label="{i18n>FiscalYear}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <Input id="idFiscalYear" placeholder="{i18n>Enter} {i18n>FiscalYear}" value="{path:'oModelControl>/filterBar/FiscalYear'}"/>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="StartDate" label="{i18n>StartDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
