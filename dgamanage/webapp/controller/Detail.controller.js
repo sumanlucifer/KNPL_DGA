@@ -62,8 +62,12 @@
 
                 },
                 _SetDisplayData: function (oProp, sMode) {
+                    var sModeA = sMode;
+                    if (sModeA === "ReplaceDga") {
+                        sModeA = "Edit";
+                    }
                     var oData = {
-                        mode: sMode,
+                        mode: sModeA,
                         bindProp: "DGAs(" + oProp + ")",
                         Id: oProp,
                         PageBusy: true,
@@ -85,6 +89,8 @@
                     this.getView().setModel(oModel, "oModelDisplay");
                     if (sMode == "Edit") {
                         this._initEditData();
+                    } else if (sMode.toUpperCase() === "REPLACEDGA") {
+                        this._initEditDataReplaceDga();
                     } else {
                         this._initDisplayData();
                     }
@@ -137,6 +143,7 @@
                     }
 
                 },
+
                 _initEditData: function () {
                     var oView = this.getView();
                     var othat = this;
@@ -145,34 +152,69 @@
                     var sProp = oModel.getProperty("/bindProp")
                     oModel.setProperty("/mode", "Edit");
                     var oData = oModel.getData();
-                    var c1, c2, c2A, c3, c4, c5, c6, c7;
+                    var c1, c1A, c2, c2A, c3, c4, c5, c6, c7;
                     var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                     oModel.setProperty("/PageBusy", true);
-
                     c1.then(function () {
-                        c2 = othat._setInitViewModel();
-                        c2.then(function () {
-                            c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
-                            c2A.then(function () {
-                                c3 = othat._LoadFragment("AddNewObject");
-                                c3.then(function () {
-                                    c4 = othat._SetFiltersForControls();
-                                    c4.then(function (oPayLoad) {
-                                        c5 = othat._setEditPopoverData(oPayLoad);
-                                        c5.then(function (oPayLoad) {
-                                            c6 = othat._dummyPromise(oPayLoad)
-                                            c6.then(function () {
-                                                oModel.setProperty("/PageBusy", false);
+                        c1A = othat._dummyPromise();
+                        c1A.then(function () {
+                            c2 = othat._setInitViewModel();
+                            c2.then(function () {
+                                c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
+                                c2A.then(function () {
+                                    c3 = othat._LoadFragment("AddNewObject");
+                                    c3.then(function () {
+                                        c4 = othat._SetFiltersForControls();
+                                        c4.then(function (oPayLoad) {
+                                            c5 = othat._setEditPopoverData(oPayLoad);
+                                            c5.then(function (oPayLoad) {
+                                                c6 = othat._dummyPromise(oPayLoad)
+                                                c6.then(function () {
+                                                    oModel.setProperty("/PageBusy", false);
+                                                })
                                             })
-
                                         })
                                     })
                                 })
                             })
-
                         })
                     })
-
+                },
+                _initEditDataReplaceDga: function () {
+                    var oView = this.getView();
+                    var othat = this;
+                    var oModel = oView.getModel("oModelDisplay");
+                    oModel.setProperty("/PageBusy", true);
+                    var sProp = oModel.getProperty("/bindProp")
+                    oModel.setProperty("/mode", "Edit");
+                    var oData = oModel.getData();
+                    var c1,c1A, c2, c2A, c3, c4, c5, c6, c7;
+                    var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
+                    oModel.setProperty("/PageBusy", true);
+                    c1.then(function () {
+                        c1A = othat._getDisplayData(sProp);
+                        c1A.then(function () {
+                            c2 = othat._setInitViewModel();
+                            c2.then(function () {
+                                c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
+                                c2A.then(function () {
+                                    c3 = othat._LoadFragment("AddNewObject2");
+                                    c3.then(function () {
+                                        c4 = othat._SetFiltersForControls();
+                                        c4.then(function (oPayLoad) {
+                                            c5 = othat._setEditPopoverData(oPayLoad);
+                                            c5.then(function (oPayLoad) {
+                                                c6 = othat._dummyPromise(oPayLoad)
+                                                c6.then(function () {
+                                                    oModel.setProperty("/PageBusy", false);
+                                                })
+                                            })
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
 
                 },
                 _setAdditioanFlags: function (oPayLoad) {
@@ -244,12 +286,7 @@
                     var oView = this.getView();
                     var oModelView = oView.getModel("oModelView");
                     var oPayload = oModelView.getData();
-                    // var oCity = oView.byId("cmbCity"),
-                    //     sStateKey = oPayload["StateId"] || "",
-                    //     oBindingCity = oCity.getBinding("items");
-                    // if (sStateKey !== "") {
-                    //     oBindingCity.filter(new Filter("StateId", FilterOperator.EQ, sStateKey));
-                    // }
+
 
 
                     var sZoneId = oPayload["Zone"];
@@ -260,12 +297,7 @@
                             .filter(new Filter("Zone", FilterOperator.EQ, sZoneId));
                     }
                     var sDivisionId = oPayload["DivisionId"];
-                    // if (sDivisionId !== null) {
 
-                    //     oView.byId("idDepot")
-                    //         .getBinding("items")
-                    //         .filter(new Filter("Division", FilterOperator.EQ, sDivisionId));
-                    // }
                     var sDepotId = oPayload["Positions"]["results"][0]["DepotId"];
                     var sStateKey = oPayload["StateId"];
                     // workfloaction field filters
