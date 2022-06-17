@@ -503,6 +503,7 @@ sap.ui.define([
             oModel.refresh(true);
         },
         onAddCatalogue: function () {
+            this.getView().byId("idButton").setEnabled(false);
             var oModel = this.getView().getModel("ActionViewModel");
             var oObject = this.getModel("ActionViewModel").getProperty("/Catalogue");
             oObject.push({

@@ -14,7 +14,8 @@
                                             <Toolbar>
                                                 <Title text="{i18n>catalogues}" />
                                                 <ToolbarSpacer />
-                                                <Button icon="sap-icon://add" press="onAddCatalogue" type="Emphasized" text="Add"/>
+                                                <!-- <Button visible ="{{= !${ActionViewModel>/Catalogue.length > 0} }}" icon="sap-icon://add" press="onAddCatalogue" type="Emphasized" text="Add"/> -->
+                                                   <Button id="idButton" icon="sap-icon://add" press="onAddCatalogue" type="Emphasized" text="Add"/>
                                             </Toolbar>
                                         </headerToolbar>
                                             <columns>
@@ -35,8 +36,7 @@
                                                 <ColumnListItem>
                                                     <cells>
                                                         <VBox>
-                                                        <Input value="{path:'ActionViewModel>LanguageCode',formatter:'.formatter.langCode'}" enabled="false">
-                                                        
+                                                        <Input value="{path:'ActionViewModel>LanguageCode',formatter:'.formatter.langCode'}" editable="false">
                                                         </Input>
                                                         <!-- <Select
                                                             forceSelection="false"
