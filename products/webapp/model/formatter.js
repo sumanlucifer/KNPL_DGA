@@ -1,68 +1,54 @@
-sap.ui.define([], function () {
+sap.ui.define([
+    "sap/ui/core/format/DateFormat"
+], function (DateFormat) {
     "use strict";
-
     return {
-
-        /**
-         * Rounds the number unit value to 2 digits
-         * @public
-         * @param {string} sValue the number string to be rounded
-         * @returns {string} sValue with 2 digits rounded
-         */
-        fmtLowerCase: function (mParam) {
-            if(!mParam){
-                return 
+		/**
+		 * Rounds the number unit value to 2 digits
+		 * @public
+		 * @param {string} sValue the number string to be rounded
+		 * @returns {string} sValue with 2 digits rounded
+		 */
+        numberUnit: function (sValue) {
+            if (!sValue) {
+                return "";
             }
-            var sStatus = "";
-
-            if (mParam.split("_").length > 1) {
-                var mArray = mParam.split("_");
-
+            return parseFloat(sValue).toFixed(2);
+        },
+        dateFormatter: function (jsonDateString) {
+            const dt = DateFormat.getDateTimeInstance({ pattern: "dd/MM/yyyy" });
+            var date = new Date(parseInt(jsonDateString.replace('/Date(', '')));
+            const dayMonthYear = dt.format(date) // returns: "01/08/2020"
+            return dayMonthYear;
+        },
+        dateFormatter2: function (jsonDateString) {
+            const dt = DateFormat.getDateTimeInstance({ pattern: "dd/MM/yyyy" });
+            // var date= new Date(parseInt(jsonDateString.replace('/Date(', '')));
+            const dayMonthYear = dt.format(jsonDateString) // returns: "01/08/2020"
+            return dayMonthYear;
+        },
+        status: function (status) {
+            if (status) {
+                return 'Deactivate ';
             } else {
-                var mArray = mParam.split(" ");
-
+                return 'Activate';
             }
-            for (var x of mArray) {
-                var a = x.toLowerCase() + " ";
-                var b = a[0].toUpperCase() + a.slice(1);
-
-                sStatus += b;
-            }
-            return sStatus;
         },
-        fmtCheckNull: function (mParam1) {
+        statusList: function (status) {
+            if (status) {
+                return 'Active ';
+            } else {
+                return 'Inactive';
+            }
+        },
+        fmtDisplayUpdatedDetails: function (mParam1) {
+            // mParam1 > createdbydetails/updatedby details
             if (!mParam1) {
-                return "NA"
+                return " "
             }
-            return mParam1;
-        },
-        fmtGenerateImageUrl: function (mMetadata) {
-            // mMetadata (string) is required from the odata responce "__metadata"
-            if (mMetadata) {
-                if (mMetadata.media_src) {
-                    return "https://".concat(
-                        location.host,
-                        "/KNPL_PAINTER_API",
-                        new URL(mMetadata.media_src).pathname
-                    );
-                }
+            if (mParam1) {
+                return mParam1["Name"] + " - " + mParam1["Email"];
             }
-
-            return "";
-
-        },
-        fmtStatusColorChange: function (mParam) {
-            if (mParam === "APPROVED") {
-                return "Success";
-            }
-            if (mParam === "PUBLISHED") {
-                return "Success";
-            }
-            if (mParam === "PENDING") {
-                return "Warning";
-            }
-            return "Error";
-        },
+        }
     };
-
 });

@@ -93,7 +93,6 @@
             "LoginInfo": {
                 "type": "sap.ui.model.json.JSONModel"
             }
-
         },
         "routing": {
             "config": {
@@ -109,7 +108,8 @@
                 },
                 "async": true
             },
-            "routes": [{
+            "routes": [
+                {
                     "pattern": "",
                     "name": "worklist",
                     "target": [
@@ -117,17 +117,24 @@
                     ]
                 },
                 {
-                    "pattern": "Detail/{Mode}/{Id}",
-                    "name": "Detail",
+                    "pattern": "Products/{objectId}",
+                    "name": "object",
                     "target": [
-                        "Detail"
+                        "object"
                     ]
                 },
                 {
-                    "pattern": "Add",
-                    "name": "Add",
+                    "name": "ActionPage",
+                    "pattern": "ActionPage/{action}/:property:",
                     "target": [
-                        "object"
+                        "TargetActionPage"
+                    ]
+                },
+                {
+                    "name": "DGAList",
+                    "pattern": "DGAList/{catalogueId}",
+                    "target": [
+                        "TargetPainterList"
                     ]
                 }
             ],
@@ -139,22 +146,32 @@
                     "title": "{i18n>worklistViewTitle}"
                 },
                 "object": {
-                    "viewName": "AddObject",
+                    "viewName": "Object",
                     "viewId": "object",
-                    "viewLevel": 2
+                    "viewLevel": 2,
+                    "title": "{i18n>objectViewTitle}"
                 },
                 "objectNotFound": {
                     "viewName": "ObjectNotFound",
                     "viewId": "objectNotFound"
                 },
-                "Detail": {
-                    "viewName": "Detail",
-                    "viewId": "Detail",
-                    "viewLevel": 2
-                },
                 "notFound": {
                     "viewName": "NotFound",
                     "viewId": "notFound"
+                },
+                "TargetActionPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "viewName": "ActionPage",
+                    "viewLevel": 2,
+                    "viewId": "actionPage"
+                },
+                "TargetPainterList": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "viewName": "PainterList",
+                    "viewLevel": 2,
+                    "viewId": "painterList"
                 }
             }
         },
