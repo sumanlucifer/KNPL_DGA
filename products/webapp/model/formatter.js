@@ -41,6 +41,13 @@ sap.ui.define([
                 return 'Inactive';
             }
         },
+        langCode: function (code) {
+            if (code === "EN") {
+                return 'ENGLISH ';
+            } else {
+                return '';
+            }
+        },
         fmtDisplayUpdatedDetails: function (mParam1) {
             // mParam1 > createdbydetails/updatedby details
             if (!mParam1) {

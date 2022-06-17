@@ -44,7 +44,7 @@
                             </fb:FilterGroupItem>
                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="Category" label="Category" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                  <fb:control>
-                                    <ComboBox
+                                    <ComboBox placeholder="{i18n>titleFilterPlaceholdercat}"
                                     id="idCategory" 
                                     data:filterName="Category"
                                     value="{ViewModel>/filterBar/category}"
@@ -59,7 +59,7 @@
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Classification" label="Classification" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                  <fb:control>
-                                    <ComboBox
+                                    <ComboBox  placeholder="{i18n>titleFilterPlaceholdercla}"
                                     id="idClassification" 
                                     data:filterName="Classification"
                                     value="{ViewModel>/filterBar/classification}"
@@ -101,7 +101,7 @@
                         <Button icon="sap-icon://add" type="Emphasized" text="Add Catalogue" press="onPressAdd" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
                     </OverflowToolbar>
 		</smartTable:customToolbar>
-                        <Table growingScrollToLoad="false" growing="true" growingThreshold="20" >
+                        <Table growingScrollToLoad="false" growing="true" growingThreshold="10" >
                                 <columns>
                                  <Column hAlign="Begin" width="15%">
                                         <customData>
@@ -149,7 +149,7 @@
                                         <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 7 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                                         </customData>
-                                          <Text text="{i18n>date}"/>
+                                          <Text text="{i18n>creationDate}"/>
                                     </Column>
                                     <Column hAlign="Begin">
                                         <customData>
