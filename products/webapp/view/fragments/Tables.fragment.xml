@@ -35,7 +35,8 @@
                                                 <ColumnListItem>
                                                     <cells>
                                                         <VBox>
-                                                        <Input value="{ActionViewModel>LanguageCode}" enabled="false">
+                                                        <Input value="{path:'ActionViewModel>LanguageCode',formatter:'.formatter.langCode'}" enabled="false">
+                                                        
                                                         </Input>
                                                         <!-- <Select
                                                             forceSelection="false"

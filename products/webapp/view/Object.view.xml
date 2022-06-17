@@ -168,7 +168,8 @@
                                                 <ColumnListItem>
                                                     <cells>
                                                         <VBox>
-                                                         <Input value="{objectView>LanguageCode}" enabled="false">
+                                                         <!-- <Input value="{objectView>LanguageCode}" enabled="false"> -->
+                                                           <Input value="{path:'objectView>LanguageCode',formatter:'.formatter.langCode'}" enabled="false">
                                                         </Input>
                                                         <!-- <Select
                                                             forceSelection="false"
