@@ -98,6 +98,10 @@ modules:
       - comknplpragatiContactPainter.zip
       name: comknplpragatiContactPainter
       target-path: resources/
+    - artifacts:
+      - comknpldgaproducts.zip
+      name: comknpldgaproducts
+      target-path: resources/
 - name: comknpldgaproductcatalogue
   type: html5
   path: productcatalogue
@@ -235,6 +239,16 @@ modules:
 - name: comknplpragatiContactPainter
   type: html5
   path: contractors
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgaproducts
+  type: html5
+  path: products
   build-parameters:
     build-result: dist
     builder: custom
