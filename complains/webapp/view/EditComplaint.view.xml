@@ -12,10 +12,10 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="{ComplaintCode}"/>
+                    <Label text="{i18n>ComplaintID}: {ComplaintCode}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="{ComplaintCode}"/>
+                    <Label text="{i18n>ComplaintID}: {ComplaintCode}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
                     <Title text="{ComplaintType/ComplaintType}"/>
@@ -29,10 +29,10 @@
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>CustomerMobileNo}" text="{= ${IsNewConsumer} === true ? ${ConsumerMobileNo} : ${Lead/PrimaryNum} }" class="sapUiTinyMarginBottom"/>
-                        <ObjectAttribute title="{i18n>DateAndTime}" text="{path:'CreatedAt', type: 'sap.ui.model.type.DateTime', 
+                        <ObjectAttribute title="{i18n>MobileNo}" text="{= ${IsNewConsumer} === true ? ${ConsumerMobileNo} : ${Lead/PrimaryNum} }" class="sapUiTinyMarginBottom"/>
+                        <ObjectAttribute title="{i18n>Date}" text="{path:'CreatedAt', type: 'sap.ui.model.type.DateTime', 
                             formatOptions: { 
-                                pattern: 'dd/MM/yyyy hh:mm aaa' 
+                                pattern: 'dd/MM/yyyy' 
                             }}" class="sapUiTinyMarginBottom"/>
                         <ObjectAttribute title="{i18n>ComplaintType}" text="{ComplaintType/ComplaintType}" class="sapUiTinyMarginBottom"/>
                     </layout:VerticalLayout>
