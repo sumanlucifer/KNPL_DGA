@@ -66,7 +66,7 @@ sap.ui.define([
         },
         _onRouterMatched2: function (oEvent) {
             var sId = oEvent.getParameter("arguments").Id;
-            this._initDataReplaceDga();
+            this._initDataReplaceDga(sId);
         },
         _initData: function () {
             /*
@@ -102,20 +102,78 @@ sap.ui.define([
         _initDataReplaceDga: function () {
             var oView = this.getView();
             var othat = this;
-            var c1, c2, c3;
+            var c1, c2, c2A, c3;
             var c1 = othat._AddObjectControlModel("Add", null);
             c1.then(function () {
                 c1.then(function () {
                     c2 = othat._setInitViewModel();
                     c2.then(function () {
-                        c3 = othat._LoadAddFragment("AddNewObject2");
-                        c3.then(function () {
-                            oView.byId("idJoiningDate").setMaxDate(new Date());
-                            oView.getModel("oModelControl").setProperty("/PageBusy", false)
+                        c2A = othat._getExistingDgaDetails(sId);
+                        c2A.then(function () {
+                            c3 = othat._LoadAddFragment("AddNewObject2");
+                            c3.then(function () {
+                                oView.byId("idJoiningDate").setMaxDate(new Date());
+                                oView.getModel("oModelControl").setProperty("/PageBusy", false)
+                            })
                         })
+
                     })
                 })
             })
+        },
+        _getExistingDgaDetails: function () {
+            var promise = jQuery.Deferred();
+            var oView = this.getView();
+            var othat = this;
+            var oModel = oView.getModel("oModelDisplay");
+            var oModelControl = this.getModel("oModelControl")
+            var oProp = oModel.getProperty("/bindProp");
+            var exPand = "Pincode,Positions/Depot,Positions/ChildTowns/WorkLocation,Positions/ServicePincodes/Pincode";
+            return new Promise((resolve, reject) => {
+                oView.getModel().read("/" + oProp, {
+                    urlParameters: {
+                        $expand: exPand,
+                    },
+                    success: function (data) {
+
+                        // var oModel = new JSONModel(data);
+                        // var pattern = "dd/MM/yyyy";
+                        // var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                        //     pattern: pattern
+                        // });
+
+                        // var aDate1 = oDateFormat.format(data["JoiningDate"]);
+                        // var aDate2 = oDateFormat.format(data["ExitDate"]);
+                        // oModelControl.setProperty("/AddFields/JoiningDate", aDate1);
+                        // oModelControl.setProperty("/AddFields/ExitDate", aDate2);
+
+                        // oView.setModel(oModel, "oModelView");
+
+                        oModel.refresh()
+                        resolve(data);
+                    },
+                    error: function () { },
+                });
+            });
+        },
+        _FilleTheLocalModel:function(oPayload){
+            // send fields text, combobox, single selection popovers
+            var oProp = {
+                GiveName:"",
+                Mobile:"",
+                Zone: "",
+                DivisionId: "",
+                StateId: "",
+                WorkLocationId: "",
+                AllocatedDGACount: "",
+            }
+            for (var x in oProp){
+                if(oPayload.hasOwnProperty(x)){
+                    oPayloadp[x] == oProp[x]
+                }
+            }
+
+            
         },
         _setInitViewModel: function () {
             /*
@@ -141,7 +199,7 @@ sap.ui.define([
                 WorkLocationId: "",
                 Positions: [],
                 AllocatedDGACount: "",
-                ReplacedDGAId:null
+                ReplacedDGAId: null
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
