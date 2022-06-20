@@ -418,9 +418,8 @@ sap.ui.define(
             onPressDgaReplacement:function(oEvent){
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
-                    Mode: "ReplaceDga"
+                oRouter.navTo("ReplaceDga", {
+                    Id: oBj["Id"]
                 });
 
             },

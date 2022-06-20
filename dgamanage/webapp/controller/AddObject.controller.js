@@ -55,12 +55,18 @@ sap.ui.define([
 
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Add").attachMatched(this._onRouterMatched, this);
+            oRouter.getRoute("ReplaceDga").attachMatched(this._onRouterMatched2, this);
 
 
         },
+
         _onRouterMatched: function (oEvent) {
             var sPainterId = oEvent.getParameter("arguments").Id;
             this._initData();
+        },
+        _onRouterMatched2: function (oEvent) {
+            var sId = oEvent.getParameter("arguments").Id;
+            this._initDataReplaceDga();
         },
         _initData: function () {
             /*
@@ -72,6 +78,10 @@ sap.ui.define([
             * 2.  _setInitView model we are seeting the oModelView which will be replica of the payload that is sent to the backend
             * 3. Loading the fresh fragment that has the form displaying the initial values
             */
+
+            this._InitDataAdd();
+        },
+        _InitDataAdd: function () {
             var oView = this.getView();
             var othat = this;
             var c1, c2, c3;
@@ -88,7 +98,24 @@ sap.ui.define([
                     })
                 })
             })
-
+        },
+        _initDataReplaceDga: function () {
+            var oView = this.getView();
+            var othat = this;
+            var c1, c2, c3;
+            var c1 = othat._AddObjectControlModel("Add", null);
+            c1.then(function () {
+                c1.then(function () {
+                    c2 = othat._setInitViewModel();
+                    c2.then(function () {
+                        c3 = othat._LoadAddFragment("AddNewObject2");
+                        c3.then(function () {
+                            oView.byId("idJoiningDate").setMaxDate(new Date());
+                            oView.getModel("oModelControl").setProperty("/PageBusy", false)
+                        })
+                    })
+                })
+            })
         },
         _setInitViewModel: function () {
             /*
@@ -102,22 +129,19 @@ sap.ui.define([
             var oDataView = {
                 GivenName: "",
                 Mobile: "",
-                //SaleGroupId: "",
                 PincodeId: "",
                 PayrollCompanyId: "",
                 Zone: "",
                 DivisionId: "",
-                //DepotId: "",
                 DGADealers: [],
                 StateId: "",
-                //TownId: "",
                 EmployeeId: "",
                 JoiningDate: null,
                 ExitDate: null,
                 WorkLocationId: "",
                 Positions: [],
-                AllocatedDGACount: ""
-
+                AllocatedDGACount: "",
+                ReplacedDGAId:null
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -239,7 +263,7 @@ sap.ui.define([
             }
             oPayload["DGADealers"] = aDealers;
             // service pincodes
-           
+
 
             // Depot
             var aExistingDealers = oModelView.getProperty("/Positions");
@@ -268,7 +292,7 @@ sap.ui.define([
             var aSelectedData = oModelControl.getProperty("/MultiCombo/Pincode2")
             var aDataFinal = [];
             for (var x of aSelectedData) {
-                    aDataFinal.push({ PincodeId: x["Id"] });
+                aDataFinal.push({ PincodeId: x["Id"] });
             }
             oPayload["Positions"][0]["ServicePincodes"] = aDataFinal;
 
