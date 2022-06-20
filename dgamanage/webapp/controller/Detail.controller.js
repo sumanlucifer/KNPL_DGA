@@ -442,6 +442,8 @@
                         oView.byId("idBusinessGenVolByCategory").rebindTable();
                         oView.byId("idBusinessGenValByClassification").rebindTable();
                         oView.byId("idBusinessGenVolByClassification").rebindTable();
+                    } else if (sKey == "5") {
+                        oView.byId("idDgaReplaceTbl").rebindTable();
                     }
                 },
                 // #smart table filters
@@ -471,6 +473,11 @@
                     // var oFiler = new Filter("IsLinked", FilterOperator.EQ, true);
                     // oBindingParams.filters.push(oFiler);
                     // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                },
+                onBeforeBindDgaReplaceTbl:function(oEvent){
+                    var oBindingParams = oEvent.getParameter("bindingParams");
+                    oBindingParams.parameters["expand"] = "DGA";
+                    console.log("replacement table")
                 },
                 // #perfrmance smart table
                 rebindLeadByStatusTbl: function (oEvent) {

@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core">
     <smartTable:SmartTable
-                            id="idContractorTable"
+                            id="idDgaReplaceTbl"
                             editable="false"
-                            beforeRebindTable="onBeforeBindLeadsTable"                    
-                            tableBindingPath="DGAPositions/"
+                            beforeRebindTable="onBeforeBindDgaReplaceTbl"                    
+                            entitySet="DGAPositions"
                             tableType="ResponsiveTable"
                             showRowCount="true"
                             useExportToExcel="false"
@@ -13,31 +13,31 @@
                             enableAutoBinding="true"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            initiallyVisibleFields="Id,Contractor/Name"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
 
          <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >
             <columns>
-                <!-- <Column hAlign="Begin">
+               <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Contractor/Name", "leadingProperty": "Contractor/Name", "columnIndex": 0 ,"sortProperty": "Contractor/Name","filterProperty": "Contractor/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 0 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
                     </customData>
                     <Text text="{i18n>Name}"/>
                 </Column>
-                <Column hAlign="Begin">
+               <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PhoneNumber","columnIndex":1 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt", "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
-                    <Text text="{i18n>PhoneNumber}"/>
+                    <Text text="{i18n>CreatedAt}"/>
                 </Column>
-                <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "NppId","columnIndex":2 }'/>
+                <Column hAlign="Begin"  sortIndicator="Descending">
+                     <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status", "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
-                    <Text text="{i18n>NppId}"/>
+                    <Text text="{i18n>Status}"/>
                 </Column>
-                 <Column hAlign="Begin">
+                
+                 <!--   <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Points","columnIndex":3 }'/>
                     </customData>
@@ -73,12 +73,12 @@
                     </customData>
                     <Text text="{i18n>BankDetailsStatus}"/>
                 </Column> -->
-                <Column hAlign="Begin">
+                <!-- <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ContractorId", "leadingProperty": "ContractorId", "columnIndex": 9 ,"sortProperty": "ContractorId","filterProperty": "ContractorId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 9 ,"sortProperty": "Id","filterProperty": "Id"}'/>
                     </customData>
                     <Text text="{i18n>Id}"/>
-                </Column>
+                </Column> -->
             
                
                 
@@ -89,15 +89,17 @@
                     <cells>
                  
                        <!-- <Text text="{Contractor/Name}" /> -->
+                       <!-- <Text />
                        <Text />
-                       <Text />
                         <Text />
                         <Text />
                         <Text />
                         <Text />
-                        <Text />
-                        <Text />
-                       <Text text="{}" />
+                        <Text />-->
+                        <Text text="{DGA/GivenName}" /> 
+                        <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                             <ObjectStatus  text="{path:'Status',formatter:'.formatter.fmtLowerCase'}"/>
+                       <Text text="{Id}" />
                         
 
                     </cells>
