@@ -55,6 +55,8 @@ sap.ui.define(
                 }
                 var oDataControl = {
                     filterBar: {
+                        DGAName: "",
+                        PhoneNumber: "",
                         RequestID: "",
                         DivisionId: "",
                         DepotId: "",
