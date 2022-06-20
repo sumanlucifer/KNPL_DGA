@@ -43,10 +43,6 @@ modules:
     build-result: resources
     requires:
     - artifacts:
-      - comknpldgaproductcatalogue.zip
-      name: comknpldgaproductcatalogue
-      target-path: resources/
-    - artifacts:
       - comknpldgacomplains.zip
       name: comknpldgacomplains
       target-path: resources/
@@ -102,16 +98,6 @@ modules:
       - comknpldgaproducts.zip
       name: comknpldgaproducts
       target-path: resources/
-- name: comknpldgaproductcatalogue
-  type: html5
-  path: productcatalogue
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
 - name: comknpldgacomplains
   type: html5
   path: complains
