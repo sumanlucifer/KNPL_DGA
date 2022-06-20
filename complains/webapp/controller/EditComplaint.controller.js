@@ -657,8 +657,8 @@ sap.ui.define(
                 onCommentsChange:function(oEvent){
                     var sText = oEvent.getParameter("value");
                     this.oDefaultDialog.getBeginButton().setEnabled(sText.length > 0);
-                    if(sText.length > 40 ){
-                        oEvent.getSource().setValue(oEvent.getSource().getValue().substring(0, 40));
+                    if(sText.length > 100 ){
+                        oEvent.getSource().setValue(oEvent.getSource().getValue().substring(0, 100));
                     }
                 },
                 onWithdrawCommentClose:function () {

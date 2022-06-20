@@ -80,9 +80,9 @@ sap.ui.define(
                     }
                     // console.log(startupParams);
                     if (startupParams) {
-                        if (startupParams.hasOwnProperty("PainterId")) {
-                            if (startupParams["PainterId"].length > 0) {
-                                this._onNavToAdd(startupParams["PainterId"][0]);
+                        if (startupParams.hasOwnProperty("Id")) {
+                            if (startupParams["Id"].length > 0) {
+                                this._onNavToAdd(startupParams["Id"][0]);
                             }
                         }
                     }
@@ -294,26 +294,21 @@ sap.ui.define(
                                                     .replace("'", "''") +
                                                 "'"
                                             ),
-                                            // new Filter(
-                                            //     "tolower(Painter/MembershipCard)",
-                                            //     FilterOperator.Contains,
-                                            //     "'" +
-                                            //     oViewFilter[prop]
-                                            //         .trim()
-                                            //         .toLowerCase()
-                                            //         .replace("'", "''") +
-                                            //     "'"
-                                            // ),
-                                            // new Filter(
-                                            //     "Painter/Mobile",
-                                            //     FilterOperator.Contains,
-                                            //     oViewFilter[prop].trim()
-                                            // ),
-                                            // new Filter(
-                                            //     "ComplaintCode",
-                                            //     FilterOperator.Contains,
-                                            //     oViewFilter[prop].trim()
-                                            // ),
+                                            new Filter(
+                                                "tolower(ConsumerName)",
+                                                FilterOperator.Contains,
+                                                "'" +
+                                                oViewFilter[prop]
+                                                    .trim()
+                                                    .toLowerCase()
+                                                    .replace("'", "''") +
+                                                "'"
+                                            ),
+                                            new Filter(
+                                                "ConsumerMobileNo",
+                                                FilterOperator.Contains,
+                                                oViewFilter[prop].trim()
+                                            )
                                         ],
                                         false
                                     )
@@ -507,14 +502,14 @@ sap.ui.define(
 
                     oFilterBar.setBasicSearch(oBasicSearch);
 
-                    //   oBasicSearch.attachBrowserEvent(
-                    //     "keyup",
-                    //     function (e) {
-                    //       if (e.which === 13) {
-                    //         this.onSearch();
-                    //       }
-                    //     }.bind(this)
-                    //   );
+                      oBasicSearch.attachBrowserEvent(
+                        "keyup",
+                        function (e) {
+                          if (e.which === 13) {
+                            this.onSearch();
+                          }
+                        }.bind(this)
+                      );
                 },
               
                 fmtDate: function (mDate) {

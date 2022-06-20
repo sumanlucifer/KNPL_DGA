@@ -224,7 +224,7 @@ sap.ui.define(
                     }
 
                     if(obj.DGAId === null){
-                        MessageBox.information("Kindly assign DGA for selected Lead.");
+                        // MessageBox.information("Kindly assign DGA for selected Lead.");
                         var DGA = {
                             PrimaryMobileNo: "",
                             DGAName: "",
@@ -447,7 +447,7 @@ sap.ui.define(
                             "LeadStage": oViewModel.getProperty("/LeadStage") === 0 ? "ONGOING" : "COMPLETED",
                             "ComplaintTypeId": oViewModel.getProperty("/ComplaintType") + 2,
                             "Comments": oViewModel.getProperty("/Comments") ? oViewModel.getProperty("/Comments") : null,
-                            "ConsumersSelectedIssuesRequests": this._selectedItemList(),
+                            "ConsumersSelectedIssuesRequests": this._selectedItemList(this.getView().byId("idList").getSelectedItems()),
                             "IsNewConsumer": oViewModel.getProperty("/newCustomer"),
                             "ConsumerName": oViewModel.getProperty("/newCustomer") ? oViewModel.getProperty("/NewConsumerName") : null,
                             "ConsumerMobileNo": oViewModel.getProperty("/newCustomer") ? oViewModel.getProperty("/NewConsumerMobileNo") : null,
