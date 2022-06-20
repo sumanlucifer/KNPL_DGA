@@ -43,6 +43,7 @@ sap.ui.define(
                     filterBar: {
                         StartDate: null,
                         EndDate: null,
+                        Mode: "",
                         ZoneId: "",
                         DivisionId: "",
                         DepotId: "",
@@ -79,6 +80,7 @@ sap.ui.define(
                     StartDate: null,
                     Status: "",
                     Search: "",
+                    Mode: "",
                     ZoneId: "",
                     DivisionId: "",
                     DepotId: "",
@@ -101,7 +103,40 @@ sap.ui.define(
                  * Purpose: Navigation to add object view and controller
                  */
                 var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Add");
+                var sKey = this.getView().byId("iconTabBar").getSelectedKey();
+                var sTab;
+                switch (sKey) {
+
+                    case "0":
+                        sTab = "Lead Visit";
+                        break;
+                    case "1":
+                        sTab = "New Lead";
+                        break;
+
+                    case "2":
+                        sTab = "Contractor Visit";
+                        break;
+
+                    case "3":
+                        sTab = "Dealer Visit";
+                        break;
+
+                    case "4":
+                        sTab = "Lead Conversion";
+                        break;
+                    case "5":
+                        sTab = "Business Generation";
+                        break;
+
+
+                }
+                oRouter.navTo("Add",
+                    {
+                        Tab: sTab
+
+                    }
+                );
 
             },
             _InitData: function () {
@@ -122,14 +157,14 @@ sap.ui.define(
                 oModelControl.setProperty("/PageBusy", true)
                 // c1 = othat._addSearchFieldAssociationToFB();
                 // c1.then(function () {
-                    c2 = othat._dummyPromise();
-                    c2.then(function () {
-                        c3 = othat._initTableData();
-                        c3.then(function () {
-                            oModelControl.setProperty("/PageBusy", false)
-                        })
+                c2 = othat._dummyPromise();
+                c2.then(function () {
+                    c3 = othat._initTableData();
+                    c3.then(function () {
+                        oModelControl.setProperty("/PageBusy", false)
                     })
-               // })
+                })
+                // })
 
             },
 
@@ -150,7 +185,10 @@ sap.ui.define(
             //     }
             //     else if (sKey == "4"){
             //         oView.byId("LeadConversionTable").rebindTable();
-            //     }                
+            //     }   
+            // else if (sKey == "5"){
+            //         oView.byId("BusinessGenerationTable").rebindTable();
+            //     }             
             // },
 
             _addSearchFieldAssociationToFB: function () {
@@ -215,31 +253,38 @@ sap.ui.define(
             },
             _initTableData: function () {
                 /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
+                 * Author: Mamta Singh
+                 * Date: 20-June-2022
                  * Language:  JS
                  * Purpose: Used to load the table data and trigger the on before binding method.
                  */
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
-                if (oView.byId("idWorkListTable1")) {
-                    oView.byId("idWorkListTable1").rebindTable();
+                if (oView.byId("LeadVisitTable")) {
+                    oView.byId("LeadVisitTable").rebindTable();
                 }
                 promise.resolve();
                 return promise;
             },
-            onBindTblComplainList: function (oEvent) {
+            onBindTargetHistoryList: function (oEvent) {
                 /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
+                 * Author: Mamta Singh
+                 * Date: 20-June-2022
                  * Language:  JS
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-              //  oBindingParams.parameters["expand"] = "Painter,ComplaintType";
-                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                  oBindingParams.parameters["expand"] = "DGAType,PerformanceZone,PerformanceDivision,PerformanceDepot";
+               // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+                // oBindingParams.filters.push(
+                //     new sap.ui.model.Filter(
+                //         "TargetTypeId",
+                //         sap.ui.model.FilterOperator.EQ,
+                //         2
+                //     )
 
+                // );
                 // Apply Filters
                 var oFilter = this._CreateFilter();
                 if (oFilter) {
@@ -259,11 +304,14 @@ sap.ui.define(
 
                 var aFlaEmpty = false;
                 // init filters - is archived and complaint type id is 1
-                // aCurrentFilterValues.push(
-                //     new Filter("IsArchived", FilterOperator.EQ, false));
-                // aCurrentFilterValues.push(
-                //     new Filter("ComplaintTypeId", FilterOperator.NE, 1));
-
+                aCurrentFilterValues.push(
+                     new Filter("TargetTypeId",
+                     sap.ui.model.FilterOperator.EQ,
+                     2));
+                    //  aCurrentFilterValues.push(
+                    //     new Filter("TargetTypeId",
+                    //     sap.ui.model.FilterOperator.EQ,
+                    //     3));
 
                 // filter bar filters
                 for (let prop in oViewFilter) {
@@ -393,12 +441,166 @@ sap.ui.define(
             onEditListItemPress: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
-                    Mode: "Edit"
+                oRouter.navTo("Detail",
+                    {
+                        Id: oBj["Id"],
+                        Mode: "Edit"
+                    });
+
+            },
+
+            onValueHelpRequestedDivison: function () {
+                this._oMultiInput = this.getView().byId("multiInputDivisonAdd");
+                this.oColModel = new JSONModel({
+                    cols: [{
+                        label: "Divison Id",
+                        template: "Id",
+                        width: "10rem",
+                    },
+
+                    ],
                 });
 
-            }
+                var aCols = this.oColModel.getData().cols;
+
+                this._oValueHelpDialog = sap.ui.xmlfragment(
+                    "com.knpl.dga.performancetarget.view.fragments.DivisonValueHelp",
+                    this
+                );
+                var oDataFilter = {
+                    Id: ""
+
+                }
+                var oModel = new JSONModel(oDataFilter);
+                this.getView().setModel(oModel, "DivisonFilter");
+
+                this.getView().addDependent(this._oValueHelpDialog);
+
+                this._oValueHelpDialog.getTableAsync().then(
+                    function (oTable) {
+                        oTable.setModel(this.oColModel, "columns");
+
+                        if (oTable.bindRows) {
+                            oTable.bindAggregation("rows", {
+                                path: "/MasterDivisions",
+                                events: {
+                                    dataReceived: function () {
+                                        this._oValueHelpDialog.update();
+                                    }.bind(this)
+                                }
+                            });
+                        }
+
+                        if (oTable.bindItems) {
+                            oTable.bindAggregation("items", "/MasterDivisions", function () {
+                                return new sap.m.ColumnListItem({
+                                    cells: aCols.map(function (column) {
+                                        return new sap.m.Label({
+                                            text: "{" + column.template + "}",
+                                        });
+                                    }),
+                                });
+                            });
+                        }
+
+                        this._oValueHelpDialog.update();
+                    }.bind(this)
+                );
+
+                this._oValueHelpDialog.setTokens(this._oMultiInput.getTokens());
+                this._oValueHelpDialog.open();
+            },
+            onFilterBarSearch: function (oEvent) {
+                var afilterBar = oEvent.getParameter("selectionSet"),
+                    aFilters = [];
+
+                aFilters.push(
+                    new Filter({
+                        path: "Id",
+                        operator: FilterOperator.Contains,
+                        value1: afilterBar[0].getValue(),
+                        caseSensitive: false,
+                    })
+                );
+                // aFilters.push(
+                //     new Filter({
+                //         path: "Depot",
+                //         operator: FilterOperator.Contains,
+                //         value1: afilterBar[1].getValue(),
+                //         caseSensitive: false,
+                //     })
+                // );
+
+                this._filterTable(
+                    new Filter({
+                        filters: aFilters,
+                        and: true,
+                    })
+                );
+            },
+
+            _filterTable: function (oFilter, sType) {
+                var oValueHelpDialog = this._oValueHelpDialog;
+
+                oValueHelpDialog.getTableAsync().then(function (oTable) {
+                    if (oTable.bindRows) {
+                        oTable.getBinding("rows").filter(oFilter, sType || "Application");
+                    }
+
+                    if (oTable.bindItems) {
+                        oTable
+                            .getBinding("items")
+                            .filter(oFilter, sType || "Application");
+                    }
+
+                    oValueHelpDialog.update();
+                });
+            },
+            onValueHelpAfterOpen: function () {
+                var aFilter = this._getfilterforControl();
+
+                this._filterTable(aFilter, "Control");
+                this._oValueHelpDialog.update();
+            },
+            _getfilterforControl: function () {
+                var sDivision = this.getView().getModel("oModelControl").getProperty("/MultiCombo/Zone");
+                var aFilters = [];
+                if (sDivision) {
+                    for (var y of sDivision) {
+                        aFilters.push(new Filter("Zone", FilterOperator.EQ, y));
+                    }
+                }
+                if (aFilters.length == 0) {
+                    return [];
+                }
+
+                return new Filter({
+                    filters: aFilters,
+                    and: false,
+                });
+            },
+            onValueHelpCancelPress: function () {
+                this._oValueHelpDialog.close();
+            },
+            onValueHelpOkPress: function (oEvent) {
+                var oData = [];
+                var xUnique = new Set();
+                var aTokens = oEvent.getParameter("tokens");
+
+                aTokens.forEach(function (ele) {
+                    if (xUnique.has(ele.getKey()) == false) {
+                        oData.push({
+                            DepotId: ele.getKey()
+                        });
+                        xUnique.add(ele.getKey());
+                    }
+                });
+
+                this.getView()
+                    .getModel("oModelControl")
+                    .setProperty("/MultiCombo/Divison", oData);
+                this._oValueHelpDialog.close();
+            },
         }
         );
     }

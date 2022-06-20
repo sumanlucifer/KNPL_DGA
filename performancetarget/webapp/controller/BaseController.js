@@ -91,20 +91,25 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var oDataControl = {
+                icnTbTittle: "",
                 PageBusy: true,
                 Pagetitle: mParam1 === "Add" ? "Add" : "Edit",
                 mode: mParam1,
                 Id: mParam2,
-                bindProp: "MasterTargetPlans(" + mParam2 + ")",
-                EntitySet: "MasterTargetPlans",
+                bindProp: "MasterTargetPlansRenews(" + mParam2 + ")",
+                EntitySet: "MasterTargetPlansRenews",
                 resourcePath: "com.knpl.dga.performancetarget",
                 AddFields: {
                     Target: "",
                     StartDate: "",
-                    EndDate: ""
+                    EndDate: "",
+                    Mode: "",
                 },
                 Rbtn: {
-                    TarGrp: 0
+                    TarGrp: 0,
+                    Zone: 0,
+                    Division: 0,
+                    Depot: 0
                 },
                 MultiCombo: {
                     Zone: [],
@@ -236,7 +241,8 @@ sap.ui.define([
             var AddFields = {
                 Target: "",
                 StartDate: "",
-                EndDate: ""
+                EndDate: "",
+                Mode: "",
             },
             MultiCombo = {
                 Zone: [],
@@ -251,27 +257,58 @@ sap.ui.define([
            
              // this._propertyToBlank([ "MultiCombo/Zone", "MultiCombo/Division", "MultiCombo/Depot", "StartDate", "EndDate","Target"], true)
         },
-        _propertyToBlank: function (aArray, sModelName) {
-            var aProp = aArray;
-            var oView = this.getView();
-            var oModelView = oView.getModel(sModelName);
-            for (var x of aProp) {
-                var oGetProp = oModelView.getProperty("/" + x);
-                if (Array.isArray(oGetProp)) {
-                    oModelView.setProperty("/" + x, []);
-                    //oView.byId(x.substring(x.indexOf("/") + 1)).fireChange();
-                } else if (oGetProp === null) {
-                    oModelView.setProperty("/" + x, null);
-                } else if (oGetProp instanceof Date) {
-                    oModelView.setProperty("/" + x, null);
-                } else if (typeof oGetProp === "boolean") {
-                    oModelView.setProperty("/" + x, false);
-                } else {
-                    oModelView.setProperty("/" + x, "");
-                }
+        onRbChnageZone:function(oEvent){
+            var key = oEvent.getSource().getSelectedIndex();
+
+            if(key === 0){
+                this.getView().getModel("titleModel").setProperty("/isSpecificZone", false);
+            } else {
+                this.getView().getModel("titleModel").setProperty("/isSpecificZone", true);
             }
-            oModelView.refresh(true);
         },
+
+        
+        onRbChnageDivison:function(oEvent){
+            var key = oEvent.getSource().getSelectedIndex();
+
+            if(key === 0){
+                this.getView().getModel("titleModel").setProperty("/isSpecificDivision", false);
+            } else {
+                this.getView().getModel("titleModel").setProperty("/isSpecificDivision", true);
+            }
+        },
+        onRbChnageDepot:function(oEvent){
+            var key = oEvent.getSource().getSelectedIndex();
+
+            if(key === 0){
+                this.getView().getModel("titleModel").setProperty("/isSpecificDepot", false);
+            } else {
+                this.getView().getModel("titleModel").setProperty("/isSpecificDepot", true);
+            }
+        },
+
+        
+        // _propertyToBlank: function (aArray, sModelName) {
+        //     var aProp = aArray;
+        //     var oView = this.getView();
+        //     var oModelView = oView.getModel(sModelName);
+        //     for (var x of aProp) {
+        //         var oGetProp = oModelView.getProperty("/" + x);
+        //         if (Array.isArray(oGetProp)) {
+        //             oModelView.setProperty("/" + x, []);
+        //             //oView.byId(x.substring(x.indexOf("/") + 1)).fireChange();
+        //         } else if (oGetProp === null) {
+        //             oModelView.setProperty("/" + x, null);
+        //         } else if (oGetProp instanceof Date) {
+        //             oModelView.setProperty("/" + x, null);
+        //         } else if (typeof oGetProp === "boolean") {
+        //             oModelView.setProperty("/" + x, false);
+        //         } else {
+        //             oModelView.setProperty("/" + x, "");
+        //         }
+        //     }
+        //     oModelView.refresh(true);
+        // },
 
         _RemoveEmptyValue: function (mParam) {
             var obj = Object.assign({}, mParam);

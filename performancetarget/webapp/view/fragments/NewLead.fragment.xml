@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable id="NewLeadTable" header="{i18n>MainObject} {i18n>History}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="PainterComplainsSet" beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="Id" >
+    <smartTable:SmartTable id="NewLeadTable" header="{i18n>MainObject} {i18n>History}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="MasterTargetPlansRenews" beforeRebindTable="onBindTargetHistoryList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="Id" >
         <smartTable:customToolbar>
 			<OverflowToolbar>
                         <ToolbarSpacer />
@@ -12,52 +12,48 @@
         <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
            
             <columns>
-                <!-- <Column hAlign="Begin">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Painter/Name", "leadingProperty": "Painter/Name", "columnIndex": 0 ,"sortProperty": "Painter/Name","filterProperty": "Painter/Name"}'/>
-                    </customData>
-                    <Text text="{i18n>SerialNo}"/>
-                </Column> -->
+               
+               
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "FromDate","type":"date", "leadingProperty": "FromDate", "columnIndex": 1 ,"sortProperty": "FromDate","filterProperty": "FromDate"}'/>
+                        <core:CustomData key="p13nData"  value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 0 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>From}"/>
                 </Column>
 
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ToDate","type":"date", "leadingProperty": "ToDate", "columnIndex": 2 ,"sortProperty": "ToDate","filterProperty": "ToDate"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>To}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGATypeId",  "leadingProperty": "DGATypeId", "columnIndex": 3 ,"sortProperty": "DGATypeId","filterProperty": "DGATypeId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGAType/Name",  "leadingProperty": "DGAType/Name", "columnIndex": 2 ,"sortProperty": "DGAType/Name","filterProperty": "DGAType/Name"}'/>
                     </customData>
                     <Text text="{i18n>DGA} {i18n>Type}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceZone/ZoneId", "leadingProperty": "PerformanceZone/ZoneId", "columnIndex": 4 ,"sortProperty": "PerformanceZone/ZoneId","filterProperty": "PerformanceZone/ZoneId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceZone/ZoneId", "leadingProperty": "PerformanceZone/ZoneId", "columnIndex": 3 ,"sortProperty": "PerformanceZone/ZoneId","filterProperty": "PerformanceZone/ZoneId"}'/>
                     </customData>
                     <Text text="{i18n>Zone}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceDivision/DivisionId", "leadingProperty": "PerformanceDivision/DivisionId", "columnIndex": 5 ,"sortProperty": "PerformanceDivision/DivisionId","filterProperty": "PerformanceDivision/DivisionId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceDivision/DivisionId", "leadingProperty": "PerformanceDivision/DivisionId", "columnIndex": 4 ,"sortProperty": "PerformanceDivision/DivisionId","filterProperty": "PerformanceDivision/DivisionId"}'/>
                     </customData>
                     <Text text="{i18n>Division}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceDepot/DepotId", "leadingProperty": "PerformanceDepot/DepotId", "columnIndex": 6 ,"sortProperty": "PerformanceDepot/DepotId","filterProperty": "PerformanceDepot/DepotId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceDepot/DepotId", "leadingProperty": "PerformanceDepot/DepotId", "columnIndex": 5 ,"sortProperty": "PerformanceDepot/DepotId","filterProperty": "PerformanceDepot/DepotId"}'/>
                     </customData>
                     <Text text="{i18n>Depot}"/>
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Target", "leadingProperty": "Target", "columnIndex": 7 ,"sortProperty": "Target","filterProperty": "Target"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TargetValue", "leadingProperty": "TargetValue", "columnIndex": 6 ,"sortProperty": "TargetValue","filterProperty": "TargetValue"}'/>
                     </customData>
                     <Text text="{i18n>NewLeadVisitCount} ({i18n>Daily})"/>
                 </Column>
@@ -67,15 +63,13 @@
             <items>
                 <ColumnListItem >
                     <cells>
-                     <Text text="{Painter/Name}"/>
-                      
-                     <Text text="{path:'FromDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
-                     <Text text="{path:'ToDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
-                       <Text text="{DGATypeId}"/>
-                       <Text text="{PerformanceZone/ZoneId}"/>
-                        <Text text="{PerformanceDivision/DivisionId}"/>
+                     <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                        <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                         <Text text="{DGAType/Name}"/>
+                        <Text text="{PerformanceZone/ZoneId}"/>
+                         <Text text="{PerformanceDivision/DivisionId}"/> 
                          <Text text="{PerformanceDepot/DepotId}"/>
-                         <Text text="{Target}"/>
+                         <Text text="{TargetValue}"/>
                         
                         <!-- <ObjectStatus text="{parts:['ComplaintStatus','ParentComplaintId'],formatter:'.formatter.fmtLowerCase'}" state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Error' }"/> -->
                             
