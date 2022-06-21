@@ -23,9 +23,10 @@ sap.ui.define([
             this.oFileUploaderPdf = this.getView().byId("idFormToolPdfUploader");
             this.pdfBtn = this.getView().byId("pdfBtn");
             this.imgBtn = this.getView().byId("imageBtn");
-            this.oCategory = this.getView().byId("idCategory");
+            // this.oCategory = this.getView().byId("idCategory");
             // this.oClassification = this.getView().byId("idClassification");
-            this.oText = this.getView().byId("idText");
+            this.oTextInput = this.getView().byId("idText");
+            this.oAddButton=this.getView().byId("idButton");
             // this.oProduct = this.getView().byId("idInputProduct");
             this.oForm = this.getView().byId("idCatalogueDetailsForm");
             this.imageName = "";
@@ -40,12 +41,9 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             this._action = oEvent.getParameter("arguments").action;
             this._property = oEvent.getParameter("arguments").property;
-           
-
             // this.sServiceURI = this.getOwnerComponent().getManifestObject().getEntry("/sap.app").dataSources.KNPL_DS.uri;
-            this.MainModel= this.getOwnerComponent().getModel();
-            this.sServiceURI =  `${this.MainModel.sServiceUrl}/`;
-           
+            this.MainModel = this.getOwnerComponent().getModel();
+            this.sServiceURI = `${this.MainModel.sServiceUrl}/`;
             var oData = {
                 busy: false,
                 action: this._action,
@@ -57,7 +55,7 @@ sap.ui.define([
                 ImageUrl: "",
                 Competitor: [],
                 Catalogue: [],
-                ProductRecommendationName:""
+                ProductRecommendationName: ""
             };
             var oViewModel = new JSONModel(oData);
             this.getView().setModel(oViewModel, "ActionViewModel");
@@ -74,7 +72,7 @@ sap.ui.define([
                     success: function (data, response) {
                         that.entityObject = data;
                         // oData.Title = data.ProductId;
-                        // oData.Name = data.Title;
+                        oData.ProductRecommendationName = data.ProductRecommendationName;
                         // oData.Category = data.ProductCategoryId
                         // oData.Classification = data.ProductClassificationId
                         // oData.Range = data.ProductRangeId
@@ -93,12 +91,13 @@ sap.ui.define([
                     error: function (oError) {
                     }
                 });
-                this.oCategory.setEditable(false);
+                // this.oCategory.setEditable(false);
                 // this.oTitle.setEditable(false);
                 // this.oTitle.setVisible(false);
                 // this.oClassification.setEditable(false);
-                this.oText.setVisible(true);
-                this.oText.setEditable(false);
+                this.oTextInput.setVisible(true);
+                this.oTextInput.setEditable(false);
+                this.oAddButton.setEnabled(true);
                 var pdfURL = this.sServiceURI + this._property + "/$value?doc_type=pdf";
                 this.pdfBtn.setVisible(true);
                 this.imgBtn.setVisible(true);
@@ -108,6 +107,9 @@ sap.ui.define([
                 // this.oTitle.setEditable(true);
                 // this.oClassification.setEditable(true);
                 // this.oProduct.setVisible(false);
+                this.oAddButton.setEnabled(true);
+                this.oTextInput.setVisible(true);
+                this.oTextInput.setEditable(true);
                 this.oPreviewImage.setVisible(false);
                 this.pdfBtn.setVisible(false);
                 this.imgBtn.setVisible(false);
@@ -276,15 +278,15 @@ sap.ui.define([
             //delete oParam.__metadata;
             delete oParam.MediaList;
             //OParams are used when update 
-            oParam.Title = oViewModel.getProperty("/Name"),
-                oParam.Description = oViewModel.getProperty("/Name"),
-                oParam.ProductId = oViewModel.getProperty("/Title"),
-                oParam.ProductRecommendationName = oViewModel.getProperty("/ProductRecommendationName"),
-                oParam.ProductCategoryId = oViewModel.getProperty("/Category"),
-                oParam.ProductClassificationId = oViewModel.getProperty("/Classification"),
-                // oParam.ProductRangeId = parseInt(oViewModel.getProperty("/Range"),
-                oParam.ProductRangeId = oViewModel.getProperty("/Range"),
-                oParam.ProductCompetitors = Competitors
+            // oParam.Title = oViewModel.getProperty("/Name"),
+            // oParam.Description = oViewModel.getProperty("/Name"),
+            // oParam.ProductId = oViewModel.getProperty("/Title"),
+            oParam.ProductRecommendationName = oViewModel.getProperty("/ProductRecommendationName")
+            // oParam.ProductCategoryId = oViewModel.getProperty("/Category"),
+            // oParam.ProductClassificationId = oViewModel.getProperty("/Classification"),
+            // oParam.ProductRangeId = parseInt(oViewModel.getProperty("/Range"),
+            // oParam.ProductRangeId = oViewModel.getProperty("/Range"),
+            // oParam.ProductCompetitors = Competitors
             if (this._action !== "edit") {
                 var productrecommendation = this.getView().byId("idText").getValue();
                 //oPayload are used when create 
@@ -315,6 +317,7 @@ sap.ui.define([
                                 that._uploadToolImage(oData);
                                 that._uploadPdf(oData);
                                 that.getOwnerComponent().getModel().refresh(true);
+                                oViewModel.refresh(true);
                             },
                             error: function (oError) {
                                 console.log("Error!");
@@ -331,6 +334,7 @@ sap.ui.define([
                             that._updateImage(_property);
                             that._updatePdf(_property);
                             that.getOwnerComponent().getModel().refresh(true);
+                            oModel.refresh(true);
                         },
                         error: function (oError) {
                             console.log("Error!");
@@ -338,7 +342,7 @@ sap.ui.define([
                     });
                 }
             }
-           // }
+            // }
         },
         _onLoadSuccess: function (oData) {
             if (this.oFileUploader.getValue()) {
@@ -505,7 +509,6 @@ sap.ui.define([
             oModel.refresh(true);
         },
         onAddCatalogue: function () {
-           
             var oModel = this.getView().getModel("ActionViewModel");
             var oObject = this.getModel("ActionViewModel").getProperty("/Catalogue");
             oObject.push({
@@ -513,13 +516,13 @@ sap.ui.define([
                 file: null,
                 fileName: ""
             });
-            
+            this.getOwnerComponent().getModel().refresh(true);
             oModel.refresh(true);
-           if(oObject.length > 0) {
-            this.getView().byId("idButton").setEnabled(false);
-           } else{
-            this.getView().byId("idButton").setEnabled(true);
-           }
+            if (oObject.length > 0) {
+                this.getView().byId("idButton").setEnabled(false);
+            } else {
+                this.getView().byId("idButton").setEnabled(true);
+            }
             // var pdfContainer = this.byId("idPdf");
             //  pdfContainer.getBinding("items").refresh(true);
             //oModel.setProperty("/Catalogue", oObject);
@@ -543,13 +546,15 @@ sap.ui.define([
                     onClose: function (sAction) {
                         if (sAction == "OK") {
                             othat.onPressRemoveCatalogue(sPath, aCatalogue);
+                          
+                            oModel.refresh(true);
                         }
                     },
                 }
             );
         },
         onPressRemoveCatalogue: function (sPath, aCatalogue) {
-            var that=this;
+            var that = this;
             var oView = this.getView();
             var oModel = oView.getModel("ActionViewModel");
             // var sPath = oEvent
@@ -582,8 +587,10 @@ sap.ui.define([
                                 aCatalogue.splice(parseInt(sPath[sPath.length - 1]), 1);
                                 var sMessage = "Catalogue Deleted!";
                                 MessageToast.show(sMessage);
+                                that.getView().byId("idButton").setEnabled(true);
                                 that.getOwnerComponent().getModel().refresh(true);
                                 oModel.refresh(true);
+                                
                             },
                             error: function () { },
                         })

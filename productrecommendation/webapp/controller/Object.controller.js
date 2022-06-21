@@ -151,7 +151,7 @@ sap.ui.define([
                         oViewModel.setProperty("/PdfSize", pdfSize + " B");
                         oViewModel.setProperty("/ImageName", imgName);
                         oViewModel.setProperty("/PdfName", pdfName);
-                        oViewModel.setProperty("/Competitor", productCompetitors);
+                        // oViewModel.setProperty("/Competitor", productCompetitors);
                         oViewModel.setProperty("/Catalogue", media);
                     }
                 }

@@ -291,7 +291,7 @@ sap.ui.define([
         fnrebindTable: function (oEvent) {
             var oBindingParams = oEvent.getParameter("bindingParams");
             oBindingParams.sorter.push(new sap.ui.model.Sorter('Id', true));
-            oBindingParams.parameters["expand"] = "ProductDetails,ProductCategory,ProductClassification";
+            // oBindingParams.parameters["expand"] = "ProductDetails,ProductCategory,ProductClassification";
             if (this.oFilter) {
                 oBindingParams.filters.push(this.oFilter);
             }

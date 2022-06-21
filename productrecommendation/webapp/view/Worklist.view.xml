@@ -52,7 +52,7 @@
                             id="idCatlogueTable"
                             editable="false"
                             header="{i18n>worklistTableTitle}"
-                            beforeRebindTable="fnrebindTable1"                    
+                            beforeRebindTable="fnrebindTable"                    
                             entitySet="ProductRecommendations"
                             tableType="ResponsiveTable"
                             showRowCount="true"
