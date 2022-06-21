@@ -57,6 +57,27 @@ sap.ui.define(
                 // this._InitData();
                 this._addSearchFieldAssociationToFB();
             },
+            onUpdateFinished: function (oEvent) {
+                // update the worklist's object counter after the table update
+                var sTitle,
+                    oTable = oEvent.getSource(),
+                    iTotalItems = oEvent.getParameter("total");
+                // only update the counter if the length is final and
+                // the table is not empty
+                if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
+                    sTitle = this.getResourceBundle().getText(
+                        "PayrollCompanyName",
+                        [iTotalItems]
+                    );
+                    this.getView().byId("idPayrollTableTitle").setText(sTitle+" ("+iTotalItems+")");
+                } else {
+                    sTitle = this.getResourceBundle().getText(
+                        "PayrollCompanyName",
+                        [0]
+                    );
+                    this.getView().byId("idPayrollTableTitle").setText(sTitle +" (0)");
+                }
+            },
             onPressAddObject: function () {
                 var oView = this.getView();
                 return new Promise(function (resolve, reject) {
@@ -109,14 +130,22 @@ sap.ui.define(
                 if(this._AddNewPayrollCompany){
                     this.getView().byId("idPayrollCompanyAdd").setValueState("None");
                     this.getView().byId("idPayrollCompanyAdd").setValueStateText("");
+                    this.getView().getModel("oModelControl").setProperty("/AddFields", {});
                     this._AddNewPayrollCompany.close();
                 }
                 if(this._EditPayrollCompany){
                     this.getView().byId("idPayrollCompanyEdit").setValueState("None");
                     this.getView().byId("idPayrollCompanyEdit").setValueStateText("");
+                    this.getView().getModel("oModelControl").setProperty("/EditFields", {});
                     this._EditPayrollCompany.close();
                 }
 
+            },
+            onInputChange:function(oEvent){
+                var sText = oEvent.getParameter("value");
+                if(sText.length > 50 ){
+                    oEvent.getSource().setValue(oEvent.getSource().getValue().substring(0, 50));
+                }
             },
             onPayrollCompanyDialogAdd: function(){
                 var oView = this.getView();
@@ -131,7 +160,7 @@ sap.ui.define(
                     return;
                 }
 
-                if(oModelContrl.getProperty("/AddFields/Name").length > 100){
+                if(oModelContrl.getProperty("/AddFields/Name").length > 50){
                     oView.byId("idPayrollCompanyAdd").setValueState("Error");
                     oView.byId("idPayrollCompanyAdd").setValueStateText("Name must be within 100 character");
                     return;
@@ -141,8 +170,6 @@ sap.ui.define(
 
                 c1.then(function (oData) {
                     othat.onPayrollCompanyDialogCancel();
-                    
-                        
                     oDataModel.refresh(true);
                 });
             },

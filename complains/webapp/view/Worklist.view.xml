@@ -72,7 +72,7 @@
             <Table id="table" fixedLayout="false" growing="true" growingThreshold="10" updateFinished="onUpdateFinished" width="auto" items="{path: '/Complaints',sorter:{path:'CreatedAt',descending:true}, parameters:{expand:'DGA,Lead,ResolutionDetails,ComplaintType,ConsumersSelectedIssuesRequests/MasterComplaintSubtypesReqs' }}" noDataText="{i18n>tableNoDataText}" growingScrollToLoad="false">
                 <headerToolbar>
                     <Toolbar>
-                        <Title text="{worklistView>/worklistTableTitle}"/>
+                        <Title text="{worklistView>/worklistTableTitle}" class="worklistTableTitleClass"/>
                         <ToolbarSpacer/>
                         <Button icon="sap-icon://add" text="{i18n>RaiseComplaint}" type="Emphasized" press=".onPressAdd" tooltip="{i18n>RaiseComplaint}"></Button>
                         <Button visible="false" icon="sap-icon://sort" type="Transparent" press="handleSortButtonPressed"></Button>
