@@ -99,7 +99,7 @@ sap.ui.define([
                 })
             })
         },
-        _initDataReplaceDga: function () {
+        _initDataReplaceDga: function (sId) {
             var oView = this.getView();
             var othat = this;
             var c1, c2, c2A, c2B, c2C, c3,c4;
@@ -130,13 +130,13 @@ sap.ui.define([
             })
 
         },
-        _getExistingDgaDetails: function () {
+        _getExistingDgaDetails: function (sId) {
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var othat = this;
-            var oModel = oView.getModel("oModelDisplay");
+          
             var oModelControl = this.getModel("oModelControl")
-            var oProp = oModel.getProperty("/bindProp");
+            var oProp = "DGAs("+sId+")"
             var exPand = "Pincode,Positions/Depot,Positions/ChildTowns/WorkLocation,Positions/ServicePincodes/Pincode";
             return new Promise((resolve, reject) => {
                 oView.getModel().read("/" + oProp, {
@@ -158,7 +158,7 @@ sap.ui.define([
 
                         // oView.setModel(oModel, "oModelView");
 
-                        oModel.refresh()
+                        
                         resolve(data);
                     },
                     error: function () { },
