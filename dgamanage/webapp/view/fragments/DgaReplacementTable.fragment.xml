@@ -24,13 +24,13 @@
                     </customData>
                     <Text text="{i18n>Name}"/>
                 </Column>
-               <Column hAlign="Begin">
+               <Column hAlign="Begin" sortIndicator="Descending">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt", "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>CreatedAt}"/>
                 </Column>
-                <Column hAlign="Begin"  sortIndicator="Descending">
+                <Column hAlign="Begin" >
                      <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status", "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
