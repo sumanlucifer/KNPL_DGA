@@ -184,16 +184,16 @@ sap.ui.define([
             var oView = this.getView();
             var oModelView = oView.getModel("oModelView");
             var oProp = {
-                GivenName: "",
-                Mobile: "",
+                //GivenName: "",
+                //Mobile: "",
                 PincodeId: "",
-                PayrollCompanyId: "",
+                //PayrollCompanyId: "",
                 Zone: "",
                 DivisionId: "",
                 StateId: "",
-                EmployeeId: "",
-                JoiningDate: null,
-                ExitDate: null,
+                //EmployeeId: "",
+                //JoiningDate: null,
+                //ExitDate: null,
                 WorkLocationId: "",
                 AllocatedDGACount: "",
             }
