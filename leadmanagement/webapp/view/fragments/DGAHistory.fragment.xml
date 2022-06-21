@@ -1,0 +1,111 @@
+<core:FragmentDefinition xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <l:VerticalLayout width="100%">
+        <smartTable:SmartTable
+                           id="DGAHistoryTbl"
+                            editable="false"
+                            width="100%"
+                            entitySet="LeadsDGAHistory"
+                            beforeRebindTable="onBeforeRebindDGAHistory"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="false"
+                            demandPopin="true"
+                            enableAutoBinding="false"
+                            placeToolbarInTable="true"
+                            persistencyKey="HistoryPersistenceKey"
+                            requestAtLeastFields="Id"
+                            initialNoDataText="{i18n>tableNoDataText}">
+
+         <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+            <columns>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "DGA/GivenName", "columnIndex": 0 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
+                    </customData>
+                    <Text text="{i18n>Name}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGAId", "leadingProperty": "DGAId", "columnIndex": 1 ,"sortProperty": "DGAId","filterProperty": "DGAId"}'/>
+                    </customData>
+                    <Text text="{i18n>DGA} {i18n>Id}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/CreatedAt", "leadingProperty": "DGA/CreatedAt", "columnIndex": 2 ,"sortProperty": "DGA/CreatedAt","filterProperty": "DGA/CreatedAt"}'/>
+                    </customData>
+                    <Text text="{i18n>RegistrationDate}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Mobile", "leadingProperty": "DGA/Mobile", "columnIndex": 3 ,"sortProperty": "DGA/Mobile","filterProperty": "DGA/Mobile"}'/>
+                    </customData>
+                    <Text text="{i18n>Mobile}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/DGAType/Name", "leadingProperty": "DGA/DGAType/Name", "columnIndex": 4 ,"sortProperty": "DGA/DGAType/Name","filterProperty": "DGA/DGAType/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>DGAType}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Zone", "leadingProperty": "DGA/Zone", "columnIndex": 5 ,"sortProperty": "DGA/Zone","filterProperty": "DGA/Zone"}'/>
+                    </customData>
+                    <Text text="{i18n>Zone}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/DivisionId", "leadingProperty": "DGA/DivisionId", "columnIndex": 6 ,"sortProperty": "DGA/DivisionId","filterProperty": "DGA/DivisionId"}'/>
+                    </customData>
+                    <Text text="{i18n>Division}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Depot/Depot", "leadingProperty": "DGA/Depot/Depot", "columnIndex": 7 ,"sortProperty": "DGA/Depot/Depot","filterProperty": "DGA/Depot/Depot"}'/>
+                    </customData>
+                    <Text text="{i18n>Depot}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Pincode/Name", "leadingProperty": "DGA/Pincode/Name", "columnIndex": 8 ,"sortProperty": "DGA/Pincode/Name","filterProperty": "DGA/Pincode/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>Pincode}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/PayrollCompany/Name", "leadingProperty": "DGA/PayrollCompany/Name", "columnIndex": 9 ,"sortProperty": "DGA/PayrollCompany/Name","filterProperty": "DGA/PayrollCompany/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>PayrollCompany}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{DGA/GivenName} {DGA/FamilyName}"/>
+                        <Text text="{DGAId}"/>
+                        <Text text="{path:'DGA/CreatedAt',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'}}" />
+                        <Text text="{DGA/Mobile}"/>
+                        <Text text="{DGA/DGAType/Name}"/>
+                        <Text text="{DGA/Zone}"/>
+                        <Text text="{DGA/DivisionId}"/>
+                        <Text text="{DGA/Depot/Depot}"/>
+                        <Text text="{DGA/Pincode/Name}"/>
+                        <Text text="{DGA/PayrollCompany/Name}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+    </l:VerticalLayout>
+</core:FragmentDefinition>
