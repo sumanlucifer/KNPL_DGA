@@ -292,7 +292,7 @@
                         Mode: "Edit"
                     });
                 },
-                _SetFiltersForControls: function () {
+               _SetFiltersForControls:  function () {
                     var promise = $.Deferred();
                     var oView = this.getView();
                     var oModelView = oView.getModel("oModelView");
