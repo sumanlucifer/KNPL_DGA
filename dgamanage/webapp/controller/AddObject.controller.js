@@ -102,9 +102,9 @@ sap.ui.define([
         _initDataReplaceDga: function (sId) {
             var oView = this.getView();
             var othat = this;
-            var c1, c2, c2A, c2B, c2C, c3,c4;
+            var c1, c2, c2A, c2B, c2C, c3,c4,c5;
             //_LoadAddFragment
-            var c1 = othat._AddObjectControlModel("Add", null);
+            var c1 = othat._AddObjectControlModel("ReplaceDga", null);
             c1.then(function () {
                 c2 = othat._setInitViewModel();
                 c2.then(function () {
@@ -118,8 +118,12 @@ sap.ui.define([
                                 c3.then(function () {
                                     c4 = othat._SetFiltersForControls(oPayload)
                                     c4.then(function(oPayload){
-                                        oView.byId("idJoiningDate").setMaxDate(new Date());
-                                        oView.getModel("oModelControl").setProperty("/PageBusy", false)
+                                        c5=othat._setAddFlagForReplaceDga(oPayload);
+                                        c5.then(function(){
+                                            oView.byId("idJoiningDate").setMaxDate(new Date());
+                                            oView.getModel("oModelControl").setProperty("/PageBusy", false)
+                                        })
+                                       
                                     })
                                 })
                             })
@@ -129,6 +133,14 @@ sap.ui.define([
                 })
             })
 
+        },
+        _setAddFlagForReplaceDga:function(oPayload){
+            var promise = $.Deferred();
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            oModelView.setProperty("/ReplacedDGAId",oPayload["Id"]);
+            promise.resolve(oPayload);
+            return promise;
         },
         _getExistingDgaDetails: function (sId) {
             var promise = jQuery.Deferred();
