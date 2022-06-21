@@ -156,24 +156,40 @@ sap.ui.define([
                 });
             });
         },
-        _FilleTheLocalModel:function(oPayload){
-            // send fields text, combobox, single selection popovers
+        _setDateForControlType1:function(oPayload){
+
+            // fields text,date, combobox, single selection popovers
+            var promise = $.Deferred();
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
             var oProp = {
-                GiveName:"",
-                Mobile:"",
+                GivenName: "",
+                Mobile: "",
+                PincodeId: "",
+                PayrollCompanyId: "",
                 Zone: "",
                 DivisionId: "",
                 StateId: "",
+                EmployeeId: "",
+                JoiningDate: null,
+                ExitDate: null,
                 WorkLocationId: "",
                 AllocatedDGACount: "",
             }
             for (var x in oProp){
                 if(oPayload.hasOwnProperty(x)){
-                    oPayloadp[x] == oProp[x]
+                    oModelView.setProperty("/"+x,oPayload[x])
                 }
             }
-
+            promise.resolve(oPayload)
+            return promise;
             
+        },
+        _setDateForControlType2:function(oPayload){
+            var promise = $.Deferred();
+            
+            promise.resolve(oPayload);
+            return promise;
         },
         _setInitViewModel: function () {
             /*
