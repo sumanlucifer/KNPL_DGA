@@ -166,7 +166,15 @@
                     "target": [
                         "object"
                     ]
+                },
+                {
+                    "pattern": "ReplaceDga/{Id}",
+                    "name": "ReplaceDga",
+                    "target": [
+                        "object"
+                    ]
                 }
+
             ],
             "targets": {
                 "worklist": {

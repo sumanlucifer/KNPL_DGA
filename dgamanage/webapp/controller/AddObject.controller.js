@@ -55,12 +55,18 @@ sap.ui.define([
 
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Add").attachMatched(this._onRouterMatched, this);
+            oRouter.getRoute("ReplaceDga").attachMatched(this._onRouterMatched2, this);
 
 
         },
+
         _onRouterMatched: function (oEvent) {
             var sPainterId = oEvent.getParameter("arguments").Id;
             this._initData();
+        },
+        _onRouterMatched2: function (oEvent) {
+            var sId = oEvent.getParameter("arguments").Id;
+            this._initDataReplaceDga(sId);
         },
         _initData: function () {
             /*
@@ -72,6 +78,10 @@ sap.ui.define([
             * 2.  _setInitView model we are seeting the oModelView which will be replica of the payload that is sent to the backend
             * 3. Loading the fresh fragment that has the form displaying the initial values
             */
+
+            this._InitDataAdd();
+        },
+        _InitDataAdd: function () {
             var oView = this.getView();
             var othat = this;
             var c1, c2, c3;
@@ -88,6 +98,198 @@ sap.ui.define([
                     })
                 })
             })
+        },
+        _initDataReplaceDga: function (sId) {
+            var oView = this.getView();
+            var othat = this;
+            var c1, c2, c2A, c2B, c2C, c3,c4,c5;
+            //_LoadAddFragment
+            var c1 = othat._AddObjectControlModel("ReplaceDga", null);
+            c1.then(function () {
+                c2 = othat._setInitViewModel();
+                c2.then(function () {
+                    c2A = othat._LoadAddFragment("AddNewObject2");
+                    c2A.then(function () {
+                        c2B = othat._getExistingDgaDetails(sId);
+                        c2B.then(function (oPayload) {
+                            c2C = othat._setDataForControlType1(oPayload);
+                            c2C.then(function (oPayload) {
+                                c3 = othat._setDataForControlType2(oPayload);
+                                c3.then(function () {
+                                    c4 = othat._SetFiltersForControls(oPayload)
+                                    c4.then(function(oPayload){
+                                        c5=othat._setAddFlagForReplaceDga(oPayload);
+                                        c5.then(function(){
+                                            oView.byId("idJoiningDate").setMaxDate(new Date());
+                                            oView.getModel("oModelControl").setProperty("/PageBusy", false)
+                                        })
+                                       
+                                    })
+                                })
+                            })
+                        })
+                    })
+
+                })
+            })
+
+        },
+        _setAddFlagForReplaceDga:function(oPayload){
+            var promise = $.Deferred();
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            oModelView.setProperty("/ReplacedDGAId",oPayload["Id"]);
+            promise.resolve(oPayload);
+            return promise;
+        },
+        _getExistingDgaDetails: function (sId) {
+            var promise = jQuery.Deferred();
+            var oView = this.getView();
+            var othat = this;
+          
+            var oModelControl = this.getModel("oModelControl")
+            var oProp = "DGAs("+sId+")"
+            var exPand = "Pincode,Positions/Depot,Positions/ChildTowns/WorkLocation,Positions/ServicePincodes/Pincode";
+            return new Promise((resolve, reject) => {
+                oView.getModel().read("/" + oProp, {
+                    urlParameters: {
+                        $expand: exPand,
+                    },
+                    success: function (data) {
+
+                        // var oModel = new JSONModel(data);
+                        // var pattern = "dd/MM/yyyy";
+                        // var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+                        //     pattern: pattern
+                        // });
+
+                        // var aDate1 = oDateFormat.format(data["JoiningDate"]);
+                        // var aDate2 = oDateFormat.format(data["ExitDate"]);
+                        // oModelControl.setProperty("/AddFields/JoiningDate", aDate1);
+                        // oModelControl.setProperty("/AddFields/ExitDate", aDate2);
+
+                        // oView.setModel(oModel, "oModelView");
+
+                        
+                        resolve(data);
+                    },
+                    error: function () { },
+                });
+            });
+        },
+        _setDataForControlType1: function (oPayload) {
+
+            // Fields text,date, combobox, single selection popovers
+            var promise = $.Deferred();
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            var oProp = {
+                //GivenName: "",
+                //Mobile: "",
+                PincodeId: "",
+                //PayrollCompanyId: "",
+                Zone: "",
+                DivisionId: "",
+                StateId: "",
+                //EmployeeId: "",
+                //JoiningDate: null,
+                //ExitDate: null,
+                WorkLocationId: "",
+                AllocatedDGACount: "",
+            }
+            for (var x in oProp) {
+                if (oPayload.hasOwnProperty(x)) {
+                    oModelView.setProperty("/" + x, oPayload[x])
+                }
+            }
+            promise.resolve(oPayload)
+            return promise;
+
+        },
+        _setDataForControlType2: function (oPayLoad) {
+            // For Multicombobxes Control Type and Single Selection Pop Up Value Display
+            var promise = $.Deferred();
+            // set the data for pin code proper.
+            var oModeControl = this.getModel("oModelControl");
+            if (oPayLoad["Pincode"]) {
+                oModeControl.setProperty("/AddFields/PinCode", oPayLoad["Pincode"]["Name"])
+            }
+            var aArra1 = [];
+            if (oPayLoad["Positions"]["results"][0]["ServicePincodes"]["results"].length > 0) {
+                for (var x of oPayLoad["Positions"]["results"][0]["ServicePincodes"]["results"]) {
+                    aArra1.push({
+                        Id: x["PincodeId"],
+                        Name: x["Pincode"]["Name"],
+                    });
+                }
+            }
+            oModeControl.setProperty("/MultiCombo/Pincode2", aArra1);
+            var aArray2 = [];
+            if (oPayLoad["Positions"]["results"][0]["ChildTowns"]["results"].length > 0) {
+                for (var x of oPayLoad["Positions"]["results"][0]["ChildTowns"]["results"]) {
+                    aArray2.push({
+                        Id: x["WorkLocationId"],
+                        TownName: x["WorkLocation"]["TownName"],
+                        TownId: x["WorkLocation"]["TownId"]
+                    });
+                }
+            }
+            oModeControl.setProperty("/MultiCombo/ChildTowns", aArray2);
+            var aArra3 = [];
+            if (oPayLoad["Positions"]["results"].length > 0) {
+                for (var x of oPayLoad["Positions"]["results"]) {
+                    aArra3.push({
+                        Id: x["DepotId"],
+                        Name: x["Depot"]["Depot"],
+                    });
+                }
+            }
+            oModeControl.setProperty("/MultiCombo/Depots", aArra3);
+            promise.resolve(oPayLoad);
+            return promise;
+        },
+        _SetFiltersForControls: function (oPayload) {
+            var promise = $.Deferred();
+            var oView = this.getView();
+            var oModelView = oView.getModel("oModelView");
+            //var oPayload = oPayload;
+
+
+
+            var sZoneId = oPayload["Zone"];
+            if (sZoneId !== null) {
+                oView
+                    .byId("idDivision")
+                    .getBinding("items")
+                    .filter(new Filter("Zone", FilterOperator.EQ, sZoneId));
+            }
+            var sDivisionId = oPayload["DivisionId"];
+
+            var sDepotId = oPayload["Positions"]["results"][0]["DepotId"];
+            var sStateKey = oPayload["StateId"];
+            // workfloaction field filters
+            if (sStateKey) {
+                var aFilter = [];
+                if (sZoneId) {
+                    aFilter.push(new Filter("Zone", FilterOperator.EQ, sZoneId))
+                }
+                if (sDivisionId) {
+                    aFilter.push(new Filter("DivisionId", FilterOperator.EQ, sDivisionId))
+                }
+                if (sDepotId) {
+                    aFilter.push(new Filter("DepotId", FilterOperator.EQ, sDepotId));
+                }
+                if (sStateKey) {
+                    aFilter.push(new Filter("StateId", FilterOperator.EQ, sStateKey));
+                }
+                var aFilterMain = new Filter(aFilter, true);
+
+                oView.byId("cmbxJobLoc").getBinding("items").filter(aFilterMain);
+            }
+            promise.resolve(oPayload);
+            return promise;
+
+
 
         },
         _setInitViewModel: function () {
@@ -102,22 +304,19 @@ sap.ui.define([
             var oDataView = {
                 GivenName: "",
                 Mobile: "",
-                //SaleGroupId: "",
                 PincodeId: "",
                 PayrollCompanyId: "",
                 Zone: "",
                 DivisionId: "",
-                //DepotId: "",
                 DGADealers: [],
                 StateId: "",
-                //TownId: "",
                 EmployeeId: "",
                 JoiningDate: null,
                 ExitDate: null,
                 WorkLocationId: "",
                 Positions: [],
-                AllocatedDGACount: ""
-
+                AllocatedDGACount: "",
+                ReplacedDGAId: null
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -239,7 +438,7 @@ sap.ui.define([
             }
             oPayload["DGADealers"] = aDealers;
             // service pincodes
-           
+
 
             // Depot
             var aExistingDealers = oModelView.getProperty("/Positions");
@@ -268,7 +467,7 @@ sap.ui.define([
             var aSelectedData = oModelControl.getProperty("/MultiCombo/Pincode2")
             var aDataFinal = [];
             for (var x of aSelectedData) {
-                    aDataFinal.push({ PincodeId: x["Id"] });
+                aDataFinal.push({ PincodeId: x["Id"] });
             }
             oPayload["Positions"][0]["ServicePincodes"] = aDataFinal;
 

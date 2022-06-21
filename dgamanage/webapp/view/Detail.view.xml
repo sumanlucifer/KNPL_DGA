@@ -12,10 +12,10 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <ObjectAttribute title="{i18n>DgaId}" text="{path:'Positions',formatter:'.formatter.GetWorkLisPositionId'}"/>
+                    <ObjectAttribute title="{i18n>PositionCode}" text="{path:'Positions',formatter:'.formatter.GetWorkLisPositionId'}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                      <ObjectAttribute title="{i18n>DgaId}" text="{path:'Positions',formatter:'.formatter.GetWorkLisPositionId'}"/>
+                      <ObjectAttribute title="{i18n>PositionCode}" text="{path:'Positions',formatter:'.formatter.GetWorkLisPositionId'}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
                     <Title text="{ComplaintType/ComplaintType}"/>
@@ -73,6 +73,9 @@
                         </IconTabFilter>
                         <IconTabFilter  text="{i18n>Performance}" key="4" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.InsightsLayout" type="XML"/>
+                        </IconTabFilter>
+                          <IconTabFilter  text="{i18n>DgaReplacementHistory}" key="5" >
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.DgaReplacementTable" type="XML"/>
                         </IconTabFilter>
                         <!-- <IconTabFilter  text="{i18n>AttendanceAndVisits}" key="5" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
