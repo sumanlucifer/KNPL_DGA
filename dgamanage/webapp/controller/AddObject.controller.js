@@ -109,7 +109,7 @@ sap.ui.define([
                 c2 = othat._setInitViewModel();
                 c2.then(function () {
                     c2A = othat._LoadAddFragment("AddNewObject2");
-                    c2A.then(function (oPayload) {
+                    c2A.then(function () {
                         c2B = othat._getExistingDgaDetails(sId);
                         c2B.then(function (oPayload) {
                             c2C = othat._setDataForControlType1(oPayload);
