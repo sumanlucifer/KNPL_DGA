@@ -80,6 +80,10 @@
                     <IconTabFilter  text="{i18n>MaterialRequisition}" key="3" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.MaterialRequisition" type="XML"/>
                     </IconTabFilter> 
+                    <!-- DGA History tab -->
+                    <IconTabFilter  text="{i18n>DGAHistory}" key="4" >
+                        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.DGAHistory" type="XML"/>
+                    </IconTabFilter> 
                     <!-- Feedback tab -->
                     <!-- <IconTabFilter  text="{i18n>Feedback}" key="4" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.Feedback" type="XML"/>

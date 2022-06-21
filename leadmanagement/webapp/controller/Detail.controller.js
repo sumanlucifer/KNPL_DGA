@@ -228,7 +228,10 @@ sap.ui.define(
                     oView.byId("idMaterialsReqTable5").rebindTable();
                     oView.byId("idMaterialsReqTable6").rebindTable();
                     oView.byId("idMaterialsReqTable1").rebindTable();
+                } else if (sKey == "4") {
+                    oView.byId("DGAHistoryTbl").rebindTable();
                 }
+                
             },
 
             _bindPreEstimationTbl: function (oEvent,iPaintingReqId) {
@@ -438,6 +441,15 @@ sap.ui.define(
                 var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
                 oBindingParams.filters.push(oFiler);
                 // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeRebindDGAHistory: function (oEvent) {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "DGA,DGA/DGAType,DGA/Depot,DGA/Pincode,DGA/PayrollCompany";
+                var oFiler = new Filter("Id", FilterOperator.EQ, sId);
+                oBindingParams.filters.push(oFiler);
+                oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
