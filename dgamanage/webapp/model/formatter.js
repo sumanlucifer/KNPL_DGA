@@ -93,7 +93,7 @@ sap.ui.define([], function () {
             return aArray.join(", ")
 
         },
-       
+
         fmtDealerValueHelp1: function (mParam1, mParam2) {
             if (mParam1) {
                 return this._geti18nText("Message22") + mParam1;
@@ -118,6 +118,18 @@ sap.ui.define([], function () {
 
             }
         },
+        fmtDisplayReplacedBtn: function (mParam1, mParam2) {
+            /**
+             * mParam1 - activation status
+             * mParam2 - IsReplaced
+            */
+            if (mParam1 === "DEACTIVATED") {
+                if (mParam2 === true) {
+                    return false;
+                }
+            }
+            return true
+        },
         GetWorkListDepot: function (mParam1) {
             var aArray = [];
             if (Array.isArray(mParam1)) {
@@ -132,21 +144,21 @@ sap.ui.define([], function () {
                 return aArray.join(" ")
             }
         },
-        fmtDisplayDepots:function(mParam1){
+        fmtDisplayDepots: function (mParam1) {
             var aArray = [];
-            if(mParam1){
-                if(Array.isArray(mParam1)){
+            if (mParam1) {
+                if (Array.isArray(mParam1)) {
                     var obj;
                     var oData = this.getView().getModel();
-                    for(var x in mParam1){
-                        obj = oData.getProperty("/"+mParam1[x])
+                    for (var x in mParam1) {
+                        obj = oData.getProperty("/" + mParam1[x])
                         aArray.push(obj["DepotId"])
                     }
                 }
-                
+
                 return aArray.join(" ")
             }
-            
+
         },
         fmtChildTowns2: function (mParam1) {
 
@@ -181,37 +193,37 @@ sap.ui.define([], function () {
             var aArray = []
             if (Array.isArray(mParam1)) {
                 var oData = this.getView().getModel();
-                var sObj1, sObj2,sObj3;
+                var sObj1, sObj2, sObj3;
                 for (var x in mParam1) {
                     sObj1 = oData.getProperty("/" + mParam1[x]);
-                    for (var y in sObj1["ChildTowns"]["__list"]){
+                    for (var y in sObj1["ChildTowns"]["__list"]) {
                         sObj2 = oData.getProperty("/" + sObj1["ChildTowns"]["__list"][y]);
                         sObj3 = oData.getProperty("/" + sObj2["WorkLocation"]["__ref"]);
                         aArray.push(sObj3["TownName"] + "-" + sObj3["TownId"]);
                     }
-                    
+
                 }
-                
+
                 return aArray.join(", ")
             }
             return "Na"
-            
+
         },
-        fmDisplayServicePinCode:function(mParam1){
+        fmDisplayServicePinCode: function (mParam1) {
             var aArray = []
             if (Array.isArray(mParam1)) {
                 var oData = this.getView().getModel();
-                var sObj1, sObj2,sObj3;
+                var sObj1, sObj2, sObj3;
                 for (var x in mParam1) {
                     sObj1 = oData.getProperty("/" + mParam1[x]);
-                    for (var y in sObj1["ServicePincodes"]["__list"]){
+                    for (var y in sObj1["ServicePincodes"]["__list"]) {
                         sObj2 = oData.getProperty("/" + sObj1["ServicePincodes"]["__list"][y]);
                         sObj3 = oData.getProperty("/" + sObj2["Pincode"]["__ref"]);
                         aArray.push(sObj3["Name"]);
                     }
-                    
+
                 }
-                
+
                 return aArray.join(", ")
             }
             return "Na"

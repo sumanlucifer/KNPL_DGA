@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable id="idWorkListTable1" header="{i18n>MainObject} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="DGAs" beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="Id,Positions" >
+    <smartTable:SmartTable id="idWorkListTable1" header="{i18n>MainObject} {i18n>List}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="DGAs" beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="Id,Positions,IsReplaced" >
         <smartTable:customToolbar>
 			<OverflowToolbar>
                         <ToolbarSpacer />
@@ -112,7 +112,10 @@
                                     <Text text="{Pincode/Name}"/>
                                      <Text text="{PayrollCompany/Name}"/>
                                     <ObjectStatus text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange'}"/>
-                                    <Button text="{i18n>ReplaceDga}" press="onPressDgaReplacement" />
+                                      <HBox >
+                                             <Button text="{i18n>ReplaceDga}" press="onPressDgaReplacement" visible="{parts:['ActivationStatus','IsReplaced'],formatter:'.formatter.fmtDisplayReplacedBtn'}" />
+                                        </HBox>
+                                   
                         <!-- <Text text="{ComplaintCode}"/> -->
                           <!--
                          <Text text="{ComplaintType/ComplaintType}"/>
