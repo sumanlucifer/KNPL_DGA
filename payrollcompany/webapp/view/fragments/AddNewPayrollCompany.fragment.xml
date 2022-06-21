@@ -4,7 +4,7 @@
         <content>
             <f:SimpleForm columnsL="2" layout="ResponsiveGridLayout"	columnsM="2"	singleContainerFullSize="false"  >
                 <Label text="{i18n>PayrollCompanyName}" />
-                <Input required="true" id="idPayrollCompanyAdd" value="{path:'oModelControl>/AddFields/Name', type : 'sap.ui.model.type.String', constraints:{ minLength:1 } }" />
+                <Input required="true" id="idPayrollCompanyAdd" liveChange="onInputChange" value="{path:'oModelControl>/AddFields/Name', type : 'sap.ui.model.type.String', constraints:{ minLength:1 } }" />
             </f:SimpleForm>
         </content>
         <beginButton>
