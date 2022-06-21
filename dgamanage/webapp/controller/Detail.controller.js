@@ -188,7 +188,7 @@
                     var sProp = oModel.getProperty("/bindProp")
                     oModel.setProperty("/mode", "Edit");
                     var oData = oModel.getData();
-                    var c1,c1A, c2, c2A, c3, c4, c5, c6, c7;
+                    var c1, c1A, c2, c2A, c3, c4, c5, c6, c7;
                     var c1 = othat._AddObjectControlModel("Edit", oData["Id"]);
                     oModel.setProperty("/PageBusy", true);
                     c1.then(function () {
@@ -217,13 +217,13 @@
                     })
 
                 },
-                _EditReplaceDgaAddFlags:function(){
+                _EditReplaceDgaAddFlags: function () {
                     var promise = $.Deferred();
                     var oView = this.getView();
                     var oModelView = oView.getModel("oModelView");
-                    var aFields = ["GivenName","Mobile","PayrollCompanyId","EmployeeId","JoiningDate","ExitDate"]
+                    var aFields = ["GivenName", "Mobile", "PayrollCompanyId", "EmployeeId", "JoiningDate", "ExitDate"]
                     this._propertyToBlank(aFields);
-                    oModelView.setProperty("/ReplacedDGAId",oModelView.getProperty("/Id"));
+                    oModelView.setProperty("/ReplacedDGAId", oModelView.getProperty("/Id"));
                     this._showMessageToast("Message24");
                     promise.resolve();
                     return promise;
@@ -292,7 +292,7 @@
                         Mode: "Edit"
                     });
                 },
-               _SetFiltersForControls:  function () {
+                _SetFiltersForControls: function () {
                     var promise = $.Deferred();
                     var oView = this.getView();
                     var oModelView = oView.getModel("oModelView");
@@ -474,10 +474,25 @@
                     // oBindingParams.filters.push(oFiler);
                     // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 },
-                onBeforeBindDgaReplaceTbl:function(oEvent){
+                onBeforeBindDgaReplaceTbl: function (oEvent) {
+                    var oView = this.getView();
+                    var oData=oView.getModel();
                     var oBindingParams = oEvent.getParameter("bindingParams");
                     oBindingParams.parameters["expand"] = "DGA";
-                    console.log("replacement table")
+                    var aPositions = this.getView().getElementBinding().getBoundContext().getObject()["Positions"];
+                    var sObj, sPositionCode = null;
+                    if (Array.isArray(aPositions["__list"])) {
+                        sObj = oData.getProperty("/" + aPositions["__list"][0]);
+                        sPositionCode = sObj["PositionCode"];
+                    }
+                    if (sPositionCode) {
+                        oBindingParams.filters.push(new Filter(
+                            "PositionCode",
+                            FilterOperator.EQ,
+                            sPositionCode
+                        ));
+                    }
+
                 },
                 // #perfrmance smart table
                 rebindLeadByStatusTbl: function (oEvent) {
