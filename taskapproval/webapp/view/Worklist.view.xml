@@ -8,14 +8,12 @@
                         <fb:filterGroupItems>
                                <fb:FilterGroupItem groupName="__$INTERNAL$" name="DealerName" label="{i18n>DealerName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                     <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>Zone}" selectionChange="onZoneChange"  items="" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
-                                        <core:Item text="" key="" />
-                                    </ComboBox>
+                                    <Input value="" valueHelpOnly="true" valueHelpRequest="onDealerValueHelpRequest" showValueHelp="true" ></Input>
                                 </fb:control>
                             </fb:FilterGroupItem>
                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="MobileNo" label="{i18n>MobileNo}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                     <Input value="" ></Input>
+                                     <Input value="" valueHelpOnly="true" valueHelpRequest="onDGAValueHelpRequest" showValueHelp="true" ></Input>
                                 </fb:control>
                             </fb:FilterGroupItem>
 

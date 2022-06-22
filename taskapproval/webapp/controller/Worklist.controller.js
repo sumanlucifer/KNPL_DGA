@@ -45,9 +45,11 @@ sap.ui.define(
                         EndDate: null,
                         Status: "",
                         Search: "",
-                        ZoneId: "",
+                        Zone: "",
                         DivisionId: "",
                         DepotId: "",
+                        DealerName: "",
+                        DGAMobile: ""
 
                     },
                     PageBusy: true
@@ -223,7 +225,6 @@ sap.ui.define(
                 if (oFilter) {
                     oBindingParams.filters.push(oFilter);
                 }
-
             },
             onFilterBarSearch: function () {
                 var oView = this.getView();
@@ -332,6 +333,152 @@ sap.ui.define(
                         });
                         break;
                 }
+            },
+            
+            onDealerValueHelpRequest: function (oEvent) {
+                var sInputValue = oEvent.getSource().getValue(),
+                    oView = this.getView();
+
+                if (!this._DealerValueHelpDialog) {
+                    this._DealerValueHelpDialog = Fragment.load({
+                        id: oView.getId(),
+                        name:
+                            "com.knpl.dga.taskapproval.view.fragments.DealerValueHelpDialog",
+                        controller: this,
+                    }).then(function (oDialog) {
+                        oView.addDependent(oDialog);
+                        return oDialog;
+                    });
+                }
+                this._DealerValueHelpDialog.then(function (oDialog) {
+                    // Open ValueHelpDialog filtered by the input's value
+                    oDialog.open(sInputValue);
+                });
+            },
+            onDealerValueHelpSearch: function (oEvent) {
+                var sValue = oEvent.getParameter("value");
+                var oFilter = new Filter(
+                    [
+                        new Filter(
+                            {
+                                path: "Name",
+                                operator: "Contains",
+                                value1: sValue.trim(),
+                                caseSensitive: false
+                            }
+                        ),
+                        new Filter(
+                            {
+                                path: "RegionCode",
+                                operator: "Contains",
+                                value1: sValue.trim(),
+                                caseSensitive: false
+                            }
+                        )
+                    ],
+                    false
+                );
+
+                oEvent.getSource().getBinding("items").filter([oFilter]);
+            },
+            onDealerValueHelpClose: function (oEvent) {
+                var oSelectedItem = oEvent.getParameter("selectedItem");
+                oEvent.getSource().getBinding("items").filter([]);
+                var oViewModel = this.getView().getModel("oModelView"),
+                 oModelControl = this.getView().getModel("oModelControl")  ;
+                if (!oSelectedItem) {
+                    return;
+                }
+                var obj = oSelectedItem.getBindingContext().getObject();
+                oViewModel.setProperty(
+                    "/addCompAddData/MembershipCard",
+                    obj["MembershipCard"]
+                );
+                //  debugger;
+                oViewModel.setProperty("/addCompAddData/Mobile", obj["Mobile"]);
+                oViewModel.setProperty("/addCompAddData/Name", obj["Name"]);
+                oViewModel.setProperty("/addComplaint/PainterId", obj["Id"]);
+               
+                oModelControl.setProperty("/DivisionId",obj.DivisionId );
+                oModelControl.setProperty("/ZoneId",obj.ZoneId );
+
+                oModelControl.setProperty("/DepotId", ""  ); 
+                //Fallback as Preliminary context not supported
+                this._getDepot(obj.DepotId);
+                    //DivisionId,ZoneId
+            },
+            
+            onDGAValueHelpRequest: function (oEvent) {
+                var sInputValue = oEvent.getSource().getValue(),
+                    oView = this.getView();
+
+                if (!this._DealerValueHelpDialog) {
+                    this._DealerValueHelpDialog = Fragment.load({
+                        id: oView.getId(),
+                        name:
+                            "com.knpl.dga.taskapproval.view.fragments.DGAValueHelpDialog",
+                        controller: this,
+                    }).then(function (oDialog) {
+                        oView.addDependent(oDialog);
+                        return oDialog;
+                    });
+                }
+                this._DealerValueHelpDialog.then(function (oDialog) {
+                    // Open ValueHelpDialog filtered by the input's value
+                    oDialog.open(sInputValue);
+                });
+            },
+            onDGAValueHelpSearch: function (oEvent) {
+                var sValue = oEvent.getParameter("value");
+                var oFilter = new Filter(
+                    [
+                        new Filter(
+                            {
+                                path: "Name",
+                                operator: "Contains",
+                                value1: sValue.trim(),
+                                caseSensitive: false
+                            }
+                        ),
+                        new Filter(
+                            {
+                                path: "RegionCode",
+                                operator: "Contains",
+                                value1: sValue.trim(),
+                                caseSensitive: false
+                            }
+                        )
+                    ],
+                    false
+                );
+
+                oEvent.getSource().getBinding("items").filter([oFilter]);
+            },
+            onDGAValueHelpClose: function (oEvent) {
+                var oSelectedItem = oEvent.getParameter("selectedItem");
+                oEvent.getSource().getBinding("items").filter([]);
+                var oViewModel = this.getView().getModel("oModelView"),
+                 oModelControl = this.getView().getModel("oModelControl")  ;
+                if (!oSelectedItem) {
+                    return;
+                }
+                var obj = oSelectedItem.getBindingContext().getObject();
+                oViewModel.setProperty(
+                    "/addCompAddData/MembershipCard",
+                    obj["MembershipCard"]
+                );
+                //  debugger;
+                oViewModel.setProperty("/addCompAddData/Mobile", obj["Mobile"]);
+                oViewModel.setProperty("/addCompAddData/Name", obj["Name"]);
+                oViewModel.setProperty("/addComplaint/PainterId", obj["Id"]);
+               
+                oModelControl.setProperty("/DivisionId",obj.DivisionId );
+                oModelControl.setProperty("/ZoneId",obj.ZoneId );
+
+                oModelControl.setProperty("/DepotId", ""  ); 
+                //Fallback as Preliminary context not supported
+                this._getDepot(obj.DepotId);
+                    //DivisionId,ZoneId
             },
             _onNavToDetails: function (mParam1) {
                 var oRouter = this.getOwnerComponent().getRouter();
