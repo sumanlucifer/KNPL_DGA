@@ -98,6 +98,10 @@ modules:
       - comknpldgaproducts.zip
       name: comknpldgaproducts
       target-path: resources/
+    - artifacts:
+      - comknpldgaproductrecommendation.zip
+      name: comknpldgaproductrecommendation
+      target-path: resources/
 - name: comknpldgacomplains
   type: html5
   path: complains
@@ -235,6 +239,16 @@ modules:
 - name: comknpldgaproducts
   type: html5
   path: products
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgaproductrecommendation
+  type: html5
+  path: productrecommendation
   build-parameters:
     build-result: dist
     builder: custom
