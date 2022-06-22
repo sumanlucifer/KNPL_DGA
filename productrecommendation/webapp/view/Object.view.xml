@@ -16,7 +16,7 @@
             <uxap:headerTitle>
                 <uxap:ObjectPageDynamicHeaderTitle>
                     <uxap:breadcrumbs>
-                        <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>CatalogueDetails}">
+                        <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>CatalogueDetails2}">
                             <Link text="{i18n>CatalogueDetails}" press="handleAllCatelogueLinkPress"/>
                         </Breadcrumbs>
                     </uxap:breadcrumbs>

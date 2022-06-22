@@ -242,12 +242,12 @@ sap.ui.define([
                             }));
                         }
                         break;
-                    case "Title":
-                        sValue = oControl.getValue();
-                        if (sValue && sValue !== "") {
-                            aFilters.push(new Filter({ path: "ProductRecommendationName", operator: FilterOperator.Contains, value1: sValue.trim(), caseSensitive: false }));
-                        }
-                        break;
+                    // case "Title":
+                    //     sValue = oControl.getValue();
+                    //     if (sValue && sValue !== "") {
+                    //         aFilters.push(new Filter({ path: "ProductRecommendationName", operator: FilterOperator.Contains, value1: sValue.trim(), caseSensitive: false }));
+                    //     }
+                    //     break;
                     case "Created By":
                         sValue = oControl.getValue();
                         if (sValue && sValue !== "") {

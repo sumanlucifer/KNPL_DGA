@@ -39,6 +39,7 @@ sap.ui.define([
             this.getView().addDependent(this._pdfViewer);
         },
         _onObjectMatched: function (oEvent) {
+            
             this._action = oEvent.getParameter("arguments").action;
             this._property = oEvent.getParameter("arguments").property;
             // this.sServiceURI = this.getOwnerComponent().getManifestObject().getEntry("/sap.app").dataSources.KNPL_DS.uri;
@@ -73,7 +74,7 @@ sap.ui.define([
                         that.entityObject = data;
                         // oData.Title = data.ProductId;
                         oData.ProductRecommendationName = data.ProductRecommendationName;
-                        // if (data.MediaList > 0) {
+                        // if (data.MediaList.results.filter(item => item.ContentType === "application/pdf")) {
                         //     that.oAddButton.setEnabled(false);
                         // } else {
                         //     that.oAddButton.setEnabled(true);

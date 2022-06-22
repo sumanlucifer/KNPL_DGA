@@ -66,5 +66,16 @@ sap.ui.define([
         _navToHome: function () {
             this.getRouter().navTo("worklist");
         },
+        _geti18nText: function (mParam, mParam2) {
+            /*
+             * Author: manik saluja
+             * Date: 15-Mar-2022
+             * Language:  JS
+             * Purpose: This is the for getting the i18n text with additional paramters
+             */
+            var oModel = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+            return oModel.getText(mParam, mParam2);
+        },
+
     });
 });
