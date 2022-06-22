@@ -50,7 +50,6 @@ sap.ui.define(
                         DepotId: "",
                         DealerName: "",
                         DGAMobile: ""
-
                     },
                     PageBusy: true
                 };
@@ -76,12 +75,14 @@ sap.ui.define(
                 var aCurrentFilterValues = [];
                 var aResetProp = {
                     StartDate: null,
+                    EndDate: null,
                     Status: "",
                     Search: "",
-                    ZoneId: "",
+                    Zone: "",
                     DivisionId: "",
                     DepotId: "",
-
+                    DealerName: "",
+                    DGAMobile: ""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -272,19 +273,30 @@ sap.ui.define(
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop]));
+                        }
+                        //Delaer Filter Pending 
+                        // else if (prop === "DealerName") {
+                        //     aFlaEmpty = false;
+                        //     aCurrentFilterValues.push(
+                        //         new Filter("Visit/DealerId", FilterOperator.EQ, oViewFilter[prop]));
+                        // } 
+                        else if (prop === "DGAMobile") {
+                            aFlaEmpty = false;
+                            aCurrentFilterValues.push(
+                                new Filter("Visit/DGA/Mobile", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter(
                                     [
                                         new Filter({
-                                            path: "Painter/Name",
+                                            path: "Visit/DGA/GivenName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "ComplaintCode",
+                                            path: "Visit/Id",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
@@ -412,8 +424,8 @@ sap.ui.define(
                 var sInputValue = oEvent.getSource().getValue(),
                     oView = this.getView();
 
-                if (!this._DealerValueHelpDialog) {
-                    this._DealerValueHelpDialog = Fragment.load({
+                if (!this._DGAValueHelpDialog) {
+                    this._DGAValueHelpDialog = Fragment.load({
                         id: oView.getId(),
                         name:
                             "com.knpl.dga.taskapproval.view.fragments.DGAValueHelpDialog",
@@ -423,7 +435,7 @@ sap.ui.define(
                         return oDialog;
                     });
                 }
-                this._DealerValueHelpDialog.then(function (oDialog) {
+                this._DGAValueHelpDialog.then(function (oDialog) {
                     // Open ValueHelpDialog filtered by the input's value
                     oDialog.open(sInputValue);
                 });
@@ -434,7 +446,7 @@ sap.ui.define(
                     [
                         new Filter(
                             {
-                                path: "Name",
+                                path: "GivenName",
                                 operator: "Contains",
                                 value1: sValue.trim(),
                                 caseSensitive: false
@@ -442,7 +454,7 @@ sap.ui.define(
                         ),
                         new Filter(
                             {
-                                path: "RegionCode",
+                                path: "Mobile",
                                 operator: "Contains",
                                 value1: sValue.trim(),
                                 caseSensitive: false
