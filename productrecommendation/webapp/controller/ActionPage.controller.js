@@ -26,7 +26,7 @@ sap.ui.define([
             // this.oCategory = this.getView().byId("idCategory");
             // this.oClassification = this.getView().byId("idClassification");
             this.oTextInput = this.getView().byId("idText");
-            this.oAddButton=this.getView().byId("idButton");
+            this.oAddButton = this.getView().byId("idButton");
             // this.oProduct = this.getView().byId("idInputProduct");
             this.oForm = this.getView().byId("idCatalogueDetailsForm");
             this.imageName = "";
@@ -73,6 +73,11 @@ sap.ui.define([
                         that.entityObject = data;
                         // oData.Title = data.ProductId;
                         oData.ProductRecommendationName = data.ProductRecommendationName;
+                        // if (data.MediaList > 0) {
+                        //     that.oAddButton.setEnabled(false);
+                        // } else {
+                        //     that.oAddButton.setEnabled(true);
+                        // }
                         // oData.Category = data.ProductCategoryId
                         // oData.Classification = data.ProductClassificationId
                         // oData.Range = data.ProductRangeId
@@ -91,22 +96,13 @@ sap.ui.define([
                     error: function (oError) {
                     }
                 });
-                // this.oCategory.setEditable(false);
-                // this.oTitle.setEditable(false);
-                // this.oTitle.setVisible(false);
-                // this.oClassification.setEditable(false);
                 this.oTextInput.setVisible(true);
-                this.oTextInput.setEditable(false);
+                this.oTextInput.setEditable(true);
                 this.oAddButton.setEnabled(true);
                 var pdfURL = this.sServiceURI + this._property + "/$value?doc_type=pdf";
                 this.pdfBtn.setVisible(true);
                 this.imgBtn.setVisible(true);
             } else {
-                // this.oCategory.setEditable(true);
-                // this.oTitle.setVisible(true);
-                // this.oTitle.setEditable(true);
-                // this.oClassification.setEditable(true);
-                // this.oProduct.setVisible(false);
                 this.oAddButton.setEnabled(true);
                 this.oTextInput.setVisible(true);
                 this.oTextInput.setEditable(true);
@@ -117,7 +113,7 @@ sap.ui.define([
             this.oFileUploader.clear();
             var oViewModel = new JSONModel(oData);
             this.getView().setModel(oViewModel, "ActionViewModel");
-            // this._setDefaultValueState();
+            this._setDefaultValueState();
         },
         onAfterRendering: function () {
         },
@@ -261,61 +257,78 @@ sap.ui.define([
             this._showSuccessMsg();
         },
         onPressSaveOrUpdate: function () {
-            // if (this._validateRequiredFields()) {
-            var oDataModel = this.getComponentModel();
-            var oViewModel = this.getView().getModel("ActionViewModel");
-            var Competitors = JSON.parse(
-                JSON.stringify(oViewModel.getProperty("/Competitor"))
-            ).map((item) => {
-                // var id = parseInt(item.CompetitorCompanyId);
-                var id = item.CompetitorCompanyId;
-                var name = item.CompetitorProductName;
-                var list = { CompetitorCompanyId: id, CompetitorProductName: name }
-                return list;
-            });
-            var oParam = {};
-            $.extend(true, oParam, this.entityObject);
-            //delete oParam.__metadata;
-            delete oParam.MediaList;
-            //OParams are used when update 
-            // oParam.Title = oViewModel.getProperty("/Name"),
-            // oParam.Description = oViewModel.getProperty("/Name"),
-            // oParam.ProductId = oViewModel.getProperty("/Title"),
-            oParam.ProductRecommendationName = oViewModel.getProperty("/ProductRecommendationName")
-            // oParam.ProductCategoryId = oViewModel.getProperty("/Category"),
-            // oParam.ProductClassificationId = oViewModel.getProperty("/Classification"),
-            // oParam.ProductRangeId = parseInt(oViewModel.getProperty("/Range"),
-            // oParam.ProductRangeId = oViewModel.getProperty("/Range"),
-            // oParam.ProductCompetitors = Competitors
-            if (this._action !== "edit") {
-                var productrecommendation = this.getView().byId("idText").getValue();
-                //oPayload are used when create 
-                var oPayload = {
-                    // Title: Title,
-                    ProductRecommendationName: productrecommendation,
-                    // ProductId: this.getView().byId("idTitle").getSelectedItem().getKey(),
-                    // ProductCategoryId: oViewModel.getProperty("/Category"),
-                    // ProductClassificationId: oViewModel.getProperty("/Classification"),
-                    // ProductRangeId: parseInt(oViewModel.getProperty("/Range")),
-                    // ProductRangeId: oViewModel.getProperty("/Range"),
-                    // ProductCompetitors: Competitors
-                };
-            }
-            var cFiles = [];
-            cFiles.push(this.oFileUploader.getValue());
-            cFiles.push(this.oFileUploaderPdf.getValue());
-            if (cFiles) {
-                //oViewModel.setProperty("/busy", true);
-                if (this._action === "add") {
-                    if (!this.oFileUploader.getValue()) {
-                        MessageToast.show(this.oResourceBundle.getText("fileUploaderChooseFirstValidationTxt"));
+            if (this._validateRequiredFields()) {
+                var oDataModel = this.getComponentModel();
+                var oViewModel = this.getView().getModel("ActionViewModel");
+                var Competitors = JSON.parse(
+                    JSON.stringify(oViewModel.getProperty("/Competitor"))
+                ).map((item) => {
+                    // var id = parseInt(item.CompetitorCompanyId);
+                    var id = item.CompetitorCompanyId;
+                    var name = item.CompetitorProductName;
+                    var list = { CompetitorCompanyId: id, CompetitorProductName: name }
+                    return list;
+                });
+                var oParam = {};
+                $.extend(true, oParam, this.entityObject);
+                //delete oParam.__metadata;
+                delete oParam.MediaList;
+                //OParams are used when update 
+                // oParam.Title = oViewModel.getProperty("/Name"),
+                // oParam.Description = oViewModel.getProperty("/Name"),
+                // oParam.ProductId = oViewModel.getProperty("/Title"),
+                oParam.ProductRecommendationName = oViewModel.getProperty("/ProductRecommendationName")
+                // oParam.ProductCategoryId = oViewModel.getProperty("/Category"),
+                // oParam.ProductClassificationId = oViewModel.getProperty("/Classification"),
+                // oParam.ProductRangeId = parseInt(oViewModel.getProperty("/Range"),
+                // oParam.ProductRangeId = oViewModel.getProperty("/Range"),
+                // oParam.ProductCompetitors = Competitors
+                if (this._action !== "edit") {
+                    var productrecommendation = this.getView().byId("idText").getValue();
+                    //oPayload are used when create 
+                    var oPayload = {
+                        // Title: Title,
+                        ProductRecommendationName: productrecommendation,
+                        // ProductId: this.getView().byId("idTitle").getSelectedItem().getKey(),
+                        // ProductCategoryId: oViewModel.getProperty("/Category"),
+                        // ProductClassificationId: oViewModel.getProperty("/Classification"),
+                        // ProductRangeId: parseInt(oViewModel.getProperty("/Range")),
+                        // ProductRangeId: oViewModel.getProperty("/Range"),
+                        // ProductCompetitors: Competitors
+                    };
+                }
+                var cFiles = [];
+                cFiles.push(this.oFileUploader.getValue());
+                cFiles.push(this.oFileUploaderPdf.getValue());
+                if (cFiles) {
+                    //oViewModel.setProperty("/busy", true);
+                    if (this._action === "add") {
+                        if (!this.oFileUploader.getValue()) {
+                            MessageToast.show(this.oResourceBundle.getText("fileUploaderChooseFirstValidationTxt"));
+                        } else {
+                            var that = this
+                            oDataModel.create("/ProductRecommendations", oPayload, {
+                                success: function (oData, response) {
+                                    var id = oData.Id;
+                                    that._uploadToolImage(oData);
+                                    that._uploadPdf(oData);
+                                    that.getOwnerComponent().getModel().refresh(true);
+                                    oViewModel.refresh(true);
+                                },
+                                error: function (oError) {
+                                    console.log("Error!");
+                                }
+                            });
+                        }
                     } else {
-                        var that = this
-                        oDataModel.create("/ProductRecommendations", oPayload, {
-                            success: function (oData, response) {
-                                var id = oData.Id;
-                                that._uploadToolImage(oData);
-                                that._uploadPdf(oData);
+                        var that = this;
+                        var _property = this._property;
+                        // console.log(oPayload);
+                        oDataModel.update("/" + _property, oParam, {
+                            success: function () {
+                                that._showSuccessMsg();
+                                that._updateImage(_property);
+                                that._updatePdf(_property);
                                 that.getOwnerComponent().getModel().refresh(true);
                                 oViewModel.refresh(true);
                             },
@@ -324,25 +337,8 @@ sap.ui.define([
                             }
                         });
                     }
-                } else {
-                    var that = this;
-                    var _property = this._property;
-                    // console.log(oPayload);
-                    oDataModel.update("/" + _property, oParam, {
-                        success: function () {
-                            that._showSuccessMsg();
-                            that._updateImage(_property);
-                            that._updatePdf(_property);
-                            that.getOwnerComponent().getModel().refresh(true);
-                            oModel.refresh(true);
-                        },
-                        error: function (oError) {
-                            console.log("Error!");
-                        }
-                    });
                 }
             }
-            // }
         },
         _onLoadSuccess: function (oData) {
             if (this.oFileUploader.getValue()) {
@@ -374,12 +370,12 @@ sap.ui.define([
             MessageToast.show(sMessage);
         },
         _validateRequiredFields: function () {
-            var oText = this.getView().byId("idText");
-            var oCategoryControl = this.getView().byId("idCategory");
+            var oText = this.getView().byId("idText").getValue();
+            // var oCategoryControl = this.getView().byId("idCategory");
             // var oClassificationControl = this.getView().byId("idClassification");
-            var oRangeControl = this.getView().byId("idRange");
+            // var oRangeControl = this.getView().byId("idRange");
             var oObjectCatalogue = this.getModel("ActionViewModel").getProperty("/Catalogue");
-            var oObjectCompetitors = this.getModel("ActionViewModel").getProperty("/Competitor");
+            // var oObjectCompetitors = this.getModel("ActionViewModel").getProperty("/Competitor");
             var oSet = new Set();
             var bCataloguePDF = oObjectCatalogue.every(function (ele) {
                 if (oSet.has(ele.LanguageCode) !== true) {
@@ -388,12 +384,12 @@ sap.ui.define([
                 }
                 return false;
             });
-            var bCompetitors = oObjectCompetitors.every(function (ele) {
-                if (ele.CompetitorProductName == "" || ele.CompetitorProductName == null) {
-                    return false;
-                }
-                return true;
-            });
+            // var bCompetitors = oObjectCompetitors.every(function (ele) {
+            //     if (ele.CompetitorProductName == "" || ele.CompetitorProductName == null) {
+            //         return false;
+            //     }
+            //     return true;
+            // });
             var bEnglishPDF = oObjectCatalogue.find(function (ele) {
                 if (ele.LanguageCode === "EN") {
                     return true;
@@ -401,50 +397,39 @@ sap.ui.define([
                 return false;
             })
             // this._setControlValueState([oTitleControl]);
-            this._setSelectControlValueState([oCategoryControl, oClassificationControl, oRangeControl]);
-            if (oCategoryControl.getSelectedKey() &&
-                oClassificationControl.getSelectedKey() && oRangeControl.getSelectedKey()) {
-                if (!bEnglishPDF) {
-                    var sMessage = "English PDF Required";
-                    MessageToast.show(sMessage);
-                    return false;
-                }
-                if (!bCataloguePDF) {
-                    var sMessage = "Multiple PDF of same Language";
-                    MessageToast.show(sMessage);
-                    return false;
-                }
-                if (oObjectCatalogue.length > 0) {
-                    if (oObjectCompetitors.length > 0) {
-                        if (!bCompetitors) {
-                            var sMessage = "Add Competitor Product Name!";
-                            MessageToast.show(sMessage);
-                            return false;
-                        }
-                        return true;
-                    } else {
-                        return true;
-                    }
-                }
-                else {
-                    var sMessage = "Upload English Catalogue";
-                    MessageToast.show(sMessage);
-                }
-            } else {
+            //  this._setSelectControlValueState([oText]);
+            if (oText == "" || oText == null) {
+                var sMessage = "Title is Required";
+                MessageToast.show(sMessage);
+                this.getView().byId("idText").setValueState("Error");
+                this.getView().byId("idText").setValueStateText("Title is Required");
                 return false;
+            }
+            if (!bEnglishPDF) {
+                var sMessage = "English PDF Required";
+                MessageToast.show(sMessage);
+                return false;
+            }
+            // if (!bCataloguePDF) {
+            //     var sMessage = "Multiple PDF of same Language";
+            //     MessageToast.show(sMessage);
+            //     return false;
+            // }
+            if (oObjectCatalogue.length > 0) {
+                if (!oText) {
+                    var sMessage = "Add Title!";
+                    MessageToast.show(sMessage);
+                    return false;
+                }
+                return true;
+            }
+            else {
+                var sMessage = "Upload English Catalogue";
+                MessageToast.show(sMessage);
             }
         },
         _setDefaultValueState: function () {
             var oText = this.getView().byId("idText");
-            var oCategoryControl = this.getView().byId("idCategory");
-            // var oClassificationControl = this.getView().byId("idClassification");
-            // var oRangeControl = this.getView().byId("idRange");
-            // oTitleControl.setValueState("None");
-            // oTitleControl.setValueStateText("");
-            oCategoryControl.setValueState("None");
-            oCategoryControl.setValueStateText("");
-            // oClassificationControl.setValueState("None");
-            // oClassificationControl.setValueStateText("");
             oText.setValueState("None");
             oText.setValueStateText("");
         },
@@ -546,7 +531,6 @@ sap.ui.define([
                     onClose: function (sAction) {
                         if (sAction == "OK") {
                             othat.onPressRemoveCatalogue(sPath, aCatalogue);
-                          
                             oModel.refresh(true);
                         }
                     },
@@ -587,16 +571,16 @@ sap.ui.define([
                                 aCatalogue.splice(parseInt(sPath[sPath.length - 1]), 1);
                                 var sMessage = "Catalogue Deleted!";
                                 MessageToast.show(sMessage);
-                                that.getView().byId("idButton").setEnabled(true);
                                 that.getOwnerComponent().getModel().refresh(true);
                                 oModel.refresh(true);
-                                
                             },
-                            error: function () { },
+                            error: function () {
+                            }
                         })
                     }
                     else {
                         aCatalogue.splice(i);
+                        that.getView().byId("idButton").setEnabled(true);
                     }
                 }
             };

@@ -229,11 +229,11 @@
             <uxap:footer>
             <OverflowToolbar>
 				<ToolbarSpacer/>
-                 <Button 
+                 <!-- <Button 
                                 type="{= ${Status} === true? 'Reject' : undefined || ${Status} === false? 'Emphasized' : undefined }"
                                 text="{path: 'Status',
                                     formatter: '.formatter.status'}"
-                                data:remarks="{Status}" press="onPressStatus" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
+                                data:remarks="{Status}" press="onPressStatus" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/> -->
             </OverflowToolbar>
         </uxap:footer>
         </uxap:ObjectPageLayout>
