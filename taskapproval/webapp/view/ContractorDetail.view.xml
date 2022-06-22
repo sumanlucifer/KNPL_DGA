@@ -1,6 +1,6 @@
-<mvc:View height="100%" controllerName="com.knpl.dga.taskapproval.controller.Detail" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+<mvc:View height="100%" controllerName="com.knpl.dga.taskapproval.controller.ContractorDetail" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
     <f:DynamicPage busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
-			class="sapUiNoContentPadding" showFooter="true" id="dynamicPageId" headerExpanded="true">
+			class="sapUiNoContentPadding" showFooter="true" id="dynamicPageContractorId" headerExpanded="true">
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
@@ -50,10 +50,10 @@
             </f:DynamicPageHeader>
         </f:header>
         <f:content>
-            <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="iconTabBar" class="sapUiResponsiveContentPadding" >
+            <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="idContractorIconTabBar" class="sapUiResponsiveContentPadding" >
                 <items>
                     <IconTabFilter  text="{i18n>VisitDetails}" key="0" >
-                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.LeadVisitDetails" type="XML"/>
+                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.VisitDetails" type="XML"/>
                     </IconTabFilter>
                     <IconTabFilter  text="{i18n>SiteDetails}" key="1" >
                         <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.SiteDetails" type="XML"/>

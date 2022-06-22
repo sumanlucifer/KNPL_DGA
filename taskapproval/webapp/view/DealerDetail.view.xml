@@ -1,0 +1,52 @@
+<mvc:View height="100%" controllerName="com.knpl.dga.taskapproval.controller.DealerDetail" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+    <f:DynamicPage busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
+			class="sapUiNoContentPadding" showFooter="true" id="dynamicPageDealerId" headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{Visit/TargetLead/ConsumerName}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs currentLocationText="{i18n>DealerDetails}">
+                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:actions>
+                    <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>Approve}" />
+                    <Button press="onPressOpenTokenDialog" type="Reject" text="{i18n>Reject}" />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <layout:HorizontalLayout allowWrapping="false">
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                        <ObjectAttribute title="{i18n>PhoneNumber}" text="NA"/>
+                        <ObjectAttribute title="{i18n>SalesGroupId}" text="NA"/>
+                        <ObjectAttribute title="{i18n>SalesGroupName}" text="NA"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
+                        <Label  text="{i18n>RequestID}"  />
+                        <ObjectAttribute  text="{Visit/Id}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label  text="{i18n>Approval}"/>
+                        <ObjectStatus class="sapMObjectStatusMedium" text="{Visit/Status}" state="None"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="idDealerIconTabBar" class="sapUiResponsiveContentPadding" >
+                <items>
+                    <IconTabFilter  text="{i18n>VisitDetails}" key="0" >
+                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.VisitDetails" type="XML"/>
+                    </IconTabFilter>
+                    <IconTabFilter  text="{i18n>BasicDetails}" key="1" >
+                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.DealerBasicDetails" type="XML"/>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

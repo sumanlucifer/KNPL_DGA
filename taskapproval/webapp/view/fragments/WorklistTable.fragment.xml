@@ -1,82 +1,79 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable id="idWorkListTable1" header="{i18n>TaskApproval}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="Leads" beforeRebindTable="onBindTblDGAList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="Id" >
+    <smartTable:SmartTable id="idWorkListTable1" header="{i18n>MainObject}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="BackDateVisitApprovalRequest" beforeRebindTable="onBindTblComplainList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" demandPopin="false" requestAtLeastFields="ID" >
+        <smartTable:customToolbar>
+			<OverflowToolbar>
+                        <ToolbarSpacer />
+                        <!-- <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Add} {i18n>MainObject}" press="onPressAddObject"/> -->
+                    </OverflowToolbar>
+		</smartTable:customToolbar>
 
         <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
+           
             <columns>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "DGA/UniqueId", "columnIndex": 13 ,"sortProperty": "DGA/UniqueId","filterProperty": "DGA/UniqueId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Visit/Id", "leadingProperty": "Visit/Id", "columnIndex": 0 ,"sortProperty": "Visit/Id","filterProperty": "Visit/Id"}'/>
                     </customData>
-                    <Text text="{i18n>RequestId}"/>
+                    <Text text="{i18n>RequestID}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "DGA/GivenName", "columnIndex": 14 ,"sortProperty": "DGA/GivenName","filterProperty": "DGA/GivenName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Visit/Date", "leadingProperty": "Visit/Date", "columnIndex": 1 ,"sortProperty": "Visit/Date","filterProperty": "Visit/Date"}'/>
                     </customData>
                     <Text text="{i18n>Date}"/>
                 </Column>
+
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/GivenName", "leadingProperty": "Id", "columnIndex": 0 ,"sortProperty": "Id","filterProperty": "Id"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Visit/DGA/GivenName", "leadingProperty": "Visit/DGA/GivenName", "columnIndex": 2 ,"sortProperty": "Visit/DGA/GivenName","filterProperty": "Visit/DGA/GivenName"}'/>
                     </customData>
                     <Text text="{i18n>DGAName}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ConsumerName", "leadingProperty": "ConsumerName", "columnIndex": 11 ,"sortProperty": "ConsumerName","filterProperty": "ConsumerName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Visit/DGA/Mobile", "leadingProperty": "Visit/DGA/Mobile", "columnIndex": 3 ,"sortProperty": "Visit/DGA/Mobile","filterProperty": "Visit/DGA/Mobile"}'/>
                     </customData>
-                    <Text text="{i18n>PhoneNo}"/>
+                    <Text text="{i18n>MobileNo}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PrimaryNum", "leadingProperty": "PrimaryNum", "columnIndex": 12 ,"sortProperty": "PrimaryNum","filterProperty": "PrimaryNum"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Visit/DGA/Zone", "leadingProperty": "Visit/DGA/Zone", "columnIndex": 4 ,"sortProperty": "Visit/DGA/Zone","filterProperty": "Visit/DGA/Zone"}'/>
                     </customData>
                     <Text text="{i18n>Zone}"/>
                 </Column>
-                <Column hAlign="Begin">
+                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt", "columnIndex": 7 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Visit/DGA/DivisionId"}, "leadingProperty": "Visit/DGA/DivisionId"'/>
                     </customData>
                     <Text text="{i18n>Division}"/>
                 </Column>
-                <Column hAlign="Begin">
+                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadServiceType/Name", "leadingProperty": "LeadServiceType/Name", "columnIndex": 10 ,"sortProperty": "LeadServiceType/Name","filterProperty": "LeadServiceType/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Visit/DGA/DepotId"}, "leadingProperty": "Visit/DGA/DepotId"'/>
                     </customData>
                     <Text text="{i18n>Depot}"/>
                 </Column>
-                <Column hAlign="Begin">
+                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PaintingReqSlab/LeadSubStatus", "leadingProperty": "PaintingReqSlab/LeadSubStatus", "columnIndex": 8 ,"sortProperty": "PaintingReqSlab/LeadSubStatus","filterProperty": "PaintingReqSlab/LeadSubStatus"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Visit/TaskType/Name"}, "leadingProperty": "Visit/TaskType/Name"'/>
                     </customData>
                     <Text text="{i18n>VisitType}"/>
                 </Column>
+
             </columns>
             <items>
                 <ColumnListItem press="onListItemPress" type="Navigation">
                     <cells>
-                        <Text text="{DGA/UniqueId}"/>
-                        <Text text="{DGA/GivenName} {DGA/FamilyName}"/>
-                        <Text text="{Id}"/>
-                        <Text text="{ConsumerName}"/>
-                        <!-- <Text text="{path:'PrimaryNum',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/> -->
-                        <Text text="{PrimaryNum}"/>
-                        <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
-                        <Text text="{LeadServiceType/Name}"/>
-                        <Text text="{PaintingReqSlab/LeadSubStatus}"/>
-                        <Text text="{Pincode}"/>
-                        <Text text="{State/Name}"/>
-                        <Text text="{Zone}"/>
-                        <Text text="{DivisionId}"/>
-                        <Text text="{Depot/Depot}"/>
-                        <Text text="{Stage}"/>
-                        <ObjectStatus text="{path:'LeadStatus/Name',formatter:'.formatter.fmtLowerCase'}" state="{= ${LeadStatus/Name} === 'Converted' ? 'Success' : ${LeadStatus/Name} === 'In Pipeline'  ? 'Warning' : ${LeadStatus/Name} === 'Lost' ? 'Error' : 'None' }"/>
-                        <!-- <HBox> -->
-                            <!-- <Button icon="sap-icon://edit" press="onEditListItemPress" type="Transparent" tooltip="{i18n>Edit}"/>
-                            <Button icon="sap-icon://delete" press="onPressDelete" type="Transparent" tooltip="{i18n>Delete}"/> -->
-                        <!-- </HBox> -->
+                         <Text text="{Visit/Id}"/>
+                         <Text text="{Visit/Date}"/>
+                        <Text text="{Visit/DGA/GivenName}"/>
+                        <Text text="{Visit/DGA/Mobile}"/>
+                         <Text text="{Visit/DGA/Zone}"/>
+                         <Text text="{Visit/DGA/DivisionId}"/>
+                         <Text text="{= ${Visit/DGA/DepotId} === null ? 'NA' : ${Visit/DGA/DepotId}}"/>
+                         <Text text="{Visit/TaskType/Name}"/>
                     </cells>
                 </ColumnListItem>
             </items>

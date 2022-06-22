@@ -39,46 +39,53 @@ sap.ui.define(
              */
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
-                if (this.getOwnerComponent().getComponentData()) {
-                    var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                }
-                // console.log(startupParams);
-                if (startupParams) {
-                    if (startupParams.hasOwnProperty("LeadId")) {
-                        if (startupParams["LeadId"].length > 0) {
-                            oRouter.navTo("Detail", {
-                                Id: startupParams["LeadId"][0],
-                                Mode: "Display"
-                            });
-                        }
-                    }
-                }
                 var oDataControl = {
                     filterBar: {
-                        DGAName: "",
-                        PhoneNumber: "",
-                        RequestID: "",
-                        DivisionId: "",
-                        DepotId: "",
                         StartDate: null,
                         EndDate: null,
                         Status: "",
                         Search: "",
-                        DGAType: "",
-                        Pincode: "",
-                        StatusId: "",
-                        ServiceTypeId: "",
-                        ServiceSubTypeId: "",
-                        SubType:""
+                        ZoneId: "",
+                        DivisionId: "",
+                        DepotId: "",
+
                     },
-                    PageBusy: true,
-                    resourcePath: "com.knpl.dga.taskapproval"
+                    PageBusy: true
                 };
                 var oMdlCtrl = new JSONModel(oDataControl);
                 this.getView().setModel(oMdlCtrl, "oModelControl");
+                var startupParams;
+                if (this.getOwnerComponent().getComponentData()) {
+                    startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                }
+                // console.log(startupParams);
+                if (startupParams) {
+                    if (startupParams.hasOwnProperty("DgaId")) {
+                        if (startupParams["DgaId"].length > 0) {
+                            this._onNavToDetails(startupParams["DgaId"][0]);
+                        }
+                    }
+                }
                 oRouter
                     .getRoute("worklist")
                     .attachMatched(this._onRouteMatched, this);
+            },
+            _ResetFilterBar: function () {
+                var aCurrentFilterValues = [];
+                var aResetProp = {
+                    StartDate: null,
+                    Status: "",
+                    Search: "",
+                    ZoneId: "",
+                    DivisionId: "",
+                    DepotId: "",
+
+                };
+                var oViewModel = this.getView().getModel("oModelControl");
+                oViewModel.setProperty("/filterBar", aResetProp);
+                var oTable = this.getView().byId("idWorkListTable1");
+                oTable.rebindTable();
+
             },
             _onRouteMatched: function () {
                 this._InitData();
@@ -112,9 +119,9 @@ sap.ui.define(
                 oModelControl.setProperty("/PageBusy", true)
                 c1 = othat._addSearchFieldAssociationToFB();
                 c1.then(function () {
-                    c2 = othat._initTableData();
+                    c2 = othat._dummyPromise();
                     c2.then(function () {
-                        c3 = othat._dummyFunction();
+                        c3 = othat._initTableData();
                         c3.then(function () {
                             oModelControl.setProperty("/PageBusy", false)
                         })
@@ -122,11 +129,7 @@ sap.ui.define(
                 })
 
             },
-            _dummyFunction: function () {
-                var promise = jQuery.Deferred();
-                promise.resolve()
-                return promise;
-            },
+
             _addSearchFieldAssociationToFB: function () {
                 /*
                  * Author: manik saluja
@@ -144,27 +147,13 @@ sap.ui.define(
                     oBasicSearch = new sap.m.SearchField({
                         value: "{oModelControl>/filterBar/Search}",
                         showSearchButton: true,
-                        search: othat.onFilterBarGo.bind(othat)
+                        search: othat.onFilterBarSearch.bind(othat)
                     });
                     oFilterBar.setBasicSearch(oBasicSearch);
                 }
                 promise.resolve();
                 return promise;
 
-            },
-            _initTableData: function () {
-                /*
-                 * Author: manik saluja
-                 * Date: 02-Dec-2021
-                 * Language:  JS
-                 * Purpose: Used to load the table data and trigger the on before binding method.
-                 */
-                var promise = jQuery.Deferred();
-                var oView = this.getView();
-                var othat = this;
-                oView.byId("idWorkListTable1").rebindTable();
-                promise.resolve();
-                return promise;
             },
             _getLoggedInInfo: function () {
                 /*
@@ -211,19 +200,22 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
-                oView.byId("idWorkListTable1").rebindTable();
+                if (oView.byId("idWorkListTable1")) {
+                    oView.byId("idWorkListTable1").rebindTable();
+                }
                 promise.resolve();
                 return promise;
             },
-            onBindTblDGAList: function (oEvent) {
+            onBindTblComplainList: function (oEvent) {
                 /*
-                 * Author: Akhil Jain
-                 * Date: 15-Mar-2022
+                 * Author: manik saluja
+                 * Date: 02-Dec-2021
                  * Language:  JS
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGA,LeadServiceType,State,LeadStatus,Depot,PaintingReqSlab";
+                oBindingParams.parameters["select"] = "Visit/DGA/GivenName,Visit/DGA/Id,Visit/DGA/Zone,Visit/DGA/Mobile,Visit/DGA/DepotId,Visit/DGA/DivisionId,Visit/TaskType/Name,Visit/TaskType/Type,Visit/Id,Visit/Date"
+                oBindingParams.parameters["expand"] = "Visit/DGA,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetContractor,Visit/TargetDealer";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
@@ -233,7 +225,7 @@ sap.ui.define(
                 }
 
             },
-            onFilterBarGo: function () {
+            onFilterBarSearch: function () {
                 var oView = this.getView();
                 oView.byId("idWorkListTable1").rebindTable();
             },
@@ -244,9 +236,10 @@ sap.ui.define(
                     .getProperty("/filterBar");
 
                 var aFlaEmpty = false;
-                // init filters - is archived 
+                // init filters - is archived and complaint type id is 1
                 aCurrentFilterValues.push(
                     new Filter("IsArchived", FilterOperator.EQ, false));
+
 
                 // filter bar filters
                 for (let prop in oViewFilter) {
@@ -269,92 +262,32 @@ sap.ui.define(
                         } else if (prop === "ZoneId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("Zone", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DivisionId") {
+                                new Filter("Painter/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
+                        } else if (prop === "DvisionId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("DivisionId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "Pincode") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Pincode", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "StatusId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("LeadStatusId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "ServiceTypeId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("LeadServiceTypeId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "ServiceSubTypeId") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("LeadServiceSubTypeId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "SubType") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("PaintingReqSlab/LeadSubStatus", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Painter/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "DepotId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("DepotId", FilterOperator.EQ, oViewFilter[prop]));
-                            // } else if (prop === "DGAType") {
-                            //     aFlaEmpty = false;
-                            //     aCurrentFilterValues.push(
-                            //         new Filter("DGATypeId", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter(
                                     [
                                         new Filter({
-                                            path: "ConsumerName",
+                                            path: "Painter/Name",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "DGA/GivenName",
+                                            path: "ComplaintCode",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "DGA/FamilyName",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "DGA/UniqueId",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "PrimaryNum",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        // new Filter({
-                                        //     path: "LeadServiceType/Name",
-                                        //     operator: "Contains",
-                                        //     value1: oViewFilter[prop].trim(),
-                                        //     caseSensitive: false
-                                        // }),
-                                        new Filter({
-                                            path: "Stage",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        // new Filter({
-                                        //     path: "PaintingReqSlab/LeadSubStatus",
-                                        //     operator: "Contains",
-                                        //     value1: oViewFilter[prop].trim(),
-                                        //     caseSensitive: false
-                                        // })
+                                        })
                                     ],
                                     false
                                 )
@@ -378,76 +311,82 @@ sap.ui.define(
                 this._ResetFilterBar();
             },
 
-            _ResetFilterBar: function () {
-                var aCurrentFilterValues = [];
-                var aResetProp = {
-                    ZoneId: "",
-                    DivisionId: "",
-                    DepotId: "",
-                    StartDate: null,
-                    EndDate: null,
-                    Status: "",
-                    Search: "",
-                    DGAType: "",
-                    Pincode: "",
-                    StatusId: ""
-                };
-                var aResetAddFields = {
-                    PinCode: ""
-                }
-                var oViewModel = this.getView().getModel("oModelControl");
-                oViewModel.setProperty("/filterBar", aResetProp);
-                oViewModel.setProperty("/AddFields", aResetAddFields);
-                var oTable = this.getView().byId("idWorkListTable1");
-                oTable.rebindTable();
 
-            },
             onListItemPress: function (oEvent) {
-                var oBj = oEvent.getSource().getBindingContext().getObject();
+                var oContext = oEvent.getSource().getBindingContext();
+                var oRouter = this.getOwnerComponent().getRouter();
+                switch(oContext.getObject("Visit/TaskType/Type")){
+                    case "LEAD_VISIT":
+                        oRouter.navTo("Detail", {
+                            context: oContext.getPath().replace("/", "")
+                        });
+                        break;
+                    case "CONTRACTOR_VISIT":
+                        oRouter.navTo("ContractorDetail", {
+                            context: oContext.getPath().replace("/", "")
+                        });
+                        break;
+                    case "DEALER_VISIT":
+                        oRouter.navTo("DealerDetail", {
+                            context: oContext.getPath().replace("/", "")
+                        });
+                        break;
+                }
+            },
+            _onNavToDetails: function (mParam1) {
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("Detail", {
-                    Id: oBj["Id"],
+                    Id: mParam1,
                     Mode: "Display"
                 });
 
             },
-            _handlePinCodeValueHelpConfirm: function (oEvent) {
-
-                var oSelectedItem = oEvent.getParameter("selectedItem");
-                var oModelControl = this.getView().getModel("oModelControl");
-                var obj = oSelectedItem.getBindingContext().getObject();
-                oModelControl.setProperty(
-                    "/AddFields/Pincode",
-                    obj["Name"]
-                );
-                oModelControl.setProperty(
-                    "/filterBar/Pincode",
-                    obj["Name"]
-                );
-                this._onDialogClose();
+            onZoneChange: function (oEvent) {
+                var sId = oEvent.getSource().getSelectedKey();
+                var oView = this.getView();
+                // setting value for division
+                var oDivision = oView.byId("idDivision");
+                oDivision.clearSelection();
+                oDivision.setValue("");
+                var oDivItems = oDivision.getBinding("items");
+                oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
+                //setting the data for depot;
+                var oDepot = oView.byId("idDepot");
+                oDepot.clearSelection();
+                oDepot.setValue("");
+                // clearning data for dealer
+            },
+            onDivisionChange: function (oEvent) {
+                var sKey = oEvent.getSource().getSelectedKey();
+                var oView = this.getView();
+                var oDepot = oView.byId("idDepot");
+                var oDepBindItems = oDepot.getBinding("items");
+                oDepot.clearSelection();
+                oDepot.setValue("");
+                oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
             },
 
-            // onPressDelete: function (oEvent) {
-            //     var oView = this.getView();
-            //     var oBj = oEvent.getSource().getBindingContext().getObject();
-            //     this._showMessageBox1("information", "Message5", [oBj["ComplaintCode"]],
-            //         this._DeleteComplaints.bind(this, "first paramters", "secondParameter")
-            //     );
-            // },
-            // _DeleteComplaints: function (mParam1, mParam2) {
-            //     // after deleting the entity make sure that we are calling the refresh just on the table and not on thw whole model
-            //     MessageToast.show("Message5")
-            // },
+            onPressDelete: function (oEvent) {
+                var oView = this.getView();
+                var oBj = oEvent.getSource().getBindingContext().getObject();
+                this._showMessageBox1("information", "Message5", [oBj["ComplaintCode"]],
+                    this._DeleteComplaints.bind(this, "first paramters", "secondParameter")
+                );
+            },
+            _DeleteComplaints: function (mParam1, mParam2) {
+                // after deleting the entity make sure that we are calling the refresh just on the table and not on thw whole model
+                MessageToast.show("Message5")
+            },
 
-            // onEditListItemPress: function (oEvent) {
-            //     var oBj = oEvent.getSource().getBindingContext().getObject();
-            //     var oRouter = this.getOwnerComponent().getRouter();
-            //     oRouter.navTo("Detail", {
-            //         Id: oBj["Id"],
-            //         Mode: "Edit"
-            //     });
+            onEditListItemPress: function (oEvent) {
+                var oBj = oEvent.getSource().getBindingContext().getObject();
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("Detail", {
+                    Id: oBj["Id"],
+                    Mode: "Edit"
+                });
 
-            // }
+            }
         }
         );
     }

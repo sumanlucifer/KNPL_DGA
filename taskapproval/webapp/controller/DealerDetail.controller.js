@@ -31,12 +31,12 @@ sap.ui.define(
         "use strict";
 
         return BaseController.extend(
-            "com.knpl.dga.taskapproval.controller.Detail", {
+            "com.knpl.dga.taskapproval.controller.DealerDetail", {
             formatter: formatter,
 
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.getRoute("Detail").attachMatched(this._onRouteMatched, this);
+                oRouter.getRoute("DealerDetail").attachMatched(this._onRouteMatched, this);
                 sap.ui.getCore().attachValidationError(function (oEvent) {
                     if (oEvent.getParameter("element").getRequired()) {
                         oEvent.getParameter("element").setValueState(ValueState.Error);

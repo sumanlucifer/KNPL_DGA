@@ -1,5 +1,5 @@
 sap.ui.define([
-	"comknpldga/taskapproval/test/unit/controller/App.controller"
+	"comknpldga/taskapproval/test/unit/controller/View1.controller"
 ], function () {
 	"use strict";
 });

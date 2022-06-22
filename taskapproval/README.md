@@ -1,15 +1,15 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Mon Mar 07 2022 11:03:07 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Mon Mar 07 2022 06:41:45 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori-freestyle|
 |**App Generator Version**<br>1.5.1|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Floorplan Used**<br>simple|
 |**Service Type**<br>SAP System (ABAP On Premise)|
-|**Service URL**<br>https://services.odata.org/v2/northwind/northwind.svc/
+|**Service URL**<br>https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com/api/v2/odata.svc/
 |**Module Name**<br>taskapproval|
-|**Application Title**<br>Lead Management|
+|**Application Title**<br>Ui5 Template|
 |**Namespace**<br>com.knpl.dga|
 |**UI5 Theme**<br>sap_fiori_3|
 |**UI5 Version**<br>1.98.0|
@@ -19,7 +19,7 @@
 
 ## taskapproval
 
-Lead Management
+A Fiori application.
 
 ### Starting the generated app
 
