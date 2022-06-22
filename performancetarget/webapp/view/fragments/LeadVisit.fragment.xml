@@ -75,12 +75,10 @@
                         <Text text="{path:'FromDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                         <Text text="{path:'ToDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                          <Text text="{DGAType/Name}"/>
-                         <HBox items= "{PerformanceZone}">
-                        <Text text=" {ZoneId} " class ="sapUiTinyMarginEnd"/>
-                        </HBox>
-                        <HBox items="{PerformanceDivision}">
-                         <Text text="{DivisionId}" class ="sapUiTinyMarginEnd"/> 
-                         </HBox>
+                          <Text text="{path:'PerformanceZone',formatter:'.formatter.arrayFormat2'}"/> 
+                        
+                          <Text text="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/>  
+                      
                          <!-- <HBox items="{PerformanceDepot}">
                          <Text text="{DepotId}" class = "sapUiTinyMarginEnd"/>
                          </HBox> -->

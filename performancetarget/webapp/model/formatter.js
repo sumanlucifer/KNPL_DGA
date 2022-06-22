@@ -65,14 +65,77 @@ sap.ui.define([], function () {
         },
 
         arrayFormat: function(mParam1){
-            
+            debugger;
+            var omodel = this.getView().getModel();
+           var svalue= "NA";
+           var avalue= [];
             if(mParam1){
-                return mParam1.results.DepotId.toString();
+                if(mParam1.length>0){
+                    avalue = mParam1.map(function(o){
+                      
+                        return   omodel.getProperty("/"+o).DepotId ;
+                    })
+                    svalue = avalue.join(", ");
+                    return svalue;
+
+                }
+                else
+                return svalue;
+              //  return mParam1.results.DepotId.toString();
             }
             else 
-            return "NA" ;
+            return svalue ;
+            
+        },
+        arrayFormat1: function(mParam1){
+            debugger;
+            var omodel = this.getView().getModel();
+           var svalue= "NA";
+           var avalue= [];
+            if(mParam1){
+                if(mParam1.length>0){
+                    avalue = mParam1.map(function(o){
+                      
+                        return   omodel.getProperty("/"+o).DivisionId ;
+                    })
+                    svalue = avalue.join(", ");
+                    return svalue;
+
+                }
+                else
+                return svalue;
+              //  return mParam1.results.DepotId.toString();
+            }
+            else 
+            return svalue ;
+            
+        },
+        arrayFormat2: function(mParam1){
+            debugger;
+            var omodel = this.getView().getModel();
+           var svalue= "NA";
+           var avalue= [];
+            if(mParam1){
+                if(mParam1.length>0){
+                    avalue = mParam1.map(function(o){
+                      
+                        return   omodel.getProperty("/"+o).ZoneId ;
+                    })
+                    svalue = avalue.join(", ");
+                    return svalue;
+
+                }
+                else
+                return svalue;
+              //  return mParam1.results.DepotId.toString();
+            }
+            else 
+            return svalue ;
             
         }
+
+
+
 
     };
 

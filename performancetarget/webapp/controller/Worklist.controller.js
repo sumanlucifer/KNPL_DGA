@@ -50,7 +50,9 @@ sap.ui.define(
                         DGAId: "",
 
                     },
-                    EditFields: {},
+                    EditFields: {
+                        Target: "",
+                    },
                     PageBusy: true
                 };
 
@@ -93,7 +95,11 @@ sap.ui.define(
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
-                var oTable = this.getView().byId("idWorkListTable1");
+                var oTable = this.getView().byId("LeadVisitTable");
+                var oTable = this.getView().byId("NewLeadTable");
+                var oTable = this.getView().byId("ContractorVisitCountTable");
+                var oTable = this.getView().byId("LeadConversionTable");
+                var oTable = this.getView().byId("BusinessGenerationTable");
                 oTable.rebindTable();
 
             },
@@ -303,7 +309,7 @@ sap.ui.define(
             },
             onFilterBarSearch: function () {
                 var oView = this.getView();
-                oView.byId("idWorkListTable1").rebindTable();
+                oView.byId("LeadVisitTable").rebindTable();
             },
             _CreateFilter: function () {
                 var aCurrentFilterValues = [];
@@ -386,11 +392,13 @@ sap.ui.define(
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("DGAType/Name", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "ZoneId") {
+                        }
+                        else if (prop === "ZoneId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("PerformanceZone/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DvisionId") {
+                        }
+                         else if (prop === "DvisionId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("PerformanceDivision/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
@@ -530,6 +538,52 @@ sap.ui.define(
                     }
                 }.bind(this));
             },
+
+            onEditHistoryCancel: function () {
+               
+                if(this.EditTargetHistory){
+                    this.getView().byId("idEditHistory").setValueState("None");
+                    this.getView().byId("idEditHistory").setValueStateText("");
+                    this.getView().getModel("oModelControl").setProperty("/EditFields", {});
+                    this.EditTargetHistory.close();
+                }
+
+            },
+            onEditHistoryDialogSave: function(oEvent){
+                var oView = this.getView(),
+                   oThat=this;
+                var oData = oView.getModel();
+                var oModel = oView.getModel("oModelControl");
+
+                if(oView.byId("idEditHistory").getValue().length === 0){
+                    oView.byId("idEditHistory").setValueState("Error");
+                    oView.byId("idEditHistory").setValueStateText("Enter some value");
+                    return;
+                }
+
+            
+
+            //     var oPayload = {
+            //         Id:oModel.getProperty("/EditFields/Id"),
+            //         Name:oModel.getProperty("/EditFields/Name"),
+            //     };
+                
+            //     var othat = this;
+            //     oData.update("/MasterTargetPlansRenews("+Number(oModel.getProperty("/EditFields/Id"))+")", oPayload, {
+            //         success: function () {
+            //             oModel.setProperty("/EditFields", {});
+            //                oData.refresh(true);
+            //             MessageToast.show("Count History Successfully Updated.");
+            //             othat.onEditHistoryCancel();
+            //         },
+            //         error: function (a) {
+            //             MessageBox.error(othat._sErrorText, {
+            //                 title: "Error Code: " + a.statusCode,
+            //             });
+            //         },
+            //     });
+             },
+
             
         }
         );
