@@ -780,6 +780,9 @@ sap.ui.define([
             this.getView()
                 .getModel("oModelControl")
                 .setProperty("/MultiCombo/Depot", oData);
+                // this.getView()
+                // .getModel("oModelControl")
+                // .setProperty("/filterBar/DepotId", oData);
             this._oValueHelpDialog.close();
         },
     });

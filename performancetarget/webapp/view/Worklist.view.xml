@@ -1,24 +1,82 @@
- <mvc:View height="100%" controllerName="com.knpl.dga.performancetarget.controller.Worklist" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+ <mvc:View height="100%" controllerName="com.knpl.dga.performancetarget.controller.Worklist"  xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
     <f:DynamicPage busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
 			class="sapUiNoContentPadding" showFooter="false" id="dynamicPageId" headerExpanded="true">
-        <f:title>
-            <f:DynamicPageTitle>
-                <f:heading>
-                    <Title text="{i18n>PerformanceTarget}" class="sapUiSmallMarginTopBottom"/>
-                </f:heading>
-                <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>MainObject}">
-                        <Link text="{i18n>MainObject2}" press="onNavToHome"/>
-                    </Breadcrumbs>
-                </f:breadcrumbs>
-              
-            </f:DynamicPageTitle>
-        </f:title>
-        <f:header>
+
+            <f:title>
+                <f:DynamicPageTitle>
+                 <f:actions>
+                    <Button press="onChangeStatus" type="Emphasized" text="{i18n>ChangeStatus}" />
+                   </f:actions>
+                </f:DynamicPageTitle>
+            </f:title>
+       <f:header>
             <f:DynamicPageHeader pinnable="true">
-                 <!-- <layout:HorizontalLayout allowWrapping="false">
-                    
-                </layout:HorizontalLayout> -->
+            <!-- <OverflowToolbarButton>
+                 <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Set} {i18n>Target}" press="onPressAddObject"/>
+            </OverflowToolbarButton> -->
+                 
+                <f:content>
+                    <fb:FilterBar showRestoreButton="false" id="filterbar" reset="onResetFilterBar" search="onFilterBarSearch" useToolbar="false" showRestoreOnFB="true">
+                        <fb:filterGroupItems>
+
+                         <fb:FilterGroupItem groupName="__$INTERNAL$" name="DGA" label="{i18n>DGA} {i18n>Type}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                     <ComboBox  id="idDGA" placeholder="{i18n>Enter} {i18n>DGA}"  items="{/MasterDGATypes}" selectedKey="{path:'oModelControl>/filterBar/DGAId' }">
+                                        <core:Item text="{Name} " key="{Id}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="Zone" label="{i18n>Zone}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                  <!-- <MultiComboBox   id="idZone"   selectedKeys="{path:'oModelControl>/filterBar/ZoneId' }" items="{ path : '/MasterZones' }"  selectionChange="onMultyZoneChange" >
+					                <core:Item key="{Id}" text="{Id}"/>
+				                  </MultiComboBox> -->
+                                     <ComboBox id="idZone" placeholder="{i18n>Enter} {i18n>Zone}" selectionChange="onZoneChange"  items="{/MasterZones}" selectedKey="{path:'oModelControl>/filterBar/ZoneId' }">
+                                        <core:Item text="{Id} " key="{Id}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Division" label="{i18n>Division}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                      <!-- <MultiComboBox   id="idDivision"  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" selectedKeys="{path:'oModelControl>/filterBar/DivisionId' }" items="{ path : '/MasterDivisions' }"  selectionChange="onMultyDivisionChange" >
+					                <core:Item key="{Id}" text="{Id}"/>
+				                  </MultiComboBox> -->
+                                  
+                                      <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>Division}" id="idDivision" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
+                                               <core:Item text="{Id}" key="{Id}" />
+                                          </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Depot" label="{i18n>Depot}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+<!--                                         
+                                <MultiInput   enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="multiInputDepotAdd" tokens="{oModelControl>/filterBar/DepotId}" valueHelpRequest="onValueHelpRequestedDepot">
+	                                 <tokens>
+                                         <Token editable="false" text="{oModelControl>DepotId}" key="{oModelControl>DepotId}"/>
+                                      </tokens>
+	                           </MultiInput> -->
+                                 <ComboBox enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}"  items="{/MasterDepots}" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
+                                        <core:Item text="{Depot} ( {Id} )" key="{Id}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+
+                              <fb:FilterGroupItem groupName="__$INTERNAL$" name="FromDate" label="{i18n>From} {i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/FromDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                               <fb:FilterGroupItem groupName="__$INTERNAL$" name="ToDate" label=" {i18n>To} {i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                 <DatePicker placeholder="DD/MM/YYYY" value="{path:'oModelControl>/filterBar/ToDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                           
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
             </f:DynamicPageHeader>
         </f:header>
         <f:content>
@@ -39,7 +97,7 @@
                     </IconTabFilter>   
                     <!--   Dealer visit tab -->
                     <IconTabFilter  text="{i18n>Dealer} {i18n>Visit}" key="3" >
-                        <core:Fragment fragmentName="com.knpl.dga.performancetarget.view.fragments.DealerVisit" type="XML"/>
+                        <!-- <core:Fragment fragmentName="com.knpl.dga.performancetarget.view.fragments.DealerVisit" type="XML"/> -->
                     </IconTabFilter> 
                     <!-- Lead Conversion  tab -->
                     <IconTabFilter  text="{i18n>Lead} {i18n>Conversion}" key="4" >

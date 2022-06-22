@@ -63,6 +63,17 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
+
+        arrayFormat: function(mParam1){
+            
+            if(mParam1){
+                return mParam1.results.DepotId.toString();
+            }
+            else 
+            return "NA" ;
+            
+        }
+
     };
 
 });

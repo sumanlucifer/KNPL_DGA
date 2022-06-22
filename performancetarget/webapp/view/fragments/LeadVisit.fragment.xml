@@ -15,14 +15,14 @@
                
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData"  value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 0 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData"  value='\{"columnKey": "FromDate", "type":"date", "leadingProperty": "FromDate", "columnIndex": 0 ,"sortProperty": "FromDate","filterProperty": "FromDate"}'/>
                     </customData>
                     <Text text="{i18n>From}"/>
                 </Column>
 
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ToDate", "type":"date", "leadingProperty": "ToDate", "columnIndex": 1 ,"sortProperty": "ToDate","filterProperty": "ToDate"}'/>
                     </customData>
                     <Text text="{i18n>To}"/>
                 </Column>
@@ -52,26 +52,44 @@
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
+                       
                         <core:CustomData key="p13nData" value='\{"columnKey": "TargetValue", "leadingProperty": "TargetValue", "columnIndex": 6 ,"sortProperty": "TargetValue","filterProperty": "TargetValue"}'/>
+                    
                     </customData>
                     <Text text="{i18n>LeadVisitCount} ({i18n>Daily})"/>
+                   
                 </Column>
                 
+               <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions"}'/>
+                    </customData>
+                    <Text text="{i18n>Action}"/>
+                </Column>
+
                 
             </columns>
             <items>
                 <ColumnListItem >
                     <cells>
-                        <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
-                        <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                        <Text text="{path:'FromDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+                        <Text text="{path:'ToDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                          <Text text="{DGAType/Name}"/>
-                        <Text text="{PerformanceZone/ZoneId}"/>
-                         <Text text="{PerformanceDivision/DivisionId}"/> 
-                         <Text text="{PerformanceDepot/DepotId}"/>
+                         <HBox items= "{PerformanceZone}">
+                        <Text text=" {ZoneId} " class ="sapUiTinyMarginEnd"/>
+                        </HBox>
+                        <HBox items="{PerformanceDivision}">
+                         <Text text="{DivisionId}" class ="sapUiTinyMarginEnd"/> 
+                         </HBox>
+                         <!-- <HBox items="{PerformanceDepot}">
+                         <Text text="{DepotId}" class = "sapUiTinyMarginEnd"/>
+                         </HBox> -->
+                         <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/>  
                          <Text text="{TargetValue}"/>
+                         <Button icon="sap-icon://edit"  type="Transparent" press="onPressEdit" tooltip="Edit"></Button>
                          <!-- <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/> -->
                         <!-- <ObjectStatus text="{parts:['ComplaintStatus','ParentComplaintId'],formatter:'.formatter.fmtLowerCase'}" state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Error' }"/> -->
-                            
+                          
                     </cells>
                 </ColumnListItem>
             </items>
