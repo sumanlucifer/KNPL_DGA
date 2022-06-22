@@ -70,6 +70,15 @@ sap.ui.define([
             }
             return newStatus;
         },
+        fmtLeadStage: function (sStatus) {
+            var newStatus = "";
+            if (sStatus === "ONGOING") {
+                newStatus = "Ongoing";
+            } else if (sStatus === "COMPLETED") {
+                newStatus = "Completed";
+            }
+            return newStatus;
+        },
         fmtDate: function (mDate) {
             var date = new Date(mDate);
             var oDateFormat = DateFormat.getDateTimeInstance({
