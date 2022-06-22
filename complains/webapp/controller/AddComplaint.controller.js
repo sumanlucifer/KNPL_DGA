@@ -103,6 +103,20 @@ sap.ui.define(
                     this._issueListFilter(value1, value2);
                 },
 
+                onCustomerNameInput:function(oEvent){
+                    var sText = oEvent.getParameter("value");
+                    if(sText.length > 50 ){
+                        oEvent.getSource().setValue(oEvent.getSource().getValue().substring(0, 50));
+                    }
+                },
+
+                onCustomerNumberInput:function(oEvent){
+                    var sText = oEvent.getParameter("value");
+                    if(sText.length > 10 ){
+                        oEvent.getSource().setValue(oEvent.getSource().getValue().substring(0, 10));
+                    }
+                },
+
                 _issueListFilter:function(value1, value2){
                     var aFilter = [];
                     aFilter.push( new Filter([
