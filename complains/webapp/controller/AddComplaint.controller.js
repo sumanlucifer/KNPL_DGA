@@ -501,11 +501,8 @@ sap.ui.define(
                         success: function (oData) {
                             // MessageToast.show("Complaint Successfully Created");
                             var path = "Complaints(" +oData.Id+ ")" 
-                            MessageBox.success("Complaint Successfully Created.", {
-                                title: "Success",
-                                onClose: function(){
-                                    othat.navPressBack();
-                                }
+                            MessageToast.show("Complaint Successfully Created.", {
+                                duration: 6000
                             });
                             promise.resolve(oData);
                         },
