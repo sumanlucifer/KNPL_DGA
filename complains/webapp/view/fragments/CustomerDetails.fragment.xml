@@ -9,10 +9,10 @@
             <Text text="{DGA/GivenName}" />
             <Label text="{i18n>MobileNo}" />
             <Text text="{DGA/Mobile}" />
-            <Label text="{i18n>ComplaintType}" />
-            <Text text="{ComplaintType/ComplaintType}" />
             <Label text="{i18n>Comments}" />
             <Text text="{Comments}" />
+            <Label text="{i18n>ComplaintType}" />
+            <Text text="{ComplaintType/ComplaintType}" />
             <Label text="{i18n>DGAID}" />
             <Text text="{DGAId}" />
             <Label text="{i18n>LeadStage}" />

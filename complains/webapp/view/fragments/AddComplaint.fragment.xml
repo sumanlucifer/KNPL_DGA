@@ -4,18 +4,18 @@
             <f:content>
                 <core:Title text="{i18n>CustomerDetails}" />
                 <Label text="{i18n>MobileNumber}" />
-                <Input value="{oViewModel>/ConsumerMobileNo}"
-                    showValueHelp="true" enabled="{= ${oViewModel>/LeadCustomer} }"
+                <Input required="true" value="{oViewModel>/ConsumerMobileNo}"
+                    showValueHelp="true" valueHelpOnly="true" enabled="{= ${oViewModel>/LeadCustomer} }"
                     valueHelpRequest="onCustomerValueHelpRequest" change="onCustomerInputChange"/>
                 <Label text="{i18n>CustomerName}" />
-                <Text  text="{oViewModel>/ConsumerName}" />
+                <Text text="{oViewModel>/ConsumerName}" />
 
                 <core:Title text="" />
                 <Label text="{i18n>Add} {i18n>NewCustomer}" />
-                <Input value="{oViewModel>/NewConsumerName}" liveChange="onCustomerNameInput" change="onNewCustomerInputChange" enabled="{oViewModel>/newCustomer}" />
+                <Input required="true" value="{oViewModel>/NewConsumerName}" liveChange="onCustomerNameInput" change="onNewCustomerInputChange" enabled="{oViewModel>/newCustomer}" />
 
                 <Label text="{i18n>Add} {i18n>NewPhoneNo}" />
-                <Input value="{oViewModel>/NewConsumerMobileNo}" type="Number" liveChange="onCustomerNumberInput" change="onNewCustomerInputChange" enabled="{oViewModel>/newCustomer}" />
+                <Input required="true" value="{oViewModel>/NewConsumerMobileNo}" type="Number" liveChange="onCustomerNumberInput" change="onNewCustomerInputChange" enabled="{oViewModel>/newCustomer}" />
             </f:content>
         </f:SimpleForm>
 
@@ -53,7 +53,7 @@
                         title="{ComplaintSubtype}" />
                 </List>
                 
-                <Label  text="{i18n>ComplainDescription}"  />
+                <Label required="true" text="{i18n>ComplainDescription}"  />
                 <VBox renderType="Bare" >
                     <TextArea maxLength="300" required="true" value="{path:'oViewModel>/Comments',type:'sap.ui.model.type.String',constraints:{minLength:1, maxLength: 300}}" rows="4" />
                     <Label  text="{i18n>TxtMaxLength}" />
