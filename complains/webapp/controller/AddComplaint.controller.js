@@ -289,6 +289,8 @@ sap.ui.define(
                         this.getView().getModel("oViewModel").setProperty("/newCustomer",false );
                         this.getView().getModel("oViewModel").setProperty("/LeadCustomer",true );
                         this.getView().getModel("oViewModel").setProperty("/isDGAActive",false);
+                        this.getView().getModel("oViewModel").setProperty("/NewConsumerName","" );
+                        this.getView().getModel("oViewModel").setProperty("/NewConsumerMobileNo","" );
                     } else {
                         // Removing values of DGA
                         var DGA = {
@@ -334,6 +336,8 @@ sap.ui.define(
                         this.getView().getModel("oViewModel").setProperty("/ConsumerMobileNo","" );
                         this.getView().getModel("oViewModel").setProperty("/Zone","" );
                         this.getView().getModel("oViewModel").setProperty("/ConsumerName","" );
+                        this.getView().getModel("oViewModel").setProperty("/NewConsumerName","");
+                        this.getView().getModel("oViewModel").setProperty("/NewConsumerMobileNo","");
                     }
                 },
                 onDGAValueHelpRequest: function (oEvent) {
@@ -444,12 +448,14 @@ sap.ui.define(
                     var oVbox = this.getView().byId("idVbx");
                     var bValidation = oValidator.validate(oVbox, true);
 
-                    if (bValidation && this.getView().byId("idList").getSelectedItems().length === 0) {
-                        MessageToast.show(
-                            "Kindly input all the mandatory(*) fields to continue."
-                        );
+                    if (bValidation && this.getView().byId("idList").getSelectedItems().length > 0) {
+                        if(oModel.getProperty("/ConsumerMobileNo") || 
+                            (oModel.getProperty("/NewConsumerName") && oModel.getProperty("/NewConsumerMobileNo") ))
+                            this._postDataToSave(oModel.getProperty("/newCustomer"));
+                        else
+                            MessageToast.show("Kindly input all the mandatory(*) fields to continue.");
                     } else {
-                        this._postDataToSave(oModel.getProperty("/newCustomer"));
+                        MessageToast.show("Kindly input all the mandatory(*) fields to continue.");
                     }
                 },
 

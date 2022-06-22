@@ -308,6 +308,21 @@ sap.ui.define(
                                                 "ConsumerMobileNo",
                                                 FilterOperator.Contains,
                                                 oViewFilter[prop].trim()
+                                            ),
+                                            new Filter(
+                                                "ComplaintStatus",
+                                                FilterOperator.Contains,
+                                                oViewFilter[prop].trim().toUpperCase()
+                                            ),
+                                            new Filter(
+                                                "LeadStage",
+                                                FilterOperator.Contains,
+                                                oViewFilter[prop].trim().toUpperCase()
+                                            ),
+                                            new Filter(
+                                                "ComplaintCode",
+                                                FilterOperator.Contains,
+                                                oViewFilter[prop].trim()
                                             )
                                         ],
                                         false
@@ -521,7 +536,6 @@ sap.ui.define(
                     });
                     return oDateFormat.format(date);
                 },
-
                 handleSortButtonPressed: function () {
                     this.getViewSettingsDialog(
                         "com.knpl.dga.complains.view.fragments.SortDialog"
