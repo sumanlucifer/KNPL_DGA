@@ -1,0 +1,109 @@
+<mvc:View
+	controllerName="com.knpl.dga.productrecommendation.controller.Worklist"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+     xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:semantic="sap.f.semantic"
+    xmlns:smartTable="sap.ui.comp.smarttable">
+<f:DynamicPage headerExpanded="true">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>catalogues}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <fb:FilterBar id="filterbar" reset="onResetFilters" search="onSearch" useToolbar="false" showGoOnFB="true" showRestoreOnFB="true"> 
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Search" label="Search" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                               <fb:control>
+                                    <SearchField id="idSearchInput" data:filterName="Search" value="{ViewModel>/filterBar/search}"
+                                     placeholder="{i18n>searchFilterPlaceholder}" showSearchButton="false" />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="Creation Date" label="Creation Date" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                               <fb:control>
+                                    <DatePicker id="idCreationDateInput" data:filterName="Creation Date" value="{ViewModel>/filterBar/createdAt}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" placeholder="{i18n>creationDateFilterPlaceholder}"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="Title" label="Title" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                 <fb:control>
+                                    <Input id="idTitleInput" data:filterName="Title" value="{ViewModel>/filterBar/title}" placeholder="{i18n>titleFilterPlaceholder}" />
+                                </fb:control>
+                            </fb:FilterGroupItem> -->
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+         <f:content>
+        <smartTable:SmartTable
+                            id="idCatlogueTable"
+                            editable="false"
+                            header="{i18n>worklistTableTitle}"
+                            beforeRebindTable="fnrebindTable"                    
+                            entitySet="ProductRecommendations"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="true"
+                            ignoredFields="UpdatedAt,UpdatedBy,ProductCategoryId,ProductClassificationId,ProductRangeId,Description,CreatedBy,IsArchived,IsSelected,Id"
+                            demandPopin="true"
+                            enableAutoBinding="true"
+                            placeToolbarInTable="true"
+                            requestAtLeastFields="Id"
+                            persistencyKey="CatalogueSmartTableKey"
+                            >
+                            	<smartTable:customToolbar>
+			<OverflowToolbar>
+                        <ToolbarSpacer />
+                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>GenericAdd}" press="onPressAdd" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
+                    </OverflowToolbar>
+		</smartTable:customToolbar>
+                        <Table growingScrollToLoad="false" growing="true" growingThreshold="10" >
+                                <columns>
+                                 <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "ProductRecommendationName","type":"string", "leadingProperty": "ProductRecommendationName", "columnIndex": 0 }'/>
+                                        </customData>
+                                          <Text text="{i18n>name}"/>
+                                    </Column>
+                                  <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                        </customData>
+                                          <Text text="{i18n>creationDate}"/>
+                                    </Column>
+                                    <Column hAlign="Begin" width="5%">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{ "columnIndex": 2,"columnKey":"edit" }'/>
+                                        </customData>
+                                         <Text text="{i18n>GenericAction}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem  type="Navigation" press="onPress">
+                                        <cells>
+                                            <Text text="{ProductRecommendationName}"/>
+                                            <Text text="{path:'CreatedAt',formatter:'.formatter.dateFormatter2'}"/>
+                                            <Button  icon="sap-icon://edit" type="Transparent" press="onPressEdit" tooltip="Edit" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
+                                        </cells>      
+                                    </ColumnListItem>
+                                </items> 
+                            </Table> 
+                        </smartTable:SmartTable>
+ </f:content>
+    </f:DynamicPage>
+</mvc:View>

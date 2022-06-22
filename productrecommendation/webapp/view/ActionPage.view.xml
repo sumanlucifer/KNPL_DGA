@@ -1,0 +1,120 @@
+<mvc:View
+	controllerName="com.knpl.dga.productrecommendation.controller.ActionPage"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:u="sap.ui.unified"
+    class="sapUiSizeCompact">
+    <f:DynamicPage id="idActionPage" class="actionPage" showFooter="true" busy="{ActionViewModel>/busy}">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:breadcrumbs>
+                    <Breadcrumbs currentLocationText="{i18n>CatalogueDetails1}" id="idAdd">
+                        <Link press="onPressBreadcrumbLink" text="{i18n>CatalogueDetails}" />
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <VBox>
+            <Title  text="{i18n>CatalogueDetails}"  />
+                <HBox>
+                <VBox class="sapUiMediumMargin" width="50%">
+                                        <VBox class="sapUiMediumMarginBottom" width="80%">
+                                            <Label text="{i18n>title}:" required="true" />
+                                                <Input id="idText" value="{ActionViewModel>/ProductRecommendationName}"/>
+                                        </VBox>
+                                        <!-- <VBox class="sapUiMediumMarginBottom" width="80%">
+                                            <Label text="Classification:" required="true" />
+                                            <Select
+                                            id="idClassification"
+                                            change="onClassificationChange"
+                                            forceSelection="false"
+                                            width="100%"
+                                            selectedKey="{ActionViewModel>/Classification/}"
+                                            items="{
+                                                path: '/MasterProductClassifications',
+                                                sorter: { path: 'ClassificationName' }
+                                            }">
+                                            <core:Item key="{Id}" text="{ClassificationName}" />
+                                            </Select>
+                                        </VBox> -->
+                                        <!-- <VBox class="sapUiMediumMarginBottom" width="80%">
+                                            <Label text="Product:" required="true" />
+                                            <Select
+                                            id="idTitle"
+                                            visible="false"
+                                            forceSelection="false"
+                                            width="100%"
+                                            items="{
+                                                path: 'ActionViewModel>/CatalogueProducts',
+                                                sorter: { path: 'ProductName' }
+                                            }">
+                                            <core:Item key="{ActionViewModel>Id}" text="{ActionViewModel>ProductName}" />
+                                            </Select>
+                                            <Input id="idInputProduct" width="100%" visible="false" value="{ActionViewModel>/Name}"/>
+                                         </VBox> -->
+                                        <!-- <VBox class="sapUiMediumMarginBottom" width="80%">
+                                                <Label text="Price Range:" required="true" />
+                                                    <Select
+                                                    id="idRange"
+                                                    forceSelection="false"
+                                                    width="100%"
+                                                    selectedKey="{ActionViewModel>/Range}"
+                                                    items="{
+                                                        path: '/ProductPriceRanges',
+                                                        sorter: { path: 'Id' }
+                                                    }">
+                                                    <core:Item key="{Id}" text="{Range}" />
+                                                    </Select>
+                                         </VBox> -->
+                </VBox>
+                <!-- <HBox class="sapUiMediumMarginBegin" > -->
+                        <VBox class="sapUiMediumMarginTop">
+                                <VBox class="sapUiTinyMarginBottom">
+                                            <Label text="Upload Thumbnail Image" required="true"/>
+                                            <HBox>
+                                            <u:FileUploader
+                                                id="idFormToolImgUploader"
+                                                name="formToolImgUploader"
+                                                width="100%"
+                                                tooltip="{i18n>fileUploaderTooltip}"
+                                                change="onChangeFile"
+                                                typeMissmatch="handleTypeMissmatch"
+                                                fileType="png,jpg,jpeg"
+                                                maximumFileSize="2.1"
+                                                fileSizeExceed="onFileSizeExceed"
+                                                useMultipart="false"
+                                                sendXHR="true"
+                                                uploadComplete="handleUploadCompleteImage" />
+                                             </HBox>
+                                                <HBox>
+                                                <ObjectAttribute class="sapUiTinyMarginTop sapUiTinyMarginBottom sapUiTinyMarginEnd" title="File Type" text=".png, .jpg, .jpeg"/>
+                                                <ObjectAttribute class="sapUiTinyMarginTop sapUiTinyMarginBottom" title="Max Size" text="2 MB"/>
+                                                </HBox>
+                                            <Image id="idPreviewImage" width="400px" height="200px" />
+                                </VBox>
+                                            <Button id="imageBtn" icon="sap-icon://attachment-photo" 
+                                            visible="false" press="onImageView" text="View Image" 
+                                            class="increaseFont"/>
+                        </VBox>                  
+                  <!-- </HBox> -->
+                </HBox> 
+         <core:Fragment
+                fragmentName="com.knpl.dga.productrecommendation.view.fragments.Tables" type="XML"> 
+            </core:Fragment>
+            </VBox>
+               <!-- </form:content>
+			</form:SimpleForm> -->
+		</f:content>
+        <f:footer>
+            <OverflowToolbar>
+				<ToolbarSpacer/>
+                <Button text="{i18n>cancelBtnText}" type="Transparent" press="onPressCancel"/>
+				<Button text="{=${ActionViewModel>/action} === 'add' ? ${i18n>saveBtnText} : ${i18n>updateBtnText}}" type="Emphasized" press="onPressSaveOrUpdate"/>
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>
