@@ -13,7 +13,7 @@
                             enableAutoBinding="true"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            requestAtLeastFields="Dealer/DealerSalesDetails/SalesGroupId"
+                            requestAtLeastFields="Dealer/DealerSalesDetails/SalesGroup/Description"
                             initiallyVisibleFields="Dealer/DealerSalesDetails/SalesGroupId"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
@@ -50,7 +50,7 @@
                 </Column> 
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/DealerSalesDetails/SalesGroupId",  "columnIndex": 3 ,"sortProperty": "Dealer/DealerSalesDetails/SalesGroupId","filterProperty": "Dealer/DealerSalesDetails/SalesGroupId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/DealerSalesDetails/SalesGroup/Description",  "columnIndex": 3 ,"sortProperty": "Dealer/DealerSalesDetails/SalesGroup/Description","filterProperty": "Dealer/DealerSalesDetails/SalesGroup/Description"}'/>
                     </customData>
                     <Text text="{i18n>SapGroupName}"/>
                 </Column>
@@ -96,7 +96,7 @@
                        <Text text="{Dealer/Name}" />
                        <Text text="{Dealer/PhoneNumber}"/>
                        <Text  text="{DealerId}" /> 
-                       <Text text="{Dealer/DealerSalesDetails/SalesGroupId}"/>
+                       <Text text="{Dealer/DealerSalesDetails/SalesGroup/Description}"/>
                         <Text text="{Dealer/FiscalYear}"/>
                         <!-- <Text text="{Dealer/Visits}" />  -->
                         <Text text="{TotalMappedContractors}"/>

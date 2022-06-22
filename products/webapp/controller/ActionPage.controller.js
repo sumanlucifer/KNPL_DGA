@@ -26,6 +26,7 @@ sap.ui.define([
             this.oCategory = this.getView().byId("idCategory");
             this.oClassification = this.getView().byId("idClassification");
             this.oTitle = this.getView().byId("idTitle");
+            this.oTextInput=this.getView().byId("idButton");
             this.oProduct = this.getView().byId("idInputProduct");
             this.oForm = this.getView().byId("idCatalogueDetailsForm");
             this.imageName = "";
@@ -98,6 +99,7 @@ sap.ui.define([
                 this.oClassification.setEditable(false);
                 this.oProduct.setVisible(true);
                 this.oProduct.setEditable(false);
+                this.oTextInput.setEnabled(true);
                 var pdfURL = this.sServiceURI + this._property + "/$value?doc_type=pdf";
                 this.pdfBtn.setVisible(true);
                 this.imgBtn.setVisible(true);
@@ -110,6 +112,7 @@ sap.ui.define([
                 this.oPreviewImage.setVisible(false);
                 this.pdfBtn.setVisible(false);
                 this.imgBtn.setVisible(false);
+                this.oTextInput.setEnabled(true);
             }
             this.oFileUploader.clear();
             var oViewModel = new JSONModel(oData);
@@ -503,7 +506,7 @@ sap.ui.define([
             oModel.refresh(true);
         },
         onAddCatalogue: function () {
-            this.getView().byId("idButton").setEnabled(false);
+            // this.getView().byId("idButton").setEnabled(false);
             var oModel = this.getView().getModel("ActionViewModel");
             var oObject = this.getModel("ActionViewModel").getProperty("/Catalogue");
             oObject.push({
@@ -512,6 +515,11 @@ sap.ui.define([
                 fileName: ""
             });
             oModel.refresh(true);
+            if (oObject.length > 0) {
+                this.getView().byId("idButton").setEnabled(false);
+            } else {
+                this.getView().byId("idButton").setEnabled(true);
+            }
             // var pdfContainer = this.byId("idPdf");
             //  pdfContainer.getBinding("items").refresh(true);
             //oModel.setProperty("/Catalogue", oObject);
@@ -576,12 +584,14 @@ sap.ui.define([
                                 MessageToast.show(sMessage);
                                 that.getOwnerComponent().getModel().refresh(true);
                                 oModel.refresh(true);
+
                             },
                             error: function () { },
                         })
                     }
                     else {
                         aCatalogue.splice(i);
+                        that.getView().byId("idButton").setEnabled(true);
                     }
                 }
             };

@@ -139,6 +139,7 @@ sap.ui.define([
             var oView = this.getView();
             var oModelView = oView.getModel("oModelView");
             oModelView.setProperty("/ReplacedDGAId",oPayload["Id"]);
+            this._showMessageToast("Message24");
             promise.resolve(oPayload);
             return promise;
         },
