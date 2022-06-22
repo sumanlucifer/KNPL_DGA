@@ -28,8 +28,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "PayrollCompany",
+                    "semanticObject": "PayrollCompany",
+                    "action": "Manage",
                     "title": "{{flpTitle}}",
                     "icon": "sap-icon://monitor-payments",
                     "indicatorDataSource": {
