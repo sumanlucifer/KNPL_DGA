@@ -16,8 +16,8 @@
             <uxap:headerTitle>
                 <uxap:ObjectPageDynamicHeaderTitle>
                     <uxap:breadcrumbs>
-                        <Breadcrumbs id="breadcrumbsId" currentLocationText="Catalogue Details">
-                            <Link text="Catalogues" press="handleAllCatelogueLinkPress"/>
+                        <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>CatalogueDetails}">
+                            <Link text="{i18n>CatalogueDetails}" press="handleAllCatelogueLinkPress"/>
                         </Breadcrumbs>
                     </uxap:breadcrumbs>
                     <uxap:expandedHeading>
@@ -71,7 +71,7 @@
                     <uxap:ObjectPageSubSection>
         <!-- <ObjectAttribute title="Title" text="{Title}"/> -->
          <VBox>
-                <Title  text="Catalogue Details"  />
+                <Title  text="{i18n>CatalogueDetails}"  />
                 <HBox width="100%"  class="sapUiSmallMarginTop">
                 <VBox class="sapUiMediumMarginBeginEnd">
                 <!-- <Title text="Title:"/>
@@ -83,7 +83,7 @@
                     </uxap:ObjectPageSubSection>
                         <uxap:ObjectPageSubSection  class="sapUiTinyMargin">
             <VBox width="100%">
-             <ObjectIdentifier title="Catalogue Thumbnail"/>
+             <ObjectIdentifier title="{i18n>RecommendationThumbnail}"/>
             	<UploadCollection
 			id="UploadCollectionImage"
 			multiple="false"

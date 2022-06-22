@@ -11,15 +11,15 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="Catalogue Details">
-                        <Link press="onPressBreadcrumbLink" text="Catalogues" />
+                    <Breadcrumbs currentLocationText="{i18n>CatalogueDetails}">
+                        <Link press="onPressBreadcrumbLink" text="{i18n>CatalogueDetails}" />
                     </Breadcrumbs>
                 </f:breadcrumbs>
             </f:DynamicPageTitle>
         </f:title>
         <f:content>
             <VBox>
-                         <Title  text="Catalogue Details"  />
+                         <Title  text="{i18n>CatalogueDetails}"  />
                 <HBox>
                 <VBox class="sapUiMediumMargin" width="50%">
                                         <VBox class="sapUiMediumMarginBottom" width="80%">

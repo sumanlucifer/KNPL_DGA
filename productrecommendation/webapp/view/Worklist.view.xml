@@ -15,7 +15,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="Catalogues"/>
+                    <Title text="{i18n>catalogues}"/>
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>
