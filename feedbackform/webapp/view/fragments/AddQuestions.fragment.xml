@@ -1,37 +1,31 @@
-<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
-  <Dialog contentWidth="70%" contentHeight="70%" class="sapUiContentPadding" title="{i18n>Question}" >
+<core:FragmentDefinition xmlns:unified="sap.ui.unified"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog contentWidth="70%" contentHeight="70%" class="sapUiContentPadding" title="{i18n>Questions}" verticalScrolling="false">
         <content>
-        <f:SimpleForm
-         class="addForm" id="FormObjectData1"
-          editable="true" layout="ResponsiveGridLayout"
-           title="{oModelControl>/Pagetitle} {i18n>MainObject2}" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="1" emptySpanM="1" emptySpanS="1" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="true">
-            <f:content>
             <VBox>
-                <!-- <core:Title text="{i18n>Question1}" /> -->
-               <Input>
-               </Input>
-           <HBox alignItems="Center"
-				justifyContent="End" class="sapUiSmallMarginTop">
-                <ComboBox placeholder="Select" change="onCmpTypChange">
-                    <items>
-                        <core:Item text="Radio Button" key="RB" />
-                        <core:Item text="Check Box" key="CB" />
-                    </items>
-                </ComboBox>
-                <Button class="sapUiSmallMarginBegin" text="Add Option" press="onPress"/>
-                 </HBox>
+                <Text text="{i18n>PrepareListofQuestions}" class="sapUiTinyMarginBottom"/>
 
-                 <Panel id="contactInformationEmPanel">
-		        </Panel>
-                  </VBox>
-                   
-        	</f:content>
-		</f:SimpleForm>
-      </content>
-       <Toolbar>               
-     <ToolbarSpacer/>               
-      <Button  text="{i18n>Add}" type="Emphasized" press="onAddquestion"/> 
-       <Button text="{i18n>Cancel}" type="Transparent" press="onCloseAddQuestions"/>                  
-    </Toolbar>
-        </Dialog>
+                <Toolbar class="sapUiTinyMarginBottom">
+                    <Text text="{i18n>Question}" class="sapUiNoMargin"/>
+                </Toolbar>
+
+                <Input id="idQuestionNameINP"/>
+
+                <OverflowToolbar style="Clear" class="sapUiTinyMarginTopBottom">
+                    <ToolbarSpacer/>
+                    <ComboBox id="idOptionControlCMB" placeholder="{i18n>Select}" items="{/MasterInputControlTypes}" change="onControlInputTypeChange">
+                        <core:ListItem key="{Id}" text="{Type}"/>
+                    </ComboBox>
+                    <Button class="sapUiSmallMarginBegin" text="{i18n>AddOption}" press="onAddOptionPress"/>
+                </OverflowToolbar>
+            </VBox>
+
+            <ScrollContainer id="idScrollContainer" vertical="true" height="60%" width="100%"/>
+        </content>
+        <buttons>
+            <Button text="{i18n>Close}" type="Transparent" press="onCloseAddQuestions"/>
+            <Button text="{i18n>Add}" type="Emphasized" press="onSaveNewAddedQuestion"/>
+        </buttons>
+    </Dialog>
 </core:FragmentDefinition>

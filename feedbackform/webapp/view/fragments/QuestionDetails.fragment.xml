@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog resizable="true" contentWidth="50%" contentHeight="50%" class="sapUiContentPadding" showHeader="false">
+        <customHeader>
+            <Toolbar>
+                <Title text="{i18n>QuestionDetails}"/>
+                <ToolbarSpacer />
+                <!-- <Button icon="sap-icon://edit" type="Emphasized"/> -->
+            </Toolbar>
+        </customHeader>
+        <content>
+            <VBox id="idDisplayQueDetailsBox" visible="{= ${LocalViewModel>/VisibleSaveQueDetails}=== true? false:true}">
+                <Text text="Q. {QuestionDetailModel>/Question}?" class="sapUiTinyMarginBottom"/>
+                <FlexBox items="{QuestionDetailModel>/AnswerOptions/results}" direction="Column">
+                    <items>
+                        <HBox class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://circle-task-2" size="5px" class="sapUiTinyMarginBeginEnd" useIconTooltip="false" visible="{= ${QuestionDetailModel>InputControlTypeId} === '1' || ${QuestionDetailModel>InputControlTypeId} === '3' ? true : false}"/>
+                            <Text text="{QuestionDetailModel>Answer}" visible="{= ${QuestionDetailModel>InputControlTypeId} === '5'? false : true}"/>
+                            <RatingIndicator editable="false" visible="{= ${QuestionDetailModel>InputControlTypeId} === '5' ? true : false}" value="{QuestionDetailModel>Answer}"/>
+                        </HBox>
+                    </items>
+                </FlexBox>
+            </VBox>
+
+            <VBox id="idEditQueDetailsBox" visible="{LocalViewModel>/VisibleSaveQueDetails}">
+                <Text text="{i18n>Question}"/>
+                <Input value="{QuestionDetailModel>/Question}" change="onQuestionChange" class="sapUiTinyMarginBottom"/>
+
+                <!-- <Text text="{i18n>Answer}" class="sapUiTinyMarginBottom"/> -->
+                <FlexBox id="idEditQuestionDetailsBox" items="{QuestionDetailModel>/AnswerOptions/results}" direction="Column" justifyContent="Center">
+                    <items>
+                        <HBox class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://circle-task-2" size="5px" class="sapUiTinyMarginBeginEnd" useIconTooltip="false" visible="{= ${QuestionDetailModel>InputControlTypeId} === '1' || ${QuestionDetailModel>InputControlTypeId} === '3' ? true : false}"/>
+                            <Input value="{QuestionDetailModel>Answer}" visible="{= ${QuestionDetailModel>InputControlTypeId} === '1' || ${QuestionDetailModel>InputControlTypeId} === '3' ? true : false}"/>
+                            <TextArea value="{QuestionDetailModel>Answer}" valueState="None" visible="{= ${QuestionDetailModel>InputControlTypeId} === '4' ? true : false}" rows="7" cols="130" showExceededText="true" maxLength="250" valueLiveUpdate="true" liveChange="fnHandleTextAreaLiveChange"/>
+                            <RatingIndicator iconSize="32px" visible="{= ${QuestionDetailModel>InputControlTypeId} === '5' ? true : false}" value="{QuestionDetailModel>Answer}"/>
+                        </HBox>
+                    </items>
+                </FlexBox>
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="{i18n>Close}" press="onCloseQuestionDetails"/>
+            <Button text="Edit" type="Emphasized" visible="{= ${LocalViewModel>/VisiblePageFooter} === true || ${LocalViewModel>/VisibleSaveQueDetails} === true ? false:true}" press="onEditQueDetailsPress"/>
+            <Button text="Save" visible="{LocalViewModel>/VisibleSaveQueDetails}" type="Emphasized" press="onSaveEditQueDetailsPress"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

@@ -29,10 +29,10 @@
                         "additionalParameters": "allowed"
                     },
                     "semanticObject": "Manage",
-                    "action": "PaintReq",
+                    "action": "FeedbackForm",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
-                    "icon": "sap-icon://activity-individual"
+                    "icon": "sap-icon://feedback"
                 }
             }
         }
@@ -93,7 +93,6 @@
             "LoginInfo": {
                 "type": "sap.ui.model.json.JSONModel"
             }
-
         },
         "routing": {
             "config": {
@@ -109,7 +108,8 @@
                 },
                 "async": true
             },
-            "routes": [{
+            "routes": [
+                {
                     "pattern": "",
                     "name": "worklist",
                     "target": [

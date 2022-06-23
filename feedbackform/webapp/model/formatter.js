@@ -63,6 +63,14 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
-    };
 
+        handleNoData: function (sValue) {
+            if (!sValue) {
+                var sNoData = "NA";
+                return sNoData;
+            } else {
+                return sValue;
+            }
+        }
+    };
 });
