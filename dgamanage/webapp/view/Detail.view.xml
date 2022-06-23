@@ -39,7 +39,7 @@
                     </layout:VerticalLayout >
                         <layout:VerticalLayout  class="sapUiSmallMarginEnd" >
                           <ObjectAttribute title="{i18n>Division}" text="{DivisionId}"/>
-                            <ObjectAttribute title="{i18n>Depot}" text="{DepotId}"/>
+                            <ObjectAttribute title="{i18n>Depot}" text="{path:'Positions',formatter:'.formatter.fmtDisplayDepots'}" />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"  class="sapUiSmallMarginEnd"/>
