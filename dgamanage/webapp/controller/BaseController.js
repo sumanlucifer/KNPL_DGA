@@ -538,11 +538,13 @@ sap.ui.define([
                     success: function (mParam1) {
                         oModelControl.setProperty("/DGAActivated", mParam1);
                         var iTotal = null;
-                        if (mParam1 > 0) {
-                            iTotal = mParam1 - oBj["AllocatedDGACount"];
-                        } else {
-                            iTotal = oBj["AllocatedDGACount"];
-                        }
+                        console.log(mParam1,oBj);
+                        iTotal = oBj["AllocatedDGACount"] - mParam1;
+                        // if (mParam1 > 0) {
+                        //     iTotal = mParam1 - oBj["AllocatedDGACount"];
+                        // } else {
+                        //     iTotal = oBj["AllocatedDGACount"];
+                        // }
                         oModelView.setProperty("/AllocatedDGACount", iTotal);
                         resolve()
                     },

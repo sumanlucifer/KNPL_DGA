@@ -21,7 +21,7 @@
                     <Title text="{ComplaintType/ComplaintType}"/>
                 </f:snappedTitleOnMobile>
                 <f:actions>
-                    <Button press="onChangeStatus" type="Emphasized" text="{i18n>ChangeStatus}" />
+                    <Button enabled="{parts:['ActivationStatus','IsReplaced'],formatter:'.formatter.fmtEnbChangeStatus'}" press="onChangeStatus" type="Emphasized" text="{i18n>ChangeStatus}" />
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
