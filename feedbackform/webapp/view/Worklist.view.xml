@@ -1,0 +1,45 @@
+<mvc:View height="100%" controllerName="com.knpl.dga.feedbackform.controller.Worklist"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f">
+    <f:DynamicPage id="idDynamicPage" busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0" stickySubheaderProvider="iconTabBar" class="sapUiNoContentPadding" headerExpanded="true" showFooter="{LocalViewModel>/VisiblePageFooter}">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>FeedbackForm}" class="sapUiSmallMarginTopBottom"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs currentLocationText="{LocalViewModel>/CurrentLocationText}">
+                        <Link text="{i18n>FeedbackForm}" visible="true" press="onNavToFeedbackForm"/>
+                        <Link text="{i18n>Forms}" press="onNavToFormsTab" visible="{LocalViewModel>/SectionBreadcrumbsVisible}"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true"/>
+        </f:header>
+        <f:content>
+            <IconTabBar  select="onIcnTbarChange" expandable="false" expanded="true" id="iconTabBar" class="sapUiResponsiveContentPadding">
+                <items>
+                    <!-- Questions tab -->
+                    <IconTabFilter text="{i18n>Questions}" key="0">
+                        <core:Fragment fragmentName="com.knpl.dga.feedbackform.view.fragments.setofquestion" type="XML"/>
+                    </IconTabFilter>
+                    <!--Form tab -->
+                    <IconTabFilter text="{i18n>Forms}" key="1">
+                        <core:Fragment fragmentName="com.knpl.dga.feedbackform.view.fragments.Form" type="XML"/>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </f:content>
+        <f:footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Button text="{i18n>Cancel}" visible="{LocalViewModel>/VisibleCancelFormButton}" type="Transparent" press="onCancelFormPress"/>
+                <Button text="{i18n>Save}" visible="{LocalViewModel>/VisibleSaveFormButton}" type="Emphasized" press="onSaveFormPress"/>
+            </Toolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

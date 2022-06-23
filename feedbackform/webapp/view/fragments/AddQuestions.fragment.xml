@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog contentWidth="70%" contentHeight="70%" class="sapUiContentPadding" title="{i18n>Questions}" verticalScrolling="false">
+        <content>
+            <VBox>
+                <Text text="{i18n>PrepareListofQuestions}" class="sapUiTinyMarginBottom"/>
+
+                <Toolbar class="sapUiTinyMarginBottom">
+                    <Text text="{i18n>Question}" class="sapUiNoMargin"/>
+                </Toolbar>
+
+                <Input id="idQuestionNameINP"/>
+
+                <OverflowToolbar style="Clear" class="sapUiTinyMarginTopBottom">
+                    <ToolbarSpacer/>
+                    <ComboBox id="idOptionControlCMB" placeholder="{i18n>Select}" items="{/MasterInputControlTypes}" change="onControlInputTypeChange">
+                        <core:ListItem key="{Id}" text="{Type}"/>
+                    </ComboBox>
+                    <Button class="sapUiSmallMarginBegin" text="{i18n>AddOption}" press="onAddOptionPress"/>
+                </OverflowToolbar>
+            </VBox>
+
+            <ScrollContainer id="idScrollContainer" vertical="true" height="60%" width="100%"/>
+        </content>
+        <buttons>
+            <Button text="{i18n>Close}" type="Transparent" press="onCloseAddQuestions"/>
+            <Button text="{i18n>Add}" type="Emphasized" press="onSaveNewAddedQuestion"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

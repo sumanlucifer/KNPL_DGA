@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core">
+    <Table id="idQuestionsListTBL" noDataText="{i18n>tableNoDataText}" items="{path: '/Questions', sorter: {path: 'Question', descending: false}}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onQuestionFormListUpdated">
+        <headerToolbar>
+            <OverflowToolbar>
+                <Title/>
+                <ToolbarSpacer/>
+                <SearchField search="onQuestionFormsSearch" width="20%"/>
+                <Button text="{i18n>AddQuestion}" type="Emphasized" icon="sap-icon://add" press="onAddQuestionsPress"/>
+                <Button icon="sap-icon://sort" press="onSortQuestionsPress"/>
+            </OverflowToolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="{i18n>Questions}"/>
+            </Column>
+            <Column hAlign="Center" width="115px">
+                <Text text="{i18n>Actions}"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{Question}"/>
+                    <FlexBox alignItems="End" alignContent="End" justifyContent="End">
+                        <Button icon= "sap-icon://detail-view" press="onViewQuestionDetailsPress" type="Transparent" tooltip="{i18n>View}"/>
+                        <ToggleButton type="Transparent" press="onArchiveTogglePress" icon="{= ${IsArchived} === true ? 'sap-icon://cause' : 'sap-icon://action'}" tooltip="{= ${IsArchived} === true ? 'Unarchive' : 'Archive'}" pressed="{= ${IsArchived} === true ? true : false}">
+                            <layoutData>
+                                <FlexItemData growFactor="1" />
+                            </layoutData>
+                        </ToggleButton>
+                        <Button icon="sap-icon://delete" press="onDeletePress" type="Transparent" tooltip="{i18n>Delete}"/>
+                    </FlexBox>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>

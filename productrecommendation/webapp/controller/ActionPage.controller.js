@@ -86,12 +86,20 @@ sap.ui.define([
                         oData.Catalogue = data.MediaList.results.filter(function (ele) {
                             return !ele.ContentType.includes("image");
                         });
+                        if(oData.Catalogue.length > 0 )
+                        {
+                            that.getView().byId("idButton").setEnabled(false);
+                        }
+                        else{
+                            that.getView().byId("idButton").setEnabled(true);
+                        }
                         oData.ImageUrl = that.sServiceURI + that._property + "/$value?doc_type=image&time=" + new Date().getTime();
                         var oViewModel = new JSONModel(oData);
                         that.getView().setModel(oViewModel, "ActionViewModel");
                         that.oPreviewImage.setSrc(that.sServiceURI + that._property + "/$value?doc_type=image");
                         that.oFileUploader.setUploadUrl(that.sServiceURI + that._property + "/$value?doc_type=image");
                         that.oPreviewImage.setVisible(false);
+                      
                         //that.getView().getModel("ActionViewModel").setProperty("/Image",that.sServiceURI + that._property + "/$value?doc_type=image");
                     },
                     error: function (oError) {
@@ -99,7 +107,6 @@ sap.ui.define([
                 });
                 this.oTextInput.setVisible(true);
                 this.oTextInput.setEditable(true);
-                this.oAddButton.setEnabled(true);
                 var pdfURL = this.sServiceURI + this._property + "/$value?doc_type=pdf";
                 this.pdfBtn.setVisible(true);
                 this.imgBtn.setVisible(true);

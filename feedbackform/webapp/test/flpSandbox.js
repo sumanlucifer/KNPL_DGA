@@ -39,7 +39,7 @@ sap.ui.define([
 							"tiles": [{
 								"tileType": "sap.ushell.ui.tile.StaticTile",
 								"properties": {
-									"title": "Consumer Feedback Form",
+									"title": "Ui5 Template",
 									"targetURL": "#comknpldgafeedbackform-display"
 								}
 							}]
@@ -55,7 +55,7 @@ sap.ui.define([
 								"semanticObject": "comknpldgafeedbackform",
 								"action": "display",
 								"description": "A Fiori application.",
-								"title": "Consumer Feedback Form",
+								"title": "Ui5 Template",
 								"signature": {
 									"parameters": {}
 								},
