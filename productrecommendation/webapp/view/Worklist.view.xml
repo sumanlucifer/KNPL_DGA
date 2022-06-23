@@ -65,6 +65,7 @@
                             placeToolbarInTable="true"
                             requestAtLeastFields="Id"
                             persistencyKey="CatalogueSmartTableKey"
+                            initialNoDataText="{i18n>tableNoDataText}"
                             >
                             	<smartTable:customToolbar>
 			<OverflowToolbar>
@@ -72,7 +73,7 @@
                         <Button icon="sap-icon://add" type="Emphasized" text="{i18n>GenericAdd}" press="onPressAdd" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
                     </OverflowToolbar>
 		</smartTable:customToolbar>
-                        <Table growingScrollToLoad="false" growing="true" growingThreshold="10" >
+                        <Table growingScrollToLoad="false" growing="true" growingThreshold="10" noDataText="{i18n>tableNoDataText}">
                                 <columns>
                                  <Column hAlign="Begin">
                                         <customData>
