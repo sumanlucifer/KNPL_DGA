@@ -14,8 +14,8 @@
                                             <Toolbar>
                                                 <Title text="{i18n>catalogues}" />
                                                 <ToolbarSpacer />
-                                                <!-- <Button visible ="{{= !${ActionViewModel>/Catalogue.length > 0} }}" icon="sap-icon://add" press="onAddCatalogue" type="Emphasized" text="Add"/> -->
-                                                   <Button id="idButton" icon="sap-icon://add" press="onAddCatalogue" type="Emphasized" text="Add"/>
+                                                <Button id="idButton" enabled ="{{= !${ActionViewModel>/Catalogue.length > 0} }}" icon="sap-icon://add" press="onAddCatalogue" type="Emphasized" text="Add"/>
+                                                   <!-- <Button id="idButton" icon="sap-icon://add" press="onAddCatalogue" type="Emphasized" text="Add"/> -->
                                             </Toolbar>
                                         </headerToolbar>
                                             <columns>
