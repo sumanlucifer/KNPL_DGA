@@ -22,7 +22,7 @@
                       
                         <ToolbarSpacer />
                         
-                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>LinkDealer}" press="handleDealersValueHelp" />
+                        <Button enabled="{= ${ActivationStatus} === 'DEACTIVATED' ? false:true}" icon="sap-icon://add" type="Emphasized" text="{i18n>LinkDealer}" press="handleDealersValueHelp" />
 
                         
                     </OverflowToolbar>

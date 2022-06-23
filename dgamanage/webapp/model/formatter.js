@@ -81,6 +81,18 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
+        fmtEnbChangeStatus: function (mParam1, mParam2) {
+            /*
+            * mparam1 = activation status
+            * mParam2 = IsReplaced
+            */
+            if (mParam1 === 'DEACTIVATED') {
+                if (mParam2 === true) {
+                    return false;
+                }
+            }
+            return true
+        },
         fmtChildTowns: function (mParam1) {
 
             var aArray = []
