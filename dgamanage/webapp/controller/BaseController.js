@@ -520,6 +520,12 @@ sap.ui.define([
 
 
         },
+        onRowUpdated:function(oEvent){
+            var sLength = oEvent.getSource().getBinding("rows").getLength();
+            var sLabel = this._geti18nText("DgaPositionsData2",[sLength]);
+            this.getView().byId("idLable1").setText(sLabel)
+            console.log(sLabel)
+        },
         _GetActivatedDGACount: function (oBj) {
             var oView = this.getView();
             var oData = oView.getModel();
