@@ -69,19 +69,6 @@ sap.ui.define(
                 } else {
                     oHeader.setText(this.getResourceBundle().getText("FormsCount", oBinding.getLength()));
                 }
-
-                if (sTableID === "idFormTable") {
-                    var bAddLeadsTypeForm = this.getView().byId(sTableID).getItems().filter(function (oItem) {
-                        return oItem.getBindingContext().getProperty("FormTypeId") === "1";
-                    }).length > 0 ? false : true;
-
-                    var bAddLostsTypeForm = this.getView().byId(sTableID).getItems().filter(function (oItem) {
-                        return oItem.getBindingContext().getProperty("FormTypeId") === "2";
-                    }).length > 0 ? false : true;
-
-                    this.getView().getModel("LocalViewModel").setProperty("/AddLeadsTypeForm", bAddLeadsTypeForm);
-                    this.getView().getModel("LocalViewModel").setProperty("/AddLostsTypeForm", bAddLostsTypeForm);
-                }
             },
 
             /**
@@ -141,15 +128,27 @@ sap.ui.define(
             },
 
             onFormTypeSelectionChange: function (oEvent) {
-                var sID = oEvent.getSource().getSelectedKey();
-                if (sID === "1" && this.getView().getModel("LocalViewModel").setProperty("/AddLeadsTypeForm")) {
-                    MessageBox.error("Lead converted form type is already added.");
-                    oEvent.getSource().setSelectedKey("");
-                }
-                if (sID === "2" && this.getView().getModel("LocalViewModel").setProperty("/AddLostsTypeForm")) {
-                    MessageBox.error("Lead lost Form type is already added.");
-                    oEvent.getSource().setSelectedKey("");
-                }
+                var sID = oEvent.getSource().getSelectedKey(),
+                    aLeadsTypeForms = this.getView().byId("idFormTable").getItems().filter(function (oItem) {
+                        return oItem.getBindingContext().getProperty("FormTypeId") === "1";
+                    }),
+                    bAddLeadForm = aLeadsTypeForms.length > 0 ? false : true,
+                    aLostsTypeForms = this.getView().byId("idFormTable").getItems().filter(function (oItem) {
+                        return oItem.getBindingContext().getProperty("FormTypeId") === "2";
+                    }),
+                    bAddLostForm = aLostsTypeForms.length > 0 ? false : true;
+
+                this.getView().getModel("LocalViewModel").setProperty("/AddLeadsTypeForm", bAddLeadForm);
+                this.getView().getModel("LocalViewModel").setProperty("/AddLostsTypeForm", bAddLostForm);
+
+                // if (sID === "1" && this.getView().getModel("LocalViewModel").getProperty("/AddLeadsTypeForm") === false) {
+                //     MessageBox.error("Lead converted form type is already added.");
+                //     oEvent.getSource().setSelectedKey("");
+                // }
+                // if (sID === "2" && this.getView().getModel("LocalViewModel").getProperty("/AddLostsTypeForm") === false) {
+                //     MessageBox.error("Lead lost Form type is already added.");
+                //     oEvent.getSource().setSelectedKey("");
+                // }
             },
 
             /**
