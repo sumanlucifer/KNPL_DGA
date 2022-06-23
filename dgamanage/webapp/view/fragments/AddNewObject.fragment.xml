@@ -82,18 +82,18 @@
                 <DatePicker placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" dateValue="{oModelView>/ExitDate}"  change="onExitDateChange"  value="{path:'oModelControl>/AddFields/ExitDate', type:'sap.ui.model.type.Date', formatOptions:{source:{pattern:'dd/MM/YYYY'}, pattern:'dd/MM/YYYY', strictParsing:true} }"  ></DatePicker>
                 <core:Title text="  " />
                 <Label id="idLable1" text="{i18n>DgaPositionsData}" visible="false"/>
-                <uiTable:Table  selectionMode="None" rows="{oModelControl>/Table/DgaPositions}" visible="false" rowsUpdated="onRowUpdated" >
+                <uiTable:Table threshold="10" id="tableDgaPositions" selectionMode="None" visible="false" rowsUpdated="onRowUpdatedDgaPositionTbl" >
                     <uiTable:columns>
                         <uiTable:Column >
                             <Label text="{i18n>DGAName}" />
                             <uiTable:template>
-                                <Text text="{oModelControl>DGA/GivenName}" wrapping="false" />
+                                <Text text="{DGA/GivenName}" wrapping="false" />
                             </uiTable:template>
                         </uiTable:Column>
                          <uiTable:Column >
                             <Label text="{i18n>PositionCode}" />
                             <uiTable:template>
-                                <Text text="{oModelControl>PositionCode}" wrapping="false" />
+                                <Text text="{PositionCode}" wrapping="false" />
                             </uiTable:template>
                         </uiTable:Column>
                     </uiTable:columns>

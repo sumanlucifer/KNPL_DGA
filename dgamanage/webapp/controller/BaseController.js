@@ -520,12 +520,7 @@ sap.ui.define([
 
 
         },
-        onRowUpdated:function(oEvent){
-            var sLength = oEvent.getSource().getBinding("rows").getLength();
-            var sLabel = this._geti18nText("DgaPositionsData2",[sLength]);
-            this.getView().byId("idLable1").setText(sLabel)
-            console.log(sLabel)
-        },
+      
         _GetActivatedDGACount: function (oBj) {
             var oView = this.getView();
             var oData = oView.getModel();
@@ -543,25 +538,25 @@ sap.ui.define([
             }
             var oFilterA = new Filter(aFilter1, true);
             return new Promise((resolve, rejected) => {
-                oData.read("/DGAPositions", {
-                    urlParameters:{
-                        $inlinecount:"allpages",
-                        $expand:"DGA"
-                    },
-                    //filters: [oFilterA],
+                oData.read("/DGAPositions/$count", {
+                    filters: [oFilterA],
                     success: function (mParam1) {
                         console.log(mParam1,oBj)
-                        oModelControl.setProperty("/DGAActivated", mParam1["__count"]);
-                        oModelControl.setProperty("/Table/DgaPositions",mParam1["results"]);
                         var iTotal = null;
-                        iTotal = oBj["AllocatedDGACount"] - mParam1["__count"];
-                       
-                        // if (mParam1 > 0) {
-                        //     iTotal = mParam1 - oBj["AllocatedDGACount"];
-                        // } else {
-                        //     iTotal = oBj["AllocatedDGACount"];
-                        // }
+                        iTotal = oBj["AllocatedDGACount"] - mParam1;
+                        oModelControl.setProperty("/DGAActivated", mParam1);
                         oModelView.setProperty("/AllocatedDGACount", iTotal);
+                        var oTable = oView.byId("tableDgaPositions");
+                        if(oTable.getVisible()){
+                            oTable.bindRows({
+                                path:'/DGAPositions',
+                                filters:[oFilterA],
+                                parameters :{
+                                    "expand":"DGA"
+                                }
+                            })
+                        }
+                       
                         resolve()
                     },
                     error: function (mParam1) {
@@ -600,6 +595,12 @@ sap.ui.define([
                 })
             });
 
+        },
+        onRowUpdatedDgaPositionTbl:function(oEvent){
+            var sLength = oEvent.getSource().getBinding("rows").getLength();
+            var sLabel = this._geti18nText("DgaPositionsData2",[sLength]);
+            this.getView().byId("idLable1").setText(sLabel)
+            console.log(sLabel)
         },
         onTokenUpdate: function (oEvent) {
             if (oEvent.getParameter("type") === "removed") {
