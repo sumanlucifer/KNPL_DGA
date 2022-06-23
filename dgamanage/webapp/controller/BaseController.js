@@ -536,6 +536,7 @@ sap.ui.define([
                 oData.read("/DGAPositions/$count", {
                     filters: [oFilterA],
                     success: function (mParam1) {
+                        console.log(mParam1,oBj)
                         oModelControl.setProperty("/DGAActivated", mParam1);
                         var iTotal = null;
                         iTotal = oBj["AllocatedDGACount"] - mParam1;
