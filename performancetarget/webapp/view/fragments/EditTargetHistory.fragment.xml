@@ -5,21 +5,22 @@
             <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">  
                   <f:content>
                     <Label text="{i18n>From}" />
-                     <Text text="{path:'FromDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+                     <Text text="{path:'{oModelControl>/EditFields>/FromDate}',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                     <Label text="{i18n>To}" />
                       <Text text="{path:'ToDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                     <Label text="{i18n>DGA} {i18n>Type}" />
                      <Text text="{DGAType/Name}"/>
                      <Label text="{i18n>Zone}" />
-                     <Text text="{}" /> 
+                   <Text text="{path:'PerformanceZone',formatter:'.formatter.arrayFormat2'}"/> 
+                        
                      <Label text="{i18n>Divison}" />
-                       <Text text="{ }" /> 
+                     <Text text="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/>  
                         <Label text="{i18n>Depot}" />
-                         <Text text="{}" /> 
+                        <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/>  
                      <Label text="{i18n>LeadVisitCount}" required="true" />
                 <!-- <Input required="true" id="idEditHistory" liveChange="onCountChange" value="{path:'oModelControl>/EditFields/Target', type : 'sap.ui.model.type.String', constraints:{ minLength:1 } }" /> --> 
                  <!-- <Label id="idStepInpt" text="{titleModel>/icnTbTittle} {i18n>Count}"  /> -->
-                      <StepInput id="idEditHistory" value="{oModelControl>/EditFields/Target}" displayValuePrecision="0"  min="0" max=" " width="14em" enabled="true" editable="true" change="onCountChange" />
+                      <StepInput id="idEditHistory" value="{oModelControl>/EditFields/Target}" displayValuePrecision="0"  min=" " max=" " width="14em" enabled="true" editable="true" change="onCountChange" />
            </f:content>
             </f:SimpleForm>
         </content>

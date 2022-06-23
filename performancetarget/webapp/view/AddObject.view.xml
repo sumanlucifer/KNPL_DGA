@@ -21,14 +21,15 @@
 
         <f:content>
         
-        <form:SimpleForm class="addForm sapUiMediumMarginBeginEnd" id="idSampleSetTarget" title="Set Target"  editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+        <form:SimpleForm class="addForm sapUiMediumMarginBeginEnd" id="idSampleSetTarget"  editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="3" columnsM="2" singleContainerFullSize="true">
             <form:content>
               <VBox>
                     <Label text="{i18n>Select} {i18n>DGAType}" required="true" class= "sapUiTinyMarginTopBottom" />
-               	     <RadioButtonGroup columns="2" select="onRbChnageMain" selectedIndex="{oModelControl>/Rbtn/TarGrp}">
+               	     <RadioButtonGroup columns="3" select="onRbChnageMain" selectedIndex="{oModelControl>/Rbtn/TarGrp}">
                             <buttons>
                                 <RadioButton text="{i18n>DedicatedDGA}" selected="true"/>
                                 <RadioButton text="{i18n>SharedDGA}"/>
+                                <RadioButton text="{i18n>All}"/>
                             </buttons>
                      </RadioButtonGroup>
                
@@ -86,32 +87,146 @@
 	            </MultiInput>
 
                      </VBox>
+                      <VBox >
+                    <Label text="{i18n>Job} {i18n>Location}" required="true" width="14em" />
+                     <RadioButtonGroup columns="2" select="onRbChnageLocation" selectedIndex="{oModelControl>/Rbtn/Location}">
+                            <buttons>
+                                <RadioButton text="{i18n>All}" selected="true"/>
+                                <RadioButton  text="{i18n>Specific}"/>
+                            </buttons>
+                     </RadioButtonGroup>
+               
+                   
+                      <MultiComboBox enabled="{titleModel>/isSpecificLocation}"  id="idLocation" class="sapUiTinyMarginEnd" required="true" width="10rem" selectedKeys="{path:'oModelControl>/MultiCombo/Location', type :'.customMulti' }" items="{ path : '/MasterWorkLocations' }"  selectionChange="onMultyLocationChange" >
+					<core:Item key="{Id}" text="{Id}"/>
+				     </MultiComboBox>
+                    </VBox>
                     </HBox>
                      </VBox>
-                            <Label text ="{i18n>mode}" class="sapUiTinyMarginBeginEnd" required="true" />
+                            <!-- <Label text ="{i18n>mode}" class="sapUiTinyMarginBeginEnd" required="true" />
                              <ComboBox id="idMode" class="sapUiTinyMarginBeginEnd" placeholder="{i18n>Select} {i18n>mode}" selectionChange="onModeChange" selectedKey="{path:'oModelControl>/AddFields/Mode' }">
                                        <core:Item text="{i18n>Daily}" key="0"/>
                                         <core:Item text="{i18n>Monthly}" key="1"/>
-                             </ComboBox>
+                             </ComboBox> -->
                      <VBox>
                      
                      </VBox>
-                    <HBox>
-                      <VBox class="sapUiTinyMargin">
-                         <Label text="{i18n>From}" required="true" class="" width="14em" />
-                        <DatePicker id="idFromDate" placeholder="{i18n>Select} {i18n>Date}"   value="{path:'oModelControl>/AddFields/StartDate'}"></DatePicker>
+                      
+                         <HBox>
+                       <Title class="sapUiTinyMarginBegin" text="Lead Visit Target" />
+                         </HBox>
+                      
+                     <HBox  >
+                     <!-- <Label text="{i18n>Lead} {i18n>Visit} {i18n>Target}"  class= "sapUiTinyMarginTopBottom" /> -->
+                       <!-- <Label  text="{i18n>Lead} {i18n>Visit} {i18n>Target}" /> -->
+                     
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}" required="true" class="" width="10em" />
+                        <DatePicker id="idFromDate" placeholder="{i18n>Select} {i18n>Date}"  width="10em" value="{path:'oModelControl>/AddFields/StartDate'}"></DatePicker>
            
                       </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}" required="true" class="" width="10em" />
+                          <DatePicker id="idToDate" placeholder="{i18n>Select} {i18n>Date}" width="10em" change="onToChange" value="{path:'oModelControl>/AddFields/EndDate'}" ></DatePicker> 
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label id="idStepInpt" text="{titleModel>/icnTbTittle} {i18n>Count}" required="true" width="10em" />
+                      <StepInput value="{oModelControl>/AddFields/Target}" displayValuePrecision="0"  min="0" max=" " width="10em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+                     
+                         <HBox>
+                           <Title class="sapUiTinyMarginBegin" text="New Lead Target" />
+                         </HBox>
+                      
+                       <HBox  >
+                     
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}" required="true" class="" width="10em" />
+                        <DatePicker id="idFromDate1" placeholder="{i18n>Select} {i18n>Date}"  width="10em" value="{path:'oModelControl>/AddFields/StartDate'}"></DatePicker>
+           
+                      </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}" required="true" class="" width="10em" />
+                          <DatePicker id="idToDate1" placeholder="{i18n>Select} {i18n>Date}" width="10em" change="onToChange" value="{path:'oModelControl>/AddFields/EndDate'}" ></DatePicker> 
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label id="idStepInpt1" text="{titleModel>/icnTbTittle} {i18n>Count}" required="true" width="10em" />
+                      <StepInput value="{oModelControl>/AddFields/Target}" displayValuePrecision="0"  min="0" max="20" width="10em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+                       
+                        <HBox>
+                           <Title class="sapUiTinyMarginBegin" text="New Lead Target" />
+                         </HBox>
+                      <HBox  >
+                     
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}" required="true" class="" width="10em" />
+                        <DatePicker id="idFromDate2" placeholder="{i18n>Select} {i18n>Date}"  width="10em" value="{path:'oModelControl>/AddFields/StartDate'}"></DatePicker>
+           
+                      </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}" required="true" class="" width="10em" />
+                          <DatePicker id="idToDate2" placeholder="{i18n>Select} {i18n>Date}" width="10em" change="onToChange" value="{path:'oModelControl>/AddFields/EndDate'}" ></DatePicker> 
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label id="idStepInpt2" text="{titleModel>/icnTbTittle} {i18n>Count}" required="true" width="10em" />
+                      <StepInput value="{oModelControl>/AddFields/Target}" displayValuePrecision="0"  min="0" max="20" width="10em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+
+                      <HBox  >
+                      
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}" required="true" class="" width="10em" />
+                        <DatePicker id="idFromDate3" placeholder="{i18n>Select} {i18n>Date}"  width="10em" value="{path:'oModelControl>/AddFields/StartDate'}"></DatePicker>
+           
+                      </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}" required="true" class="" width="10em" />
+                          <DatePicker id="idToDate3" placeholder="{i18n>Select} {i18n>Date}" width="10em" change="onToChange" value="{path:'oModelControl>/AddFields/EndDate'}" ></DatePicker> 
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label id="idStepInpt3" text="{titleModel>/icnTbTittle} {i18n>Count}" required="true" width="10em" />
+                      <StepInput value="{oModelControl>/AddFields/Target}" displayValuePrecision="0"  min="0" max="20" width="10em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+
+                      <HBox >
+                      
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}" required="true" class="" width="10em" />
+                        <DatePicker id="idFromDate4" placeholder="{i18n>Select} {i18n>Date}"  width="10em" value="{path:'oModelControl>/AddFields/StartDate'}"></DatePicker>
+           
+                      </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}" required="true" class="" width="10em" />
+                          <DatePicker id="idToDate4" placeholder="{i18n>Select} {i18n>Date}" width="10em" change="onToChange" value="{path:'oModelControl>/AddFields/EndDate'}" ></DatePicker> 
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label id="idStepInpt4" text="{titleModel>/icnTbTittle} {i18n>Count}" required="true" width="10em" />
+                      <StepInput value="{oModelControl>/AddFields/Target}" displayValuePrecision="0"  min="0" max="20" width="10em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+
+                       <HBox  >
+                      
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}" required="true" class="" width="10em" />
+                        <DatePicker id="idFromDate5" placeholder="{i18n>Select} {i18n>Date}"  width="10em" value="{path:'oModelControl>/AddFields/StartDate'}"></DatePicker>
+           
+                      </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}" required="true" class="" width="10em" />
+                          <DatePicker id="idToDate5" placeholder="{i18n>Select} {i18n>Date}" width="10em" change="onToChange" value="{path:'oModelControl>/AddFields/EndDate'}" ></DatePicker> 
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label id="idStepInpt5" text="{titleModel>/icnTbTittle} {i18n>Count}" required="true" width="10em" />
+                      <StepInput value="{oModelControl>/AddFields/Target}" displayValuePrecision="0"  min="0" max="20" width="10em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
                   
-                       <VBox class="sapUiTinyMargin">
-                         <Label text="{i18n>To}" required="true" class="" width="14em" />
-                          <DatePicker id="idToDate" placeholder="{i18n>Select} {i18n>Date}" change="onToChange" value="{path:'oModelControl>/AddFields/EndDate'}" ></DatePicker> 
-                      </VBox>
-                        </HBox>
-                      <VBox class="sapUiTinyMargin">
-                      <Label id="idStepInpt" text="{titleModel>/icnTbTittle} {i18n>Count}" required="true" width="12em" />
-                      <StepInput value="{oModelControl>/AddFields/Target}" displayValuePrecision="0"  min="0" max="20" width="14em" enabled="true" editable="true" change="onChange"/>
-                      </VBox>
                 </VBox>
             </form:content>
         </form:SimpleForm>

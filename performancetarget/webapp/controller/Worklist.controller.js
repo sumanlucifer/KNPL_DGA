@@ -51,7 +51,7 @@ sap.ui.define(
 
                     },
                     EditFields: {
-                        Target: "",
+                        FromDate: "",
                     },
                     PageBusy: true
                 };
@@ -95,14 +95,35 @@ sap.ui.define(
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
-                var oTable = this.getView().byId("LeadVisitTable");
-                var oTable = this.getView().byId("NewLeadTable");
-                var oTable = this.getView().byId("ContractorVisitCountTable");
-                var oTable = this.getView().byId("LeadConversionTable");
-                var oTable = this.getView().byId("BusinessGenerationTable");
-                oTable.rebindTable();
-
+                var sKey = oEvent.getSource().getSelectedKey();
+                var oView = this.getView();
+                if (sKey == "0") {
+                    oView.byId("LeadVisitTable").rebindTable();
+                }
+                else if (sKey == "1"){
+                    oView.byId("NewLeadTable").rebindTable();
+                }
+                else if (sKey == "2"){
+                    oView.byId("ContractorVisitCountTable").rebindTable();
+                }
+                // else if (sKey == "3"){
+                //     oView.byId("DealerVisitTable").rebindTable();
+                // }
+                else if (sKey == "4"){
+                    oView.byId("LeadConversionTable").rebindTable();
+                }   
+            else if (sKey == "5"){
+                    oView.byId("BusinessGenerationTable").rebindTable();
+                }             
             },
+            //     var oTable = this.getView().byId("LeadVisitTable");
+            //     var oTable = this.getView().byId("NewLeadTable");
+            //     var oTable = this.getView().byId("ContractorVisitCountTable");
+            //     var oTable = this.getView().byId("LeadConversionTable");
+            //     var oTable = this.getView().byId("BusinessGenerationTable");
+            //     oTable.rebindTable();
+
+            // },
             _onRouteMatched: function () {
                 this._InitData();
             },
@@ -191,9 +212,9 @@ sap.ui.define(
                 else if (sKey == "2"){
                     oView.byId("ContractorVisitCountTable").rebindTable();
                 }
-                else if (sKey == "3"){
-                    oView.byId("DealerVisitTable").rebindTable();
-                }
+                // else if (sKey == "3"){
+                //     oView.byId("DealerVisitTable").rebindTable();
+                // }
                 else if (sKey == "4"){
                     oView.byId("LeadConversionTable").rebindTable();
                 }   
@@ -308,8 +329,28 @@ sap.ui.define(
 
             },
             onFilterBarSearch: function () {
+                var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
-                oView.byId("LeadVisitTable").rebindTable();
+                if (sKey == "0") {
+                    oView.byId("LeadVisitTable").rebindTable();
+                }
+                else if (sKey == "1"){
+                    oView.byId("NewLeadTable").rebindTable();
+                }
+                else if (sKey == "2"){
+                    oView.byId("ContractorVisitCountTable").rebindTable();
+                }
+                // else if (sKey == "3"){
+                //     oView.byId("DealerVisitTable").rebindTable();
+                // }
+                else if (sKey == "4"){
+                    oView.byId("LeadConversionTable").rebindTable();
+                }   
+            else if (sKey == "5"){
+                    oView.byId("BusinessGenerationTable").rebindTable();
+                }             
+            
+
             },
             _CreateFilter: function () {
                 var aCurrentFilterValues = [];
@@ -381,13 +422,13 @@ sap.ui.define(
                             // converstions are made as the difference between utc and the server time
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
+                                new Filter("FromDate", FilterOperator.GE, new Date(oViewFilter[prop])));
                         } else if (prop === "EndDate") {
                             // converstions are made as the difference between utc and the server time
                             aFlaEmpty = false;
                             var oDate = new Date(oViewFilter[prop]).setDate(oViewFilter[prop].getDate() + 1);
                             aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.LT, oDate));
+                                new Filter("ToDate", FilterOperator.LT, oDate));
                         } else if (prop === "DGAId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(

@@ -73,9 +73,10 @@
                          <Text text="{DGAType/Name}"/>
                         <Text text="{path:'PerformanceZone',formatter:'.formatter.arrayFormat2'}"/> 
                           <Text text="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/>  
-                         <HBox items="{PerformanceDepot}">
+                         <!-- <HBox items="{PerformanceDepot}">
                          <Text text="{DepotId} ,"/>
-                         </HBox>
+                         </HBox> -->
+                          <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/> 
                          <Text text="{TargetValue}"/>
                         <Button icon="sap-icon://edit"  type="Transparent" press="onPressEdit" tooltip="Edit"></Button>
                         <!-- <ObjectStatus text="{parts:['ComplaintStatus','ParentComplaintId'],formatter:'.formatter.fmtLowerCase'}" state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Error' }"/> -->
