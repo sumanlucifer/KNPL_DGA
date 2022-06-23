@@ -98,6 +98,10 @@ sap.ui.define([
                     ChildTowns: [],
                     Depots: []
                 },
+                Table:{
+                    DgaPositions: []
+                    
+                },
                 bSaveEnabledFlag1: true,
                 DGAActivated: ""
             };
@@ -533,13 +537,19 @@ sap.ui.define([
             }
             var oFilterA = new Filter(aFilter1, true);
             return new Promise((resolve, rejected) => {
-                oData.read("/DGAPositions/$count", {
-                    filters: [oFilterA],
+                oData.read("/DGAPositions", {
+                    urlParameters:{
+                        $inlinecount:"allpages",
+                        $expand:"DGA"
+                    },
+                    //filters: [oFilterA],
                     success: function (mParam1) {
                         console.log(mParam1,oBj)
-                        oModelControl.setProperty("/DGAActivated", mParam1);
+                        oModelControl.setProperty("/DGAActivated", mParam1["__count"]);
+                        oModelControl.setProperty("/Table/DgaPositions",mParam1["results"]);
                         var iTotal = null;
-                        iTotal = oBj["AllocatedDGACount"] - mParam1;
+                        iTotal = oBj["AllocatedDGACount"] - mParam1["__count"];
+                       
                         // if (mParam1 > 0) {
                         //     iTotal = mParam1 - oBj["AllocatedDGACount"];
                         // } else {
