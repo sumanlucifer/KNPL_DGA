@@ -1,0 +1,63 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Table id="idFormTable" items="{
+                path: '/Forms',
+                sorter: { path: 'CreatedAt'},
+                parameters: {expand: 'FormType'}
+			}" width="auto" noDataText="{i18n>tableNoDataText}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onQuestionFormListUpdated">
+        <headerToolbar>
+            <OverflowToolbar>
+                <Title/>
+                <ToolbarSpacer/>
+                <SearchField width="20%" search="onQuestionFormsSearch"/>
+                <Button text="{i18n>createform}" type="Emphasized" icon="sap-icon://add" press="onAddFormPress">
+                </Button>
+                <!-- <Button id="idSelectFilter" icon="sap-icon://filter" press="onPressFilter"/> -->
+                <!-- <Button icon="sap-icon://sort" press="onSort"/> -->
+            </OverflowToolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="{i18n>FormType}"/>
+            </Column>
+            <Column>
+                <Text text="{i18n>FormName}"/>
+            </Column>
+            <Column>
+                <Text text="{i18n>DateofPublishment}"/>
+            </Column>
+            <Column hAlign="Center">
+                <Text text="{i18n>Status}"/>
+            </Column>
+            <Column hAlign="End">
+                <Text text="{i18n>Action}" class="sapUiTinyMarginEnd"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem type="Navigation" press="onDisplayFormDetails">
+                <cells>
+                    <Text text="{FormType/TypeText}"/>
+                    <Text text="{Name}"/>
+                    <Text text="{path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd MMMM yyyy'},formatter:'.formatter.handleNoData'}" />
+                    <ObjectStatus  text="{= ${IsPublished} === true ? 'Published' : 'Draft'}" state="{= ${IsPublished} === true ? 'Success' : 'Warning'}" />
+                    <HBox alignItems="End" alignContent="End" justifyContent="End" class="TextColorBlue">
+                        <Button icon="sap-icon://edit" press="onEditFormPress" class="sapUiTinyMarginEnd" visible="{= ${IsPublished}  === true  ? false : true}" type="Transparent" tooltip="Edit" />
+                        <Button text="{i18n>Publish}" press="onPublishFormPress" visible="{= ${IsPublished}  === true  ? false : true}" tooltip="Publish"/>
+                    </HBox>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+    <VBox id="idDisplayFormBox" visible="false">
+        <core:Fragment fragmentName="com.knpl.dga.feedbackform.view.fragments.DisplayForm" type="XML"/>
+    </VBox>
+
+    <VBox id="idEditFormBox" visible="false">
+        <core:Fragment fragmentName="com.knpl.dga.feedbackform.view.fragments.EditForm" type="XML"/>
+    </VBox>
+
+    <VBox id="idCreateFormBox" visible="false">
+        <core:Fragment fragmentName="com.knpl.dga.feedbackform.view.fragments.CreateForm" type="XML"/>
+    </VBox>
+</core:FragmentDefinition>
