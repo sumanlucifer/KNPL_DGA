@@ -10,7 +10,7 @@
                     <Text text="{i18n>Question}" class="sapUiNoMargin"/>
                 </Toolbar>
 
-                <Input id="idQuestionNameINP"/>
+                <Input id="idQuestionNameINP" maxLength="250"/>
 
                 <OverflowToolbar style="Clear" class="sapUiTinyMarginTopBottom">
                     <ToolbarSpacer/>
@@ -25,7 +25,7 @@
         </content>
         <buttons>
             <Button text="{i18n>Close}" type="Transparent" press="onCloseAddQuestions"/>
-            <Button text="{i18n>Add}" type="Emphasized" press="onSaveNewAddedQuestion"/>
+            <Button text="{i18n>Save}" type="Emphasized" press="onSaveNewAddedQuestion"/>
         </buttons>
     </Dialog>
 </core:FragmentDefinition>
