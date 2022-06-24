@@ -4,7 +4,7 @@
                  <core:Title text="{i18n>LocationDetails}" />
                   
                  <Label text="{i18n>Zone}" />
-                <ComboBox required="true" selectionChange="onZoneChange" items="{/MasterZones}" selectedKey="{path:'oModelView>/Zone',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
+                <ComboBox required="true" editable="false" selectionChange="onZoneChange" items="{/MasterZones}" selectedKey="{path:'oModelView>/Zone',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
                     <core:Item text="{Id}" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>Division}" />
@@ -81,8 +81,8 @@
                 <Label text="{i18n>ExitDate}" />
                 <DatePicker placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" dateValue="{oModelView>/ExitDate}"  change="onExitDateChange"  value="{path:'oModelControl>/AddFields/ExitDate', type:'sap.ui.model.type.Date', formatOptions:{source:{pattern:'dd/MM/YYYY'}, pattern:'dd/MM/YYYY', strictParsing:true} }"  ></DatePicker>
                 <core:Title text="  " />
-                <Label id="idLable1" text="{i18n>DgaPositionsData}" visible="false"/>
-                <uiTable:Table threshold="10" id="tableDgaPositions" selectionMode="None" visible="false" rowsUpdated="onRowUpdatedDgaPositionTbl" >
+                <Label id="idLable1" text="{i18n>DgaPositionsData}" visible="{= ${oModelControl>/mode} === 'Add'}"/>
+                <uiTable:Table threshold="10" id="tableDgaPositions" selectionMode="None" visible="{= ${oModelControl>/mode} === 'Add'}" rowsUpdated="onRowUpdatedDgaPositionTbl" >
                     <uiTable:columns>
                         <uiTable:Column >
                             <Label text="{i18n>DGAName}" />
