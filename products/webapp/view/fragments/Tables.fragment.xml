@@ -133,7 +133,7 @@
                                                                     name="formToolPdfUploader"
                                                                     class="sapUiSmallMarginTop"
                                                                     tooltip="{i18n>fileUploaderTooltip}"
-                                                                    change="onChangePdf"
+                                                                    change="onChangePdf1"
                                                                     typeMissmatch="handleTypeMissmatch"
                                                                     fileType="pdf"
                                                                     useMultipart="false"
@@ -152,7 +152,7 @@
                                                             <Text text="{ActionViewModel>MediaName}"></Text>
                                                             </VBox>
                                                         <HBox>
-                                                            <Button id="pdfBtn1" icon="sap-icon://pdf-attachment"  type="Transparent" visible="false" press="openPdf" class="sapUiTinyMarginEnd"/>
+                                                            <Button id="pdfBtn1" icon="sap-icon://pdf-attachment"  type="Transparent" visible="false" press="openPdf1" class="sapUiTinyMarginEnd"/>
                                                             <Button icon="sap-icon://delete" press="onDeleteFile1" type="Transparent" tooltip="Delete" />
                                                         </HBox>
                                                     </cells>
@@ -208,7 +208,7 @@
                                                                     name="formToolPdfUploader"
                                                                     class="sapUiSmallMarginTop"
                                                                     tooltip="{i18n>fileUploaderTooltip}"
-                                                                    change="onChangePdf"
+                                                                    change="onChangePdf2"
                                                                     typeMissmatch="handleTypeMissmatch"
                                                                     fileType="pdf"
                                                                     useMultipart="false"
@@ -227,7 +227,7 @@
                                                             <Text text="{ActionViewModel>MediaName}"></Text>
                                                             </VBox>
                                                         <HBox>
-                                                            <Button id="pdfBtn2" icon="sap-icon://pdf-attachment"  type="Transparent" visible="false" press="openPdf" class="sapUiTinyMarginEnd"/>
+                                                            <Button id="pdfBtn2" icon="sap-icon://pdf-attachment"  type="Transparent" visible="false" press="openPdf2" class="sapUiTinyMarginEnd"/>
                                                             <Button icon="sap-icon://delete" press="onDeleteFile2" type="Transparent" tooltip="Delete" />
                                                         </HBox>
                                                     </cells>

@@ -21,12 +21,19 @@ sap.ui.define([
             this.oPreviewPdf = this.getView().byId("idPreviewPdf");
             this.oFileUploader = this.getView().byId("idFormToolImgUploader");
             this.oFileUploaderPdf = this.getView().byId("idFormToolPdfUploader");
+            this.oFileUploaderPdf1 = this.getView().byId("idFormToolPdfUploader1");
+            this.oFileUploaderPdf2 = this.getView().byId("idFormToolPdfUploader2");
             this.pdfBtn = this.getView().byId("pdfBtn");
+            ///added by deepanjali/////////
+            this.pdfBtn1 = this.getView().byId("pdfBtn1");
+            this.pdfBtn2 = this.getView().byId("pdfBtn2");
             this.imgBtn = this.getView().byId("imageBtn");
             this.oCategory = this.getView().byId("idCategory");
             this.oClassification = this.getView().byId("idClassification");
             this.oTitle = this.getView().byId("idTitle");
             this.oTextInput = this.getView().byId("idButton");
+            this.oTextInput1 = this.getView().byId("idButton1");
+            this.oTextInput2 = this.getView().byId("idButton2");
             this.oProduct = this.getView().byId("idInputProduct");
             this.oForm = this.getView().byId("idCatalogueDetailsForm");
             this.imageName = "";
@@ -77,21 +84,43 @@ sap.ui.define([
                         oData.Category = data.ProductCategoryId
                         oData.Classification = data.ProductClassificationId
                         oData.Range = data.ProductRangeId
-                        oData.Competitor = data.ProductCompetitors.results
-                        oData.Catalogue = data.MediaList.results.filter(function (ele) {
-                            return !ele.ContentType.includes("image");
-                        });
+                        oData.Competitor = data.ProductCompetitors.results;
+                        // oData.Image = data.MediaList.results.filter(item => item.DirectoryName === "PRODUCT_IMAGE").filter(item => !item.ContentType.includes("image"));
+                        oData.Warranty = data.MediaList.results.filter(item => item.DirectoryName === "PRODUCT_WARRANTY").filter(item => !item.ContentType.includes("image"));
+                        oData.Catalogue = data.MediaList.results.filter(item => item.DirectoryName === "PRODUCT_CATALOGUE").filter(item => !item.ContentType.includes("image"));
+                        oData.ProductSheet = data.MediaList.results.filter(item => item.DirectoryName === "PRODUCT_DATASHEET").filter(item => !item.ContentType.includes("image"));
+                        // oData.Catalogue = data.MediaList.results.filter(function (ele) {
+                        //     return !ele.ContentType.includes("image");
+                        // });
                         if (oData.Catalogue.length > 0) {
                             that.getView().byId("idButton").setEnabled(false);
                         }
                         else {
                             that.getView().byId("idButton").setEnabled(true);
                         }
-                        oData.ImageUrl = that.sServiceURI + that._property + "/$value?doc_type=image&time=" + new Date().getTime();
+                        if (oData.Warranty.length > 0) {
+                            that.getView().byId("idButton2").setEnabled(false);
+                        }
+                        else {
+                            that.getView().byId("idButton2").setEnabled(true);
+                        }
+                        if (oData.ProductSheet.length > 0) {
+                            that.getView().byId("idButton1").setEnabled(false);
+                        }
+                        else {
+                            that.getView().byId("idButton1").setEnabled(true);
+                        }
+                        // oData.ImageUrl = that.sServiceURI + that._property + "/$value?doc_type=image&time=" + new Date().getTime();
+                        oData.ImageUrl = `${that.sServiceURI}${that._property}/$value?doc_type=image&time=${new Date().getTime()}&directory=image`;
+                        // url: `${sServiceUri}property/$value?doc_type=image&time=${new Date().getTime()}&language_code=${ele.LanguageCode}&directory=image`,
+                        // `${sServiceUri}ProductCatalogues(${oData.Id})/$value?doc_type=image&file_name=${this.imageName}&directory=image`
                         var oViewModel = new JSONModel(oData);
                         that.getView().setModel(oViewModel, "ActionViewModel");
-                        that.oPreviewImage.setSrc(that.sServiceURI + that._property + "/$value?doc_type=image");
-                        that.oFileUploader.setUploadUrl(that.sServiceURI + that._property + "/$value?doc_type=image");
+                        that.getView().getModel("ActionViewModel").setProperty("/ProductSheet", oData.ProductSheet);
+                        // that.oPreviewImage.setSrc(that.sServiceURI + that._property + "/$value?doc_type=image");
+                        that.oPreviewImage.setSrc(`${that.sServiceURI}${that._property}/$value?doc_type=image&file_name=${that.imageName}&directory=image`);
+                        that.oFileUploader.setUploadUrl(`${that.sServiceURI}${that._property}/$value?doc_type=image&file_name=${that.imageName}&directory=image`);
+                        // that.oFileUploader.setUploadUrl(that.sServiceURI + that._property + "/$value?doc_type=image");
                         that.oPreviewImage.setVisible(false);
                         //that.getView().getModel("ActionViewModel").setProperty("/Image",that.sServiceURI + that._property + "/$value?doc_type=image");
                     },
@@ -106,6 +135,8 @@ sap.ui.define([
                 this.oProduct.setEditable(false);
                 var pdfURL = this.sServiceURI + this._property + "/$value?doc_type=pdf";
                 this.pdfBtn.setVisible(true);
+                this.pdfBtn1.setVisible(true);
+                this.pdfBtn2.setVisible(true);
                 this.imgBtn.setVisible(true);
             } else {
                 this.oCategory.setEditable(true);
@@ -115,8 +146,13 @@ sap.ui.define([
                 this.oProduct.setVisible(false);
                 this.oPreviewImage.setVisible(false);
                 this.pdfBtn.setVisible(false);
+                ///////////added by deepanjalali/////
+                this.pdfBtn1.setVisible(false);
+                this.pdfBtn2.setVisible(false);
                 this.imgBtn.setVisible(false);
                 this.oTextInput.setEnabled(true);
+                this.oTextInput1.setEnabled(true);
+                this.oTextInput2.setEnabled(true);
             }
             this.oFileUploader.clear();
             var oViewModel = new JSONModel(oData);
@@ -150,11 +186,50 @@ sap.ui.define([
             }
         },
         openPdf: function (oEvent) {
+            var sServiceUri = this.sServiceURI;
             var oContext = oEvent.getSource().getBindingContext("ActionViewModel");
-            var sSource = this.sServiceURI + this._property + "/$value?doc_type=pdf&file_name=" + oContext.getProperty("MediaName") + "&language_code=" + oContext.getProperty("LanguageCode");
+            var sSource = `${sServiceUri}${this._property}/$value?doc_type=pdf&file_name=${oContext.getProperty("MediaName")}&language_code=${oContext.getProperty("LanguageCode")}&directory=catalogue`;
             sap.m.URLHelper.redirect(sSource, true)
         },
+        openPdf1: function (oEvent) {
+            var sServiceUri = this.sServiceURI;
+            var oContext = oEvent.getSource().getBindingContext("ActionViewModel");
+            var sProSource = `${sServiceUri}${this._property}/$value?doc_type=pdf&file_name=${oContext.getProperty("MediaName")}&language_code=${oContext.getProperty("LanguageCode")}&directory=datasheet`;
+            sap.m.URLHelper.redirect(sProSource, true)
+        },
+        openPdf2: function (oEvent) {
+            var sServiceUri = this.sServiceURI;
+            var oContext = oEvent.getSource().getBindingContext("ActionViewModel");
+            var sWraSource = `${sServiceUri}${this._property}/$value?doc_type=pdf&file_name=${oContext.getProperty("MediaName")}&language_code=${oContext.getProperty("LanguageCode")}&directory=warranty`;
+            sap.m.URLHelper.redirect(sWraSource, true)
+        },
         onChangePdf: function (oEvent) {
+            var oContext = oEvent.getSource().getBindingContext("ActionViewModel");
+            if (oEvent.getParameter("files").length > 0) {
+                var pdfname = oEvent.getParameter("files")[0].name;
+                this.getModel("ActionViewModel").setProperty("file", oEvent.getParameter("files")[0], oContext);
+                this.getModel("ActionViewModel").setProperty("fileName", oEvent.getParameter("newValue"), oContext);
+                this.getModel("ActionViewModel").setProperty("bNew", true, oContext);
+                var isValid = this.checkFileName(pdfname);
+                if (!isValid) {
+                    MessageBox.show("File names can't contain the following characters: &  ? < > # { } [] % ~ / \.");
+                }
+            }
+        },
+        onChangePdf1: function (oEvent) {
+            var oContext = oEvent.getSource().getBindingContext("ActionViewModel");
+            if (oEvent.getParameter("files").length > 0) {
+                var pdfname = oEvent.getParameter("files")[0].name;
+                this.getModel("ActionViewModel").setProperty("file", oEvent.getParameter("files")[0], oContext);
+                this.getModel("ActionViewModel").setProperty("fileName", oEvent.getParameter("newValue"), oContext);
+                this.getModel("ActionViewModel").setProperty("bNew", true, oContext);
+                var isValid = this.checkFileName(pdfname);
+                if (!isValid) {
+                    MessageBox.show("File names can't contain the following characters: &  ? < > # { } [] % ~ / \.");
+                }
+            }
+        },
+        onChangePdf2: function (oEvent) {
             var oContext = oEvent.getSource().getBindingContext("ActionViewModel");
             if (oEvent.getParameter("files").length > 0) {
                 var pdfname = oEvent.getParameter("files")[0].name;
@@ -170,8 +245,10 @@ sap.ui.define([
         _uploadToolImage: function (oData) {
             // oData.Id = 2;
             var oModel = this.getComponentModel();
+            var sServiceUri = this.sServiceURI;
             if (this._action === "add") {
-                this.oFileUploader.setUploadUrl(this.sServiceURI + "ProductCatalogues(" + oData.Id + ")/$value?doc_type=image&file_name=" + this.imageName);
+                var sUrl = `${sServiceUri}ProductCatalogues(${oData.Id})/$value?doc_type=image&file_name=${this.imageName}&directory=image`;
+                this.oFileUploader.setUploadUrl(sUrl);
             }
             if (!this.oFileUploader.getValue()) {
                 MessageToast.show(this.oResourceBundle.getText("fileUploaderChooseFirstValidationTxt"));
@@ -202,7 +279,59 @@ sap.ui.define([
                     //  var isValid= that.checkFileName(ele.fileName);
                     jQuery.ajax({
                         method: "PUT",
-                        url: sServiceUri + "ProductCatalogues(" + oData.Id + ")/$value?doc_type=pdf&file_name=" + ele.fileName + "&language_code=" + ele.LanguageCode,
+                        url: `${sServiceUri}ProductCatalogues(${oData.Id})/$value?doc_type=pdf&file_name=${ele.fileName}&language_code=${ele.LanguageCode}&directory=catalogue`,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: ele.file,
+                        success: function (data) {
+                        },
+                        error: function () { },
+                    })
+                });
+            }
+        },
+        _productUploadPdf: function (oData) {
+            var oModel = this.getComponentModel();
+            if (this._action === "add") {
+                var oModel = this.getModel("ActionViewModel");
+                var catalogue = oModel.getProperty("/ProductSheet");
+                var fileUploader;
+                var sServiceUri = this.sServiceURI;
+                //To DO promises for sync
+                // var that=this;
+                catalogue.forEach(function (ele) {
+                    //  var isValid= that.checkFileName(ele.fileName);
+                    jQuery.ajax({
+                        method: "PUT",
+                        // url: sServiceUri + "ProductCatalogues(" + oData.Id + ")/$value?doc_type=pdf&file_name=" + ele.fileName + "&language_code=" + ele.LanguageCode,
+                        url: `${sServiceUri}ProductCatalogues(${oData.Id})/$value?doc_type=pdf&file_name=${ele.fileName}&language_code=${ele.LanguageCode}&directory=datasheet`,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: ele.file,
+                        success: function (data) {
+                        },
+                        error: function () { },
+                    })
+                });
+            }
+        },
+        _warrantyUploadPdf: function (oData) {
+            var oModel = this.getComponentModel();
+            if (this._action === "add") {
+                var oModel = this.getModel("ActionViewModel");
+                var catalogue = oModel.getProperty("/Warranty");
+                var fileUploader;
+                var sServiceUri = this.sServiceURI;
+                //To DO promises for sync
+                // var that=this;
+                catalogue.forEach(function (ele) {
+                    //  var isValid= that.checkFileName(ele.fileName);
+                    jQuery.ajax({
+                        method: "PUT",
+                        // url: sServiceUri + "ProductCatalogues(" + oData.Id + ")/$value?doc_type=pdf&file_name=" + ele.fileName + "&language_code=" + ele.LanguageCode,
+                        url: `${sServiceUri}ProductCatalogues(${oData.Id})/$value?doc_type=pdf&file_name=${ele.fileName}&language_code=${ele.LanguageCode}&directory=warranty`,
                         cache: false,
                         contentType: false,
                         processData: false,
@@ -220,18 +349,20 @@ sap.ui.define([
                 return;
             }
             var oModel = this.getComponentModel();
-            this.oFileUploader.setUploadUrl(this.sServiceURI + propertySet + "/$value?doc_type=image&file_name=" + this.imageName);
-            this.oFileUploader.checkFileReadable().then(function () {
-                // @ts-ignore
-                //this.oFileUploader.insertHeaderParameter(new sap.ui.unified.FileUploaderParameter({name: "slug", value: this.oFileUploader.getValue() }));
-                this.oFileUploader.setHttpRequestMethod("PUT");
-                // this.getView().getModel("ActionViewModel").setProperty("/busy", true);
-                this.oFileUploader.upload();
-            }.bind(this), function (error) {
-                MessageToast.show(this.oResourceBundle.getText("fileUploaderNotReadableTxt"));
-            }.bind(this)).then(function () {
-                this.oFileUploader.clear();
-            }.bind(this));
+            var sServiceUri = this.sServiceURI;
+            // this.oFileUploader.setUploadUrl(this.sServiceURI + propertySet + "/$value?doc_type=image&file_name=" + this.imageName);
+            this.oFileUploader.setUploadUrl(`${sServiceUri}${propertySet}/$value?doc_type=image&file_name=${this.imageName}&directory=image`),
+                this.oFileUploader.checkFileReadable().then(function () {
+                    // @ts-ignore
+                    //this.oFileUploader.insertHeaderParameter(new sap.ui.unified.FileUploaderParameter({name: "slug", value: this.oFileUploader.getValue() }));
+                    this.oFileUploader.setHttpRequestMethod("PUT");
+                    // this.getView().getModel("ActionViewModel").setProperty("/busy", true);
+                    this.oFileUploader.upload();
+                }.bind(this), function (error) {
+                    MessageToast.show(this.oResourceBundle.getText("fileUploaderNotReadableTxt"));
+                }.bind(this)).then(function () {
+                    this.oFileUploader.clear();
+                }.bind(this));
         },
         _updatePdf: function (propertySet) {
             var oModel = this.getModel("ActionViewModel");
@@ -242,7 +373,52 @@ sap.ui.define([
                 if (ele.bNew) {
                     jQuery.ajax({
                         method: "PUT",
-                        url: sServiceUri + propertySet + "/$value?doc_type=pdf&file_name=" + ele.fileName + "&language_code=" + ele.LanguageCode,
+                        // url: sServiceUri + propertySet + "/$value?doc_type=pdf&file_name=" + ele.fileName + "&language_code=" + ele.LanguageCode,
+                        url: `${sServiceUri}${propertySet}/$value?doc_type=pdf&file_name=${ele.fileName}&language_code=${ele.LanguageCode}&directory=catalogue`,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: ele.file,
+                        success: function (data) {
+                        },
+                        error: function () { },
+                    })
+                }
+            })
+        },
+        _ProupdatePdf: function (propertySet) {
+            var oModel = this.getModel("ActionViewModel");
+            var catalogue = oModel.getProperty("/ProductSheet");
+            var fileUploader;
+            var sServiceUri = this.sServiceURI;
+            catalogue.forEach(function (ele) {
+                if (ele.bNew) {
+                    jQuery.ajax({
+                        method: "PUT",
+                        // url: sServiceUri + propertySet + "/$value?doc_type=pdf&file_name=" + ele.fileName + "&language_code=" + ele.LanguageCode,
+                        url: `${sServiceUri}${propertySet}/$value?doc_type=pdf&file_name=${ele.fileName}&language_code=${ele.LanguageCode}&directory=datasheet`,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: ele.file,
+                        success: function (data) {
+                        },
+                        error: function () { },
+                    })
+                }
+            })
+        },
+        _WraupdatePdf: function (propertySet) {
+            var oModel = this.getModel("ActionViewModel");
+            var catalogue = oModel.getProperty("/Warranty");
+            var fileUploader;
+            var sServiceUri = this.sServiceURI;
+            catalogue.forEach(function (ele) {
+                if (ele.bNew) {
+                    jQuery.ajax({
+                        method: "PUT",
+                        // url: sServiceUri + propertySet + "/$value?doc_type=pdf&file_name=" + ele.fileName + "&language_code=" + ele.LanguageCode,
+                        url: `${sServiceUri}${propertySet}/$value?doc_type=pdf&file_name=${ele.fileName}&language_code=${ele.LanguageCode}&directory=warranty`,
                         cache: false,
                         contentType: false,
                         processData: false,
@@ -307,6 +483,9 @@ sap.ui.define([
                 var cFiles = [];
                 cFiles.push(this.oFileUploader.getValue());
                 cFiles.push(this.oFileUploaderPdf.getValue());
+                /// added by deepanjali ///////
+                cFiles.push(this.oFileUploaderPdf1.getValue());
+                cFiles.push(this.oFileUploaderPdf2.getValue());
                 if (cFiles) {
                     //oViewModel.setProperty("/busy", true);
                     if (this._action === "add") {
@@ -319,6 +498,8 @@ sap.ui.define([
                                     var id = oData.Id;
                                     that._uploadToolImage(oData);
                                     that._uploadPdf(oData);
+                                    that._productUploadPdf(oData);
+                                    that._warrantyUploadPdf(oData);
                                     that.getOwnerComponent().getModel().refresh(true);
                                 },
                                 error: function (oError) {
@@ -335,6 +516,8 @@ sap.ui.define([
                                 that._showSuccessMsg();
                                 that._updateImage(_property);
                                 that._updatePdf(_property);
+                                that._ProupdatePdf(_property);
+                                that._WraupdatePdf(_property);
                                 that.getOwnerComponent().getModel().refresh(true);
                             },
                             error: function (oError) {
@@ -380,6 +563,8 @@ sap.ui.define([
             var oClassificationControl = this.getView().byId("idClassification");
             var oRangeControl = this.getView().byId("idRange");
             var oObjectCatalogue = this.getModel("ActionViewModel").getProperty("/Catalogue");
+            var oObjectProduct = this.getModel("ActionViewModel").getProperty("/ProductSheet");
+            var oObjectWarranty = this.getModel("ActionViewModel").getProperty("/Warranty");
             var oObjectCompetitors = this.getModel("ActionViewModel").getProperty("/Competitor");
             var oSet = new Set();
             var bCataloguePDF = oObjectCatalogue.every(function (ele) {
@@ -389,6 +574,21 @@ sap.ui.define([
                 }
                 return false;
             });
+            var bProductPDF = oObjectProduct.every(function (ele) {
+                if (oSet.has(ele.LanguageCode) !== true) {
+                    oSet.add(ele.LanguageCode);
+                    return true
+                }
+                return false;
+            });
+            var bWarrantyPDF = oObjectWarranty.every(function (ele) {
+                if (oSet.has(ele.LanguageCode) !== true) {
+                    oSet.add(ele.LanguageCode);
+                    return true
+                }
+                return false;
+            });
+            
             var bCompetitors = oObjectCompetitors.every(function (ele) {
                 if (ele.CompetitorProductName == "" || ele.CompetitorProductName == null) {
                     return false;
@@ -396,6 +596,18 @@ sap.ui.define([
                 return true;
             });
             var bEnglishPDF = oObjectCatalogue.find(function (ele) {
+                if (ele.LanguageCode === "EN") {
+                    return true;
+                }
+                return false;
+            })
+            var bProductEnglishPDF = oObjectProduct.find(function (ele) {
+                if (ele.LanguageCode === "EN") {
+                    return true;
+                }
+                return false;
+            })
+            var bWarrantyEnglishPDF = oObjectWarranty.find(function (ele) {
                 if (ele.LanguageCode === "EN") {
                     return true;
                 }
@@ -410,11 +622,31 @@ sap.ui.define([
                     MessageToast.show(sMessage);
                     return false;
                 }
-                if (!bCataloguePDF) {
-                    var sMessage = "Multiple PDF of same Language";
+                 if (!bProductEnglishPDF) {
+                    var sMessage = "English PDF Required for Product Sheet";
                     MessageToast.show(sMessage);
                     return false;
                 }
+                if (!bWarrantyEnglishPDF) {
+                    var sMessage = "English PDF Required for Warranty";
+                    MessageToast.show(sMessage);
+                    return false;
+                }
+                // if (!bCataloguePDF) {
+                //     var sMessage = "Multiple PDF of same Language";
+                //     MessageToast.show(sMessage);
+                //     return false;
+                // }
+                // if (!bProductPDF) {
+                //     var sMessage = "Multiple PDF of same Language";
+                //     MessageToast.show(sMessage);
+                //     return false;
+                // }
+                // if (!bWarrantyPDF) {
+                //     var sMessage = "Multiple PDF of same Language";
+                //     MessageToast.show(sMessage);
+                //     return false;
+                // }
                 if (oObjectCatalogue.length > 0) {
                     if (oObjectCompetitors.length > 0) {
                         if (!bCompetitors) {
@@ -537,6 +769,11 @@ sap.ui.define([
                 fileName: ""
             });
             oModel.refresh(true);
+            if (oObject.length > 0) {
+                this.getView().byId("idButton1").setEnabled(false);
+            } else {
+                this.getView().byId("idButton1").setEnabled(true);
+            }
             // var pdfContainer = this.byId("idPdf");
             //  pdfContainer.getBinding("items").refresh(true);
             //oModel.setProperty("/Catalogue", oObject);
@@ -550,6 +787,11 @@ sap.ui.define([
                 fileName: ""
             });
             oModel.refresh(true);
+            if (oObject.length > 0) {
+                this.getView().byId("idButton2").setEnabled(false);
+            } else {
+                this.getView().byId("idButton2").setEnabled(true);
+            }
             // var pdfContainer = this.byId("idPdf");
             //  pdfContainer.getBinding("items").refresh(true);
             //oModel.setProperty("/Catalogue", oObject);
@@ -601,7 +843,8 @@ sap.ui.define([
                         oModel.setProperty("/bBusy", true);
                         jQuery.ajax({
                             method: "DELETE",
-                            url: sServiceUri + property + "/$value?doc_type=pdf&file_name=" + delItems.MediaName + "&language_code=" + delItems.LanguageCode,
+                            // url: sServiceUri + property + "/$value?doc_type=pdf&file_name=" + delItems.MediaName + "&language_code=" + delItems.LanguageCode,
+                            url: `${sServiceUri}${property}/$value?doc_type=pdf&file_name=${delItems.MediaName}&language_code=${delItems.LanguageCode}&directory=catalogue`,
                             cache: false,
                             contentType: false,
                             processData: false,
@@ -637,7 +880,7 @@ sap.ui.define([
                 .getBindingContext("ActionViewModel")
                 .getPath()
                 .split("/");
-            var aCatalogue = oModel.getProperty("/ProductSheet");
+            var aProductSheet = oModel.getProperty("/ProductSheet");
             var othat = this;
             MessageBox.confirm(
                 "Kindly confirm to delete the file.",
@@ -646,13 +889,13 @@ sap.ui.define([
                     emphasizedAction: MessageBox.Action.OK,
                     onClose: function (sAction) {
                         if (sAction == "OK") {
-                            othat.onPressRemoveCatalogue1(sPath, aCatalogue);
+                            othat.onPressRemoveCatalogue1(sPath, aProductSheet);
                         }
                     },
                 }
             );
         },
-        onPressRemoveCatalogue1: function (sPath, aCatalogue) {
+        onPressRemoveCatalogue1: function (sPath, aProductSheet) {
             var that = this;
             var oView = this.getView();
             var oModel = oView.getModel("ActionViewModel");
@@ -668,14 +911,15 @@ sap.ui.define([
             var sServiceUri = this.sServiceURI;
             // aCatalogue.splice(parseInt(sPath[sPath.length - 1]), 1);
             //To DO promises for sync
-            for (var i = 0; i <= aCatalogue.length; i++) {
+            for (var i = 0; i <= aProductSheet.length; i++) {
                 if (i == index) {
-                    delItems = aCatalogue[i];
+                    delItems = aProductSheet[i];
                     if (delItems.MediaName != null) {
                         oModel.setProperty("/bBusy", true);
                         jQuery.ajax({
                             method: "DELETE",
-                            url: sServiceUri + property + "/$value?doc_type=pdf&file_name=" + delItems.MediaName + "&language_code=" + delItems.LanguageCode,
+                            // url: sServiceUri + property + "/$value?doc_type=pdf&file_name=" + delItems.MediaName + "&language_code=" + delItems.LanguageCode,
+                            url: `${sServiceUri}${property}/$value?doc_type=pdf&file_name=${delItems.MediaName}&language_code=${delItems.LanguageCode}&directory=datasheet`,
                             cache: false,
                             contentType: false,
                             processData: false,
@@ -683,8 +927,9 @@ sap.ui.define([
                             success: function (data) {
                                 // aCatalogue.splice(i);
                                 oModel.setProperty("/bBusy", false);
-                                aCatalogue.splice(parseInt(sPath[sPath.length - 1]), 1);
-                                var sMessage = "Catalogue Deleted!";
+                                aProductSheet.splice(parseInt(sPath[sPath.length - 1]), 1);
+                                var sMessage = "Product Data Sheet Deleted!";
+                                that.getView().byId("idButton1").setEnabled(true);
                                 MessageToast.show(sMessage);
                                 that.getOwnerComponent().getModel().refresh(true);
                                 oModel.refresh(true);
@@ -693,7 +938,8 @@ sap.ui.define([
                         })
                     }
                     else {
-                        aCatalogue.splice(i);
+                        aProductSheet.splice(i);
+                        that.getView().byId("idButton1").setEnabled(true);
                     }
                 }
             };
@@ -709,7 +955,7 @@ sap.ui.define([
                 .getBindingContext("ActionViewModel")
                 .getPath()
                 .split("/");
-            var aCatalogue = oModel.getProperty("/Warranty");
+            var aWarranty = oModel.getProperty("/Warranty");
             var othat = this;
             MessageBox.confirm(
                 "Kindly confirm to delete the file.",
@@ -718,13 +964,13 @@ sap.ui.define([
                     emphasizedAction: MessageBox.Action.OK,
                     onClose: function (sAction) {
                         if (sAction == "OK") {
-                            othat.onPressRemoveCatalogue2(sPath, aCatalogue);
+                            othat.onPressRemoveCatalogue2(sPath, aWarranty);
                         }
                     },
                 }
             );
         },
-        onPressRemoveCatalogue2: function (sPath, aCatalogue) {
+        onPressRemoveCatalogue2: function (sPath, aWarranty) {
             var that = this;
             var oView = this.getView();
             var oModel = oView.getModel("ActionViewModel");
@@ -740,14 +986,15 @@ sap.ui.define([
             var sServiceUri = this.sServiceURI;
             // aCatalogue.splice(parseInt(sPath[sPath.length - 1]), 1);
             //To DO promises for sync
-            for (var i = 0; i <= aCatalogue.length; i++) {
+            for (var i = 0; i <= aWarranty.length; i++) {
                 if (i == index) {
-                    delItems = aCatalogue[i];
+                    delItems = aWarranty[i];
                     if (delItems.MediaName != null) {
                         oModel.setProperty("/bBusy", true);
                         jQuery.ajax({
                             method: "DELETE",
-                            url: sServiceUri + property + "/$value?doc_type=pdf&file_name=" + delItems.MediaName + "&language_code=" + delItems.LanguageCode,
+                            // url: sServiceUri + property + "/$value?doc_type=pdf&file_name=" + delItems.MediaName + "&language_code=" + delItems.LanguageCode,
+                            url: `${sServiceUri}${property}/$value?doc_type=pdf&file_name=${delItems.MediaName}&language_code=${delItems.LanguageCode}&directory=warranty`,
                             cache: false,
                             contentType: false,
                             processData: false,
@@ -755,8 +1002,9 @@ sap.ui.define([
                             success: function (data) {
                                 // aCatalogue.splice(i);
                                 oModel.setProperty("/bBusy", false);
-                                aCatalogue.splice(parseInt(sPath[sPath.length - 1]), 1);
-                                var sMessage = "Catalogue Deleted!";
+                                aWarranty.splice(parseInt(sPath[sPath.length - 1]), 1);
+                                var sMessage = "Warranty Deleted!";
+                                that.getView().byId("idButton2").setEnabled(true);
                                 MessageToast.show(sMessage);
                                 that.getOwnerComponent().getModel().refresh(true);
                                 oModel.refresh(true);
@@ -765,7 +1013,8 @@ sap.ui.define([
                         })
                     }
                     else {
-                        aCatalogue.splice(i);
+                        aWarranty.splice(i);
+                        that.getView().byId("idButton2").setEnabled(true);
                     }
                 }
             };
