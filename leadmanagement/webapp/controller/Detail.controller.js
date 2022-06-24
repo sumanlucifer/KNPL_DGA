@@ -232,6 +232,8 @@ sap.ui.define(
                     oView.byId("DGAHistoryTbl").rebindTable();
                 } else if (sKey == "5") {
                     this.onFeedbackFormLoad();
+                } else if (sKey == "6") {
+                    oView.byId("VisitHistoryTbl").rebindTable();
                 }
                 
                 
@@ -454,15 +456,25 @@ sap.ui.define(
                 oBindingParams.filters.push(oFiler);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
-            onFeedbackFormLoad: function(oEvent){
+            onBeforeRebindVisitHistory: function (oEvent) {
                 debugger
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "LeadVisitOutcomeDetails/VisitsOutcome";
+                var oIdFilter = new Filter("VisitTargetId", FilterOperator.EQ, sId);
+                var oFirstVisitFilter = new Filter("LeadVisitOutcomeDetails/VisitOutcomeId", FilterOperator.NE,1);
+                var oTaskTypeFilter = new Filter("TaskTypeId", FilterOperator.EQ,1);
+                var oArchivedFilter = new Filter("IsArchived", FilterOperator.EQ,false);
+                oBindingParams.filters.push(oIdFilter,oFirstVisitFilter,oTaskTypeFilter,oArchivedFilter);
+                oBindingParams.sorter.push(new Sorter("Date", true));
+            },
+            onFeedbackFormLoad: function(oEvent){
                 var sServiceURL = this.getView().getModel().sServiceUrl;
                 var oBindingObject = this.getView().getBindingContext().getObject();
                 var sFeedbackFormUrl = oBindingObject.ConsumerFeedback.__list[0];
                 if(sFeedbackFormUrl)
                     this.getView().byId("FeedbackData").bindElement({path: "/" + sFeedbackFormUrl});
-                
-                
             },
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();

@@ -89,9 +89,9 @@
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.Feedback" type="XML"/>
                     </IconTabFilter>   
                     <!-- Visit History tab -->
-                    <!-- <IconTabFilter  text="{i18n>VisitHistory}" key="5" >
+                    <IconTabFilter  text="{i18n>VisitHistory}" key="6" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.VisitHistory" type="XML"/>
-                    </IconTabFilter>         -->
+                    </IconTabFilter>        
                 </items>
             </IconTabBar>
         </f:content>
