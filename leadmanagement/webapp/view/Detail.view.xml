@@ -85,9 +85,9 @@
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.DGAHistory" type="XML"/>
                     </IconTabFilter> 
                     <!-- Feedback tab -->
-                    <!-- <IconTabFilter  text="{i18n>Feedback}" key="4" >
+                    <IconTabFilter  text="{i18n>Feedback}" key="5" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.Feedback" type="XML"/>
-                    </IconTabFilter>    -->
+                    </IconTabFilter>   
                     <!-- Visit History tab -->
                     <!-- <IconTabFilter  text="{i18n>VisitHistory}" key="5" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.VisitHistory" type="XML"/>
