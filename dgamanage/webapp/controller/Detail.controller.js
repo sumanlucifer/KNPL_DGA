@@ -162,7 +162,7 @@
                             c2.then(function () {
                                 c2A = othat._dummyPromise(oModel.getProperty("/bindProp"));
                                 c2A.then(function () {
-                                    c3 = othat._LoadFragment("AddNewObject");
+                                    c3 = othat._LoadFragment("AddNewObject3");
                                     c3.then(function () {
                                         c4 = othat._SetFiltersForControls();
                                         c4.then(function (oPayLoad) {
