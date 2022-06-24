@@ -578,6 +578,7 @@ sap.ui.define([
                                 oModel.setProperty("/bBusy", false);
                                 aCatalogue.splice(parseInt(sPath[sPath.length - 1]), 1);
                                 var sMessage = "Catalogue Deleted!";
+                                that.getView().byId("idButton").setEnabled(true);
                                 MessageToast.show(sMessage);
                                 that.getOwnerComponent().getModel().refresh(true);
                                 oModel.refresh(true);
