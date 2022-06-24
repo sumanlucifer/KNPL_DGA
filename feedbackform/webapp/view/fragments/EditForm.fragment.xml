@@ -35,7 +35,36 @@
             </ColumnListItem>
         </items>
     </Table>
-    <Table id="idEditFMAvailableQuestionsTBL" mode="MultiSelect" rememberSelections="false" selectionChange="onFormQueTableSelectionChange" noDataText="{i18n>tableNoDataText}" items="{/Questions}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onSelectedAvailableFormQuestionsUpdated">
+    <!-- <Table id="idEditFMAvailableQuestionsTBL" mode="MultiSelect" rememberSelections="false" selectionChange="onFormQueTableSelectionChange" noDataText="{i18n>tableNoDataText}" items="{/Questions}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onSelectedAvailableFormQuestionsUpdated">
+        <headerToolbar>
+            <OverflowToolbar>
+                <Title/>
+                <ToolbarSpacer/>
+                <SearchField search="onQuestionFormsSearch" width="20%"/>
+            </OverflowToolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="{i18n>Questions}"/>
+            </Column>
+            <Column hAlign="End">
+                <Text text="{i18n>Action}"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem selected="false">
+                <cells>
+                    <Text text="{Question}"/>
+                    <Button icon= "sap-icon://detail-view" press="onViewQuestionDetailsPress" type="Transparent" tooltip="View"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table> -->
+
+    <Table id="idEditFMAvailableQuestionsTBL" mode="MultiSelect" rememberSelections="false" selectionChange="onFormQueTableSelectionChange" noDataText="{i18n>tableNoDataText}" items="{
+				path: '/Questions',
+				factory: '.fnSetAvailableQuestionsListFactory'
+			}"  busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onSelectedAvailableFormQuestionsUpdated">
         <headerToolbar>
             <OverflowToolbar>
                 <Title/>
@@ -60,4 +89,5 @@
             </ColumnListItem>
         </items>
     </Table>
+
 </core:FragmentDefinition>

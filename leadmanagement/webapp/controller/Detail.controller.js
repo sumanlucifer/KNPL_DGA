@@ -184,7 +184,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGADetails,SourceDealer,Dealer,LeadServiceSubType,SourceConsumer,LeadSelectedPaintingRequests,LeadSelectedPaintingRequests/MasterPaintingReq,LeadLostReason,CompetitionBrand,CompetitorServiceType,ShortClosureReason,AssignedContractors/Contractor";
+                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGADetails,SourceDealer,Dealer,LeadServiceSubType,SourceConsumer,LeadSelectedPaintingRequests,LeadSelectedPaintingRequests/MasterPaintingReq,LeadLostReason,CompetitionBrand,CompetitorServiceType,ShortClosureReason,AssignedContractors/Contractor,ConsumerFeedback/ConsumerFeedbackAnswers/Question, ConsumerFeedback/ConsumerFeedbackAnswers/Answer";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -230,7 +230,12 @@ sap.ui.define(
                     oView.byId("idMaterialsReqTable1").rebindTable();
                 } else if (sKey == "4") {
                     oView.byId("DGAHistoryTbl").rebindTable();
+                } else if (sKey == "5") {
+                    this.onFeedbackFormLoad();
+                } else if (sKey == "6") {
+                    oView.byId("VisitHistoryTbl").rebindTable();
                 }
+                
                 
             },
 
@@ -450,6 +455,26 @@ sap.ui.define(
                 var oFiler = new Filter("Id", FilterOperator.EQ, sId);
                 oBindingParams.filters.push(oFiler);
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
+            },
+            onBeforeRebindVisitHistory: function (oEvent) {
+                debugger
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "LeadVisitOutcomeDetails/VisitsOutcome";
+                var oIdFilter = new Filter("VisitTargetId", FilterOperator.EQ, sId);
+                var oFirstVisitFilter = new Filter("LeadVisitOutcomeDetails/VisitOutcomeId", FilterOperator.NE,1);
+                var oTaskTypeFilter = new Filter("TaskTypeId", FilterOperator.EQ,1);
+                var oArchivedFilter = new Filter("IsArchived", FilterOperator.EQ,false);
+                oBindingParams.filters.push(oIdFilter,oFirstVisitFilter,oTaskTypeFilter,oArchivedFilter);
+                oBindingParams.sorter.push(new Sorter("Date", true));
+            },
+            onFeedbackFormLoad: function(oEvent){
+                var sServiceURL = this.getView().getModel().sServiceUrl;
+                var oBindingObject = this.getView().getBindingContext().getObject();
+                var sFeedbackFormUrl = oBindingObject.ConsumerFeedback.__list[0];
+                if(sFeedbackFormUrl)
+                    this.getView().byId("FeedbackData").bindElement({path: "/" + sFeedbackFormUrl});
             },
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();

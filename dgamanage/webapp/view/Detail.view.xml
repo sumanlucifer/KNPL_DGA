@@ -39,7 +39,7 @@
                     </layout:VerticalLayout >
                         <layout:VerticalLayout  class="sapUiSmallMarginEnd" >
                           <ObjectAttribute title="{i18n>Division}" text="{DivisionId}"/>
-                            <ObjectAttribute title="{i18n>Depot}" text="{DepotId}"/>
+                            <ObjectAttribute title="{i18n>Depot}" text="{path:'Positions',formatter:'.formatter.fmtDisplayDepots'}" />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"  class="sapUiSmallMarginEnd"/>
@@ -77,9 +77,9 @@
                           <IconTabFilter  text="{i18n>DgaReplacementHistory}" key="5" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.DgaReplacementTable" type="XML"/>
                         </IconTabFilter>
-                        <!-- <IconTabFilter  text="{i18n>AttendanceAndVisits}" key="5" >
-                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
-                        </IconTabFilter> -->
+                        <IconTabFilter  text="{i18n>AttendanceAndVisits}" key="6" >
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.Attendance" type="XML"/>
+                        </IconTabFilter>
                          
                     </items>
                 </IconTabBar>

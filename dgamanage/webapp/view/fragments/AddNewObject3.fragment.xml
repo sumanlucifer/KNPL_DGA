@@ -4,15 +4,15 @@
                  <core:Title text="{i18n>LocationDetails}" />
                   
                  <Label text="{i18n>Zone}" />
-                <ComboBox required="true" selectionChange="onZoneChange" items="{/MasterZones}" selectedKey="{path:'oModelView>/Zone',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
+                <ComboBox required="true" editable="false" selectionChange="onZoneChange" items="{/MasterZones}" selectedKey="{path:'oModelView>/Zone',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
                     <core:Item text="{Id}" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>Division}" />
-                <ComboBox required="true" id="idDivision" editable="{= ${oModelView>/Zone}!=='' }" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelView>/DivisionId',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
+                <ComboBox required="true" id="idDivision" editable="false" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelView>/DivisionId',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
                     <core:Item text="{Id}" key="{Id}" />
                 </ComboBox>
                 <Label text="{i18n>Depot}" required="true" />
-                 <MultiInput editable="{= ${oModelView>/DivisionId}!=='' }" placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDepotValueHelp" tokens="{path:'oModelControl>/MultiCombo/Depots'}">
+                 <MultiInput editable="false" placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDepotValueHelp" tokens="{path:'oModelControl>/MultiCombo/Depots'}">
                     <tokens>
                         <Token text="{oModelControl>Name} - {oModelControl>Id}" key="{oModelControl>Id}"/>
                     </tokens>
@@ -31,7 +31,7 @@
                     </items>
                 </ComboBox>
                 <Label text="{i18n>JobLocation}"  />
-                <ComboBox id="cmbxJobLoc" change="onJobLocChange" items="{path:'/MasterWorkLocations', length:300 }" editable="{= ${oModelView>/StateId}!== '' }" valueStateText="{i18n>ValueStateMessage3}"   selectedKey="{path:'oModelView>/WorkLocationId', type:'sap.ui.model.type.String', constraints:{minLength:1} }"  required="true">
+                <ComboBox id="cmbxJobLoc" change="onJobLocChange" items="{path:'/MasterWorkLocations', length:300 }" editable="false" valueStateText="{i18n>ValueStateMessage3}"   selectedKey="{path:'oModelView>/WorkLocationId', type:'sap.ui.model.type.String', constraints:{minLength:1} }"  required="true">
                     <items>
                         <core:Item text="{TownName}" key="{Id}" />
                     </items>
@@ -81,7 +81,7 @@
                 <Label text="{i18n>ExitDate}" />
                 <DatePicker placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" dateValue="{oModelView>/ExitDate}"  change="onExitDateChange"  value="{path:'oModelControl>/AddFields/ExitDate', type:'sap.ui.model.type.Date', formatOptions:{source:{pattern:'dd/MM/YYYY'}, pattern:'dd/MM/YYYY', strictParsing:true} }"  ></DatePicker>
                 <core:Title text="  " />
-                <Label id="idLable1" text="{i18n>DgaPositionsData}" visible="{= ${oModelControl>/mode} === 'Add'}" />
+                <Label id="idLable1" text="{i18n>DgaPositionsData}" visible="{= ${oModelControl>/mode} === 'Add'}"/>
                 <uiTable:Table threshold="10" id="tableDgaPositions" selectionMode="None" visible="{= ${oModelControl>/mode} === 'Add'}" rowsUpdated="onRowUpdatedDgaPositionTbl" >
                     <uiTable:columns>
                         <uiTable:Column >
@@ -91,12 +91,6 @@
                             </uiTable:template>
                         </uiTable:Column>
                          <uiTable:Column >
-                            <Label text="{i18n>DgaId}" />
-                            <uiTable:template>
-                                <Text text="{DGAId}" wrapping="false" />
-                            </uiTable:template>
-                        </uiTable:Column>
-                        <uiTable:Column >
                             <Label text="{i18n>PositionCode}" />
                             <uiTable:template>
                                 <Text text="{PositionCode}" wrapping="false" />
@@ -104,6 +98,8 @@
                         </uiTable:Column>
                     </uiTable:columns>
                 </uiTable:Table>
+              
+           
             </f:content>
         </f:SimpleForm>
    

@@ -229,7 +229,7 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-            sampleFunction:function(mParam1){
+            sampleFunction: function (mParam1) {
                 console.log(mParam1)
             },
             onBindTblComplainList: function (oEvent) {
@@ -315,35 +315,38 @@ sap.ui.define(
                                 new Filter("PincodeId", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "Search") {
                             aFlaEmpty = false;
+                            var aSearchFilter = [
+                                new Filter({
+                                    path: "GivenName",
+                                    operator: "Contains",
+                                    value1: oViewFilter[prop].trim(),
+                                    caseSensitive: false
+                                }),
+                                new Filter({
+                                    path: "Mobile",
+                                    operator: "Contains",
+                                    value1: oViewFilter[prop].trim(),
+                                    caseSensitive: false
+                                }),
+                                new Filter({
+                                    path: "DGAType/Name",
+                                    operator: "Contains",
+                                    value1: oViewFilter[prop].trim(),
+                                    caseSensitive: false
+                                }),
+                                new Filter({
+                                    path: "Positions/PositionCode",
+                                    operator: "Contains",
+                                    value1: oViewFilter[prop].trim(),
+                                    caseSensitive: false
+                                })
+                            ]
                             aCurrentFilterValues.push(
                                 new Filter(
-                                    [
-                                        new Filter({
-                                            path: "GivenName",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "Mobile",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "DGAType/Name",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "Positions/PositionCode",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        })
-                                    ],
-                                    false
+                                    {
+                                        filters: aSearchFilter,
+                                        and: false
+                                    }
                                 )
                             );
                         }
@@ -415,7 +418,7 @@ sap.ui.define(
                 });
 
             },
-            onPressDgaReplacement:function(oEvent){
+            onPressDgaReplacement: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("ReplaceDga", {
@@ -423,7 +426,7 @@ sap.ui.define(
                 });
 
             },
-            _onNavToDetails:function(mParam1){
+            _onNavToDetails: function (mParam1) {
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("Detail", {
                     Id: mParam1,

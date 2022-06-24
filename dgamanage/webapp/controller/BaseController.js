@@ -98,6 +98,10 @@ sap.ui.define([
                     ChildTowns: [],
                     Depots: []
                 },
+                Table:{
+                    DgaPositions: []
+                    
+                },
                 bSaveEnabledFlag1: true,
                 DGAActivated: ""
             };
@@ -516,6 +520,7 @@ sap.ui.define([
 
 
         },
+      
         _GetActivatedDGACount: function (oBj) {
             var oView = this.getView();
             var oData = oView.getModel();
@@ -536,16 +541,22 @@ sap.ui.define([
                 oData.read("/DGAPositions/$count", {
                     filters: [oFilterA],
                     success: function (mParam1) {
-                        oModelControl.setProperty("/DGAActivated", mParam1);
+                        console.log(mParam1,oBj)
                         var iTotal = null;
-                        console.log(mParam1,oBj);
                         iTotal = oBj["AllocatedDGACount"] - mParam1;
-                        // if (mParam1 > 0) {
-                        //     iTotal = mParam1 - oBj["AllocatedDGACount"];
-                        // } else {
-                        //     iTotal = oBj["AllocatedDGACount"];
-                        // }
+                        oModelControl.setProperty("/DGAActivated", mParam1);
                         oModelView.setProperty("/AllocatedDGACount", iTotal);
+                        var oTable = oView.byId("tableDgaPositions");
+                        if(oTable.getVisible()){
+                            oTable.bindRows({
+                                path:'/DGAPositions',
+                                filters:[oFilterA],
+                                parameters :{
+                                    "expand":"DGA"
+                                }
+                            })
+                        }
+                       
                         resolve()
                     },
                     error: function (mParam1) {
@@ -584,6 +595,12 @@ sap.ui.define([
                 })
             });
 
+        },
+        onRowUpdatedDgaPositionTbl:function(oEvent){
+            var sLength = oEvent.getSource().getBinding("rows").getLength();
+            var sLabel = this._geti18nText("DgaPositionsData2",[sLength]);
+            this.getView().byId("idLable1").setText(sLabel)
+            console.log(sLabel)
         },
         onTokenUpdate: function (oEvent) {
             if (oEvent.getParameter("type") === "removed") {
