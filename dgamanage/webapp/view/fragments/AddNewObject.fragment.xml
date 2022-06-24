@@ -91,6 +91,12 @@
                             </uiTable:template>
                         </uiTable:Column>
                          <uiTable:Column >
+                            <Label text="{i18n>DgaId}" />
+                            <uiTable:template>
+                                <Text text="{DGAId}" wrapping="false" />
+                            </uiTable:template>
+                        </uiTable:Column>
+                        <uiTable:Column >
                             <Label text="{i18n>PositionCode}" />
                             <uiTable:template>
                                 <Text text="{PositionCode}" wrapping="false" />
