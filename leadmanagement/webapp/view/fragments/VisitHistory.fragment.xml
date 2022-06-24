@@ -1,0 +1,69 @@
+<core:FragmentDefinition xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <l:VerticalLayout width="100%">
+        <smartTable:SmartTable
+                           id="VisitHistoryTbl"
+                            editable="false"
+                            width="100%"
+                            entitySet="Visits"
+                            beforeRebindTable="onBeforeRebindVisitHistory"
+                            tableType="ResponsiveTable"
+                            showRowCount="true"
+                            useExportToExcel="false"
+                            useVariantManagement="false"
+                            useTablePersonalisation="false"
+                            demandPopin="true"
+                            enableAutoBinding="false"
+                            placeToolbarInTable="true"
+                            persistencyKey="HistoryPersistenceKey"
+                            requestAtLeastFields="Id"
+                            initialNoDataText="{i18n>tableNoDataText}">
+
+         <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+            <columns>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadVisitOutcomeDetails/VisitsOutcome", "leadingProperty": "LeadVisitOutcomeDetails/VisitsOutcome", "columnIndex": 0 ,"sortProperty": "LeadVisitOutcomeDetails/VisitsOutcome","filterProperty": "LeadVisitOutcomeDetails/VisitsOutcome"}'/>
+                    </customData>
+                    <Text text="{i18n>Activity}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Date", "leadingProperty": "Date", "columnIndex": 1 ,"sortProperty": "Date","filterProperty": "Date"}'/>
+                    </customData>
+                    <Text text="{i18n>Date}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Time", "leadingProperty": "Time", "columnIndex": 2 ,"sortProperty": "Time","filterProperty": "Time"}'/>
+                    </customData>
+                    <Text text="{i18n>Time}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Comments", "leadingProperty": "Comments", "columnIndex": 3 ,"sortProperty": "Comments","filterProperty": "Comments"}'/>
+                    </customData>
+                    <Text text="{i18n>Comments}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{LeadVisitOutcomeDetails/VisitsOutcome/Name}"/>
+                        <Text text="{path:'Date',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'}}" />
+                        <Text text="{Time}"/>
+                        <Text text="{Comments}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+    </l:VerticalLayout>
+</core:FragmentDefinition>
