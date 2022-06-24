@@ -104,8 +104,6 @@
                         </uiTable:Column>
                     </uiTable:columns>
                 </uiTable:Table>
-              
-           
             </f:content>
         </f:SimpleForm>
    
