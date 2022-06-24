@@ -987,6 +987,32 @@ sap.ui.define(
 
             onNavToFormsTab: function () {
                 this.onCancelFormPress();
+            },
+
+            fnSetAvailableQuestionsListFactory: function (sId, oContext) {
+                var oColumnListItem = null,
+                    sQuestion = oContext.getProperty("Question"),
+                    aSelectedQuestion = this.getView().getModel("FormDetailsModel").getProperty("/MasterFormQuestions"),
+                    bSetQuestionVisible = false;
+
+                oColumnListItem = new sap.m.ColumnListItem(sId, {
+                    visible: bSetQuestionVisible,
+                    cells: [
+                        new sap.m.Text({
+                            text: sQuestion
+                        }),
+                        new sap.m.Button({
+                            icon: "sap-icon://detail-view",
+                            press: function (oEvent) {
+                                this.onViewQuestionDetailsPress(oEvent);
+                            }.bind(this),
+                            type: "Transparent",
+                            tooltip: "View"
+                        })
+                    ]
+                });
+
+                return oColumnListItem;
             }
         });
     });

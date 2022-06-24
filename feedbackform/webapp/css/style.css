@@ -1,1 +1,4 @@
 /* Enter your custom styles here */
+.zZeroPadding>.sapMInputBaseContentWrapper{
+    width: 101% !important;
+}
