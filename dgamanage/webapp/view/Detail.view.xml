@@ -77,9 +77,9 @@
                           <IconTabFilter  text="{i18n>DgaReplacementHistory}" key="5" >
                              <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.DgaReplacementTable" type="XML"/>
                         </IconTabFilter>
-                        <!-- <IconTabFilter  text="{i18n>AttendanceAndVisits}" key="5" >
-                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.HistoryTable" type="XML"/>
-                        </IconTabFilter> -->
+                        <IconTabFilter  text="{i18n>AttendanceAndVisits}" key="6" >
+                             <core:Fragment fragmentName="com.knpl.dga.dgamanage.view.fragments.Attendance" type="XML"/>
+                        </IconTabFilter>
                          
                     </items>
                 </IconTabBar>
