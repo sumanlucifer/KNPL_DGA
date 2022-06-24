@@ -15,30 +15,30 @@
                     </customData>
                     <Text text="{i18n>PayrollCompany}"/>
                 </Column>
-                  <Column hAlign="Begin">
+                <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "DGA/SaleGroup/Name", "leadingProperty": "DGA/SaleGroup/Name", "columnIndex": 2 ,"sortProperty": "DGA/SaleGroup/Name","filterProperty": "DGA/SaleGroup/Name"}'/>
                     </customData>
                     <Text text="{i18n>SalesGroup}"/>
-                </Column>
+                </Column> -->
                 <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/Name", "leadingProperty": "Dealer/Name", "columnIndex": 3 ,"sortProperty": "Dealer/Name","filterProperty": "Dealer/Name"}'/>
                     </customData>
                     <Text text="{i18n>LinkedDealer}"/>
                 </Column>
-                <Column hAlign="Begin">
+                <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Targets", "leadingProperty": "DGA/Targets", "columnIndex": 4 ,"sortProperty": "DGA/Targets","filterProperty": "DGA/Targets"}'/>
                     </customData>
                     <Text text="{i18n>Targets}"/>
-                </Column>
-                 <Column hAlign="Begin">
+                </Column> -->
+                 <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "DGA/PerformanceTargets", "leadingProperty": "DGA/PerformanceTargets", "columnIndex": 5 ,"sortProperty": "DGA/PerformanceTargets","filterProperty": "DGA/PerformanceTargets"}'/>
                     </customData>
                     <Text text="{i18n>PerformanceTargets}"/>
-                </Column>
+                </Column> -->
                  <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "DGA/WorkLocation/TownName", "leadingProperty": "DGA/WorkLocation/TownName", "columnIndex": 6 ,"sortProperty": "DGA/WorkLocation/TownName","filterProperty": "DGA/WorkLocation/TownName"}'/>
@@ -67,10 +67,10 @@
                     <cells>
                     <Text text="{DGA/GivenName}" />
                      <Text text="{DGA/PayrollCompany/Name}" />
-                       <Text text="{DGA/SaleGroup/Name}" />
+                       <!-- <Text text="{DGA/SaleGroup/Name}" /> -->
                          <Text text="{Dealer/Name}" />
-                            <Text text="{DGA/Targets}" />
-                             <Text text="{DGA/PerformanceTargets}" />
+                            <!-- <Text text="{DGA/Targets}" />
+                             <Text text="{DGA/PerformanceTargets}" /> -->
                                <Text text="{DGA/WorkLocation/TownName}" />
                                  <Text text="{DGA/Pincode/Name}" />
                   
