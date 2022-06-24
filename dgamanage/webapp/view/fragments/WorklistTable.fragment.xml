@@ -20,61 +20,67 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "UniqueId1",  "columnIndex": 1 ,"sortProperty": "UniqueId1","filterProperty": "UniqueId1"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Id", "leadingProperty": "Id", "columnIndex": 1 ,"sortProperty": "Id","filterProperty": "Id"}'/>
+                    </customData>
+                    <Text text="{i18n>DgaId}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UniqueId1",  "columnIndex": 2 ,"sortProperty": "UniqueId1","filterProperty": "UniqueId1"}'/>
                     </customData>
                     <Text text="{i18n>PositionCode}"/>
                 </Column>
                 <Column hAlign="Begin" sortIndicator="Descending">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 2 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 3 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>RegistrationDate}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Mobile", "leadingProperty": "Mobile", "columnIndex": 3 ,"sortProperty": "Mobile","filterProperty": "Mobile"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Mobile", "leadingProperty": "Mobile", "columnIndex": 4 ,"sortProperty": "Mobile","filterProperty": "Mobile"}'/>
                     </customData>
                     <Text text="{i18n>Mobile}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGAType/Name", "leadingProperty": "DGAType/Name", "columnIndex": 4 ,"sortProperty": "DGAType/Name","filterProperty": "DGAType/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGAType/Name", "leadingProperty": "DGAType/Name", "columnIndex": 5 ,"sortProperty": "DGAType/Name","filterProperty": "DGAType/Name"}'/>
                     </customData>
                     <Text text="{i18n>MainObject} {i18n>Type}"/>
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Zone", "leadingProperty": "Zone", "columnIndex": 5 ,"sortProperty": "Zone","filterProperty": "Zone"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Zone", "leadingProperty": "Zone", "columnIndex": 6 ,"sortProperty": "Zone","filterProperty": "Zone"}'/>
                     </customData>
                     <Text text="{i18n>Zone}"/>
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Division/Id", "leadingProperty": "Division/Id", "columnIndex": 6 ,"sortProperty": "Division/Id","filterProperty": "Division/Id"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Division/Id", "leadingProperty": "Division/Id", "columnIndex": 7 ,"sortProperty": "Division/Id","filterProperty": "Division/Id"}'/>
                     </customData>
                     <Text text="{i18n>Division}"/>
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Depot1", "columnIndex": 7 ,"sortProperty": "Depot1","filterProperty": "Depot1"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Depot1", "columnIndex": 8 ,"sortProperty": "Depot1","filterProperty": "Depot1"}'/>
                     </customData>
                     <Text text="{i18n>Depot}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Pincode/Name","leadingProperty": "Pincode/Name", "columnIndex": 8 ,"sortProperty": "Pincode/Name","filterProperty": "Pincode/Name" }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Pincode/Name","leadingProperty": "Pincode/Name", "columnIndex": 9 ,"sortProperty": "Pincode/Name","filterProperty": "Pincode/Name" }'/>
                     </customData>
                     <Text text="{i18n>PinCode}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PayrollCompany/Name","leadingProperty": "PayrollCompany/Name", "columnIndex": 9 ,"sortProperty": "PayrollCompany/Name","filterProperty": "PayrollCompany/Name" }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PayrollCompany/Name","leadingProperty": "PayrollCompany/Name", "columnIndex": 10 ,"sortProperty": "PayrollCompany/Name","filterProperty": "PayrollCompany/Name" }'/>
                     </customData>
                     <Text text="{i18n>PayrollCompany}"/>
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ActivationStatus","leadingProperty": "ActivationStatus", "columnIndex": 10 ,"sortProperty": "ActivationStatus","filterProperty": "ActivationStatus" }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ActivationStatus","leadingProperty": "ActivationStatus", "columnIndex": 11 ,"sortProperty": "ActivationStatus","filterProperty": "ActivationStatus" }'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
@@ -92,7 +98,7 @@
                 </Column> -->
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions", "columnIndex": 11}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions", "columnIndex": 12}'/>
                     </customData>
                     <Text text="{i18n>Actions}"/>
                 </Column>
@@ -102,6 +108,7 @@
                 <ColumnListItem press="onListItemPress" type="Navigation">
                     <cells>
                         <Text text="{GivenName}"/>
+                         <Text text="{Id}"/>
                          <Text text="{path:'Positions/', formatter:'.formatter.GetWorkLisPositionId'}"/>
                          <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                            <Text text="{Mobile}"/>
