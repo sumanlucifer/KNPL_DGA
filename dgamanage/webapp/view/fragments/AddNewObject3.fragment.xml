@@ -1,0 +1,106 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:uiTable="sap.ui.table" >
+        <f:SimpleForm class="addForm" id="FormObjectData" editable="true" layout="ResponsiveGridLayout" title="{oModelControl>/Pagetitle} {i18n>MainObject} {i18n>Details}" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false">
+            <f:content>
+                 <core:Title text="{i18n>LocationDetails}" />
+                  
+                 <Label text="{i18n>Zone}" />
+                <ComboBox required="true" selectionChange="onZoneChange" items="{/MasterZones}" selectedKey="{path:'oModelView>/Zone',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
+                    <core:Item text="{Id}" key="{Id}" />
+                </ComboBox>
+                <Label text="{i18n>Division}" />
+                <ComboBox required="true" id="idDivision" editable="false" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelView>/DivisionId',type:'sap.ui.model.type.String', constraints:{minLength:1} }">
+                    <core:Item text="{Id}" key="{Id}" />
+                </ComboBox>
+                <Label text="{i18n>Depot}" required="true" />
+                 <MultiInput editable="false" placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDepotValueHelp" tokens="{path:'oModelControl>/MultiCombo/Depots'}">
+                    <tokens>
+                        <Token text="{oModelControl>Name} - {oModelControl>Id}" key="{oModelControl>Id}"/>
+                    </tokens>
+                </MultiInput>
+                <Label text="{i18n>LinkDealer}" visible="{= ${oModelControl>/mode} === 'Add'}" required="true" />
+                <MultiInput visible="{= ${oModelControl>/mode} === 'Add'}" editable="{= ${oModelControl>/MultiCombo/Depots}.length > 0 }"  placeholder="{i18n>placeHolder1}" tokenUpdate="onDealersTokenUpdate"  valueHelpOnly="true"  valueHelpRequest="handleDealersValueHelp" tokens="{path:'oModelControl>/MultiCombo/Dealers'}">
+                    <tokens>
+                        <Token text="{oModelControl>Name} - {oModelControl>Id}" key="{oModelControl>Id}"/>
+                    </tokens>
+                </MultiInput>
+                
+                <Label text="{i18n>State}" />
+                <ComboBox enabled="true" selectionChange="onStateChange" id="cmBxState" editable="false" items="{path:'/MasterStates',sorter:{path:'Name'}}" required="true" selectedKey="{path:'oModelView>/StateId', type:'sap.ui.model.type.String', constraints:{minLength:1}  }" >
+                    <items>
+                        <core:Item text="{Name}" key="{Id}" />
+                    </items>
+                </ComboBox>
+                <Label text="{i18n>JobLocation}"  />
+                <ComboBox id="cmbxJobLoc" change="onJobLocChange" items="{path:'/MasterWorkLocations', length:300 }" editable="false" valueStateText="{i18n>ValueStateMessage3}"   selectedKey="{path:'oModelView>/WorkLocationId', type:'sap.ui.model.type.String', constraints:{minLength:1} }"  required="true">
+                    <items>
+                        <core:Item text="{TownName}" key="{Id}" />
+                    </items>
+                </ComboBox>
+                <Label text="{i18n>ChildTown}"/>
+                <TextArea editable="false" value="{path:'oModelControl>/MultiCombo/ChildTowns', formatter:'.formatter.fmtChildTowns'}"></TextArea>
+                <Label text="{i18n>DgaActivated}" visible="{= ${oModelControl>/mode} === 'Add'}"/>
+                <Text text="{oModelControl>/DGAActivated}" visible="{= ${oModelControl>/mode} === 'Add'}" />
+                <Label text="{i18n>DgaRequirement}"/>
+                <Text text="{oModelView>/AllocatedDGACount}" />
+                <Label text="{i18n>Location} {i18n>PinCode}" />
+               <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handlePinCodeValueHelp" value="{path:'oModelControl>/AddFields/PinCode', type:'sap.ui.model.type.String', constraints:{minLength:1} }" required="true"/>
+                   <Label text="{i18n>Service} {i18n>PinCode}" required="true" />
+               <MultiInput tokenUpdate="onTokenUpdate"  placeholder="{i18n>placeHolder1}"   valueHelpOnly="true"  valueHelpRequest="_handlePinCodeValueHelp2" tokens="{path:'oModelControl>/MultiCombo/Pincode2'}">
+                    <tokens>
+                        <Token editable="{= ${oModelControl>/AddFields/PinCode} === ${oModelControl>Name} ? false:true }" text="{oModelControl>Name}" key="{oModelControl>Id}"/>
+                    </tokens>
+                </MultiInput>
+            
+<!--               
+                <Label text="{i18n>City}"  />
+                <ComboBox items="{path:'/MasterCities', sorter:{path:'City'}}" valueStateText="Kindly select the city according to state." editable="{= ${oModelView>/StateId} !== '' }"  selectedKey="{path:'oModelView>/TownId', type:'sap.ui.model.type.String', constraints:{minLength:1} }" id="cmbCity" required="true">
+                    <items>
+                        <core:Item text="{City}" key="{Id}" />
+                    </items>
+                </ComboBox>
+                -->
+               
+               
+              <core:Title text="{i18n>BasicDetails}" />
+               <Label text="{i18n>MainObject} {i18n>FullName}" />
+                <Input valueStateText="Kindly enter a valid name without any additonal space in the end.Max 50 chars allowed." maxLength="50" required="true" value="{path : 'oModelView>/GivenName', type : 'sap.ui.model.type.String', constraints:{minLength:1,maxLength:50,search :'^[A-Za-z]{1}$|^(?:[A-Za-z][ ]?[.]?[ ]?){1,40}[A-Za-z]$' } }" />
+                 <Label text="{i18n>OfficialMobileNo}" />
+                 <Input valueStateText="Kindly enter a mobile no with 10 digits." required="true" type="Number" value="{path:'oModelView>/Mobile',type:'sap.ui.model.type.String',constraints:{minLength:10,maxLength:10 }}" />
+                <!-- <Label text="{i18n>SalesGroup}" />
+               <Input  valueHelpOnly="true" showValueHelp="true" valueHelpRequest="_handleSalesGropValueHelp" value="{path:'oModelControl>/AddFields/SalesGroup', type:'sap.ui.model.type.String', constraints:{minLength:1} }" required="true"/> -->
+              <Label text="{i18n>PayrollCompany}" />
+                <ComboBox change="onPayrollChange" items="{path:'/MasterPayrollCompanies',sorter:{path:'Name'},filters:[{path:'IsArchived',operator:'EQ',value1:false}] }" selectedKey="{path:'oModelView>/PayrollCompanyId',type :'sap.ui.model.type.String', constraints:{minLength:1} }" required="true" >
+                    <items>
+                        <core:Item text="{Name}" key="{Id}" />
+                    </items>
+                </ComboBox>
+                <Label text="{i18n>EmployeeId}"/>
+                <Input change="onEmployeeIdChange" valueStateText="Kindly enter a Id with 10 digits."  value="{path:'oModelView>/EmployeeId', type:'sap.ui.model.type.String', constraints:{search:'^([a-zA-Z0-9 _-]+)$',maxLength:10}}" required="true" />
+                <Label text="{i18n>JoiningDate}" />
+                <DatePicker id="idJoiningDate" required="true" placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" change=".onJoiningDate" dateValue="{oModelView>/JoiningDate}" value="{path:'oModelControl>/AddFields/JoiningDate', type:'sap.ui.model.type.Date',formatOptions:{source:{pattern:'dd/MM/YYYY'} ,pattern:'dd/MM/YYYY',strictParsing:true}}" valueStateText="{i18n>ValueStateMessage1}" ></DatePicker>
+                <Label text="{i18n>ExitDate}" />
+                <DatePicker placeholder="DD/MM/YYYY" valueFormat="dd/MM/YYYY" dateValue="{oModelView>/ExitDate}"  change="onExitDateChange"  value="{path:'oModelControl>/AddFields/ExitDate', type:'sap.ui.model.type.Date', formatOptions:{source:{pattern:'dd/MM/YYYY'}, pattern:'dd/MM/YYYY', strictParsing:true} }"  ></DatePicker>
+                <core:Title text="  " />
+                <Label id="idLable1" text="{i18n>DgaPositionsData}" visible="false"/>
+                <uiTable:Table threshold="10" id="tableDgaPositions" selectionMode="None" visible="false" rowsUpdated="onRowUpdatedDgaPositionTbl" >
+                    <uiTable:columns>
+                        <uiTable:Column >
+                            <Label text="{i18n>DGAName}" />
+                            <uiTable:template>
+                                <Text text="{DGA/GivenName}" wrapping="false" />
+                            </uiTable:template>
+                        </uiTable:Column>
+                         <uiTable:Column >
+                            <Label text="{i18n>PositionCode}" />
+                            <uiTable:template>
+                                <Text text="{PositionCode}" wrapping="false" />
+                            </uiTable:template>
+                        </uiTable:Column>
+                    </uiTable:columns>
+                </uiTable:Table>
+              
+           
+            </f:content>
+        </f:SimpleForm>
+   
+</core:FragmentDefinition>
