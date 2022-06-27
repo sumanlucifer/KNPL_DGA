@@ -30,9 +30,9 @@
                 </RadioButtonGroup>
 
                 <Label text="{i18n>ComplaintsTypes}" labelFor="GroupB" />
-                <RadioButtonGroup id="GroupB" columns="2" width="100%"  selectedIndex="{oViewModel>/ComplaintType}" select="onRadioButtonSelection">
-                    <RadioButton text="{i18n>ProductRelated}" />
-                    <RadioButton text="{i18n>ServiceRelated}" />
+                <RadioButtonGroup id="GroupB" buttons="{path:'/MasterComplainTypes', filters: [ {path:'IsArchived',operator:'EQ',value1:false} ]}" 
+                    columns="2" width="100%" select="onRadioButtonSelection" >
+                    <RadioButton text="{ComplaintType}"/>
                 </RadioButtonGroup>
 
                 <Label text="{i18n>Issue}" required="true" />
