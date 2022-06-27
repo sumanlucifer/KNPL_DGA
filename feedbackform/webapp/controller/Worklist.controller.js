@@ -728,17 +728,14 @@ sap.ui.define(
                 this.getView().getModel().remove(sPath, {
                     success: function (oData) {
                         this.getView().setBusy(false);
-                        if (oData !== "" || oData !== undefined) {
-                            MessageToast.show("Question Deleted Successfully.", {
-                                width: "200px"
-                            });
-                            this.getView().getModel().refresh();
-                        } else {
-                            MessageBox.error("Question not able to delete.");
-                        }
+                        MessageToast.show("Question Deleted Successfully.", {
+                            width: "200px"
+                        });
+                        this.getView().getModel().refresh();
                     }.bind(this),
                     error: function (oError) {
                         this.getView().setBusy(false);
+                        this.getView().getModel().refresh();
                     }.bind(this)
                 });
             },
