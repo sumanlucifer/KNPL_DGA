@@ -38,7 +38,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/PhoneNumber", "leadingProperty": "Dealer/PhoneNumber", "columnIndex": 1 ,"sortProperty": "Dealer/PhoneNumber","filterProperty": "Dealer/PhoneNumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/PhoneNumber", "leadingProperty": "Dealer/DealerPhoneNumber/SMSNumber", "columnIndex": 1 ,"sortProperty": "Dealer/PhoneNumber","filterProperty": "Dealer/PhoneNumber"}'/>
                     </customData>
                     <Text text="{i18n>PhoneNumber}"/>
                 </Column>
@@ -68,13 +68,13 @@
                 </Column>  -->
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "TotalMappedContractors","columnIndex": 6 ,"leadingProperty":"TotalMappedContractors",  "sortProperty": "TotalMappedContractors","filterProperty": "TotalMappedContractors"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TotalMappedContractors","columnIndex": 6 ,"leadingProperty":"TotalMappedContractors"}'/>
                     </customData>
                     <Text text="{i18n>TotalMappedContractor}"/>
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadsProvided","leadingProperty":"LeadsProvided", "columnIndex": 7 ,"sortProperty": "LeadsProvided","filterProperty": "LeadsProvided"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "LeadsProvided","leadingProperty":"LeadsProvided", "columnIndex": 7}'/>
                     </customData>
                     <Text text="{i18n>LeadsProvided}"/>
                 </Column>
@@ -94,7 +94,7 @@
                     <cells>
                  
                        <Text text="{Dealer/Name}" />
-                       <Text text="{Dealer/PhoneNumber}"/>
+                       <Text text="{Dealer/DealerPhoneNumber/SMSNumber}"/>
                        <Text  text="{DealerId}" /> 
                        <Text text="{Dealer/DealerSalesDetails/SalesGroup/Description}"/>
                         <Text text="{Dealer/FiscalYear}"/>
