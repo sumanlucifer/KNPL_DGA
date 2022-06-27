@@ -98,7 +98,9 @@ sap.ui.define(
                 onRadioButtonSelection: function(oEvent){
                     var oViewModel = this.getView().getModel("oViewModel");
                     var value1 = oViewModel.getProperty("/LeadStage") === 0 ? "ONGOING" : "COMPLETED";
-                    var value2 = oViewModel.getProperty("/ComplaintType") + 2;
+                    var value2 = oEvent.getSource().getAggregation("buttons")[oEvent.getSource().getSelectedIndex()].getBindingContext().getObject("Id");
+
+                    oViewModel.setProperty("/ComplaintType", oEvent.getSource().getAggregation("buttons")[oEvent.getSource().getSelectedIndex()].getBindingContext().getObject("Id"))
 
                     this._issueListFilter(value1, value2);
                 },
@@ -462,10 +464,11 @@ sap.ui.define(
                 _postDataToSave: function (isNewCustomer) {
                     var oView = this.getView();
                     var oViewModel = oView.getModel("oViewModel");
+                    var othat = this;
                     if(isNewCustomer){
                         var oPayLoad = {
                             "LeadStage": oViewModel.getProperty("/LeadStage") === 0 ? "ONGOING" : "COMPLETED",
-                            "ComplaintTypeId": oViewModel.getProperty("/ComplaintType") + 2,
+                            "ComplaintTypeId": Number(oViewModel.getProperty("/ComplaintType")),
                             "Comments": oViewModel.getProperty("/Comments") ? oViewModel.getProperty("/Comments") : null,
                             "ConsumersSelectedIssuesRequests": this._selectedItemList(this.getView().byId("idList").getSelectedItems()),
                             "IsNewConsumer": oViewModel.getProperty("/newCustomer"),
@@ -478,7 +481,7 @@ sap.ui.define(
                         var oPayLoad = {
                             "LeadId": oViewModel.getProperty("/LeadId"),
                             "LeadStage": oViewModel.getProperty("/LeadStage") === 0 ? "ONGOING" : "COMPLETED",
-                            "ComplaintTypeId": oViewModel.getProperty("/ComplaintType") + 2,
+                            "ComplaintTypeId": Number(oViewModel.getProperty("/ComplaintType")),
                             "Comments": oViewModel.getProperty("/Comments") ? oViewModel.getProperty("/Comments") : null,
                             "ConsumersSelectedIssuesRequests": this._selectedItemList(this.getView().byId("idList").getSelectedItems()),
                             "IsNewConsumer": oViewModel.getProperty("/newCustomer"),
@@ -488,11 +491,14 @@ sap.ui.define(
                         };
                     }
                     
-                    this._postCreateData(oPayLoad);
+                    var c1 = this._postCreateData(oPayLoad);
 
-                    // c1.then(function (oData) {
-                    //     othat.navPressBack();
-                    // });
+                    c1.then(function (oData) {
+                        // setTimeout(othat.navPressBack(), 1000);
+                        setTimeout(function demo() {
+                            othat.navPressBack();
+                        }, 3000);
+                    });
                 },
                 _postCreateData: function (oPayLoad) {
                     var promise = jQuery.Deferred();
@@ -500,12 +506,8 @@ sap.ui.define(
                     oData.create("/Complaints", oPayLoad, {
                         success: function (oData) {
                             // MessageToast.show("Complaint Successfully Created");
-                            var path = "Complaints(" +oData.Id+ ")" 
-                            MessageBox.success("Complaint Successfully Created.", {
-                                title: "Success",
-                                onClose: function(){
-                                    othat.navPressBack();
-                                }
+                            MessageToast.show("Complaint Successfully Created.", {
+                                duration: 3000
                             });
                             promise.resolve(oData);
                         },

@@ -6,7 +6,7 @@
             <Text text="Are you sure you want to withdraw the complaint?" />
             <VBox class="sapUiSmallMarginTop">
                 <Label text="Add Comments" />
-                <TextArea width="100%" rows="3" value="{path:'oModelView>/withdrawComments',type:'sap.ui.model.type.String',constraints:{minLength:1, maxLength: 100}}" liveChange="onCommentsChange" />
+                <TextArea width="100%" rows="3" value="{path:'oModelView>/withdrawComments',type:'sap.ui.model.type.String',constraints:{minLength:1, maxLength: 300}}" liveChange="onCommentsChange" />
                 <Label text="{i18n>TxtCommentsLength}" />
             </VBox>
         </content>

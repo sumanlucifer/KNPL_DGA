@@ -7,7 +7,7 @@
                     <Title text="{= ${IsNewConsumer} === true ? ${ConsumerName} : ${Lead/ConsumerName} }" class="sapUiTinyMarginTop"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>RaiseComplaint}">
+                    <Breadcrumbs currentLocationText="{i18n>ComplaintDetails}">
                         <Link text="{i18n>worklistTitle}" press="onNavBack"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
