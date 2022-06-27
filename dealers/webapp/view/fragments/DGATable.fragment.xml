@@ -87,7 +87,7 @@
                 </Column>
             </columns>
             <items>
-                <ColumnListItem>
+                <ColumnListItem press="onListItemPressDGA" type="Navigation">
                     <cells>
                         <Text text="{DGA/GivenName} {DGA/FamilyName}"/>
                         <Text text="{DGAId}"/>
@@ -96,7 +96,7 @@
                         <Text text="{DGA/DGAType/Name}"/>
                         <Text text="{DGA/Zone}"/>
                         <Text text="{DGA/DivisionId}"/>
-                        <Text text="{DGA/Depot/Depot}"/>
+                        <Text text="{DGA/DepotId}"/>
                         <Text text="{DGA/Pincode/Name}"/>
                         <Text text="{DGA/PayrollCompany/Name}"/>
                         <ObjectStatus text="{path:'DGA/Status',formatter:'.formatter.fmtLowerCase'}" state="{path:'DGA/Status',formatter:'.formatter.fmtStatusColorChange'}"/>
