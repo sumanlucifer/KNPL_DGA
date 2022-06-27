@@ -13,7 +13,7 @@
                             enableAutoBinding="false"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            requestAtLeastFields="DealerId"
+                            requestAtLeastFields="DealerId,DGAId"
                             initialNoDataText="{i18n>tableNoDataText}"
                             ignoreFromPersonalisation="">
 

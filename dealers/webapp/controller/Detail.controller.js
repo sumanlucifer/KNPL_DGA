@@ -191,7 +191,7 @@ sap.ui.define(
                         semanticObject: "Manage",
                         action: "DGAMgmt",
                         params: {
-                            DgaId: oBj["Id"]
+                            DgaId: oBj["DGAId"]
                         }
                     }
                 });

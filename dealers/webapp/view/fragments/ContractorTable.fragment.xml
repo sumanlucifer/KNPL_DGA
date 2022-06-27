@@ -13,7 +13,7 @@
                             enableAutoBinding="false"
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
-                            requestAtLeastFields=""
+                            requestAtLeastFields="Id"
                             initialNoDataText="{i18n>tableNoDataText}"
                             ignoreFromPersonalisation="">
 
