@@ -63,7 +63,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Depot/Depot", "leadingProperty": "DGA/Depot/Depot", "columnIndex": 7 ,"sortProperty": "DGA/Depot/Depot","filterProperty": "DGA/Depot/Depot"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/DepotId", "leadingProperty": "DGA/DepotId", "columnIndex": 7 ,"sortProperty": "DGA/DepotId","filterProperty": "DGA/DepotId"}'/>
                     </customData>
                     <Text text="{i18n>Depot}"/>
                 </Column>
