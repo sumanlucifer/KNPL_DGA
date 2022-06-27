@@ -36,8 +36,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "PaintReq",
+                    "semanticObject": "Contractor",
+                    "action": "Display",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
                     "icon": "sap-icon://add-contact",

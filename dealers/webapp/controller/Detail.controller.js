@@ -175,8 +175,8 @@ sap.ui.define(
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 this.Navigate({
                     target: {
-                        semanticObject: "Manage",
-                        action: "PaintReq",
+                        semanticObject: "Contractor",
+                        action: "Display",
                         params: {
                             PainterId: oBj["Id"]
                         }
