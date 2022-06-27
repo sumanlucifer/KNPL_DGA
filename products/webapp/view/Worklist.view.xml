@@ -94,6 +94,7 @@
                             placeToolbarInTable="true"
                             requestAtLeastFields="Id,Status,PdfViewerCount,PdfDownloadCount,TotalPdfViewerCount,TotalPdfDownloadCount"
                             persistencyKey="CatalogueSmartTableKey"
+                            initialNoDataText="{i18n>tableNoDataText}"
                             >
                             	<smartTable:customToolbar>
 			<OverflowToolbar>
@@ -101,7 +102,7 @@
                         <Button icon="sap-icon://add" type="Emphasized" text="Add Catalogue" press="onPressAdd" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
                     </OverflowToolbar>
 		</smartTable:customToolbar>
-                        <Table growingScrollToLoad="false" growing="true" growingThreshold="10" >
+                        <Table growingScrollToLoad="false" growing="true" growingThreshold="10" noDataText="{i18n>tableNoDataText}" >
                                 <columns>
                                  <Column hAlign="Begin" width="15%">
                                         <customData>
@@ -180,14 +181,12 @@
                                             <Text text="{path:'ProductCategory/CategoryName'}"/>
                                              <Text text="{path:'ProductClassification/ClassificationName'}"/>
                                               <Text text="{path:'TotalPdfDownloadCount'}"/>
-                                            
                                             <Text text="{path:'CreatedAt',formatter:'.formatter.dateFormatter2'}"/>
                                             <ObjectStatus text="{path: 'Status',
                                                 formatter: '.formatter.statusList'}" 
                                                 data:remarks="{Status}"
                                                 state="{= ${Status} === true? 'Success' : undefined || ${Status} === false? 'Warning' : undefined }"/>
                                             <Button  icon="sap-icon://edit" type="Transparent" press="onPressEdit" tooltip="Edit" enabled="{= (${appView>/loggedUserRoleId} !== 2) }"/>
-                                       
                                         </cells>      
                                     </ColumnListItem>
                                 </items> 
