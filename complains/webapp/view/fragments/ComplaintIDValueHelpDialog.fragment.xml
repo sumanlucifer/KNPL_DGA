@@ -2,7 +2,7 @@
 	<SelectDialog
         resizable="false"
 		id="selectDialog"
-		title="Painters"
+		title="Complaints"
         growing="true"
         growingThreshold="15"
 		items="{path:'/Complaints',sorter:{path:'CreatedAt',descending:true},parameters:{select:'ComplaintCode' }, 

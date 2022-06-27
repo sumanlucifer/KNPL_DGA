@@ -217,7 +217,7 @@ sap.ui.define(
                                     new Filter(
                                         "LeadStage",
                                         FilterOperator.EQ,
-                                        oViewFilter[prop]
+                                        oViewFilter[prop].toLowerCase()
                                     )
                                     //new Filter(prop, FilterOperator.BT,oViewFilter[prop],oViewFilter[prop])
                                 );
@@ -321,6 +321,11 @@ sap.ui.define(
                                             ),
                                             new Filter(
                                                 "ComplaintCode",
+                                                FilterOperator.Contains,
+                                                oViewFilter[prop].trim()
+                                            ),
+                                            new Filter(
+                                                "DGA/Mobile",
                                                 FilterOperator.Contains,
                                                 oViewFilter[prop].trim()
                                             )
