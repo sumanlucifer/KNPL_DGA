@@ -196,7 +196,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "Lead,DGA,PreviousContractor,ReassignedContractor,ReassignmentStatus";
+                oBindingParams.parameters["expand"] = "Lead,DGADetails,PreviousContractor,ReassignedContractor,ReassignmentStatus";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 // Apply Filters
                 var oFilter = this._CreateFilter();
@@ -239,24 +239,24 @@ sap.ui.define(
                         } else if (prop === "ZoneId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("DGA/Zone", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("DGADetails/Zone", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "DivisionId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("DGA/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("DGADetails/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter(
                                     [
                                         new Filter({
-                                            path: "DGA/Zone",
+                                            path: "DGADetails/Zone",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "DGA/GivenName",
+                                            path: "DGADetails/GivenName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
@@ -274,7 +274,7 @@ sap.ui.define(
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "DGA/DivisionId",
+                                            path: "DGADetails/DivisionId",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false

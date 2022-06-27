@@ -95,7 +95,6 @@ sap.ui.define(
                     })
                 });
             },
-
             _CheckLoginData: function () {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
@@ -133,7 +132,7 @@ sap.ui.define(
             _getDisplayData: function (oProp) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
-                var exPand = "Lead,DGA,PreviousContractor,ReassignedContractor,ReassignmentStatus";
+                var exPand = "Lead,DGADetails,PreviousContractor,ReassignedContractor,ReassignmentStatus";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -154,7 +153,6 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-
             onBeforeRebindHistoryTable: function (oEvent) {
                 var oView = this.getView();
                 var oViewData = oView.getElementBinding().getBoundContext().getObject();
