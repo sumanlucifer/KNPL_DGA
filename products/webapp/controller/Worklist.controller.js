@@ -231,21 +231,17 @@ sap.ui.define([
                     case "Search":
                         sValue = oControl.getValue();
                         if (sValue && sValue !== "") {
-                            if(sValue.toLowerCase() === "active" ||sValue.toLowerCase() === "inactive" )
-                            {
+                            if (sValue.toLowerCase() === "active" || sValue.toLowerCase() === "inactive") {
                                 var sValue = sValue === "active" ? true : false;
                                 aFilters.push(new Filter({
                                     path: "Status",
                                     operator: FilterOperator.EQ,
                                     value1: sValue,
-                                   
                                 }));
                             }
-                            else{
+                            else {
                                 this.oCustom = { search: sValue };
                             }
-                            
-                          
                         }
                         else {
                             this.oCustom = null;
@@ -467,6 +463,27 @@ sap.ui.define([
             var catalogueId = oEvent.getSource().getBindingContext().getObject('Id');
             this.getRouter().navTo("PainterList", {
                 catalogueId: catalogueId
+            });
+        },
+        onDGAViewsPress:function(){
+            this._navToCrossApp();
+        },
+        _navToCrossApp: function () {
+            var that = this;
+
+
+            var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+            var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                target: {
+                    semanticObject: "Manage",
+                    action: "DGAMgmt"
+                },
+                params: {}
+            })) || "";
+            oCrossAppNavigator.toExternal({
+                target: {
+                    shellHash: hash
+                }
             });
         }
     });

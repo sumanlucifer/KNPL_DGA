@@ -451,7 +451,7 @@
                     var oView = this.getView();
                     var sDgaId = oView.getModel("oModelDisplay").getProperty("/Id");
                     var oBindingParams = oEvent.getParameter("bindingParams");
-                    oBindingParams.parameters["expand"] = "Dealer/DealerSalesDetails/SalesGroup";
+                    oBindingParams.parameters["expand"] = "Dealer/DealerSalesDetails/SalesGroup,Dealer/DealerPhoneNumber";
                     oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 },

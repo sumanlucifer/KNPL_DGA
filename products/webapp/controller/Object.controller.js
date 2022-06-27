@@ -18,7 +18,7 @@ sap.ui.define([
     'sap/m/MessageBox'
 ], function (BaseController, JSONModel, History, formatter, jQuery, deepExtend, syncStyleClass, Controller,
     ObjectMarker, MessageToast, UploadCollectionParameter, MobileLibrary,
-    FileSizeFormat, Device, Fragment, PDFViewer,MessageBox
+    FileSizeFormat, Device, Fragment, PDFViewer, MessageBox
 ) {
     "use strict";
     var ListMode = MobileLibrary.ListMode,
@@ -56,7 +56,7 @@ sap.ui.define([
             this.getView().addDependent(this._pdfViewer);
         },
         onAfterRendering: function () {
-                this._pdfViewer.setShowDownloadButton(this.getModel("appView").getProperty("/loggedUserRoleId")!=2);
+            this._pdfViewer.setShowDownloadButton(this.getModel("appView").getProperty("/loggedUserRoleId") != 2);
         },
         /* =========================================================== */
         /* event handlers                                              */
@@ -86,7 +86,9 @@ sap.ui.define([
 		 */
         _onObjectMatched: function (oEvent) {
             var oData = {
-                Catalogue: []
+                Catalogue: [],
+                ProductSheet: [],
+                Warranty: []
             };
             var sObjectId = oEvent.getParameter("arguments").objectId;
             this._property = oEvent.getParameter("arguments").property;
@@ -97,13 +99,15 @@ sap.ui.define([
                 this._bindView("/" + sObjectPath);
                 this.property = sObjectPath;
                 //this.sServiceURI = this.getOwnerComponent().getManifestObject().getEntry("/sap.app").dataSources.KNPL_DS.uri;
-                this.MainModel= this.getOwnerComponent().getModel();
-                this.sServiceURI =  `${this.MainModel.sServiceUrl}/`;
+                this.MainModel = this.getOwnerComponent().getModel();
+                this.sServiceURI = `${this.MainModel.sServiceUrl}/`;
                 this.pdfURI = this.sServiceURI + sObjectPath + "/$value?doc_type=pdf";
-                this.imgURI = this.sServiceURI + sObjectPath + "/$value?doc_type=image&time"+new Date().getTime();
+                // this.imgURI = this.sServiceURI + sObjectPath + "/$value?doc_type=image&time" + new Date().getTime();
+                this.imgURI = `${this.sServiceURI}${sObjectPath}/$value?doc_type=image&time=${new Date().getTime()}&directory=image`
+               
                 var oModel = new JSONModel();
-                oModel.setData({Image: this.imgURI});
-                this.getView().setModel(oModel,"ImageModel");
+                oModel.setData({ Image: this.imgURI });
+                this.getView().setModel(oModel, "ImageModel");
                 this.getView().getModel("ImageModel").refresh(true);
             }.bind(this));
         },
@@ -136,23 +140,27 @@ sap.ui.define([
                     dataReceived: function (oEvent) {
                         oViewModel.setProperty("/busy", false);
                         var data = oEvent.getParameter('data');
-                        var status=data.Status;
+                        var status = data.Status;
                         var imgSize = data.MediaList[0].MediaSize;
-                        
                         var pdfSize = data.MediaList[0].MediaSize;
                         var imgName = data.MediaList[0].MediaName;
                         var pdfName = data.MediaList[0].MediaName;
-                        var productCompetitors= data.ProductCompetitors;
-                        var media=data.MediaList.filter(function(ele){
-                            return !ele.ContentType.includes("image");
-                        });
-                        oViewModel.setProperty("/Status", status );
+                        var productCompetitors = data.ProductCompetitors;
+                        var Warranty = data.MediaList.filter(item => item.DirectoryName === "PRODUCT_WARRANTY").filter(item => !item.ContentType.includes("image"));
+                        var Catalogue = data.MediaList.filter(item => item.DirectoryName === "PRODUCT_CATALOGUE").filter(item => !item.ContentType.includes("image"));
+                        var ProductSheet = data.MediaList.filter(item => item.DirectoryName === "PRODUCT_DATASHEET").filter(item => !item.ContentType.includes("image"));
+                        // var media = data.MediaList.filter(function (ele) {
+                        //     return !ele.ContentType.includes("image");
+                        // });
+                        oViewModel.setProperty("/Status", status);
                         oViewModel.setProperty("/ImageSize", imgSize + " B");
                         oViewModel.setProperty("/PdfSize", pdfSize + " B");
                         oViewModel.setProperty("/ImageName", imgName);
                         oViewModel.setProperty("/PdfName", pdfName);
                         oViewModel.setProperty("/Competitor", productCompetitors);
-                        oViewModel.setProperty("/Catalogue", media);
+                        oViewModel.setProperty("/Catalogue", Catalogue);
+                        oViewModel.setProperty("/ProductSheet", ProductSheet);
+                        oViewModel.setProperty("/Warranty", Warranty);
                     }
                 }
             });
@@ -271,12 +279,34 @@ sap.ui.define([
         //     this._pdfViewer.open();
         // },
         openPdf: function (oEvent) {
-            var oContext=oEvent.getSource().getBindingContext("objectView"); 
-            var sSource =  this.sServiceURI + this.property+"/$value?doc_type=pdf&file_name=" + oContext.getProperty("MediaName") + "&language_code=" + oContext.getProperty("LanguageCode");
+            var sServiceUri = this.sServiceURI;
+            var oContext = oEvent.getSource().getBindingContext("objectView");
+            //  var sSource = this.sServiceURI + this.property + "/$value?doc_type=pdf&file_name=" + oContext.getProperty("MediaName") + "&language_code=" + oContext.getProperty("LanguageCode");
+            var sSource = `${sServiceUri}${this.property}/$value?doc_type=pdf&file_name=${oContext.getProperty("MediaName")}&language_code=${oContext.getProperty("LanguageCode")}&directory=catalogue`;
             // this._pdfViewer.setSource(sSource);
             //         this._pdfViewer.setTitle("Catalogue");
             //         this._pdfViewer.open();
             sap.m.URLHelper.redirect(sSource, true);
+        },
+        openPdf1: function (oEvent) {
+            var sServiceUri = this.sServiceURI;
+            var oContext = oEvent.getSource().getBindingContext("objectView");
+            //  var sSource = this.sServiceURI + this.property + "/$value?doc_type=pdf&file_name=" + oContext.getProperty("MediaName") + "&language_code=" + oContext.getProperty("LanguageCode");
+            var sSource1 = `${sServiceUri}${this.property}/$value?doc_type=pdf&file_name=${oContext.getProperty("MediaName")}&language_code=${oContext.getProperty("LanguageCode")}&directory=datasheet`;
+            // this._pdfViewer.setSource(sSource);
+            //         this._pdfViewer.setTitle("Catalogue");
+            //         this._pdfViewer.open();
+            sap.m.URLHelper.redirect(sSource1, true);
+        },
+        openPdf2: function (oEvent) {
+            var sServiceUri = this.sServiceURI;
+            var oContext = oEvent.getSource().getBindingContext("objectView");
+            //  var sSource = this.sServiceURI + this.property + "/$value?doc_type=pdf&file_name=" + oContext.getProperty("MediaName") + "&language_code=" + oContext.getProperty("LanguageCode");
+            var sSource2 = `${sServiceUri}${this.property}/$value?doc_type=pdf&file_name=${oContext.getProperty("MediaName")}&language_code=${oContext.getProperty("LanguageCode")}&directory=warranty`;
+            // this._pdfViewer.setSource(sSource);
+            //         this._pdfViewer.setTitle("Catalogue");
+            //         this._pdfViewer.open();
+            sap.m.URLHelper.redirect(sSource2, true);
         },
         onPressStatus: function (oEvent) {
             // var oItem = oEvent.getSource();
@@ -292,15 +322,15 @@ sap.ui.define([
                 changedStatus = true
             }
             //var oParam = Object.assign({}, oSelectedItem);
-            var oParam={
-                Status:changedStatus
+            var oParam = {
+                Status: changedStatus
             }
             //console.log(oParam);
             function onYes() {
                 var oModel = this.getView().getModel();
-                var entity=this.property;
+                var entity = this.property;
                 var that = this;
-                oModel.update("/"+entity+"/Status",oParam, {
+                oModel.update("/" + entity + "/Status", oParam, {
                     success: function () {
                         that.onRemoveSuccess();
                     }, error: function (oError) {
@@ -312,7 +342,7 @@ sap.ui.define([
             }
             this.showWarning("MSG_CONFIRM_CHANGE_STATUS", onYes);
         },
-         onRemoveSuccess: function () {
+        onRemoveSuccess: function () {
             var msg = 'Status Changed Successfully!';
             MessageToast.show(msg);
             var oModel = this.getView().getModel("objectView");

@@ -81,13 +81,13 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Status", "leadingProperty": "DGA/Status", "columnIndex": 10 ,"sortProperty": "DGA/Status","filterProperty": "DGA/Status"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/ActivationStatus", "leadingProperty": "DGA/ActivationStatus", "columnIndex": 10 ,"sortProperty": "DGA/ActivationStatus","filterProperty": "DGA/ActivationStatus"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
             </columns>
             <items>
-                <ColumnListItem>
+                <ColumnListItem press="onListItemPressDGA" type="Navigation">
                     <cells>
                         <Text text="{DGA/GivenName} {DGA/FamilyName}"/>
                         <Text text="{DGAId}"/>
@@ -96,10 +96,10 @@
                         <Text text="{DGA/DGAType/Name}"/>
                         <Text text="{DGA/Zone}"/>
                         <Text text="{DGA/DivisionId}"/>
-                        <Text text="{DGA/Depot/Depot}"/>
+                        <Text text="{DGA/DepotId}"/>
                         <Text text="{DGA/Pincode/Name}"/>
                         <Text text="{DGA/PayrollCompany/Name}"/>
-                        <ObjectStatus text="{path:'DGA/Status',formatter:'.formatter.fmtLowerCase'}" state="{path:'DGA/Status',formatter:'.formatter.fmtStatusColorChange'}"/>
+                        <ObjectStatus text="{path:'DGA/ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{path:'DGA/ActivationStatus',formatter:'.formatter.fmtStatusColorChange'}"/>
                     </cells>
                 </ColumnListItem>
             </items>

@@ -67,7 +67,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "TotalMappedContractors", "leadingProperty": "TotalMappedContractors", "columnIndex": 10 ,"sortProperty": "TotalMappedContractors","filterProperty": "TotalMappedContractors"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TotalMappedContractors", "leadingProperty": "TotalMappedContractors", "columnIndex": 10}'/>
                     </customData>
                     <Text text="{i18n>TotalMappedContractors}"/>
                 </Column>

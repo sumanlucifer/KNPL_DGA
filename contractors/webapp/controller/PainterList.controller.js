@@ -123,14 +123,7 @@ sap.ui.define(
 
                     this._fiterBarSort();
                 },
-                _onNavToPainterDetails: function (param1) {
-                    console.log(param1);
-                    var oRouter = this.getOwnerComponent().getRouter();
-                    oRouter.navTo("RouteProfile", {
-                        mode: "edit",
-                        prop: param1,
-                    });
-                },
+             
                 _CheckLoginData: function () {
                     var promise = jQuery.Deferred();
                     var oData = this.getView().getModel();
@@ -445,23 +438,11 @@ sap.ui.define(
                                                 caseSensitive: false
                                             }),
                                             new Filter({
-                                                path: "Slab/Slab",
+                                                path: "DealerId",
                                                 operator: "Contains",
                                                 value1: oViewFilter[prop].trim(),
                                                 caseSensitive: false
-                                            }),
-                                            new Filter({
-                                                path: "PrimaryDealerDetails/DealerName",
-                                                operator: "Contains",
-                                                value1: oViewFilter[prop].trim(),
-                                                caseSensitive: false
-                                            }),
-                                            new Filter({
-                                                path: "PrimaryDealerDetails/Id",
-                                                operator: "EQ",
-                                                value1: oViewFilter[prop].trim(),
-                                                caseSensitive: false
-                                            }),
+                                            })
                                         ],
                                         false
                                     )
@@ -774,7 +755,14 @@ sap.ui.define(
                         prop: oBject["Id"],
                     });
                 },
-
+                _onNavToPainterDetails: function (param1) {
+                    console.log(param1);
+                    var oRouter = this.getOwnerComponent().getRouter();
+                    oRouter.navTo("RouteProfile", {
+                        mode: "edit",
+                        prop: param1,
+                    });
+                },
                 onPressEditPainter: function (oEvent) {
                     var oRouter = this.getOwnerComponent().getRouter();
                     var sPath = oEvent

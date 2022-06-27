@@ -170,6 +170,45 @@ sap.ui.define(
                     return promise;
                 });
             },
+            
+            onListItemPressContractors: function (oEvent) {
+                var oBj = oEvent.getSource().getBindingContext().getObject();
+                this.Navigate({
+                    target: {
+                        semanticObject: "Manage",
+                        action: "PaintReq",
+                        params: {
+                            PainterId: oBj["Id"]
+                        }
+                    }
+                });
+            },
+            
+            onListItemPressDGA: function (oEvent) { 
+                var oBj = oEvent.getSource().getBindingContext().getObject();
+                this.Navigate({
+                    target: {
+                        semanticObject: "Manage",
+                        action: "DGAMgmt",
+                        params: {
+                            DgaId: oBj["Id"]
+                        }
+                    }
+                });
+            },
+            
+            Navigate: function (oSemAct) {
+                if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService) {
+                    var oCrossAppNav = sap.ushell.Container.getService("CrossApplicationNavigation");
+                    oCrossAppNav.toExternal({
+                        target: {
+                            semanticObject: oSemAct.target.semanticObject,
+                            action: oSemAct.target.action
+                        },
+                        params: oSemAct.target.params
+                    })
+                }
+            },
 
         });
     }

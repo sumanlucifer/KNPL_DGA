@@ -93,7 +93,7 @@
                 </Column>
             </columns>
             <items>
-                <ColumnListItem>
+                <ColumnListItem press="onListItemPressContractors" type="Navigation">
                     <cells>
                         <HBox>
                             <core:Icon class="sapUiTinyMarginEnd" src="{path:'RegistrationStatus',formatter:'.formatter.RegStatusIcon'}" 

@@ -17,7 +17,7 @@
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>DgaName}" text="{DGA/GivenName}"/>
+                        <ObjectAttribute title="{i18n>DgaName}" text="{DGADetails/GivenName}"/>
                         <ObjectAttribute title="{i18n>LeadId}" text="{LeadId}"/>
                          <ObjectAttribute title="{i18n>requestId}" text="{ID}"/>
                     </layout:VerticalLayout>
