@@ -38,7 +38,7 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/PhoneNumber", "leadingProperty": "Dealer/DealerPhoneNumber/SMSNumber", "columnIndex": 1 ,"sortProperty": "Dealer/PhoneNumber","filterProperty": "Dealer/PhoneNumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Dealer/DealerPhoneNumber/SMSNumber", "leadingProperty": "Dealer/DealerPhoneNumber/SMSNumber", "columnIndex": 1 ,"sortProperty": "Dealer/DealerPhoneNumber/SMSNumber","filterProperty": "Dealer/DealerPhoneNumber/SMSNumber"}'/>
                     </customData>
                     <Text text="{i18n>PhoneNumber}"/>
                 </Column>
