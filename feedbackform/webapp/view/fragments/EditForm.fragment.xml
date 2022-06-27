@@ -61,10 +61,7 @@
         </items>
     </Table> -->
 
-    <Table id="idEditFMAvailableQuestionsTBL" mode="MultiSelect" rememberSelections="false" selectionChange="onFormQueTableSelectionChange" noDataText="{i18n>tableNoDataText}" items="{
-				path: '/Questions',
-				factory: '.fnSetAvailableQuestionsListFactory'
-			}"  busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onSelectedAvailableFormQuestionsUpdated">
+    <Table id="idEditFMAvailableQuestionsTBL" mode="MultiSelect" rememberSelections="false" noDataText="{i18n>tableNoDataText}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10">
         <headerToolbar>
             <OverflowToolbar>
                 <Title/>
@@ -80,14 +77,5 @@
                 <Text text="{i18n>Action}"/>
             </Column>
         </columns>
-        <items>
-            <ColumnListItem selected="false">
-                <cells>
-                    <Text text="{Question}"/>
-                    <Button icon= "sap-icon://detail-view" press="onViewQuestionDetailsPress" type="Transparent" tooltip="View"/>
-                </cells>
-            </ColumnListItem>
-        </items>
     </Table>
-
 </core:FragmentDefinition>

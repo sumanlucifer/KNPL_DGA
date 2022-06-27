@@ -6,11 +6,9 @@ sap.ui.define(
         "sap/m/MessageBox",
         "sap/ui/core/Fragment",
         "sap/m/MessageToast",
-        "sap/ui/model/Filter",
-        "sap/ui/model/FilterOperator",
-        "sap/ui/model/Sorter"
+        "sap/ui/model/Filter"
     ],
-    function (BaseController, JSONModel, formatter, MessageBox, Fragment, MessageToast, Filter, FilterOperator, Sorter) {
+    function (BaseController, JSONModel, formatter, MessageBox, Fragment, MessageToast, Filter) {
         "use strict";
         return BaseController.extend("com.knpl.dga.feedbackform.controller.Worklist", {
             formatter: formatter,
@@ -72,7 +70,7 @@ sap.ui.define(
             },
 
             /**
-             * Called when the Forms and Question List is updated.
+             * Called when the Form's Question List is updated.
              * Its used to set the table header text with count of table items
              */
             onSelectedAvailableFormQuestionsUpdated: function (oEvent) {
@@ -299,6 +297,7 @@ sap.ui.define(
                 var sAction = "EDIT";
                 this.fnSetFormsVisibility(sAction);
 
+                // Get the details about selected Form to be edit in JSON Model
                 this.getView().setBusy(true);
                 var sPath = oEvent.getSource().getParent().getParent().getBindingContext().getPath();
                 this.getView().getModel().read(sPath, {
@@ -314,20 +313,15 @@ sap.ui.define(
                             "MasterFormQuestions": oData.MasterFormQuestions.results
                         });
                         this.getView().setModel(oFormDetailsModel, "FormDetailsModel");
+
+                        // Set visibility of available questions
+                        this.fnSetAvailableQueTable();
                     }.bind(this),
                     error: function (oError) {
                         this.getView().setBusy(false);
                     }.bind(this)
                 });
             },
-
-            // onFormQueTableSelectionChange: function (oEvent) {
-            //     var oSelectedDeselectedItem = oEvent.getParameter("listItem").getBindingContext("FormDetailsModel").getObject();
-            // },
-
-            // onQuestionsTableSelectionChange: function (oEvent) {
-            //     var oSelectedDeselectedItem = oEvent.getParameter("listItem").getBindingContext().getObject();
-            // },
 
             onSaveEditFormPress: function () {
                 var oPayloadObj = this.fnGetFormPayloadObj();
@@ -391,10 +385,19 @@ sap.ui.define(
             },
 
             onPublishFormPress: function (oEvent) {
-                //   var  bPublishForm=oEvent.getSource().getParent().getBindingContext().getProperty("Id");
                 this.getView().setBusy(true);
                 var sPath = oEvent.getSource().getParent().getParent().getBindingContext().getPath(),
-                    sFormObj = oEvent.getSource().getParent().getParent().getBindingContext().getObject();
+                    sFormObj = oEvent.getSource().getParent().getParent().getBindingContext().getObject(),
+                    aQuestions = [],
+                    aQuestionsLists = sFormObj.MasterFormQuestions.__list;
+
+                if (aQuestionsLists.length > 0) {
+                    for (var i = 0; i < aQuestionsLists.length; i++) {
+                        aQuestions.push({
+                            "QuestionId": this.getView().getModel().getProperty("/" + aQuestionsLists[i]).QuestionId
+                        });
+                    }
+                }
 
                 var oPublishFormobj = {
                     "Id": sFormObj.Id,
@@ -402,7 +405,8 @@ sap.ui.define(
                     "FormTypeId": sFormObj.FormTypeId,
                     "IsPublished": true,
                     "PublishDate": new Date(),
-                }
+                    "MasterFormQuestions": aQuestions
+                };
 
                 this.getView().getModel().update(sPath, oPublishFormobj, {
                     success: function (oData) {
@@ -989,30 +993,37 @@ sap.ui.define(
                 this.onCancelFormPress();
             },
 
-            fnSetAvailableQuestionsListFactory: function (sId, oContext) {
-                var oColumnListItem = null,
-                    sQuestion = oContext.getProperty("Question"),
-                    aSelectedQuestion = this.getView().getModel("FormDetailsModel").getProperty("/MasterFormQuestions"),
-                    bSetQuestionVisible = false;
+            fnSetAvailableQueTable: function () {
+                var oTable = this.getView().byId("idEditFMAvailableQuestionsTBL");
 
-                oColumnListItem = new sap.m.ColumnListItem(sId, {
-                    visible: bSetQuestionVisible,
-                    cells: [
-                        new sap.m.Text({
-                            text: sQuestion
-                        }),
-                        new sap.m.Button({
-                            icon: "sap-icon://detail-view",
-                            press: function (oEvent) {
-                                this.onViewQuestionDetailsPress(oEvent);
-                            }.bind(this),
-                            type: "Transparent",
-                            tooltip: "View"
-                        })
-                    ]
-                });
+                oTable.bindAggregation("items", "/Questions", function (sId, oContext) {
+                    var aSelectedQuestion = this.getView().getModel("FormDetailsModel").getProperty("/MasterFormQuestions"),
+                        sQuestion = oContext.getProperty("Question"),
+                        bSetQuestionVisible = aSelectedQuestion.findIndex(function (oItem) {
+                            return oItem.QuestionId === oContext.getProperty("Id")
+                        }) >= 0 ? false : true;
 
-                return oColumnListItem;
+                    return new sap.m.ColumnListItem(sId, {
+                        visible: bSetQuestionVisible,
+                        cells: [
+                            new sap.m.Text({
+                                text: sQuestion
+                            }),
+                            new sap.m.Button({
+                                icon: "sap-icon://detail-view",
+                                press: function (oEvent) {
+                                    this.onViewQuestionDetailsPress(oEvent);
+                                }.bind(this),
+                                type: "Transparent",
+                                tooltip: "View"
+                            })
+                        ]
+                    });
+                }.bind(this));
+
+                oTable.attachUpdateFinished(function () {
+                    oTable.getHeaderToolbar().getContent()[0].setText(this.getResourceBundle().getText("AvailableQuestionsCount", oTable.getVisibleItems().length));
+                }.bind(this));
             }
         });
     });
