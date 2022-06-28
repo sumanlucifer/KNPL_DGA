@@ -241,7 +241,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGAType,Division,Pincode,Positions,PayrollCompany";
+                oBindingParams.parameters["expand"] = "DGAType,Division,Pincode,Positions/Depot,PayrollCompany";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
@@ -415,14 +415,6 @@ sap.ui.define(
                 oRouter.navTo("Detail", {
                     Id: oBj["Id"],
                     Mode: "Display"
-                });
-
-            },
-            onPressDgaReplacement: function (oEvent) {
-                var oBj = oEvent.getSource().getBindingContext().getObject();
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("ReplaceDga", {
-                    Id: oBj["Id"]
                 });
 
             },

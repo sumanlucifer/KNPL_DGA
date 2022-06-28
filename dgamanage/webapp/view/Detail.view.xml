@@ -88,8 +88,8 @@
          
             <OverflowToolbar>
               <ToolbarSpacer/>
+                <Button type="Ghost" text="{i18n>ReplaceDga}" press="onPressDgaReplacement" visible="{parts:['ActivationStatus','IsReplaced'],formatter:'.formatter.fmtDisplayReplacedBtn'}" />
               <Button press="onNavToHome" type="Ghost"  text="{i18n>Cancel}"  />
-             
               <!-- <Button press=".onApproval(true)" visible="{= ${oModelDisplay>/mode}==='Display'}" text="{i18n>Approve}"  type="Accept"  /> -->
              <Button press="onPressSave" enabled="{oModelControl>/bSaveEnabledFlag1}" visible="{= ${oModelDisplay>/mode}==='Edit' &amp;&amp; ${oModelDisplay>/IcnTabKey}=== '0' }"  text="{i18n>Save}" type="Emphasized" />
              <Button press="onPressEdit" visible="{= ${oModelDisplay>/mode}==='Display' &amp;&amp; ${oModelDisplay>/IcnTabKey}=== '0' }" enabled="{= ${ActivationStatus}=== 'ACTIVATED' }" text="{i18n>Edit}" type="Emphasized" />

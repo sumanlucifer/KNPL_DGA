@@ -135,6 +135,7 @@ sap.ui.define([], function () {
              * mParam1 - activation status
              * mParam2 - IsReplaced
             */
+           console.log(mParam1,mParam2)
             if (mParam1 === "DEACTIVATED") {
                 if (mParam2 === true) {
                     return false;
@@ -151,6 +152,22 @@ sap.ui.define([], function () {
                     for (var x in mParam1) {
                         obj = oData.getProperty("/" + mParam1[x])["DepotId"];
                         aArray.push(obj)
+                    }
+                }
+                return aArray.join(" ")
+            }
+        },
+        GetWorkListDepot2: function (mParam1) {
+            // used in the worklist view
+            var aArray = [];
+            if (Array.isArray(mParam1)) {
+                var obj,obj2;
+                var oData = this.getView().getModel();
+                if (mParam1.length > 0) {
+                    for (var x in mParam1) {
+                        obj = oData.getProperty("/" + mParam1[x]);
+                        obj2=oData.getProperty("/"+obj["Depot"]["__ref"])
+                        aArray.push(""+obj2["Depot"]+" "+"("+obj2["Id"]+")"+"")
                     }
                 }
                 return aArray.join(" ")
