@@ -465,26 +465,26 @@ sap.ui.define([
                 catalogueId: catalogueId
             });
         },
-        onDGAViewsPress:function(){
-            this._navToCrossApp();
-        },
-        _navToCrossApp: function () {
-            var that = this;
+        // onDGAViewsPress:function(){
+        //     this._navToCrossApp();
+        // },
+        // _navToCrossApp: function () {
+        //     var that = this;
 
 
-            var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
-            var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
-                target: {
-                    semanticObject: "Manage",
-                    action: "DGAMgmt"
-                },
-                params: {}
-            })) || "";
-            oCrossAppNavigator.toExternal({
-                target: {
-                    shellHash: hash
-                }
-            });
-        }
+        //     var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+        //     var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+        //         target: {
+        //             semanticObject: "Manage",
+        //             action: "DGAMgmt"
+        //         },
+        //         params: {}
+        //     })) || "";
+        //     oCrossAppNavigator.toExternal({
+        //         target: {
+        //             shellHash: hash
+        //         }
+        //     });
+        // }
     });
 });
