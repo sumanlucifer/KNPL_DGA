@@ -37,8 +37,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "Leads",
+                    "semanticObject": "Leads",
+                    "action": "Manage",
                     "title": "{{flpTitle}}",
                     "subTitle": "",
                     "icon": "sap-icon://add-activity",

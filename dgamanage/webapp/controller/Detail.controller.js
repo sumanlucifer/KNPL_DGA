@@ -800,8 +800,8 @@
                     var oBj = oEvent.getSource().getBindingContext().getObject();
                     this.Navigate({
                         target: {
-                            semanticObject: "Manage",
-                            action: "Leads",
+                            semanticObject: "Leads",
+                            action: "Manage",
                             params: {
                                 LeadId: oBj["Id"]
                             }

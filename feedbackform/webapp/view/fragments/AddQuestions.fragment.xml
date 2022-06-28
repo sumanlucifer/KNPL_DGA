@@ -1,5 +1,4 @@
-<core:FragmentDefinition xmlns:unified="sap.ui.unified"
-    xmlns="sap.m"
+<core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
     <Dialog contentWidth="70%" contentHeight="70%" class="sapUiContentPadding" title="{i18n>Questions}" verticalScrolling="false">
         <content>

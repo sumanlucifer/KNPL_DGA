@@ -39,8 +39,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "ProductCatalogue",
+                    "semanticObject": "ProdCat",
+                    "action": "Manage",
                     "title": "{{appTileTitle}}",
                     "subTitle": "{{appTileSubTitle}}"
                 }

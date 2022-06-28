@@ -28,8 +28,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "PaintReq",
+                    "semanticObject": "ProRecommendation",
+                    "action": "Manage",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
                     "icon": "sap-icon://activity-individual",

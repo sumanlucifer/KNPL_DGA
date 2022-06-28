@@ -1,4 +1,4 @@
-ap.ui.define([
+sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/routing/History",
@@ -50,7 +50,7 @@ ap.ui.define([
              */
             _onObjectMatched: function (oEvent) {
                 this.sObjectId = oEvent.getParameter("arguments").catalogueId;
-                this._bindView(this.sObjectId);
+                // this._bindView(this.sObjectId);
             },
             _bindView: function (sObjectId) {
                 var aFilters = [(new sap.ui.model.Filter("ProductCatalogueId", sap.ui.model.FilterOperator.EQ, sObjectId)),

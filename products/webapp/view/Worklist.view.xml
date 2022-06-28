@@ -170,11 +170,11 @@
                                         <cells>
                                             <Text text="{path:'ProductDetails/ProductName'}"/>
                                             <FlexBox >
-                                             <Link
+                                             <!-- <Link
                                            
                                                 text="{path:'PdfViewerCount'}"
-                                                press="onDGAViewsPress"/>
-                                            <!-- <Text text="{path:'PdfViewerCount'}" visible="{= (${PdfViewerCount} === 0) }"/> -->
+                                                press="onDGAViewsPress"/> -->
+                                            <Text text="{path:'PdfViewerCount'}" visible="{= (${PdfViewerCount} === 0) }"/>
                                             <Link
                                             visible="{= (${PdfViewerCount} !== 0) }"
                                                 text="{path:'PdfViewerCount'}"
