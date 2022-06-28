@@ -10,7 +10,7 @@
       "csrfProtection": false
     },
     {
-        "source": "^/KNPL_PAINTER_API/(.*)$",
+        "source": "^/KNPL_PAINTER_API/api/(.*)$",
         "target": "$1",
         "destination": "KNPL_PAINTER_API",
         "authenticationType": "basic",
