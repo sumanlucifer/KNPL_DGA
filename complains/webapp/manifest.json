@@ -27,8 +27,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "CM",
+                    "semanticObject": "Complains",
+                    "action": "Manage",
                     "title": "{{flpTitle}}",
                     "icon": "sap-icon://quality-issue",
                     "indicatorDataSource": {
