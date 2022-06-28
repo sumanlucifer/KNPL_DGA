@@ -1017,10 +1017,6 @@ sap.ui.define(
                         ]
                     });
                 }.bind(this));
-
-                oTable.attachUpdateFinished(function () {
-                    oTable.getHeaderToolbar().getContent()[0].setText(this.getResourceBundle().getText("AvailableQuestionsCount", oTable.getVisibleItems().length));
-                }.bind(this));
             }
         });
     });
