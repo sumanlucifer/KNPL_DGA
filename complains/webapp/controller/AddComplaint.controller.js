@@ -92,7 +92,24 @@ sap.ui.define(
                     this.getView().setModel(oViewModel, "oViewModel");
                 },
                 _initData: function (mParMode, mKey, mPainterId) {
-                    this._showFormFragment("AddComplaint");
+                    var othat = this;
+                    this._showFormFragment("AddComplaint")
+                },
+
+                _fetchComplaintTypeList:function(){
+                    var promise = jQuery.Deferred();
+                    var othat = this;
+                    var oList = this.getView().byId("idList");
+                    var oViewModel = this.getView().getModel("oViewModel");
+                    var oModel= this.getView().getModel();
+                    
+                    oModel.read("/MasterComplainTypes", {
+                        filters: [new Filter("IsArchived", sap.ui.model.FilterOperator.EQ, "false")],
+                        success: function(oData){
+                            promise.resolve(Number(oData.results[0].Id));
+                        }
+                    });
+                    return promise;
                 },
 
                 onRadioButtonSelection: function(oEvent){
@@ -545,6 +562,7 @@ sap.ui.define(
                     }
                 },
                 _showFormFragment: function (sFragmentName) {
+                    var promise = jQuery.Deferred();
                     var objSection = this.getView().byId("oVbxSmtTbl");
                     var oView = this.getView();
                     objSection.destroyItems();
@@ -552,8 +570,12 @@ sap.ui.define(
                     this._getFormFragment(sFragmentName).then(function (oVBox) {
                         oView.addDependent(oVBox);
                         objSection.addItem(oVBox);
-                        othat._issueListFilter("ONGOING", 2);
+                        othat._fetchComplaintTypeList().then(function(id){
+                            othat._issueListFilter("ONGOING", id);
+                        });
+                        promise.resolve();
                     });
+                    return promise;
                 },
                 _getFormFragment: function (sFragmentName) {
                     var oView = this.getView();
