@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+        resizable="false"
+		id="selectDialog"
+		title="Complaints"
+        growing="true"
+        growingThreshold="15"
+		items="{path:'/Complaints',sorter:{path:'CreatedAt',descending:true},parameters:{select:'ComplaintCode' }, 
+        filters: [ {path:'IsArchived',operator:'EQ',value1:false} ]}"
+		search=".onValueHelpSearch"
+		confirm=".onValueHelpClose"
+		cancel=".onValueHelpClose">
+		<StandardListItem 
+			title="{DGA/GivenName}"
+			description="{ComplaintCode}" />
+	</SelectDialog>
+</core:FragmentDefinition>

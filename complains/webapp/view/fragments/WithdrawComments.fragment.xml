@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog state="Warning" afterClose="onAfterWithdrawCommentClose" class="sapUiContentPadding" title="Warning" >
+        <content>
+            <Text text="Are you sure you want to withdraw the complaint?" />
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="Add Comments" />
+                <TextArea width="100%" rows="3" value="{path:'oModelView>/withdrawComments',type:'sap.ui.model.type.String',constraints:{minLength:1, maxLength: 300}}" liveChange="onCommentsChange" />
+                <Label text="{i18n>TxtCommentsLength}" />
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Yes" press="onValidateTokenCode"  type="Emphasized" enabled="false" />
+        </beginButton>
+        <endButton>
+            <Button text="No" press="onWithdrawCommentClose" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

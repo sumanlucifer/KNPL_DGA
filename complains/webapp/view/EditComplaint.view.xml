@@ -4,24 +4,24 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{ComplaintType/ComplaintType}"/>
+                    <Title text="{= ${IsNewConsumer} === true ? ${ConsumerName} : ${Lead/ConsumerName} }" class="sapUiTinyMarginTop"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>UpdateComplaints}">
+                    <Breadcrumbs currentLocationText="{i18n>ComplaintDetails}">
                         <Link text="{i18n>worklistTitle}" press="onNavBack"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="{ComplaintCode}"/>
+                    <Label text="{i18n>ComplaintID}: {ComplaintCode}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="{ComplaintCode}"/>
+                    <Label text="{i18n>ComplaintID}: {ComplaintCode}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
                     <Title text="{ComplaintType/ComplaintType}"/>
                 </f:snappedTitleOnMobile>
                 <f:actions>
-                    <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>btnValidateToken}" />
+                    <Button press="onPressWithdraw" type="Ghost" text="{i18n>btnWithdraw}" visible="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? false : true }" />
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -29,70 +29,31 @@
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>PainterName}" text="{Painter/Name}"/>
-                        <ObjectAttribute title="{i18n>MembershipId}" text="{Painter/MembershipCard}"/>
+                        <ObjectAttribute title="{i18n>MobileNo}" text="{= ${IsNewConsumer} === true ? ${ConsumerMobileNo} : ${Lead/PrimaryNum} }" class="sapUiTinyMarginBottom"/>
+                        <ObjectAttribute title="{i18n>Date}" text="{path:'CreatedAt', type: 'sap.ui.model.type.DateTime', 
+                            formatOptions: { 
+                                pattern: 'dd/MM/yyyy' 
+                            }}" class="sapUiTinyMarginBottom"/>
+                        <ObjectAttribute title="{i18n>ComplaintType}" text="{ComplaintType/ComplaintType}" class="sapUiTinyMarginBottom"/>
                     </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
+                    <!-- <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
                         <Label  text="{i18n>ComplaintDetails}:"  />
                         <ObjectAttribute  text="{ComplaintSubtype/ComplaintSubtype}"/>
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout  class="sapUiSmallMarginBeginEnd" visible="{= ${AssigneUserType} !== 'AGENT' &amp;&amp; ${AssigneUserType} !== null  }" >
-                         <Label text="{i18n>LblEscalationLevel}:" />
-                         <Text  text="{ path:'AssigneUserType' , formatter: '.formatter.AssigneUser'  }"  />
-                    </layout:VerticalLayout>
+                    </layout:VerticalLayout> -->
                     <layout:VerticalLayout>
-                        <Label  text="{i18n>Status}:"/>
+                        <Label  text="{i18n>ComplaintStatus}:"/>
                         <!-- <ObjectStatus class="sapMObjectStatusLarge" text="{path:'ComplaintStatus',formatter:'.fmtStatus'}" state="None"/> -->
-                          <ObjectStatus class="sapMObjectStatusLarge" text="{parts:['ComplaintStatus','ParentComplaintId'],formatter:'.fmtStatusHeader'}" state="None"/>
+                          <ObjectStatus class="sapMObjectStatusLarge" text="{path:'ComplaintStatus',formatter:'.fmtStatusHeader'}" 
+                            state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Warning' }"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
         </f:header>
         <f:content>
-            <IconTabBar select="onIcnTabChange" selectedKey="{oModelControl>/IcnTabKey}" expandable="false" expanded="true" id="iconTabBar" class="sapUiResponsiveContentPadding" >
-                <items>
-                    <IconTabFilter  text="{i18n>Overview}" key="0" >
-                        <VBox id="idVbx" width="100%">
-                          </VBox>
-                          <core:Fragment fragmentName="com.knpl.dga.complains.view.fragments.ResolutionDetails" type="XML"/>
-                          <VBox id="idProducts">
-                          </VBox>
-                        </IconTabFilter>
-                         <IconTabFilter  text="{i18n>History}" key="1" >
-                            <core:Fragment fragmentName="com.knpl.dga.complains.view.fragments.HistoryTable" type="XML"/>
-                                <!-- <core:Fragment fragmentName="com.knpl.dga.complains.view.fragments.ExecutionLog" type="XML"/> -->
-                        </IconTabFilter>
-                          <IconTabFilter  text="Execution Log" key="2" >
-                           <VBox height="100%" width="100%">
-                                 <core:Fragment fragmentName="com.knpl.dga.complains.view.fragments.ExecutionLog" type="XML"/>
-                          </VBox>
-                        </IconTabFilter>
-                    </items>
-                </IconTabBar>
+            <VBox>
+                <core:Fragment fragmentName="com.knpl.dga.complains.view.fragments.CustomerDetails" type="XML"/>
+                <core:Fragment fragmentName="com.knpl.dga.complains.view.fragments.ResolutionDetails" type="XML"/>
+            </VBox>
         </f:content>
-        <f:footer>
-            <!-- <Toolbar>
-                <ToolbarSpacer/>
-                <Button id="cancel" text="Cancel" type="Ghost" visible="true" press="handleCancelPress"/>
-                <Button visible="{oModelControl>/workFlowFlag/Button1}" text="{i18n>Escalate}" type="Critical" press="onPressEscalate"/>
-                <Button visible="{oModelControl>/workFlowFlag/Button2}" id="save" text="Save" type="Emphasized" press="handleSavePress"/>
-            </Toolbar> -->
-            <OverflowToolbar>
-              <ToolbarSpacer/>
-              <Button press="handleCancelPress" type="Ghost"  text="{i18n>Cancel}"  />
-              <Button press="onWithdraw"        visible="{= !${oModelControl>/ComplainResolved} }"  text="{i18n>btnWithdraw}" type="Negative"  />
-              <Button press="onPressEscalate"   visible="{= ${ComplaintTypeId} &lt; 4 &amp;&amp;  !${oModelControl>/ComplainResolved} &amp;&amp; ${oModelControl>/iComplaintLevel} === ${appView>/iUserLevel} &amp;&amp; ${appView>/iUserLevel} &lt; 4 }"   text="{i18n>Escalate}" type="Critical" />
-              <Button press=".onApproval(false)"   visible="{= !${oModelControl>/ComplainResolved} &amp;&amp; ${appView>/iUserLevel} &gt; 1 &amp;&amp; ${ApprovalStatus} === 'PENDING' }" text="{i18n>btnReject}"  type="Reject"  />
-              <Button press=".onApproval(true)"  visible="{= !${oModelControl>/ComplainResolved} &amp;&amp; ${appView>/iUserLevel} &gt; 1 &amp;&amp; ${ApprovalStatus} === 'PENDING' }"  text="{i18n>btnApprove}" type="Accept"  />
-             <Button press="handleSavePress"    visible="{= !${oModelControl>/ComplainResolved} &amp;&amp;  ${ApprovalStatus} === null   }"   text="{=  ${oModelView>/ResolutionType} === 2 &amp;&amp;  ${appView>/iUserLevel} &lt; 2 ? ${i18n>btnSendForApproval} : ${i18n>btnResolve}  }" type="Emphasized" />
-          
-        
-          
-             
-             <!-- <Button text="{i18n>Reopen}" press="onReopeFrag"/> -->
-              <Button  type="Emphasized" visible="{= ${IsReopenAllowed} ? true: false}" text="{i18n>Reopen}" press="onReopeFrag"/>
-            <!-- <Button visible="{= ${ComplaintStatus} === 'RESOLVED' ? true &amp;&amp; ${IsReopenAllowed} === true ? true: false }" text="{i18n>Reopen}" press="onReopeFrag"/> -->
-            </OverflowToolbar>
-        </f:footer>
     </f:DynamicPage>
 </mvc:View>

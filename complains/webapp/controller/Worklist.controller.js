@@ -10,7 +10,10 @@ sap.ui.define(
         "sap/ui/core/Fragment",
         "sap/ui/model/Sorter",
         "sap/ui/core/format/DateFormat",
-        "sap/ui/Device"
+        "sap/ui/Device",
+        "sap/ui/unified/library",
+        "sap/m/library",
+        "sap/ui/core/library"
     ],
     function (
         BaseController,
@@ -23,9 +26,13 @@ sap.ui.define(
         Fragment,
         Sorter,
         DateFormat,
-        Device
+        Device, unifiedLibrary, mobileLibrary, coreLibrary
     ) {
         "use strict";
+
+        var CalendarDayType = unifiedLibrary.CalendarDayType;
+        var ValueState = coreLibrary.ValueState;
+        var StickyMode = mobileLibrary.PlanningCalendarStickyMode;
 
         return BaseController.extend(
             "com.knpl.dga.complains.controller.Worklist",
@@ -54,8 +61,11 @@ sap.ui.define(
                             DivisionId: "",
                             DepotId: "",
                             Escalate: "",
-                            ApprovalStatus:""
+                            ApprovalStatus:"",
+                            LeadStage: "",
+                            ComplaintID: ""
                         },
+                        withdrawComments: ""
                     };
                     var oMdlCtrl = new JSONModel(oDataControl);
                     this.getView().setModel(oMdlCtrl, "oModelControl");
@@ -70,9 +80,9 @@ sap.ui.define(
                     }
                     // console.log(startupParams);
                     if (startupParams) {
-                        if (startupParams.hasOwnProperty("PainterId")) {
-                            if (startupParams["PainterId"].length > 0) {
-                                this._onNavToAdd(startupParams["PainterId"][0]);
+                        if (startupParams.hasOwnProperty("Id")) {
+                            if (startupParams["Id"].length > 0) {
+                                this._onNavToAdd(startupParams["Id"][0]);
                             }
                         }
                     }
@@ -81,6 +91,7 @@ sap.ui.define(
                     //console.log("Init View");
                 },
                 _onRouteMatched: function () {
+
                     this._InitData();
                 },
                 _onNavToAdd: function (mParam) {
@@ -190,6 +201,26 @@ sap.ui.define(
                                     )
                                     //new Filter(prop, FilterOperator.BT,oViewFilter[prop],oViewFilter[prop])
                                 );
+                            }  else if (prop === "ComplaintID") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter(
+                                        "ComplaintCode",
+                                        FilterOperator.EQ,
+                                        oViewFilter[prop]
+                                    )
+                                    //new Filter(prop, FilterOperator.BT,oViewFilter[prop],oViewFilter[prop])
+                                );
+                            } else if (prop === "LeadStage") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter(
+                                        "LeadStage",
+                                        FilterOperator.EQ,
+                                        oViewFilter[prop].toLowerCase()
+                                    )
+                                    //new Filter(prop, FilterOperator.BT,oViewFilter[prop],oViewFilter[prop])
+                                );
                             } else if (prop === "ComplaintSubTypeId") {
                                 aFlaEmpty = false;
                                 aCurrentFilterValues.push(
@@ -254,7 +285,7 @@ sap.ui.define(
                                     new Filter(
                                         [
                                             new Filter(
-                                                "tolower(Painter/Name)",
+                                                "tolower(DGA/GivenName)",
                                                 FilterOperator.Contains,
                                                 "'" +
                                                 oViewFilter[prop]
@@ -264,7 +295,7 @@ sap.ui.define(
                                                 "'"
                                             ),
                                             new Filter(
-                                                "tolower(Painter/MembershipCard)",
+                                                "tolower(ConsumerName)",
                                                 FilterOperator.Contains,
                                                 "'" +
                                                 oViewFilter[prop]
@@ -274,15 +305,30 @@ sap.ui.define(
                                                 "'"
                                             ),
                                             new Filter(
-                                                "Painter/Mobile",
+                                                "ConsumerMobileNo",
                                                 FilterOperator.Contains,
                                                 oViewFilter[prop].trim()
+                                            ),
+                                            new Filter(
+                                                "ComplaintStatus",
+                                                FilterOperator.Contains,
+                                                oViewFilter[prop].trim().toUpperCase()
+                                            ),
+                                            new Filter(
+                                                "LeadStage",
+                                                FilterOperator.Contains,
+                                                oViewFilter[prop].trim().toUpperCase()
                                             ),
                                             new Filter(
                                                 "ComplaintCode",
                                                 FilterOperator.Contains,
                                                 oViewFilter[prop].trim()
                                             ),
+                                            new Filter(
+                                                "DGA/Mobile",
+                                                FilterOperator.Contains,
+                                                oViewFilter[prop].trim()
+                                            )
                                         ],
                                         false
                                     )
@@ -302,6 +348,89 @@ sap.ui.define(
                     } else {
                         oBinding.filter([]);
                     }
+                },
+                onValueHelpRequest: function (oEvent) {
+                    var sInputValue = oEvent.getSource().getValue(),
+                        oView = this.getView();
+
+                    if (!this._pValueHelpDialog) {
+                        this._pValueHelpDialog = Fragment.load({
+                            id: oView.getId(),
+                            name:
+                                "com.knpl.dga.complains.view.fragments.ComplaintIDValueHelpDialog",
+                            controller: this,
+                        }).then(function (oDialog) {
+                            oView.addDependent(oDialog);
+                            return oDialog;
+                        });
+                    }
+                    this._pValueHelpDialog.then(function (oDialog) {
+                        // Create a filter for the binding
+                        oDialog
+                            .getBinding("items")
+                            .filter([
+                                new Filter(
+                                    [
+                                        new Filter(
+                                            {
+                                                path: "ComplaintCode",
+                                                operator: "Contains",
+                                                value1: sInputValue.trim(),
+                                                caseSensitive: false
+                                            }
+                                        ),
+                                        // new Filter(
+                                        //     {
+                                        //         path: "Mobile",
+                                        //         operator: "Contains",
+                                        //         value1: sInputValue.trim(),
+                                        //         caseSensitive: false
+                                        //     }
+                                        // ),
+                                    ],
+                                    false
+                                ),
+                            ]);
+                        // Open ValueHelpDialog filtered by the input's value
+                        oDialog.open(sInputValue);
+                    });
+                },
+                onValueHelpSearch: function (oEvent) {
+                    var sValue = oEvent.getParameter("value");
+                    var oFilter = new Filter(
+                        [
+                            new Filter(
+                                {
+                                    path: "ComplaintCode",
+                                    operator: "Contains",
+                                    value1: sValue.trim(),
+                                    caseSensitive: false
+                                }
+                            ),
+                            new Filter(
+                                {
+                                    path: "DGA/GivenName",
+                                    operator: "Contains",
+                                    value1: sValue.trim(),
+                                    caseSensitive: false
+                                }
+                            )
+                        ],
+                        false
+                    );
+
+                    oEvent.getSource().getBinding("items").filter([oFilter]);
+                },
+                onValueHelpClose: function (oEvent) {
+                    var oSelectedItem = oEvent.getParameter("selectedItem");
+                    oEvent.getSource().getBinding("items").filter([]);
+                    var oModelControl = this.getView().getModel("oModelControl")  ;
+                    if (!oSelectedItem) {
+                        return;
+                    }
+                    var obj = oSelectedItem.getBindingContext().getObject();
+                   
+                    oModelControl.setProperty("/filterBar/ComplaintID",obj.ComplaintCode );
                 },
                 onResetFilterBar: function () {
                     this._ResetFilterBar();
@@ -361,7 +490,9 @@ sap.ui.define(
                         DivisionId: "",
                         DepotId: "",
                         Escalate: "",
-                        ApprovalStatus:""
+                        ApprovalStatus:"",
+                        LeadStage: "",
+                        ComplaintID: ""
                     };
                     var oViewModel = this.getView().getModel("oModelControl");
                     oViewModel.setProperty("/filterBar", aResetProp);
@@ -391,14 +522,14 @@ sap.ui.define(
 
                     oFilterBar.setBasicSearch(oBasicSearch);
 
-                    //   oBasicSearch.attachBrowserEvent(
-                    //     "keyup",
-                    //     function (e) {
-                    //       if (e.which === 13) {
-                    //         this.onSearch();
-                    //       }
-                    //     }.bind(this)
-                    //   );
+                      oBasicSearch.attachBrowserEvent(
+                        "keyup",
+                        function (e) {
+                          if (e.which === 13) {
+                            this.onSearch();
+                          }
+                        }.bind(this)
+                      );
                 },
               
                 fmtDate: function (mDate) {
@@ -410,7 +541,6 @@ sap.ui.define(
                     });
                     return oDateFormat.format(date);
                 },
-
                 handleSortButtonPressed: function () {
                     this.getViewSettingsDialog(
                         "com.knpl.dga.complains.view.fragments.SortDialog"
@@ -529,16 +659,9 @@ sap.ui.define(
                 },
                 onListItemPress: function (oEvent) {
                     var oRouter = this.getOwnerComponent().getRouter();
-                    var oObject = oEvent.getSource().getBindingContext().getObject();
-                    var sPath = oEvent
-                        .getSource()
-                        .getBindingContext()
-                        .getPath()
-                        .substr(1);
-
-                    var oRouter = this.getOwnerComponent().getRouter();
+                    var path = oEvent.getSource().getBindingContext().getPath();
                     oRouter.navTo("RouteEditCmp", {
-                        prop: oObject["Id"],
+                        prop: path.replace("/", ""),
                     });
                 },
 

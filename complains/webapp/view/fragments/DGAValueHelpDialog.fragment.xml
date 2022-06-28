@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+        resizable="false"
+		title="DGA"
+        growing="true"
+        growingThreshold="15"
+		items="{path:'/DGAs',sorter:{path:'GivenName'},parameters:{select:'GivenName,Id,Mobile,Zone,DivisionId,DepotId' }}"
+		search=".onDGAValueHelpSearch"
+		confirm=".onDGAValueHelpClose"
+		cancel=".onDGAValueHelpClose">
+		<StandardListItem 
+			title="{GivenName}"
+			description="{Mobile}" />
+	</SelectDialog>
+</core:FragmentDefinition>
