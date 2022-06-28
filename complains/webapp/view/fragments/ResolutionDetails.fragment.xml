@@ -10,7 +10,7 @@
             <Label text="{i18n>Comments}" />
             <Text text="{= ${Remark} === null ? 'NA' : ${Remark} }" />
             <Label text="{i18n>ResolutionDate}" />
-            <Text text="{= ${ResolutionDetails/CreatedAt} === null ? 'NA' : ${path:'ResolutionDetails/CreatedAt', type: 'sap.ui.model.type.DateTime', 
+            <Text text="{= ${ResolutionDetails/UpdatedAt} === null ? 'NA' : ${path:'ResolutionDetails/UpdatedAt', type: 'sap.ui.model.type.DateTime', 
                             formatOptions: { 
                                 pattern: 'dd/MM/yyyy hh:mm aaa' 
                             }} }" />
