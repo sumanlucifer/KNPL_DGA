@@ -770,7 +770,14 @@ sap.ui.define([
             }
 
         },
+        onPressDgaReplacement: function (oEvent) {
+            var oBj = oEvent.getSource().getBindingContext().getObject();
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo("ReplaceDga", {
+                Id: oBj["Id"]
+            });
 
+        },
         _onDialogClose: function () {
             /*
             * Author: manik saluja
