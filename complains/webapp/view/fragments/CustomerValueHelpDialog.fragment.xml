@@ -4,7 +4,7 @@
 		title="Customer"
         growing="true"
         growingThreshold="15"
-		items="{path:'/Leads',sorter:{path:'ConsumerName'},parameters:{select:'ConsumerName,PrimaryNum,Id,DGAId,Zone' }, 
+		items="{path:'/Leads',sorter:{path:'ConsumerName'},parameters:{select:'ConsumerName,PrimaryNum,Id,DGAId,Zone,LeadStatusId' }, 
         filters: [ {path:'IsArchived',operator:'EQ',value1:false} ]}"
 		search=".onCustomerValueHelpSearch"
 		confirm=".onCustomerValueHelpClose"

@@ -97,9 +97,12 @@ sap.ui.define(
 
                 onRadioButtonSelection: function(oEvent){
                     var oViewModel = this.getView().getModel("oViewModel");
+                    var oList = this.getView().byId("idList");
                     var value1 = oViewModel.getProperty("/LeadStage") === 0 ? "ONGOING" : "COMPLETED";
                     var value2 = oEvent.getSource().getAggregation("buttons")[oEvent.getSource().getSelectedIndex()].getBindingContext().getObject("Id");
 
+                    // Remove Priviously selected
+                    oList.removeSelections()
                     oViewModel.setProperty("/ComplaintType", oEvent.getSource().getAggregation("buttons")[oEvent.getSource().getSelectedIndex()].getBindingContext().getObject("Id"))
 
                     this._issueListFilter(value1, value2);
@@ -230,12 +233,12 @@ sap.ui.define(
                     oModelControl.setProperty("/LeadId",obj.Id );
 
                     switch(obj.LeadStatusId){
-                        case 1 : oModelControl.setProperty("/LeadStage",0); break;
-                        case 2 : oModelControl.setProperty("/LeadStage",0); break;
-                        case 3 : oModelControl.setProperty("/LeadStage",1); break;
-                        case 4 : oModelControl.setProperty("/LeadStage",1); break;
-                        case 5 : oModelControl.setProperty("/LeadStage",0); break;
-                        case 6 : oModelControl.setProperty("/LeadStage",1); break;
+                        case "1" : oModelControl.setProperty("/LeadStage",0); break;
+                        case "2" : oModelControl.setProperty("/LeadStage",0); break;
+                        case "3" : oModelControl.setProperty("/LeadStage",1); break;
+                        case "4" : oModelControl.setProperty("/LeadStage",1); break;
+                        case "5" : oModelControl.setProperty("/LeadStage",0); break;
+                        case "6" : oModelControl.setProperty("/LeadStage",1); break;
                         default : oModelControl.setProperty("/LeadStage",1);
                     }
 
