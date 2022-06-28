@@ -28,7 +28,7 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "UserRoles",
+                    "semanticObject": "ReassignContractor",
                     "action": "Manage",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
