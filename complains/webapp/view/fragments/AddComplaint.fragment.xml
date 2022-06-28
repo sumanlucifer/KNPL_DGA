@@ -72,7 +72,7 @@
                 <Label text="{i18n>Division}" />
                 <Text text="{oViewModel>/DGA/Division}" />
                 <Label text="{i18n>Depot}" />
-                <Text text="{oViewModel>/DGA/Depot}" />
+                <Text text="{= ${oViewModel>/DGA/Depot} === null ? 'NA' : ${oViewModel>/DGA/Depot} }" />
             </f:content>
         </f:SimpleForm>
     </VBox>
