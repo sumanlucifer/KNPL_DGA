@@ -167,7 +167,7 @@ sap.ui.define([], function () {
                     for (var x in mParam1) {
                         obj = oData.getProperty("/" + mParam1[x]);
                         obj2=oData.getProperty("/"+obj["Depot"]["__ref"])
-                        aArray.push(""+obj2["Depot"]+" "+"("+obj2["Id"]+")"+"")
+                        aArray.push(""+obj2["Depot"]+" - "+""+obj2["Id"]+"")
                     }
                 }
                 return aArray.join(" ")
