@@ -870,8 +870,8 @@ sap.ui.define(
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 this.Navigate({
                     target: {
-                        semanticObject: "Manage",
-                        action: "Leads",
+                        semanticObject: "Leads",
+                        action: "Manage",
                         params: {
                             LeadId: oBj["LeadId"]
                         }
@@ -894,8 +894,8 @@ sap.ui.define(
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 this.Navigate({
                     target: {
-                        semanticObject: "Manage",
-                        action: "DGAMgmt",
+                        semanticObject: "DGA",
+                        action: "Manage",
                         params: {
                             DgaId: oBj["DGAId"]
                         }

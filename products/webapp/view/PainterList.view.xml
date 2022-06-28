@@ -15,7 +15,7 @@
         <f:title>
             <f:DynamicPageTitle>
                  <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="Painters List">
+                    <Breadcrumbs currentLocationText="{i18n>PaintersList}">
                         <Link press="onPressBreadcrumbLink" text="Catalogues" />
                     </Breadcrumbs>
                 </f:breadcrumbs>
@@ -96,18 +96,76 @@
                     id="idPainterTable"
                     editable="false"
                     beforeRebindTable="fnrebindTable"                    
-                    entitySet="ProductCatalogueViewerSet"
+                    entitySet="ProductCatalogueViewers"
                     tableType="ResponsiveTable"
                     showRowCount="true"
                     useExportToExcel="true"
                     useVariantManagement="false"
                     useTablePersonalisation="true"
-                    ignoredFields="IsArchived,IsSelected,Id"
+                   ignoredFields="IsArchived,IsSelected,Id"
                     demandPopin="true"
                     enableAutoBinding="false"
                     placeToolbarInTable="true" 
-                    persistencyKey="PainterListSmartTableKey"
                   >
+                        <Table growingScrollToLoad="false" growing="true" growingThreshold="10" noDataText="{i18n>tableNoDataText}" >
+                                <columns>
+                                 <Column hAlign="Begin" width="15%">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "DGAs/GivenName","type":"string", "leadingProperty": "DGAs/GivenName", "columnIndex": 0 }'/>
+                                        </customData>
+                                          <Text text="{i18n>gdaname}"/>
+                                    </Column>
+                                 <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "DGAs/Id","type":"string", "leadingProperty": "DGAs/Id", "columnIndex": 1 }'/>
+                                        </customData>
+                                          <Text text="{i18n>dgaid}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "DGAPositionCode","type":"string", "leadingProperty": "DGAPositionCode", "columnIndex": 2 }'/>
+                                        </customData>
+                                          <Text text="{i18n>downloadsS}" />
+                                    </Column>
+                                <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "DGAs/Mobile","type":"string", "leadingProperty": "DGAs/Mobile", "columnIndex": 3 }'/>
+                                        </customData>
+                                          <Text text="{i18n>mobile}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "DGAs/Zone","type":"string", "leadingProperty": "DGAs/Zone", "columnIndex": 4 }'/>
+                                        </customData>
+                                          <Text text="{i18n>zone}"/>
+                                    </Column>
+                                     <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "DGAs/DivisionId","type":"string", "leadingProperty": "DGAs/DivisionId", "columnIndex": 5 }'/>
+                                        </customData>
+                                          <Text text="{i18n>division}"/>
+                                    </Column>
+                                    <Column hAlign="Begin">
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "DGAs/DepotId","type":"string", "leadingProperty": "DGAs/DepotId", "columnIndex": 6 }'/>
+                                        </customData>
+                                          <Text text="{i18n>depot}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem  press="onPress">
+                                        <cells>
+                                            <Text text="{path:'DGAs/GivenName'}"/>
+                                               <Text text="{path:'DGAs/Id'}"/>
+                                                  <Text text="{path:'DGAPositionCode'}"/>
+                                                     <Text text="{path:'DGAs/Mobile'}"/>
+                                                        <Text text="{path:'DGAs/Zone'}"/>
+                                                           <Text text="{path:'DGAs/DivisionId'}"/>
+                                                              <Text text="{path:'DGAs/DepotId'}"/>
+                                        </cells>      
+                                    </ColumnListItem>
+                                </items> 
+                            </Table> 
                  </smartTable:SmartTable>
         </f:content>
     </f:DynamicPage>
