@@ -5,7 +5,7 @@
         <smartTable:customToolbar>
 			<OverflowToolbar>
                         <ToolbarSpacer />
-                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Set} {i18n>Target}" press="onPressAddObject"/>
+                        <!-- <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Set} {i18n>Target}" press="onPressAddObject"/> -->
                     </OverflowToolbar>
 		</smartTable:customToolbar>
 
@@ -52,7 +52,13 @@
                 </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "TargetValue", "leadingProperty": "TargetValue", "columnIndex": 6 ,"sortProperty": "TargetValue","filterProperty": "TargetValue"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "", "leadingProperty": "", "columnIndex": 6 ,"sortProperty": "","filterProperty": ""}'/>
+                    </customData>
+                    <Text text="{i18n>Job} {i18n>Location}"/>
+                </Column>
+                  <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TargetValue", "leadingProperty": "TargetValue", "columnIndex": 7 ,"sortProperty": "TargetValue","filterProperty": "TargetValue"}'/>
                     </customData>
                     <Text text="{i18n>ContractorVisitCount} ({i18n>Daily})"/>
                 </Column>
@@ -75,6 +81,7 @@
                         
                        <Text text="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/> 
                          <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/> 
+                          <Text text="{}"/>
                          <Text text="{TargetValue}"/>
                          <Button icon="sap-icon://edit"  type="Transparent" press="onPressEdit" tooltip="Edit"></Button>
                     </cells>

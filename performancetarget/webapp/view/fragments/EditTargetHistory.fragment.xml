@@ -16,7 +16,9 @@
                      <Label text="{i18n>Divison}" />
                      <Text text="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/>  
                         <Label text="{i18n>Depot}" />
-                        <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/>  
+                        <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/> 
+                          <Label text="{i18n>Job} {i18n>Location}" /> 
+                           <Text text="{ }"/>
                      <Label text="{i18n>LeadVisitCount}" required="true" />
                 <!-- <Input required="true" id="idEditHistory" liveChange="onCountChange" value="{path:'oModelControl>/EditFields/Target', type : 'sap.ui.model.type.String', constraints:{ minLength:1 } }" /> --> 
                  <!-- <Label id="idStepInpt" text="{titleModel>/icnTbTittle} {i18n>Count}"  /> -->

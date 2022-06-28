@@ -65,7 +65,7 @@ sap.ui.define([], function () {
         },
 
         arrayFormat: function(mParam1){
-            debugger;
+            
             var omodel = this.getView().getModel();
            var svalue= "NA";
            var avalue= [];
@@ -88,7 +88,7 @@ sap.ui.define([], function () {
             
         },
         arrayFormat1: function(mParam1){
-            debugger;
+            
             var omodel = this.getView().getModel();
            var svalue= "NA";
            var avalue= [];
@@ -111,7 +111,7 @@ sap.ui.define([], function () {
             
         },
         arrayFormat2: function(mParam1){
-            debugger;
+            
             var omodel = this.getView().getModel();
            var svalue= "NA";
            var avalue= [];

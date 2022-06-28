@@ -96,27 +96,70 @@ sap.ui.define([
                 Pagetitle: mParam1 === "Add" ? "Add" : "Edit",
                 mode: mParam1,
                 Id: mParam2,
-                bindProp: "MasterTargetPlansRenews(" + mParam2 + ")",
-                EntitySet: "MasterTargetPlansRenews",
+                bindProp: "MasterTargetPlansReconstructs(" + mParam2 + ")",
+                EntitySet: "MasterTargetPlansReconstructs",
                 resourcePath: "com.knpl.dga.performancetarget",
                 AddFields: {
-                    Target: "",
-                    StartDate: "",
+                    TargetValue: "",
+                    FromDate: "",
                     EndDate: "",
                     Mode: "",
+                    LeadVisit : {
+                        "TargetTypeId": 2,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "DAILY",
+                        "TargetValue": 0
+                    },
+                    NewLead : {
+                        "TargetTypeId": 3,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "DAILY",
+                        "TargetValue": 2
+                    },
+                    ContractorVisit : {
+                        "TargetTypeId": 4,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "DAILY",
+                        "TargetValue": 0
+                    },
+                    DealerVisit : {
+                        "TargetTypeId": 5,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "DAILY",
+                        "TargetValue": 0
+                    },
+                    LeadConversion : {
+                        "TargetTypeId": 6,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "MONTHLY",
+                        "TargetValue": 0
+                    },
+                    BusinessGeneration : {
+                        "TargetTypeId": 7,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "MONTHLY",
+                        "TargetValue": 0
+                    }
                 },
                 Rbtn: {
                     TarGrp: 0,
                     Zone: 0,
                     Division: 0,
-                    Depot: 0
+                    Depot: 0,
+                    Location: 0
                 },
                 MultiCombo: {
                     Zone: [],
                     Division: [],
                     Depot: [],
-                  
-                },
+                    Location: [],
+                }
             };
             var oModelControl = new JSONModel(oDataControl)
             oView.setModel(oModelControl, "oModelControl");
@@ -239,16 +282,60 @@ sap.ui.define([
           // Radio button event
         onRbChnageMain:function(oEvent){
             var AddFields = {
-                Target: "",
-                StartDate: "",
-                EndDate: "",
+                TargetValue: "",
+                FromDate: "",
+                ToDate: "",
                 Mode: "",
+                LeadVisit : {
+                    "TargetTypeId": 2,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "DAILY",
+                    "TargetValue": 0
+                },
+                NewLead : {
+                    "TargetTypeId": 3,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "DAILY",
+                    "TargetValue": 2
+                },
+                ContractorVisit : {
+                    "TargetTypeId": 4,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "DAILY",
+                    "TargetValue": 0
+                },
+                DealerVisit : {
+                    "TargetTypeId": 5,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "DAILY",
+                    "TargetValue": 0
+                },
+                LeadConversion : {
+                    "TargetTypeId": 6,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "MONTHLY",
+                    "TargetValue": 0
+                },
+                BusinessGeneration : {
+                    "TargetTypeId": 7,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "MONTHLY",
+                    "TargetValue": 0
+                }
             },
             MultiCombo = {
                 Zone: [],
                 Division: [],
                 Depot: [],
+                Location: [],
             },
+        
             oModelControl = this.getView().getModel("oModelControl");
 
             oModelControl.setProperty("/MultiCombo", MultiCombo);
@@ -284,6 +371,15 @@ sap.ui.define([
                 this.getView().getModel("titleModel").setProperty("/isSpecificDepot", false);
             } else {
                 this.getView().getModel("titleModel").setProperty("/isSpecificDepot", true);
+            }
+        },
+        onRbChnageLocation:function(oEvent){
+            var key = oEvent.getSource().getSelectedIndex();
+
+            if(key === 0){
+                this.getView().getModel("titleModel").setProperty("/isSpecificLocation", false);
+            } else {
+                this.getView().getModel("titleModel").setProperty("/isSpecificLocation", true);
             }
         },
 
@@ -581,6 +677,24 @@ sap.ui.define([
             }
             oDivision.getBinding("items").filter(aDivFilter);
         },
+             //MultiLocation change
+
+             onMultyLocationChange: function (oEvent) {
+                var sKeys = this.getView()
+                .getModel("oModelControl")
+                .getProperty("/MultiCombo/Depot");;
+                var oLocation = this.getView().byId("idLocation");
+    
+            
+    
+                var aDivFilter = [];
+                for (var y of sKeys) {
+                    aDivFilter.push(new Filter("DepotId", FilterOperator.EQ, y.DepotId))
+                }
+                oLocation.getBinding("items").filter(aDivFilter);
+            },
+
+        
             // MultiDivision change
         onMultyDivisionChange: function (oEvent) {
 
@@ -780,9 +894,9 @@ sap.ui.define([
             this.getView()
                 .getModel("oModelControl")
                 .setProperty("/MultiCombo/Depot", oData);
-                // this.getView()
-                // .getModel("oModelControl")
-                // .setProperty("/filterBar/DepotId", oData);
+            
+                this.onMultyLocationChange();
+               
             this._oValueHelpDialog.close();
         },
     });

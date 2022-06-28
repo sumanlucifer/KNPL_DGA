@@ -41,8 +41,10 @@ sap.ui.define(
                 var oRouter = this.getOwnerComponent().getRouter();
                 var oDataControl = {
                     filterBar: {
-                        StartDate: null,
-                        EndDate: null,
+                        FromDate: null,
+                        ToDate: null,
+                        TargetValue: "",
+                        Search: "",
                         Mode: "",
                         ZoneId: "",
                         DivisionId: "",
@@ -51,7 +53,8 @@ sap.ui.define(
 
                     },
                     EditFields: {
-                        FromDate: "",
+                        FromDate:"",
+                        TargetValue: "",
                     },
                     PageBusy: true
                 };
@@ -84,7 +87,7 @@ sap.ui.define(
                 var aCurrentFilterValues = [];
                 var aResetProp = {
                     FromDate: null,
-                     ToDate : null,
+                    ToDate : null,
                     Search: "",
                     Mode: "",
                     ZoneId: "",
@@ -95,7 +98,8 @@ sap.ui.define(
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
-                var sKey = oEvent.getSource().getSelectedKey();
+                var sKey = this.getView().byId("iconTabBar").getSelectedKey();
+                // var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 if (sKey == "0") {
                     oView.byId("LeadVisitTable").rebindTable();
@@ -106,9 +110,9 @@ sap.ui.define(
                 else if (sKey == "2"){
                     oView.byId("ContractorVisitCountTable").rebindTable();
                 }
-                // else if (sKey == "3"){
-                //     oView.byId("DealerVisitTable").rebindTable();
-                // }
+                else if (sKey == "3"){
+                    oView.byId("DealerVisitTable").rebindTable();
+                }
                 else if (sKey == "4"){
                     oView.byId("LeadConversionTable").rebindTable();
                 }   
@@ -116,14 +120,7 @@ sap.ui.define(
                     oView.byId("BusinessGenerationTable").rebindTable();
                 }             
             },
-            //     var oTable = this.getView().byId("LeadVisitTable");
-            //     var oTable = this.getView().byId("NewLeadTable");
-            //     var oTable = this.getView().byId("ContractorVisitCountTable");
-            //     var oTable = this.getView().byId("LeadConversionTable");
-            //     var oTable = this.getView().byId("BusinessGenerationTable");
-            //     oTable.rebindTable();
-
-            // },
+          
             _onRouteMatched: function () {
                 this._InitData();
             },
@@ -135,40 +132,41 @@ sap.ui.define(
                  * Purpose: Navigation to add object view and controller
                  */
                 var oRouter = this.getOwnerComponent().getRouter();
-                var sKey = this.getView().byId("iconTabBar").getSelectedKey();
-                var sTab;
-                switch (sKey) {
+                oRouter.navTo("Add");
+                // var sKey = this.getView().byId("iconTabBar").getSelectedKey();
+                // var sTab;
+                // switch (sKey) {
 
-                    case "0":
-                        sTab = "Lead Visit";
-                        break;
-                    case "1":
-                        sTab = "New Lead";
-                        break;
+                //     case "0":
+                //         sTab = "Lead Visit";
+                //         break;
+                //     case "1":
+                //         sTab = "New Lead";
+                //         break;
 
-                    case "2":
-                        sTab = "Contractor Visit";
-                        break;
+                //     case "2":
+                //         sTab = "Contractor Visit";
+                //         break;
 
-                    case "3":
-                        sTab = "Dealer Visit";
-                        break;
+                //     case "3":
+                //         sTab = "Dealer Visit";
+                //         break;
 
-                    case "4":
-                        sTab = "Lead Conversion";
-                        break;
-                    case "5":
-                        sTab = "Business Generation";
-                        break;
+                //     case "4":
+                //         sTab = "Lead Conversion";
+                //         break;
+                //     case "5":
+                //         sTab = "Business Generation";
+                //         break;
 
 
-                }
-                oRouter.navTo("Add",
-                    {
-                        Tab: sTab
+                // }
+                // oRouter.navTo("Add",
+                //     {
+                //         Tab: sTab
 
-                    }
-                );
+                //     }
+                // );
 
             },
             _InitData: function () {
@@ -199,7 +197,7 @@ sap.ui.define(
                  })
 
             },
-
+                 // data show in table by Icon Tab Id
             onIcnTbarChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
@@ -212,9 +210,9 @@ sap.ui.define(
                 else if (sKey == "2"){
                     oView.byId("ContractorVisitCountTable").rebindTable();
                 }
-                // else if (sKey == "3"){
-                //     oView.byId("DealerVisitTable").rebindTable();
-                // }
+                else if (sKey == "3"){
+                    oView.byId("DealerVisitTable").rebindTable();
+                }
                 else if (sKey == "4"){
                     oView.byId("LeadConversionTable").rebindTable();
                 }   
@@ -293,9 +291,9 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var othat = this;
-                // if (oView.byId("LeadVisitTable")) {
-                //     oView.byId("LeadVisitTable").rebindTable();
-                // }
+                if (oView.byId("LeadVisitTable")) {
+                    oView.byId("LeadVisitTable").rebindTable();
+                }
                 promise.resolve();
                 return promise;
             },
@@ -309,14 +307,7 @@ sap.ui.define(
                 var oBindingParams = oEvent.getParameter("bindingParams");
                   oBindingParams.parameters["expand"] = "DGAType,PerformanceZone,PerformanceDivision,PerformanceDepot";
                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
-                // oBindingParams.filters.push(
-                //     new sap.ui.model.Filter(
-                //         "TargetTypeId",
-                //         sap.ui.model.FilterOperator.EQ,
-                //         2
-                //     )
-
-                // );
+               
                 
                 var aCurrentFilterValues = [];
               
@@ -328,8 +319,9 @@ sap.ui.define(
                 }
 
             },
-            onFilterBarSearch: function () {
-                var sKey = oEvent.getSource().getSelectedKey();
+            onFilterBarSearch: function (oEvent) {
+                var sKey = this.getView().byId("iconTabBar").getSelectedKey();
+                // var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 if (sKey == "0") {
                     oView.byId("LeadVisitTable").rebindTable();
@@ -340,16 +332,15 @@ sap.ui.define(
                 else if (sKey == "2"){
                     oView.byId("ContractorVisitCountTable").rebindTable();
                 }
-                // else if (sKey == "3"){
-                //     oView.byId("DealerVisitTable").rebindTable();
-                // }
+                else if (sKey == "3"){
+                    oView.byId("DealerVisitTable").rebindTable();
+                }
                 else if (sKey == "4"){
                     oView.byId("LeadConversionTable").rebindTable();
                 }   
             else if (sKey == "5"){
                     oView.byId("BusinessGenerationTable").rebindTable();
-                }             
-            
+                }        
 
             },
             _CreateFilter: function () {
@@ -360,7 +351,7 @@ sap.ui.define(
 
                 var aFlaEmpty = false;
                 var sKey = this.getView().byId("iconTabBar").getSelectedKey();
-            
+            // By TargetId push the data into Table
                 switch (sKey) {
 
                     case "0":
@@ -418,12 +409,12 @@ sap.ui.define(
                 // filter bar filters
                 for (let prop in oViewFilter) {
                     if (oViewFilter[prop]) {
-                        if (prop === "StartDate") {
+                        if (prop === "FromDate") {
                             // converstions are made as the difference between utc and the server time
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("FromDate", FilterOperator.GE, new Date(oViewFilter[prop])));
-                        } else if (prop === "EndDate") {
+                        } else if (prop === "ToDate") {
                             // converstions are made as the difference between utc and the server time
                             aFlaEmpty = false;
                             var oDate = new Date(oViewFilter[prop]).setDate(oViewFilter[prop].getDate() + 1);

@@ -5,7 +5,7 @@
         <smartTable:customToolbar>
 			<OverflowToolbar>
                         <ToolbarSpacer />
-                        <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Set} {i18n>Target}" press="onPressAddObject"/>
+                        <!-- <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Set} {i18n>Target}" press="onPressAddObject"/> -->
                     </OverflowToolbar>
 		</smartTable:customToolbar>
 
@@ -50,11 +50,23 @@
                     </customData>
                     <Text text="{i18n>Depot}"/>
                 </Column>
+                   <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "", "leadingProperty": "", "columnIndex": 6 ,"sortProperty": "","filterProperty": ""}'/>
+                    </customData>
+                    <Text text="{i18n>Job} {i18n>Location}"/>
+                </Column>
                   <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "TargetValue", "leadingProperty": "TargetValue", "columnIndex": 6 ,"sortProperty": "TargetValue","filterProperty": "TargetValue"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TargetValue", "leadingProperty": "TargetValue", "columnIndex": 7 ,"sortProperty": "TargetValue","filterProperty": "TargetValue"}'/>
                     </customData>
                     <Text text="{i18n>DealerVisitCount} ({i18n>Daily})"/>
+                </Column>
+                 <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions"}'/>
+                    </customData>
+                    <Text text="{i18n>Action}"/>
                 </Column>
                 
                 
@@ -65,16 +77,13 @@
                        <Text text="{path:'FromDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                         <Text text="{path:'ToDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                          <Text text="{DGAType/Name}"/>
-                         <HBox items= "{PerformanceZone}">
-                        <Text text="{ZoneId},"/>
-                        </HBox>
-                        <HBox items="{PerformanceDivision}">
-                         <Text text="{DivisionId},"/> 
-                         </HBox>
-                         <HBox items="{PerformanceDepot}">
-                         <Text text="{DepotId} ,"/>
-                         </HBox>
+                         <Text text="{path:'PerformanceZone',formatter:'.formatter.arrayFormat2'}"/> 
+                       
+                          <Text text="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/> 
+                            <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/> 
+                         <Text text="{}"/>
                          <Text text="{TargetValue}"/>
+                         <Button icon="sap-icon://edit"  type="Transparent" press="onPressEdit" tooltip="Edit"></Button> 
                     </cells>
                 </ColumnListItem>
             </items>

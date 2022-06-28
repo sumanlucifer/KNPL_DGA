@@ -5,7 +5,7 @@
             <f:title>
                 <f:DynamicPageTitle>
                  <f:actions>
-                    <Button press="onChangeStatus" type="Emphasized" text="{i18n>ChangeStatus}" />
+                    <Button press="onPressAddObject" type="Emphasized" text="{i18n>Set}{i18n>Target}" />
                    </f:actions>
                 </f:DynamicPageTitle>
             </f:title>
@@ -22,7 +22,7 @@
                          <fb:FilterGroupItem groupName="__$INTERNAL$" name="DGA" label="{i18n>DGA} {i18n>Type}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                      <ComboBox  id="idDGA" placeholder="{i18n>Enter} {i18n>DGA}"  items="{/MasterDGATypes}" selectedKey="{path:'oModelControl>/filterBar/DGAId' }">
-                                        <core:Item text="{Name} " key="{Id}" />
+                                        <core:Item text="{Name} " key="{Name}" />
                                     </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
@@ -97,7 +97,7 @@
                     </IconTabFilter>   
                     <!--   Dealer visit tab -->
                     <IconTabFilter  text="{i18n>Dealer} {i18n>Visit}" key="3" >
-                        <!-- <core:Fragment fragmentName="com.knpl.dga.performancetarget.view.fragments.DealerVisit" type="XML"/> -->
+                        <core:Fragment fragmentName="com.knpl.dga.performancetarget.view.fragments.DealerVisit" type="XML"/>
                     </IconTabFilter> 
                     <!-- Lead Conversion  tab -->
                     <IconTabFilter  text="{i18n>Lead} {i18n>Conversion}" key="4" >
