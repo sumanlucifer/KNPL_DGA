@@ -3,7 +3,7 @@
         <f:SimpleForm id="FormObjectData" editable="false" layout="ColumnLayout" title="{i18n>Converted}" columnsL="3" columnsM="2" >
             <f:content>
                 <Label text="{i18n>VisitedOn}" />
-                <Text  text="{Visit/Date}" />
+                <Text  text="{path:'Visit/Date',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}" />
                 <Label text="{i18n>Time}" />
                 <Text text="{Visit/Time}" />
                 <Label text="{i18n>AdditionalComment}" />

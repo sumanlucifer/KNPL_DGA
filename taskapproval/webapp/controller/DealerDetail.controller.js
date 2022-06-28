@@ -55,7 +55,7 @@ sap.ui.define(
                 );
                 var oView = this.getView();
                 var oView = this.getView();                
-                var exPand = "Visit/DGA,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetContractor,Visit/TargetDealer";
+                var exPand = "Visit/DGA,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetContractor,Visit/TargetDealer/DealerSalesDetails/SalesGroup";
                 if (context.trim() !== "") {
                     oView.bindElement({
                         path: "/" + context,

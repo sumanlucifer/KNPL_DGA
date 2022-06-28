@@ -4,7 +4,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{Visit/TargetLead/ConsumerName}"/>
+                    <Title text="{= ${Visit/TargetDealer/Name} === null ? 'NA' : ${Visit/TargetDealer/Name}}"/>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs currentLocationText="{i18n>DealerDetails}">
@@ -21,9 +21,9 @@
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>PhoneNumber}" text="NA"/>
-                        <ObjectAttribute title="{i18n>SalesGroupId}" text="NA"/>
-                        <ObjectAttribute title="{i18n>SalesGroupName}" text="NA"/>
+                        <ObjectAttribute title="{i18n>PhoneNumber}" text="{= ${Visit/TargetDealer/PhoneNumber} === null ? 'NA' : ${Visit/TargetDealer/PhoneNumber}}"/>
+                        <ObjectAttribute title="{i18n>SalesGroupId}" text="{= ${Visit/TargetDealer/DealerSalesDetails/SalesGroupId} === null ? 'NA' : ${Visit/TargetDealer/DealerSalesDetails/SalesGroupId}}"/>
+                        <ObjectAttribute title="{i18n>SalesGroupName}" text="Bind.."/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
                         <Label  text="{i18n>RequestID}"  />
