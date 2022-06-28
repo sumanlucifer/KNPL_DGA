@@ -28,8 +28,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "PaintReq",
+                    "semanticObject": "NotificationGroup",
+                    "action": "Manage",
                     "title": "{{flpTitle}}",
                     "icon": "sap-icon://activity-individual",
                     "indicatorDataSource": {
