@@ -158,6 +158,7 @@ sap.ui.define([], function () {
             }
         },
         GetWorkListDepot2: function (mParam1) {
+            // used in the worklist view
             var aArray = [];
             if (Array.isArray(mParam1)) {
                 var obj,obj2;
