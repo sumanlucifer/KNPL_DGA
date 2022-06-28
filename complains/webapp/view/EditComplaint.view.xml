@@ -52,7 +52,7 @@
         <f:content>
             <VBox>
                 <core:Fragment fragmentName="com.knpl.dga.complains.view.fragments.CustomerDetails" type="XML"/>
-                <core:Fragment fragmentName="com.knpl.dga.complains.view.fragments.ResolutionDetails" type="XML"/>
+                <core:Fragment fragmentName="com.knpl.dga.complains.view.fragments.ResolutionDetails" type="XML"  />
             </VBox>
         </f:content>
     </f:DynamicPage>

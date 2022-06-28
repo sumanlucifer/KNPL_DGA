@@ -9,14 +9,14 @@
             <Text text="{DGA/GivenName}" />
             <Label text="{i18n>MobileNo}" />
             <Text text="{DGA/Mobile}" />
-            <Label text="{i18n>Comments}" />
+            <Label text="{i18n>Description}" />
             <Text text="{Comments}" />
             <Label text="{i18n>ComplaintType}" />
             <Text text="{ComplaintType/ComplaintType}" />
             <Label text="{i18n>DGAID}" />
             <Text text="{DGAId}" />
             <Label text="{i18n>LeadStage}" />
-            <Text text="{LeadStage}" />
+            <Text text="{path:'LeadStage',formatter:'.fmtLeadStage'}" />
         </f:content>
     </f:SimpleForm>
     <f:SimpleForm editable="true" layout="ResponsiveGridLayout" class="sapUiMediumMarginBeginEnd"
