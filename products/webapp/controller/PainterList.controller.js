@@ -17,7 +17,7 @@ sap.ui.define([
  */
     function (BaseController, JSONModel, History, formatter, Filter, FilterOperator, MessageBox, MessageToast, Export, ExportTypeCSV) {
         "use strict";
-        return BaseController.extend("com.knpl.dga.products.controller.DGAList", {
+        return BaseController.extend("com.knpl.dga.products.controller.PainterList", {
             formatter: formatter,
             /* =========================================================== */
             /* lifecycle methods                                           */
@@ -50,7 +50,7 @@ sap.ui.define([
              */
             _onObjectMatched: function (oEvent) {
                 this.sObjectId = oEvent.getParameter("arguments").catalogueId;
-                // this._bindView(this.sObjectId);
+                this._bindView(this.sObjectId);
             },
             _bindView: function (sObjectId) {
                 var aFilters = [(new sap.ui.model.Filter("ProductCatalogueId", sap.ui.model.FilterOperator.EQ, sObjectId)),
@@ -70,7 +70,7 @@ sap.ui.define([
             fnrebindTable: function (oEvent) {
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.sorter.push(new sap.ui.model.Sorter('Id', true));
-                oBindingParams.parameters["expand"] = "Painter,Painter/Division,Painter/Depot";
+                oBindingParams.parameters["expand"] = "DGAs";
                 if (this.oFilter)
                     oBindingParams.filters.push(this.oFilter);
             },
@@ -87,9 +87,9 @@ sap.ui.define([
                     ],
                     and: true
                 });
-                that.getModel().read("/ProductCatalogueViewerSet", {
+                that.getModel().read("/ProductCatalogueViewers", {
                     urlParameters: {
-                        "$expand": "Painter,Painter/Division,Painter/Depot"
+                        "$expand": "DGAs"
                     },
                     filters: [aFilters],
                     success: function (data) {
@@ -109,32 +109,39 @@ sap.ui.define([
                             columns: [{
                                 name: "Name",
                                 template: {
-                                    content: "{Painter/Name}"
+                                    content: "{DGAs/GivenName}"
                                 }
                             }, {
-                                name: "Membership Id",
+                                name: "DGA Id",
                                 template: {
-                                    content: "{Painter/MembershipCard}"
+                                    content: "{DGAs/Id}"
                                 }
-                            }, {
+                            },{
+                                name: "Position Code",
+                                template: {
+                                    content: "{DGAPositionCode}"
+                                }
+                            },
+                            
+                            {
                                 name: "Mobile Number",
                                 template: {
-                                    content: "{Painter/Mobile}"
+                                    content: "{DGAs/Mobile}"
                                 }
                             }, {
                                 name: "Zone",
                                 template: {
-                                    content: "{Painter/Division/Zone}"
+                                    content: "{DGAs/Zone}"
                                 }
                             }, {
                                 name: "Division",
                                 template: {
-                                    content: "{Painter/Depot/Division}"
+                                    content: "{DGAs/DivisionId}"
                                 }
                             }, {
                                 name: "Depot",
                                 template: {
-                                    content: "{Painter/Depot/Depot}"
+                                    content: "{DGAs/DepotId}"
                                 }
                             }
                             ]
