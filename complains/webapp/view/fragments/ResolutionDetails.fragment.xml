@@ -1,19 +1,35 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core"
     xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+
     <f:SimpleForm editable="true" layout="ColumnLayout" class="sapUiMediumMarginBeginEnd"
     labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
     emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
-    singleContainerFullSize="false" title="{i18n>ResolutionDetails}">
+    singleContainerFullSize="false" title="{i18n>ResolutionDetails}" visible="{= ${ComplaintStatus} === 'RESOLVED' ? true : false }">
         <f:content>
             <Label text="{i18n>ResolutionType}" />
             <Text text="{= ${ResolutionDetails/Resolution} === null ? 'NA' : ${ResolutionDetails/Resolution} }" />
             <Label text="{i18n>Comments}" />
             <Text text="{= ${Remark} === null ? 'NA' : ${Remark} }" />
             <Label text="{i18n>ResolutionDate}" />
-            <Text text="{= ${ResolutionDetails/UpdatedAt} === null ? 'NA' : ${path:'ResolutionDetails/UpdatedAt', type: 'sap.ui.model.type.DateTime', 
+            <Text text="{= ${UpdatedAt} === null ? 'NA' : ${path:'UpdatedAt', type: 'sap.ui.model.type.DateTime', 
                             formatOptions: { 
-                                pattern: 'dd/MM/yyyy hh:mm aaa' 
+                                pattern: 'dd/MM/yyyy' 
                             }} }" />
+        </f:content>
+    </f:SimpleForm>
+
+    <f:SimpleForm editable="true" layout="ColumnLayout" class="sapUiMediumMarginBeginEnd"
+    labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
+    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+    singleContainerFullSize="false" title="{i18n>WithdrawnDetails}" visible="{= ${ComplaintStatus} === 'WITHDRAWN'  ? true : false }">
+        <f:content>
+            <Label text="{i18n>WithdrawnDate}" />
+            <Text text="{= ${UpdatedAt} === null ? 'NA' : ${path:'UpdatedAt', type: 'sap.ui.model.type.DateTime', 
+                            formatOptions: { 
+                                pattern: 'dd/MM/yyyy' 
+                            }} }" />
+            <Label text="{i18n>Comments}" />
+            <Text text="{= ${Remark} === null ? 'NA' : ${Remark} }" />
         </f:content>
     </f:SimpleForm>
 </core:FragmentDefinition>
