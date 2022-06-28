@@ -28,8 +28,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "PaintReq",
+                    "semanticObject": "Products",
+                    "action": "Manage",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
                     "icon": "sap-icon://activity-individual",
@@ -136,8 +136,8 @@
                     ]
                 },
                 {
-                    "name": "DGAList",
-                    "pattern": "DGAList/{catalogueId}",
+                    "name": "PainterList",
+                    "pattern": "PainterList/{catalogueId}",
                     "target": [
                         "TargetPainterList"
                     ]
