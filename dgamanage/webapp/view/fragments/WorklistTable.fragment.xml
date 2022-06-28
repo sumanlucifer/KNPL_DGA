@@ -30,12 +30,12 @@
                     </customData>
                     <Text text="{i18n>PositionCode}"/>
                 </Column>
-                <Column hAlign="Begin" sortIndicator="Descending">
+                <!-- <Column hAlign="Begin" sortIndicator="Descending">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "type":"date", "leadingProperty": "CreatedAt", "columnIndex": 3 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>RegistrationDate}"/>
-                </Column>
+                </Column> -->
                  <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Mobile", "leadingProperty": "Mobile", "columnIndex": 4 ,"sortProperty": "Mobile","filterProperty": "Mobile"}'/>
@@ -72,12 +72,12 @@
                     </customData>
                     <Text text="{i18n>PinCode}"/>
                 </Column>
-                 <Column hAlign="Begin">
+                <!-- <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "PayrollCompany/Name","leadingProperty": "PayrollCompany/Name", "columnIndex": 10 ,"sortProperty": "PayrollCompany/Name","filterProperty": "PayrollCompany/Name" }'/>
                     </customData>
                     <Text text="{i18n>PayrollCompany}"/>
-                </Column>
+                </Column> -->
                   <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ActivationStatus","leadingProperty": "ActivationStatus", "columnIndex": 11 ,"sortProperty": "ActivationStatus","filterProperty": "ActivationStatus" }'/>
@@ -110,28 +110,19 @@
                         <Text text="{GivenName}"/>
                          <Text text="{Id}"/>
                          <Text text="{path:'Positions/', formatter:'.formatter.GetWorkLisPositionId'}"/>
-                         <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+                         <!-- <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/> -->
                            <Text text="{Mobile}"/>
                               <Text text="{DGAType/Name}"/>
                                 <Text text="{Zone}"/>
                                    <Text text="{Division/Id}"/>
-                                    <Text text="{path:'Positions/', formatter:'.formatter.GetWorkListDepot'}"/>
+                                    <Text text="{path:'Positions/', formatter:'.formatter.GetWorkListDepot2'}"/>
                                     <Text text="{Pincode/Name}"/>
-                                     <Text text="{PayrollCompany/Name}"/>
+                                     <!-- <Text text="{PayrollCompany/Name}"/> -->
                                     <ObjectStatus text="{path:'ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{path:'ActivationStatus',formatter:'.formatter.fmtStatusColorChange'}"/>
                                       <HBox >
                                              <Button text="{i18n>ReplaceDga}" press="onPressDgaReplacement" visible="{parts:['ActivationStatus','IsReplaced'],formatter:'.formatter.fmtDisplayReplacedBtn'}" />
                                         </HBox>
-                                   
-                        <!-- <Text text="{ComplaintCode}"/> -->
-                          <!--
-                         <Text text="{ComplaintType/ComplaintType}"/>
-                      
-                        <ObjectStatus text="{parts:['ComplaintStatus','ParentComplaintId'],formatter:'.formatter.fmtLowerCase'}" state="{= ${ComplaintStatus} === 'RESOLVED' || ${ComplaintStatus} === 'WITHDRAWN'  ? 'Success' : 'Error' }"/> -->
-                           <!-- <HBox > -->
-                                            <!-- <Button icon="sap-icon://edit" press="onEditListItemPress" type="Transparent" tooltip="{i18n>Edit}"/>
-							                <Button icon="sap-icon://delete" press="onPressDelete" type="Transparent" tooltip="{i18n>Delete}"/> -->
-                                        <!-- </HBox> -->
+                     
                     </cells>
                 </ColumnListItem>
             </items>

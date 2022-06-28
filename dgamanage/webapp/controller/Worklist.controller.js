@@ -241,7 +241,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGAType,Division,Pincode,Positions,PayrollCompany";
+                oBindingParams.parameters["expand"] = "DGAType,Division,Pincode,Positions/Depot,PayrollCompany";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters

@@ -156,6 +156,22 @@ sap.ui.define([], function () {
                 return aArray.join(" ")
             }
         },
+        GetWorkListDepot2: function (mParam1) {
+            var aArray = [];
+            if (Array.isArray(mParam1)) {
+                var obj,obj2;
+                var oData = this.getView().getModel();
+                if (mParam1.length > 0) {
+                    for (var x in mParam1) {
+                        obj = oData.getProperty("/" + mParam1[x]);
+                        obj2=oData.getProperty("/"+obj["Depot"]["__ref"])
+                        console.log(obj2)
+                        aArray.push(""+obj2["Depot"]+" "+"("+obj2["Id"]+")"+"")
+                    }
+                }
+                return aArray.join(" ")
+            }
+        },
         fmtDisplayDepots: function (mParam1) {
             var aArray = [];
             if (mParam1) {
