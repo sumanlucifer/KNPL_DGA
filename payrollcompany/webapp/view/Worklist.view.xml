@@ -14,7 +14,7 @@
               <Table id="idPayrollTable" growing="true" growingThreshold="10" updateFinished="onUpdateFinished" width="auto" items="{path: '/MasterPayrollCompanies',sorter:{path:'CreatedAt',descending:true}}" noDataText="{i18n>tableNoDataText}" growingScrollToLoad="false">
                 <headerToolbar>
                     <Toolbar>
-                        <Title text="{i18n>PayrollCompanyName}" id="idPayrollTableTitle" class="PayrollTableTitleClass"/>
+                        <Title text="{i18n>MainObject}"/>
                         <ToolbarSpacer/>
                         <Button icon="sap-icon://add" text="{i18n>Add} {i18n>MainObject}" type="Emphasized" press=".onPressAddObject" tooltip="{i18n>Add} {i18n>MainObject}"></Button>
                         <!-- <Button visible="false" icon="sap-icon://sort" type="Transparent" press="handleSortButtonPressed"></Button> -->
@@ -32,7 +32,7 @@
                     <ColumnListItem>
                         <cells>
                             <Text text="{Name}"/>
-                            <Button icon="sap-icon://edit" type="Transparent" press="onPressEditObject" tooltip="Edit"/>
+                            <Button icon="sap-icon://edit" type="Transparent" press="onPressEditObject"/>
                         </cells>
                     </ColumnListItem>
                 </items>
