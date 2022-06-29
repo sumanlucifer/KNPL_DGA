@@ -13,7 +13,7 @@
             <columns>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DGADetails/PositionCode", "leadingProperty": "DGADetails/PositionCode", "columnIndex": 13 ,"sortProperty": "DGADetails/PositionCode","filterProperty": "DGADetails/PositionCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGADetails/Id", "leadingProperty": "DGADetails/Id", "columnIndex": 13 ,"sortProperty": "DGADetails/Id","filterProperty": "DGADetails/Id"}'/>
                     </customData>
                     <Text text="{i18n>DGAId}"/>
                 </Column>
@@ -112,7 +112,7 @@
             <items>
                 <ColumnListItem press="onListItemPress" type="Navigation">
                     <cells>
-                        <Text text="{DGADetails/PositionCode}"/>
+                        <Text text="{DGADetails/Id}"/>
                         <Text text="{DGADetails/GivenName} {DGADetails/FamilyName}"/>
                         <Text text="{Id}"/>
                         <Text text="{ConsumerName}"/>
