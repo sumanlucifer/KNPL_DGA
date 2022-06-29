@@ -7,7 +7,7 @@
             <Label text="{i18n>FormName}"/>
             <Input id="idDisplayFormNameINP" value="{FormDetailsModel>/Name}" enabled="false"/>
             <Label text="{i18n>FormType}"/>
-            <ComboBox id="idDisplayFormTypeCMB" placeholder="Select Form Type" items="{/MasterFormTypes}" selectedKey="{FormDetailsModel>/FormTypeId}" enabled="false">
+            <ComboBox id="idDisplayFormTypeCMB" items="{/MasterFormTypes}" selectedKey="{FormDetailsModel>/FormTypeId}" enabled="false">
                 <core:ListItem key="{Id}" text="{TypeText}"/>
             </ComboBox>
         </f:content>

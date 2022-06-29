@@ -1,5 +1,4 @@
 <core:FragmentDefinition xmlns="sap.m"
-    xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form">
     <f:SimpleForm editable="true" layout="ColumnLayout" title="{oModelControl>/Pagetitle} {i18n>Form}" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
@@ -7,7 +6,7 @@
             <Label text="{i18n>FormName}" required="true"/>
             <Input id="idEditFormNameINP" value="{FormDetailsModel>/Name}" enabled="false"/>
             <Label text="{i18n>FormType}" required="true"/>
-            <ComboBox id="idEditFormTypeCMB" placeholder="Select Form Type" items="{/MasterFormTypes}" selectedKey="{FormDetailsModel>/FormTypeId}" enabled="false">
+            <ComboBox id="idEditFormTypeCMB" placeholder="{i18n>SelectFormType}" items="{/MasterFormTypes}" selectedKey="{FormDetailsModel>/FormTypeId}" enabled="false">
                 <core:ListItem key="{Id}" text="{TypeText}"/>
             </ComboBox>
         </f:content>

@@ -50,6 +50,9 @@ sap.ui.define([
                 MessageBox.error(JSON.parse(sDetails.responseText).error.message.value);
                 return;
             }
+            if (sDetails.statusCode === 200 || sDetails.statusCode === 204) {
+                return;
+            }
             this._bMessageOpen = true;
             MessageBox.error(
                 this._sErrorText,
