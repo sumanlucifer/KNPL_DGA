@@ -40,7 +40,7 @@
                     "semanticObject": "Dealer",
                     "action": "Display",
                     "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
+                    "subTitle": "",
                     "icon": "sap-icon://idea-wall",
                     "indicatorDataSource": {
                         "dataSource": "KNPL_DGA_API",
