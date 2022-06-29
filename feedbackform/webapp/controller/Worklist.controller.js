@@ -200,6 +200,7 @@ sap.ui.define(
              */
             fnResetAddQuestionDialog() {
                 sap.ui.getCore().byId("idQuestionNameINP").setValue("");
+                sap.ui.getCore().byId("idQuestionNameINP").setValueState("None");
                 sap.ui.getCore().byId("idOptionControlCMB").setSelectedKey("");
                 sap.ui.getCore().byId("idScrollContainer").removeAllContent();
             },
@@ -622,10 +623,19 @@ sap.ui.define(
             fnGetUpdatedQueDetailsPayload: function () {
                 var oPayloadObj = this.getView().getModel("QuestionDetailModel").getData(),
                     aAnswerOptions = oPayloadObj.AnswerOptions.results;
-                if (aAnswerOptions[0].InputControlTypeId === "3") {
+
+                if (oPayloadObj.Question) {
                     for (var i = 0; i < aAnswerOptions.length; i++) {
-                        aAnswerOptions[i].Answer = aAnswerOptions[i].Answer.toString();
+                        if (aAnswerOptions[i].Answer)
+                            aAnswerOptions[i].Answer = aAnswerOptions[i].Answer.toString();
+                        else {
+                            MessageToast.show(this._geti18nText("AddAnswersForQueation"));
+                            return;
+                        }
                     }
+                } else {
+                    MessageToast.show(this._geti18nText("EnterQuestion"));
+                    return;
                 }
 
                 oPayloadObj = {
@@ -772,7 +782,10 @@ sap.ui.define(
                     oInput = new sap.m.Input({
                         width: "90%",
                         value: "",
-                        maxLength: 100
+                        maxLength: 100,
+                        liveChange: function (oEvent) {
+                            this.onAnswerOptionTextChange(oEvent);
+                        }.bind(this)
                     }),
                     oDeleteBtn = new sap.m.Button({
                         icon: "sap-icon://delete",
@@ -906,6 +919,15 @@ sap.ui.define(
                 if (oEvent.getSource().getValue().length <= 0) {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText(this._geti18nText("EnterQuestion"));
+                } else {
+                    oEvent.getSource().setValueState("None");
+                }
+            },
+
+            onAnswerOptionTextChange: function (oEvent) {
+                if (oEvent.getSource().getValue().length <= 0) {
+                    oEvent.getSource().setValueState("Error");
+                    oEvent.getSource().setValueStateText(this._geti18nText("EnterValidAnswerORDeleteOption"));
                 } else {
                     oEvent.getSource().setValueState("None");
                 }
