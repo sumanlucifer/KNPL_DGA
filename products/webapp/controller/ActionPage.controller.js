@@ -270,12 +270,12 @@ sap.ui.define([
             var oModel = this.getComponentModel();
             if (this._action === "add") {
                 var oModel = this.getModel("ActionViewModel");
-                var catalogue = oModel.getProperty("/Catalogue");
+                var catalogue1 = oModel.getProperty("/Catalogue");
                 var fileUploader;
                 var sServiceUri = this.sServiceURI;
                 //To DO promises for sync
                 // var that=this;
-                catalogue.forEach(function (ele) {
+                catalogue1.forEach(function (ele) {
                     //  var isValid= that.checkFileName(ele.fileName);
                     jQuery.ajax({
                         method: "PUT",
@@ -285,6 +285,7 @@ sap.ui.define([
                         processData: false,
                         data: ele.file,
                         success: function (data) {
+                            console.log(data);
                         },
                         error: function () { },
                     })
@@ -295,12 +296,12 @@ sap.ui.define([
             var oModel = this.getComponentModel();
             if (this._action === "add") {
                 var oModel = this.getModel("ActionViewModel");
-                var catalogue = oModel.getProperty("/ProductSheet");
+                var product = oModel.getProperty("/ProductSheet");
                 var fileUploader;
                 var sServiceUri = this.sServiceURI;
                 //To DO promises for sync
                 // var that=this;
-                catalogue.forEach(function (ele) {
+                product.forEach(function (ele) {
                     //  var isValid= that.checkFileName(ele.fileName);
                     jQuery.ajax({
                         method: "PUT",
@@ -563,8 +564,8 @@ sap.ui.define([
             var oClassificationControl = this.getView().byId("idClassification");
             var oRangeControl = this.getView().byId("idRange");
             var oObjectCatalogue = this.getModel("ActionViewModel").getProperty("/Catalogue");
-            var oObjectProduct = this.getModel("ActionViewModel").getProperty("/ProductSheet");
-            var oObjectWarranty = this.getModel("ActionViewModel").getProperty("/Warranty");
+            // var oObjectProduct = this.getModel("ActionViewModel").getProperty("/ProductSheet");
+            // var oObjectWarranty = this.getModel("ActionViewModel").getProperty("/Warranty");
             var oObjectCompetitors = this.getModel("ActionViewModel").getProperty("/Competitor");
             var oSet = new Set();
             var bCataloguePDF = oObjectCatalogue.every(function (ele) {
@@ -574,20 +575,20 @@ sap.ui.define([
                 }
                 return false;
             });
-            var bProductPDF = oObjectProduct.every(function (ele) {
-                if (oSet.has(ele.LanguageCode) !== true) {
-                    oSet.add(ele.LanguageCode);
-                    return true
-                }
-                return false;
-            });
-            var bWarrantyPDF = oObjectWarranty.every(function (ele) {
-                if (oSet.has(ele.LanguageCode) !== true) {
-                    oSet.add(ele.LanguageCode);
-                    return true
-                }
-                return false;
-            });
+            // var bProductPDF = oObjectProduct.every(function (ele) {
+            //     if (oSet.has(ele.LanguageCode) !== true) {
+            //         oSet.add(ele.LanguageCode);
+            //         return true
+            //     }
+            //     return false;
+            // });
+            // var bWarrantyPDF = oObjectWarranty.every(function (ele) {
+            //     if (oSet.has(ele.LanguageCode) !== true) {
+            //         oSet.add(ele.LanguageCode);
+            //         return true
+            //     }
+            //     return false;
+            // });
             
             var bCompetitors = oObjectCompetitors.every(function (ele) {
                 if (ele.CompetitorProductName == "" || ele.CompetitorProductName == null) {
@@ -601,18 +602,18 @@ sap.ui.define([
                 }
                 return false;
             })
-            var bProductEnglishPDF = oObjectProduct.find(function (ele) {
-                if (ele.LanguageCode === "EN") {
-                    return true;
-                }
-                return false;
-            })
-            var bWarrantyEnglishPDF = oObjectWarranty.find(function (ele) {
-                if (ele.LanguageCode === "EN") {
-                    return true;
-                }
-                return false;
-            })
+            // var bProductEnglishPDF = oObjectProduct.find(function (ele) {
+            //     if (ele.LanguageCode === "EN") {
+            //         return true;
+            //     }
+            //     return false;
+            // })
+            // var bWarrantyEnglishPDF = oObjectWarranty.find(function (ele) {
+            //     if (ele.LanguageCode === "EN") {
+            //         return true;
+            //     }
+            //     return false;
+            // })
             // this._setControlValueState([oTitleControl]);
             this._setSelectControlValueState([oCategoryControl, oClassificationControl, oRangeControl]);
             if (oCategoryControl.getSelectedKey() &&
@@ -622,16 +623,16 @@ sap.ui.define([
                     MessageToast.show(sMessage);
                     return false;
                 }
-                 if (!bProductEnglishPDF) {
-                    var sMessage = "English PDF Required for Product Sheet";
-                    MessageToast.show(sMessage);
-                    return false;
-                }
-                if (!bWarrantyEnglishPDF) {
-                    var sMessage = "English PDF Required for Warranty";
-                    MessageToast.show(sMessage);
-                    return false;
-                }
+                //  if (!bProductEnglishPDF) {
+                //     var sMessage = "English PDF Required for Product Sheet";
+                //     MessageToast.show(sMessage);
+                //     return false;
+                // }
+                // if (!bWarrantyEnglishPDF) {
+                //     var sMessage = "English PDF Required for Warranty";
+                //     MessageToast.show(sMessage);
+                //     return false;
+                // }
                 // if (!bCataloguePDF) {
                 //     var sMessage = "Multiple PDF of same Language";
                 //     MessageToast.show(sMessage);
