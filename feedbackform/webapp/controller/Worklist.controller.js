@@ -626,11 +626,13 @@ sap.ui.define(
 
                 if (oPayloadObj.Question) {
                     for (var i = 0; i < aAnswerOptions.length; i++) {
-                        if (aAnswerOptions[i].Answer)
-                            aAnswerOptions[i].Answer = aAnswerOptions[i].Answer.toString();
-                        else {
-                            MessageToast.show(this._geti18nText("AddAnswersForQueation"));
-                            return;
+                        if (aAnswerOptions[i].MasterInputControlTypes.Type === "Radio Button" || aAnswerOptions[i].MasterInputControlTypes.Type === "Check Box") {
+                            if (aAnswerOptions[i].Answer)
+                                aAnswerOptions[i].Answer = aAnswerOptions[i].Answer.toString();
+                            else {
+                                MessageToast.show(this._geti18nText("AddAnswersForQueation"));
+                                return;
+                            }
                         }
                     }
                 } else {
