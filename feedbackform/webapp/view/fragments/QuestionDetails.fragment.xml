@@ -4,13 +4,11 @@
         <customHeader>
             <Toolbar>
                 <Title text="{i18n>QuestionDetails}"/>
-                <ToolbarSpacer />
-                <!-- <Button icon="sap-icon://edit" type="Emphasized"/> -->
             </Toolbar>
         </customHeader>
         <content>
             <VBox id="idDisplayQueDetailsBox" visible="{= ${LocalViewModel>/VisibleSaveQueDetails}=== true? false:true}">
-                <Text text="Q. {QuestionDetailModel>/Question}?" class="sapUiTinyMarginBottom"/>
+                <Text text="{QuestionDetailModel>/Question}" class="sapUiTinyMarginBottom"/>
                 <FlexBox items="{path: 'QuestionDetailModel>/AnswerOptions/results', sorter: {path: 'Id', descending: false}}" direction="Column">
                     <items>
                         <HBox class="sapUiTinyMarginBottom">
@@ -26,15 +24,13 @@
                 <Text text="{i18n>Question}"/>
                 <Input value="{QuestionDetailModel>/Question}" change="onQuestionChange" class="sapUiTinyMarginBottom" maxLength="250"/>
 
-                <!-- <Text text="{i18n>Answer}" class="sapUiTinyMarginBottom"/> -->
                 <FlexBox items="{path: 'QuestionDetailModel>/AnswerOptions/results', sorter: {path: 'Id', descending: false}}" direction="Column" justifyContent="Center">
                     <items>
                         <Toolbar class="sapUiTinyMarginBottom" style="Clear" visible="{= ${QuestionDetailModel>InputControlTypeId} === '4' ? false : true}">
                             <core:Icon src="sap-icon://circle-task-2" size="5px" class="sapUiTinyMarginBeginEnd" useIconTooltip="false" visible="{= ${QuestionDetailModel>InputControlTypeId} === '1' || ${QuestionDetailModel>InputControlTypeId} === '3' ? true : false}"/>
-                            <Input value="{QuestionDetailModel>Answer}" visible="{= ${QuestionDetailModel>InputControlTypeId} === '1' || ${QuestionDetailModel>InputControlTypeId} === '3' ? true : false}" maxLength="100" class="zZeroPadding"/>
-                            <RatingIndicator iconSize="32px" visible="{= ${QuestionDetailModel>InputControlTypeId} === '5' ? true : false}" value="{QuestionDetailModel>Answer}" editable="false"/>
+                            <Input value="{QuestionDetailModel>Answer}" visible="{= ${QuestionDetailModel>InputControlTypeId} === '1' || ${QuestionDetailModel>InputControlTypeId} === '2' ? true : false}" maxLength="100" class="zZeroPadding"/>
+                            <RatingIndicator iconSize="32px" visible="{= ${QuestionDetailModel>InputControlTypeId} === '3' ? true : false}" value="{QuestionDetailModel>Answer}" editable="false"/>
                         </Toolbar>
-                        <!-- <TextArea value="{QuestionDetailModel>Answer}" valueState="None" visible="{= ${QuestionDetailModel>InputControlTypeId} === '4' ? true : false}" rows="7" cols="130" showExceededText="true" maxLength="300" valueLiveUpdate="true" liveChange="fnHandleTextAreaLiveChange" enabled="false"/> -->
                     </items>
                 </FlexBox>
 
@@ -47,8 +43,8 @@
         </content>
         <buttons>
             <Button text="{i18n>Close}" press="onCloseQuestionDetails"/>
-            <Button text="Edit" type="Emphasized" visible="{= ${LocalViewModel>/VisiblePageFooter} === true || ${LocalViewModel>/VisibleSaveQueDetails} === true ? false:true}" press="onEditQueDetailsPress"/>
-            <Button text="Save" visible="{LocalViewModel>/VisibleSaveQueDetails}" type="Emphasized" press="onSaveEditQueDetailsPress"/>
+            <Button text="{i18n>Edit}" type="Emphasized" visible="{= ${LocalViewModel>/VisiblePageFooter} === true || ${LocalViewModel>/VisibleSaveQueDetails} === true ? false:true}" press="onEditQueDetailsPress"/>
+            <Button text="{i18n>Save}" visible="{LocalViewModel>/VisibleSaveQueDetails}" type="Emphasized" press="onSaveEditQueDetailsPress"/>
         </buttons>
     </Dialog>
 </core:FragmentDefinition>
