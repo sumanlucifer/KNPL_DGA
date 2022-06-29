@@ -3,22 +3,17 @@
     xmlns:core="sap.ui.core"
     xmlns:form="sap.ui.layout.form"
     xmlns:f="sap.f">
-    <!-- <f:breadcrumbs>
-        <Breadcrumbs id="idBreadcrumbs" currentLocationText="{i18n>Request} {headerModel>/ticketCode}">
-            <Link id="idHumanResourceLink" text="{LocalViewModel>/PageTitle}" press="onBreadCrumbNavPress"/>
-        </Breadcrumbs>
-    </f:breadcrumbs> -->
     <form:SimpleForm editable="true" layout="ColumnLayout" title="{oModelControl>/Pagetitle} {i18n>Form}" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
         <form:content>
             <Label text="{i18n>FormName}" required="true"></Label>
             <Input id="idCreateFormNameINP" maxLength="100"/>
             <Label text="{i18n>FormType}" required="true"></Label>
-            <ComboBox id="idCreateFormTypeCMB" placeholder="Select Form Type" items="{/MasterFormTypes}" selectionChange="onFormTypeSelectionChange">
+            <ComboBox id="idCreateFormTypeCMB" placeholder="{i18n>SelectFormType}" items="{/MasterFormTypes}" selectionChange="onFormTypeSelectionChange">
                 <core:ListItem key="{Id}" text="{TypeText}"/>
             </ComboBox>
         </form:content>
     </form:SimpleForm>
-    <Table id="idCreateFMQuestionsTBL" mode="MultiSelect" noDataText="{i18n>tableNoDataText}" items="{path:'/Questions',filters: [{path: 'IsArchived', operator: 'EQ', value1: false}]}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onQuestionFormListUpdated">
+    <Table id="idCreateFMQuestionsTBL" mode="MultiSelect" noDataText="{i18n>tableNoDataText}" items="{path:'/Questions', sorter: {path: 'Question', descending: false}, filters: [{path: 'IsArchived', operator: 'EQ', value1: false}]}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onQuestionFormListUpdated">
         <headerToolbar>
             <OverflowToolbar>
                 <Title/>

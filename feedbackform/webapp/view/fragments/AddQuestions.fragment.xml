@@ -6,10 +6,10 @@
                 <Text text="{i18n>PrepareListofQuestions}" class="sapUiTinyMarginBottom"/>
 
                 <Toolbar class="sapUiTinyMarginBottom">
-                    <Text text="{i18n>Question}" class="sapUiNoMargin"/>
+                    <Label required="true" text="{i18n>Question}" class="sapUiNoMargin"/>
                 </Toolbar>
 
-                <Input id="idQuestionNameINP" maxLength="250"/>
+                <Input id="idQuestionNameINP" maxLength="250" liveChange="onQuestionTextChange"/>
 
                 <OverflowToolbar style="Clear" class="sapUiTinyMarginTopBottom">
                     <ToolbarSpacer/>

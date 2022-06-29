@@ -161,6 +161,11 @@ sap.ui.define(
 
                 var sId = oEvent.getSource().getSelectedKey();
                 this.getView().getModel("LocalViewModel").setProperty("/InputControlTypeId", sId);
+
+                // Add 1st option value by default
+                if (sap.ui.getCore().byId("idScrollContainer").getContent().length <= 0) {
+                    this.onAddOptionPress();
+                }
             },
 
             /**
@@ -270,17 +275,20 @@ sap.ui.define(
 
                 //Validation is Successful, so save the data to create a new form
                 if (typeof (oFormPayloadSuccess) === "object") {
+                    this.getView().setBusy(true);
                     this.getView().getModel().create("/Forms", oFormPayloadSuccess, {
                         success: function (oResponse) {
-                            MessageToast.show("Form Created Successfully.", {
+                            this.getView().setBusy(false);
+                            var sSuccessMsg = this._geti18nText("FormCreateSuccess");
+                            MessageToast.show(sSuccessMsg, {
                                 width: "200px"
                             });
                             this.getView().getModel().refresh();
                             this.onCancelFormPress();
                         }.bind(this),
                         error: function (oError) {
-                            MessageBox.error("Something went wrong.");
-                        }
+                            this.getView().setBusy(false);
+                        }.bind(this)
                     });
                 }
             },
@@ -331,7 +339,8 @@ sap.ui.define(
                 this.getView().getModel().update(sPath, oPayloadObj, {
                     success: function (oData) {
                         this.getView().setBusy(false);
-                        MessageToast.show("Form Updated Successfully.", {
+                        var sSuccessMsg = this._geti18nText("FormUpdateSuccess");
+                        MessageToast.show(sSuccessMsg, {
                             width: "200px"
                         });
                         this.getView().getModel().refresh();
@@ -411,7 +420,8 @@ sap.ui.define(
                 this.getView().getModel().update(sPath, oPublishFormobj, {
                     success: function (oData) {
                         this.getView().setBusy(false);
-                        MessageToast.show("Form Published Successfully.", {
+                        var sSuccessMsg = this._geti18nText("FormPublishSuccess");
+                        MessageToast.show(sSuccessMsg, {
                             width: "200px"
                         });
                         this.getView().getModel().refresh();
@@ -435,8 +445,9 @@ sap.ui.define(
 
                 // Validate whether Form Name is given or not
                 if (oCreateFormNameINP.getValue().trim().length < 1) {
+                    var sErrorStateMsg = this._geti18nText("EnterValidFormName");
                     oCreateFormNameINP.setValueState("Error");
-                    oCreateFormNameINP.setValueStateText("Please Enter valid Form Name.");
+                    oCreateFormNameINP.setValueStateText(sErrorStateMsg);
                     return false;
                 } else {
                     oCreateFormNameINP.setValueState("None");
@@ -444,8 +455,9 @@ sap.ui.define(
 
                 // Validate whether Form Type is selected or not
                 if (!oCreateFormTypeCMB.getSelectedKey()) {
+                    var sErrorStateMsg = this._geti18nText("PleaseSelectFormType");
                     oCreateFormTypeCMB.setValueState("Error");
-                    oCreateFormTypeCMB.setValueStateText("Please select Form Type.");
+                    oCreateFormTypeCMB.setValueStateText(sErrorStateMsg);
                     return false;
                 } else {
                     oCreateFormTypeCMB.setValueState("None");
@@ -453,7 +465,8 @@ sap.ui.define(
 
                 // Validate whether at least 1 question is selected from table or not
                 if (oCreateFormQuestionsTBL.getSelectedItems().length < 1) {
-                    MessageToast.show("Please select at least one question.", {
+                    var sSelectQuestionsMsg = this._geti18nText("SelectQuestions");
+                    MessageToast.show(sSelectQuestionsMsg, {
                         width: "200px"
                     });
                     return false;
@@ -593,7 +606,8 @@ sap.ui.define(
                 this.getView().getModel().update(sPath, oPayloadObj, {
                     success: function (oData) {
                         this.getView().setBusy(false);
-                        MessageToast.show("Question Details Updated Successfully.", {
+                        var sSuccessMsg = this._geti18nText("QuestionUpdateSuccess");
+                        MessageToast.show(sSuccessMsg, {
                             width: "200px"
                         });
                         this.getView().getModel().refresh();
@@ -608,7 +622,7 @@ sap.ui.define(
             fnGetUpdatedQueDetailsPayload: function () {
                 var oPayloadObj = this.getView().getModel("QuestionDetailModel").getData(),
                     aAnswerOptions = oPayloadObj.AnswerOptions.results;
-                if (aAnswerOptions[0].InputControlTypeId === "5") {
+                if (aAnswerOptions[0].InputControlTypeId === "3") {
                     for (var i = 0; i < aAnswerOptions.length; i++) {
                         aAnswerOptions[i].Answer = aAnswerOptions[i].Answer.toString();
                     }
@@ -646,12 +660,12 @@ sap.ui.define(
                 var oToggleButton = oEvent.getSource(),
                     bIsArchived = true,
                     bIsPressed = false,
-                    sArchiveToggleMessage = "Are you sure you want to archive the question?";
+                    sArchiveToggleMessage = this._geti18nText("ArchiveConfirmationMsg");
 
                 if (oToggleButton.getIcon() === "sap-icon://cause") {
                     bIsArchived = false;
                     bIsPressed = true;
-                    sArchiveToggleMessage = "Are you sure you want to unarchive the question?";
+                    sArchiveToggleMessage = this._geti18nText("UnArchiveConfirmationMsg");
                 }
 
                 var oArchivePayload = {
@@ -682,16 +696,10 @@ sap.ui.define(
                 this.getView().getModel().update(sPath, oArchivePayload, {
                     success: function (oData) {
                         this.getView().setBusy(false);
-                        if (bIsArchived) {
-                            MessageToast.show("Question archived successfully.", {
-                                width: "200px"
-                            });
-                        }
-                        else {
-                            MessageToast.show("Question unarchived successfully.", {
-                                width: "200px"
-                            });
-                        }
+                        var sSuccessMsg = bIsArchived === true ? this._geti18nText("QuestionArchiveSuccess") : this._geti18nText("QuestionUnArchiveSuccess");
+                        MessageToast.show(sSuccessMsg, {
+                            width: "200px"
+                        });
                         this.getView().getModel().refresh();
                     }.bind(this),
                     error: function (oError) {
@@ -707,7 +715,7 @@ sap.ui.define(
              */
             onDeletePress: function (oEvent) {
                 var sPath = oEvent.getSource().getBindingContext().getPath(),
-                    sDeleteMessage = "Are you sure you want to delete the question?";
+                    sDeleteMessage = this._geti18nText("DeleteQuestionConfirmationMsg");
 
                 MessageBox.warning(sDeleteMessage, {
                     icon: MessageBox.Icon.WARNING,
@@ -728,14 +736,21 @@ sap.ui.define(
                 this.getView().getModel().remove(sPath, {
                     success: function (oData) {
                         this.getView().setBusy(false);
-                        MessageToast.show("Question Deleted Successfully.", {
+                        var sSuccessMsg = this._geti18nText("QuestionDeleteSuccess");
+                        MessageToast.show(sSuccessMsg, {
                             width: "200px"
                         });
                         this.getView().getModel().refresh();
                     }.bind(this),
                     error: function (oError) {
                         this.getView().setBusy(false);
-                        this.getView().getModel().refresh();
+                        if (oError.statusCode === 200 || oError.statusCode === 204) {
+                            var sSuccessMsg = this._geti18nText("QuestionDeleteSuccess");
+                            MessageToast.show(sSuccessMsg, {
+                                width: "200px"
+                            });
+                            this.getView().getModel().refresh();
+                        }
                     }.bind(this)
                 });
             },
@@ -746,7 +761,7 @@ sap.ui.define(
              * Once control created, add the items into the scroll container.
              */
             onAddOptionPress: function () {
-                var sSelectedControlKey = sap.ui.getCore().byId("idOptionControlCMB").getSelectedKey(),
+                var sSelectedControlType = sap.ui.getCore().byId("idOptionControlCMB").getValue(),
                     oScrollContainer = sap.ui.getCore().byId("idScrollContainer"),
                     oQuestionOptionsModel = this.getView().getModel("QuestionOptionsModel"),
                     sInputControlTypeId = this.getView().getModel("LocalViewModel").getProperty("/InputControlTypeId"),
@@ -768,59 +783,56 @@ sap.ui.define(
                     });
 
                 // validation for User to add only 1 Test Box or Rating Indicator option
-                if ((sSelectedControlKey === "4" || sSelectedControlKey === "5") && oScrollContainer.getContent().length > 0) {
+                if ((sSelectedControlType === "Rating" || sSelectedControlType === "Text Box") && oScrollContainer.getContent().length > 0) {
                     return;
                 }
 
                 // Handle a control with selected control type
-                if (sSelectedControlKey) {
-                    switch (sSelectedControlKey) {
-                        case "1":
+                if (sSelectedControlType) {
+                    switch (sSelectedControlType) {
+                        case "Radio Button":
                             oOptionControl = new sap.m.RadioButton();
                             oItems.push({
                                 optionValue: "",
-                                optionControlType: "1"
+                                optionControlType: "Radio Button"
                             });
                             aRowContent = [oOptionControl, oInput, oDeleteBtn];
                             break;
 
-                        case "3":
+                        case "Check Box":
                             oOptionControl = new sap.m.CheckBox();
                             oItems.push({
                                 optionValue: "",
-                                optionControlType: "3"
+                                optionControlType: "Check Box"
                             });
                             aRowContent = [oOptionControl, oInput, oDeleteBtn];
                             break;
 
-                        case "4":
-                            oOptionControl = new sap.m.TextArea({
-                                rows: 7,
-                                cols: 130,
-                                showExceededText: true,
-                                maxLength: 300,
-                                enabled: false,
-                                liveChange: function (oEvent) {
-                                    this.fnHandleTextAreaLiveChange(oEvent);
-                                }.bind(this),
-                                valueLiveUpdate: true
-                            }).addStyleClass("sapUiTinyMarginTop");
-
-                            oItems.push({
-                                optionValue: "",
-                                optionControlType: "4"
-                            });
-                            aRowContent = [oOptionControl];
-                            break;
-
-                        case "5":
+                        case "Rating":
                             oOptionControl = new sap.m.RatingIndicator({
                                 iconSize: "32px",
                                 editable: false
                             });
                             oItems.push({
                                 optionValue: "",
-                                optionControlType: "5"
+                                optionControlType: "Rating"
+                            });
+                            aRowContent = [oOptionControl];
+                            break;
+
+                        case "Text Box":
+                            oOptionControl = new sap.m.TextArea({
+                                rows: 7,
+                                cols: 130,
+                                showExceededText: true,
+                                maxLength: 300,
+                                enabled: false,
+                                valueLiveUpdate: true
+                            }).addStyleClass("sapUiTinyMarginTop");
+
+                            oItems.push({
+                                optionValue: "",
+                                optionControlType: "Text Box"
                             });
                             aRowContent = [oOptionControl];
                             break;
@@ -828,7 +840,7 @@ sap.ui.define(
 
                     // if Selected control type is other than Text Area, add 3 controls i.e(Control, Input and Delete button)
                     // else add only Text Area and delete Button
-                    if (sSelectedControlKey !== "4") {
+                    if (sSelectedControlType !== "Text Box") {
                         oRowItem = new sap.m.Toolbar({
                             style: "Clear",
                             content: aRowContent
@@ -846,19 +858,11 @@ sap.ui.define(
                     oScrollContainer.addContent(oRowItem);
                 }
                 else {
-                    MessageToast.show("Please select option control type", {
+                    var sMsg = this._geti18nText("SelectOptionControlType");
+                    MessageToast.show(sMsg, {
                         width: "300px"
                     });
                 }
-            },
-
-            fnHandleTextAreaLiveChange: function (oEvent) {
-                var oTextArea = oEvent.getSource(),
-                    iValueLength = oTextArea.getValue().length,
-                    iMaxLength = oTextArea.getMaxLength(),
-                    sState = iValueLength > iMaxLength ? "Error" : "None";
-
-                oTextArea.setValueState(sState);
             },
 
             /**
@@ -880,18 +884,30 @@ sap.ui.define(
 
                 // Save data to backend
                 if (typeof (oPayloadObj) === "object") {
+                    this.getView().setBusy(true);
                     this.getView().getModel().create("/Questions", oPayloadObj, {
                         success: function (oResponse) {
+                            this.getView().setBusy(false);
                             this.onCloseAddQuestions();
-                            MessageToast.show("Question Created Successfully.", {
+                            var sSuccessMsg = this._geti18nText("QuestionCreateSuccess");
+                            MessageToast.show(sSuccessMsg, {
                                 width: "200px"
                             });
                             this.getView().getModel().refresh();
                         }.bind(this),
                         error: function (oError) {
-                            MessageBox.error("Something went wrong.");
-                        }
+                            this.getView().setBusy(false);
+                        }.bind(this)
                     });
+                }
+            },
+
+            onQuestionTextChange: function (oEvent) {
+                if (oEvent.getSource().getValue().length <= 0) {
+                    oEvent.getSource().setValueState("Error");
+                    oEvent.getSource().setValueStateText(this._geti18nText("EnterQuestion"));
+                } else {
+                    oEvent.getSource().setValueState("None");
                 }
             },
 
@@ -904,8 +920,9 @@ sap.ui.define(
                 // Validate Question field value
                 var oQuestion = sap.ui.getCore().byId("idQuestionNameINP");
                 if (oQuestion.getValue().trim().length < 1) {
+                    var sErrorStateMsg = this._geti18nText("EnterQuestion");
                     oQuestion.setValueState("Error");
-                    oQuestion.setValueStateText("Please enter valid question.");
+                    oQuestion.setValueStateText(sErrorStateMsg);
                     return false;
                 }
                 oQuestion.setValueState("None");
@@ -920,8 +937,9 @@ sap.ui.define(
                     var aOption = aOptionItems[i].mProperties.hasOwnProperty("style") === true ? aOptionItems[i].getContent() : aOptionItems[i].getItems();
                     if (aOption.length > 2) {
                         if (aOption[1].getValue().trim().length < 1) {
+                            var sErrorStateMsg = this._geti18nText("EnterValidAnswerORDeleteOption");
                             aOption[1].setValueState("Error");
-                            aOption[1].setValueStateText("Please enter valid answer or delete the option.");
+                            aOption[1].setValueStateText(sErrorStateMsg);
                             return false;
                         } else {
                             aOption[1].setValueState("None");
@@ -936,36 +954,11 @@ sap.ui.define(
                             Answer: ""
                         });
                     }
-                    // Validation for Text Area Control
-                    // else if (aOption[0].getValueState) {
-                    //     if (aOption[0].getValue().length < 1) {
-                    //         aOption[0].setValueState("Error");
-                    //         aOption[0].setValueStateText("Please enter valid answer or delete the option.");
-                    //         return false;
-                    //     } else {
-                    //         // aOption[0].setValueState("None");
-                    //         aOptionAnswers.push({
-                    //             InputControlTypeId: sInputControlTypeId,
-                    //             Answer: aOption[0].getValue()
-                    //         });
-                    //     }
-                    // }
-
-                    // Validation for Rating Control
-                    // else {
-                    //     if (aOption[0].getValue().length < 1) {
-                    //         return false;
-                    //     } else {
-                    //         aOptionAnswers.push({
-                    //             InputControlTypeId: sInputControlTypeId,
-                    //             Answer: aOption[0].getValue().toString()
-                    //         });
-                    //     }
-                    // }
                 }
 
                 if (aOptionAnswers.length < 1) {
-                    MessageToast.show("Please add answers for the queation.", {
+                    var sMsg = this._geti18nText("AddAnswersForQueation");
+                    MessageToast.show(sMsg, {
                         width: "200px"
                     });
                     return;
@@ -991,8 +984,8 @@ sap.ui.define(
             },
 
             fnSetAvailableQueTable: function () {
-                var oTable = this.getView().byId("idEditFMAvailableQuestionsTBL");
-
+                var oTable = this.getView().byId("idEditFMAvailableQuestionsTBL"),
+                    oSorter = new sap.ui.model.Sorter("Question", true);
                 oTable.bindAggregation("items", "/Questions", function (sId, oContext) {
                     var aSelectedQuestion = this.getView().getModel("FormDetailsModel").getProperty("/MasterFormQuestions"),
                         sQuestion = oContext.getProperty("Question"),
@@ -1001,6 +994,7 @@ sap.ui.define(
                         }) >= 0 ? false : true;
 
                     return new sap.m.ColumnListItem(sId, {
+                        // selected: !bSetQuestionVisible,
                         visible: bSetQuestionVisible,
                         cells: [
                             new sap.m.Text({
@@ -1016,7 +1010,7 @@ sap.ui.define(
                             })
                         ]
                     });
-                }.bind(this));
+                }.bind(this), oSorter)
             }
         });
     });

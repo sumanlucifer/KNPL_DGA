@@ -115,20 +115,6 @@
                     "target": [
                         "worklist"
                     ]
-                },
-                {
-                    "pattern": "Detail/{Mode}/{Id}",
-                    "name": "Detail",
-                    "target": [
-                        "Detail"
-                    ]
-                },
-                {
-                    "pattern": "Add",
-                    "name": "Add",
-                    "target": [
-                        "object"
-                    ]
                 }
             ],
             "targets": {
@@ -137,20 +123,6 @@
                     "viewId": "worklist",
                     "viewLevel": 1,
                     "title": "{i18n>worklistViewTitle}"
-                },
-                "object": {
-                    "viewName": "AddObject",
-                    "viewId": "object",
-                    "viewLevel": 2
-                },
-                "objectNotFound": {
-                    "viewName": "ObjectNotFound",
-                    "viewId": "objectNotFound"
-                },
-                "Detail": {
-                    "viewName": "Detail",
-                    "viewId": "Detail",
-                    "viewLevel": 2
                 },
                 "notFound": {
                     "viewName": "NotFound",
