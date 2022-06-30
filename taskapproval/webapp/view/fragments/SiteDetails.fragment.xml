@@ -39,15 +39,13 @@
     <f:SimpleForm id="idServiceDetails" editable="false" layout="ColumnLayout" title="{i18n>ServiceAndPaintingDetails}" columnsL="3" columnsM="2" >
         <f:content>
             <Label text="{i18n>ServiceType}" />
-            <Text  text="" />
+            <Text  text="{path :'Visit/TargetLead/LeadServiceType/Name',formatter:'.formatter.fmtCheckNull'}" />
             <Label text="{i18n>SubType}" />
-            <Text  text="" />
+            <Text  text="{path :'Visit/TargetLead/LeadServiceSubType/ServiceSubType',formatter:'.formatter.fmtCheckNull'}" />
             <Label text="{i18n>PaintingRequirementDays}" />
-            <Text  text="" />
+            <Text  text="{path :'Visit/TargetLead/PaintingReqSlab/Name',formatter:'.formatter.fmtCheckNull'}" />
             <Label text="{i18n>PaintingType}" />
-            <Text  text="" />
-            <Label text="{i18n>Category}" />
-            <Text  text="" />
+            <Text  text="{path :'Visit/TargetLead/PaintType/Name',formatter:'.formatter.fmtCheckNull'}" />
         </f:content>
     </f:SimpleForm>
 </core:FragmentDefinition>

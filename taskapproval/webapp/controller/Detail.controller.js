@@ -56,7 +56,7 @@ sap.ui.define(
                 var oView = this.getView(), othat = this;                
                 var oModel = new JSONModel({});
                 oView.setModel(oModel, "contractorModel");
-                var exPand = "Visit/DGA,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/LeadSource,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetContractor,Visit/TargetDealer";
+                var exPand = "Visit/DGA,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/LeadSource,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetLead/LeadServiceType,Visit/TargetLead/LeadServiceSubType,Visit/TargetLead/LeadSelectedPaintingRequests/MasterPaintingReq,Visit/TargetLead/PaintType,Visit/TargetLead/PaintingReqSlab,Visit/TargetContractor,Visit/TargetDealer";
                 if (context.trim() !== "") {
                     oView.bindElement({
                         path: "/" + context,
