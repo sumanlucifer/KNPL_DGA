@@ -21,8 +21,8 @@
                     <Title text="ID: {Visit/TargetLead/Id}"/>
                 </f:snappedTitleOnMobile>
                 <f:actions>
-                    <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>Approve}" />
-                    <Button press="onPressOpenTokenDialog" type="Reject" text="{i18n>Reject}" />
+                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" />
+                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" />
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -32,19 +32,21 @@
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <ObjectAttribute title="{i18n>DGAName}" text="{Visit/DGA/GivenName}"/>
                         <ObjectAttribute title="{i18n>DealerName}" text="{= ${Visit/TargetLead/SourceDealerId} === null ? 'NA' : ${Visit/TargetLead/SourceDealer/Name}}"/>
-                        <ObjectAttribute title="{i18n>ContractorName}" text="{= ${Visit/TargetLead/SourceContractorId} === null ? 'NA' : ${Visit/TargetLead/SourceContractor/Name}}"/>
+                        <ObjectAttribute title="{i18n>ContractorName}" text="{= ${Visit/TargetLead/SourceContractorId} === null ? 'NA' : ${contractorModel>/TargetContractor/Name} }"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
                         <Label  text="{i18n>RequestID}"  />
-                        <ObjectAttribute  text="{Visit/Id}"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Id}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
                         <Label  text="{i18n>Status}"/>
-                        <ObjectStatus class="sapMObjectStatusSmall" text="{Visit/TargetLead/LeadStatus/Name}" state="None"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/TargetLead/LeadStatus/Name}" 
+                            state="{= ${Visit/TargetLead/LeadStatus/Name} === 'Converted' ? 'Success' : 'Warning'}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
                         <Label  text="{i18n>Approval}"/>
-                        <ObjectStatus class="sapMObjectStatusSmall" text="{Visit/Status}" state="None"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Status}" 
+                            state="{= ${Visit/Status} === 'Approved' ? 'Success' : 'Warning'}"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>

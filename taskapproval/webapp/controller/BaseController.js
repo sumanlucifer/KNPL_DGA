@@ -81,6 +81,44 @@ sap.ui.define([
         onNavToHome2: function () {
             this.getRouter().navTo("worklist", {}, true);
         },
+        _fetchContractor: function(contractorId){
+            var oView = this.getView();
+            var oDataModel = oView.getModel("oData2");
+            var exPand = "BusinessCategory,AgeGroup,PainterType,MaritalStatus,Religion,Preference/Language,PainterContact,PrimaryDealerDetails,PainterAddress/CityDetails,PainterAddress/StateDetails,PainterMobileNumberChangeRequest";
+
+            return new Promise(function(resolve, reject){
+                oDataModel.read("/PainterSet("+Number(contractorId)+")", {
+                    urlParameters: {
+                        $expand : exPand
+                    },
+                    success:function(oData){
+                        resolve(oData);
+                    },
+                    error:function(error){
+                        reject(error);
+                    }
+                });
+            }).then(function(data){
+                oView.getModel("contractorModel").setProperty("/TargetContractor", data);
+            });
+        },
+        _updateTask:function(oContext, mParam1, mParam2){
+            var promise = jQuery.Deferred();
+            var payload = {
+                StatusId: mParam1,
+                Remark: mParam2
+            }, oModel = this.getView().getModel();
+
+            oModel.update(oContext + "/StatusId", payload, {
+                success:function(oResp){
+                    promise.resolve();
+                },
+                error:function(err){
+                    promise.reject();
+                }
+            });
+            return promise;
+        },
         _AddObjectControlModel: function (mParam1, mParam2) {
             /*
              * Author: manik saluja

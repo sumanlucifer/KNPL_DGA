@@ -12,8 +12,8 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:actions>
-                    <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>Approve}" />
-                    <Button press="onPressOpenTokenDialog" type="Reject" text="{i18n>Reject}" />
+                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" />
+                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" />
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -26,12 +26,13 @@
                         <ObjectAttribute title="{i18n>SalesGroupName}" text="Bind.."/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
-                        <Label  text="{i18n>RequestID}"  />
-                        <ObjectAttribute  text="{Visit/Id}"/>
+                        <Label text="{i18n>RequestID}"  />
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Id}" state="None"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
                         <Label  text="{i18n>Approval}"/>
-                        <ObjectStatus class="sapMObjectStatusMedium" text="{Visit/Status}" state="None"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Status}" 
+                            state="{= ${Visit/Status} === 'Approved' ? 'Success' : 'Warning'}"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>

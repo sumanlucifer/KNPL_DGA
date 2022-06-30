@@ -4,25 +4,22 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{Visit/TargetLead/ConsumerName}"/>
+                    <Title text="{Visit/TargetContractor/ContractorName}"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>LeadDetails}">
+                    <Breadcrumbs currentLocationText="{i18n>ContractorDetails}">
                         <Link text="{i18n>MainObject}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="ID: {Visit/TargetLead/Id}"/>
+                    <Label text="ID: {Visit/TargetContractor/ContractorId}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="ID: {Visit/TargetLead/Id}"/>
+                    <Label text="ID: {Visit/TargetContractor/ContractorId}"/>
                 </f:snappedContent>
-                <f:snappedTitleOnMobile>
-                    <Title text="ID: {Visit/TargetLead/Id}"/>
-                </f:snappedTitleOnMobile>
                 <f:actions>
-                    <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>Approve}" />
-                    <Button press="onPressOpenTokenDialog" type="Reject" text="{i18n>Reject}" />
+                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" />
+                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" />
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -30,21 +27,40 @@
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>DGAName}" text="{Visit/DGA/GivenName}"/>
-                        <ObjectAttribute title="{i18n>DealerName}" text="{= ${Visit/TargetLead/SourceDealerId} === null ? 'NA' : ${Visit/TargetLead/SourceDealer/Name}}"/>
-                        <ObjectAttribute title="{i18n>ContractorName}" text="{= ${Visit/TargetLead/SourceContractorId} === null ? 'NA' : ${Visit/TargetLead/SourceContractor/Name}}"/>
+                        <ObjectAttribute title="{i18n>PhoneNumber}" text="{Visit/TargetContractor/ContractorMobile}"/>
+                        <ObjectAttribute title="{i18n>AgeGroup}" text="{= ${contractorModel>/TargetContractor/AgeGroup} === null ? 'NA' : ${contractorModel>/TargetContractor/AgeGroup} }"/>
+                        <ObjectAttribute title="{i18n>Category}" text="{= ${contractorModel>/TargetContractor/BusinessCategoryId} === null ? 'NA' : ${contractorModel>/TargetContractor/BusinessCategory/BusinessCategory} }"/>
+                        <ObjectAttribute title="{i18n>Address}" text="{contractorModel>/TargetContractor/PainterAddress/CityDetails/City}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                        <ObjectAttribute title="{i18n>TotalPoints}" text="{contractorModel>/TargetContractor/TotalPoints}"/>
+                        <ObjectAttribute title="{i18n>RedeemedPoints}" text="{contractorModel>/TargetContractor/RedeemPoints}"/>
+                        <ObjectAttribute title="{i18n>BalancePoints}" text="{= ${contractorModel>/TargetContractor/TotalPoints} - ${contractorModel>/TargetContractor/BusinessCategory/RedeemPoints} }"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
                         <Label  text="{i18n>RequestID}"  />
-                        <ObjectAttribute  text="{Visit/Id}"/>
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                        <Label  text="{i18n>Status}"/>
-                        <ObjectStatus class="sapMObjectStatusSmall" text="{Visit/TargetLead/LeadStatus/Name}" state="None"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Id}" state="None" />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
                         <Label  text="{i18n>Approval}"/>
-                        <ObjectStatus class="sapMObjectStatusSmall" text="{Visit/Status}" state="None"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Status}" 
+                            state="{= ${Visit/Status} === 'Approved' ? 'Success' : 'Warning'}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label  text="{i18n>ActivationStatus}"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{contractorModel>/TargetContractor/ActivationStatus}" 
+                            state="{= ${contractorModel>/TargetContractor/ActivationStatus} === 'ACTIVATED' ? 'Success' : 'Warning'}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label  text="{i18n>AverageUserRating}"/>
+                        <RatingIndicator maxValue="{contractorModel>/TargetContractor/PainterMaxRating}" 
+                            value="{= ${contractorModel>/TargetContractor/PainterRating} === null ? 0 : ${contractorModel>/TargetContractor/PainterRating} }" 
+                            iconSize="16px" tooltip="Rating" />
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label  text="{i18n>PortfolioAvailable}"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{= ${contractorModel>/TargetContractor/DownloadPortfolioApplicable} === false ? 'No' : 'Yes'}" 
+                            state="{= ${contractorModel>/TargetContractor/DownloadPortfolioApplicable} === false ? 'Error' : 'Success'}"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
@@ -55,8 +71,8 @@
                     <IconTabFilter  text="{i18n>VisitDetails}" key="0" >
                         <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.VisitDetails" type="XML"/>
                     </IconTabFilter>
-                    <IconTabFilter  text="{i18n>SiteDetails}" key="1" >
-                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.SiteDetails" type="XML"/>
+                    <IconTabFilter  text="{i18n>BasicDetails}" key="1" >
+                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.ContractorBasicDetails" type="XML"/>
                     </IconTabFilter>
                 </items>
             </IconTabBar>

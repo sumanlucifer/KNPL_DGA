@@ -28,11 +28,11 @@
     <f:SimpleForm id="idSourceDetails" editable="false" layout="ColumnLayout" title="{i18n>SourceDetails}" columnsL="3" columnsM="2" >
         <f:content>
             <Label text="{i18n>SelectedSource}" />
-            <Text  text="" />
+            <Text  text="{Visit/TargetLead/LeadSource/Name}" />
             <Label text="{i18n>ContractorName}" />
-            <Text  text="" />
+            <Text  text="{contractorModel>/TargetContractor/Name}" />
             <Label text="{i18n>PhoneNumber}" />
-            <Text  text="" />
+            <Text  text="{contractorModel>/TargetContractor/Mobile}" />
         </f:content>
     </f:SimpleForm>
 
