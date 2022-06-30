@@ -589,7 +589,6 @@ sap.ui.define([
             //     }
             //     return false;
             // });
-            
             var bCompetitors = oObjectCompetitors.every(function (ele) {
                 if (ele.CompetitorProductName == "" || ele.CompetitorProductName == null) {
                     return false;
@@ -833,6 +832,7 @@ sap.ui.define([
             // var aCatalogue = oModel.getProperty("/Catalogue");
             var index = parseInt(sPath[sPath.length - 1]);
             var delItems = [];
+            var that = this;
             var property = this._property;
             var sServiceUri = this.sServiceURI;
             // aCatalogue.splice(parseInt(sPath[sPath.length - 1]), 1);
@@ -841,7 +841,8 @@ sap.ui.define([
                 if (i == index) {
                     delItems = aCatalogue[i];
                     if (delItems.MediaName != null) {
-                        oModel.setProperty("/bBusy", true);
+                        // oModel.setProperty("/bBusy", true);
+                        this.getView().setBusy(true);
                         jQuery.ajax({
                             method: "DELETE",
                             // url: sServiceUri + property + "/$value?doc_type=pdf&file_name=" + delItems.MediaName + "&language_code=" + delItems.LanguageCode,
@@ -852,7 +853,8 @@ sap.ui.define([
                             // data: delItems,
                             success: function (data) {
                                 // aCatalogue.splice(i);
-                                oModel.setProperty("/bBusy", false);
+                                that.getView().setBusy(false);
+                                // oModel.setProperty("/bBusy", false);
                                 aCatalogue.splice(parseInt(sPath[sPath.length - 1]), 1);
                                 var sMessage = "Catalogue Deleted!";
                                 that.getView().byId("idButton").setEnabled(true);
@@ -860,7 +862,9 @@ sap.ui.define([
                                 that.getOwnerComponent().getModel().refresh(true);
                                 oModel.refresh(true);
                             },
-                            error: function () { },
+                            error: function () {
+                                that.getView().setBusy(false);
+                            },
                         })
                     }
                     else {
@@ -916,7 +920,8 @@ sap.ui.define([
                 if (i == index) {
                     delItems = aProductSheet[i];
                     if (delItems.MediaName != null) {
-                        oModel.setProperty("/bBusy", true);
+                        // oModel.setProperty("/bBusy", true);
+                        that.getView().setBusy(true);
                         jQuery.ajax({
                             method: "DELETE",
                             // url: sServiceUri + property + "/$value?doc_type=pdf&file_name=" + delItems.MediaName + "&language_code=" + delItems.LanguageCode,
@@ -927,7 +932,8 @@ sap.ui.define([
                             // data: delItems,
                             success: function (data) {
                                 // aCatalogue.splice(i);
-                                oModel.setProperty("/bBusy", false);
+                                // oModel.setProperty("/bBusy", false);
+                                that.getView().setBusy(false);
                                 aProductSheet.splice(parseInt(sPath[sPath.length - 1]), 1);
                                 var sMessage = "Product Data Sheet Deleted!";
                                 that.getView().byId("idButton1").setEnabled(true);
@@ -935,7 +941,9 @@ sap.ui.define([
                                 that.getOwnerComponent().getModel().refresh(true);
                                 oModel.refresh(true);
                             },
-                            error: function () { },
+                            error: function () {
+                                that.getView().setBusy(false);
+                            },
                         })
                     }
                     else {
@@ -991,7 +999,8 @@ sap.ui.define([
                 if (i == index) {
                     delItems = aWarranty[i];
                     if (delItems.MediaName != null) {
-                        oModel.setProperty("/bBusy", true);
+                        // oModel.setProperty("/bBusy", true);
+                        that.getView().setBusy(true);
                         jQuery.ajax({
                             method: "DELETE",
                             // url: sServiceUri + property + "/$value?doc_type=pdf&file_name=" + delItems.MediaName + "&language_code=" + delItems.LanguageCode,
@@ -1002,7 +1011,8 @@ sap.ui.define([
                             // data: delItems,
                             success: function (data) {
                                 // aCatalogue.splice(i);
-                                oModel.setProperty("/bBusy", false);
+                                // oModel.setProperty("/bBusy", false);
+                                that.getView().setBusy(false);
                                 aWarranty.splice(parseInt(sPath[sPath.length - 1]), 1);
                                 var sMessage = "Warranty Deleted!";
                                 that.getView().byId("idButton2").setEnabled(true);
@@ -1010,7 +1020,9 @@ sap.ui.define([
                                 that.getOwnerComponent().getModel().refresh(true);
                                 oModel.refresh(true);
                             },
-                            error: function () { },
+                            error: function () {
+                                that.getView().setBusy(false);
+                            },
                         })
                     }
                     else {

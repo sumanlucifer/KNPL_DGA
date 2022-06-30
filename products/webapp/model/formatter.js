@@ -56,6 +56,20 @@ sap.ui.define([
             if (mParam1) {
                 return mParam1["Name"] + " - " + mParam1["Email"];
             }
-        }
+        },
+        positionValueFormatter: function (sValue) {
+            if (sValue.length === 0)
+                return;
+            var oComponentModel = this.getComponentModel();
+            var promise = new Promise(function (resolve, reject) {
+                oComponentModel.read("/" + sValue[0],
+                    {
+                        success: function (oData) {
+                            resolve(oData.DepotId);
+                        },
+                        error: function (err) { console.log(err); reject(err); },
+                    });
+            }.bind(this)); return promise;
+        },
     };
 });
