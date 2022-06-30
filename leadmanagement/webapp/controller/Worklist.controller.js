@@ -224,7 +224,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGADetails,LeadServiceType,State,LeadStatus,Depot,PaintingReqSlab";
+                oBindingParams.parameters["expand"] = "DGADetails,LeadServiceType,State,LeadStatus,Depot,PaintingReqSlab,DGA";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters
@@ -316,23 +316,23 @@ sap.ui.define(
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "DGADetails/GivenName",
+                                            path: "DGA/GivenName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "DGADetails/FamilyName",
+                                            path: "DGA/FamilyName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         }),
-                                        new Filter({
-                                            path: "DGADetails/PositionCode",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
+                                        // new Filter({
+                                        //     path: "DGADetails/PositionCode",
+                                        //     operator: "Contains",
+                                        //     value1: oViewFilter[prop].trim(),
+                                        //     caseSensitive: false
+                                        // }),
                                         new Filter({
                                             path: "PrimaryNum",
                                             operator: "Contains",
