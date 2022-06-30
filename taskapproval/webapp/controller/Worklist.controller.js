@@ -45,11 +45,9 @@ sap.ui.define(
                         EndDate: null,
                         Status: "",
                         Search: "",
-                        Zone: "",
+                        ZoneId: "",
                         DivisionId: "",
                         DepotId: "",
-                        DealerName: "",
-                        DGAMobile: ""
                     },
                     PageBusy: true
                 };
@@ -78,11 +76,9 @@ sap.ui.define(
                     EndDate: null,
                     Status: "",
                     Search: "",
-                    Zone: "",
+                    ZoneId: "",
                     DivisionId: "",
-                    DepotId: "",
-                    DealerName: "",
-                    DGAMobile: ""
+                    DepotId: ""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -250,13 +246,13 @@ sap.ui.define(
                             // converstions are made as the difference between utc and the server time
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.GE, new Date(oViewFilter[prop])));
+                                new Filter("Visit/Date", FilterOperator.GE, new Date(oViewFilter[prop])));
                         } else if (prop === "EndDate") {
                             // converstions are made as the difference between utc and the server time
                             aFlaEmpty = false;
                             var oDate = new Date(oViewFilter[prop]).setDate(oViewFilter[prop].getDate() + 1);
                             aCurrentFilterValues.push(
-                                new Filter("CreatedAt", FilterOperator.LT, oDate));
+                                new Filter("Visit/Date", FilterOperator.LT, oDate));
                         } else if (prop === "Status") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
@@ -264,27 +260,17 @@ sap.ui.define(
                         } else if (prop === "ZoneId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("Painter/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Visit/DGA/Zone", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "DvisionId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("Painter/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Visit/DGA/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "DepotId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("Painter/DepotId", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Visit/DGA/DepotId", FilterOperator.EQ, oViewFilter[prop]));
                         }
-                        //Delaer Filter Pending 
-                        // else if (prop === "DealerName") {
-                        //     aFlaEmpty = false;
-                        //     aCurrentFilterValues.push(
-                        //         new Filter("Visit/DealerId", FilterOperator.EQ, oViewFilter[prop]));
-                        // } 
-                        else if (prop === "DGAMobile") {
-                            aFlaEmpty = false;
-                            aCurrentFilterValues.push(
-                                new Filter("Visit/DGA/Mobile", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "Search") {
+                        else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter(
@@ -296,7 +282,7 @@ sap.ui.define(
                                             caseSensitive: false
                                         }),
                                         new Filter({
-                                            path: "Visit/Id",
+                                            path: "Visit/DGA/Mobile",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
@@ -323,7 +309,6 @@ sap.ui.define(
             onResetFilterBar: function () {
                 this._ResetFilterBar();
             },
-
 
             onListItemPress: function (oEvent) {
                 var oContext = oEvent.getSource().getBindingContext();
