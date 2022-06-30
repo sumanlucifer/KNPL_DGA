@@ -76,14 +76,18 @@ sap.ui.define(
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;
                 this._updateTask(oContext, "2", "Approved").then(function(){
                     MessageToast.show("Task Approved Successfully.");
-                    othat.onNavToHome();
+                    setTimeout(function demo() {
+                        othat.onNavToHome();
+                    }, 3000);
                 }).catch(function(err){ MessageToast.show("Something Went Wrong..!"); });
             },
             onPressReject:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;
                 this._updateTask(oContext, "3", "Rejected").then(function(){
                     MessageToast.show("Task Rejected Successfully.");
-                    othat.onNavToHome();
+                    setTimeout(function demo() {
+                        othat.onNavToHome();
+                    }, 3000);
                 }).catch(function(err){ MessageToast.show("Something Went Wrong..!"); });
             }
         }
