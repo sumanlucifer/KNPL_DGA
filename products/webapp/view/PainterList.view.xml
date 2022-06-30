@@ -147,7 +147,7 @@
                                     </Column>
                                     <Column hAlign="Begin">
                                         <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "DGAs/DepotId","type":"string", "leadingProperty": "DGAs/DepotId", "columnIndex": 6 }'/>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "DGAs/Positions","type":"string", "leadingProperty": "DGAs/Positions", "columnIndex": 6 }'/>
                                         </customData>
                                           <Text text="{i18n>depot}"/>
                                     </Column>
@@ -161,7 +161,8 @@
                                                      <Text text="{path:'DGAs/Mobile'}"/>
                                                         <Text text="{path:'DGAs/Zone'}"/>
                                                            <Text text="{path:'DGAs/DivisionId'}"/>
-                                                              <Text text="{path:'DGAs/DepotId'}"/>
+
+                                                           <Text text="{path:'DGAs/Positions',formatter:'.formatter.positionValueFormatter'}"/>
                                         </cells>      
                                     </ColumnListItem>
                                 </items> 
