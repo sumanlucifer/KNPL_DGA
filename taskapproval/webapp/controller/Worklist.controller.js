@@ -286,6 +286,12 @@ sap.ui.define(
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
+                                        }),
+                                        new Filter({
+                                            path: "Visit/Status",
+                                            operator: "Contains",
+                                            value1: oViewFilter[prop].trim(),
+                                            caseSensitive: false
                                         })
                                     ],
                                     false
