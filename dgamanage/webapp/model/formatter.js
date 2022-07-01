@@ -79,7 +79,10 @@ sap.ui.define([], function () {
             if (mParam === "PENDING") {
                 return "Warning";
             }
-            return "Error";
+            if (mParam === "REJECTED") {
+                return "Error";
+            }
+            return "None";
         },
         fmtEnbChangeStatus: function (mParam1, mParam2) {
             /*

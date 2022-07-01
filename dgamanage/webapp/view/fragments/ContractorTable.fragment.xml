@@ -46,7 +46,7 @@
                           <Text text="{Dealer/Name}" />
                             <Text text="{Dealer/Id}" />
                                 <Text text="{path:'Contractor/KYCStatus',formatter:'.formatter.fmtLowerCase'}" />
-                                  <Text text="{path:'Contractor/BankDetailsStatus', formatter:'.formatter.fmtLowerCase'}" />
+                                   <ObjectStatus text="{path:'Contractor/BankDetailsStatus',formatter:'.formatter.fmtLowerCase'}" state="{path:'Contractor/BankDetailsStatus',formatter:'.formatter.fmtStatusColorChange2'}"/>
                     </cells>
                 </ColumnListItem>
             </dependents >
