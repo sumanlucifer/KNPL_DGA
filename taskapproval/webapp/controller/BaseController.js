@@ -82,7 +82,9 @@ sap.ui.define([
             this.getRouter().navTo("worklist", {}, true);
         },
         _fetchContractor: function(contractorId){
-            var oView = this.getView();
+            var oView = this.getView();                
+            var oModel = new JSONModel({});
+            oView.setModel(oModel, "contractorModel");
             var oDataModel = oView.getModel("oData2");
             var exPand = "BusinessCategory,AgeGroup,PainterType,MaritalStatus,Religion,Preference/Language,PainterContact,PrimaryDealerDetails,PainterAddress/CityDetails,PainterAddress/StateDetails,PainterMobileNumberChangeRequest";
 

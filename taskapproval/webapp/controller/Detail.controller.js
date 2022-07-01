@@ -53,9 +53,11 @@ sap.ui.define(
                 var context = window.decodeURIComponent(
                     oEvent.getParameter("arguments").context
                 );
-                var oView = this.getView(), othat = this;                
-                var oModel = new JSONModel({});
-                oView.setModel(oModel, "contractorModel");
+                var oView = this.getView(), othat = this;
+                var oViewModel = {
+                    busy: false
+                };
+                oView.setModel(new JSONModel(oViewModel), "oViewModel");
                 var exPand = "Visit/DGA,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/LeadSource,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetLead/LeadServiceType,Visit/TargetLead/LeadServiceSubType,Visit/TargetLead/LeadSelectedPaintingRequests/MasterPaintingReq,Visit/TargetLead/PaintType,Visit/TargetLead/PaintingReqSlab,Visit/TargetContractor,Visit/TargetDealer";
                 if (context.trim() !== "") {
                     oView.bindElement({
@@ -70,24 +72,39 @@ sap.ui.define(
                         }
                     });
                 }
+                if(oView.getModel("contractorModel") && oView.getBindingContext())
+                    if(oView.getModel("contractorModel").getProperty("/TargetContractor/Id") != oView.getBindingContext().getObject("Visit/TargetLead/SourceContractorId"))
+                        othat._fetchContractor(oView.getBindingContext().getObject("Visit/TargetLead/SourceContractorId"));
             },
             onPressApprove:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;
+                othat.getView().getModel("oViewModel").setProperty("/busy", true);
                 this._updateTask(oContext, "2", "Approved").then(function(){
                     MessageToast.show("Task Approved Successfully.");
+                    othat.getView().getModel().refresh();
                     setTimeout(function demo() {
+                        othat.getView().getModel("oViewModel").setProperty("/busy", false);
                         othat.onNavToHome();
                     }, 3000);
-                }).catch(function(err){ MessageToast.show("Something Went Wrong..!"); });
+                }).catch(function(err){ 
+                    othat.getView().getModel("oViewModel").setProperty("/busy", false);
+                    MessageToast.show("Something Went Wrong..!"); 
+                });
             },
             onPressReject:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;
+                othat.getView().getModel("oViewModel").setProperty("/busy", true);
                 this._updateTask(oContext, "3", "Rejected").then(function(){
                     MessageToast.show("Task Rejected Successfully.");
+                    othat.getView().getModel().refresh();
                     setTimeout(function demo() {
+                        othat.getView().getModel("oViewModel").setProperty("/busy", false);
                         othat.onNavToHome();
                     }, 3000);
-                }).catch(function(err){ MessageToast.show("Something Went Wrong..!"); });
+                }).catch(function(err){ 
+                    othat.getView().getModel("oViewModel").setProperty("/busy", false);
+                    MessageToast.show("Something Went Wrong..!"); 
+                });
             }
         }
     );

@@ -61,6 +61,12 @@
                     </customData>
                     <Text text="{i18n>VisitType}"/>
                 </Column>
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Visit/Status"}, "leadingProperty": "Visit/Status"'/>
+                    </customData>
+                    <Text text="{i18n>Status}"/>
+                </Column>
 
             </columns>
             <items>
@@ -74,6 +80,7 @@
                          <Text text="{Visit/DGA/DivisionId}"/>
                          <Text text="{= ${Visit/DGA/DepotId} === null ? 'NA' : ${Visit/DGA/DepotId}}"/>
                          <Text text="{Visit/TaskType/Name}"/>
+                         <ObjectStatus text="{Visit/Status}" state="{= ${Visit/Status} === 'Completed' ? 'Success' : ${Visit/Status} === 'Rejected' ? 'Error' : 'Warning'}"/>
                     </cells>
                 </ColumnListItem>
             </items>

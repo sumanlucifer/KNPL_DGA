@@ -1,5 +1,5 @@
 <mvc:View height="100%" controllerName="com.knpl.dga.taskapproval.controller.ContractorDetail" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
-    <f:DynamicPage busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
+    <f:DynamicPage busy="{oViewModel>/busy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
 			class="sapUiNoContentPadding" showFooter="true" id="dynamicPageContractorId" headerExpanded="true">
         <f:title>
             <f:DynamicPageTitle>
@@ -18,8 +18,8 @@
                     <Label text="ID: {Visit/TargetContractor/ContractorId}"/>
                 </f:snappedContent>
                 <f:actions>
-                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" />
-                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" />
+                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
+                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -44,7 +44,7 @@
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
                         <Label  text="{i18n>Approval}"/>
                         <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Status}" 
-                            state="{= ${Visit/Status} === 'Approved' ? 'Success' : 'Warning'}"/>
+                            state="{= ${Visit/Status} === 'Completed' ? 'Success' : ${Visit/Status} === 'Rejected' ? 'Error' : 'Warning'}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
                         <Label  text="{i18n>ActivationStatus}"/>

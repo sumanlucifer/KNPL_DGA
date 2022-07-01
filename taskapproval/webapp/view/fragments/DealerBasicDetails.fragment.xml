@@ -5,13 +5,13 @@
             <Label text="{i18n>PlantCode}" />
             <Text  text="{= ${Visit/TargetDealer/PlantCode} === null ? 'NA' : ${Visit/TargetDealer/FiscalYear} === '' ? 'NA' : ${Visit/TargetDealer/PlantCode}}" />
             <Label text="{i18n>SAPCode}" />
-            <Text  text="{= ${Visit/TargetDealer} === null ? 'NA' : 'bind..'}" />
+            <Text  text="{= ${Visit/TargetDealer/Id} === null ? 'NA' : ${Visit/TargetDealer/Id}}" />
             <Label text="{i18n>Depot}" />
             <Text  text="{= ${Visit/TargetDealer/DealerSalesDetails/Depot} === null ? 'NA' : ${Visit/TargetDealer/DealerSalesDetails/Depot}}" />
             <Label text="{i18n>SalesGroupId}" />
             <Text  text="{= ${Visit/TargetDealer/DealerSalesDetails/SalesGroupId} === null ? 'NA' : ${Visit/TargetDealer/DealerSalesDetails/SalesGroupId}}" />
             <Label text="{i18n>SalesGroupName}" />
-            <Text  text="{= ${Visit/TargetDealer} === null ? 'NA' : 'bind..'}" />
+            <Text  text="{= ${Visit/TargetDealer/DealerSalesDetails/SalesGroup/Description} === null ? 'NA' : ${Visit/TargetDealer/DealerSalesDetails/SalesGroup/Description}}" />
             <Label text="{i18n>FiscalYear}" />
             <Text  text="{= ${Visit/TargetDealer/FiscalYear} === '' ? 'NA' : ${Visit/TargetDealer/FiscalYear} === null ? 'NA' : ${Visit/TargetDealer/FiscalYear}}" />
             <Label text="{i18n>ConsumerClass}" />
