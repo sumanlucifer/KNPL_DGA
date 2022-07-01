@@ -55,7 +55,7 @@ sap.ui.define(
                 );
                 var oView = this.getView(), othat = this;
                 var oViewModel = {
-                    busy: false
+                    busy: true
                 };
                 oView.setModel(new JSONModel(oViewModel), "oViewModel");
                 var exPand = "Visit/DGA,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/LeadSource,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetLead/LeadServiceType,Visit/TargetLead/LeadServiceSubType,Visit/TargetLead/LeadSelectedPaintingRequests/MasterPaintingReq,Visit/TargetLead/PaintType,Visit/TargetLead/PaintingReqSlab,Visit/TargetContractor,Visit/TargetDealer";
@@ -75,7 +75,9 @@ sap.ui.define(
                 if(oView.getModel("contractorModel") && oView.getBindingContext())
                     if(oView.getModel("contractorModel").getProperty("/TargetContractor/Id") != oView.getBindingContext().getObject("Visit/TargetLead/SourceContractorId"))
                         othat._fetchContractor(oView.getBindingContext().getObject("Visit/TargetLead/SourceContractorId"));
-            },
+                    else 
+                        othat.getView().getModel("oViewModel").setProperty("/busy", false);
+                },
             onPressApprove:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;
                 othat.getView().getModel("oViewModel").setProperty("/busy", true);

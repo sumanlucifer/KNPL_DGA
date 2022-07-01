@@ -67,7 +67,6 @@ sap.ui.define(
                         }
                     });
                 }
-
             },
             onPressApprove:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;

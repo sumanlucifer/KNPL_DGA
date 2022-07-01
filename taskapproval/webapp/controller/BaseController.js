@@ -102,7 +102,8 @@ sap.ui.define([
                 });
             }).then(function(data){
                 oView.getModel("contractorModel").setProperty("/TargetContractor", data);
-            });
+                oView.getModel("oViewModel").setProperty("/busy", false);
+            }).catch(function(){ oView.getModel("oViewModel").setProperty("/busy", false); });
         },
         _updateTask:function(oContext, mParam1, mParam2){
             var promise = jQuery.Deferred();
