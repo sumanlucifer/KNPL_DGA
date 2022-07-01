@@ -665,6 +665,7 @@ sap.ui.define(
                     this.oDefaultDialog.close();
                 },
                 onAfterWithdrawCommentClose: function () {
+                    oView.getModel("oModelView").setProperty("/withdrawComments", "")
                     othat.oDefaultDialog.destroy();
                     delete othat.oDefaultDialog;
                 },
