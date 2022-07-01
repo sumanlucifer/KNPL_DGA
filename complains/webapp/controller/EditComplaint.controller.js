@@ -692,6 +692,7 @@ sap.ui.define(
                     oData.update(sPath, oPayload, {
                         success:function(oResp){
                             MessageToast.show("Complaint ("+oContext.ComplaintCode+") has been withdrawn!");
+                            oModelView.setProperty("/withdrawComments", "");
                             othat.oDefaultDialog.close();
                         },
                         error:function(oError){
