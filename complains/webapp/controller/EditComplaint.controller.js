@@ -662,6 +662,7 @@ sap.ui.define(
                     }
                 },
                 onWithdrawCommentClose:function () {
+                    oView.getModel("oModelView").setProperty("/withdrawComments", "")
                     this.oDefaultDialog.close();
                 },
                 onAfterWithdrawCommentClose: function () {
