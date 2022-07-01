@@ -29,7 +29,7 @@
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>DGAName}" text="{DGADetails/GivenName} {DGADetails/FamilyName}"/>
+                        <ObjectAttribute title="{i18n>DGAName}" text="{DGA/GivenName} {DGA/FamilyName}"/>
                         <ObjectAttribute title="{i18n>DealerName}" text="{path:'Dealer/Name',formatter:'.formatter.fmtCheckNull'}"/>
                         <ObjectAttribute title="{i18n>AssignedContractorName}" text="{path: 'AssignedContractors' , formatter: '.formatter.fmtCommaSepratedAssignedContractor'}"/>
                     </layout:VerticalLayout>
@@ -51,7 +51,7 @@
                     </layout:VerticalLayout> -->
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>MobNo}:"/>
-                        <ObjectStatus class="statusTextSizeLarge" text="{path:'DGADetails/Mobile',formatter:'.formatter.fmtCheckNull'}" state="None"/>
+                        <ObjectStatus class="statusTextSizeLarge" text="{path:'DGA/Mobile',formatter:'.formatter.fmtCheckNull'}" state="None"/>
                     </layout:VerticalLayout>
                     <!-- <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <Label  text="{i18n>Visits}:"/>
