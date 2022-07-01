@@ -118,7 +118,6 @@ sap.ui.define([], function () {
             }
         },
         GetWorkLisPositionId: function (mParam1) {
-
             if (Array.isArray(mParam1)) {
                 var obj;
                 var oData = this.getView().getModel();
