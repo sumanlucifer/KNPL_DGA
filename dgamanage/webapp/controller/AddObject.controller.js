@@ -186,7 +186,7 @@ sap.ui.define([
             var oModelView = oView.getModel("oModelView");
             var oProp = {
                 //GivenName: "",
-                Mobile: "",
+                //Mobile: "",
                 PincodeId: "",
                 //PayrollCompanyId: "",
                 Zone: "",
