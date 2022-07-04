@@ -504,8 +504,8 @@ sap.ui.define(
                             "Comments": oViewModel.getProperty("/Comments") ? oViewModel.getProperty("/Comments") : null,
                             "ConsumersSelectedIssuesRequests": this._selectedItemList(this.getView().byId("idList").getSelectedItems()),
                             "IsNewConsumer": oViewModel.getProperty("/newCustomer"),
-                            "ConsumerName": oViewModel.getProperty("/newCustomer") ? oViewModel.getProperty("/NewConsumerName") : null,
-                            "ConsumerMobileNo": oViewModel.getProperty("/newCustomer") ? oViewModel.getProperty("/NewConsumerMobileNo") : null,
+                            "ConsumerName": oViewModel.getProperty("/ConsumerName"),
+                            "ConsumerMobileNo": oViewModel.getProperty("/ConsumerMobileNo"),
                             "DGAId": oViewModel.getProperty("/DGA/DGAID")
                         };
                     }
