@@ -61,8 +61,6 @@ sap.ui.define(
                 },
                 _onRouteMatched: function (oEvent) {
                     var sId = oEvent.getParameter("arguments").Id;
-                    this._initData("add", "", sId);
-
                     var oViewData = {
                         busy: false,
                         newCustomer: true,
@@ -90,6 +88,7 @@ sap.ui.define(
 
                     var oViewModel = new JSONModel(oViewData);
                     this.getView().setModel(oViewModel, "oViewModel");
+                    this._initData("add", "", sId);
                 },
                 _initData: function (mParMode, mKey, mPainterId) {
                     var othat = this;
@@ -566,12 +565,13 @@ sap.ui.define(
                     var objSection = this.getView().byId("oVbxSmtTbl");
                     var oView = this.getView();
                     objSection.destroyItems();
-                    var othat = this;
+                    var othat = this, oViewModel = oView.getModel("oViewModel");
                     this._getFormFragment(sFragmentName).then(function (oVBox) {
                         oView.addDependent(oVBox);
                         objSection.addItem(oVBox);
                         othat._fetchComplaintTypeList().then(function(id){
                             othat._issueListFilter("ONGOING", id);
+                            oViewModel.setProperty("/ComplaintType", id);
                         });
                         promise.resolve();
                     });
