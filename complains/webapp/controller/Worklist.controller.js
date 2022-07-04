@@ -328,6 +328,16 @@ sap.ui.define(
                                                 "DGA/Mobile",
                                                 FilterOperator.Contains,
                                                 oViewFilter[prop].trim()
+                                            ),
+                                            new Filter(
+                                                "Lead/ConsumerName",
+                                                FilterOperator.Contains,
+                                                oViewFilter[prop].trim()
+                                            ),
+                                            new Filter(
+                                                "Lead/PrimaryNum",
+                                                FilterOperator.Contains,
+                                                oViewFilter[prop].trim()
                                             )
                                         ],
                                         false
