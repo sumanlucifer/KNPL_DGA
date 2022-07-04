@@ -662,9 +662,11 @@ sap.ui.define(
                     }
                 },
                 onWithdrawCommentClose:function () {
+                    this.getView().getModel("oModelView").setProperty("/withdrawComments", "")
                     this.oDefaultDialog.close();
                 },
                 onAfterWithdrawCommentClose: function () {
+                    this.getView().getModel("oModelView").setProperty("/withdrawComments", "")
                     othat.oDefaultDialog.destroy();
                     delete othat.oDefaultDialog;
                 },
@@ -692,6 +694,7 @@ sap.ui.define(
                     oData.update(sPath, oPayload, {
                         success:function(oResp){
                             MessageToast.show("Complaint ("+oContext.ComplaintCode+") has been withdrawn!");
+                            oModelView.setProperty("/withdrawComments", "");
                             othat.oDefaultDialog.close();
                         },
                         error:function(oError){

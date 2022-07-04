@@ -70,7 +70,7 @@ sap.ui.define([
             fnrebindTable: function (oEvent) {
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.sorter.push(new sap.ui.model.Sorter('Id', true));
-                oBindingParams.parameters["expand"] = "DGAs";
+                oBindingParams.parameters["expand"] = "DGAs,DGAs/Positions";
                 if (this.oFilter)
                     oBindingParams.filters.push(this.oFilter);
             },
