@@ -19,6 +19,7 @@ server:
           - path: /api
             url: https://knpl-dga-api.cfapps.ap11.hana.ondemand.com
             destination: KNPL_DGA_API
+         
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
