@@ -60,12 +60,12 @@ sap.ui.define(
              */
             onQuestionFormListUpdated: function (oEvent) {
                 var sTableID = oEvent.getSource().getId().split("worklist--")[1],
-                    oBinding = this.getView().byId(sTableID).getBinding("items"),
+                    oBindingLength = this.getView().byId(sTableID).getBinding("items").getLength() > 0 ? this.getView().byId(sTableID).getBinding("items").getLength() : "0",
                     oHeader = oEvent.getSource().getHeaderToolbar().getContent()[0];
                 if (sTableID.indexOf("Form") < 0) {
-                    oHeader.setText(this.getResourceBundle().getText("QuestionsCount", oBinding.getLength()));
+                    oHeader.setText(this.getResourceBundle().getText("QuestionsCount", oBindingLength));
                 } else {
-                    oHeader.setText(this.getResourceBundle().getText("FormsCount", oBinding.getLength()));
+                    oHeader.setText(this.getResourceBundle().getText("FormsCount", oBindingLength));
                 }
             },
 
@@ -75,12 +75,12 @@ sap.ui.define(
              */
             onSelectedAvailableFormQuestionsUpdated: function (oEvent) {
                 var sTableID = oEvent.getSource().getId().split("worklist--")[1],
-                    oBinding = this.getView().byId(sTableID).getBinding("items"),
+                    oBindingLength = this.getView().byId(sTableID).getBinding("items").getLength() > 0 ? this.getView().byId(sTableID).getBinding("items").getLength() : "0",
                     oHeader = oEvent.getSource().getHeaderToolbar().getContent()[0];
                 if (sTableID.indexOf("Available") < 0) {
-                    oHeader.setText(this.getResourceBundle().getText("SelectedQuestionsCount", oBinding.getLength()));
+                    oHeader.setText(this.getResourceBundle().getText("SelectedQuestionsCount", oBindingLength));
                 } else {
-                    oHeader.setText(this.getResourceBundle().getText("AvailableQuestionsCount", oBinding.getLength()));
+                    oHeader.setText(this.getResourceBundle().getText("AvailableQuestionsCount", oBindingLength));
                 }
             },
 
