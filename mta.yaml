@@ -110,10 +110,6 @@ modules:
       - comknpldgataskapproval.zip
       name: comknpldgataskapproval
       target-path: resources/
-    - artifacts:
-      - comknpldgaperformancetarget.zip
-      name: comknpldgaperformancetarget
-      target-path: resources/
 - name: comknpldgacomplains
   type: html5
   path: complains
@@ -281,16 +277,6 @@ modules:
 - name: comknpldgataskapproval
   type: html5
   path: taskapproval
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: comknpldgaperformancetarget
-  type: html5
-  path: performancetarget
   build-parameters:
     build-result: dist
     builder: custom
