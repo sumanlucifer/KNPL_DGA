@@ -12,8 +12,8 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:actions>
-                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
-                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
+                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Approved' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
+                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Approved' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -30,9 +30,9 @@
                         <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Id}" state="None"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                        <Label  text="{i18n>Approval}"/>
+                        <Label  text="{i18n>TaskStatus}"/>
                         <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Status}" 
-                            state="{= ${Visit/Status} === 'Completed' ? 'Success' : ${Visit/Status} === 'Rejected' ? 'Error' : 'Warning'}"/>
+                            state="{= ${Visit/Status} === 'Completed' ? 'Success' : ${Visit/Status} === 'Approved' ? 'Success' : ${Visit/Status} === 'Rejected' ? 'Error' : 'Warning'}"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>

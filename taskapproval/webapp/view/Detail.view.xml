@@ -12,17 +12,17 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="ID: {Visit/TargetLead/Id}"/>
+                    <Label text="{i18n>LeadID}: {Visit/TargetLead/Id}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="ID: {Visit/TargetLead/Id}"/>
+                    <Label text="{i18n>LeadID}: {Visit/TargetLead/Id}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
-                    <Title text="ID: {Visit/TargetLead/Id}"/>
+                    <Title text="{i18n>LeadID}: {Visit/TargetLead/Id}"/>
                 </f:snappedTitleOnMobile>
                 <f:actions>
-                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
-                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
+                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Approved' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
+                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Approved' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -31,22 +31,25 @@
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <ObjectAttribute title="{i18n>DGAName}" text="{Visit/DGA/GivenName}"/>
-                        <ObjectAttribute title="{i18n>DealerName}" text="{= ${Visit/TargetLead/SourceDealerId} === null ? 'NA' : ${Visit/TargetLead/SourceDealer/Name}}"/>
+                        <ObjectAttribute title="{i18n>DGAID}" text="{= ${Visit/DGA/Id} === null ? 'NA' : ${Visit/DGA/Id}}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <ObjectAttribute title="{i18n>ContractorName}" text="{= ${Visit/TargetLead/SourceContractorId} === null ? 'NA' : ${contractorModel>/TargetContractor/Name} }"/>
+                        <ObjectAttribute title="{i18n>DealerName}" text="{= ${Visit/TargetLead/SourceDealerId} === null ? 'NA' : ${Visit/TargetLead/SourceDealer/Name}}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
                         <Label  text="{i18n>RequestID}"  />
                         <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Id}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                        <Label  text="{i18n>Status}"/>
+                        <Label  text="{i18n>LeadStatus}"/>
                         <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/TargetLead/LeadStatus/Name}" 
                             state="{= ${Visit/TargetLead/LeadStatus/Name} === 'Converted' ? 'Success' : 'Warning'}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                        <Label  text="{i18n>Approval}"/>
+                        <Label  text="{i18n>TaskStatus}"/>
                         <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Status}" 
-                            state="{= ${Visit/Status} === 'Completed' ? 'Success' : ${Visit/Status} === 'Rejected' ? 'Error' : 'Warning'}"/>
+                            state="{= ${Visit/Status} === 'Completed' ? 'Success' : ${Visit/Status} === 'Approved' ? 'Success' : ${Visit/Status} === 'Rejected' ? 'Error' : 'Warning'}"/>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>

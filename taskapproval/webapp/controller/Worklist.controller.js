@@ -48,6 +48,7 @@ sap.ui.define(
                         ZoneId: "",
                         DivisionId: "",
                         DepotId: "",
+                        VisitType: ""
                     },
                     PageBusy: true
                 };
@@ -78,7 +79,8 @@ sap.ui.define(
                     Search: "",
                     ZoneId: "",
                     DivisionId: "",
-                    DepotId: ""
+                    DepotId: "",
+                    VisitType: ""
                 };
                 var oViewModel = this.getView().getModel("oModelControl");
                 oViewModel.setProperty("/filterBar", aResetProp);
@@ -253,15 +255,15 @@ sap.ui.define(
                             var oDate = new Date(oViewFilter[prop]).setDate(oViewFilter[prop].getDate() + 1);
                             aCurrentFilterValues.push(
                                 new Filter("Visit/Date", FilterOperator.LT, oDate));
-                        } else if (prop === "Status") {
+                        } else if (prop === "VisitType") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("ComplaintStatus", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("Visit/TaskType/Type", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "ZoneId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("Visit/DGA/Zone", FilterOperator.EQ, oViewFilter[prop]));
-                        } else if (prop === "DvisionId") {
+                        } else if (prop === "DivisionId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("Visit/DGA/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
