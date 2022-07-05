@@ -91,20 +91,74 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var oDataControl = {
+                icnTbTittle: "",
                 PageBusy: true,
                 Pagetitle: mParam1 === "Add" ? "Add" : "Edit",
                 mode: mParam1,
                 Id: mParam2,
-                bindProp: "PainterComplainsSet(" + mParam2 + ")",
-                EntitySet: "PainterComplainsSet",
+                bindProp: "MasterTargetPlansReconstructs(" + mParam2 + ")",
+                EntitySet: "MasterTargetPlansReconstructs",
                 resourcePath: "com.knpl.dga.performancetarget",
                 AddFields: {
-                    PainterMobile: "",
-                    PainterName: "",
-                    PainterMembershipId: "",
-                    PainterZone: "",
-                    PainterDivision: "",
-                    PainterDepot: ""
+                    TargetValue: "",
+                    FromDate: "",
+                    ToDate: "",
+                    Mode: "",
+                    LeadVisit : {
+                        "TargetTypeId": 2,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "DAILY",
+                        "TargetValue": 0
+                    },
+                    NewLead : {
+                        "TargetTypeId": 3,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "DAILY",
+                        "TargetValue": 0
+                    },
+                    ContractorVisit : {
+                        "TargetTypeId": 4,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "DAILY",
+                        "TargetValue": 0
+                    },
+                    DealerVisit : {
+                        "TargetTypeId": 5,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "DAILY",
+                        "TargetValue": 0
+                    },
+                    LeadConversion : {
+                        "TargetTypeId": 6,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "MONTHLY",
+                        "TargetValue": 0
+                    },
+                    BusinessGeneration : {
+                        "TargetTypeId": 7,
+                        "ToDate": "",
+                        "FromDate": "",
+                        "TargetFrequencys": "MONTHLY",
+                        "TargetValue": 0
+                    }
+                },
+                Rbtn: {
+                    TarGrp: 0,
+                    Zone: 0,
+                    Division: 0,
+                    Depot: 0,
+                    Location: 0
+                },
+                MultiCombo: {
+                    Zone: [],
+                    Division: [],
+                    Depot: [],
+                    Location: [],
                 }
             };
             var oModelControl = new JSONModel(oDataControl)
@@ -116,7 +170,7 @@ sap.ui.define([
             var oView = this.getView();
             var oValidate = new Validator();
             var othat = this;
-            var oForm = oView.byId("FormObjectData");
+            var oForm = oView.byId("idSampleSetTarget");
             var bFlagValidate = oValidate.validate(oForm);
             if (!bFlagValidate) {
                 othat._showMessageToast("Message3")
@@ -225,27 +279,132 @@ sap.ui.define([
 
 
         },
-        _propertyToBlank: function (aArray, sModelName) {
-            var aProp = aArray;
-            var oView = this.getView();
-            var oModelView = oView.getModel(sModelName);
-            for (var x of aProp) {
-                var oGetProp = oModelView.getProperty("/" + x);
-                if (Array.isArray(oGetProp)) {
-                    oModelView.setProperty("/" + x, []);
-                    //oView.byId(x.substring(x.indexOf("/") + 1)).fireChange();
-                } else if (oGetProp === null) {
-                    oModelView.setProperty("/" + x, null);
-                } else if (oGetProp instanceof Date) {
-                    oModelView.setProperty("/" + x, null);
-                } else if (typeof oGetProp === "boolean") {
-                    oModelView.setProperty("/" + x, false);
-                } else {
-                    oModelView.setProperty("/" + x, "");
+          // Radio button event
+        onRbChnageMain:function(oEvent){
+            var AddFields = {
+                TargetValue: "",
+                FromDate: "",
+                ToDate: "",
+                Mode: "",
+                LeadVisit : {
+                    "TargetTypeId": 2,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "DAILY",
+                    "TargetValue": 0
+                },
+                NewLead : {
+                    "TargetTypeId": 3,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "DAILY",
+                    "TargetValue": 0
+                },
+                ContractorVisit : {
+                    "TargetTypeId": 4,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "DAILY",
+                    "TargetValue": 0
+                },
+                DealerVisit : {
+                    "TargetTypeId": 5,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "DAILY",
+                    "TargetValue": 0
+                },
+                LeadConversion : {
+                    "TargetTypeId": 6,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "MONTHLY",
+                    "TargetValue": 0
+                },
+                BusinessGeneration : {
+                    "TargetTypeId": 7,
+                    "ToDate": "",
+                    "FromDate": "",
+                    "TargetFrequencys": "MONTHLY",
+                    "TargetValue": 0
                 }
-            }
-            oModelView.refresh(true);
+            },
+            MultiCombo = {
+                Zone: [],
+                Division: [],
+                Depot: [],
+                Location: [],
+            },
+        
+            oModelControl = this.getView().getModel("oModelControl");
+
+            oModelControl.setProperty("/MultiCombo", MultiCombo);
+            oModelControl.setProperty("/AddFields", AddFields);
+
+           
+             // this._propertyToBlank([ "MultiCombo/Zone", "MultiCombo/Division", "MultiCombo/Depot", "StartDate", "EndDate","Target"], true)
         },
+        onRbChnageZone:function(oEvent){
+            var key = oEvent.getSource().getSelectedIndex();
+
+            if(key === 0){
+                this.getView().getModel("titleModel").setProperty("/isSpecificZone", false);
+            } else {
+                this.getView().getModel("titleModel").setProperty("/isSpecificZone", true);
+            }
+        },
+
+        
+        onRbChnageDivison:function(oEvent){
+            var key = oEvent.getSource().getSelectedIndex();
+
+            if(key === 0){
+                this.getView().getModel("titleModel").setProperty("/isSpecificDivision", false);
+            } else {
+                this.getView().getModel("titleModel").setProperty("/isSpecificDivision", true);
+            }
+        },
+        onRbChnageDepot:function(oEvent){
+            var key = oEvent.getSource().getSelectedIndex();
+
+            if(key === 0){
+                this.getView().getModel("titleModel").setProperty("/isSpecificDepot", false);
+            } else {
+                this.getView().getModel("titleModel").setProperty("/isSpecificDepot", true);
+            }
+        },
+        onRbChnageLocation:function(oEvent){
+            var key = oEvent.getSource().getSelectedIndex();
+
+            if(key === 0){
+                this.getView().getModel("titleModel").setProperty("/isSpecificLocation", false);
+            } else {
+                this.getView().getModel("titleModel").setProperty("/isSpecificLocation", true);
+            }
+        },
+
+        
+        // _propertyToBlank: function (aArray, sModelName) {
+        //     var aProp = aArray;
+        //     var oView = this.getView();
+        //     var oModelView = oView.getModel(sModelName);
+        //     for (var x of aProp) {
+        //         var oGetProp = oModelView.getProperty("/" + x);
+        //         if (Array.isArray(oGetProp)) {
+        //             oModelView.setProperty("/" + x, []);
+        //             //oView.byId(x.substring(x.indexOf("/") + 1)).fireChange();
+        //         } else if (oGetProp === null) {
+        //             oModelView.setProperty("/" + x, null);
+        //         } else if (oGetProp instanceof Date) {
+        //             oModelView.setProperty("/" + x, null);
+        //         } else if (typeof oGetProp === "boolean") {
+        //             oModelView.setProperty("/" + x, false);
+        //         } else {
+        //             oModelView.setProperty("/" + x, "");
+        //         }
+        //     }
+        //     oModelView.refresh(true);
+        // },
 
         _RemoveEmptyValue: function (mParam) {
             var obj = Object.assign({}, mParam);
@@ -265,7 +424,7 @@ sap.ui.define([
             //1.Clone the payload and convert string to integer values based on odata model entity
             var oPayLoad = this._RemoveEmptyValue(oModelData);
             var inTegerProperty = [
-                "ComplaintTypeId",
+                "DGATypeId",
             ];
             for (var y of inTegerProperty) {
                 if (oPayLoad.hasOwnProperty(y)) {
@@ -303,8 +462,8 @@ sap.ui.define([
         },
         _CreateMultiComboPayload: function (oPayload) {
             /*
-            * Author: manik saluja
-            * Date: 24-March-2022
+            * Author: Mamta Singh
+            * Date: 07-June-2022
             * Language:  JS
             * Purpose: This method is used to send the multicombo box with tokens or multi select popover data to the payload.
             */
@@ -317,38 +476,56 @@ sap.ui.define([
             if (sMode === "Edit") {
                 sResults = "/results"
             }
+           // Zone
+            var aExistingZone = oModelView.getProperty("/PerformanceZone" + sResults);
+            var aSelectedMember = oModelControl.getProperty("/MultiCombo/Zone");
+            var iZone = -1;
+            var aZone = [];
+            for (var x of aSelectedMember) {
+                iZone = aExistingZone.findIndex(item => item["ZoneId"] === x)
+                if (iZone >= 0) {
 
-            // Members - 
-            // var aExistingMember = oModelView.getProperty("/Members" + sResults);
-            // var aSelectedMember = oModelControl.getProperty("/MultiCombo/Members")
-            // var iMembers = -1;
-            // var aMembers = [];
-            // for (var x of aSelectedMember) {
-            //     iMembers = aExistingMember.findIndex(item => parseInt(item["Id"]) === parseInt(x["Id"]))
-            //     if (iMembers >= 0) {
+                    aZone.push(aExistingZone[iZone]);
+                } else {
+                    aZone.push({ ZoneId: x });
+                }
+            }
+            oPayload["PerformanceZone"] = aZone;
 
-            //         aMembers.push(aExistingMember[iMembers]);
-            //     } else {
-            //         aMembers.push({ Id: parseInt(x["Id"]) });
-            //     }
-            // }
-            // oPayload["Members"] = aMembers;
-            // // zone 
-            // var aExistingMember = oModelView.getProperty("/NotificationGroupZone" + sResults);
-            // var aSelectedMember = oModelControl.getProperty("/MultiCombo/Zone");
-            // var iMembers = -1;
-            // var aMembers = [];
-            // for (var x of aSelectedMember) {
-            //     iMembers = aExistingMember.findIndex(item => item["ZoneId"] === x)
-            //     if (iMembers >= 0) {
+            
+            // Division
+            var aExistingZone = oModelView.getProperty("/PerformanceDivision" + sResults);
+            var aSelectedMember = oModelControl.getProperty("/MultiCombo/Division")
+            var iZone = -1;
+            var aZone = [];
+            for (var x of aSelectedMember) {
+                iZone = aExistingZone.findIndex(item => item["DivisionId"] === x)
+                if (iZone >= 0) {
 
-            //         aMembers.push(aExistingMember[iZone]);
-            //     } else {
-            //         aMembers.push({ ZoneId: x });
-            //     }
-            // }
-            // oPayload["NotificationGroupZone"] = aZone;
-            promise.resolve(oPayload);
+                    aZone.push(aExistingZone[iZone]);
+                } else {
+                    aZone.push({ DivisionId: x });
+                }
+            }
+            oPayload["PerformanceDivision"] = aZone;
+
+             // // Depot
+             var aExistingZone = oModelView.getProperty("/PerformanceDepot" + sResults);
+             var aSelectedMember = oModelControl.getProperty("/MultiCombo/Depot")
+             var iZone = -1;
+             var aZone = [];
+             for (var x of aSelectedMember) {
+                 iZone = aExistingZone.findIndex(item => item["DepotId"] === x["DepotId"])
+                 if (iZone >= 0) {
+ 
+                     aZone.push(aExistingZone[iZone]);
+                 } else {
+                     aZone.push({ DepotId: x["DepotId"] });
+                 }
+             }
+             oPayload["PerformanceDepot"] = aZone;
+ 
+             promise.resolve(oPayload);
             return promise
 
         },
@@ -377,24 +554,13 @@ sap.ui.define([
             oModelControl.setProperty("/PageBusy", false);
 
         },
-        _uploadFile: function (oPayLoad) {
-            var promise = jQuery.Deferred();
-            promise.resolve(oPayLoad);
-            return promise;
-        },
+        // _uploadFile: function (oPayLoad) {
+        //     var promise = jQuery.Deferred();
+        //     promise.resolve(oPayLoad);
+        //     return promise;
+        // },
 
-        /**
-         * Event handler when the share by E-Mail button has been clicked
-         * @public
-         */
-        onShareEmailPress: function () {
-            var oViewModel = (this.getModel("objectView") || this.getModel("worklistView"));
-            URLHelper.triggerEmail(
-                null,
-                oViewModel.getProperty("/shareSendEmailSubject"),
-                oViewModel.getProperty("/shareSendEmailMessage")
-            );
-        },
+      
         _getViewFragment: function (sFragmentName) {
             /*
              * Author: manik saluja
@@ -475,100 +641,264 @@ sap.ui.define([
                 }
             }
         },
-        // painter value help request
-        onPainterValueHelpRequest: function (oEvent) {
-            var sInputValue = oEvent.getSource().getValue(),
-                oView = this.getView(), oModelControl = oView.getModel("oModelControl");
 
-            if (!this._pValueHelpDialog) {
-                this._pValueHelpDialog = Fragment.load({
-                    id: oView.getId(),
-                    name: oModelControl.getProperty("/resourcePath") + ".view.fragments.PainterValueHelpDialog",
-                    controller: this,
-                }).then(function (oDialog) {
-                    oView.addDependent(oDialog);
-                    return oDialog;
-                });
+        // Multi Zone change
+      
+        onMultyZoneChange: function (oEvent) {
+            var sKeys = oEvent.getSource().getSelectedKeys();
+            var oDivision = this.getView().byId("idDivision");
+
+            this._fnChangeDivDepot({
+                src: {
+                    path: "/MultiCombo/Zones"
+                },
+                target: {
+                    localPath: "/MultiCombo/Division",
+                    oDataPath: "/MasterDivisions",
+                    key: "Zone"
+                }
+            });
+
+            this._fnChangeDivDepot({
+                src: {
+                    path: "/MultiCombo/Zones"
+                },
+                target: {
+                    localPath: "/MultiCombo/Depot",
+                    oDataPath: "/MasterDepots",
+                    key: "Division",
+                    targetKey: "DepotId"
+                }
+            });
+
+            var aDivFilter = [];
+            for (var y of sKeys) {
+                aDivFilter.push(new Filter("Zone", FilterOperator.EQ, y))
             }
-            this._pValueHelpDialog.then(function (oDialog) {
-                // Create a filter for the binding
-                oDialog
-                    .getBinding("items")
-                    .filter([
-                        new Filter(
-                            [
-                                new Filter(
-                                    {
-                                        path: "Name",
-                                        operator: "Contains",
-                                        value1: sInputValue.trim(),
-                                        caseSensitive: false
-                                    }
-                                ),
-                                new Filter(
-                                    {
-                                        path: "Mobile",
-                                        operator: "Contains",
-                                        value1: sInputValue.trim(),
-                                        caseSensitive: false
-                                    }
-                                ),
-                            ],
-                            false
-                        ),
-                    ]);
-                // Open ValueHelpDialog filtered by the input's value
-                oDialog.open(sInputValue);
+            oDivision.getBinding("items").filter(aDivFilter);
+        },
+             //MultiLocation change
+
+             onMultyLocationChange: function (oEvent) {
+                var sKeys = this.getView()
+                .getModel("oModelControl")
+                .getProperty("/MultiCombo/Depot");;
+                var oLocation = this.getView().byId("idLocation");
+    
+            
+    
+                var aDivFilter = [];
+                for (var y of sKeys) {
+                    aDivFilter.push(new Filter("DepotId", FilterOperator.EQ, y.DepotId))
+                }
+                oLocation.getBinding("items").filter(aDivFilter);
+            },
+
+        
+            // MultiDivision change
+        onMultyDivisionChange: function (oEvent) {
+
+            this._fnChangeDivDepot({
+                src: {
+                    path: "/MultiCombo/Division"
+                },
+                target: {
+                    localPath: "/MultiCombo/Depot",
+                    oDataPath: "/MasterDepots",
+                    key: "Division",
+                    targetKey: "DepotId"
+                }
             });
         },
-        onPainterValueHelpSearch: function (oEvent) {
-            var sValue = oEvent.getParameter("value");
-            var oFilter = new Filter(
-                [
-                    new Filter(
-                        {
-                            path: "Name",
-                            operator: "Contains",
-                            value1: sValue.trim(),
-                            caseSensitive: false
-                        }
-                    ),
-                    new Filter(
-                        {
-                            path: "Mobile",
-                            operator: "Contains",
-                            value1: sValue.trim(),
-                            caseSensitive: false
-                        }
-                    )
+        _fnChangeDivDepot: function (oChgdetl) {
+
+            var aTarget = this.getModel("oModelControl").getProperty(oChgdetl.target.localPath),
+                aNewTarget = [];
+
+            var aSource = this.getModel("oModelControl").getProperty(oChgdetl.src.path),
+                oSourceSet = new Set(aSource);
+
+
+
+            var oModel = this.getModel(),
+                tempPath, tempdata;
+
+            aTarget.forEach(function (ele) {
+                if (typeof ele === "string") {
+                    tempPath = oModel.createKey(oChgdetl.target.oDataPath, {
+                        Id: ele
+                    });
+                } else {
+                    tempPath = oModel.createKey(oChgdetl.target.oDataPath, {
+                        Id: ele[oChgdetl.target.targetKey]
+                    });
+                }
+                tempdata = oModel.getData(tempPath);
+                if (oSourceSet.has(tempdata[oChgdetl.target.key])) {
+                    aNewTarget.push(ele)
+                }
+            });
+
+            this.getModel("oModelControl").setProperty(oChgdetl.target.localPath, aNewTarget);
+        },
+        onValueHelpRequestedDepot: function () {
+            this._oMultiInput = this.getView().byId("multiInputDepotAdd");
+            this.oColModel = new JSONModel({
+                cols: [{
+                    label: "Depot Id",
+                    template: "Id",
+                    width: "10rem",
+                },
+                {
+                    label: "Depot",
+                    template: "Depot",
+                }
                 ],
-                false
+            });
+
+            var aCols = this.oColModel.getData().cols;
+
+            this._oValueHelpDialog = sap.ui.xmlfragment(
+                "com.knpl.dga.performancetarget.view.fragments.DepotValueHelp",
+                this
+            );
+            var oDataFilter = {
+                Id: "",
+                Depot: "",
+            }
+            var oModel = new JSONModel(oDataFilter);
+            this.getView().setModel(oModel, "DepotFilter");
+
+            this.getView().addDependent(this._oValueHelpDialog);
+
+            this._oValueHelpDialog.getTableAsync().then(
+                function (oTable) {
+                    oTable.setModel(this.oColModel, "columns");
+
+                    if (oTable.bindRows) {
+                        oTable.bindAggregation("rows", {
+                            path: "/MasterDepots",
+                            events: {
+                                dataReceived: function () {
+                                    this._oValueHelpDialog.update();
+                                }.bind(this)
+                            }
+                        });
+                    }
+
+                    if (oTable.bindItems) {
+                        oTable.bindAggregation("items", "/MasterDepots", function () {
+                            return new sap.m.ColumnListItem({
+                                cells: aCols.map(function (column) {
+                                    return new sap.m.Label({
+                                        text: "{" + column.template + "}",
+                                    });
+                                }),
+                            });
+                        });
+                    }
+
+                    this._oValueHelpDialog.update();
+                }.bind(this)
             );
 
-            oEvent.getSource().getBinding("items").filter([oFilter]);
+            this._oValueHelpDialog.setTokens(this._oMultiInput.getTokens());
+            this._oValueHelpDialog.open();
         },
-        onPainterValueHelpClose: function (oEvent) {
-            var oSelectedItem = oEvent.getParameter("selectedItem");
-            oEvent.getSource().getBinding("items").filter([]);
-            var oViewModel = this.getView().getModel("oModelView"),
-                oModelControl = this.getView().getModel("oModelControl");
-            if (!oSelectedItem) {
-                return;
+        onFilterBarSearch: function (oEvent) {
+            var afilterBar = oEvent.getParameter("selectionSet"),
+                aFilters = [];
+
+            aFilters.push(
+                new Filter({
+                    path: "Id",
+                    operator: FilterOperator.Contains,
+                    value1: afilterBar[0].getValue(),
+                    caseSensitive: false,
+                })
+            );
+            aFilters.push(
+                new Filter({
+                    path: "Depot",
+                    operator: FilterOperator.Contains,
+                    value1: afilterBar[1].getValue(),
+                    caseSensitive: false,
+                })
+            );
+
+            this._filterTable(
+                new Filter({
+                    filters: aFilters,
+                    and: true,
+                })
+            );
+        },
+        
+        _filterTable: function (oFilter, sType) {
+            var oValueHelpDialog = this._oValueHelpDialog;
+
+            oValueHelpDialog.getTableAsync().then(function (oTable) {
+                if (oTable.bindRows) {
+                    oTable.getBinding("rows").filter(oFilter, sType || "Application");
+                }
+
+                if (oTable.bindItems) {
+                    oTable
+                        .getBinding("items")
+                        .filter(oFilter, sType || "Application");
+                }
+
+                oValueHelpDialog.update();
+            });
+        },
+        onValueHelpAfterOpen: function () {
+            var aFilter = this._getfilterforControl();
+
+            this._filterTable(aFilter, "Control");
+            this._oValueHelpDialog.update();
+        },
+        _getfilterforControl: function () {
+            var sDivision = this.getView().getModel("oModelControl").getProperty("/MultiCombo/Division");
+            var aFilters = [];
+            if (sDivision) {
+                for (var y of sDivision) {
+                    aFilters.push(new Filter("Division", FilterOperator.EQ, y));
+                }
             }
-            var obj = oSelectedItem.getBindingContext().getObject();
-            oViewModel.setProperty("/PainterId", obj["Id"]);
-            oModelControl.setProperty("/AddFields/PainterMobile", obj["Mobile"]);
-            oModelControl.setProperty("/AddFields/PainterName", obj["Name"]);
-            oModelControl.setProperty("/AddFields/PainterMembershipId", obj["MembershipCard"]);
-            oModelControl.setProperty("/AddFields/PainterDivision", obj.DivisionId);
-            oModelControl.setProperty("/AddFields/PainterZone", obj.ZoneId);
+            if (aFilters.length == 0) {
+                return [];
+            }
 
-            oModelControl.setProperty("/AddFields/PainterDepot", "");
-            //Fallback as Preliminary context not supported
+            return new Filter({
+                filters: aFilters,
+                and: false,
+            });
+        },
+        onValueHelpCancelPress: function () {
+            this._oValueHelpDialog.close();
+        },
+        onValueHelpOkPress: function (oEvent) {
+            var oData = [];
+            var xUnique = new Set();
+            var aTokens = oEvent.getParameter("tokens");
 
+            aTokens.forEach(function (ele) {
+                if (xUnique.has(ele.getKey()) == false) {
+                    oData.push({
+                        DepotId: ele.getKey()
+                    });
+                    xUnique.add(ele.getKey());
+                }
+            });
 
-        }
-
+            this.getView()
+                .getModel("oModelControl")
+                .setProperty("/MultiCombo/Depot", oData);
+            
+                this.onMultyLocationChange();
+               
+            this._oValueHelpDialog.close();
+        },
     });
 
 });
