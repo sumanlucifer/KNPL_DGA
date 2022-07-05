@@ -43,8 +43,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "TaskApproval",
-                    "action": "Manage",
+                    "semanticObject": "Manage",
+                    "action": "TaskApproval",
                     "title": "{{flpTitle}}",
                     "icon": "sap-icon://activity-individual",
                     "indicatorDataSource": {
