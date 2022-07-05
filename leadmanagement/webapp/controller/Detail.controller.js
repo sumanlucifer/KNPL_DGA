@@ -89,29 +89,28 @@ sap.ui.define([
                 this.getView().byId("idSiteImagesTitle").setText(sSiteImagesCount);
             },
 
-            onSortPress: function (oEvent) {
-                var bPressed = oEvent.getSource().getPressed() === true ? true : false;
-                this.getView().byId("idSiteImagesBeforeList").getBinding("items").sort(new Sorter("UploadedOn", bPressed));
-                this.getView().byId("idSiteImagesAfterList").getBinding("items").sort(new Sorter("UploadedOn", bPressed));
-            },
+            // onSortPress: function (oEvent) {
+            //     this.getView().byId("idSiteImagesBeforeList").getBinding("items").sort(new Sorter("UpdatedAt", oEvent.getSource().getPressed()));
+            //     this.getView().byId("idSiteImagesAfterList").getBinding("items").sort(new Sorter("UpdatedAt", oEvent.getSource().getPressed()));
+            // },
 
-            onPressFilter: function () {
-                if (!this._oFilterDialog) {
-                    this._oFilterDialog = sap.ui.xmlfragment("com.sal.salhr.Fragments.FilterDialog", this);
-                    this.getView().addDependent(this._oFilterDialog);
-                }
-                if (Device.system.desktop) {
-                    this._oFilterDialog.addStyleClass("sapUiSizeCompact");
-                }
-                this._oFilterDialog.open();
-            },
+            // onPressFilter: function () {
+            //     if (!this._oFilterDialog) {
+            //         this._oFilterDialog = sap.ui.xmlfragment("com.sal.salhr.Fragments.FilterDialog", this);
+            //         this.getView().addDependent(this._oFilterDialog);
+            //     }
+            //     if (Device.system.desktop) {
+            //         this._oFilterDialog.addStyleClass("sapUiSizeCompact");
+            //     }
+            //     this._oFilterDialog.open();
+            // },
 
-            onPressClearFilter: function () {
-                this.byId("idClearFilter").setVisible(false);
-                this.byId("idSelectFilter").setVisible(true);
-                var oFilterSearch = [];
-                this.byId("idTicketTable").getBinding("items").filter(new Filter(oFilterSearch, true));
-            },
+            // onPressClearFilter: function () {
+            //     this.byId("idClearFilter").setVisible(false);
+            //     this.byId("idSelectFilter").setVisible(true);
+            //     var oFilterSearch = [];
+            //     this.byId("idTicketTable").getBinding("items").filter(new Filter(oFilterSearch, true));
+            // },
 
             _SetDisplayData: function (oProp, sMode) {
                 var oData = {

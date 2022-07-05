@@ -5,8 +5,8 @@
     <OverflowToolbar class="sapUiTinyMarginBottom" style="Clear">
         <Title id="idSiteImagesTitle" title="{i18n>SiteImages}"/>
         <ToolbarSpacer />
-        <ToggleButton icon="sap-icon://sort" type="Transparent" press="onSortPress" pressed="false"/>
-        <Button id="idSelectFilter" icon="sap-icon://filter" type="Transparent" press="onPressFilter"/>
+        <!-- <ToggleButton icon="sap-icon://sort" type="Transparent" press="onSortPress" pressed="false"/>
+        <Button id="idSelectFilter" icon="sap-icon://filter" type="Transparent" press="onPressFilter"/> -->
         <SegmentedButton selectedKey="Before" selectionChange="onBeforeAfterChange">
             <items>
                 <SegmentedButtonItem text="{i18n>Before}" key="Before"/>
@@ -20,7 +20,7 @@
             filters: [{path: 'State', operator: 'EQ', value1: 'Before'}], 
             sorter: {path: 'UploadedOn', descending: false}
 		}" updateFinished="onListUpdateFinished">
-        <StandardListItem title="{i18n>UploadedBy}: {CreatedBy}" description="{i18n>UploadedOn}: {path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" info="File Size: {}" icon="{path: '__metadata', formatter: '.formatter.fnGenerateImageUrl'}" type="Active" adaptTitleSize="false"/>
+        <StandardListItem title="{i18n>UploadedBy}: {CreatedBy}" description="{i18n>UploadedOn}: {path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" info="File Size: {path:'MediaSize',formatter:'.formatter.handleNoData'}" icon="{path: '__metadata', formatter: '.formatter.fnGenerateImageUrl'}" type="Active" adaptTitleSize="false"/>
     </List>
 
     <List id="idSiteImagesAfterList" visible="{= ${LocalViewModel>/ToggleSiteImagesVisible} === 'After' ? true : false}" mode="SingleSelectMaster" itemPress="onOpenSiteImagePress" growing="true" growingThreshold="20" growingScrollToLoad="true" items="{
@@ -28,6 +28,6 @@
             filters: [{path: 'State', operator: 'EQ', value1: 'After'}],
             sorter: {path: 'UploadedOn', descending: false}
 		}">
-        <StandardListItem title="{i18n>UploadedBy}: {CreatedBy}" description="{i18n>UploadedOn}: {path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" info="File Size: {}" icon="{path: '__metadata', formatter: '.formatter.fnGenerateImageUrl'}" type="Active" adaptTitleSize="false"/>
+        <StandardListItem title="{i18n>UploadedBy}: {CreatedBy}" description="{i18n>UploadedOn}: {path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" info="File Size: {path:'MediaSize',formatter:'.formatter.handleNoData'}" icon="{path: '__metadata', formatter: '.formatter.fnGenerateImageUrl'}" type="Active" adaptTitleSize="false"/>
     </List>
 </core:FragmentDefinition>

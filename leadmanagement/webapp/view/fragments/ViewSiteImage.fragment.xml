@@ -7,7 +7,7 @@
             <Toolbar height="50px">
                 <VBox alignItems="Start">
                     <Text text="{i18n>UploadedOn}: {path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" class="sapUiTinyMarginBottom"/>
-                    <Text text="{i18n>FileSize}: 110KB"/>
+                    <Text text="{i18n>FileSize}: {path: 'MediaSize',formatter:'.formatter.handleNoData'}"/>
                 </VBox>
                 <ToolbarSpacer/>
                 <Button id="idCloseBTN" text="{i18n>Close}" press="onCloseSiteImageDialog" type="Transparent"/>
