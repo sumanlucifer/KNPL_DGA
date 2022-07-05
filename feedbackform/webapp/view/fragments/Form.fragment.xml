@@ -36,7 +36,7 @@
                 <cells>
                     <Text text="{FormType/TypeText}"/>
                     <Text text="{Name}"/>
-                    <Text text="{path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd MMMM yyyy'},formatter:'.formatter.handleNoData'}" />
+                    <Text text="{path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" />
                     <ObjectStatus text="{= ${IsPublished} === true ? 'Published' : 'Draft'}" state="{= ${IsPublished} === true ? 'Success' : 'Warning'}" />
                     <HBox alignItems="End" alignContent="End" justifyContent="End" class="TextColorBlue">
                         <Button icon="sap-icon://edit" press="onEditFormPress" class="sapUiTinyMarginEnd" visible="{= ${IsPublished}  === true  ? false : true}" type="Transparent" tooltip="Edit" />
