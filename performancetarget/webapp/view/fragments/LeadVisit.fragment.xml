@@ -88,7 +88,7 @@
                          <!-- <HBox items="{PerformanceDepot}">
                          <Text text="{DepotId}" class = "sapUiTinyMarginEnd"/>
                          </HBox> -->
-                         <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/>  
+                         <Text maxLines="2" tooltip="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}" text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/>  
                        <!-- <HBox items="{PerformanceJobLocation}">
                          <Text text="{JobLocationDetails/TownName}" class = "sapUiTinyMarginEnd"/>
                          </HBox> -->
