@@ -80,32 +80,46 @@ sap.ui.define(
                 },
             onPressApprove:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;
-                othat.getView().getModel("oViewModel").setProperty("/busy", true);
-                this._updateTask(oContext, "2", "Approved").then(function(){
-                    MessageToast.show("Task Approved Successfully.");
-                    othat.getView().getModel().refresh();
-                    setTimeout(function demo() {
-                        othat.getView().getModel("oViewModel").setProperty("/busy", false);
-                        othat.onNavToHome();
-                    }, 3000);
-                }).catch(function(err){ 
-                    othat.getView().getModel("oViewModel").setProperty("/busy", false);
-                    MessageToast.show("Something Went Wrong..!"); 
+                MessageBox.confirm("Approve the Task?", {
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    onClose: function (sAction) {
+                        if(sAction === "YES"){
+                            othat.getView().getModel("oViewModel").setProperty("/busy", true);
+                            othat._updateTask(oContext, "2", "Approved").then(function(){
+                                MessageToast.show("Task Approved Successfully.");
+                                othat.getView().getModel().refresh();
+                                setTimeout(function demo() {
+                                    othat.getView().getModel("oViewModel").setProperty("/busy", false);
+                                    othat.onNavToHome();
+                                }, 3000);
+                            }).catch(function(err){ 
+                                othat.getView().getModel("oViewModel").setProperty("/busy", false);
+                                MessageToast.show("Something Went Wrong..!"); 
+                            });
+                        }
+                    }
                 });
             },
             onPressReject:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;
-                othat.getView().getModel("oViewModel").setProperty("/busy", true);
-                this._updateTask(oContext, "3", "Rejected").then(function(){
-                    MessageToast.show("Task Rejected Successfully.");
-                    othat.getView().getModel().refresh();
-                    setTimeout(function demo() {
-                        othat.getView().getModel("oViewModel").setProperty("/busy", false);
-                        othat.onNavToHome();
-                    }, 3000);
-                }).catch(function(err){ 
-                    othat.getView().getModel("oViewModel").setProperty("/busy", false);
-                    MessageToast.show("Something Went Wrong..!"); 
+                MessageBox.confirm("Reject the Task?", {
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    onClose: function (sAction) {
+                        if(sAction === "YES"){
+                            othat.getView().getModel("oViewModel").setProperty("/busy", true);
+                            othat._updateTask(oContext, "3", "Rejected").then(function(){
+                                MessageToast.show("Task Rejected Successfully.");
+                                othat.getView().getModel().refresh();
+                                setTimeout(function demo() {
+                                    othat.getView().getModel("oViewModel").setProperty("/busy", false);
+                                    othat.onNavToHome();
+                                }, 3000);
+                            }).catch(function(err){ 
+                                othat.getView().getModel("oViewModel").setProperty("/busy", false);
+                                MessageToast.show("Something Went Wrong..!"); 
+                            });
+                        }
+                    }
                 });
             }
         }
