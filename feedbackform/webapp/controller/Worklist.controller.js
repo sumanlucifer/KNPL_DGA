@@ -643,7 +643,8 @@ sap.ui.define(
                 oPayloadObj = {
                     "Id": oPayloadObj.Id,
                     "Question": oPayloadObj.Question,
-                    "AnswerOptions": aAnswerOptions
+                    "AnswerOptions": aAnswerOptions,
+                    "InputControlTypeId": aAnswerOptions[0].MasterInputControlTypes.Id
                 };
 
                 return oPayloadObj;
@@ -990,7 +991,8 @@ sap.ui.define(
 
                 var oPayload = {
                     "Question": oQuestion.getValue().trim(),
-                    "AnswerOptions": aOptionAnswers
+                    "AnswerOptions": aOptionAnswers,
+                    "InputControlTypeId": aOptionAnswers[0].sInputControlTypeId
                 };
 
                 return oPayload;
