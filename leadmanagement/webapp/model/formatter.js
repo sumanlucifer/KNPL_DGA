@@ -26,27 +26,27 @@ sap.ui.define([], function () {
             }
             return sStatus;
         },
+
         fmtCheckNull: function (mParam1) {
             if (!mParam1) {
                 return "NA"
             }
             return mParam1;
         },
-        fmtGenerateImageUrl: function (mMetadata) {
+
+        fnGenerateImageUrl: function (mMetadata) {
             // mMetadata (string) is required from the odata responce "__metadata"
             if (mMetadata) {
                 if (mMetadata.media_src) {
                     return "https://".concat(
-                        location.host,
-                        "/KNPL_PAINTER_API",
+                        location.host, "/KNPL_DGA_API",
                         new URL(mMetadata.media_src).pathname
                     );
                 }
             }
-
             return "";
-
         },
+
         fmtStatusColorChange: function (mParam) {
             if (mParam === "APPROVED") {
                 return "Success";
@@ -59,6 +59,7 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
+
         fmtQuotProducts: function (mParam1) {
             // mParam1 > QuotationSelectedProducts
             if (mParam1) {
@@ -70,13 +71,12 @@ sap.ui.define([], function () {
                     oObj2 = oModel.getProperty("/" + oObj["MasterProduct"]["__ref"])
                     aProd.push(oObj2["ProductName"]);
                 }
-
                 return aProd.join(" ")
             }
             return ""
         },
-        fmtStatusHeader: function (leadeStatusId, IsSamplingRequired, AdvancePaymentCollected, LeadLostReasonId, exp1, exp2, exp3, LeadLostMsg, ShortReasonMsg1, ShortReasonMsg2) {
 
+        fmtStatusHeader: function (leadeStatusId, IsSamplingRequired, AdvancePaymentCollected, LeadLostReasonId, exp1, exp2, exp3, LeadLostMsg, ShortReasonMsg1, ShortReasonMsg2) {
             if (leadeStatusId === "2") {
                 if (IsSamplingRequired === 0 && AdvancePaymentCollected === 0) {
 
@@ -100,7 +100,6 @@ sap.ui.define([], function () {
                 }
             }
             if (leadeStatusId === "3") {
-
                 if (LeadLostReasonId !== null) {
                     if (LeadLostReasonId === "1") {
                         if (exp1 !== null || exp2 !== null || exp3 !== null) {
@@ -137,7 +136,6 @@ sap.ui.define([], function () {
         },
 
         fmtCommaSepratedAssignedContractor: function (mParam) {
-
             if (mParam === null)
                 return "";
             var contractorArray = [];
@@ -160,7 +158,15 @@ sap.ui.define([], function () {
             else
                 commaSeparatedString = 'NA';
             return commaSeparatedString;
+        },
+
+        handleNoData: function (sValue) {
+            if (!sValue) {
+                var sNoData = "NA";
+                return sNoData;
+            } else {
+                return sValue;
+            }
         }
     };
-
 });

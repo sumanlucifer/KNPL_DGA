@@ -92,6 +92,10 @@
                     <IconTabFilter  text="{i18n>VisitHistory}" key="6" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.VisitHistory" type="XML"/>
                     </IconTabFilter>        
+                    <!-- Site Images tab -->
+                    <IconTabFilter text="{i18n>SiteImages}" key="7" >
+                        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.SiteImages" type="XML"/>
+                    </IconTabFilter>
                 </items>
             </IconTabBar>
         </f:content>

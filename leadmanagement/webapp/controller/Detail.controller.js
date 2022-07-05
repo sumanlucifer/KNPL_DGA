@@ -1,37 +1,23 @@
-sap.ui.define(
-    [
-        "../controller/BaseController",
-        "sap/ui/model/json/JSONModel",
-        "sap/m/MessageBox",
-        "sap/m/MessageToast",
-        "sap/ui/core/Fragment",
-        "sap/ui/model/Filter",
-        "sap/ui/model/FilterOperator",
-        "sap/ui/model/Sorter",
-        "../controller/Validator",
-        "sap/ui/core/ValueState",
-        "../model/formatter",
-    ],
+sap.ui.define([
+    "../controller/BaseController",
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox",
+    "sap/m/MessageToast",
+    "sap/ui/core/Fragment",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/ui/model/Sorter",
+    "../controller/Validator",
+    "sap/ui/core/ValueState",
+    "../model/formatter",
+],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (
-        BaseController,
-        JSONModel,
-        MessageBox,
-        MessageToast,
-        Fragment,
-        Filter,
-        FilterOperator,
-        Sorter,
-        Validator,
-        ValueState,
-        formatter
-    ) {
+    function (BaseController, JSONModel, MessageBox, MessageToast, Fragment, Filter, FilterOperator, Sorter, Validator, ValueState, formatter) {
         "use strict";
 
-        return BaseController.extend(
-            "com.knpl.dga.leadmanagement.controller.Detail", {
+        return BaseController.extend("com.knpl.dga.leadmanagement.controller.Detail", {
             formatter: formatter,
 
             onInit: function () {
@@ -58,6 +44,73 @@ sap.ui.define(
                 );
                 this._SetDisplayData(sId, sMode);
 
+                this.getView().setModel(new JSONModel({
+                    ToggleSiteImagesVisible: "Before",
+                    SortSiteIMagesDescending: false
+                }), "LocalViewModel");
+            },
+
+            onBeforeAfterChange: function (oEvent) {
+                this.getView().getModel("LocalViewModel").setProperty("/ToggleSiteImagesVisible", oEvent.getSource().getSelectedKey());
+
+                var sListID = oEvent.getSource().getSelectedKey() === "After" ? "idSiteImagesAfterList" : "idSiteImagesBeforeList",
+                    sSiteImagesCount = this._geti18nText("SiteImagesCount", this.getView().byId(sListID).getItems().length);
+
+                this.getView().byId("idSiteImagesTitle").setText(sSiteImagesCount);
+            },
+
+            onOpenSiteImagePress: function (oEvent) {
+                this.sBindingContext = oEvent.getSource().getSelectedItem().getBindingContext();
+                if (!this.oSiteImageDialog) {
+                    this.oSiteImageDialog = Fragment.load({
+                        id: this.getView().getId(),
+                        controller: this,
+                        name: "com.knpl.dga.leadmanagement.view.fragments.ViewSiteImage"
+                    }).then(function (oSiteImageDialog) {
+                        this.getView().addDependent(oSiteImageDialog);
+                        oSiteImageDialog.open();
+                        return oSiteImageDialog;
+                    }.bind(this));
+                }
+                this.oSiteImageDialog.then(function (oSiteImageDialog) {
+                    oSiteImageDialog.open();
+                    oSiteImageDialog.setBindingContext(this.sBindingContext)
+                }.bind(this));
+            },
+
+            onCloseSiteImageDialog: function () {
+                this.getView().byId("idSiteImageDialog").close();
+                this.getView().byId("idSiteImagesBeforeList").removeSelections(true);
+                this.getView().byId("idSiteImagesAfterList").removeSelections(true);
+            },
+
+            onListUpdateFinished: function (oEvent) {
+                var sSiteImagesCount = this._geti18nText("SiteImagesCount", oEvent.getSource().getItems().length);
+                this.getView().byId("idSiteImagesTitle").setText(sSiteImagesCount);
+            },
+
+            onSortPress: function (oEvent) {
+                var bPressed = oEvent.getSource().getPressed() === true ? true : false;
+                this.getView().byId("idSiteImagesBeforeList").getBinding("items").sort(new Sorter("UploadedOn", bPressed));
+                this.getView().byId("idSiteImagesAfterList").getBinding("items").sort(new Sorter("UploadedOn", bPressed));
+            },
+
+            onPressFilter: function () {
+                if (!this._oFilterDialog) {
+                    this._oFilterDialog = sap.ui.xmlfragment("com.sal.salhr.Fragments.FilterDialog", this);
+                    this.getView().addDependent(this._oFilterDialog);
+                }
+                if (Device.system.desktop) {
+                    this._oFilterDialog.addStyleClass("sapUiSizeCompact");
+                }
+                this._oFilterDialog.open();
+            },
+
+            onPressClearFilter: function () {
+                this.byId("idClearFilter").setVisible(false);
+                this.byId("idSelectFilter").setVisible(true);
+                var oFilterSearch = [];
+                this.byId("idTicketTable").getBinding("items").filter(new Filter(oFilterSearch, true));
             },
 
             _SetDisplayData: function (oProp, sMode) {
@@ -184,7 +237,7 @@ sap.ui.define(
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
 
-                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGADetails,SourceDealer,Dealer,LeadServiceSubType,SourceConsumer,LeadSelectedPaintingRequests,LeadSelectedPaintingRequests/MasterPaintingReq,LeadLostReason,CompetitionBrand,CompetitorServiceType,ShortClosureReason,AssignedContractors/Contractor,ConsumerFeedback/ConsumerFeedbackAnswers/Question, ConsumerFeedback/ConsumerFeedbackAnswers/Answer";
+                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGADetails,SourceDealer,Dealer,LeadServiceSubType,SourceConsumer,LeadSelectedPaintingRequests,LeadSelectedPaintingRequests/MasterPaintingReq,LeadLostReason,CompetitionBrand,CompetitorServiceType,ShortClosureReason,AssignedContractors/Contractor,ConsumerFeedback/ConsumerFeedbackAnswers/Question, ConsumerFeedback/ConsumerFeedbackAnswers/Answer, SiteImages";
                 var othat = this;
                 if (oProp.trim() !== "") {
                     oView.bindElement({
@@ -235,11 +288,11 @@ sap.ui.define(
                 } else if (sKey == "6") {
                     oView.byId("VisitHistoryTbl").rebindTable();
                 }
-                
-                
+
+
             },
 
-            _bindPreEstimationTbl: function (oEvent,iPaintingReqId) {
+            _bindPreEstimationTbl: function (oEvent, iPaintingReqId) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
                 var sId = oView.getModel("oModelDisplay").getProperty("/Id")
@@ -247,7 +300,7 @@ sap.ui.define(
                 mBindingParams.parameters["expand"] = "PreEstimationSelectedProducts,PreEstimation";
                 var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
                 var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, iPaintingReqId);
-                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
+                mBindingParams.filters.push(oLeadIdFilter, oPaintingReqIdFiler);
                 // mBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 promise.resolve();
                 return promise;
@@ -261,7 +314,7 @@ sap.ui.define(
                 mBindingParams.parameters["expand"] = "QuotationSelectedProducts,RoomType,Quotation,QuotationSelectedProducts/MasterProduct,QuotationSelectedProducts/MasterProductShades";
                 var oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sId);
                 var oPaintingReqIdFiler = new Filter("LeadSelectedPaintingRequest/PaintingReqsId", FilterOperator.EQ, iPaintingReqId);
-                mBindingParams.filters.push(oLeadIdFilter,oPaintingReqIdFiler);
+                mBindingParams.filters.push(oLeadIdFilter, oPaintingReqIdFiler);
                 // mBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 promise.resolve();
                 return promise;
@@ -275,7 +328,7 @@ sap.ui.define(
                 oBindingParams.parameters["expand"] = "Product,ProductShade,Product/ProductClassification";
                 var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
                 var oPaintingReqIdFiler = new Filter("PaintingReqId", FilterOperator.EQ, iPaintingReqId);
-                oBindingParams.filters.push(oFiler,oPaintingReqIdFiler);
+                oBindingParams.filters.push(oFiler, oPaintingReqIdFiler);
                 // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
                 promise.resolve();
                 return promise;
@@ -284,158 +337,158 @@ sap.ui.define(
             // before binding methods of the smart tables
             onBeforeRebindPreReq1: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindPreEstimationTbl(oEvent,1);
+                var c1 = this._bindPreEstimationTbl(oEvent, 1);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                    this._bindViewElement("idTotalInterior","/"+sPreEstimationPath);
-                    this._bindViewElement("idLblTotalInterior","/"+sPreEstimationPath);
-                    this._bindViewElement("idPreEstGTotal","/"+sPreEstimationPath);
-                    this._bindViewElement("idPreEstimationDate","/"+sPreEstimationPath);
+                    this._bindViewElement("idTotalInterior", "/" + sPreEstimationPath);
+                    this._bindViewElement("idLblTotalInterior", "/" + sPreEstimationPath);
+                    this._bindViewElement("idPreEstGTotal", "/" + sPreEstimationPath);
+                    this._bindViewElement("idPreEstimationDate", "/" + sPreEstimationPath);
                 });
             },
             onBeforeRebindPreReq2: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindPreEstimationTbl(oEvent,2);
+                var c1 = this._bindPreEstimationTbl(oEvent, 2);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                    this._bindViewElement("idTotalExterior","/"+sPreEstimationPath);
-                    this._bindViewElement("idLblTotalExterior","/"+sPreEstimationPath);
+                    this._bindViewElement("idTotalExterior", "/" + sPreEstimationPath);
+                    this._bindViewElement("idLblTotalExterior", "/" + sPreEstimationPath);
                 });
             },
             onBeforeRebindPreReq3: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindPreEstimationTbl(oEvent,3);
+                var c1 = this._bindPreEstimationTbl(oEvent, 3);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                    this._bindViewElement("idTotalWC","/"+sPreEstimationPath);
-                    this._bindViewElement("idLblTotalWC","/"+sPreEstimationPath);
+                    this._bindViewElement("idTotalWC", "/" + sPreEstimationPath);
+                    this._bindViewElement("idLblTotalWC", "/" + sPreEstimationPath);
                 });
             },
             onBeforeRebindPreReq4: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindPreEstimationTbl(oEvent,4);
+                var c1 = this._bindPreEstimationTbl(oEvent, 4);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                    this._bindViewElement("idTotalCC","/"+sPreEstimationPath);
-                    this._bindViewElement("idLblTotalCC","/"+sPreEstimationPath);
+                    this._bindViewElement("idTotalCC", "/" + sPreEstimationPath);
+                    this._bindViewElement("idLblTotalCC", "/" + sPreEstimationPath);
                 });
             },
             onBeforeRebindPreReq5: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindPreEstimationTbl(oEvent,5);
+                var c1 = this._bindPreEstimationTbl(oEvent, 5);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                    this._bindViewElement("idTotalEnamel","/"+sPreEstimationPath);
-                    this._bindViewElement("idLblTotalEnamel","/"+sPreEstimationPath);
+                    this._bindViewElement("idTotalEnamel", "/" + sPreEstimationPath);
+                    this._bindViewElement("idLblTotalEnamel", "/" + sPreEstimationPath);
                 });
             },
             onBeforeRebindQuotReq1: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindQuotationTbl(oEvent,1);
+                var c1 = this._bindQuotationTbl(oEvent, 1);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sQuotationPath = oBindingObject.Quotation.__list[0];
-                    this._bindViewElement("idTotalQuotInterior","/"+sQuotationPath);
-                    this._bindViewElement("idLblTotalQuotInterior","/"+sQuotationPath);
-                    this._bindViewElement("idQuotOCTotal","/"+sQuotationPath);
-                    this._bindViewElement("idQuotDiscountLbl","/"+sQuotationPath);
-                    this._bindViewElement("idQuotDiscount","/"+sQuotationPath);
-                    this._bindViewElement("idQuotGTotal","/"+sQuotationPath);
-                    this._bindViewElement("idQuotationDate","/"+sQuotationPath);
+                    this._bindViewElement("idTotalQuotInterior", "/" + sQuotationPath);
+                    this._bindViewElement("idLblTotalQuotInterior", "/" + sQuotationPath);
+                    this._bindViewElement("idQuotOCTotal", "/" + sQuotationPath);
+                    this._bindViewElement("idQuotDiscountLbl", "/" + sQuotationPath);
+                    this._bindViewElement("idQuotDiscount", "/" + sQuotationPath);
+                    this._bindViewElement("idQuotGTotal", "/" + sQuotationPath);
+                    this._bindViewElement("idQuotationDate", "/" + sQuotationPath);
                 });
             },
             onBeforeRebindQuotReq2: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindQuotationTbl(oEvent,2);
+                var c1 = this._bindQuotationTbl(oEvent, 2);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sQuotationPath = oBindingObject.Quotation.__list[0];
-                    this._bindViewElement("idTotalQuotExterior","/"+sQuotationPath);
-                    this._bindViewElement("idLblTotalQuotExterior","/"+sQuotationPath);
+                    this._bindViewElement("idTotalQuotExterior", "/" + sQuotationPath);
+                    this._bindViewElement("idLblTotalQuotExterior", "/" + sQuotationPath);
                 });
             },
             onBeforeRebindQuotReq3: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindQuotationTbl(oEvent,3);
+                var c1 = this._bindQuotationTbl(oEvent, 3);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sQuotationPath = oBindingObject.Quotation.__list[0];
-                    this._bindViewElement("idTotalQuotWC","/"+sQuotationPath);
-                    this._bindViewElement("idLblTotalQuotWC","/"+sQuotationPath);
+                    this._bindViewElement("idTotalQuotWC", "/" + sQuotationPath);
+                    this._bindViewElement("idLblTotalQuotWC", "/" + sQuotationPath);
                 });
             },
             onBeforeRebindQuotReq4: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindQuotationTbl(oEvent,4);
+                var c1 = this._bindQuotationTbl(oEvent, 4);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sQuotationPath = oBindingObject.Quotation.__list[0];
-                    this._bindViewElement("idTotalQuotCC","/"+sQuotationPath);
-                    this._bindViewElement("idLblTotalQuotCC","/"+sQuotationPath);
+                    this._bindViewElement("idTotalQuotCC", "/" + sQuotationPath);
+                    this._bindViewElement("idLblTotalQuotCC", "/" + sQuotationPath);
                 });
             },
             onBeforeRebindQuotReq5: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindQuotationTbl(oEvent,5);
+                var c1 = this._bindQuotationTbl(oEvent, 5);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sQuotationPath = oBindingObject.Quotation.__list[0];
-                    this._bindViewElement("idTotalQuotEnamel","/"+sQuotationPath);
-                    this._bindViewElement("idLblTotalQuotEnamel","/"+sQuotationPath);
+                    this._bindViewElement("idTotalQuotEnamel", "/" + sQuotationPath);
+                    this._bindViewElement("idLblTotalQuotEnamel", "/" + sQuotationPath);
                 });
             },
             onBeforeBindMatReqTbl1: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindMRTbl(oEvent,1);
+                var c1 = this._bindMRTbl(oEvent, 1);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                     var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                     var sMaterialRequisitionPath = oBindingObject.MaterialRequisition.__list[0];
-                    this._bindViewElement("idMRDate","/"+sMaterialRequisitionPath);
+                    this._bindViewElement("idMRDate", "/" + sMaterialRequisitionPath);
                 });
             },
             onBeforeBindMatReqTbl2: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindMRTbl(oEvent,2);
+                var c1 = this._bindMRTbl(oEvent, 2);
                 var othat = this;
-                c1.then( () => {
-                   
+                c1.then(() => {
+
                 });
             },
             onBeforeBindMatReqTbl3: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindMRTbl(oEvent,3);
+                var c1 = this._bindMRTbl(oEvent, 3);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                 });
             },
             onBeforeBindMatReqTbl4: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindMRTbl(oEvent,4);
+                var c1 = this._bindMRTbl(oEvent, 4);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                 });
             },
             onBeforeBindMatReqTbl6: function (oEvent) {
                 var oView = this.getView();
-                var c1 = this._bindMRTbl(oEvent,5);
+                var c1 = this._bindMRTbl(oEvent, 5);
                 var othat = this;
-                c1.then( () => {
+                c1.then(() => {
                 });
             },
             onBeforeBindMatReqTbl5: function (oEvent) {
@@ -463,18 +516,18 @@ sap.ui.define(
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "LeadVisitOutcomeDetails/VisitsOutcome";
                 var oIdFilter = new Filter("VisitTargetId", FilterOperator.EQ, sId);
-                var oFirstVisitFilter = new Filter("LeadVisitOutcomeDetails/VisitOutcomeId", FilterOperator.NE,1);
-                var oTaskTypeFilter = new Filter("TaskTypeId", FilterOperator.EQ,1);
-                var oArchivedFilter = new Filter("IsArchived", FilterOperator.EQ,false);
-                oBindingParams.filters.push(oIdFilter,oFirstVisitFilter,oTaskTypeFilter,oArchivedFilter);
+                var oFirstVisitFilter = new Filter("LeadVisitOutcomeDetails/VisitOutcomeId", FilterOperator.NE, 1);
+                var oTaskTypeFilter = new Filter("TaskTypeId", FilterOperator.EQ, 1);
+                var oArchivedFilter = new Filter("IsArchived", FilterOperator.EQ, false);
+                oBindingParams.filters.push(oIdFilter, oFirstVisitFilter, oTaskTypeFilter, oArchivedFilter);
                 oBindingParams.sorter.push(new Sorter("Date", true));
             },
-            onFeedbackFormLoad: function(oEvent){
+            onFeedbackFormLoad: function (oEvent) {
                 var sServiceURL = this.getView().getModel().sServiceUrl;
                 var oBindingObject = this.getView().getBindingContext().getObject();
                 var sFeedbackFormUrl = oBindingObject.ConsumerFeedback.__list[0];
-                if(sFeedbackFormUrl)
-                    this.getView().byId("FeedbackData").bindElement({path: "/" + sFeedbackFormUrl});
+                if (sFeedbackFormUrl)
+                    this.getView().byId("FeedbackData").bindElement({ path: "/" + sFeedbackFormUrl });
             },
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
@@ -499,8 +552,8 @@ sap.ui.define(
                 var sServiceURL = this.getView().getModel().sServiceUrl;
                 var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                 var sPreEstimationPath = oBindingObject.PreEstimation.__list[0];
-                var sTokenCode = this.getView().getModel().getProperty("/"+sPreEstimationPath).TokenCode;
-                var sURL = sServiceURL + "/"+ sPreEstimationPath + "/$value?Token="+ sTokenCode;
+                var sTokenCode = this.getView().getModel().getProperty("/" + sPreEstimationPath).TokenCode;
+                var sURL = sServiceURL + "/" + sPreEstimationPath + "/$value?Token=" + sTokenCode;
                 sap.m.URLHelper.redirect(sURL, true);
             },
 
@@ -508,8 +561,8 @@ sap.ui.define(
                 var sServiceURL = this.getView().getModel().sServiceUrl;
                 var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                 var sQuotationPath = oBindingObject.Quotation.__list[0];
-                var sTokenCode = this.getView().getModel().getProperty("/"+sQuotationPath).TokenCode;
-                var sURL = sServiceURL + "/"+ sQuotationPath + "/$value?Token="+ sTokenCode;
+                var sTokenCode = this.getView().getModel().getProperty("/" + sQuotationPath).TokenCode;
+                var sURL = sServiceURL + "/" + sQuotationPath + "/$value?Token=" + sTokenCode;
                 sap.m.URLHelper.redirect(sURL, true);
             },
 
@@ -517,10 +570,11 @@ sap.ui.define(
                 var sServiceURL = this.getView().getModel().sServiceUrl;
                 var oBindingObject = oEvent.getSource().getBindingContext().getObject();
                 var sMaterialRequisitionPath = oBindingObject.MaterialRequisition.__list[0];
-                var sTokenCode = this.getView().getModel().getProperty("/"+sMaterialRequisitionPath).TokenCode;
-                var sURL = sServiceURL + "/"+ sMaterialRequisitionPath + "/$value?Token="+ sTokenCode;
+                var sTokenCode = this.getView().getModel().getProperty("/" + sMaterialRequisitionPath).TokenCode;
+                var sURL = sServiceURL + "/" + sMaterialRequisitionPath + "/$value?Token=" + sTokenCode;
                 sap.m.URLHelper.redirect(sURL, true);
-            }
+            },
+
             // onPressSave: function () {
             //     var bValidateForm = this._ValidateForm();
             //     if (bValidateForm) {
