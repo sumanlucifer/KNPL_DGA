@@ -56,9 +56,18 @@
                                          <Token editable="false" text="{oModelControl>DepotId}" key="{oModelControl>DepotId}"/>
                                       </tokens>
 	                           </MultiInput> -->
-                                 <ComboBox enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}"  items="{/MasterDepots}" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
+                                 <ComboBox enabled="{= ${oModelControl>/filterBar/DivisionId}.length>1}" id="idDepot" placeholder="{i18n>Enter} {i18n>Depot}"  items="{/MasterDepots}" selectionChange="onDepotChange" selectedKey="{path:'oModelControl>/filterBar/DepotId' }">
                                         <core:Item text="{Depot} ( {Id} )" key="{Id}" />
                                     </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Location" label="{i18n>Location}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                   
+                                  
+                                      <ComboBox  enabled="{= ${oModelControl>/filterBar/DepotId}.length>1}" placeholder="{i18n>Enter} {i18n>Location}" id="idLocation"  items="{/MasterWorkLocations}" selectedKey="{path:'oModelControl>/filterBar/LocationId'}">
+                                               <core:Item text="{TownName}" key="{Id}" />
+                                          </ComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
 

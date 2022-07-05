@@ -102,7 +102,7 @@ sap.ui.define([
                 AddFields: {
                     TargetValue: "",
                     FromDate: "",
-                    EndDate: "",
+                    ToDate: "",
                     Mode: "",
                     LeadVisit : {
                         "TargetTypeId": 2,
@@ -116,7 +116,7 @@ sap.ui.define([
                         "ToDate": "",
                         "FromDate": "",
                         "TargetFrequencys": "DAILY",
-                        "TargetValue": 2
+                        "TargetValue": 0
                     },
                     ContractorVisit : {
                         "TargetTypeId": 4,
@@ -298,7 +298,7 @@ sap.ui.define([
                     "ToDate": "",
                     "FromDate": "",
                     "TargetFrequencys": "DAILY",
-                    "TargetValue": 2
+                    "TargetValue": 0
                 },
                 ContractorVisit : {
                     "TargetTypeId": 4,

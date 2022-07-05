@@ -132,7 +132,33 @@ sap.ui.define([], function () {
             else 
             return svalue ;
             
+        },
+        arrayFormat3: function(mParam1){
+            
+            var omodel = this.getView().getModel();
+           var svalue= "NA";
+           var avalue= [];
+            if(mParam1){
+                if(mParam1.length>0){
+                    avalue = mParam1.map(function(o){
+                      var prop1 = omodel.getProperty("/"+o).JobLocationDetails.__ref;
+                      var prop2 = omodel.getProperty("/"+prop1);
+                        return   prop2.TownName ;
+                    })
+                    svalue = avalue.join(", ");
+                    return svalue;
+
+                }
+                else
+                return svalue;
+              //  return mParam1.results.DepotId.toString();
+            }
+            else 
+            return svalue ;
+            
         }
+
+
 
 
 

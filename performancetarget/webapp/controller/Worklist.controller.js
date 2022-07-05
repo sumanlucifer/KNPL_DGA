@@ -49,11 +49,11 @@ sap.ui.define(
                         ZoneId: "",
                         DivisionId: "",
                         DepotId: "",
+                        LocationId: "",
                         DGAId: "",
 
                     },
                     EditFields: {
-                        FromDate:"",
                         TargetValue: "",
                     },
                     PageBusy: true
@@ -81,18 +81,19 @@ sap.ui.define(
 
 
             },
-            
-      
+
+
             _ResetFilterBar: function () {
                 var aCurrentFilterValues = [];
                 var aResetProp = {
                     FromDate: null,
-                    ToDate : null,
+                    ToDate: null,
                     Search: "",
                     Mode: "",
                     ZoneId: "",
                     DivisionId: "",
                     DepotId: "",
+                    LocationId: "",
                     DGAId: "",
 
                 };
@@ -104,23 +105,23 @@ sap.ui.define(
                 if (sKey == "0") {
                     oView.byId("LeadVisitTable").rebindTable();
                 }
-                else if (sKey == "1"){
+                else if (sKey == "1") {
                     oView.byId("NewLeadTable").rebindTable();
                 }
-                else if (sKey == "2"){
+                else if (sKey == "2") {
                     oView.byId("ContractorVisitCountTable").rebindTable();
                 }
-                else if (sKey == "3"){
+                else if (sKey == "3") {
                     oView.byId("DealerVisitTable").rebindTable();
                 }
-                else if (sKey == "4"){
+                else if (sKey == "4") {
                     oView.byId("LeadConversionTable").rebindTable();
-                }   
-            else if (sKey == "5"){
+                }
+                else if (sKey == "5") {
                     oView.byId("BusinessGenerationTable").rebindTable();
-                }             
+                }
             },
-          
+
             _onRouteMatched: function () {
                 this._InitData();
             },
@@ -186,39 +187,39 @@ sap.ui.define(
                 var c1, c2, c3, c4;
                 oModelControl.setProperty("/PageBusy", true)
                 c1 = othat._addSearchFieldAssociationToFB();
-                 c1.then(function () {
-                c2 = othat._dummyPromise();
-                c2.then(function () {
-                    c3 = othat._initTableData();
-                    c3.then(function () {
-                        oModelControl.setProperty("/PageBusy", false)
+                c1.then(function () {
+                    c2 = othat._dummyPromise();
+                    c2.then(function () {
+                        c3 = othat._initTableData();
+                        c3.then(function () {
+                            oModelControl.setProperty("/PageBusy", false)
+                        })
                     })
                 })
-                 })
 
             },
-                 // data show in table by Icon Tab Id
+            // data show in table by Icon Tab Id
             onIcnTbarChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
                 if (sKey == "0") {
                     oView.byId("LeadVisitTable").rebindTable();
                 }
-                else if (sKey == "1"){
+                else if (sKey == "1") {
                     oView.byId("NewLeadTable").rebindTable();
                 }
-                else if (sKey == "2"){
+                else if (sKey == "2") {
                     oView.byId("ContractorVisitCountTable").rebindTable();
                 }
-                else if (sKey == "3"){
+                else if (sKey == "3") {
                     oView.byId("DealerVisitTable").rebindTable();
                 }
-                else if (sKey == "4"){
+                else if (sKey == "4") {
                     oView.byId("LeadConversionTable").rebindTable();
-                }   
-            else if (sKey == "5"){
+                }
+                else if (sKey == "5") {
                     oView.byId("BusinessGenerationTable").rebindTable();
-                }             
+                }
             },
 
             _addSearchFieldAssociationToFB: function () {
@@ -305,14 +306,14 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                  oBindingParams.parameters["expand"] = "DGAType,PerformanceZone,PerformanceDivision,PerformanceDepot";
-               // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
-               
-                
-                var aCurrentFilterValues = [];
-              
+                oBindingParams.parameters["expand"] = "DGAType,PerformanceZone,PerformanceDivision,PerformanceDepot,PerformanceJobLocation/JobLocationDetails";
+                // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
-              //  Apply Filters
+
+                var aCurrentFilterValues = [];
+
+
+                //  Apply Filters
                 var oFilter = this._CreateFilter();
                 if (oFilter) {
                     oBindingParams.filters.push(oFilter);
@@ -326,21 +327,21 @@ sap.ui.define(
                 if (sKey == "0") {
                     oView.byId("LeadVisitTable").rebindTable();
                 }
-                else if (sKey == "1"){
+                else if (sKey == "1") {
                     oView.byId("NewLeadTable").rebindTable();
                 }
-                else if (sKey == "2"){
+                else if (sKey == "2") {
                     oView.byId("ContractorVisitCountTable").rebindTable();
                 }
-                else if (sKey == "3"){
+                else if (sKey == "3") {
                     oView.byId("DealerVisitTable").rebindTable();
                 }
-                else if (sKey == "4"){
+                else if (sKey == "4") {
                     oView.byId("LeadConversionTable").rebindTable();
-                }   
-            else if (sKey == "5"){
+                }
+                else if (sKey == "5") {
                     oView.byId("BusinessGenerationTable").rebindTable();
-                }        
+                }
 
             },
             _CreateFilter: function () {
@@ -351,47 +352,47 @@ sap.ui.define(
 
                 var aFlaEmpty = false;
                 var sKey = this.getView().byId("iconTabBar").getSelectedKey();
-            // By TargetId push the data into Table
+                // By TargetId push the data into Table
                 switch (sKey) {
 
                     case "0":
                         aCurrentFilterValues.push(
                             new Filter("TargetTypeId",
-                            sap.ui.model.FilterOperator.EQ,
-                            2));
+                                sap.ui.model.FilterOperator.EQ,
+                                2));
                         break;
                     case "1":
                         aCurrentFilterValues.push(
                             new Filter("TargetTypeId",
-                            sap.ui.model.FilterOperator.EQ,
-                            3));
+                                sap.ui.model.FilterOperator.EQ,
+                                3));
                         break;
 
                     case "2":
                         aCurrentFilterValues.push(
                             new Filter("TargetTypeId",
-                            sap.ui.model.FilterOperator.EQ,
-                            4));
+                                sap.ui.model.FilterOperator.EQ,
+                                4));
                         break;
 
                     case "3":
                         aCurrentFilterValues.push(
                             new Filter("TargetTypeId",
-                            sap.ui.model.FilterOperator.EQ,
-                            5));
+                                sap.ui.model.FilterOperator.EQ,
+                                5));
                         break;
 
                     case "4":
                         aCurrentFilterValues.push(
                             new Filter("TargetTypeId",
-                            sap.ui.model.FilterOperator.EQ,
-                            6));
+                                sap.ui.model.FilterOperator.EQ,
+                                6));
                         break;
                     case "5":
                         aCurrentFilterValues.push(
                             new Filter("TargetTypeId",
-                            sap.ui.model.FilterOperator.EQ,
-                            7));
+                                sap.ui.model.FilterOperator.EQ,
+                                7));
                         break;
 
 
@@ -402,9 +403,9 @@ sap.ui.define(
                 //      sap.ui.model.FilterOperator.EQ,
                 //      4));
                 //     //  aCurrentFilterValues.push(
-                    //     new Filter("TargetTypeId",
-                    //     sap.ui.model.FilterOperator.EQ,
-                    //     3));
+                //     new Filter("TargetTypeId",
+                //     sap.ui.model.FilterOperator.EQ,
+                //     3));
 
                 // filter bar filters
                 for (let prop in oViewFilter) {
@@ -430,7 +431,7 @@ sap.ui.define(
                             aCurrentFilterValues.push(
                                 new Filter("PerformanceZone/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
                         }
-                         else if (prop === "DvisionId") {
+                        else if (prop === "DvisionId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
                                 new Filter("PerformanceDivision/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
@@ -444,17 +445,12 @@ sap.ui.define(
                                 new Filter(
                                     [
                                         new Filter({
-                                            path: "Painter/Name",
-                                            operator: "Contains",
-                                            value1: oViewFilter[prop].trim(),
-                                            caseSensitive: false
-                                        }),
-                                        new Filter({
-                                            path: "ComplaintCode",
+                                            path: "DGAType/Name",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
                                         })
+
                                     ],
                                     false
                                 )
@@ -511,6 +507,7 @@ sap.ui.define(
                 oDepot.setValue("");
                 // clearning data for dealer
             },
+
             onDivisionChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
@@ -520,6 +517,17 @@ sap.ui.define(
                 oDepot.setValue("");
                 oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
             },
+
+            onDepotChange: function (oEvent) {
+                var sKey = oEvent.getSource().getSelectedKey();
+                var oView = this.getView();
+                var oDepot = oView.byId("idLocation");
+                var oDepBindItems = oDepot.getBinding("items");
+                oDepot.clearSelection();
+                oDepot.setValue("");
+                oDepBindItems.filter(new Filter("DepotId", FilterOperator.EQ, sKey));
+            },
+
 
             onPressDelete: function (oEvent) {
                 var oView = this.getView();
@@ -549,6 +557,17 @@ sap.ui.define(
                 var oContext = oEvent.getSource().getBindingContext();
                 var contextObject = {};
                 jQuery.extend(true, contextObject, oContext.getObject());
+
+                contextObject.DGAType.Name = oContext.getProperty("/"+oContext.getObject().DGAType.__ref).Name;
+
+                
+                contextObject.PerformanceDivision = oContext.getObject().PerformanceDivision.__list;
+                contextObject.PerformanceDepot = oContext.getObject().PerformanceDepot.__list;
+                contextObject.PerformanceZone = oContext.getObject().PerformanceZone.__list;
+                 contextObject.PerformanceJobLocation = oContext.getObject().PerformanceJobLocation.__list;
+
+
+
                 oView.getModel("oModelControl").setProperty("/EditFields", contextObject);
                 return new Promise(function (resolve, reject) {
                     if (!this.EditTargetHistory) {
@@ -572,8 +591,8 @@ sap.ui.define(
             },
 
             onEditHistoryCancel: function () {
-               
-                if(this.EditTargetHistory){
+
+                if (this.EditTargetHistory) {
                     this.getView().byId("idEditHistory").setValueState("None");
                     this.getView().byId("idEditHistory").setValueStateText("");
                     this.getView().getModel("oModelControl").setProperty("/EditFields", {});
@@ -581,42 +600,45 @@ sap.ui.define(
                 }
 
             },
-            onEditHistoryDialogSave: function(oEvent){
+            onEditHistoryDialogSave: function (oEvent) {
                 var oView = this.getView(),
-                   oThat=this;
+                    oThat = this;
                 var oData = oView.getModel();
                 var oModel = oView.getModel("oModelControl");
 
-                if(oView.byId("idEditHistory").getValue().length === 0){
-                    oView.byId("idEditHistory").setValueState("Error");
-                    oView.byId("idEditHistory").setValueStateText("Enter some value");
-                    return;
-                }
+                // if (oView.byId("idEditHistory").getValue().length === 0) {
+                //     oView.byId("idEditHistory").setValueState("Error");
+                //     oView.byId("idEditHistory").setValueStateText("Enter some value");
+                //     return;
+                // }
 
-            
 
-            //     var oPayload = {
-            //         Id:oModel.getProperty("/EditFields/Id"),
-            //         Name:oModel.getProperty("/EditFields/Name"),
-            //     };
-                
-            //     var othat = this;
-            //     oData.update("/MasterTargetPlansRenews("+Number(oModel.getProperty("/EditFields/Id"))+")", oPayload, {
-            //         success: function () {
-            //             oModel.setProperty("/EditFields", {});
-            //                oData.refresh(true);
-            //             MessageToast.show("Count History Successfully Updated.");
-            //             othat.onEditHistoryCancel();
-            //         },
-            //         error: function (a) {
-            //             MessageBox.error(othat._sErrorText, {
-            //                 title: "Error Code: " + a.statusCode,
-            //             });
-            //         },
-            //     });
-             },
 
-            
+                    var oPayload = {
+                       // Id:oModel.getProperty("/EditFields/Id"),
+                         TargetValue:oModel.getProperty("/EditFields/TargetValue"),
+                       // TargetValue: this._TargetValue()
+                      
+                    };
+                 
+
+                    var othat = this;
+                    oData.update("/MasterTargetPlansRenews("+Number(oModel.getProperty("/EditFields/Id"))+"L)/TargetValue", oPayload, {
+                        success: function () {
+                            oModel.setProperty("/EditFields", {});
+                               oData.refresh(true);
+                            MessageToast.show("Count History Successfully Updated.");
+                            othat.onEditHistoryCancel();
+                        },
+                        error: function (a) {
+                            MessageBox.error(othat._sErrorText, {
+                                title: "Error Code: " + a.statusCode,
+                            });
+                        },
+                    });
+            },
+
+
         }
         );
     }

@@ -1,28 +1,33 @@
 <core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
 
-    <Dialog  class="sapUiContentPadding" title="{i18n>Edit} {i18n>MainObject} {i18n>History}" >
+    <Dialog id="idEditDialog" class="sapUiContentPadding" title="{i18n>Edit} {i18n>MainObject} {i18n>History}" >
         <content>
             <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">  
                   <f:content>
                     <Label text="{i18n>From}" />
-                     <Text text="{path:'{oModelControl>/EditFields>/FromDate}',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+                     <Text text="{path:'oModelControl>/EditFields/FromDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                     <Label text="{i18n>To}" />
-                      <Text text="{path:'ToDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+                      <Text text="{path:'oModelControl>/EditFields/ToDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
                     <Label text="{i18n>DGA} {i18n>Type}" />
-                     <Text text="{DGAType/Name}"/>
+                     <Text text="{oModelControl>/EditFields/DGAType/Name}"/>
                      <Label text="{i18n>Zone}" />
-                   <Text text="{path:'PerformanceZone',formatter:'.formatter.arrayFormat2'}"/> 
+                   <Text text="{path:'oModelControl>/EditFields/PerformanceZone',formatter:'.formatter.arrayFormat2'}"/> 
                         
                      <Label text="{i18n>Divison}" />
-                     <Text text="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/>  
+                     <Text text="{path:'oModelControl>/EditFields/PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/>  
                         <Label text="{i18n>Depot}" />
-                        <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/> 
+                        <Text text="{path:'oModelControl>/EditFields/PerformanceDepot',formatter:'.formatter.arrayFormat'}"/> 
                           <Label text="{i18n>Job} {i18n>Location}" /> 
-                           <Text text="{ }"/>
-                     <Label text="{i18n>LeadVisitCount}" required="true" />
+                       <Text text="{path:'oModelControl>/EditFields/PerformanceJobLocation',formatter:'.formatter.arrayFormat3'}"/> 
+
+                       </f:content>
+            </f:SimpleForm>
+              <f:SimpleForm>
+                   <f:content>
+                     <Label text="{i18n>Count}" required="true" />
                 <!-- <Input required="true" id="idEditHistory" liveChange="onCountChange" value="{path:'oModelControl>/EditFields/Target', type : 'sap.ui.model.type.String', constraints:{ minLength:1 } }" /> --> 
                  <!-- <Label id="idStepInpt" text="{titleModel>/icnTbTittle} {i18n>Count}"  /> -->
-                      <StepInput id="idEditHistory" value="{oModelControl>/EditFields/Target}" displayValuePrecision="0"  min=" " max=" " width="14em" enabled="true" editable="true" change="onCountChange" />
+                      <StepInput id="idEditHistory" value="{oModelControl>/EditFields/TargetValue}" displayValuePrecision="0"  min="0" max=" " width="14em" enabled="true" editable="true" change="onCountChange" />
            </f:content>
             </f:SimpleForm>
         </content>
