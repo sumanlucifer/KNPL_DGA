@@ -343,6 +343,7 @@ sap.ui.define([
                     },
                     error: function (data) {
                         oModelControl.setProperty("/PageBusy", false);
+                        MessageBox.error(data.responseText);
                         reject(data);
                     },
                 });
