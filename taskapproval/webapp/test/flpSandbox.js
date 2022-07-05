@@ -39,7 +39,7 @@ sap.ui.define([
 							"tiles": [{
 								"tileType": "sap.ushell.ui.tile.StaticTile",
 								"properties": {
-									"title": "Lead Management",
+									"title": "Ui5 Template",
 									"targetURL": "#comknpldgataskapproval-display"
 								}
 							}]
@@ -54,8 +54,8 @@ sap.ui.define([
 							"comknpldgataskapproval-display": {
 								"semanticObject": "comknpldgataskapproval",
 								"action": "display",
-								"description": "Lead Management",
-								"title": "Lead Management",
+								"description": "A Fiori application.",
+								"title": "Ui5 Template",
 								"signature": {
 									"parameters": {}
 								},

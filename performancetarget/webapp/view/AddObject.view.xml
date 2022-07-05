@@ -1,32 +1,263 @@
-<mvc:View
- xmlns:core="sap.ui.core"
-	controllerName="com.knpl.dga.performancetarget.controller.AddObject"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	>
-
- <Page busy="{oModelControl>/PageBusy}"  busyIndicatorDelay="0" showNavButton="false" showHeader="true" >
-        <headerContent>
-            <Bar>
-                <contentLeft>
-                    <Breadcrumbs currentLocationText="{i18n>Add} {i18n>MainObject}" >
-                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
+<mvc:View xmlns:vbm="sap.ui.vbm" height="100%" controllerName="com.knpl.dga.performancetarget.controller.AddObject" xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+    <f:DynamicPage busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
+			class="sapUiNoContentPadding" showFooter="true" id="dynamicPageId" headerExpanded="true">
+        <f:title>
+             <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Set Target" id ="idAddObjectTitle"  class="sapUiSmallMarginTopBottom"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs  currentLocationText="Set Performance Target">
+                        <Link text="{i18n>MainObject2}" press="onNavToHome"/>
+                         <Link text="{i18n>MainObject}" press="onNavToHome"/>
                     </Breadcrumbs>
-                </contentLeft>
-            </Bar>
-        </headerContent>
-        <content>
-            <VBox width="100%" id="oVBoxAddObjectPage">
-            </VBox>
-        </content>
-        <footer>
-            <Toolbar>
+                </f:breadcrumbs>
+              
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+           
+        </f:header>
+
+        <f:content>
+        
+        <form:SimpleForm class="addForm sapUiMediumMarginBeginEnd" id="idSampleSetTarget"  editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="3" columnsM="2" singleContainerFullSize="true">
+            <form:content>
+              <VBox>
+                    <Label text="{i18n>Select} {i18n>DGAType}" required="true" class= "sapUiTinyMarginTopBottom" />
+               	     <RadioButtonGroup columns="3" select="onRbChnageMain" selectedIndex="{oModelControl>/Rbtn/TarGrp}">
+                            <buttons>
+                                <RadioButton text="{i18n>DedicatedDGA}" selected="true"/>
+                                <RadioButton text="{i18n>SharedDGA}"/>
+                                <RadioButton text="{i18n>All}"/>
+                            </buttons>
+                     </RadioButtonGroup>
+               
+                   <VBox class="sapUiTinyMargin">
+                    <HBox width="100%">
+                    <VBox >
+                    <Label text="{i18n>Select} {i18n>Zone}" required="true" width="14em" />
+                     <RadioButtonGroup columns="2" select="onRbChnageZone" selectedIndex="{oModelControl>/Rbtn/Zone}">
+                            <buttons>
+                                <RadioButton text="{i18n>All}" selected="true"/>
+                                <RadioButton  text="{i18n>Specific}"/>
+                            </buttons>
+                     </RadioButtonGroup>
+               
+                   
+                      <MultiComboBox enabled="{titleModel>/isSpecificZone}"  id="idZone" class="sapUiTinyMarginEnd" required="true" width="10rem" selectedKeys="{path:'oModelControl>/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/MasterZones' }"  selectionChange="onMultyZoneChange" >
+					<core:Item key="{Id}" text="{Id}"/>
+				     </MultiComboBox>
+                    </VBox>
+                           
+                     <VBox>
+                         <Label text="{i18n>Select} {i18n>Divison}" required="true" width="14em" />
+<!-- 
+                         <MultiInput width="10rem" editable="{= ${oModelControl>/MultiCombo/Zone}.length > 0 }" id="multiInputDivisonAdd" tokens="{oModelControl>/MultiCombo/Divison}" valueHelpRequest="onValueHelpRequestedDivison">
+	                <tokens>
+                        <Token editable="false" text="{oModelControl>DivisonId}" key="{oModelControl>DivisonId}"/>
+                    </tokens>
+	            </MultiInput> -->
+                       <RadioButtonGroup columns="2" select="onRbChnageDivison" selectedIndex="{oModelControl>/Rbtn/Division}">
+                            <buttons>
+                                <RadioButton text="{i18n>All}" selected="true"/>
+                                <RadioButton  text="{i18n>Specific}"/>
+                            </buttons>
+                     </RadioButtonGroup>
+               
+                     
+                         <MultiComboBox enabled="{titleModel>/isSpecificDivision}" editable="{= ${oModelControl>/MultiCombo/Zone}.length > 0 }" id="idDivision" width="10rem" selectedKeys="{oModelControl>/MultiCombo/Division}" items="{ path : '/MasterDivisions'}" selectionChange="onMultyDivisionChange" >
+					       <core:Item key="{Id}" text="{Id}"/>
+				         </MultiComboBox> 
+                     </VBox>
+                     <VBox>
+                  <Label text="{i18n>Select} {i18n>Depot}" required="true" width="14em" />
+                        <RadioButtonGroup columns="2" select="onRbChnageDepot" selectedIndex="{oModelControl>/Rbtn/Depot}">
+                            <buttons>
+                                <RadioButton text="{i18n>All}" selected="true"/>
+                                <RadioButton  text="{i18n>Specific}"/>
+                            </buttons>
+                      </RadioButtonGroup>
+               
+                         
+                            <MultiInput width="10rem" enabled="{titleModel>/isSpecificDepot}" editable="{= ${oModelControl>/MultiCombo/Division}.length > 0 }" id="multiInputDepotAdd" tokens="{oModelControl>/MultiCombo/Depot}" valueHelpRequest="onValueHelpRequestedDepot">
+	                <tokens>
+                        <Token editable="false" text="{oModelControl>DepotId}" key="{oModelControl>DepotId}"/>
+                    </tokens>
+	            </MultiInput>
+
+                     </VBox>
+                      <VBox >
+                    <Label text="{i18n>Job} {i18n>Location}" required="true" width="14em" />
+                     <RadioButtonGroup columns="2" select="onRbChnageLocation" selectedIndex="{oModelControl>/Rbtn/Location}">
+                            <buttons>
+                                <RadioButton text="{i18n>All}" selected="true"/>
+                                <RadioButton  text="{i18n>Specific}"/>
+                            </buttons>
+                     </RadioButtonGroup>
+               
+                   
+                      <MultiComboBox enabled="{titleModel>/isSpecificLocation}" editable="{= ${oModelControl>/MultiCombo/Depot}.length > 0 }" id="idLocation" class="sapUiTinyMarginEnd" required="true" width="10rem" selectedKeys="{path:'oModelControl>/MultiCombo/Location', type :'.customMulti' }" items="{ path : '/MasterWorkLocations' }"  >
+					<core:Item key="{TownId}" text="{TownName}"/>
+				     </MultiComboBox>
+                    </VBox>
+                    </HBox>
+                     </VBox>
+                     
+                            <!-- <Label text ="{i18n>mode}" class="sapUiTinyMarginBeginEnd" required="true" />
+                             <ComboBox id="idMode" class="sapUiTinyMarginBeginEnd" placeholder="{i18n>Select} {i18n>mode}" selectionChange="onModeChange" selectedKey="{path:'oModelControl>/AddFields/Mode' }">
+                                       <core:Item text="{i18n>Daily}" key="0"/>
+                                        <core:Item text="{i18n>Monthly}" key="1"/>
+                             </ComboBox> -->
+                     <VBox>
+                     
+                     </VBox>
+              
+                      
+                         <HBox>
+                       <Title class="sapUiTinyMarginBegin" text="Lead Visit Target" />
+                         </HBox>
+                      
+                     <HBox  >
+                     
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}"  class="" width="10em" />
+                       <!-- <DatePicker  placeholder="DD/MM/YYYY"  width="10em" value="{path:'oModelControl>/AddFields/LeadVisit/FromDate'}"></DatePicker> -->
+                        <DatePicker minDate="{oModelView>/CurrentDate}"  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY"  width="10em" change="onFromDate" value="{path:'oModelControl>/AddFields/LeadVisit/FromDate'}"></DatePicker>
+         
+                      </VBox>
+                      <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}"  class="" width="10em" />
+                          <!-- <DatePicker placeholder="DD/MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/LeadVisit/ToDate'}" ></DatePicker>  -->
+                           <DatePicker  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" width="10em"   change="onToDate"  value="{path:'oModelControl>/AddFields/LeadVisit/ToDate'}"></DatePicker>
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label  text="{i18n>LeadVisitCount} ({i18n>Daily})"  width="14em" />
+                      <StepInput value="{oModelControl>/AddFields/LeadVisit/TargetValue}" displayValuePrecision="0"  min="0" max="100 " width="14em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+                     
+                         <HBox>
+                           <Title class="sapUiTinyMarginBegin" text="New Lead Target" />
+                         </HBox>
+                      
+                       <HBox  >
+                     
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}"  class="" width="10em" />
+                        <!-- <DatePicker  placeholder="DD/MM/YYYY"  width="10em" value="{path:'oModelControl>/AddFields/NewLead/FromDate'}"></DatePicker> -->
+                        <DatePicker minDate="{oModelView>/CurrentDate}"  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY"  width="10em" change="onFromDate1" value="{path:'oModelControl>/AddFields/NewLead/FromDate'}"></DatePicker>
+                      </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}"  class="" width="10em" />
+                          <!-- <DatePicker  placeholder="DD/MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/NewLead/ToDate'}"></DatePicker>  -->
+                      <DatePicker  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" width="10em"   change="onToDate1"  value="{path:'oModelControl>/AddFields/NewLead/ToDate'}"></DatePicker>
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label  text="{i18n>NewLeadVisitCount} ({i18n>Daily})"  width="14em" />
+                      <StepInput value="{oModelControl>/AddFields/NewLead/TargetValue}" displayValuePrecision="0"  min="0" max="100" width="14em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+                       
+                        <HBox>
+                           <Title class="sapUiTinyMarginBegin" text="Contractor Visit" />
+                         </HBox>
+                      <HBox  >
+                     
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}"  class="" width="10em" />
+                        <!-- <DatePicker placeholder="DD/MM/YYYY"  width="10em" value="{path:'oModelControl>/AddFields/ContractorVisit/FromDate'}"></DatePicker> -->
+                      <DatePicker minDate="{oModelView>/CurrentDate}"  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY"  width="10em" change="onFromDate2" value="{path:'oModelControl>/AddFields/ContractorVisit/FromDate'}"></DatePicker>
+                      </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}"  class="" width="10em" />
+                          <!-- <DatePicker placeholder="DD/MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/ContractorVisit/ToDate'}" ></DatePicker>  -->
+                           <DatePicker  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" width="10em"   change="onToDate2"  value="{path:'oModelControl>/AddFields/ContractorVisit/ToDate'}"></DatePicker>
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label  text="{i18n>ContractorVisitCount} ({i18n>Daily})"  width="14em" />
+                      <StepInput value="{oModelControl>/AddFields/ContractorVisit/TargetValue}" displayValuePrecision="0"  min="0" max="100" width="14em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+                       
+                        <HBox>
+                           <Title class="sapUiTinyMarginBegin" text="Dealer Visit" />
+                         </HBox>
+                      <HBox  >
+                      
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}"  class="" width="10em" />
+                        <!-- <DatePicker  placeholder="DD/MM/YYYY"  width="10em" value="{path:'oModelControl>/AddFields/DealerVisit/FromDate'}"></DatePicker> -->
+            <DatePicker minDate="{oModelView>/CurrentDate}"  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY"  width="10em" change="onFromDate3" value="{path:'oModelControl>/AddFields/DealerVisit/FromDate'}"></DatePicker>
+                      </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}"  class="" width="10em" />
+                          <!-- <DatePicker placeholder="DD/MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/DealerVisit/ToDate'}" ></DatePicker>  -->
+                           <DatePicker  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" width="10em"   change="onToDate3"  value="{path:'oModelControl>/AddFields/DealerVisit/ToDate'}"></DatePicker>
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label  text="{i18n>DealerVisitCount} ({i18n>Daily})"  width="14em" />
+                      <StepInput value="{oModelControl>/AddFields/DealerVisit/TargetValue}" displayValuePrecision="0"  min="0" max="100" width="14em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+                       
+                         <HBox>
+                           <Title class="sapUiTinyMarginBegin" text="Lead Conversion" />
+                         </HBox>
+                      <HBox >
+                      
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}"  class="" width="10em" />
+                        <DatePicker  minDate="{oModelView>/CurrentMonth}" placeholder="MM/YYYY" change="onFromDate4" width="10em" value="{path:'oModelControl>/AddFields/LeadConversion/FromDate'}" valueFormat="MM/yyyy" displayFormat="MM/yyyy"></DatePicker>
+                         <!-- <DatePicker  minDate="{oModelView>/CurrentMonth}" placeholder="MM/YYYY" value="{path:'oModelControl>//AddFields/LeadConversion/FromDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker> -->
+                      </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}"  class="" width="10em" />
+                          <DatePicker  placeholder="MM/YYYY" width="10em" change="onToDate4" value="{path:'oModelControl>/AddFields/LeadConversion/ToDate'}" displayFormat="MM/yyyy"></DatePicker> 
+                            <!-- <DatePicker minDate="{oModelView>/CurrentMonth}"  placeholder="MM/YYYY" valueFormat="MM/YYYY"  width="10em" change="onFromDate4" value="{path:'oModelControl>/AddFields/LeadConversion/FromDate',,formatOptions: {pattern:'MM/yyyy', UTC:false }}" displayFormat="MM/yyyy"></DatePicker> -->
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label  text="{i18n>LeadConversion} ({i18n>Monthly})"  width="14em" />
+                      <StepInput value="{oModelControl>/AddFields/LeadConversion/TargetValue}" displayValuePrecision="0"  min="0" max="100" width="14em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+         
+                        <HBox>
+                           <Title class="sapUiTinyMarginBegin" text="Business Generation" />
+                         </HBox>
+                       <HBox  >
+                      
+                        <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>From}"  class="" width="10em" />
+                         <DatePicker  minDate="{oModelView>/CurrentMonth}" placeholder="MM/YYYY" change="onFromDate5" width="10em" value="{path:'oModelControl>/AddFields/BusinessGeneration/FromDate'}"  valueFormat="MM/yyyy" displayFormat="MM/yyyy"></DatePicker>
+                        <!-- <DatePicker  minDate="{oModelView>/CurrentMonth}"  placeholder="MM/YYYY"  width="10em" value="{path:'oModelControl>/AddFields/BusinessGeneration/FromDate',formatOptions: {pattern:'MM/yyyy', UTC:false }}"  displayFormat="MM/yyyy"></DatePicker> -->
+           
+                      </VBox>
+                          <VBox class="sapUiTinyMargin">
+                         <Label text="{i18n>To}"  class="" width="10em" />
+                           <DatePicker  placeholder="MM/YYYY" width="10em" change="onToDate5" value="{path:'oModelControl>/AddFields/BusinessGeneration/ToDate'}" displayFormat="MM/yyyy"></DatePicker> 
+                          <!-- <DatePicker  placeholder="MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/BusinessGeneration/ToDate',formatOptions: {pattern:'MM/yyyy', UTC:false }}"  displayFormat="MM/yyyy" ></DatePicker>  -->
+                      </VBox>
+                         <VBox class="sapUiTinyMargin">
+                      <Label  text="{i18n>BusinessGeneration} ({i18n>Monthly})"  width="14em" />
+                      <StepInput value="{oModelControl>/AddFields/BusinessGeneration/TargetValue}" displayValuePrecision="0"  min="0" max="100" width="14em" enabled="true" editable="true" change="onChange"/>
+                      </VBox>
+                     </HBox>
+                  
+                </VBox>
+            </form:content>
+        </form:SimpleForm>
+        
+        </f:content>
+
+       <!--  -->
+        <f:footer>
+         
+           <Toolbar>
                 <ToolbarSpacer/>
                 <Button width="7%" text="{i18n>Cancel}" type="Ghost" press="onNavToHome"/>
                 <Button width="7%" text="{i18n>Save}" type="Emphasized" press="onPressSave"/>
             </Toolbar>
-        </footer>
-    </Page>
-
-
+        </f:footer>
+    </f:DynamicPage>
 </mvc:View>

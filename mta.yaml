@@ -106,6 +106,10 @@ modules:
       - comknpldgafeedbackform.zip
       name: comknpldgafeedbackform
       target-path: resources/
+    - artifacts:
+      - comknpldgataskapproval.zip
+      name: comknpldgataskapproval
+      target-path: resources/
 - name: comknpldgacomplains
   type: html5
   path: complains
@@ -263,6 +267,16 @@ modules:
 - name: comknpldgafeedbackform
   type: html5
   path: feedbackform
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comknpldgataskapproval
+  type: html5
+  path: taskapproval
   build-parameters:
     build-result: dist
     builder: custom

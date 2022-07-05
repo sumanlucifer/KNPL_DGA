@@ -7,7 +7,7 @@
         growingThreshold="8"
         rememberSelections="false"
 		class="sapUiPopupWithPadding"
-		items="{path:'/MasterSalesGroupSet',sorter:{path:'Id'},parameters:{select:'Id,Description'} }"
+		items="{path:'/MasterSalesGroupSet',sorter:{path:'Id'},parameters:{select:'Id,Description', filter:''} }"
 	    search="_handlePValueHelpSearch"
 		confirm="_handleSalesGroupValueHelpConfirm"
         cancel="_onDialogClose"

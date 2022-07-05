@@ -1,0 +1,92 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <smartTable:SmartTable id="LeadConversionTable" header="{i18n>MainObject} {i18n>History}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="MasterTargetPlansRenews" beforeRebindTable="onBindTargetHistoryList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="false" requestAtLeastFields="Id" >
+        <smartTable:customToolbar>
+			<OverflowToolbar>
+                        <ToolbarSpacer />
+                        <!-- <Button icon="sap-icon://add" type="Emphasized" text="{i18n>Set} {i18n>Target}" press="onPressAddObject"/> -->
+                    </OverflowToolbar>
+		</smartTable:customToolbar>
+
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
+           
+            <columns>
+                
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData"  value='\{"columnKey": "FromDate", "type":"date", "leadingProperty": "FromDate", "columnIndex": 0 ,"sortProperty": "FromDate","filterProperty": "FromDate"}'/>
+                    </customData>
+                    <Text text="{i18n>From}"/>
+                </Column>
+
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ToDate", "type":"date", "leadingProperty": "ToDate", "columnIndex": 1 ,"sortProperty": "ToDate","filterProperty": "ToDate"}'/>
+                    </customData>
+                    <Text text="{i18n>To}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGAType/Name",  "leadingProperty": "DGAType/Name", "columnIndex": 2 ,"sortProperty": "DGAType/Name","filterProperty": "DGAType/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>DGA} {i18n>Type}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceZone/ZoneId", "leadingProperty": "PerformanceZone/ZoneId", "columnIndex": 3 ,"sortProperty": "PerformanceZone/ZoneId","filterProperty": "PerformanceZone/ZoneId"}'/>
+                    </customData>
+                    <Text text="{i18n>Zone}"/>
+                </Column>
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceDivision/DivisionId", "leadingProperty": "PerformanceDivision/DivisionId", "columnIndex": 4 ,"sortProperty": "PerformanceDivision/DivisionId","filterProperty": "PerformanceDivision/DivisionId"}'/>
+                    </customData>
+                    <Text text="{i18n>Division}"/>
+                </Column>
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceDepot/DepotId", "leadingProperty": "PerformanceDepot/DepotId", "columnIndex": 5 ,"sortProperty": "PerformanceDepot/DepotId","filterProperty": "PerformanceDepot/DepotId"}'/>
+                    </customData>
+                    <Text text="{i18n>Depot}"/>
+                </Column>
+                  <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PerformanceJobLocation/JobLocationDetails/TownName", "leadingProperty": "PerformanceJobLocation/JobLocationDetails/TownName", "columnIndex": 6 ,"sortProperty": "PerformanceJobLocation/JobLocationDetails/TownName","filterProperty": "PerformanceJobLocation/JobLocationDetails/TownName"}'/>
+                    </customData>
+                    <Text text="{i18n>Job} {i18n>Location}"/>
+                </Column>
+                  <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TargetValue", "leadingProperty": "TargetValue", "columnIndex": 7 ,"sortProperty": "TargetValue","filterProperty": "TargetValue"}'/>
+                    </customData>
+                    <Text text="{i18n>LeadConversion} ({i18n>Monthly})"/>
+                </Column>
+                
+                  
+               <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Actions"}'/>
+                    </customData>
+                    <Text text="{i18n>Action}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem >
+                    <cells>
+                        <Text text="{path:'FromDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'MM/YYYY'}}"/>
+                        <Text text="{path:'ToDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'MM/YYYY'}}"/>
+                         <Text text="{DGAType/Name}"/>
+                           <Text text="{path:'PerformanceZone',formatter:'.formatter.arrayFormat2'}"/> 
+                       
+                          <Text text="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/> 
+                            <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/> 
+                          <Text text="{path:'PerformanceJobLocation',formatter:'.formatter.arrayFormat3'}"/> 
+                         <Text text="{TargetValue}"/>
+                          <Button icon="sap-icon://edit"  type="Transparent" press="onPressEdit" tooltip="Edit"></Button> 
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

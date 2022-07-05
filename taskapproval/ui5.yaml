@@ -16,12 +16,12 @@ server:
             - /test-resources
           url: https://ui5.sap.com
         backend:
-          - path: /KNPL_DGA_API
-            url: https://knpl-dga-api.cfapps.ap11.hana.ondemand.com
+          - path: /api
+            url: https://knpl-dga-api.cfapps.ap10.hana.ondemand.com
             destination: KNPL_DGA_API
-          - path: /KNPL_PAINTER_API2
+          - path: /KNPL_PAINTER_API/api
             url: https://knpl-pragati-api.cfapps.ap10.hana.ondemand.com
-            destination: KNPL_PAINTER_API2
+            destination: KNPL_PAINTER_API
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
