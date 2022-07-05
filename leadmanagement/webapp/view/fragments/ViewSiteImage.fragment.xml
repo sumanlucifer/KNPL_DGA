@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog id="idSiteImageDialog" title="Site Image" showHeader="false">
+        <content>
+            <!-- <Text class="sapUiLargeMargin" text="Site image details not found.." visible="{= ${media_src} ? false : true}"/> -->
+            <Image id="idViewSiteImage" src="{path: '__metadata', formatter: '.formatter.fnGenerateImageUrl'}" width="100%" height="100%"/>
+            <Toolbar height="50px">
+                <VBox alignItems="Start">
+                    <Text text="{i18n>UploadedOn}: {path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" class="sapUiTinyMarginBottom"/>
+                    <Text text="{i18n>FileSize}: {path: 'MediaSize',formatter:'.formatter.handleNoData'}"/>
+                </VBox>
+                <ToolbarSpacer/>
+                <Button id="idCloseBTN" text="{i18n>Close}" press="onCloseSiteImageDialog" type="Transparent"/>
+            </Toolbar>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>
