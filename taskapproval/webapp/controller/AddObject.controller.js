@@ -25,6 +25,7 @@ sap.ui.define([
          * @public
          */
         onInit: function () {
+
             sap.ui.getCore().attachValidationError(function (oEvent) {
                 if (oEvent.getParameter("element").getRequired()) {
                     oEvent.getParameter("element").setValueState(ValueState.Error);
@@ -35,8 +36,12 @@ sap.ui.define([
             sap.ui.getCore().attachValidationSuccess(function (oEvent) {
                 oEvent.getParameter("element").setValueState(ValueState.None);
             });
+
+
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Add").attachMatched(this._onRouterMatched, this);
+
+
         },
         _onRouterMatched: function (oEvent) {
             var sPainterId = oEvent.getParameter("arguments").Id;
@@ -51,7 +56,7 @@ sap.ui.define([
                 c1.then(function () {
                     c2 = othat._setInitViewModel();
                     c2.then(function () {
-                        c3 = othat._LoadAddFragment("AddLead");
+                        c3 = othat._LoadAddFragment("AddNewObjForm");
                         c3.then(function () {
                             oView.getModel("oModelControl").setProperty("/PageBusy", false)
                         })
@@ -70,16 +75,10 @@ sap.ui.define([
             var promise = jQuery.Deferred();
             var oView = this.getView();
             var oDataView = {
-                ConsumerName:"",
-                PrimaryNum:"",
-                Email:"",
-                Pincode:"",
-                StateId:"",
-                District:"",
-                CityOrTown:"",
-                Landmark:"",
-                Address:"",
-                LeadSourceId:"1"
+                Remark: "",
+                ComplaintTypeId: "",
+                "ComplaintSubtypeId": 8,
+                "PainterId": "",
             }
             var oModel1 = new JSONModel(oDataView);
             oView.setModel(oModel1, "oModelView");
@@ -93,49 +92,14 @@ sap.ui.define([
             var oVboxProfile = oView.byId("oVBoxAddObjectPage");
             var sResourcePath = oView.getModel("oModelControl").getProperty("/resourcePath")
             oVboxProfile.destroyItems();
-            return Fragment.load({
-                id: oView.getId(),
-                controller: othat,
-                name: sResourcePath + ".view.fragments." + mParam,
-            }).then(function (oControlProfile) {
-                oView.addDependent(oControlProfile);
-                oVboxProfile.addItem(oControlProfile);
+            return this._getViewFragment(mParam).then(function (oControl) {
+                oView.addDependent(oControl);
+                oVboxProfile.addItem(oControl);
                 promise.resolve();
                 return promise;
             });
         },
 
-        _handlePinCodeValueHelpConfirm: function (oEvent) {
-            // this method is overwritten for the pincode in the worklist view
-            var oView = this.getView();
-            var oSelectedItem = oEvent.getParameter("selectedItem");
-            var oViewModel = this.getView().getModel("oModelView"),
-                oModelControl = this.getView().getModel("oModelControl");
-            var obj = oSelectedItem.getBindingContext().getObject();
-            oModelControl.setProperty(
-                "/AddFields/PinCode",
-                obj["Name"]
-            );
-            oViewModel.setProperty(
-                "/Pincode",
-                obj["Name"]
-            );
-            var sDistrictPath = obj["District"].__ref;
-            var sCityPath = obj["City"].__ref;
-            var sDistrictName = oView.getModel().getProperty("/"+sDistrictPath).Name;
-            var sCityName = oView.getModel().getProperty("/"+sCityPath).City;
-            oViewModel.setProperty("/StateId", obj["StateId"]);
-            oViewModel.setProperty("/CityOrTown", sCityName);
-            oViewModel.setProperty("/District", sDistrictName);
-            // var cmbxcity = oView.byId("cmbCity");
-            // cmbxcity.clearSelection();
-            // cmbxcity.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
-            // var cmbxDistrict = oView.byId("cmbDistrict");
-            // cmbxDistrict.clearSelection();
-            // cmbxDistrict.getBinding("items").filter(new Filter("StateId", FilterOperator.EQ, obj["StateId"]));
-            // oViewModel.setProperty("/CityOrTown", obj["City"]);
-            this._onDialogClose();
-        },
 
         onPressSave: function () {
             var bValidateForm = this._ValidateForm();
@@ -154,9 +118,9 @@ sap.ui.define([
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
             oModelControl.setProperty("/PageBusy", true);
+            var aFailureCallback = this._onCreationFailed.bind(this);
             var othat = this;
             var c1, c2, c3, c4;
-            var aFailureCallback = this._onCreationFailed.bind(this);
             c1 = othat._CheckEmptyFieldsPostPayload();
             c1.then(function (oPayload) {
                 c2 = othat._CreateObject(oPayload)
@@ -166,23 +130,25 @@ sap.ui.define([
                         oModelControl.setProperty("/PageBusy", false);
                         othat.onNavToHome();
                     })
-                }, aFailureCallback)
+                },aFailureCallback)
             })
+
+
         },
         _CreateObject: function (oPayLoad) {
-            // console.log(oPayLoad);
+            //console.log(oPayLoad);
             var othat = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
             var oModelControl = oView.getModel("oModelControl");
             return new Promise((resolve, reject) => {
-                oDataModel.create("/Leads", oPayLoad, {
+                oDataModel.create("/"+oModelControl.getProperty("/EntitySet"), oPayLoad, {
                     success: function (data) {
                         othat._showMessageToast("Message2")
                         resolve(data);
                     },
                     error: function (data) {
-                        othat._showMessageToast("Message4")
+                        oModelControl.setProperty("/PageBusy", false);
                         reject(data);
                     },
                 });
