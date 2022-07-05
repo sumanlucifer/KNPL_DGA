@@ -1009,7 +1009,7 @@ sap.ui.define(
 
             fnSetAvailableQueTable: function () {
                 var oTable = this.getView().byId("idEditFMAvailableQuestionsTBL"),
-                    oSorter = new sap.ui.model.Sorter("Question", true);
+                    oSorter = new sap.ui.model.Sorter("Question", false);
                 oTable.bindAggregation("items", "/Questions", function (sId, oContext) {
                     var aSelectedQuestion = this.getView().getModel("FormDetailsModel").getProperty("/MasterFormQuestions"),
                         sQuestion = oContext.getProperty("Question"),

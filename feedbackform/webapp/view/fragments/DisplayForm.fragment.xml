@@ -12,7 +12,7 @@
             </ComboBox>
         </f:content>
     </f:SimpleForm>
-    <Table id="idDisplayFMQuestionsTBL" mode="None" noDataText="{i18n>tableNoDataText}" items="{FormDetailsModel>/MasterFormQuestions}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onQuestionFormListUpdated">
+    <Table id="idDisplayFMQuestionsTBL" mode="None" noDataText="{i18n>tableNoDataText}" items="{path:'FormDetailsModel>/MasterFormQuestions', sorter: {path: 'Question/Question', descending: false}}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onQuestionFormListUpdated">
         <headerToolbar>
             <OverflowToolbar>
                 <Title/>

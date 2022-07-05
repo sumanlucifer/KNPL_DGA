@@ -10,7 +10,7 @@
                 <Title/>
                 <ToolbarSpacer/>
                 <SearchField width="20%" search="onQuestionFormsSearch"/>
-                <Button text="{i18n>createform}" type="Emphasized" icon="sap-icon://add" press="onAddFormPress">
+                <Button text="{i18n>CreateForm}" type="Emphasized" icon="sap-icon://add" press="onAddFormPress">
                 </Button>
             </OverflowToolbar>
         </headerToolbar>
