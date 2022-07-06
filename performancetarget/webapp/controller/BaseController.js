@@ -345,6 +345,7 @@ sap.ui.define([
              // this._propertyToBlank([ "MultiCombo/Zone", "MultiCombo/Division", "MultiCombo/Depot", "StartDate", "EndDate","Target"], true)
         },
         onRbChnageZone:function(oEvent){
+          
             var key = oEvent.getSource().getSelectedIndex();
 
             if(key === 0){
@@ -352,6 +353,7 @@ sap.ui.define([
             } else {
                 this.getView().getModel("titleModel").setProperty("/isSpecificZone", true);
             }
+            
         },
 
         

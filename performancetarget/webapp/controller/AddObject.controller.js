@@ -188,7 +188,7 @@ sap.ui.define([
             if (oFromDate) {
                 if (oDate < oFromDate) {
                     this._showMessageToast("Message12")
-                    oModelControl.setProperty("/AddFields//LeadVisit/ToDate", "");
+                    oModelControl.setProperty("/AddFields/LeadVisit/ToDate", "");
                     // oModelView.setProperty("/LeadVisit/ToDate", "");
                     return;
                 }
