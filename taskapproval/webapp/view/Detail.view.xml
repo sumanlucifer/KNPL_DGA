@@ -1,103 +1,70 @@
 <mvc:View height="100%" controllerName="com.knpl.dga.taskapproval.controller.Detail" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
-    <f:DynamicPage busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
+    <f:DynamicPage busy="{oViewModel>/busy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
 			class="sapUiNoContentPadding" showFooter="true" id="dynamicPageId" headerExpanded="true">
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{ConsumerName}"/>
+                    <Title text="{Visit/TargetLead/ConsumerName}"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>MainObject} {i18n>Details}">
-                        <Link text="{i18n>MainObject2}" press="onNavToHome"/>
+                    <Breadcrumbs currentLocationText="{i18n>LeadDetails}">
+                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="{i18n>MainObject} {i18n>ID}: {Id}"/>
+                    <Label text="{i18n>LeadID}: {Visit/TargetLead/Id}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="{i18n>MainObject} {i18n>ID}: {Id}"/>
+                    <Label text="{i18n>LeadID}: {Visit/TargetLead/Id}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
-                    <Title text="{i18n>MainObject} {i18n>ID}: {Id}"/>
+                    <Title text="{i18n>LeadID}: {Visit/TargetLead/Id}"/>
                 </f:snappedTitleOnMobile>
-                <!-- <f:actions>
-                    <Button press="onPressOpenTokenDialog" type="Emphasized" text="{i18n>Validate}" />
-                </f:actions> -->
+                <f:actions>
+                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Approved' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
+                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Approved' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
+                </f:actions>
             </f:DynamicPageTitle>
         </f:title>
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>DGAName}" text="{DGA/GivenName} {DGA/FamilyName}"/>
-                        <ObjectAttribute title="{i18n>DealerName}" text="{path:'Dealer/Name',formatter:'.formatter.fmtCheckNull'}"/>
-                        <ObjectAttribute title="{i18n>AssignedContractorName}" text="{path: 'AssignedContractors' , formatter: '.formatter.fmtCommaSepratedAssignedContractor'}"/>
+                        <ObjectAttribute title="{i18n>DGAName}" text="{Visit/DGA/GivenName}"/>
+                        <ObjectAttribute title="{i18n>DGAID}" text="{= ${Visit/DGA/Id} === null ? 'NA' : ${Visit/DGA/Id}}"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <Label  text="{i18n>Status}:"/>
-                        <ObjectStatus class="statusTextSizeLarge" text="{path:'LeadStatus/Name',formatter:'.formatter.fmtCheckNull'}" state="{= ${LeadStatus/Name} === 'Converted' ? 'Success' : ${LeadStatus/Name} === 'In Pipeline'  ? 'Warning' : ${LeadStatus/Name} === 'Lost' ? 'Error' : 'None' }"/>
+                        <ObjectAttribute title="{i18n>ContractorName}" text="{= ${Visit/TargetLead/SourceContractorId} === null ? 'NA' : ${contractorModel>/TargetContractor/Name} }"/>
+                        <ObjectAttribute title="{i18n>DealerName}" text="{= ${Visit/TargetLead/SourceDealerId} === null ? 'NA' : ${Visit/TargetLead/SourceDealer/Name}}"/>
                     </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <Label  text="{i18n>Stage}:"/>
-                        <ObjectStatus class="statusTextSizeLarge" text="{path:'Stage',formatter:'.formatter.fmtCheckNull'}" state="None"/>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
+                        <Label  text="{i18n>RequestID}"  />
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Id}"/>
                     </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <Label  text="{i18n>Source}:"/>
-                          <ObjectStatus class="statusTextSizeLarge" text="{path:'LeadSource/Name',formatter:'.formatter.fmtCheckNull'}" state="None"/>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label  text="{i18n>LeadStatus}"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/TargetLead/LeadStatus/Name}" 
+                            state="{= ${Visit/TargetLead/LeadStatus/Name} === 'Converted' ? 'Success' : 'Warning'}"/>
                     </layout:VerticalLayout>
-                    <!-- <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <Label  text="{i18n>LeadOwnerName}:"/>
-                        <ObjectStatus text="{ConsumerName}" state="None"/>
-                    </layout:VerticalLayout> -->
-                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <Label  text="{i18n>MobNo}:"/>
-                        <ObjectStatus class="statusTextSizeLarge" text="{path:'DGA/Mobile',formatter:'.formatter.fmtCheckNull'}" state="None"/>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label  text="{i18n>TaskStatus}"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Status}" 
+                            state="{= ${Visit/Status} === 'Completed' ? 'Success' : ${Visit/Status} === 'Approved' ? 'Success' : ${Visit/Status} === 'Rejected' ? 'Error' : 'Warning'}"/>
                     </layout:VerticalLayout>
-                    <!-- <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <Label  text="{i18n>Visits}:"/>
-                        <ObjectStatus text="{LeadSource/Name}" state="None"/>
-                    </layout:VerticalLayout> -->
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
         </f:header>
         <f:content>
             <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="iconTabBar" class="sapUiResponsiveContentPadding" >
                 <items>
-                    <!-- Basic details tab -->
-                    <IconTabFilter  text="{i18n>BasicDetails}" key="0" >
-                        <VBox id="oVBoxAddObjectPage" width="100%">
-                        </VBox>
+                    <IconTabFilter  text="{i18n>VisitDetails}" key="0" >
+                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.LeadVisitDetails" type="XML"/>
                     </IconTabFilter>
-                    <!-- Pre Estimation tab -->
-                    <IconTabFilter  text="{i18n>PreEstimation}" key="1" >
-                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.PreEstimation" type="XML"/>
-                    </IconTabFilter>   
-                    <!-- Quotation tab -->
-                    <IconTabFilter  text="{i18n>Quotation}" key="2" >
-                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.Quotation" type="XML"/>
-                    </IconTabFilter>   
-                    <!-- Material Requisition tab -->
-                    <IconTabFilter  text="{i18n>MaterialRequisition}" key="3" >
-                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.MaterialRequisition" type="XML"/>
-                    </IconTabFilter> 
-                    <!-- Feedback tab -->
-                    <!-- <IconTabFilter  text="{i18n>Feedback}" key="4" >
-                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.Feedback" type="XML"/>
-                    </IconTabFilter>    -->
-                    <!-- Visit History tab -->
-                    <!-- <IconTabFilter  text="{i18n>VisitHistory}" key="5" >
-                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.VisitHistory" type="XML"/>
-                    </IconTabFilter>         -->
+                    <IconTabFilter  text="{i18n>SiteDetails}" key="1" >
+                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.SiteDetails" type="XML"/>
+                    </IconTabFilter>
                 </items>
             </IconTabBar>
         </f:content>
-        <f:footer>
-            <OverflowToolbar>
-                <ToolbarSpacer/>
-                <Button press="onNavToHome" type="Ghost"  text="{i18n>Cancel}"  />
-                <!-- <Button press=".onApproval(true)" visible="{= ${oModelDisplay>/mode}==='Display'}" text="{i18n>Approve}"  type="Accept"  />
-                <Button press="onPressSave" visible="{= ${oModelDisplay>/mode}==='Edit'}"  text="{i18n>Save}" type="Emphasized" /> -->
-            </OverflowToolbar>
-        </f:footer>
     </f:DynamicPage>
 </mvc:View>

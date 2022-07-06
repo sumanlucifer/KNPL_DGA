@@ -1,0 +1,24 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		noDataText="No Date Found"
+		title="Dealers"
+        growing="true"
+        growingThreshold="15"
+		search=".onDealerValueHelpSearch"
+		confirm=".onDealerValueHelpClose"
+		cancel=".onDealerValueHelpClose"
+		showClearButton="true"
+		items="{
+			path: '/MasterDealers',
+			sorter: {
+				path: 'Name',
+				descending: false
+			}
+		}">
+		<StandardListItem
+			title="{Name}"
+			description="Region: {RegionCode}" />
+	</SelectDialog>
+</core:FragmentDefinition>

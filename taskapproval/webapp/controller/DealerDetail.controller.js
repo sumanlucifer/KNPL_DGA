@@ -31,12 +31,12 @@ sap.ui.define(
         "use strict";
 
         return BaseController.extend(
-            "com.knpl.dga.taskapproval.controller.Detail", {
+            "com.knpl.dga.taskapproval.controller.DealerDetail", {
             formatter: formatter,
 
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.getRoute("Detail").attachMatched(this._onRouteMatched, this);
+                oRouter.getRoute("DealerDetail").attachMatched(this._onRouteMatched, this);
                 sap.ui.getCore().attachValidationError(function (oEvent) {
                     if (oEvent.getParameter("element").getRequired()) {
                         oEvent.getParameter("element").setValueState(ValueState.Error);
@@ -53,31 +53,21 @@ sap.ui.define(
                 var context = window.decodeURIComponent(
                     oEvent.getParameter("arguments").context
                 );
-                var oView = this.getView(), othat = this;
+                var oView = this.getView();
                 var oViewModel = {
-                    busy: true
+                    busy: false
                 };
-                oView.setModel(new JSONModel(oViewModel), "oViewModel");
-                var exPand = "Visit/DGA/Positions,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/LeadSource,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetLead/LeadServiceType,Visit/TargetLead/LeadServiceSubType,Visit/TargetLead/LeadSelectedPaintingRequests/MasterPaintingReq,Visit/TargetLead/PaintType,Visit/TargetLead/PaintingReqSlab,Visit/TargetContractor,Visit/TargetDealer";
+                oView.setModel(new JSONModel(oViewModel), "oViewModel");                
+                var exPand = "Visit/DGA,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetContractor,Visit/TargetDealer/DealerSalesDetails/SalesGroup";
                 if (context.trim() !== "") {
                     oView.bindElement({
                         path: "/" + context,
                         parameters: {
                             expand: exPand,
-                        },
-                        events: {
-                            dataReceived: function(oEvent){
-                                othat._fetchContractor(oEvent.getParameter("data").Visit.TargetLead.SourceContractorId);
-                            }
                         }
                     });
                 }
-                if(oView.getModel("contractorModel") && oView.getBindingContext())
-                    if(oView.getModel("contractorModel").getProperty("/TargetContractor/Id") != oView.getBindingContext().getObject("Visit/TargetLead/SourceContractorId"))
-                        othat._fetchContractor(oView.getBindingContext().getObject("Visit/TargetLead/SourceContractorId"));
-                    else 
-                        othat.getView().getModel("oViewModel").setProperty("/busy", false);
-                },
+            },
             onPressApprove:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;
                 MessageBox.confirm("Approve the Task?", {

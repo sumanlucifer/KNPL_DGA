@@ -4,15 +4,15 @@
         "id": "com.knpl.dga.taskapproval",
         "type": "application",
         "i18n": "i18n/i18n.properties",
-        "applicationVersion": {
-            "version": "1.0.0"
-        },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
         "resources": "resources.json",
         "dataSources": {
-            "mainService": {
-                "uri": "/KNPL_DGA_API/api/v2/odata.svc/",
+            "mainService2": {
+                "uri": "KNPL_PAINTER_API/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
                     "annotations": [],
@@ -20,14 +20,20 @@
                     "odataVersion": "2.0"
                 }
             },
-            "additionalService": {
-                "uri": "/KNPL_PAINTER_API/api/v2/odata.svc",
+            "mainService": {
+                "uri": "KNPL_DGA_API/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
-                    "annotations": [],
+                    "annotations": [
+                        "annotation0"
+                    ],
                     "localUri": "localService/metadata.xml",
                     "odataVersion": "2.0"
                 }
+            },
+            "annotation0": {
+                "type": "ODataAnnotation",
+                "uri": "annotation/annotation.xml"
             }
         },
         "crossNavigation": {
@@ -37,14 +43,13 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Manage",
-                    "action": "Leads",
+                    "semanticObject": "TaskApproval",
+                    "action": "Manage",
                     "title": "{{flpTitle}}",
-                    "subTitle": "",
-                    "icon": "sap-icon://add-activity",
+                    "icon": "sap-icon://activity-individual",
                     "indicatorDataSource": {
                         "dataSource": "KNPL_DGA_API",
-                        "path": "/dynamic_dest/KNPL_DGA_API/api/v2/odata.svc/Leads/$count?$filter=IsArchived eq false",
+                        "path": "/dynamic_dest/KNPL_DGA_API/api/v2/odata.svc/BackDateVisitApprovalRequest/$count?$filter=IsArchived eq false",
                         "refresh": 0
                     }
                 }
@@ -54,7 +59,7 @@
     "sap.ui": {
         "technology": "UI5",
         "icons": {
-            "icon": "",
+            "icon": "sap-icon://task",
             "favIcon": "",
             "phone": "",
             "phone@2": "",
@@ -104,43 +109,37 @@
                     "useBatch": false
                 }
             },
+            "oData2": {
+                "dataSource": "mainService2",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "defaultUpdateMethod": "Put",
+                    "useBatch": false
+                }
+            },
             "LoginInfo": {
                 "type": "sap.ui.model.json.JSONModel"
             }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
-                }
-            ]
-        },
-        "services": {
-            "ShellUIService": {
-                "factoryName": "sap.ushell.ui5service.ShellUIService",
-                "lazy": false,
-                "settings": {
-                    "setTitle": "auto"
-                }
-            }
+
         },
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
-                "async": true,
                 "viewPath": "com.knpl.dga.taskapproval.view",
-                "controlAggregation": "pages",
                 "controlId": "app",
+                "controlAggregation": "pages",
                 "bypassed": {
                     "target": [
                         "notFound"
                     ]
                 },
-                "clearControlAggregation": false
+                "async": true
             },
-            "routes": [
-                {
+            "routes": [{
                     "pattern": "",
                     "name": "worklist",
                     "target": [
@@ -148,10 +147,24 @@
                     ]
                 },
                 {
-                    "pattern": "Detail/{Mode}/{Id}",
+                    "pattern": "Detail/{context}",
                     "name": "Detail",
                     "target": [
                         "Detail"
+                    ]
+                },
+                {
+                    "pattern": "ContractorDetail/{context}",
+                    "name": "ContractorDetail",
+                    "target": [
+                        "ContractorDetail"
+                    ]
+                },
+                {
+                    "pattern": "DealerDetail/{context}",
+                    "name": "DealerDetail",
+                    "target": [
+                        "DealerDetail"
                     ]
                 },
                 {
@@ -183,6 +196,16 @@
                     "viewId": "Detail",
                     "viewLevel": 2
                 },
+                "ContractorDetail": {
+                    "viewName": "ContractorDetail",
+                    "viewId": "ContractorDetail",
+                    "viewLevel": 2
+                },
+                "DealerDetail": {
+                    "viewName": "DealerDetail",
+                    "viewId": "DealerDetail",
+                    "viewLevel": 2
+                },
                 "notFound": {
                     "viewName": "NotFound",
                     "viewId": "notFound"
@@ -193,7 +216,7 @@
             "viewName": "com.knpl.dga.taskapproval.view.App",
             "type": "XML",
             "async": true,
-            "id": "App"
+            "id": "app"
         }
     },
     "sap.cloud": {

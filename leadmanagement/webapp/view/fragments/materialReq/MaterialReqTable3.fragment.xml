@@ -15,6 +15,7 @@
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
                             initialNoDataText="{i18n>tableNoDataText}"
+                            requestAtLeastFields="ProductShade/ShadeCode"
                             header="{i18n>WoodCoating}">
 
         <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >

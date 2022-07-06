@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+    
+    <f:SimpleForm id="idConsumerDetails" editable="false" layout="ColumnLayout" columnsL="3" columnsM="2" >
+        <f:content>
+            <Label text="{i18n>PlantCode}" />
+            <Text  text="{= ${Visit/TargetDealer/PlantCode} === null ? 'NA' : ${Visit/TargetDealer/FiscalYear} === '' ? 'NA' : ${Visit/TargetDealer/PlantCode}}" />
+            <Label text="{i18n>SAPCode}" />
+            <Text  text="{= ${Visit/TargetDealer/Id} === null ? 'NA' : ${Visit/TargetDealer/Id}}" />
+            <Label text="{i18n>Depot}" />
+            <Text  text="{= ${Visit/TargetDealer/DealerSalesDetails/Depot} === null ? 'NA' : ${Visit/TargetDealer/DealerSalesDetails/Depot}}" />
+            <Label text="{i18n>SalesGroupId}" />
+            <Text  text="{= ${Visit/TargetDealer/DealerSalesDetails/SalesGroupId} === null ? 'NA' : ${Visit/TargetDealer/DealerSalesDetails/SalesGroupId}}" />
+            <Label text="{i18n>SalesGroupName}" />
+            <Text  text="{= ${Visit/TargetDealer/DealerSalesDetails/SalesGroup/Description} === null ? 'NA' : ${Visit/TargetDealer/DealerSalesDetails/SalesGroup/Description}}" />
+            <Label text="{i18n>FiscalYear}" />
+            <Text  text="{= ${Visit/TargetDealer/FiscalYear} === '' ? 'NA' : ${Visit/TargetDealer/FiscalYear} === null ? 'NA' : ${Visit/TargetDealer/FiscalYear}}" />
+            <Label text="{i18n>ConsumerClass}" />
+            <Text  text="{= ${Visit/TargetDealer/CustomerClass} === null ? 'NA' : ${Visit/TargetDealer/CustomerClass}}" />
+            <Label text="{i18n>ConsumerCategory}" />
+            <Text  text="{= ${Visit/TargetDealer/CustomerCategory} === null ? 'NA' : ${Visit/TargetDealer/CustomerCategory} === '' ? 'NA' : ${Visit/TargetDealer/CustomerCategory}}" />
+        </f:content>
+    </f:SimpleForm>
+</core:FragmentDefinition>

@@ -67,7 +67,7 @@ sap.ui.define(
                         StatusId: "",
                         ServiceTypeId: "",
                         ServiceSubTypeId: "",
-                        SubType:""
+                        SubType: ""
                     },
                     AddFields: {
                         PinCode: ""
@@ -245,6 +245,7 @@ sap.ui.define(
                     .getProperty("/filterBar");
 
                 var aFlaEmpty = false;
+                var numbers = /^[0-9]+$/;
                 // init filters - is archived 
                 aCurrentFilterValues.push(
                     new Filter("IsArchived", FilterOperator.EQ, false));
@@ -309,6 +310,13 @@ sap.ui.define(
                                 new Filter(
                                     [
                                         new Filter({
+                                            path: "Id",
+                                            operator: oViewFilter[prop].trim().match(numbers) === null ? "NE" : "EQ",
+                                            value1: oViewFilter[prop].trim().match(numbers) === null ? null : oViewFilter[prop].trim(),
+                                            caseSensitive: false
+                                        }),
+
+                                        new Filter({
                                             path: "ConsumerName",
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
@@ -349,13 +357,8 @@ sap.ui.define(
                                             operator: "Contains",
                                             value1: oViewFilter[prop].trim(),
                                             caseSensitive: false
-                                        }),
-                                        // new Filter({
-                                        //     path: "PaintingReqSlab/LeadSubStatus",
-                                        //     operator: "Contains",
-                                        //     value1: oViewFilter[prop].trim(),
-                                        //     caseSensitive: false
-                                        // })
+                                        })
+
                                     ],
                                     false
                                 )

@@ -1,0 +1,81 @@
+<mvc:View height="100%" controllerName="com.knpl.dga.taskapproval.controller.ContractorDetail" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+    <f:DynamicPage busy="{oViewModel>/busy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
+			class="sapUiNoContentPadding" showFooter="true" id="dynamicPageContractorId" headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{Visit/TargetContractor/ContractorName}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs currentLocationText="{i18n>ContractorDetails}">
+                        <Link text="{i18n>MainObject}" press="onNavToHome"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:expandedContent>
+                    <Label text="{i18n>ContractorID}: {Visit/TargetContractor/ContractorId}"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label text="{i18n>ContractorID}: {Visit/TargetContractor/ContractorId}"/>
+                </f:snappedContent>
+                <f:actions>
+                    <Button press="onPressApprove" type="Emphasized" text="{i18n>Approve}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Approved' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
+                    <Button press="onPressReject" type="Reject" text="{i18n>Reject}" visible="{= ${Visit/Status} === 'Completed' ? false : ${Visit/Status} === 'Approved' ? false : ${Visit/Status} === 'Rejected' ? false : true}" />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <layout:HorizontalLayout allowWrapping="false">
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                        <ObjectAttribute title="{i18n>PhoneNumber}" text="{Visit/TargetContractor/ContractorMobile}"/>
+                        <ObjectAttribute title="{i18n>AgeGroup}" text="{= ${contractorModel>/TargetContractor/AgeGroup} === null ? 'NA' : ${contractorModel>/TargetContractor/AgeGroup} }"/>
+                        <ObjectAttribute title="{i18n>Category}" text="{= ${contractorModel>/TargetContractor/BusinessCategoryId} === null ? 'NA' : ${contractorModel>/TargetContractor/BusinessCategory/BusinessCategory} }"/>
+                        <ObjectAttribute title="{i18n>Address}" text="{contractorModel>/TargetContractor/PainterAddress/CityDetails/City}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                        <ObjectAttribute title="{i18n>TotalPoints}" text="{contractorModel>/TargetContractor/TotalPoints}"/>
+                        <ObjectAttribute title="{i18n>RedeemedPoints}" text="{contractorModel>/TargetContractor/RedeemPoints}"/>
+                        <ObjectAttribute title="{i18n>BalancePoints}" text="{= ${contractorModel>/TargetContractor/TotalPoints} - ${contractorModel>/TargetContractor/BusinessCategory/RedeemPoints} }"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
+                        <Label  text="{i18n>RequestID}"  />
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Id}" state="None" />
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label  text="{i18n>TaskStatus}"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Visit/Status}" 
+                            state="{= ${Visit/Status} === 'Completed' ? 'Success' :${Visit/Status} === 'Approved' ? 'Success' : ${Visit/Status} === 'Rejected' ? 'Error' : 'Warning'}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label  text="{i18n>ActivationStatus}"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{contractorModel>/TargetContractor/ActivationStatus}" 
+                            state="{= ${contractorModel>/TargetContractor/ActivationStatus} === 'ACTIVATED' ? 'Success' : 'Warning'}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label  text="{i18n>AverageUserRating}"/>
+                        <RatingIndicator maxValue="{contractorModel>/TargetContractor/PainterMaxRating}" 
+                            value="{= ${contractorModel>/TargetContractor/PainterRating} === null ? 0 : ${contractorModel>/TargetContractor/PainterRating} }" 
+                            iconSize="16px" tooltip="Rating" />
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                        <Label  text="{i18n>PortfolioAvailable}"/>
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{= ${contractorModel>/TargetContractor/DownloadPortfolioApplicable} === false ? 'No' : 'Yes'}" 
+                            state="{= ${contractorModel>/TargetContractor/DownloadPortfolioApplicable} === false ? 'Error' : 'Success'}"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="idContractorIconTabBar" class="sapUiResponsiveContentPadding" >
+                <items>
+                    <IconTabFilter  text="{i18n>VisitDetails}" key="0" >
+                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.VisitDetails" type="XML"/>
+                    </IconTabFilter>
+                    <IconTabFilter  text="{i18n>BasicDetails}" key="1" >
+                        <core:Fragment fragmentName="com.knpl.dga.taskapproval.view.fragments.ContractorBasicDetails" type="XML"/>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
