@@ -34,14 +34,13 @@ sap.ui.define([], function () {
             return mParam1;
         },
 
-        fnGenerateImageUrl: function (mMetadata) {
-            // mMetadata (string) is required from the odata responce "__metadata"
-            if (mMetadata) {
-                if (mMetadata.media_src) {
-                    return "https://".concat(
-                        location.host, "/KNPL_DGA_API",
-                        new URL(mMetadata.media_src).pathname
-                    );
+        fnGenerateImageUrl: function (oMetadata) {
+            // oMetadata (string) is required from the odata responce "__metadata"
+            if (oMetadata) {
+                if (oMetadata.media_src) {
+                    var sServiceUrl = this.getModel().sServiceUrl;
+                    sServiceUrl = sServiceUrl.substring(sServiceUrl.indexOf("/"), sServiceUrl.indexOf("/api")) + new URL(oMetadata.media_src).pathname;
+                    return "https://".concat(location.host) + sServiceUrl;
                 }
             }
             return "";
