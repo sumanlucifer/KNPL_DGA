@@ -644,6 +644,7 @@ sap.ui.define(
                     "Id": oPayloadObj.Id,
                     "Question": oPayloadObj.Question,
                     "AnswerOptions": aAnswerOptions,
+                    "IsArchived": oPayloadObj.IsArchived,
                     "InputControlTypeId": aAnswerOptions[0].MasterInputControlTypes.Id
                 };
 
@@ -681,10 +682,23 @@ sap.ui.define(
                     sArchiveToggleMessage = this._geti18nText("UnArchiveConfirmationMsg");
                 }
 
+                var aAnswerOptions = [],
+                    aAnswerOptionPaths = oEvent.getSource().getParent().getParent().getBindingContext().getProperty("AnswerOptions");
+                if (aAnswerOptionPaths.length > 0) {
+                    for (var i = 0; i < aAnswerOptionPaths.length; i++) {
+                        var oObj = oEvent.getSource().getParent().getParent().getBindingContext().getProperty("/" + aAnswerOptionPaths[i]);
+                        delete (oObj.__metadata);
+                        delete (oObj.MasterInputControlTypes);
+                        delete (oObj.Question);
+                        aAnswerOptions.push(oObj);
+                    }
+                }
+
                 var oArchivePayload = {
                     "Id": oEvent.getSource().getParent().getParent().getBindingContext().getProperty("Id"),
                     "IsArchived": bIsArchived,
-                    "Question": oEvent.getSource().getParent().getParent().getBindingContext().getProperty("Question")
+                    "Question": oEvent.getSource().getParent().getParent().getBindingContext().getProperty("Question"),
+                    "AnswerOptions": aAnswerOptions,
                 };
                 MessageBox.warning(sArchiveToggleMessage, {
                     icon: MessageBox.Icon.WARNING,
