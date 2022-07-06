@@ -11,7 +11,7 @@
             </ComboBox>
         </f:content>
     </f:SimpleForm>
-    <Table id="idEditFMQuestionsTBL" mode="MultiSelect" selectionChange="onFormQueTableSelectionChange" class="sapUiSmallMarginBottom" noDataText="{i18n>tableNoDataText}" items="{path:'FormDetailsModel>/MasterFormQuestions', sorter: {path: 'Question/Question', descending: false}}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10">
+    <Table id="idEditFMQuestionsTBL" mode="MultiSelect" selectionChange="onFormQueTableSelectionChange" class="sapUiSmallMarginBottom" noDataText="{i18n>tableNoDataText}" items="{path:'FormDetailsModel>/MasterFormQuestions', sorter: {path: 'Question/UpdatedAt', descending: true}}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10">
         <headerToolbar>
             <OverflowToolbar>
                 <Title text="{i18n>SelectedQuestions}"/>
