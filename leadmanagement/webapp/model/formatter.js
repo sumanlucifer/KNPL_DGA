@@ -38,10 +38,9 @@ sap.ui.define([], function () {
             // mMetadata (string) is required from the odata responce "__metadata"
             if (mMetadata) {
                 if (mMetadata.media_src) {
-                    return "https://".concat(
-                        location.host, "/KNPL_DGA_API",
-                        new URL(mMetadata.media_src).pathname
-                    );
+                    var sServiceUrl = this.getModel().sServiceUrl;
+                    sServiceUrl = sServiceUrl.substring(sServiceUrl.indexOf("/"), sServiceUrl.indexOf("/api")) + new URL(e.media_src).pathname;
+                    return "https://".concat(location.host) + sServiceUrl;
                 }
             }
             return "";
