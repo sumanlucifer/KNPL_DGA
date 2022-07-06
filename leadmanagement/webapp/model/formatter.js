@@ -34,12 +34,12 @@ sap.ui.define([], function () {
             return mParam1;
         },
 
-        fnGenerateImageUrl: function (mMetadata) {
-            // mMetadata (string) is required from the odata responce "__metadata"
-            if (mMetadata) {
-                if (mMetadata.media_src) {
+        fnGenerateImageUrl: function (oMetadata) {
+            // oMetadata (string) is required from the odata responce "__metadata"
+            if (oMetadata) {
+                if (oMetadata.media_src) {
                     var sServiceUrl = this.getModel().sServiceUrl;
-                    sServiceUrl = sServiceUrl.substring(sServiceUrl.indexOf("/"), sServiceUrl.indexOf("/api")) + new URL(e.media_src).pathname;
+                    sServiceUrl = sServiceUrl.substring(sServiceUrl.indexOf("/"), sServiceUrl.indexOf("/api")) + new URL(oMetadata.media_src).pathname;
                     return "https://".concat(location.host) + sServiceUrl;
                 }
             }
