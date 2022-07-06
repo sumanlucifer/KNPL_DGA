@@ -2,7 +2,7 @@
 
 specVersion: "2.5"
 metadata:
-  name: com.knpl.dga.ui5template
+  name: com.knpl.dga.pricingmaster
 type: application
 server:
   customMiddleware:
