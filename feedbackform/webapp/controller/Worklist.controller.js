@@ -122,7 +122,7 @@ sap.ui.define(
                     bSortDescending = this.getView().getModel("LocalViewModel").getProperty("/SortDescending");
 
                 this.getView().getModel("LocalViewModel").setProperty("/SortDescending", !bSortDescending);
-                oTable.getBinding("items").sort(new sap.ui.model.Sorter("Question", !bSortDescending));
+                oTable.getBinding("items").sort(new sap.ui.model.Sorter("UpdatedAt", !bSortDescending));
             },
 
             onFormTypeSelectionChange: function (oEvent) {
@@ -1011,7 +1011,7 @@ sap.ui.define(
 
             fnSetAvailableQueTable: function () {
                 var oTable = this.getView().byId("idEditFMAvailableQuestionsTBL"),
-                    oSorter = new sap.ui.model.Sorter("Question", false);
+                    oSorter = new sap.ui.model.Sorter("UpdatedAt", true);
                 oTable.bindAggregation("items", "/Questions", function (sId, oContext) {
                     var aSelectedQuestion = this.getView().getModel("FormDetailsModel").getProperty("/MasterFormQuestions"),
                         sQuestion = oContext.getProperty("Question"),

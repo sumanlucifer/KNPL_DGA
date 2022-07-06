@@ -13,7 +13,7 @@
             </ComboBox>
         </form:content>
     </form:SimpleForm>
-    <Table id="idCreateFMQuestionsTBL" mode="MultiSelect" noDataText="{i18n>tableNoDataText}" items="{path:'/Questions', sorter: {path: 'Question', descending: false}, filters: [{path: 'IsArchived', operator: 'EQ', value1: false}]}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onQuestionFormListUpdated">
+    <Table id="idCreateFMQuestionsTBL" mode="MultiSelect" noDataText="{i18n>tableNoDataText}" items="{path:'/Questions', sorter: {path: 'UpdatedAt', descending: true}, filters: [{path: 'IsArchived', operator: 'EQ', value1: false}]}" busyIndicatorDelay="0" growing="true" growingScrollToLoad="false" growingThreshold="10" updateFinished="onQuestionFormListUpdated">
         <headerToolbar>
             <OverflowToolbar>
                 <Title/>
