@@ -684,7 +684,7 @@ sap.ui.define(
 
                 var aAnswerOptions = [],
                     aAnswerOptionPaths = oEvent.getSource().getParent().getParent().getBindingContext().getProperty("AnswerOptions");
-                if (aAnswerOptionPaths.length > 0) {
+                if (aAnswerOptionPaths && aAnswerOptionPaths.length > 0) {
                     for (var i = 0; i < aAnswerOptionPaths.length; i++) {
                         var oObj = oEvent.getSource().getParent().getParent().getBindingContext().getProperty("/" + aAnswerOptionPaths[i]);
                         delete (oObj.__metadata);
