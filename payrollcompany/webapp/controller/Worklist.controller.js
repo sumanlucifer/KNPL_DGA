@@ -279,18 +279,18 @@ sap.ui.define(
                     return;
                 }
 
-                if(oModelContrl.getProperty("/AddFields/Name").length > 100){
-                    oView.byId("idPayrollCompanyAdd").setValueState("Error");
-                    oView.byId("idPayrollCompanyAdd").setValueStateText("Name must be within 100 character");
-                    return;
-                }
-
                 var c1 = this._postCreateData(oModelContrl.getProperty("/AddFields"));
 
                 c1.then(function (oData) {
                     othat.onPayrollCompanyDialogCancel();
                     oDataModel.refresh(true);
                 });
+            },
+            onCompanyNameInput:function(oEvent){
+                var sText = oEvent.getParameter("value");
+                if(sText.length > 1000 ){
+                    oEvent.getSource().setValue(oEvent.getSource().getValue().substring(0, 100));
+                }
             },
             _postCreateData: function (oPayLoad) {
                 var promise = jQuery.Deferred();
@@ -334,21 +334,18 @@ sap.ui.define(
                 var oData = oView.getModel();
                 var oModel = oView.getModel("oModelControl");
 
-                if(oView.byId("idPayrollCompanyEdit").getValue().length === 0){
-                    oView.byId("idPayrollCompanyEdit").setValueState("Error");
-                    oView.byId("idPayrollCompanyEdit").setValueStateText("Enter some value");
-                    return;
-                }
-
-                if(oView.byId("idPayrollCompanyEdit").getValue().length > 100){
-                    oView.byId("idPayrollCompanyEdit").setValueState("Error");
-                    oView.byId("idPayrollCompanyEdit").setValueStateText("Name must be within 100 character");
+                if(oModel.getProperty("/EditFields/Name").length === 0 || 
+                    oModel.getProperty("/EditFields/MultiCombo/Zone").length === 0 ||
+                    oModel.getProperty("/EditFields/MultiCombo/Division").length === 0){
+                    MessageToast.show("Kindly Fill All the mandatory Fields.");
                     return;
                 }
 
                 var oPayload = {
                     Id:oModel.getProperty("/EditFields/Id"),
                     Name:oModel.getProperty("/EditFields/Name"),
+                    PayRollCompanyZone: this._multiSelectDataForm(oModel.getProperty("/EditFields/MultiCombo/Zone"), "Zone"),
+                    PayRollCompanyDivision: this._multiSelectDataForm(oModel.getProperty("/EditFields/MultiCombo/Division", "Division"))
                 };
                 
                 var othat = this;
