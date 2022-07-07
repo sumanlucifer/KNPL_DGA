@@ -15,7 +15,6 @@
                             persistencyKey="HistoryPersistenceKey"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
-
          <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >
             <columns>
                <Column hAlign="Begin">
@@ -24,7 +23,6 @@
                     </customData>
                     <Text text="{i18n>Name}"/>
                 </Column>
-
                 <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Id", "leadingProperty": "DGA/Id", "columnIndex": 1 ,"sortProperty": "DGA/Id","filterProperty": "DGA/Id"}'/>
@@ -55,8 +53,6 @@
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
-                
-                
                  <!--   <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Points","columnIndex":3 }'/>
@@ -99,15 +95,10 @@
                     </customData>
                     <Text text="{i18n>Id}"/>
                 </Column> -->
-            
-               
-                
-
             </columns>
             <items>
                 <ColumnListItem>
                     <cells>
-                 
                        <!-- <Text text="{Contractor/Name}" /> -->
                        <!-- <Text />
                        <Text />
@@ -118,13 +109,11 @@
                         <Text />-->
                         <Text text="{DGA/GivenName}" /> 
                          <Text text="{DGA/Id}" /> 
-      <Text text="{DGA/JoiningDate}" /> 
-      <Text text="{DGA/ExitDate}" /> 
-                        <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
-                             <ObjectStatus  text="{path:'Status',formatter:'.formatter.fmtLowerCase'}"/>
+                           <Text text="{path:'{DGA/JoiningDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                           <Text text="{path:'DGA/ExitDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                           <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                           <ObjectStatus  text="{path:'Status',formatter:'.formatter.fmtLowerCase'}"/>
                        <Text text="{Id}" />
-                        
-
                     </cells>
                 </ColumnListItem>
             </items>
