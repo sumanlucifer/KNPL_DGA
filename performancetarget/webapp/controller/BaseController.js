@@ -353,7 +353,16 @@ sap.ui.define([
             } else {
                 this.getView().getModel("titleModel").setProperty("/isSpecificZone", true);
             }
-            
+         var    MultiCombo = {
+                Zone: [],
+                Division: [],
+                Depot : [],
+                Location: []
+            },
+        
+            oModelControl = this.getView().getModel("oModelControl");
+
+            oModelControl.setProperty("/MultiCombo", MultiCombo);
         },
 
         
@@ -365,6 +374,16 @@ sap.ui.define([
             } else {
                 this.getView().getModel("titleModel").setProperty("/isSpecificDivision", true);
             }
+            // var    MultiCombo = {
+            //     Division: [],
+                
+               
+            // },
+        
+            var oModelControl = this.getView().getModel("oModelControl");
+
+            oModelControl.setProperty("/MultiCombo/Division", []);
+            oModelControl.setProperty("/MultiCombo/Depot", []);
         },
         onRbChnageDepot:function(oEvent){
             var key = oEvent.getSource().getSelectedIndex();
@@ -374,6 +393,14 @@ sap.ui.define([
             } else {
                 this.getView().getModel("titleModel").setProperty("/isSpecificDepot", true);
             }
+            // var    MultiCombo = {
+            //     Depot : [],
+               
+            // },
+        
+            var oModelControl = this.getView().getModel("oModelControl");
+
+            oModelControl.setProperty("/MultiCombo/Depot", []);
         },
         onRbChnageLocation:function(oEvent){
             var key = oEvent.getSource().getSelectedIndex();
@@ -383,30 +410,19 @@ sap.ui.define([
             } else {
                 this.getView().getModel("titleModel").setProperty("/isSpecificLocation", true);
             }
+
+            // var    MultiCombo = {
+            //     Location : [],
+               
+            // },
+        
+            var oModelControl = this.getView().getModel("oModelControl");
+
+            oModelControl.setProperty("/MultiCombo/Location", []);
         },
 
         
-        // _propertyToBlank: function (aArray, sModelName) {
-        //     var aProp = aArray;
-        //     var oView = this.getView();
-        //     var oModelView = oView.getModel(sModelName);
-        //     for (var x of aProp) {
-        //         var oGetProp = oModelView.getProperty("/" + x);
-        //         if (Array.isArray(oGetProp)) {
-        //             oModelView.setProperty("/" + x, []);
-        //             //oView.byId(x.substring(x.indexOf("/") + 1)).fireChange();
-        //         } else if (oGetProp === null) {
-        //             oModelView.setProperty("/" + x, null);
-        //         } else if (oGetProp instanceof Date) {
-        //             oModelView.setProperty("/" + x, null);
-        //         } else if (typeof oGetProp === "boolean") {
-        //             oModelView.setProperty("/" + x, false);
-        //         } else {
-        //             oModelView.setProperty("/" + x, "");
-        //         }
-        //     }
-        //     oModelView.refresh(true);
-        // },
+      
 
         _RemoveEmptyValue: function (mParam) {
             var obj = Object.assign({}, mParam);
@@ -681,20 +697,20 @@ sap.ui.define([
         },
              //MultiLocation change
 
-             onMultyLocationChange: function (oEvent) {
-                var sKeys = this.getView()
-                .getModel("oModelControl")
-                .getProperty("/MultiCombo/Depot");;
-                var oLocation = this.getView().byId("idLocation");
+            //  onMultyLocationChange: function (oEvent) {
+            //     var sKeys = this.getView()
+            //     .getModel("oModelControl")
+            //     .getProperty("/MultiCombo/Depot");;
+            //     var oLocation = this.getView().byId("idLocation");
     
             
     
-                var aDivFilter = [];
-                for (var y of sKeys) {
-                    aDivFilter.push(new Filter("DepotId", FilterOperator.EQ, y.DepotId))
-                }
-                oLocation.getBinding("items").filter(aDivFilter);
-            },
+            //     var aDivFilter = [];
+            //     for (var y of sKeys) {
+            //         aDivFilter.push(new Filter("DepotId", FilterOperator.EQ, y.DepotId))
+            //     }
+            //     oLocation.getBinding("items").filter(aDivFilter);
+            // },
 
         
             // MultiDivision change
@@ -897,7 +913,166 @@ sap.ui.define([
                 .getModel("oModelControl")
                 .setProperty("/MultiCombo/Depot", oData);
             
-                this.onMultyLocationChange();
+               // this.onValueHelpRequestedLocation();
+               
+            this._oValueHelpDialog.close();
+        },
+
+      
+
+        onValueHelpRequestedLocation: function () {
+            this._oMultiInputLocation = this.getView().byId("idLocation");
+            this.oColModel1 = new JSONModel({
+                cols: [{
+                    label: "Location Name",
+                    template: "TownName",
+                   
+                },
+               
+                ],
+            });
+
+            var aCols = this.oColModel1.getData().cols;
+
+            this._oValueHelpDialog = sap.ui.xmlfragment(
+                "com.knpl.dga.performancetarget.view.fragments.LocationValueHelp",
+                this
+            );
+            var oDataFilter = {
+               // TownId: "",
+                TownName: "",
+            }
+            var oModel = new JSONModel(oDataFilter);
+            this.getView().setModel(oModel, "LocationFilter");
+
+            this.getView().addDependent(this._oValueHelpDialog);
+
+            this._oValueHelpDialog.getTableAsync().then(
+                function (oTable) {
+                    oTable.setModel(this.oColModel1, "columns");
+
+                    if (oTable.bindRows) {
+                        oTable.bindAggregation("rows", {
+                            path: "/MasterWorkLocations",
+                            events: {
+                                dataReceived: function () {
+                                    this._oValueHelpDialog.update();
+                                }.bind(this)
+                            }
+                        });
+                    }
+
+                    if (oTable.bindItems) {
+                        oTable.bindAggregation("items", "/MasterWorkLocations", function () {
+                            return new sap.m.ColumnListItem({
+                                cells: aCols.map(function (column) {
+                                    return new sap.m.Label({
+                                        text: "{" + column.template + "}",
+                                    });
+                                }),
+                            });
+                        });
+                    }
+
+                    this._oValueHelpDialog.update();
+                }.bind(this)
+            );
+
+            this._oValueHelpDialog.setTokens(this._oMultiInputLocation.getTokens());
+            this._oValueHelpDialog.open();
+        },
+        onFilterBarSearch1: function (oEvent) {
+            var afilterBar = oEvent.getParameter("selectionSet"),
+                aFilters = [];
+
+            aFilters.push(
+                new Filter({
+                    path: "TownName",
+                    operator: FilterOperator.Contains,
+                    value1: afilterBar[0].getValue(),
+                    caseSensitive: false,
+                })
+            );
+            // aFilters.push(
+            //     new Filter({
+            //         path: "TownId",
+            //         operator: FilterOperator.Contains,
+            //         value1: afilterBar[1].getValue(),
+            //         caseSensitive: false,
+            //     })
+          //  );
+
+            this._filterTable(
+                new Filter({
+                    filters: aFilters,
+                    and: true,
+                })
+            );
+        },
+        
+        _filterTable: function (oFilter, sType) {
+            var oValueHelpDialog = this._oValueHelpDialog;
+
+            oValueHelpDialog.getTableAsync().then(function (oTable) {
+                if (oTable.bindRows) {
+                    oTable.getBinding("rows").filter(oFilter, sType || "Application");
+                }
+
+                if (oTable.bindItems) {
+                    oTable
+                        .getBinding("items")
+                        .filter(oFilter, sType || "Application");
+                }
+
+                oValueHelpDialog.update();
+            });
+        },
+        onValueHelpAfterOpen1: function () {
+            var aFilter = this._getfilterforControl();
+
+            this._filterTable(aFilter, "Control");
+            this._oValueHelpDialog.update();
+        },
+        _getfilterforControl: function () {
+            var sDepot = this.getView().getModel("oModelControl").getProperty("/MultiCombo/Depot");
+            var aFilters = [];
+            if (sDepot) {
+                for (var y of sDepot) {
+                    aFilters.push(new Filter("DepotId", FilterOperator.EQ, y.DepotId));
+                }
+            }
+            if (aFilters.length == 0) {
+                return [];
+            }
+
+            return new Filter({
+                filters: aFilters,
+                and: false,
+            });
+        },
+        onValueHelpCancelPress1: function () {
+            this._oValueHelpDialog.close();
+        },
+        onValueHelpOkPress1: function (oEvent) {
+            var oData = [];
+            var xUnique = new Set();
+            var aTokens = oEvent.getParameter("tokens");
+
+            aTokens.forEach(function (ele) {
+                if (xUnique.has(ele.getKey()) == false) {
+                    oData.push({
+                        TownId: ele.getKey(),
+                        TownName: ele.getText(),
+                    });
+                    xUnique.add(ele.getKey());
+                }
+            });
+
+            this.getView()
+                .getModel("oModelControl")
+                .setProperty("/MultiCombo/Location", oData);
+            
+              //  this.onMultyLocationChange();
                
             this._oValueHelpDialog.close();
         },

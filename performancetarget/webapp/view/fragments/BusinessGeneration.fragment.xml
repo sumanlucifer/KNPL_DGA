@@ -60,7 +60,7 @@
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "TargetValue", "leadingProperty": "TargetValue", "columnIndex": 7 ,"sortProperty": "TargetValue","filterProperty": "TargetValue"}'/>
                     </customData>
-                    <Text text="{i18n>BusinessGeneration} {i18n>inValue} ({i18n>Monthly})"/>
+                    <Text text="{i18n>BusinessGeneration}  {i18n>rupee}({i18n>Monthly})"/>
                 </Column>
                   
                <Column >

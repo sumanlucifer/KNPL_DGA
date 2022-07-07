@@ -8,7 +8,7 @@
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs  currentLocationText="Set Performance Target">
-                        <Link text="{i18n>MainObject2}" press="onNavToHome"/>
+                        <!-- <Link text="{i18n>MainObject2}" press="onNavToHome"/> -->
                          <Link text="{i18n>MainObject}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
@@ -95,11 +95,16 @@
                                 <RadioButton  text="{i18n>Specific}"/>
                             </buttons>
                      </RadioButtonGroup>
-               
-                   
+                         
+                            <MultiInput width="10rem" enabled="{titleModel>/isSpecificLocation}" editable="{= ${oModelControl>/MultiCombo/Depot}.length > 0 }" id="idLocation" required="true"  tokens="{oModelControl>/MultiCombo/Location}" valueHelpRequest="onValueHelpRequestedLocation">
+	                <tokens>
+                        <Token editable="false" text="{oModelControl>TownId}" key="{oModelControl>TownId}"/>
+                    </tokens>
+	            </MultiInput>
+<!--                    
                       <MultiComboBox enabled="{titleModel>/isSpecificLocation}" editable="{= ${oModelControl>/MultiCombo/Depot}.length > 0 }" id="idLocation" class="sapUiTinyMarginEnd" required="true" width="10rem" selectedKeys="{path:'oModelControl>/MultiCombo/Location', type :'.customMulti' }" items="{ path : '/MasterWorkLocations' }"  >
 					<core:Item key="{TownId}" text="{TownName}"/>
-				     </MultiComboBox>
+				     </MultiComboBox> -->
                     </VBox>
                     </HBox>
                      </VBox>
@@ -133,7 +138,7 @@
                       </VBox>
                          <VBox class="sapUiTinyMargin">
                       <Label  text="{i18n>LeadVisitCount} ({i18n>Daily})"  width="14em" />
-                      <StepInput value="{oModelControl>/AddFields/LeadVisit/TargetValue}" displayValuePrecision="0"  min="0" max="9999 " width="14em" enabled="true" editable="true" change="onChange"/>
+                      <StepInput value="{oModelControl>/AddFields/LeadVisit/TargetValue}" displayValuePrecision="0"  min="0" max="9999" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                      </HBox>
                      
@@ -239,7 +244,7 @@
                           <!-- <DatePicker  placeholder="MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/BusinessGeneration/ToDate',formatOptions: {pattern:'MM/yyyy', UTC:false }}"  displayFormat="MM/yyyy" ></DatePicker>  -->
                       </VBox>
                          <VBox class="sapUiTinyMargin">
-                      <Label  text="{i18n>BusinessGeneration} ({i18n>Monthly})"  width="14em" />
+                      <Label  text="{i18n>BusinessGeneration}  {i18n>rupee}({i18n>Monthly})"  width="14em" />
                       <StepInput value="{oModelControl>/AddFields/BusinessGeneration/TargetValue}" displayValuePrecision="0"  min="0" max="9999" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                      </HBox>

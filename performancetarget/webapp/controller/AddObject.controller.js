@@ -160,13 +160,13 @@ sap.ui.define([
             var oDateNow = new Date();
             var oToDate = oModelView.getProperty("/ToDate")
             var oDate = oEvent.getSource().getDateValue();
-            if (oDate > oDateNow) {
-                this._showMessageToast("Message10")
-                oModelControl.setProperty("/AddFields/LeadVisit/FromDate", "");
+            // if (oDate > oDateNow) {
+            //     this._showMessageToast("Message10")
+            //     oModelControl.setProperty("/AddFields/LeadVisit/FromDate", "");
 
-                // oModelView.setProperty("/LeadVisit/FromDate", "");
-                return;
-            }
+            //     // oModelView.setProperty("/LeadVisit/FromDate", "");
+            //     return;
+            // }
             if (oToDate) {
                 if (oDate > oToDate) {
                     this._showMessageToast("Message11")
@@ -262,7 +262,7 @@ sap.ui.define([
 
                 "PerformanceDepots": this.getView().getModel("titleModel").getProperty("/isSpecificDepot") === true ? this._selectedItemsDepot(this.getView().byId("multiInputDepotAdd").getTokens()) : [],
 
-                "PerformanceJobLocations": this.getView().getModel("titleModel").getProperty("/isSpecificLocation") === true ? this._selectedItemsLocation(this.getView().byId("idLocation").getSelectedItems()) : [],
+                "PerformanceJobLocations": this.getView().getModel("titleModel").getProperty("/isSpecificLocation") === true ? this._selectedItemsLocation(this.getView().byId("idLocation").getTokens()) : [],
 
                 "PerformanceTargetDetails": this._performanceTargetDetails()
 
@@ -396,7 +396,7 @@ sap.ui.define([
             return oController.map(function (o) {
                 return {
 
-                    JobLocationId: o.getBindingContext().getObject("TownId"),
+                    JobLocationId: o.getBindingContext("oModelControl").getObject("TownId"),
 
                     // ComplaintSubtypeId: o.getBindingContext().getObject("Id")
 
@@ -412,13 +412,13 @@ sap.ui.define([
             var oDateNow = new Date();
             var oToDate = oModelControl.getProperty("/ToDate")
             var oDate = oEvent.getSource().getDateValue();
-            if (oDate > oDateNow) {
-                this._showMessageToast("Message10")
-                oModelControl.setProperty("/AddFields/NewLead/FromDate", "");
+            // if (oDate > oDateNow) {
+            //     this._showMessageToast("Message10")
+            //     oModelControl.setProperty("/AddFields/NewLead/FromDate", "");
 
 
-                return;
-            }
+            //     return;
+            // }
             if (oToDate) {
                 if (oDate > oToDate) {
                     this._showMessageToast("Message11")
@@ -454,13 +454,13 @@ sap.ui.define([
             var oDateNow = new Date();
             var oToDate = oModelControl.getProperty("/ToDate")
             var oDate = oEvent.getSource().getDateValue();
-            if (oDate > oDateNow) {
-                this._showMessageToast("Message10")
-                oModelControl.setProperty("/AddFields/ContractorVisit/FromDate", "");
+            // if (oDate > oDateNow) {
+            //     this._showMessageToast("Message10")
+            //     oModelControl.setProperty("/AddFields/ContractorVisit/FromDate", "");
 
 
-                return;
-            }
+            //     return;
+            // }
             if (oToDate) {
                 if (oDate > oToDate) {
                     this._showMessageToast("Message11")
@@ -496,13 +496,13 @@ sap.ui.define([
             var oDateNow = new Date();
             var oToDate = oModelControl.getProperty("/ToDate")
             var oDate = oEvent.getSource().getDateValue();
-            if (oDate > oDateNow) {
-                this._showMessageToast("Message10")
-                oModelControl.setProperty("/AddFields/DealerVisit/FromDate", "");
+            // if (oDate > oDateNow) {
+            //     this._showMessageToast("Message10")
+            //     oModelControl.setProperty("/AddFields/DealerVisit/FromDate", "");
 
 
-                return;
-            }
+            //     return;
+            // }
             if (oToDate) {
                 if (oDate > oToDate) {
                     this._showMessageToast("Message11")
@@ -538,13 +538,13 @@ sap.ui.define([
             var oDateNow = new Date();
             var oToDate =  new Date(oModelControl.getProperty("/AddFields/LeadConversion/ToDate"))
             var oDate = oEvent.getSource().getDateValue();
-            if (oDate > oDateNow) {
-                this._showMessageToast("Message13")
-                oModelControl.setProperty("/AddFields/LeadConversion/FromDate", "");
+            // if (oDate > oDateNow) {
+            //     this._showMessageToast("Message13")
+            //     oModelControl.setProperty("/AddFields/LeadConversion/FromDate", "");
 
 
-                return;
-            }
+            //     return;
+            // }
             if (!isNaN(oToDate)) {
                 if (oDate > oToDate) {
                     this._showMessageToast("Message14")
@@ -580,13 +580,13 @@ sap.ui.define([
             var oDateNow = new Date();
             var oToDate = oModelControl.getProperty("/AddFields/BusinessGeneration/ToDate")
             var oDate = oEvent.getSource().getDateValue();
-            if (oDate > oDateNow) {
-                this._showMessageToast("Message13")
-                oModelControl.setProperty("/AddFields/BusinessGeneration/FromDate", "");
+            // if (oDate > oDateNow) {
+            //     this._showMessageToast("Message13")
+            //     oModelControl.setProperty("/AddFields/BusinessGeneration/FromDate", "");
 
 
-                return;
-            }
+            //     return;
+            // }
             if (oToDate) {
                 if (oDate > oToDate) {
                     this._showMessageToast("Message14")
