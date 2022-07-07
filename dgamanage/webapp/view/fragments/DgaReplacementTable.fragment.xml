@@ -109,7 +109,7 @@
                         <Text />-->
                         <Text text="{DGA/GivenName}" /> 
                          <Text text="{DGA/Id}" /> 
-                           <Text text="{path:'{DGA/JoiningDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                           <Text text="{path:'DGA/JoiningDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
                            <Text text="{path:'DGA/ExitDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
                            <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
                            <ObjectStatus  text="{path:'Status',formatter:'.formatter.fmtLowerCase'}"/>

@@ -87,7 +87,7 @@
                     };
                     var oModel = new JSONModel(oData);
                     this.getView().setModel(oModel, "oModelDisplay");
-                    this.getView().getModel("oModelDisplay").setProperty("/oPayload/ActivationStatus", "DEACTIVATED" );
+                    // this.getView().getModel("oModelDisplay").setProperty("/oPayload/ActivationStatus", "DEACTIVATED" );
                     if (sMode == "Edit") {
                         this._initEditData();
                     } else if (sMode.toUpperCase() === "REPLACEDGA") {
@@ -669,6 +669,7 @@
                                 ActivationStatusChangeReason: ""
                             }
                         };
+                    this.getView().getModel("oModelDisplay").setProperty("/oPayload/ActivationStatus", oChangeStatus.aApplicableStatus[0].key);
                     oModelControl.setProperty("/ChangeStatus", oChangeStatus);
                     // create dialog lazily
                     if (!this._ChangeStatus) {
