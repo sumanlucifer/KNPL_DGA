@@ -18,19 +18,19 @@
                 </Column>
                 <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PayRollCompanyZone/ZoneId", "leadingProperty": "PayRollCompanyZone/ZoneId", "columnIndex": 4 ,"sortProperty": "PayRollCompanyZone/ZoneId","filterProperty": "PayRollCompanyZone/ZoneId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PayRollCompanyZone/ZoneId", "leadingProperty": "PayRollCompanyZone/ZoneId", "columnIndex": 1 ,"sortProperty": "PayRollCompanyZone/ZoneId","filterProperty": "PayRollCompanyZone/ZoneId"}'/>
                     </customData>
                     <Text text="{i18n>Zone}"/>
                 </Column>
                  <Column hAlign="Begin">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PayRollCompanyDivision/DivisionId"}, "leadingProperty": "PayRollCompanyDivision/DivisionId"'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PayRollCompanyDivision/DivisionId"}, "leadingProperty": "PayRollCompanyDivision/DivisionId" "columnIndex": 2'/>
                     </customData>
                     <Text text="{i18n>Division}"/>
                 </Column>
-                <Column hAlign="Begin">
+                <Column hAlign="End">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Edit"}, "leadingProperty": "Edit"'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Edit"}, "leadingProperty": "Edit" "columnIndex": 4'/>
                     </customData>
                     <Text text=""/>
                 </Column>
