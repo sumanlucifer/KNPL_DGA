@@ -21,7 +21,7 @@
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>PhoneNumber}" text="{= ${Visit/TargetDealer/PhoneNumber} === null ? 'NA' : ${Visit/TargetDealer/PhoneNumber}}"/>
+                        <ObjectAttribute title="{i18n>PhoneNumber}" text="{path:'Visit/TargetDealer/PhoneNumber',formatter:'.formatter.fmtCheckNull'}"/>
                         <ObjectAttribute title="{i18n>SalesGroupId}" text="{= ${Visit/TargetDealer/DealerSalesDetails/SalesGroupId} === null ? 'NA' : ${Visit/TargetDealer/DealerSalesDetails/SalesGroupId}}"/>
                         <ObjectAttribute title="{i18n>SalesGroupName}" text="{= ${Visit/TargetDealer/DealerSalesDetails/SalesGroup/Description} === null ? 'NA' : ${Visit/TargetDealer/DealerSalesDetails/SalesGroup/Description}}"/>
                     </layout:VerticalLayout>
