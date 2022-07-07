@@ -224,8 +224,8 @@ sap.ui.define(
                 jQuery.extend(true, contextObject, oContext.getObject());
                 oView.getModel("oModelControl").setProperty("/EditFields/Name", contextObject.Name);
                 oView.getModel("oModelControl").setProperty("/EditFields/Id", contextObject.Id);
-                oView.getModel("oModelControl").setProperty("/EditFields/MultiCombo/Zone", contextObject.PayRollCompanyZone);
-                oView.getModel("oModelControl").setProperty("/EditFields/MultiCombo/Division", contextObject.PayRollCompanyDivision);
+                oView.getModel("oModelControl").setProperty("/EditFields/MultiCombo/Zone", this._ZoneDivisionDataFmt(oContext.getObject("PayRollCompanyZone"), "ZoneId"));
+                oView.getModel("oModelControl").setProperty("/EditFields/MultiCombo/Division", this._ZoneDivisionDataFmt(oContext.getObject("PayRollCompanyDivision"), "DivisionId"));
                 return new Promise(function (resolve, reject) {
                     if (!this._EditPayrollCompany) {
                         Fragment.load({
@@ -245,6 +245,12 @@ sap.ui.define(
                         resolve();
                     }
                 }.bind(this));
+            },
+            _ZoneDivisionDataFmt:function(aValue, mParam){
+                var oModel = this.getView().getModel();
+                return aValue.map(function(o){
+                    return oModel.getProperty("/" + o + "/" + mParam);
+                });
             },
             onPayrollCompanyDialogCancel: function () {
                 if(this._AddNewPayrollCompany){
@@ -266,9 +272,10 @@ sap.ui.define(
 
                 var othat = this;
 
-                if(oModelContrl.getProperty("/AddFields/Name").length === 0){
-                    oView.byId("idPayrollCompanyAdd").setValueState("Error");
-                    oView.byId("idPayrollCompanyAdd").setValueStateText("Enter some value");
+                if(oModelContrl.getProperty("/AddFields/Name").length === 0 || 
+                    oModelContrl.getProperty("/AddFields/MultiCombo/Zone").length === 0 ||
+                    oModelContrl.getProperty("/AddFields/MultiCombo/Division").length === 0){
+                    MessageToast.show("Kindly Fill All the mandatory Fields.");
                     return;
                 }
 
