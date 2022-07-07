@@ -215,8 +215,8 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["select"] = "Visit/Status,Visit/DGA/GivenName,Visit/DGA/Id,Visit/DGA/Zone,Visit/DGA/Mobile,Visit/DGA/DepotId,Visit/DGA/DivisionId,Visit/TaskType/Name,Visit/TaskType/Type,Visit/Id,Visit/Date"
-                oBindingParams.parameters["expand"] = "Visit/DGA,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetContractor,Visit/TargetDealer";
+                oBindingParams.parameters["select"] = "Visit/Status,Visit/DGA/GivenName,Visit/DGA/Id,Visit/DGA/Zone,Visit/DGA/Mobile,Visit/DGA/DepotId,Visit/DGA/DivisionId,Visit/TaskType/Name,Visit/TaskType/Type,Visit/Id,Visit/Date,Visit/DGA/Depot"
+                oBindingParams.parameters["expand"] = "Visit/DGA,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetContractor,Visit/TargetDealer,Visit/DGA/Depot";
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
                 // Apply Filters

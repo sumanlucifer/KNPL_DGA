@@ -87,6 +87,7 @@
                     };
                     var oModel = new JSONModel(oData);
                     this.getView().setModel(oModel, "oModelDisplay");
+                    // this.getView().getModel("oModelDisplay").setProperty("/oPayload/ActivationStatus", "DEACTIVATED" );
                     if (sMode == "Edit") {
                         this._initEditData();
                     } else if (sMode.toUpperCase() === "REPLACEDGA") {
@@ -653,6 +654,7 @@
                     return promise;
                 },
                 onChangeStatus: function () {
+                    debugger;
                     var oView = this.getView(),
                         aStatus = [{
                             key: "ACTIVATED"
@@ -664,10 +666,11 @@
                         oChangeStatus = {
                             aApplicableStatus: aStatus.filter(ele => ele.key != sCurrentStatus),
                             oPayload: {
-                                ActivationStatus: "",
+                                ActivationStatus: "DEACTIVATED",
                                 ActivationStatusChangeReason: ""
                             }
                         };
+                   
                     oModelControl.setProperty("/ChangeStatus", oChangeStatus);
                     // create dialog lazily
                     if (!this._ChangeStatus) {
@@ -677,9 +680,11 @@
                             this._ChangeStatus = oControl;
                             oView.addDependent(this._ChangeStatus);
                             this._ChangeStatus.open();
+                            debugger;
                         }.bind(this));
                     } else {
                         this._ChangeStatus.open();
+                        debugger;
                     }
                 },
                 onConfirmStatus: function () {

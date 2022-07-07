@@ -27,16 +27,31 @@
 
     <f:SimpleForm id="idSourceDetails" editable="false" layout="ColumnLayout" title="{i18n>SourceDetails}" columnsL="3" columnsM="2" >
         <f:content>
-            <Label text="{i18n>SelectedSource}" />
+            <!-- <Label text="{i18n>SelectedSource}" />
             <Text  text="{Visit/TargetLead/LeadSource/Name}" />
             <Label text="{i18n>ContractorName}" />
             <Text  text="{contractorModel>/TargetContractor/Name}" />
             <Label text="{i18n>PhoneNumber}" />
-            <Text  text="{contractorModel>/TargetContractor/Mobile}" />
+            <Text  text="{contractorModel>/TargetContractor/Mobile}" /> -->
+
+            <Label text="{i18n>Selected} {i18n>Source}" />
+            <Text text="{path : 'Visit/TargetLead/LeadSource/Name',formatter:'.formatter.fmtCheckNull'}"  />
+            <Label text="{i18n>ContractorName}" visible="{= ${Visit/TargetLead/LeadSourceId} === '3'? true : false}"/>
+            <Text text="{= ${Visit/TargetLead/SourceContractorId} ? ${contractorModel>/TargetContractor/Name} ? ${contractorModel>/TargetContractor/Name} : 'NA' : ${Visit/TargetLead/SourceNewContractorName} ? ${Visit/TargetLead/SourceNewContractorName} : 'NA'}" visible="{= ${Visit/TargetLead/LeadSourceId} === '3'}"/>
+            <Label text="{i18n>PhoneNumber}" visible="{= ${Visit/TargetLead/LeadSourceId} === '3'}"/>
+            <Text text="{= ${Visit/TargetLead/SourceContractorId} ? ${contractorModel>/TargetContractor/Mobile} ? ${contractorModel>/TargetContractor/Mobile} : 'NA' : ${Visit/TargetLead/SourceNewContractorMobile} ? ${Visit/TargetLead/SourceNewContractorMobile} : 'NA' }" visible="{= ${Visit/TargetLead/LeadSourceId} === '3'}"/>
+            <Label text="{i18n>DealerName}" visible="{= ${Visit/TargetLead/LeadSourceId} === '2'}"/>
+            <Text text="{= ${Visit/TargetLead/SourceDealerId} ? ${Visit/TargetLead/SourceDealer/Name} ? ${Visit/TargetLead/SourceDealer/Name} : 'NA' : 'NA' }" visible="{= ${Visit/TargetLead/LeadSourceId} === '2'}"/>
+            <Label text="{i18n>DealerMobile}" visible="{= ${Visit/TargetLead/LeadSourceId} === '2'}"/>
+            <Text text="{= ${Visit/TargetLead/SourceDealerId} ? ${Visit/TargetLead/SourceDealer/PhoneNumber} ? ${Visit/TargetLead/SourceDealer/PhoneNumber} : 'NA' : 'NA' }" visible="{= ${Visit/TargetLead/LeadSourceId} === '2'}"/>
+            <Label text="{i18n>ConsumerName}" visible="{= ${Visit/TargetLead/LeadSourceId} === '5'}"/>
+            <Text text="{= ${Visit/TargetLead/SourceConsumerId} ? ${Visit/TargetLead/SourceConsumer/ConsumerName} ? ${Visit/TargetLead/SourceConsumer/ConsumerName} : 'NA' : ${Visit/TargetLead/SourceNewConsumerName} ? ${Visit/TargetLead/SourceNewConsumerName}: 'NA' }" visible="{= ${Visit/TargetLead/LeadSourceId} === '5'}"/>
+            <Label text="{i18n>ConsumerMobile}" visible="{= ${Visit/TargetLead/LeadSourceId} === '5'}"/>
+            <Text text="{= ${Visit/TargetLead/SourceConsumerId} ? ${Visit/TargetLead/SourceConsumer/PrimaryNum} ? ${Visit/TargetLead/SourceConsumer/PrimaryNum} : 'NA' : ${Visit/TargetLead/SourceNewConsumerNum} ? ${Visit/TargetLead/SourceNewConsumerNum} : 'NA' }" visible="{= ${Visit/TargetLead/LeadSourceId} === '5'}"/>
         </f:content>
     </f:SimpleForm>
 
-    <f:SimpleForm id="idServiceDetails" editable="false" layout="ColumnLayout" title="{i18n>ServiceAndPaintingDetails}" columnsL="3" columnsM="2" >
+    <!-- <f:SimpleForm id="idServiceDetails" editable="false" layout="ColumnLayout" title="{i18n>ServiceAndPaintingDetails}" columnsL="3" columnsM="2" >
         <f:content>
             <Label text="{i18n>ServiceType}" />
             <Text  text="{path :'Visit/TargetLead/LeadServiceType/Name',formatter:'.formatter.fmtCheckNull'}" />
@@ -46,6 +61,32 @@
             <Text  text="{path :'Visit/TargetLead/PaintingReqSlab/Name',formatter:'.formatter.fmtCheckNull'}" />
             <Label text="{i18n>PaintingType}" />
             <Text  text="{path :'Visit/TargetLead/PaintType/Name',formatter:'.formatter.fmtCheckNull'}" />
+        </f:content>
+    </f:SimpleForm> -->
+
+    <f:SimpleForm id="ServiceDetailsData" editable="false" layout="ResponsiveGridLayout" 
+    labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
+    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
+    columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false" title="{i18n>ServiceAndPaintingDetails}">
+        <f:content>
+            <Label text="{i18n>ServiceType}" />
+            <Text text="{= ${Visit/TargetLead/LeadServiceSubTypeId} ? ${Visit/TargetLead/LeadServiceType/Name} ? ${Visit/TargetLead/LeadServiceType/Name} + ' (' + ${Visit/TargetLead/LeadServiceSubType/ServiceSubType} + ')' : 'NA' : ${Visit/TargetLead/LeadServiceType/Name} ? ${Visit/TargetLead/LeadServiceType/Name} : 'NA' }"  />
+            <Label text="{i18n>PaintingType}" />
+            <Text text="{path : 'Visit/TargetLead/PaintType/Name',formatter:'.formatter.fmtCheckNull'}"  />
+            <Label text="{i18n>PaintingReqDays}" />
+            <Text text="{path : 'Visit/TargetLead/PaintingReqSlab/Name',formatter:'.formatter.fmtCheckNull'}"  />
+            <Label text="{i18n>SubType}" />
+            <Text text="{path : 'Visit/TargetLead/PaintingReqSlab/LeadSubStatus',formatter:'.formatter.fmtCheckNull'}"  />
+            <Label text="{i18n>PaintingReq}" />
+            <VBox>
+                <VBox items="{
+                        path: 'Visit/TargetLead/LeadSelectedPaintingRequests'
+                    }"
+                    visible="{= ${Visit/TargetLead/LeadSelectedPaintingRequests}.length > 0 ? true : false}">
+                    <Text text="{MasterPaintingReq/Name}"/>
+                </VBox>
+                <Text text="NA" visible="{= ${Visit/TargetLead/LeadSelectedPaintingRequests}.length > 0 ? false : true}"/>
+            </VBox>
         </f:content>
     </f:SimpleForm>
 </core:FragmentDefinition>

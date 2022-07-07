@@ -20,9 +20,9 @@
                 <f:snappedTitleOnMobile>
                     <Title text="{ComplaintType/ComplaintType}"/>
                 </f:snappedTitleOnMobile>
-                <f:actions>
+                <!-- <f:actions>
                     <Button enabled="{parts:['ActivationStatus','IsReplaced'],formatter:'.formatter.fmtEnbChangeStatus'}" press="onChangeStatus" type="Emphasized" text="{i18n>ChangeStatus}" />
-                </f:actions>
+                </f:actions> -->
             </f:DynamicPageTitle>
         </f:title>
         <f:header>
@@ -88,6 +88,8 @@
          
             <OverflowToolbar>
               <ToolbarSpacer/>
+                <Button visible="{= ${ActivationStatus}=== 'ACTIVATED' }" enabled="{parts:['ActivationStatus','IsReplaced'],formatter:'.formatter.fmtEnbChangeStatus'}" press="onChangeStatus" type="Emphasized" text="{i18n>buttonChangeStatus}" />
+             
                 <Button type="Ghost" text="{i18n>ReplaceDga}" press="onPressDgaReplacement" visible="{parts:['ActivationStatus','IsReplaced'],formatter:'.formatter.fmtDisplayReplacedBtn'}" />
               <Button press="onNavToHome" type="Ghost"  text="{i18n>Cancel}"  />
               <!-- <Button press=".onApproval(true)" visible="{= ${oModelDisplay>/mode}==='Display'}" text="{i18n>Approve}"  type="Accept"  /> -->

@@ -4,24 +4,24 @@
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:core="sap.ui.core">
     <ValueHelpDialog
-        title="Depots"
-        ok=".onValueHelpOkPress"
-        cancel=".onValueHelpCancelPress"
-        afterClose=".onValueHelpAfterClose"
-        afterOpen=".onValueHelpAfterOpen"
+        title="Location"
+        ok=".onValueHelpOkPress1"
+        cancel=".onValueHelpCancelPress1"
+        afterClose=".onValueHelpAfterClose1"
+        afterOpen=".onValueHelpAfterOpen1"
         supportRanges="false"
-        key="Id"
-        descriptionKey="Divison">
+        key="TownId"
+        descriptionKey="Location">
         <filterBar>
-            <fb:FilterBar advancedMode="false" search="onFilterBarSearch" showRestoreButton="true" showRestoreOnFB="true" reset="onClearDivisonSearch">
+            <fb:FilterBar advancedMode="false" search="onFilterBarSearch1" showRestoreButton="true" showRestoreOnFB="true" reset="onClearLocationSearch">
                 <fb:filterGroupItems>
                     <fb:FilterGroupItem
                         groupName="__$INTERNAL$"
-                        name="Id"
-                        label="Divison Id"
+                        name="TownName"
+                        label="Location Name"
                         visibleInFilterBar="true">
                         <fb:control>
-                            <m:Input name="Id" placeholder="{i18n>enterDivisonId}" value="{DivisonFilter>/Id}"/>
+                            <m:Input name="TownName" placeholder="{i18n>enterLocation}" value="{LocationFilter>/TownName}"/>
                         </fb:control>
                     </fb:FilterGroupItem>
                     <!-- <fb:FilterGroupItem

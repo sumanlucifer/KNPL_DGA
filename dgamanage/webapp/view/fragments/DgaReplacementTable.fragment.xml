@@ -15,7 +15,6 @@
                             persistencyKey="HistoryPersistenceKey"
                              initialNoDataText="{i18n>tableNoDataText}"
                           >
-
          <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}" >
             <columns>
                <Column hAlign="Begin">
@@ -24,19 +23,36 @@
                     </customData>
                     <Text text="{i18n>Name}"/>
                 </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Id", "leadingProperty": "DGA/Id", "columnIndex": 1 ,"sortProperty": "DGA/Id","filterProperty": "DGA/Id"}'/>
+                    </customData>
+                    <Text text="{i18n>id}"/>
+                </Column>
+<Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/JoiningDate", "leadingProperty": "DGA/JoiningDate", "columnIndex": 2 ,"sortProperty": "DGA/JoiningDate","filterProperty": "DGA/JoiningDate"}'/>
+                    </customData>
+                    <Text text="{i18n>jDate}"/>
+                </Column>
+<Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/ExitDate", "leadingProperty": "DGA/ExitDate", "columnIndex": 3 ,"sortProperty": "DGA/ExitDate","filterProperty": "DGA/ExitDate"}'/>
+                    </customData>
+                    <Text text="{i18n>eDate}"/>
+                </Column>
                <Column hAlign="Begin" sortIndicator="Descending">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt", "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt", "columnIndex": 4 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>CreatedAt}"/>
                 </Column>
                 <Column hAlign="Begin" >
                      <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status", "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status", "columnIndex": 5 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
-                
                  <!--   <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Points","columnIndex":3 }'/>
@@ -79,15 +95,10 @@
                     </customData>
                     <Text text="{i18n>Id}"/>
                 </Column> -->
-            
-               
-                
-
             </columns>
             <items>
                 <ColumnListItem>
                     <cells>
-                 
                        <!-- <Text text="{Contractor/Name}" /> -->
                        <!-- <Text />
                        <Text />
@@ -97,11 +108,12 @@
                         <Text />
                         <Text />-->
                         <Text text="{DGA/GivenName}" /> 
-                        <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
-                             <ObjectStatus  text="{path:'Status',formatter:'.formatter.fmtLowerCase'}"/>
+                         <Text text="{DGA/Id}" /> 
+                           <Text text="{path:'DGA/JoiningDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                           <Text text="{path:'DGA/ExitDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                           <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
+                           <ObjectStatus  text="{path:'Status',formatter:'.formatter.fmtLowerCase'}"/>
                        <Text text="{Id}" />
-                        
-
                     </cells>
                 </ColumnListItem>
             </items>

@@ -49,6 +49,7 @@ sap.ui.define(
                         ZoneId: "",
                         DivisionId: "",
                         DepotId: "",
+                        TownId: "",
                         LocationId: "",
                         DGAId: "",
 
@@ -93,6 +94,7 @@ sap.ui.define(
                     ZoneId: "",
                     DivisionId: "",
                     DepotId: "",
+                    TownId: "",
                     LocationId: "",
                     DGAId: "",
 
@@ -623,19 +625,26 @@ sap.ui.define(
                  
 
                     var othat = this;
-                    oData.update("/MasterTargetPlansRenews("+Number(oModel.getProperty("/EditFields/Id"))+"L)/TargetValue", oPayload, {
-                        success: function () {
-                            oModel.setProperty("/EditFields", {});
-                               oData.refresh(true);
-                            MessageToast.show("Count History Successfully Updated.");
-                            othat.onEditHistoryCancel();
-                        },
-                        error: function (a) {
-                            MessageBox.error(othat._sErrorText, {
-                                title: "Error Code: " + a.statusCode,
+                    MessageBox.warning("The changes will be replicated from tomorrow", {
+                        actions: ["OK"],
+                        emphasizedAction: "OK",
+                        onClose: function (sAction) {
+                            oData.update("/MasterTargetPlansRenews("+Number(oModel.getProperty("/EditFields/Id"))+"L)/TargetValue", oPayload, {
+                                success: function () {
+                                    oModel.setProperty("/EditFields", {});
+                                       oData.refresh(true);
+                                    MessageToast.show("Count History Successfully Updated.");
+                                    othat.onEditHistoryCancel();
+                                },
+                                error: function (a) {
+                                    MessageBox.error(othat._sErrorText, {
+                                        title: "Error Code: " + a.statusCode,
+                                    });
+                                },
                             });
-                        },
+                        }
                     });
+                    
             },
 
 

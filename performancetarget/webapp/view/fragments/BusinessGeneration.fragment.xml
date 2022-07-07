@@ -60,7 +60,7 @@
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "TargetValue", "leadingProperty": "TargetValue", "columnIndex": 7 ,"sortProperty": "TargetValue","filterProperty": "TargetValue"}'/>
                     </customData>
-                    <Text text="{i18n>BusinessGeneration} {i18n>inValue} ({i18n>Monthly})"/>
+                    <Text text="{i18n>BusinessGeneration}  {i18n>rupee}({i18n>Monthly})"/>
                 </Column>
                   
                <Column >
@@ -78,9 +78,9 @@
                         <Text text="{path:'ToDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'MM/YYYY'}}"/>
                          <Text text="{DGAType/Name}"/>
                        <Text text="{path:'PerformanceZone',formatter:'.formatter.arrayFormat2'}"/> 
-                         <Text text="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/> 
-                          <Text text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/> 
-                          <Text text="{path:'PerformanceJobLocation',formatter:'.formatter.arrayFormat3'}"/> 
+                         <Text maxLines="2" tooltip="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}" text="{path:'PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/> 
+                          <Text maxLines="2" tooltip="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}" text="{path:'PerformanceDepot',formatter:'.formatter.arrayFormat'}"/> 
+                          <Text maxLines="2" tooltip="{path:'PerformanceJobLocation',formatter:'.formatter.arrayFormat3'}" text="{path:'PerformanceJobLocation',formatter:'.formatter.arrayFormat3'}"/> 
                           <!-- <Text text="{path:'PerformanceDepot',formatter:'.arrayFormat'}"/>  -->
                          <Text text="{TargetValue}"/>
                           <Button icon="sap-icon://edit"  type="Transparent" press="onPressEdit" tooltip="Edit"></Button> 
