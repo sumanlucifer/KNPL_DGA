@@ -7,7 +7,7 @@
                     <Title text="{Visit/TargetLead/ConsumerName}"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>LeadDetails}">
+                    <Breadcrumbs currentLocationText="{i18n>VisitDetails}">
                         <Link text="{i18n>MainObject}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
