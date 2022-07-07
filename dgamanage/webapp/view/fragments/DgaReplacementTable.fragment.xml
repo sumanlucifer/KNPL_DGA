@@ -24,18 +24,38 @@
                     </customData>
                     <Text text="{i18n>Name}"/>
                 </Column>
+
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/Id", "leadingProperty": "DGA/Id", "columnIndex": 1 ,"sortProperty": "DGA/Id","filterProperty": "DGA/Id"}'/>
+                    </customData>
+                    <Text text="{i18n>id}"/>
+                </Column>
+<Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/JoiningDate", "leadingProperty": "DGA/JoiningDate", "columnIndex": 2 ,"sortProperty": "DGA/JoiningDate","filterProperty": "DGA/JoiningDate"}'/>
+                    </customData>
+                    <Text text="{i18n>jDate}"/>
+                </Column>
+<Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DGA/ExitDate", "leadingProperty": "DGA/ExitDate", "columnIndex": 3 ,"sortProperty": "DGA/ExitDate","filterProperty": "DGA/ExitDate"}'/>
+                    </customData>
+                    <Text text="{i18n>eDate}"/>
+                </Column>
                <Column hAlign="Begin" sortIndicator="Descending">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt", "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt", "columnIndex": 4 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>CreatedAt}"/>
                 </Column>
                 <Column hAlign="Begin" >
                      <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status", "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status", "columnIndex": 5 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
+                
                 
                  <!--   <Column hAlign="Begin">
                     <customData>
@@ -97,6 +117,9 @@
                         <Text />
                         <Text />-->
                         <Text text="{DGA/GivenName}" /> 
+                         <Text text="{DGA/Id}" /> 
+      <Text text="{DGA/JoiningDate}" /> 
+      <Text text="{DGA/ExitDate}" /> 
                         <Text text="{path:'CreatedAt',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY h:mm a'}}"/>
                              <ObjectStatus  text="{path:'Status',formatter:'.formatter.fmtLowerCase'}"/>
                        <Text text="{Id}" />

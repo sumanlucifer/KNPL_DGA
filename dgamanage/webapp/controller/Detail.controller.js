@@ -87,6 +87,7 @@
                     };
                     var oModel = new JSONModel(oData);
                     this.getView().setModel(oModel, "oModelDisplay");
+                    this.getView().getModel("oModelDisplay").setProperty("/oPayload/ActivationStatus", "DEACTIVATED" );
                     if (sMode == "Edit") {
                         this._initEditData();
                     } else if (sMode.toUpperCase() === "REPLACEDGA") {
