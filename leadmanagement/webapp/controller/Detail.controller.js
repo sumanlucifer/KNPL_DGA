@@ -85,8 +85,94 @@ sap.ui.define([
             },
 
             onListUpdateFinished: function (oEvent) {
-                var sSiteImagesCount = this._geti18nText("SiteImagesCount", oEvent.getSource().getItems().length);
+                var sSiteImagesCount = oEvent.getSource().getItems().length > 0 ? oEvent.getSource().getItems().length : "0";
+                sSiteImagesCount = this._geti18nText("SiteImagesCount", sSiteImagesCount);
                 this.getView().byId("idSiteImagesTitle").setText(sSiteImagesCount);
+            },
+
+            fnSetFeedbackFormDetails: function () {
+                var oConsumerFeedbackSMPForm = this.getView().byId("idConsumerFeedbackSMPForm")
+                oConsumerFeedbackSMPForm.removeAllContent();
+                var oFeedbackData = this.getView().getModel("FeedbackDataModel").getData(),
+                    aGroupedFeedbackData = [];
+
+                for (var i = 0; i < oFeedbackData.length; i++) {
+                    if (aGroupedFeedbackData.length === 0) {
+                        aGroupedFeedbackData.push([oFeedbackData[i]]);
+                        continue;
+                    }
+                    for (var j = 0; j < aGroupedFeedbackData.length; j++) {
+                        if (aGroupedFeedbackData[aGroupedFeedbackData.length - 1][0].QuestionId === oFeedbackData[i].QuestionId) {
+                            aGroupedFeedbackData[aGroupedFeedbackData.length - 1].push(oFeedbackData[i]);
+                            break;
+                        }
+                        else {
+                            aGroupedFeedbackData.push([oFeedbackData[i]]);
+                            break;
+                        }
+                    }
+                }
+
+                for (var i = 0; i < aGroupedFeedbackData.length; i++) {
+                    var sAnswerText = "",
+                        oAnswerControl = {},
+                        sQuestionLabel = "Q. " + aGroupedFeedbackData[i][0].Question.Question;
+
+                    if (aGroupedFeedbackData[i].length === 1) {
+                        // If Rating Value is available, Create Rating Indicator control
+                        if (aGroupedFeedbackData[i][0].Rating !== null && aGroupedFeedbackData[i][0].Rating !== undefined) {
+                            sQuestionLabel = sQuestionLabel + " " + "{i18n>Outof5Text}";
+                            oAnswerControl = new sap.m.Text({
+                                text: this.fnSetRatingValues(aGroupedFeedbackData[i][0].Rating)
+                            }).addStyleClass("sapUiSmallMarginBegin zCustomTextBold zCustomRaingTextBold");
+                        }
+
+                        // If TextAnswer Value is available, Create Text control
+                        else if (aGroupedFeedbackData[i][0].TextAnswer !== null && aGroupedFeedbackData[i][0].TextAnswer !== undefined) {
+                            oAnswerControl = new sap.m.Text({
+                                text: "\u2022" + "  " + aGroupedFeedbackData[i][0].TextAnswer
+                            }).addStyleClass("sapUiTinyMarginBegin zCustomTextBold");
+                        }
+
+                        // Create Text control for Radio Button type question
+                        else {
+                            oAnswerControl = new sap.m.Text({
+                                text: "\u2022" + "  " + aGroupedFeedbackData[i][0].Answer.Answer
+                            }).addStyleClass("sapUiTinyMarginBegin zCustomTextBold");
+                        }
+                    }
+                    else {
+                        for (var j = 0; j < aGroupedFeedbackData[i].length; j++) {
+                            sAnswerText = sAnswerText.concat("\u2022" + "  " + aGroupedFeedbackData[i][j].Answer.Answer + "\n");
+                        }
+                        oAnswerControl = new sap.m.Text({
+                            text: sAnswerText
+                        }).addStyleClass("sapUiTinyMarginBegin zCustomTextBold");
+                    }
+
+                    var oQuestionLabelControl = new sap.m.Label({
+                        text: sQuestionLabel,
+                        wrapping: true
+                    }).addStyleClass("sapMLabelNoText");
+
+                    oConsumerFeedbackSMPForm.addContent(oQuestionLabelControl);
+                    oConsumerFeedbackSMPForm.addContent(oAnswerControl);
+                }
+            },
+
+            fnSetRatingValues: function (sRating) {
+                switch (sRating) {
+                    case "1":
+                        return "*";
+                    case "2":
+                        return "**";
+                    case "3":
+                        return "***";
+                    case "4":
+                        return "****";
+                    case "5":
+                        return "*****";
+                }
             },
 
             // onSortPress: function (oEvent) {
@@ -233,30 +319,31 @@ sap.ui.define([
             // },
 
             _getDisplayData: function (oProp) {
-                var promise = jQuery.Deferred();
-                var oView = this.getView();
-
-                var exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus,DGADetails,SourceDealer,Dealer,LeadServiceSubType,SourceConsumer,LeadSelectedPaintingRequests,LeadSelectedPaintingRequests/MasterPaintingReq,LeadLostReason,CompetitionBrand,CompetitorServiceType,ShortClosureReason,AssignedContractors/Contractor,ConsumerFeedback/ConsumerFeedbackAnswers/Question, ConsumerFeedback/ConsumerFeedbackAnswers/Answer, SiteImages";
-                var othat = this;
+                var promise = jQuery.Deferred(),
+                    exPand = "PreEstimation,Quotation,MaterialRequisition,LeadSource,SourceContractor,AssignedContractors,PaintType,PaintingReqSlab,LeadServiceType,State,LeadStatus, DGA, DGADetails,SourceDealer,Dealer,LeadServiceSubType,SourceConsumer,LeadSelectedPaintingRequests,LeadSelectedPaintingRequests/MasterPaintingReq,LeadLostReason,CompetitionBrand,CompetitorServiceType,ShortClosureReason,AssignedContractors/Contractor, ConsumerFeedback/ConsumerFeedbackAnswers/Question, ConsumerFeedback/ConsumerFeedbackAnswers/Answer, SiteImages";
                 if (oProp.trim() !== "") {
-                    oView.bindElement({
+                    this.getView().bindElement({
                         path: "/" + oProp,
                         parameters: {
                             expand: exPand,
                         },
                         events: {
                             dataRequested: function (oEvent) {
-                                //  oView.setBusy(true);
-                            },
+                                this.getView().setBusy(true);
+                            }.bind(this),
                             dataReceived: function (oEvent) {
-                                //  oView.setBusy(false);
-                            },
+                                this.getView().setBusy(false);
+                                var oFeedbackData = oEvent.getParameter("data").ConsumerFeedback.length > 0 ? oEvent.getParameter("data").ConsumerFeedback[0].ConsumerFeedbackAnswers : [],
+                                    oFeedbackDataModel = new JSONModel(oFeedbackData);
+                                this.getView().setModel(oFeedbackDataModel, "FeedbackDataModel");
+                            }.bind(this),
                         },
                     });
                 }
                 promise.resolve();
                 return promise;
             },
+
             onIcnTbarChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
@@ -283,7 +370,7 @@ sap.ui.define([
                 } else if (sKey == "4") {
                     oView.byId("DGAHistoryTbl").rebindTable();
                 } else if (sKey == "5") {
-                    this.onFeedbackFormLoad();
+                    this.fnSetFeedbackFormDetails();
                 } else if (sKey == "6") {
                     oView.byId("VisitHistoryTbl").rebindTable();
                 }
@@ -521,13 +608,7 @@ sap.ui.define([
                 oBindingParams.filters.push(oIdFilter, oFirstVisitFilter, oTaskTypeFilter, oArchivedFilter);
                 oBindingParams.sorter.push(new Sorter("Date", true));
             },
-            onFeedbackFormLoad: function (oEvent) {
-                var sServiceURL = this.getView().getModel().sServiceUrl;
-                var oBindingObject = this.getView().getBindingContext().getObject();
-                var sFeedbackFormUrl = oBindingObject.ConsumerFeedback.__list[0];
-                if (sFeedbackFormUrl)
-                    this.getView().byId("FeedbackData").bindElement({ path: "/" + sFeedbackFormUrl });
-            },
+
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
@@ -573,6 +654,7 @@ sap.ui.define([
                 var sURL = sServiceURL + "/" + sMaterialRequisitionPath + "/$value?Token=" + sTokenCode;
                 sap.m.URLHelper.redirect(sURL, true);
             },
+
 
             // onPressSave: function () {
             //     var bValidateForm = this._ValidateForm();

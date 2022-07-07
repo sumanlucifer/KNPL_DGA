@@ -432,6 +432,31 @@ sap.ui.define(
                 this._onDialogClose();
             },
 
+            onZoneChange: function (oEvent) {
+                var sId = oEvent.getSource().getSelectedKey();
+                var oView = this.getView();
+                var oDivision = oView.byId("idDivision");
+                var oDivItems = oDivision.getBinding("items");
+                oDivision.clearSelection();
+                oDivision.setValue("");
+                oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
+                //setting the data for depot;
+                var oDepot = oView.byId("idDepot");
+                oDepot.clearSelection();
+                oDepot.setValue("");
+            },
+            
+            onDivisionChange: function (oEvent) {
+                var sKey = oEvent.getSource().getSelectedKey();
+                var oView = this.getView();
+                var oDepot = oView.byId("idDepot");
+                var oDepBindItems = oDepot.getBinding("items");
+                oDepot.clearSelection();
+                oDepot.setValue("");
+                oDepBindItems.filter(new Filter("Division", FilterOperator.EQ, sKey));
+            },
+
+
             // onPressDelete: function (oEvent) {
             //     var oView = this.getView();
             //     var oBj = oEvent.getSource().getBindingContext().getObject();
