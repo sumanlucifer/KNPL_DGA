@@ -8,7 +8,7 @@
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs  currentLocationText="Set Performance Target">
-                        <Link text="{i18n>MainObject2}" press="onNavToHome"/>
+                        <!-- <Link text="{i18n>MainObject2}" press="onNavToHome"/> -->
                          <Link text="{i18n>MainObject}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
@@ -27,8 +27,8 @@
                     <Label text="{i18n>Select} {i18n>DGAType}" required="true" class= "sapUiTinyMarginTopBottom" />
                	     <RadioButtonGroup columns="3" select="onRbChnageMain" selectedIndex="{oModelControl>/Rbtn/TarGrp}">
                             <buttons>
-                                <RadioButton text="{i18n>DedicatedDGA}" selected="true"/>
-                                <RadioButton text="{i18n>SharedDGA}"/>
+                                <RadioButton text="{i18n>DedicatedDGA}" class="sapUiMediumMarginEnd" selected="true"/>
+                                <RadioButton text="{i18n>SharedDGA}"  class="sapUiMediumMarginEnd" />
                                 <RadioButton text="{i18n>All}"/>
                             </buttons>
                      </RadioButtonGroup>
@@ -95,11 +95,16 @@
                                 <RadioButton  text="{i18n>Specific}"/>
                             </buttons>
                      </RadioButtonGroup>
-               
-                   
+                         
+                            <MultiInput width="10rem" enabled="{titleModel>/isSpecificLocation}" editable="{= ${oModelControl>/MultiCombo/Depot}.length > 0 }" id="idLocation" required="true"  tokens="{oModelControl>/MultiCombo/Location}" valueHelpRequest="onValueHelpRequestedLocation">
+	                <tokens>
+                        <Token editable="false" text="{oModelControl>TownId}" key="{oModelControl>TownId}"/>
+                    </tokens>
+	            </MultiInput>
+<!--                    
                       <MultiComboBox enabled="{titleModel>/isSpecificLocation}" editable="{= ${oModelControl>/MultiCombo/Depot}.length > 0 }" id="idLocation" class="sapUiTinyMarginEnd" required="true" width="10rem" selectedKeys="{path:'oModelControl>/MultiCombo/Location', type :'.customMulti' }" items="{ path : '/MasterWorkLocations' }"  >
 					<core:Item key="{TownId}" text="{TownName}"/>
-				     </MultiComboBox>
+				     </MultiComboBox> -->
                     </VBox>
                     </HBox>
                      </VBox>
@@ -123,17 +128,17 @@
                         <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>From}"  class="" width="10em" />
                        <!-- <DatePicker  placeholder="DD/MM/YYYY"  width="10em" value="{path:'oModelControl>/AddFields/LeadVisit/FromDate'}"></DatePicker> -->
-                        <DatePicker minDate="{oModelView>/CurrentDate}"  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY"  width="10em" change="onFromDate" value="{path:'oModelControl>/AddFields/LeadVisit/FromDate'}"></DatePicker>
+                        <DatePicker minDate="{oModelView>/CurrentDate}" class="sapUiTinyMarginEnd" placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" displayFormat="MM/dd/YYYY" width="10em" change="onFromDate" value="{path:'oModelControl>/AddFields/LeadVisit/FromDate'}"></DatePicker>
          
                       </VBox>
                       <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>To}"  class="" width="10em" />
                           <!-- <DatePicker placeholder="DD/MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/LeadVisit/ToDate'}" ></DatePicker>  -->
-                           <DatePicker  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" width="10em"   change="onToDate"  value="{path:'oModelControl>/AddFields/LeadVisit/ToDate'}"></DatePicker>
+                           <DatePicker  placeholder="DD/MM/YYYY" class="sapUiTinyMarginEnd" valueFormat="MM/dd/YYYY" width="10em" displayFormat="MM/dd/YYYY"  change="onToDate"  value="{path:'oModelControl>/AddFields/LeadVisit/ToDate'}"></DatePicker>
                       </VBox>
                          <VBox class="sapUiTinyMargin">
                       <Label  text="{i18n>LeadVisitCount} ({i18n>Daily})"  width="14em" />
-                      <StepInput value="{oModelControl>/AddFields/LeadVisit/TargetValue}" displayValuePrecision="0"  min="0" max="100 " width="14em" enabled="true" editable="true" change="onChange"/>
+                      <StepInput value="{oModelControl>/AddFields/LeadVisit/TargetValue}" displayValuePrecision="0"  min="0" max="9999" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                      </HBox>
                      
@@ -146,16 +151,16 @@
                         <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>From}"  class="" width="10em" />
                         <!-- <DatePicker  placeholder="DD/MM/YYYY"  width="10em" value="{path:'oModelControl>/AddFields/NewLead/FromDate'}"></DatePicker> -->
-                        <DatePicker minDate="{oModelView>/CurrentDate}"  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY"  width="10em" change="onFromDate1" value="{path:'oModelControl>/AddFields/NewLead/FromDate'}"></DatePicker>
+                        <DatePicker minDate="{oModelView>/CurrentDate}" class="sapUiTinyMarginEnd" placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" displayFormat="MM/dd/YYYY" width="10em" change="onFromDate1" value="{path:'oModelControl>/AddFields/NewLead/FromDate'}"></DatePicker>
                       </VBox>
                           <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>To}"  class="" width="10em" />
                           <!-- <DatePicker  placeholder="DD/MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/NewLead/ToDate'}"></DatePicker>  -->
-                      <DatePicker  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" width="10em"   change="onToDate1"  value="{path:'oModelControl>/AddFields/NewLead/ToDate'}"></DatePicker>
+                      <DatePicker  placeholder="DD/MM/YYYY" class="sapUiTinyMarginEnd" valueFormat="MM/dd/YYYY" width="10em" displayFormat="MM/dd/YYYY"  change="onToDate1"  value="{path:'oModelControl>/AddFields/NewLead/ToDate'}"></DatePicker>
                       </VBox>
                          <VBox class="sapUiTinyMargin">
                       <Label  text="{i18n>NewLeadVisitCount} ({i18n>Daily})"  width="14em" />
-                      <StepInput value="{oModelControl>/AddFields/NewLead/TargetValue}" displayValuePrecision="0"  min="0" max="100" width="14em" enabled="true" editable="true" change="onChange"/>
+                      <StepInput value="{oModelControl>/AddFields/NewLead/TargetValue}" displayValuePrecision="0"  min="0" max="9999" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                      </HBox>
                        
@@ -167,16 +172,16 @@
                         <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>From}"  class="" width="10em" />
                         <!-- <DatePicker placeholder="DD/MM/YYYY"  width="10em" value="{path:'oModelControl>/AddFields/ContractorVisit/FromDate'}"></DatePicker> -->
-                      <DatePicker minDate="{oModelView>/CurrentDate}"  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY"  width="10em" change="onFromDate2" value="{path:'oModelControl>/AddFields/ContractorVisit/FromDate'}"></DatePicker>
+                      <DatePicker minDate="{oModelView>/CurrentDate}" class="sapUiTinyMarginEnd" placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" displayFormat="MM/dd/YYYY" width="10em" change="onFromDate2" value="{path:'oModelControl>/AddFields/ContractorVisit/FromDate'}"></DatePicker>
                       </VBox>
                           <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>To}"  class="" width="10em" />
                           <!-- <DatePicker placeholder="DD/MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/ContractorVisit/ToDate'}" ></DatePicker>  -->
-                           <DatePicker  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" width="10em"   change="onToDate2"  value="{path:'oModelControl>/AddFields/ContractorVisit/ToDate'}"></DatePicker>
+                           <DatePicker  placeholder="DD/MM/YYYY" class="sapUiTinyMarginEnd" valueFormat="MM/dd/YYYY" width="10em" displayFormat="MM/dd/YYYY"  change="onToDate2"  value="{path:'oModelControl>/AddFields/ContractorVisit/ToDate'}"></DatePicker>
                       </VBox>
                          <VBox class="sapUiTinyMargin">
                       <Label  text="{i18n>ContractorVisitCount} ({i18n>Daily})"  width="14em" />
-                      <StepInput value="{oModelControl>/AddFields/ContractorVisit/TargetValue}" displayValuePrecision="0"  min="0" max="100" width="14em" enabled="true" editable="true" change="onChange"/>
+                      <StepInput value="{oModelControl>/AddFields/ContractorVisit/TargetValue}" displayValuePrecision="0"  min="0" max="9999" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                      </HBox>
                        
@@ -188,16 +193,16 @@
                         <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>From}"  class="" width="10em" />
                         <!-- <DatePicker  placeholder="DD/MM/YYYY"  width="10em" value="{path:'oModelControl>/AddFields/DealerVisit/FromDate'}"></DatePicker> -->
-            <DatePicker minDate="{oModelView>/CurrentDate}"  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY"  width="10em" change="onFromDate3" value="{path:'oModelControl>/AddFields/DealerVisit/FromDate'}"></DatePicker>
+            <DatePicker minDate="{oModelView>/CurrentDate}" class="sapUiTinyMarginEnd"  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" displayFormat="MM/dd/YYYY" width="10em" change="onFromDate3" value="{path:'oModelControl>/AddFields/DealerVisit/FromDate'}"></DatePicker>
                       </VBox>
                           <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>To}"  class="" width="10em" />
                           <!-- <DatePicker placeholder="DD/MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/DealerVisit/ToDate'}" ></DatePicker>  -->
-                           <DatePicker  placeholder="DD/MM/YYYY" valueFormat="MM/dd/YYYY" width="10em"   change="onToDate3"  value="{path:'oModelControl>/AddFields/DealerVisit/ToDate'}"></DatePicker>
+                           <DatePicker  placeholder="DD/MM/YYYY" class="sapUiTinyMarginEnd" valueFormat="MM/dd/YYYY" width="10em" displayFormat="MM/dd/YYYY"  change="onToDate3"  value="{path:'oModelControl>/AddFields/DealerVisit/ToDate'}"></DatePicker>
                       </VBox>
                          <VBox class="sapUiTinyMargin">
                       <Label  text="{i18n>DealerVisitCount} ({i18n>Daily})"  width="14em" />
-                      <StepInput value="{oModelControl>/AddFields/DealerVisit/TargetValue}" displayValuePrecision="0"  min="0" max="100" width="14em" enabled="true" editable="true" change="onChange"/>
+                      <StepInput value="{oModelControl>/AddFields/DealerVisit/TargetValue}" displayValuePrecision="0"  min="0" max="9999" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                      </HBox>
                        
@@ -208,17 +213,17 @@
                       
                         <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>From}"  class="" width="10em" />
-                        <DatePicker  minDate="{oModelView>/CurrentMonth}" placeholder="MM/YYYY" change="onFromDate4" width="10em" value="{path:'oModelControl>/AddFields/LeadConversion/FromDate'}" valueFormat="MM/yyyy" displayFormat="MM/yyyy"></DatePicker>
+                        <DatePicker  minDate="{oModelView>/CurrentMonth}" class="sapUiTinyMarginEnd" placeholder="MM/YYYY" change="onFromDate4" width="10em" value="{path:'oModelControl>/AddFields/LeadConversion/FromDate'}" valueFormat="MM/yyyy" displayFormat="MM/yyyy"></DatePicker>
                          <!-- <DatePicker  minDate="{oModelView>/CurrentMonth}" placeholder="MM/YYYY" value="{path:'oModelControl>//AddFields/LeadConversion/FromDate', type:'sap.ui.model.type.Date', formatOptions: {pattern:'dd/MM/yyyy', UTC:false } }" displayFormat="dd/MM/yyyy"></DatePicker> -->
                       </VBox>
                           <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>To}"  class="" width="10em" />
-                          <DatePicker  placeholder="MM/YYYY" width="10em" change="onToDate4" value="{path:'oModelControl>/AddFields/LeadConversion/ToDate'}" displayFormat="MM/yyyy"></DatePicker> 
+                          <DatePicker  placeholder="MM/YYYY" width="10em" class="sapUiTinyMarginEnd" change="onToDate4" value="{path:'oModelControl>/AddFields/LeadConversion/ToDate'}" displayFormat="MM/yyyy"></DatePicker> 
                             <!-- <DatePicker minDate="{oModelView>/CurrentMonth}"  placeholder="MM/YYYY" valueFormat="MM/YYYY"  width="10em" change="onFromDate4" value="{path:'oModelControl>/AddFields/LeadConversion/FromDate',,formatOptions: {pattern:'MM/yyyy', UTC:false }}" displayFormat="MM/yyyy"></DatePicker> -->
                       </VBox>
                          <VBox class="sapUiTinyMargin">
                       <Label  text="{i18n>LeadConversion} ({i18n>Monthly})"  width="14em" />
-                      <StepInput value="{oModelControl>/AddFields/LeadConversion/TargetValue}" displayValuePrecision="0"  min="0" max="100" width="14em" enabled="true" editable="true" change="onChange"/>
+                      <StepInput value="{oModelControl>/AddFields/LeadConversion/TargetValue}" displayValuePrecision="0"  min="0" max="9999" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                      </HBox>
          
@@ -229,18 +234,18 @@
                       
                         <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>From}"  class="" width="10em" />
-                         <DatePicker  minDate="{oModelView>/CurrentMonth}" placeholder="MM/YYYY" change="onFromDate5" width="10em" value="{path:'oModelControl>/AddFields/BusinessGeneration/FromDate'}"  valueFormat="MM/yyyy" displayFormat="MM/yyyy"></DatePicker>
+                         <DatePicker  minDate="{oModelView>/CurrentMonth}" class="sapUiTinyMarginEnd" placeholder="MM/YYYY" change="onFromDate5" width="10em" value="{path:'oModelControl>/AddFields/BusinessGeneration/FromDate'}"  valueFormat="MM/yyyy" displayFormat="MM/yyyy"></DatePicker>
                         <!-- <DatePicker  minDate="{oModelView>/CurrentMonth}"  placeholder="MM/YYYY"  width="10em" value="{path:'oModelControl>/AddFields/BusinessGeneration/FromDate',formatOptions: {pattern:'MM/yyyy', UTC:false }}"  displayFormat="MM/yyyy"></DatePicker> -->
            
                       </VBox>
                           <VBox class="sapUiTinyMargin">
                          <Label text="{i18n>To}"  class="" width="10em" />
-                           <DatePicker  placeholder="MM/YYYY" width="10em" change="onToDate5" value="{path:'oModelControl>/AddFields/BusinessGeneration/ToDate'}" displayFormat="MM/yyyy"></DatePicker> 
+                           <DatePicker  placeholder="MM/YYYY" width="10em" class="sapUiTinyMarginEnd" change="onToDate5" value="{path:'oModelControl>/AddFields/BusinessGeneration/ToDate'}" displayFormat="MM/yyyy"></DatePicker> 
                           <!-- <DatePicker  placeholder="MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/BusinessGeneration/ToDate',formatOptions: {pattern:'MM/yyyy', UTC:false }}"  displayFormat="MM/yyyy" ></DatePicker>  -->
                       </VBox>
                          <VBox class="sapUiTinyMargin">
-                      <Label  text="{i18n>BusinessGeneration} ({i18n>Monthly})"  width="14em" />
-                      <StepInput value="{oModelControl>/AddFields/BusinessGeneration/TargetValue}" displayValuePrecision="0"  min="0" max="100" width="14em" enabled="true" editable="true" change="onChange"/>
+                      <Label  text="{i18n>BusinessGeneration}  {i18n>rupee}({i18n>Monthly})"  width="14em" />
+                      <StepInput value="{oModelControl>/AddFields/BusinessGeneration/TargetValue}" displayValuePrecision="0"  min="0" max="9999" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                      </HBox>
                   

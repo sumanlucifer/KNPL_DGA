@@ -5,7 +5,7 @@
             <f:title>
                 <f:DynamicPageTitle>
                  <f:actions>
-                    <Button press="onPressAddObject" type="Emphasized" text="{i18n>Set}{i18n>Target}" />
+                    <Button press="onPressAddObject" type="Emphasized" text="{i18n>Set} {i18n>Target}" />
                    </f:actions>
                 </f:DynamicPageTitle>
             </f:title>

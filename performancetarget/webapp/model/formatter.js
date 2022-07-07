@@ -67,7 +67,7 @@ sap.ui.define([], function () {
         arrayFormat: function(mParam1){
             
             var omodel = this.getView().getModel();
-           var svalue= "NA";
+           var svalue= " ";
            var avalue= [];
             if(mParam1){
                 if(mParam1.length>0){
@@ -90,7 +90,7 @@ sap.ui.define([], function () {
         arrayFormat1: function(mParam1){
             
             var omodel = this.getView().getModel();
-           var svalue= "NA";
+           var svalue= " ";
            var avalue= [];
             if(mParam1){
                 if(mParam1.length>0){
@@ -113,7 +113,7 @@ sap.ui.define([], function () {
         arrayFormat2: function(mParam1){
             
             var omodel = this.getView().getModel();
-           var svalue= "NA";
+           var svalue= " ";
            var avalue= [];
             if(mParam1){
                 if(mParam1.length>0){
@@ -136,7 +136,7 @@ sap.ui.define([], function () {
         arrayFormat3: function(mParam1){
             
             var omodel = this.getView().getModel();
-           var svalue= "NA";
+           var svalue= " ";
            var avalue= [];
             if(mParam1){
                 if(mParam1.length>0){

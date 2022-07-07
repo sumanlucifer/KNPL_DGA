@@ -359,7 +359,166 @@ sap.ui.define(
                 });
             }
 
+             //LocationValueHelp
+        // onValueHelpRequestedLocation: function () {
+        //     this.oMultiInputLocation = this.getView().byId("idLocation");
+        //     this.oColModel = new JSONModel({
+        //         cols: [{
+        //             label: "Town Id ",
+        //             template: "TownId",
+        //             width: "10rem",
+        //         },
+        //         {
+        //             label: "Location",
+        //             template: "TownName",
+        //         }
+        //         ],
+        //     });
 
+        //     var aCols = this.oColModel.getData().cols;
+
+        //     this._oValueHelpDialog = sap.ui.xmlfragment(
+        //         "com.knpl.dga.performancetarget.view.fragments.LocationValueHelp1",
+        //         this
+        //     );
+        //     var oDataFilter = {
+        //         TownId: "",
+        //         TownName: "",
+        //     }
+        //     var oModel = new JSONModel(oDataFilter);
+        //     this.getView().setModel(oModel, "LocationFilter");
+
+        //     this.getView().addDependent(this._oValueHelpDialog);
+
+        //     this._oValueHelpDialog.getTableAsync().then(
+        //         function (oTable) {
+        //             oTable.setModel(this.oColModel, "columns");
+
+        //             if (oTable.bindRows) {
+        //                 oTable.bindAggregation("rows", {
+        //                     path: "/MasterWorkLocations",
+        //                     events: {
+        //                         dataReceived: function () {
+        //                             this._oValueHelpDialog.update();
+        //                         }.bind(this)
+        //                     }
+        //                 });
+        //             }
+
+        //             if (oTable.bindItems) {
+        //                 oTable.bindAggregation("items", "/MasterWorkLocations", function () {
+        //                     return new sap.m.ColumnListItem({
+        //                         cells: aCols.map(function (column) {
+        //                             return new sap.m.Label({
+        //                                 text: "{" + column.template + "}",
+        //                             });
+        //                         }),
+        //                     });
+        //                 });
+        //             }
+
+        //             this._oValueHelpDialog.update();
+        //         }.bind(this)
+        //     );
+
+        //     this._oValueHelpDialog.setTokens(this.oMultiInputLocation.getTokens());
+        //     this._oValueHelpDialog.open();
+        // },
+        // onFilterBarSearch1: function (oEvent) {
+        //     var afilterBar = oEvent.getParameter("selectionSet"),
+        //         aFilters = [];
+
+        //     aFilters.push(
+        //         new Filter({
+        //             path: "TownId",
+        //             operator: FilterOperator.Contains,
+        //             value1: afilterBar[0].getValue(),
+        //             caseSensitive: false,
+        //         })
+        //     );
+        //     aFilters.push(
+        //         new Filter({
+        //             path: "TownName",
+        //             operator: FilterOperator.Contains,
+        //             value1: afilterBar[1].getValue(),
+        //             caseSensitive: false,
+        //         })
+        //     );
+
+        //     this._filterTable(
+        //         new Filter({
+        //             filters: aFilters,
+        //             and: true,
+        //         })
+        //     );
+        // },
+        
+        // _filterTable: function (oFilter, sType) {
+        //     var oValueHelpDialog = this._oValueHelpDialog;
+
+        //     oValueHelpDialog.getTableAsync().then(function (oTable) {
+        //         if (oTable.bindRows) {
+        //             oTable.getBinding("rows").filter(oFilter, sType || "Application");
+        //         }
+
+        //         if (oTable.bindItems) {
+        //             oTable
+        //                 .getBinding("items")
+        //                 .filter(oFilter, sType || "Application");
+        //         }
+
+        //         oValueHelpDialog.update();
+        //     });
+        // },
+        // onValueHelpAfterOpen1: function () {
+        //     var aFilter = this._getfilterforControl();
+
+        //     this._filterTable(aFilter, "Control");
+        //     this._oValueHelpDialog.update();
+        // },
+        // _getfilterforControl: function () {
+        //     var sDepot = this.getView().getModel("oModelControl").getProperty("/MultiCombo/Depot");
+        //     var aFilters = [];
+        //     if (sDepot) {
+        //         for (var y of sDepot) {
+        //             aFilters.push(new Filter("DepotId", FilterOperator.EQ, y.DepotId));
+        //         }
+        //     }
+        //     if (aFilters.length == 0) {
+        //         return [];
+        //     }
+
+        //     return new Filter({
+        //         filters: aFilters,
+        //         and: false,
+        //     });
+        // },
+        // onValueHelpCancelPress1: function () {
+        //     this._oValueHelpDialog.close();
+        // },
+        // onValueHelpOkPress1: function (oEvent) {
+        //     var oData = [];
+        //     var xUnique = new Set();
+        //     var aTokens = oEvent.getParameter("tokens");
+
+        //     aTokens.forEach(function (ele) {
+        //         if (xUnique.has(ele.getKey()) == false) {
+        //             oData.push({
+        //                 TownId: ele.getKey(),
+        //                 TownName: ele.getText()
+        //             });
+        //             xUnique.add(ele.getKey());
+        //         }
+        //     });
+
+        //     this.getView()
+        //         .getModel("oModelControl")
+        //         .setProperty("/MultiCombo/Location", oData);
+            
+        //        // this.onValueHelpRequestedLocation();
+               
+        //     this._oValueHelpDialog.close();
+        // },
         }
 
         );
