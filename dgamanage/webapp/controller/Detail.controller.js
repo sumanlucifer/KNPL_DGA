@@ -666,7 +666,7 @@
                         oChangeStatus = {
                             aApplicableStatus: aStatus.filter(ele => ele.key != sCurrentStatus),
                             oPayload: {
-                                ActivationStatus: "",
+                                ActivationStatus: oChangeStatus.aApplicableStatus[0].key,
                                 ActivationStatusChangeReason: ""
                             }
                         };
