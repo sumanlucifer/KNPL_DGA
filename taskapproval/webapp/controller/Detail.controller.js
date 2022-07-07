@@ -58,7 +58,7 @@ sap.ui.define(
                     busy: true
                 };
                 oView.setModel(new JSONModel(oViewModel), "oViewModel");
-                var exPand = "Visit/DGA/Positions,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/LeadSource,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetLead/LeadServiceType,Visit/TargetLead/LeadServiceSubType,Visit/TargetLead/LeadSelectedPaintingRequests/MasterPaintingReq,Visit/TargetLead/PaintType,Visit/TargetLead/PaintingReqSlab,Visit/TargetContractor,Visit/TargetDealer";
+                var exPand = "Visit/DGA/Positions,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/LeadSource,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetLead/LeadServiceType,Visit/TargetLead/LeadServiceSubType,Visit/TargetLead/LeadSelectedPaintingRequests/MasterPaintingReq,Visit/TargetLead/PaintType,Visit/TargetLead/PaintingReqSlab,Visit/TargetContractor,Visit/TargetDealer,Visit/TargetLead/LeadLostReason,Visit/TargetLead/CompetitionBrand,Visit/TargetLead/CompetitorServiceType,Visit/TargetLead/ShortClosureReason";
                 if (context.trim() !== "") {
                     oView.bindElement({
                         path: "/" + context,
@@ -80,10 +80,11 @@ sap.ui.define(
                 },
             onPressApprove:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;
-                MessageBox.confirm("Approve the Task?", {
-                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                MessageBox.confirm("Do you want to Approve the Task?", {
+                    actions: ["Yes", MessageBox.Action.NO],
+                    emphasizedAction: "Yes",
                     onClose: function (sAction) {
-                        if(sAction === "YES"){
+                        if(sAction !== "NO"){
                             othat.getView().getModel("oViewModel").setProperty("/busy", true);
                             othat._updateTask(oContext, "2", "Approved").then(function(){
                                 MessageToast.show("Task Approved Successfully.");
@@ -102,10 +103,11 @@ sap.ui.define(
             },
             onPressReject:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;
-                MessageBox.confirm("Reject the Task?", {
-                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                MessageBox.confirm("Do you want to Reject the Task?", {
+                    actions: ["Yes", MessageBox.Action.NO],
+                    emphasizedAction: "Yes",
                     onClose: function (sAction) {
-                        if(sAction === "YES"){
+                        if(sAction !== "NO"){
                             othat.getView().getModel("oViewModel").setProperty("/busy", true);
                             othat._updateTask(oContext, "3", "Rejected").then(function(){
                                 MessageToast.show("Task Rejected Successfully.");

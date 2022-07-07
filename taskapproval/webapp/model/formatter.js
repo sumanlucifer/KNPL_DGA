@@ -63,6 +63,67 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
+        
+        fmtStatusHeader: function (leadeStatusId, IsSamplingRequired, AdvancePaymentCollected, LeadLostReasonId, exp1, exp2, exp3, LeadLostMsg, ShortReasonMsg1, ShortReasonMsg2) {
+
+            if (leadeStatusId === "2") {
+                if (IsSamplingRequired === 0 && AdvancePaymentCollected === 0) {
+
+                    var text = "Sampling Required = No, Advance Payment collected=No";
+                    return text;
+                }
+                else if (IsSamplingRequired === 1 && AdvancePaymentCollected === 1) {
+                    var text = "Sampling Required = Yes, Advance Payment collected=Yes";
+                    return text;
+                }
+                else if (IsSamplingRequired === 1 || AdvancePaymentCollected === 0) {
+                    var text = "Sampling Required = Yes, Advance Payment collected=No";
+                    return text;
+                }
+                else if (IsSamplingRequired === 0 || AdvancePaymentCollected === 1) {
+                    var text = "Sampling Required = No, Advance Payment collected=Yes";
+                    return text;
+                }
+                else {
+                    return 'NA';
+                }
+            }
+            if (leadeStatusId === "3") {
+
+                if (LeadLostReasonId !== null) {
+                    if (LeadLostReasonId === "1") {
+                        if (exp1 !== null || exp2 !== null || exp3 !== null) {
+                            var text = `${exp1}, ${exp2}, ${exp3}`;
+                            return text;
+                        } if (LeadLostMsg !== null) {
+                            var text = `${LeadLostMsg}`;
+                            return text;
+                        }
+                        else {
+                            var text = "NA";
+                            return text;
+                        }
+                    }
+                    else {
+                        if (exp1 !== null) {
+                            var text = `${exp1}`;
+                            return text;
+                        }
+                    }
+                }
+            }
+            if (leadeStatusId === "4") {
+                if (ShortReasonMsg2 !== null) {
+                    var text = `${ShortReasonMsg2}`
+                    return text;
+                }
+                if (ShortReasonMsg1 !== null) {
+                    var text = `${ShortReasonMsg1}`
+                    return text;
+                }
+            }
+            return text;
+        }
     };
 
 });

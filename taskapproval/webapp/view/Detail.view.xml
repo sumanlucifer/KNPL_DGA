@@ -32,10 +32,8 @@
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
                         <ObjectAttribute title="{i18n>DGAName}" text="{Visit/DGA/GivenName}"/>
                         <ObjectAttribute title="{i18n>DGAID}" text="{= ${Visit/DGA/Id} === null ? 'NA' : ${Visit/DGA/Id}}"/>
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>ContractorName}" text="{= ${Visit/TargetLead/SourceContractorId} === null ? 'NA' : ${contractorModel>/TargetContractor/Name} }"/>
                         <ObjectAttribute title="{i18n>DealerName}" text="{= ${Visit/TargetLead/SourceDealerId} === null ? 'NA' : ${Visit/TargetLead/SourceDealer/Name}}"/>
+                        <ObjectAttribute title="{i18n>ContractorName}" text="{= ${Visit/TargetLead/SourceContractorId} === null ? 'NA' : ${contractorModel>/TargetContractor/Name} }"/>
                     </layout:VerticalLayout>
                     <layout:VerticalLayout class="sapUiSmallMarginBeginEnd" >
                         <Label  text="{i18n>RequestID}"  />
