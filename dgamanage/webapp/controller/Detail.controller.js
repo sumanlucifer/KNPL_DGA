@@ -654,6 +654,7 @@
                     return promise;
                 },
                 onChangeStatus: function () {
+                    debugger;
                     var oView = this.getView(),
                         aStatus = [{
                             key: "ACTIVATED"
@@ -669,7 +670,7 @@
                                 ActivationStatusChangeReason: ""
                             }
                         };
-                    this.getView().getModel("oModelDisplay").setProperty("/oPayload/ActivationStatus", oChangeStatus.aApplicableStatus[0].key);
+                   
                     oModelControl.setProperty("/ChangeStatus", oChangeStatus);
                     // create dialog lazily
                     if (!this._ChangeStatus) {
@@ -679,9 +680,11 @@
                             this._ChangeStatus = oControl;
                             oView.addDependent(this._ChangeStatus);
                             this._ChangeStatus.open();
+                            debugger;
                         }.bind(this));
                     } else {
                         this._ChangeStatus.open();
+                        debugger;
                     }
                 },
                 onConfirmStatus: function () {
