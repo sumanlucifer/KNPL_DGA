@@ -1,6 +1,10 @@
 <core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:upload="sap.m.upload" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
   
-        <f:SimpleForm id="FormObjectData" editable="false" layout="ColumnLayout" title="{Visit/TargetLead/LeadStatus/Name}" columnsL="3" columnsM="2" >
+        <f:SimpleForm id="FormObjectData" editable="false" layout="ResponsiveGridLayout" 
+            labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
+            emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
+            columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false" 
+            title="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '2' ? 'Action: Converted' : ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '3' ? 'Action: Lost' : ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? 'Action: Follow Up' : 'Action'}" >
             <f:content>
                 <Label text="{i18n>VisitedOn}" />
                 <Text  text="{path:'Visit/Date',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}" />
@@ -8,6 +12,16 @@
                 <Text text="{path:'Visit/Date',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'h:mm a'}}" />
                 <Label text="{= ${Visit/TargetLead/LeadStatusId} === '1' ? '' : ${Visit/TargetLead/LeadStatusId} === '2'  ? 'Lead Converted Details' : ${Visit/TargetLead/LeadStatusId} === '3' ? 'Lead Lost Reason' : ${Visit/TargetLead/LeadStatusId} === '4' ? 'Lead Short Closure Reason' : '' }"/>
                 <Text  text="{parts:['Visit/TargetLead/LeadStatusId','Visit/TargetLead/IsSamplingRequired', 'Visit/TargetLead/AdvancePaymentCollected','Visit/TargetLead/LeadLostReasonId','Visit/TargetLead/LeadLostReason/Name', 'Visit/TargetLead/CompetitionBrand/Name', 'Visit/TargetLead/CompetitorServiceType/Name', 'Visit/TargetLead/LeadLostMsg','Visit/TargetLead/ShortClosureReason/Name','Visit/TargetLead/ShortClosureMsg'],formatter:'.formatter.fmtStatusHeader'}"/>
+
+                <Label text="{i18n>FollowUpActions}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }" />
+                <VBox>
+                    <Text class="sapUiTinyMarginBottom" text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsQutationSubmitedAgain} ? 'Qutation Submited Again: Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsSamplingDone} ? 'Sampling Done: Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsProductinfoGiven} ? 'Product info Given: Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpOther} ? 'Other: Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
+                </VBox>
+                <Label text="{i18n>FollowUpComments}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }" />
+                <Text text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpCommets} === null ? 'NA' : ${Visit/LeadVisitOutcomeDetails/FollowUpCommets}}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
             </f:content>
         </f:SimpleForm>
    

@@ -38,7 +38,7 @@
             <Text text="{path : 'Visit/TargetLead/LeadSource/Name',formatter:'.formatter.fmtCheckNull'}"  />
             <Label text="{i18n>ContractorName}" visible="{= ${Visit/TargetLead/LeadSourceId} === '3'? true : false}"/>
             <Text text="{= ${Visit/TargetLead/SourceContractorId} ? ${contractorModel>/TargetContractor/Name} ? ${contractorModel>/TargetContractor/Name} : 'NA' : ${Visit/TargetLead/SourceNewContractorName} ? ${Visit/TargetLead/SourceNewContractorName} : 'NA'}" visible="{= ${Visit/TargetLead/LeadSourceId} === '3'}"/>
-            <Label text="{i18n>ContractorMobile}" visible="{= ${Visit/TargetLead/LeadSourceId} === '3'}"/>
+            <Label text="{i18n>PhoneNumber}" visible="{= ${Visit/TargetLead/LeadSourceId} === '3'}"/>
             <Text text="{= ${Visit/TargetLead/SourceContractorId} ? ${contractorModel>/TargetContractor/Mobile} ? ${contractorModel>/TargetContractor/Mobile} : 'NA' : ${Visit/TargetLead/SourceNewContractorMobile} ? ${Visit/TargetLead/SourceNewContractorMobile} : 'NA' }" visible="{= ${Visit/TargetLead/LeadSourceId} === '3'}"/>
             <Label text="{i18n>DealerName}" visible="{= ${Visit/TargetLead/LeadSourceId} === '2'}"/>
             <Text text="{= ${Visit/TargetLead/SourceDealerId} ? ${Visit/TargetLead/SourceDealer/Name} ? ${Visit/TargetLead/SourceDealer/Name} : 'NA' : 'NA' }" visible="{= ${Visit/TargetLead/LeadSourceId} === '2'}"/>
