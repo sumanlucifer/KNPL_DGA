@@ -1006,7 +1006,7 @@ sap.ui.define(
                 var oPayload = {
                     "Question": oQuestion.getValue().trim(),
                     "AnswerOptions": aOptionAnswers,
-                    "InputControlTypeId": aOptionAnswers[0].sInputControlTypeId
+                    "InputControlTypeId": aOptionAnswers[0].InputControlTypeId
                 };
 
                 return oPayload;
