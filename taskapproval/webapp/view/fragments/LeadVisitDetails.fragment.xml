@@ -15,10 +15,10 @@
 
                 <Label text="{i18n>FollowUpActions}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }" />
                 <VBox>
-                    <Text class="sapUiTinyMarginBottom" text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsQutationSubmitedAgain} ? 'Qutation Submited Again: Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
-                    <Text class="sapUiTinyMarginBottom" text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsSamplingDone} ? 'Sampling Done: Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
-                    <Text class="sapUiTinyMarginBottom" text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsProductinfoGiven} ? 'Product info Given: Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
-                    <Text class="sapUiTinyMarginBottom" text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpOther} ? 'Other: Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="Qutation Submited Again: {= ${Visit/LeadVisitOutcomeDetails/FollowUpIsQutationSubmitedAgain} ? 'Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="Sampling Done: {= ${Visit/LeadVisitOutcomeDetails/FollowUpIsSamplingDone} ? 'Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="Product info Given: {= ${Visit/LeadVisitOutcomeDetails/FollowUpIsProductinfoGiven} ? 'Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="Other: {= ${Visit/LeadVisitOutcomeDetails/FollowUpOther} ? 'Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
                 </VBox>
                 <Label text="{i18n>FollowUpComments}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }" />
                 <Text text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpCommets} === null ? 'NA' : ${Visit/LeadVisitOutcomeDetails/FollowUpCommets}}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>

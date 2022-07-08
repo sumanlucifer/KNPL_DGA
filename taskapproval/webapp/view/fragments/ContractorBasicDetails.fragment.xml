@@ -12,7 +12,7 @@
             <Label text="{i18n>ContractorType}" />
             <Text text="{= ${contractorModel>/TargetContractor/PainterType} === null ? 'NA' : ${contractorModel>/TargetContractor/PainterType/PainterType}}"  />
             <Label text="{i18n>AgeGroup}" />
-            <Text text="{= ${contractorModel>/TargetContractor/AgeGroup} === null ? 'NA' : ${contractorModel>/TargetContractor/AgeGroup} }"  />
+            <Text text="{= ${contractorModel>/TargetContractor/AgeGroup} === null ? 'NA' : ${contractorModel>/TargetContractor/AgeGroup/AgeGroup} }"  />
             <Label text="{i18n>PreferredLanguage}" />
             <Text text="{contractorModel>/TargetContractor/Preference/Language/Language}"  />
 
