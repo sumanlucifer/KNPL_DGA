@@ -73,10 +73,10 @@ sap.ui.define([
                 c1.then(function () {
                     c2 = othat._setInitViewModel();
                     c2.then(function () {
-                        c3 = othat._LoadAddFragment("AddNewObjForm");
-                        c3.then(function () {
-                            oView.getModel("oModelControl").setProperty("/PageBusy", false)
-                        })
+                      //  c3 = othat._LoadAddFragment("AddNewObjForm");
+                        // c3.then(function () {
+                        //     oView.getModel("oModelControl").setProperty("/PageBusy", false)
+                        // })
                     })
                 })
             })
@@ -194,20 +194,20 @@ sap.ui.define([
                 }
             }
         },
-        _LoadAddFragment: function (mParam) {
-            var promise = jQuery.Deferred();
-            var oView = this.getView();
-            var othat = this;
-            var oVboxProfile = oView.byId("");
-            var sResourcePath = oView.getModel("oModelControl").getProperty("/resourcePath")
-            oVboxProfile.destroyItems();
-            return this._getViewFragment(mParam).then(function (oControl) {
-                oView.addDependent(oControl);
-                oVboxProfile.addItem(oControl);
-                promise.resolve();
-                return promise;
-            });
-        },
+        // _LoadAddFragment: function (mParam) {
+        //     var promise = jQuery.Deferred();
+        //     var oView = this.getView();
+        //     var othat = this;
+        //     var oVboxProfile = oView.byId("");
+        //     var sResourcePath = oView.getModel("oModelControl").getProperty("/resourcePath")
+        //     oVboxProfile.destroyItems();
+        //     return this._getViewFragment(mParam).then(function (oControl) {
+        //         oView.addDependent(oControl);
+        //         oVboxProfile.addItem(oControl);
+        //         promise.resolve();
+        //         return promise;
+        //     });
+        // },
 
 
         onPressSave: function () {
@@ -229,6 +229,51 @@ sap.ui.define([
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
             oModelControl.setProperty("/PageBusy", true);
+            if(oModelControl.getProperty("/AddFields/LeadVisit/FromDate") && 
+            oModelControl.getProperty("/AddFields/LeadVisit/ToDate") && 
+            !oModelControl.getProperty("/AddFields/LeadVisit/TargetValue")){
+                MessageToast.show("Kindly Enter the Value For Count");
+                return;
+            }
+              
+            if(oModelControl.getProperty("/AddFields/NewLead/FromDate") && 
+            oModelControl.getProperty("/AddFields/NewLead/ToDate") && 
+            !oModelControl.getProperty("/AddFields/NewLead/TargetValue")){
+                MessageToast.show("Kindly Enter the Value For Count.");
+                return;
+            }
+            
+            if(oModelControl.getProperty("/AddFields/ContractorVisit/FromDate") && 
+            oModelControl.getProperty("/AddFields/ContractorVisit/ToDate") && 
+            !oModelControl.getProperty("/AddFields/ContractorVisit/TargetValue")){
+                MessageToast.show("Kindly Enter the Value For Count.");
+                return;
+            }
+
+            
+            if(oModelControl.getProperty("/AddFields/DealerVisit/FromDate") && 
+            oModelControl.getProperty("/AddFields/DealerVisit/ToDate") && 
+            !oModelControl.getProperty("/AddFields/DealerVisit/TargetValue")){
+                MessageToast.show("Kindly Enter the Value For Count.");
+                return;
+            }
+
+            
+            if(oModelControl.getProperty("/AddFields/LeadConversion/FromDate") && 
+            oModelControl.getProperty("/AddFields/LeadConversion/ToDate") && 
+            !oModelControl.getProperty("/AddFields/LeadConversion/TargetValue")){
+                MessageToast.show("Kindly Enter the Value For Count.");
+                return;
+            }
+
+
+
+            if(oModelControl.getProperty("/AddFields/BusinessGeneration/FromDate") && 
+            oModelControl.getProperty("/AddFields/BusinessGeneration/ToDate") && 
+            !oModelControl.getProperty("/AddFields/BusinessGeneration/TargetValue")){
+                MessageToast.show("Kindly Enter the Value For Count.");
+                return;
+            }
 
 
             //var icnTbTitle = this.getView().getModel("titleModel").getProperty("/icnTbTittle"), TargetTypeId;
@@ -286,6 +331,8 @@ sap.ui.define([
         _performanceTargetDetails: function () {
             var aPerformanceTargetArray = [];
             var oTitleModel = this.getView().getModel("oModelControl");
+          
+           
 
             // if(oTitleModel.getProperty("/AddFields/LeadVisit/FromDate")){
             if (oTitleModel.getProperty("/AddFields/LeadVisit/ToDate")) {
@@ -298,6 +345,8 @@ sap.ui.define([
             //     return;
             // }
             // }
+    
+
             if (oTitleModel.getProperty("/AddFields/NewLead/FromDate")) {
                 oTitleModel.setProperty("/AddFields/NewLead/FromDate", new Date(oTitleModel.getProperty("/AddFields/NewLead/FromDate")));
                 oTitleModel.setProperty("/AddFields/NewLead/ToDate", new Date(oTitleModel.getProperty("/AddFields/NewLead/ToDate")));
