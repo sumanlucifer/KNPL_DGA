@@ -93,7 +93,8 @@
                     "defaultCountMode": "Inline",
                     "refreshAfterChange": false,
                     "defaultUpdateMethod": "Put",
-                    "useBatch": false
+                    "useBatch": false,
+                    "preliminaryContext" : true
                 }
             },
             "LoginInfo": {
