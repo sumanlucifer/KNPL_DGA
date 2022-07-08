@@ -228,7 +228,7 @@
                      </HBox>
          
                         <HBox>
-                           <Title class="sapUiTinyMarginBegin" text="Business Generation" />
+                           <Title class="sapUiTinyMarginBegin" text="{i18n>BusinessGeneration} ({i18n>rupee})" />
                          </HBox>
                        <HBox  >
                       
@@ -244,7 +244,7 @@
                           <!-- <DatePicker  placeholder="MM/YYYY" width="10em"  value="{path:'oModelControl>/AddFields/BusinessGeneration/ToDate',formatOptions: {pattern:'MM/yyyy', UTC:false }}"  displayFormat="MM/yyyy" ></DatePicker>  -->
                       </VBox>
                          <VBox class="sapUiTinyMargin">
-                      <Label  text="{i18n>BusinessGeneration}  {i18n>rupee}({i18n>Monthly})"  width="14em" />
+                      <Label  text="{i18n>BusinessGeneration} ({i18n>Monthly})"  width="14em" />
                       <StepInput value="{oModelControl>/AddFields/BusinessGeneration/TargetValue}" displayValuePrecision="0"  min="0" max="9999" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                      </HBox>
