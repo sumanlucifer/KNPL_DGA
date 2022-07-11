@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <l:VerticalLayout width="100%">
+        <smartTable:SmartTable id="PaymentHistoryTbl" editable="false" width="100%" entitySet="PaymentDetails" beforeRebindTable="onBeforeRebindPaymentHistory" tableBindingPath="PaymentDetails/PaymentTransactionDetails" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" demandPopin="true" enableAutoBinding="false" placeToolbarInTable="true" persistencyKey="HistoryPersistenceKey" requestAtLeastFields="Id, PaymentTransactionDetails" initialNoDataText="{i18n>tableNoDataText}">
+            <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+                <columns>
+                    <Column hAlign="Begin">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt", "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        </customData>
+                        <Text text="{i18n>TransactionDate}"/>
+                    </Column>
+                    <Column hAlign="Begin">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "PaymentMode", "leadingProperty": "PaymentMode", "columnIndex": 2 ,"sortProperty": "PaymentMode","filterProperty": "PaymentMode"}'/>
+                        </customData>
+                        <Text text="{i18n>PaymentMode}"/>
+                    </Column>
+                    <Column hAlign="Begin">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "TotalAmount", "leadingProperty": "TotalAmount", "columnIndex": 3 ,"sortProperty": "TotalAmount","filterProperty": "TotalAmount"}'/>
+                        </customData>
+                        <Text text="{i18n>PaidAmount}"/>
+                    </Column>
+                    <Column hAlign="Begin">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "RemainingAmount", "leadingProperty": "RemainingAmount", "columnIndex": 4 ,"sortProperty": "RemainingAmount","filterProperty": "RemainingAmount"}'/>
+                        </customData>
+                        <Text text="{i18n>RemainingAmount}"/>
+                    </Column>
+                    <Column hAlign="Begin">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "TotalAmount", "leadingProperty": "TotalAmount", "columnIndex": 5 ,"sortProperty": "TotalAmount","filterProperty": "TotalAmount"}'/>
+                        </customData>
+                        <Text text="{i18n>TotalAmount}"/>
+                    </Column>
+                    <Column hAlign="Begin">
+                        <customData>
+                            <core:CustomData key="p13nData" value='\{"columnKey": "Discription", "leadingProperty": "Discription", "columnIndex": 6 ,"sortProperty": "Discription","filterProperty": "Discription"}'/>
+                        </customData>
+                        <Text text="{i18n>Description}"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{path:'CreatedAt',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'}}" />
+                            <Text text="{PaymentMode}"/>
+                            <Text text="{Id}"/>
+                            <Text text="{RemainingAmount}"/>
+                            <Text text="{TotalAmount}"/>
+                            <Text text="{Discription}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </smartTable:SmartTable>
+    </l:VerticalLayout>
+</core:FragmentDefinition>

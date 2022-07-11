@@ -54,9 +54,10 @@ sap.ui.define([
                 this.getView().getModel("LocalViewModel").setProperty("/ToggleSiteImagesVisible", oEvent.getSource().getSelectedKey());
 
                 var sListID = oEvent.getSource().getSelectedKey() === "After" ? "idSiteImagesAfterList" : "idSiteImagesBeforeList",
-                    sSiteImagesCount = this._geti18nText("SiteImagesCount", this.getView().byId(sListID).getItems().length);
+                    sSiteImagesCount = this._geti18nText("SiteImagesCount", this.getView().byId(sListID).getItems().length > 0 ? this.getView().byId(sListID).getItems().length : "0");
 
                 this.getView().byId("idSiteImagesTitle").setText(sSiteImagesCount);
+                this.getView().byId(sListID).getBinding("items").refresh();
             },
 
             onOpenSiteImagePress: function (oEvent) {
@@ -373,9 +374,14 @@ sap.ui.define([
                     this.fnSetFeedbackFormDetails();
                 } else if (sKey == "6") {
                     oView.byId("VisitHistoryTbl").rebindTable();
+                } else if (sKey == "7") {
+                    this.getView().getModel("LocalViewModel").setProperty("/ToggleSiteImagesVisible", "Before");
+                    var sSelectedListKey = this.getView().getModel("LocalViewModel").getProperty("/ToggleSiteImagesVisible"),
+                        sListID = sSelectedListKey === "After" ? "idSiteImagesAfterList" : "idSiteImagesBeforeList";
+                    this.getView().byId(sListID).getBinding("items").refresh();
+                } else if (sKey == "8") {
+                    oView.byId("PaymentHistoryTbl").rebindTable();
                 }
-
-
             },
 
             _bindPreEstimationTbl: function (oEvent, iPaintingReqId) {
@@ -596,17 +602,27 @@ sap.ui.define([
                 oBindingParams.sorter.push(new Sorter("CreatedAt", true));
             },
             onBeforeRebindVisitHistory: function (oEvent) {
-                debugger
-                var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
-                var oBindingParams = oEvent.getParameter("bindingParams");
+                var sId = this.getView().getModel("oModelDisplay").getProperty("/Id"),
+                    oBindingParams = oEvent.getParameter("bindingParams"),
+                    oIdFilter = new Filter("VisitTargetId", FilterOperator.EQ, sId),
+                    oTaskTypeFilter = new Filter("TaskTypeId", FilterOperator.EQ, 1),
+                    oCompletedStatusFilter = new Filter("Status", FilterOperator.EQ, "Completed");
+
                 oBindingParams.parameters["expand"] = "LeadVisitOutcomeDetails/VisitsOutcome";
-                var oIdFilter = new Filter("VisitTargetId", FilterOperator.EQ, sId);
-                var oFirstVisitFilter = new Filter("LeadVisitOutcomeDetails/VisitOutcomeId", FilterOperator.NE, 1);
-                var oTaskTypeFilter = new Filter("TaskTypeId", FilterOperator.EQ, 1);
-                var oArchivedFilter = new Filter("IsArchived", FilterOperator.EQ, false);
-                oBindingParams.filters.push(oIdFilter, oFirstVisitFilter, oTaskTypeFilter, oArchivedFilter);
+
+                // var oFirstVisitFilter = new Filter("LeadVisitOutcomeDetails/VisitOutcomeId", FilterOperator.NE, 1);
+                // var oArchivedFilter = new Filter("IsArchived", FilterOperator.EQ, false);
+                oBindingParams.filters.push(oIdFilter, oTaskTypeFilter, oCompletedStatusFilter);
                 oBindingParams.sorter.push(new Sorter("Date", true));
+            },
+
+            onBeforeRebindPaymentHistory: function (oEvent) {
+                var sId = this.getView().getModel("oModelDisplay").getProperty("/Id"),
+                    oIdFilter = new Filter("Id", FilterOperator.EQ, sId),
+                    oBindingParams = oEvent.getParameter("bindingParams");
+
+                oBindingParams.parameters["expand"] = "PaymentTransactionDetails";
+                oBindingParams.filters.push(oIdFilter);
             },
 
             _LoadFragment: function (mParam) {
