@@ -6,7 +6,7 @@
             <Label text="{i18n>MembershipId}" />
             <Text text="{contractorModel>/TargetContractor/MembershipCard}"  />
             <Label text="{i18n>DateOfJoining}" />
-            <Text text="{{path:'contractorModel>/TargetContractor/JoiningDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"  />
+            <Text text="{path:'contractorModel>/TargetContractor/JoiningDate',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY'}}"  />
             <Label text="{i18n>MobileNo}" />
             <Text text="{contractorModel>/TargetContractor/Mobile}"  />
             <Label text="{i18n>ContractorType}" />
@@ -22,9 +22,9 @@
             <Label text="{i18n>Email}" />
             <Text text="{= ${contractorModel>/TargetContractor/Email} === null ? 'NA' : ${contractorModel>/TargetContractor/Email}}"  />
             <Label text="{i18n>MeritalStatus}" />
-            <Text text="{= ${contractorModel>/TargetContractor/MaritalStatus} === null ? 'NA' : ${contractorModel>/TargetContractor/MaritalStatus} }"  />
+            <Text text="{= ${contractorModel>/TargetContractor/MaritalStatus} === null ? 'NA' : ${contractorModel>/TargetContractor/MaritalStatus/MaritalStatus} }"  />
             <Label text="{i18n>Religion}" />
-            <Text text="{= ${contractorModel>/TargetContractor/Religion} === null ? 'NA' : ${contractorModel>/TargetContractor/Religion} }"  />
+            <Text text="{= ${contractorModel>/TargetContractor/Religion} === null ? 'NA' : ${contractorModel>/TargetContractor/Religion/Religion} }"  />
             <Label text="{i18n>HouseType}" />
             <Text text="{= ${contractorModel>/TargetContractor/HouseType} === null ? 'NA' : ${contractorModel>/TargetContractor/HouseType} }"  />
 

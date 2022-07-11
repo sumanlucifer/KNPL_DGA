@@ -2,15 +2,15 @@
 
     <Dialog binding="{oModelControl>/QRCodeData}" class="sapUiContentPadding" title="{i18n>Edit} {i18n>MainObject}" >
         <content>
-            <f:SimpleForm columnsL="2" layout="ResponsiveGridLayout"	columnsM="2"	singleContainerFullSize="false"  >
+            <f:SimpleForm columnsL="2" layout="ResponsiveGridLayout" columnsM="2" singleContainerFullSize="false"  >
                 <Label text="{i18n>PayrollCompanyName}" />
-                <Input required="true" id="idPayrollCompanyEdit" liveChange="onCompanyNameInput" value="{path:'oModelControl>/EditFields/Name', type : 'sap.ui.model.type.String', constraints:{ minLength:1 } }" />
+                <Input required="true" width="350px" id="idPayrollCompanyEdit" liveChange="onCompanyNameInput" value="{path:'oModelControl>/EditFields/Name', type : 'sap.ui.model.type.String', constraints:{ minLength:1 } }" />
                 <Label text="{i18n>Zone}" />
-                  <MultiComboBox  required="true" selectedKeys="{path:'oModelControl>/EditFields/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/MasterZones' }"  selectionChange="onMultyZoneChange2" >
+                  <MultiComboBox  required="true" width="350px" selectedKeys="{path:'oModelControl>/EditFields/MultiCombo/Zone', type :'.customMulti' }" items="{ path : '/MasterZones' }"  selectionChange="onMultyZoneChange2" >
 					<core:Item key="{Id}" text="{Id}"/>
 				</MultiComboBox>
                 <Label text="{i18n>Division}"/>
-                <MultiComboBox required="true" editable="{= ${oModelControl>/EditFields/MultiCombo/Zone}.length > 0 }" id="idDivisionEdit"  selectedKeys="{oModelControl>/EditFields/MultiCombo/Division}" items="{ path : '/MasterDivisions'}" selectionChange="onMultyDivisionChange" >
+                <MultiComboBox required="true" width="350px" editable="{= ${oModelControl>/EditFields/MultiCombo/Zone}.length > 0 }" id="idDivisionEdit"  selectedKeys="{oModelControl>/EditFields/MultiCombo/Division}" items="{ path : '/MasterDivisions'}" selectionChange="onMultyDivisionChange" >
 					<core:Item key="{Id}" text="{Id}"/>
 				</MultiComboBox>
             </f:SimpleForm>

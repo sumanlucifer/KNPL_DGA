@@ -15,13 +15,13 @@
 
                 <Label text="{i18n>FollowUpActions}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }" />
                 <VBox>
-                    <Text class="sapUiTinyMarginBottom" text="Qutation Submited Again: {= ${Visit/LeadVisitOutcomeDetails/FollowUpIsQutationSubmitedAgain} ? 'Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
-                    <Text class="sapUiTinyMarginBottom" text="Sampling Done: {= ${Visit/LeadVisitOutcomeDetails/FollowUpIsSamplingDone} ? 'Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
-                    <Text class="sapUiTinyMarginBottom" text="Product info Given: {= ${Visit/LeadVisitOutcomeDetails/FollowUpIsProductinfoGiven} ? 'Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
-                    <Text class="sapUiTinyMarginBottom" text="Other: {= ${Visit/LeadVisitOutcomeDetails/FollowUpOther} ? 'Yes' : 'No'}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="Qutation Submited Again with more discount: Yes" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsQutationSubmitedAgain} ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="Sampling Done: Yes" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsSamplingDone} ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="Product/Process information Given: Yes" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsProductinfoGiven} ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="Other: Yes" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpOther} ? true : false }"/>
                 </VBox>
-                <Label text="{i18n>FollowUpComments}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }" />
-                <Text text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpCommets} === null ? 'NA' : ${Visit/LeadVisitOutcomeDetails/FollowUpCommets}}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }"/>
+                <Label text="{i18n>FollowUpComments}" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpOther} ? true : false }" />
+                <Text text="{= ${Visit/LeadVisitOutcomeDetails/FollowUpCommets} === null ? 'NA' : ${Visit/LeadVisitOutcomeDetails/FollowUpCommets}}" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpOther} ? true : false }"/>
             </f:content>
         </f:SimpleForm>
    

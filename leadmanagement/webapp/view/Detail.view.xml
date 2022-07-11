@@ -95,6 +95,10 @@
                     <IconTabFilter text="{i18n>Feedback}" key="5">
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.Feedback" type="XML"/>
                     </IconTabFilter>   
+                     <!-- Visit History tab -->
+                    <IconTabFilter  text="{i18n>PaymentHistory}" key="8" >
+                        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.PaymentHistory" type="XML"/>
+                    </IconTabFilter>    
                     <!-- Visit History tab -->
                     <IconTabFilter text="{i18n>VisitHistory}" key="6">
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.VisitHistory" type="XML"/>
