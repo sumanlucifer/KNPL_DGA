@@ -254,13 +254,25 @@ sap.ui.define(
             },
             onPayrollCompanyDialogCancel: function () {
                 if(this._AddNewPayrollCompany){
-                    this.getView().byId("idPayrollCompanyAdd").setValueState("None");
-                    this.getView().byId("idPayrollCompanyAdd").setValueStateText("");
+                    this.getView().getModel("oModelControl").setProperty("/AddFields", {
+                        Id: "",
+                        Name: "",
+                        MultiCombo: {
+                            Zone: [],
+                            Division: []
+                        }
+                    });
                     this._AddNewPayrollCompany.close();
                 }
                 if(this._EditPayrollCompany){
-                    this.getView().byId("idPayrollCompanyEdit").setValueState("None");
-                    this.getView().byId("idPayrollCompanyEdit").setValueStateText("");
+                    this.getView().getModel("oModelControl").setProperty("/EditFields", {
+                        Id: "",
+                        Name: "",
+                        MultiCombo: {
+                            Zone: [],
+                            Division: []
+                        }
+                    });
                     this._EditPayrollCompany.close();
                 }
 
