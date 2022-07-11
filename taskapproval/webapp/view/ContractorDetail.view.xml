@@ -27,8 +27,8 @@
             <f:DynamicPageHeader pinnable="true">
                 <layout:HorizontalLayout allowWrapping="false">
                     <layout:VerticalLayout class="sapUiSmallMarginEnd">
-                        <ObjectAttribute title="{i18n>PhoneNumber}" text="{Visit/TargetContractor/ContractorMobile}"/>
-                        <ObjectAttribute title="{i18n>AgeGroup}" text="{= ${contractorModel>/TargetContractor/AgeGroup} === null ? 'NA' : ${contractorModel>/TargetContractor/AgeGroup} }"/>
+                        <ObjectAttribute title="{i18n>PhoneNumber}" text="{path:'Visit/TargetContractor/ContractorMobile',formatter:'.formatter.fmtCheckNull'}"/>
+                        <ObjectAttribute title="{i18n>AgeGroup}" text="{= ${contractorModel>/TargetContractor/AgeGroup} === null ? 'NA' : ${contractorModel>/TargetContractor/AgeGroup/AgeGroup} }"/>
                         <ObjectAttribute title="{i18n>Category}" text="{= ${contractorModel>/TargetContractor/BusinessCategoryId} === null ? 'NA' : ${contractorModel>/TargetContractor/BusinessCategory/BusinessCategory} }"/>
                         <ObjectAttribute title="{i18n>Address}" text="{contractorModel>/TargetContractor/PainterAddress/CityDetails/City}"/>
                     </layout:VerticalLayout>

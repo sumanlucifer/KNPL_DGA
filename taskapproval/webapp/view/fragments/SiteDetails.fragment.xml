@@ -27,12 +27,6 @@
 
     <f:SimpleForm id="idSourceDetails" editable="false" layout="ColumnLayout" title="{i18n>SourceDetails}" columnsL="3" columnsM="2" >
         <f:content>
-            <!-- <Label text="{i18n>SelectedSource}" />
-            <Text  text="{Visit/TargetLead/LeadSource/Name}" />
-            <Label text="{i18n>ContractorName}" />
-            <Text  text="{contractorModel>/TargetContractor/Name}" />
-            <Label text="{i18n>PhoneNumber}" />
-            <Text  text="{contractorModel>/TargetContractor/Mobile}" /> -->
 
             <Label text="{i18n>Selected} {i18n>Source}" />
             <Text text="{path : 'Visit/TargetLead/LeadSource/Name',formatter:'.formatter.fmtCheckNull'}"  />
@@ -50,19 +44,6 @@
             <Text text="{= ${Visit/TargetLead/SourceConsumerId} ? ${Visit/TargetLead/SourceConsumer/PrimaryNum} ? ${Visit/TargetLead/SourceConsumer/PrimaryNum} : 'NA' : ${Visit/TargetLead/SourceNewConsumerNum} ? ${Visit/TargetLead/SourceNewConsumerNum} : 'NA' }" visible="{= ${Visit/TargetLead/LeadSourceId} === '5'}"/>
         </f:content>
     </f:SimpleForm>
-
-    <!-- <f:SimpleForm id="idServiceDetails" editable="false" layout="ColumnLayout" title="{i18n>ServiceAndPaintingDetails}" columnsL="3" columnsM="2" >
-        <f:content>
-            <Label text="{i18n>ServiceType}" />
-            <Text  text="{path :'Visit/TargetLead/LeadServiceType/Name',formatter:'.formatter.fmtCheckNull'}" />
-            <Label text="{i18n>SubType}" />
-            <Text  text="{path :'Visit/TargetLead/LeadServiceSubType/ServiceSubType',formatter:'.formatter.fmtCheckNull'}" />
-            <Label text="{i18n>PaintingRequirementDays}" />
-            <Text  text="{path :'Visit/TargetLead/PaintingReqSlab/Name',formatter:'.formatter.fmtCheckNull'}" />
-            <Label text="{i18n>PaintingType}" />
-            <Text  text="{path :'Visit/TargetLead/PaintType/Name',formatter:'.formatter.fmtCheckNull'}" />
-        </f:content>
-    </f:SimpleForm> -->
 
     <f:SimpleForm id="ServiceDetailsData" editable="false" layout="ResponsiveGridLayout" 
     labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 

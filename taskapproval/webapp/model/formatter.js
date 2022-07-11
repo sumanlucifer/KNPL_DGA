@@ -123,6 +123,32 @@ sap.ui.define([], function () {
                 }
             }
             return text;
+        },
+
+        fmtCommaSepratedAssignedContractor: function (mParam) {
+
+            if (mParam === null)
+                return "";
+            var contractorArray = [];
+            for (var i in mParam) {
+                var contractorKey = mParam[i];
+                var contractorObject = this.getView().getModel().getProperty("/" + contractorKey);
+                if (contractorObject.IsActive) {
+                    if (contractorObject.ContractorId) {
+                        if (contractorObject.Contractor) {
+                            var contractorDetails = this.getView().getModel().getProperty("/" + contractorObject.Contractor.__ref);
+                            contractorArray.push(contractorDetails.Name);
+                        }
+                    }
+                    else
+                        contractorArray.push(contractorObject.ContractorName);
+                }
+            }
+            if (contractorArray.length)
+                var commaSeparatedString = contractorArray.join(", ");
+            else
+                commaSeparatedString = 'NA';
+            return commaSeparatedString;
         }
     };
 

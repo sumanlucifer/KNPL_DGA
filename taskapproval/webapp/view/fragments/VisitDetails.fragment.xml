@@ -7,7 +7,7 @@
                 <Label text="{i18n>Time}" />
                 <Text text="{path:'Visit/Date',type:'sap.ui.model.odata.type.DateTime',formatOptions:{pattern:'h:mm a'}}" />
                 <Label text="{i18n>AdditionalComment}" />
-                <Text text="{= ${Visit/Comments} === null ? 'NA' : ${Visit/Comments} }" />
+                <Text text="{= ${Visit/Comments} === null ? 'NA' : ${Visit/Comments} === '' ? 'NA' : ${Visit/Comments} }" />
             </f:content>
         </f:SimpleForm>
    
