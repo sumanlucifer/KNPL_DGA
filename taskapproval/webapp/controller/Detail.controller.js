@@ -58,7 +58,7 @@ sap.ui.define(
                     busy: true
                 };
                 oView.setModel(new JSONModel(oViewModel), "oViewModel");
-                var exPand = "Visit/LeadVisitOutcomeDetails/VisitsOutcome,Visit/LeadVisitOutcomeDetails/LeadLostReason,Visit/LeadVisitOutcomeDetails/CompetitionBrand,Visit/LeadVisitOutcomeDetails/CompetitorServiceType,Visit/DGA/Positions,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/LeadSource,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetLead/LeadServiceType,Visit/TargetLead/LeadServiceSubType,Visit/TargetLead/LeadSelectedPaintingRequests/MasterPaintingReq,Visit/TargetLead/PaintType,Visit/TargetLead/PaintingReqSlab,Visit/TargetContractor,Visit/TargetDealer,Visit/TargetLead/LeadLostReason,Visit/TargetLead/CompetitionBrand,Visit/TargetLead/CompetitorServiceType,Visit/TargetLead/ShortClosureReason";
+                var exPand = "Visit/TargetLead/SourceConsumer,Visit/LeadVisitOutcomeDetails/VisitsOutcome,Visit/LeadVisitOutcomeDetails/LeadLostReason,Visit/LeadVisitOutcomeDetails/CompetitionBrand,Visit/LeadVisitOutcomeDetails/CompetitorServiceType,Visit/DGA/Positions,Visit/TaskType,Status,Visit/TargetLead/SourceDealer,Visit/TargetLead/LeadSource,Visit/TargetLead/SourceContractor,Visit/TargetLead/LeadStatus,Visit/TargetLead/LeadServiceType,Visit/TargetLead/LeadServiceSubType,Visit/TargetLead/LeadSelectedPaintingRequests/MasterPaintingReq,Visit/TargetLead/PaintType,Visit/TargetLead/PaintingReqSlab,Visit/TargetContractor,Visit/TargetDealer,Visit/TargetLead/LeadLostReason,Visit/TargetLead/CompetitionBrand,Visit/TargetLead/CompetitorServiceType,Visit/TargetLead/ShortClosureReason";
                 if (context.trim() !== "") {
                     oView.bindElement({
                         path: "/" + context,
@@ -67,7 +67,8 @@ sap.ui.define(
                         },
                         events: {
                             dataReceived: function(oEvent){
-                                othat._fetchContractor(oEvent.getParameter("data").Visit.TargetLead.SourceContractorId);
+                                if(oEvent.getParameter("data").Visit.TargetLead.SourceContractorId)
+                                    othat._fetchContractor(oEvent.getParameter("data").Visit.TargetLead.SourceContractorId);
                             }
                         }
                     });
