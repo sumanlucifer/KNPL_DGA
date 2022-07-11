@@ -1,0 +1,50 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <smartTable:SmartTable id="idWorkListTable1" header="{i18n>MainObject}" enableAutoBinding="true" initialNoDataText="{i18n>tableNoDataText}" width="100%" editable="false" entitySet="MasterPayrollCompanies" beforeRebindTable="onBindTblPayrollCompanyList" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" demandPopin="false" requestAtLeastFields="ID" >
+        <smartTable:customToolbar>
+			<OverflowToolbar>
+                        <ToolbarSpacer />
+                        <Button icon="sap-icon://add" text="{i18n>Add} {i18n>MainObject}" type="Emphasized" press=".onPressAddObject" tooltip="{i18n>Add} {i18n>MainObject}"></Button>
+                    </OverflowToolbar>
+		</smartTable:customToolbar>
+        <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
+            <columns>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name", "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                    </customData>
+                    <Text text="{i18n>PayrollCompanyName}"/>
+                </Column>
+                <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PayRollCompanyZone/ZoneId", "leadingProperty": "PayRollCompanyZone/ZoneId", "columnIndex": 1 ,"sortProperty": "PayRollCompanyZone/ZoneId","filterProperty": "PayRollCompanyZone/ZoneId"}'/>
+                    </customData>
+                    <Text text="{i18n>Zone}"/>
+                </Column>
+                 <Column hAlign="Begin">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PayRollCompanyDivision/DivisionId"}, "leadingProperty": "PayRollCompanyDivision/DivisionId" "columnIndex": 2'/>
+                    </customData>
+                    <Text text="{i18n>Division}"/>
+                </Column>
+                <Column hAlign="End">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Edit"}, "leadingProperty": "Edit" "columnIndex": 4'/>
+                    </customData>
+                    <Text text=""/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{Name}"/>
+                        <Text text="{path:'PayRollCompanyZone',formatter:'.formatter.fmtZone'}"/>
+                        <Text text="{path:'PayRollCompanyDivision',formatter:'.formatter.fmtDivision'}"/>
+                        <Button icon="sap-icon://edit" type="Transparent" press="onPressEditObject"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

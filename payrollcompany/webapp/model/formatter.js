@@ -36,6 +36,30 @@ sap.ui.define([], function () {
             }
             return mParam1;
         },
+        fmtZone:function(aValue){
+            if(aValue && aValue.length > 0){
+                var arr = [], oModel = this.getView().getModel();
+                arr = aValue.map(function(o){
+                    return oModel.getProperty("/"+o).ZoneId;
+                });
+                return arr.join(", ");
+            }
+            else {
+                return "NA";
+            }
+        },
+        fmtDivision:function(aValue){
+            if(aValue && aValue.length > 0){
+                var arr = [], oModel = this.getView().getModel();
+                arr = aValue.map(function(o){
+                    return oModel.getProperty("/"+o).DivisionId;
+                });
+                return arr.join(", ");
+            }
+            else {
+                return "NA";
+            }
+        },
         fmtGenerateImageUrl: function (mMetadata) {
             // mMetadata (string) is required from the odata responce "__metadata"
             if (mMetadata) {
