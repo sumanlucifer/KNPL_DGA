@@ -6,7 +6,7 @@
             <f:SimpleForm layout="ResponsiveGridLayout" columnsL="1" columnsM="1" singleContainerFullSize="false">
                 <f:content>
                     <Label required="true" text="{i18n>ChangeStatus}" />
-                    <ComboBox items="{oModelDisplay>aApplicableStatus}" selectedKey="{oModelDisplay>oPayload/ActivationStatus}">
+                    <ComboBox  items="{oModelDisplay>aApplicableStatus}" selectedKey="{oModelDisplay>oPayload/ActivationStatus}">
                         <core:Item key="{oModelDisplay>key}" text="{path: 'oModelDisplay>key', formatter:'.formatter.fmtLowerCase'}" />
                     </ComboBox>
                     <Label required="true" text="{i18n>Reason}" />

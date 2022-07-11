@@ -15,7 +15,7 @@
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Division" label="{i18n>Division}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <ComboBox  enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>Division}" id="idDivision" selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
+                                    <ComboBox id="idDivision" enabled="{= ${oModelControl>/filterBar/ZoneId}.length>1}" placeholder="{i18n>Enter} {i18n>Division}"  selectionChange="onDivisionChange" items="{/MasterDivisions}" selectedKey="{path:'oModelControl>/filterBar/DivisionId'}">
                                         <core:Item text="{Id}" key="{Id}" />
                                     </ComboBox>
                                 </fb:control>
