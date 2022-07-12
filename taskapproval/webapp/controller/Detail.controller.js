@@ -67,10 +67,12 @@ sap.ui.define(
                         },
                         events: {
                             dataReceived: function(oEvent){
-                                if(oEvent.getParameter("data").Visit.TargetLead.SourceContractorId)
+                                if(oEvent.getParameter("data").Visit.TargetLead.SourceContractorId){
                                     othat._fetchContractor(oEvent.getParameter("data").Visit.TargetLead.SourceContractorId);
-                                else
+                                }
+                                else {
                                     othat.getView().getModel("oViewModel").setProperty("/busy", false);
+                                }
                             }
                         }
                     });
