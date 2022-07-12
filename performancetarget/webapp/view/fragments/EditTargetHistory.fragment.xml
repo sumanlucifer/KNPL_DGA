@@ -11,31 +11,35 @@
                     <Label text="{i18n>DGA} {i18n>Type}" />
                      <Text text="{oModelControl>/EditFields/DGAType/Name}"/>
                      <Label text="{i18n>Zone}" />
-                   <Text text="{path:'oModelControl>/EditFields/PerformanceZone',formatter:'.formatter.arrayFormat2'}"/> 
-                  
+                     <Text text="{path:'oModelControl>/EditFields/TargetZone'}"/> 
+                   <!-- <Text text="{path:'oModelControl>/EditFields/PerformanceZone',formatter:'.formatter.arrayFormat2'}"/> 
+                   -->
                         
                      <Label text="{i18n>Divison}" />
-                      <ScrollContainer  height="5rem" width="15rem" visible="true" vertical="true" horizontal="false" focusable="true" >
+                       <Text text="{path:'oModelControl>/EditFields/TargetDivision'}"/> 
+                      <!-- <ScrollContainer  height="5rem" width="15rem" visible="true" vertical="true" horizontal="false" focusable="true" >
                      <Text  text="{path:'oModelControl>/EditFields/PerformanceDivision',formatter:'.formatter.arrayFormat1'}"/>  
-                      </ScrollContainer>
+                      </ScrollContainer> -->
                         <Label text="{i18n>Depot}" />
-                        <ScrollContainer  height="5rem" width="15rem" visible="true" vertical="true" horizontal="false" focusable="true" >
-                          <Text   text="{path:'oModelControl>/EditFields/PerformanceDepot',formatter:'.formatter.arrayFormat'}"/>  
+                            <Text text="{path:'oModelControl>/EditFields/TargetDepot'}"/>
+                         <!-- <ScrollContainer  height="5rem" width="15rem" visible="true" vertical="true" horizontal="false" focusable="true" >
+                          <Text   text="{path:'oModelControl>/EditFields/PerformanceDepot',formatter:'.formatter.arrayFormat'}"/>   -->
                           <!-- <Text maxLines="2" tooltip="{path:'oModelControl>/EditFields/PerformanceDepot',formatter:'.formatter.arrayFormat'}" text="{path:'oModelControl>/EditFields/PerformanceDepot',formatter:'.formatter.arrayFormat'}"/>  -->
-                        </ScrollContainer>
+                        <!-- </ScrollContainer>  -->
 
                       
                           <Label text="{i18n>Job} {i18n>Location}" /> 
-                           <ScrollContainer  height="5rem" width="15rem" visible="true" vertical="true" horizontal="false" focusable="true" >
-                       <Text text="{path:'oModelControl>/EditFields/PerformanceJobLocation',formatter:'.formatter.arrayFormat3'}"/> 
-                            </ScrollContainer>
+                             <Text text="{path:'oModelControl>/EditFields/JobLocationDetails/TownName'}"/>  
+                           <!-- <ScrollContainer  height="5rem" width="15rem" visible="true" vertical="true" horizontal="false" focusable="true" > -->
+                       <!-- <Text text="{path:'oModelControl>/EditFields/PerformanceJobLocation',formatter:'.formatter.arrayFormat3'}"/>  -->
+                            <!-- </ScrollContainer> -->
                        </f:content>
             </f:SimpleForm>
               <f:SimpleForm class="sapUiMarginEnd">
                    <f:content>
                    <HBox>
                    <VBox>
-                     <Label text="{i18n>Count}" class="sapUiMarginEnd" required="true" />
+                     <Label id="idStepLbl" text="{i18n>Count}" class="sapUiMarginEnd" required="true" />
                 <!-- <Input required="true" id="idEditHistory" liveChange="onCountChange" value="{path:'oModelControl>/EditFields/Target', type : 'sap.ui.model.type.String', constraints:{ minLength:1 } }" /> --> 
                  <!-- <Label id="idStepInpt" text="{titleModel>/icnTbTittle} {i18n>Count}"  /> -->
                       <StepInput id="idEditHistory" value="{oModelControl>/EditFields/TargetValue}"  displayValuePrecision="0"  min="0" max="9999 "  enabled="true" editable="true" change="onCountChange" />
@@ -54,4 +58,4 @@
         </endButton>
     </Dialog>
    
-</core:FragmentDefinition>
+</core:FragmentDefinition> 
