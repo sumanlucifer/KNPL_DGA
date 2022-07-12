@@ -1,8 +1,6 @@
 sap.ui.define([], function () {
     "use strict";
-
     return {
-
         /**
          * Rounds the number unit value to 2 digits
          * @public
@@ -14,18 +12,14 @@ sap.ui.define([], function () {
                 return
             }
             var sStatus = "";
-
             if (mParam.split("_").length > 1) {
                 var mArray = mParam.split("_");
-
             } else {
                 var mArray = mParam.split(" ");
-
             }
             for (var x of mArray) {
                 var a = x.toLowerCase() + " ";
                 var b = a[0].toUpperCase() + a.slice(1);
-
                 sStatus += b;
             }
             return sStatus;
@@ -47,19 +41,16 @@ sap.ui.define([], function () {
                     );
                 }
             }
-
             return "";
-
         },
         fmtStatusColorChange: function (mParam) {
-            if (mParam === "Activated")
+            if (mParam === "ACTIVATED")
                 return "Success";
-            else if (mParam === "Deactivated")
+            else if (mParam === "DEACTIVATED")
                 return "Error";
             else
                 return "None";
         },
-
         RegStatusIcon: function (sRegStatus) {
             switch (sRegStatus) {
                 case "PENDING":
@@ -87,7 +78,40 @@ sap.ui.define([], function () {
             }
             return sLetter;
         },
+       
+      
+        GetWorkLisPositionId: function (mParam1) {
+            if (Array.isArray(mParam1)) {
+                var obj;
+                var oData = this.getView().getModel();
+                if (mParam1.length > 0) {
+                    for (var x in mParam1) {
+                        obj = oData.getProperty("/" + mParam1[x]);
+                        //if (obj["Status"] === "ACTIVATED") {
+                        return obj["PositionCode"];
+                        //}
+                    }
+                }
+
+            }
+        },
+        fmtDisplayDepots: function (mParam1) {
+            var aArray = [];
+            if (mParam1) {
+                if (Array.isArray(mParam1)) {
+                    var obj;
+                    var oData = this.getView().getModel();
+                    for (var x in mParam1) {
+                        obj = oData.getProperty("/" + mParam1[x])
+                        aArray.push(obj["DepotId"])
+                    }
+                }
+
+                return aArray.join(" ")
+            }
+
+        },
+
 
     };
-
 });

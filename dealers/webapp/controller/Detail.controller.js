@@ -29,11 +29,9 @@ sap.ui.define(
         formatter
     ) {
         "use strict";
-
         return BaseController.extend(
             "com.knpl.dga.dealers.controller.Detail", {
             formatter: formatter,
-
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute("Detail").attachMatched(this._onRouteMatched, this);
@@ -46,9 +44,7 @@ sap.ui.define(
                     oEvent.getParameter("arguments").Mode
                 );
                 this._SetDisplayData(sId, sMode);
-
             },
-
             _SetDisplayData: function (oProp, sMode) {
                 var oData = {
                     mode: sMode,
@@ -58,7 +54,6 @@ sap.ui.define(
                     PageBusy: true,
                     IcnTabKey: "0",
                     resourcePath: "com.knpl.dga.dealers",
-
                 };
                 var oModel = new JSONModel(oData);
                 this.getView().setModel(oModel, "oModelDisplay");
@@ -67,7 +62,6 @@ sap.ui.define(
                 } else {
                     this._initDisplayData();
                 }
-
             },
             _initDisplayData: function () {
                 var c1, c2, c3;
@@ -86,18 +80,15 @@ sap.ui.define(
                     })
                 })
             },
-
             _DummyPromise: function () {
                 var promise = $.Deferred();
                 // this method will be used for setting up additonal flags and filter
                 promise.resolve();
                 return promise;
             },
-
             _getDisplayData: function (oProp) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
-
                 var exPand = "DealerSalesDetails/SalesGroup,DealerPhoneNumber";
                 var othat = this;
                 if (oProp.trim() !== "") {
@@ -119,7 +110,6 @@ sap.ui.define(
                 promise.resolve();
                 return promise;
             },
-
             onIcnTbarChange: function (oEvent) {
                 var sKey = oEvent.getSource().getSelectedKey();
                 var oView = this.getView();
@@ -130,28 +120,41 @@ sap.ui.define(
                     oView.byId("ContractorTable").setModel(oView.getModel("PragatiModel"));
                     oView.byId("ContractorTable").rebindTable();
                 }
+                else if (sKey == "3") {
+                    oView.byId("VisitHistoryTbl").rebindTable();
+                }
             },
-
+            onBeforeRebindVisitHistory: function (oEvent) {
+                var oView = this.getView();
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var oBindingParams = oEvent.getParameter("bindingParams");
+                oBindingParams.parameters["expand"] = "DGA";
+                // oBindingParams.parameters["expand"] = "LeadVisitOutcomeDetails/VisitsOutcome";
+                var oIdFilter = new Filter("VisitTargetId", FilterOperator.EQ, sId);
+                // var oFirstVisitFilter = new Filter("LeadVisitOutcomeDetails/VisitOutcomeId", FilterOperator.NE, 1);
+                var oTaskTypeFilter = new Filter("TaskTypeId", FilterOperator.EQ, 2);
+                // var oArchivedFilter = new Filter("IsArchived", FilterOperator.EQ, false);
+                oBindingParams.filters.push(oIdFilter, oTaskTypeFilter);
+                oBindingParams.sorter.push(new Sorter("Date", true));
+            },
             onBeforeRebindDGATable: function (oEvent) {
                 var oView = this.getView();
                 var sId = oView.getModel("oModelDisplay").getProperty("/Id")
                 var mBindingParams = oEvent.getParameter("bindingParams");
                 mBindingParams.parameters["expand"] = "DGA,DGA/DGAType,DGA/Depot,DGA/Pincode,DGA/PayrollCompany";
-                var oDealerIdFilter = new Filter("DealerId", FilterOperator.EQ, sId );
+                var oDealerIdFilter = new Filter("DealerId", FilterOperator.EQ, sId);
                 mBindingParams.filters.push(oDealerIdFilter);
             },
-
             onBeforeRebindContractorTable: function (oEvent) {
                 var oView = this.getView();
                 var sId = oView.getModel("oModelDisplay").getProperty("/Id")
                 var mBindingParams = oEvent.getParameter("bindingParams");
                 mBindingParams.parameters["expand"] = "Slab,AgeGroup,Preference/Language,PainterBankDetails,PrimaryDealerDetails,PainterKycDetails,PainterType";
                 mBindingParams.sorter.push(new Sorter("CreatedAt", true));
-                var oDealerIdFilter = new Filter("DealerId", FilterOperator.EQ, sId );
+                var oDealerIdFilter = new Filter("DealerId", FilterOperator.EQ, sId);
                 var oArchivedFilter = new Filter("IsArchived", FilterOperator.EQ, false);
-                mBindingParams.filters.push(oDealerIdFilter,oArchivedFilter);
+                mBindingParams.filters.push(oDealerIdFilter, oArchivedFilter);
             },
-
             _LoadFragment: function (mParam) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
@@ -170,7 +173,6 @@ sap.ui.define(
                     return promise;
                 });
             },
-            
             onListItemPressContractors: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 this.Navigate({
@@ -183,8 +185,16 @@ sap.ui.define(
                     }
                 });
             },
-            
-            onListItemPressDGA: function (oEvent) { 
+            onItemPress: function (oEvent) {
+                var oBj = oEvent.getSource().getBindingContext().getObject();
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("DealerDetail", {
+                    Id: oBj["Id"],
+                    Mode: "Display"
+                });
+
+            },
+            onListItemPressDGA: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();
                 this.Navigate({
                     target: {
@@ -196,7 +206,6 @@ sap.ui.define(
                     }
                 });
             },
-            
             Navigate: function (oSemAct) {
                 if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService) {
                     var oCrossAppNav = sap.ushell.Container.getService("CrossApplicationNavigation");
@@ -209,7 +218,6 @@ sap.ui.define(
                     })
                 }
             },
-
         });
     }
 );

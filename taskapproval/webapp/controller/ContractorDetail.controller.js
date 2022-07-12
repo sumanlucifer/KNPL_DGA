@@ -72,11 +72,15 @@ sap.ui.define(
                         }
                     });
                 }
-                if(oView.getModel("contractorModel") && oView.getBindingContext())
+                if(oView.getModel("contractorModel") && oView.getBindingContext()){
                     if(oView.getModel("contractorModel").getProperty("/TargetContractor/Id") != oView.getBindingContext().getObject("Visit/TargetContractor/ContractorId"))
                         othat._fetchContractor(oView.getBindingContext().getObject("Visit/TargetContractor/ContractorId"));
                     else 
                         othat.getView().getModel("oViewModel").setProperty("/busy", false);
+                }
+                else {
+                    othat.getView().getModel("oViewModel").setProperty("/busy", false);
+                }
             },
             onPressApprove:function(oEvent){
                 var oContext = oEvent.getSource().getBindingContext().getPath(), othat = this;

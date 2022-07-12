@@ -63,6 +63,15 @@ sap.ui.define([], function () {
             }
             return "Error";
         },
+
+        fmtDepot:function(oValue1, oValue2){
+            if(oValue1){
+                return oValue2 + "(" + oValue1 + ")";
+            }
+            else {
+                return "NA";
+            }
+        },
         
         fmtStatusHeader: function (leadeStatusId, IsSamplingRequired, AdvancePaymentCollected, LeadLostReasonId, exp1, exp2, exp3, LeadLostMsg, ShortReasonMsg1, ShortReasonMsg2) {
 
