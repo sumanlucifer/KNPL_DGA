@@ -49,6 +49,9 @@
                     <IconTabFilter  text="{i18n>LinkedContractors}" key="2" >
                         <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.ContractorTable" type="XML"/>
                     </IconTabFilter>
+                    <IconTabFilter  text="{i18n>visitHistory}" key="3" >
+                        <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.VisitHistory" type="XML"/>
+                    </IconTabFilter>
                 </items>
             </IconTabBar>
         </f:content>

@@ -118,7 +118,6 @@
             "LoginInfo": {
                 "type": "sap.ui.model.json.JSONModel"
             }
-
         },
         "routing": {
             "config": {
@@ -134,7 +133,8 @@
                 },
                 "async": true
             },
-            "routes": [{
+            "routes": [
+                {
                     "pattern": "",
                     "name": "worklist",
                     "target": [
@@ -153,6 +153,13 @@
                     "name": "Add",
                     "target": [
                         "object"
+                    ]
+                },
+                {
+                    "pattern": "DealerDetail/{Mode}/{Id}",
+                    "name": "DealerDetail",
+                    "target": [
+                        "DealerDetail"
                     ]
                 }
             ],
@@ -175,6 +182,11 @@
                 "Detail": {
                     "viewName": "Detail",
                     "viewId": "Detail",
+                    "viewLevel": 2
+                },
+                "DealerDetail": {
+                    "viewName": "DealerDetail",
+                    "viewId": "DealerDetail",
                     "viewLevel": 2
                 },
                 "notFound": {
