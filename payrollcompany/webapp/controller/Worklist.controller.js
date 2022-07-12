@@ -88,6 +88,18 @@ sap.ui.define(
                 this._InitData();
                 // this._addSearchFieldAssociationToFB();
             },
+            onZoneChange: function (oEvent) {
+                var sId = oEvent.getSource().getSelectedKey();
+                var oView = this.getView();
+                var oModelContorl = oView.getModel("oModelControl");
+                var oModelView = oView.getModel("oModelView");
+                // setting value for division
+                var oDivision = oView.byId("idDivision");
+                oDivision.clearSelection();
+                oDivision.setValue("");
+                var oDivItems = oDivision.getBinding("items");
+                oDivItems.filter(new Filter("Zone", FilterOperator.EQ, sId));
+            },
             _ResetFilterBar: function () {
                 var aCurrentFilterValues = [];
                 var aResetProp = {
