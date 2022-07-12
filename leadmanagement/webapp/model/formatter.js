@@ -166,6 +166,22 @@ sap.ui.define([], function () {
             } else {
                 return sValue;
             }
+        },
+
+        fnFormatAmountValue: function (fValue) {
+            var oFormatOptions = {
+                minIntegerDigits: 3,
+                maxIntegerDigits: 5,
+                minFractionDigits: 1,
+                maxFractionDigits: 1
+            },
+                oFloatFormat = sap.ui.core.format.NumberFormat.getFloatInstance(oFormatOptions);
+
+            if (!fValue) {
+                return "-";
+            } else {
+                return oFloatFormat.format(fValue);
+            }
         }
     };
 });
