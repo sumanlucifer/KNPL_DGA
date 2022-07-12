@@ -3,8 +3,9 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
     <l:VerticalLayout width="100%">
-        <smartTable:SmartTable id="PaymentHistoryTbl" editable="false" width="100%" entitySet="PaymentTransactionDetails" beforeRebindTable="onBeforeRebindPaymentHistory" tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false" demandPopin="true" enableAutoBinding="false" placeToolbarInTable="true" persistencyKey="HistoryPersistenceKey" requestAtLeastFields="Id"  initialNoDataText="{i18n>tableNoDataText}">
-            <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+        <smartTable:SmartTable id="PaymentHistoryTbl" width="100%" entitySet="PaymentTransactionDetails" beforeRebindTable="onBeforeRebindPaymentHistory" header="{i18n>PaymentHistory}"  tableType="ResponsiveTable" showRowCount="true" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" demandPopin="true" enableAutoBinding="false" placeToolbarInTable="true"
+         persistencyKey="HistoryPersistenceKey" requestAtLeastFields="Id" ignoreFromPersonalisation="Id, LeadId, IsArchived, CreatedBy, PaymentDetailsId, UpdatedAt, UpdatedBy" initialNoDataText="{i18n>tableNoDataText}">
+            <Table growing="true" growingThreshold="10" growingScrollToLoad="false" noDataText="{i18n>tableNoDataText}">
                 <columns>
                     <Column hAlign="Begin">
                         <customData>
@@ -12,7 +13,7 @@
                         </customData>
                         <Text text="{i18n>TransactionDate}"/>
                     </Column>
-                    <Column hAlign="Begin">
+                    <Column hAlign="Begin" width="12%">
                         <customData>
                             <core:CustomData key="p13nData" value='\{"columnKey": "PaymentMode", "leadingProperty": "PaymentMode", "columnIndex": 2 ,"sortProperty": "PaymentMode","filterProperty": "PaymentMode"}'/>
                         </customData>
@@ -22,7 +23,7 @@
                         <customData>
                             <core:CustomData key="p13nData" value='\{"columnKey": "PaymentAmount", "leadingProperty": "PaymentAmount", "columnIndex": 3 ,"sortProperty": "PaymentAmount","filterProperty": "PaymentAmount"}'/>
                         </customData>
-                        <Text text="{i18n>PaidAmount}"/>
+                        <Text text="{i18n>CollectedAmount}"/>
                     </Column>
                     <Column hAlign="Begin">
                         <customData>
@@ -46,7 +47,7 @@
                 <items>
                     <ColumnListItem>
                         <cells>
-                            <Text text="{path:'CreatedAt',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+                            <Text text="{path:'CreatedAt',type:'sap.ui.model.type.DateTime',formatOptions:{pattern:'dd/MM/YYYY - HH:mm:ss a'}}"/>
                             <Text text="{PaymentMode}"/>
                             <Text text="₹ {path:'PaymentAmount',formatter: '.formatter.fnFormatAmountValue'}"/>
                             <Text text="₹ {path:'RemainingAmount',formatter: '.formatter.fnFormatAmountValue'}"/>
