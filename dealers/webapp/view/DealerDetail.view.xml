@@ -1,0 +1,79 @@
+<mvc:View height="100%" controllerName="com.knpl.dga.dealers.controller.DealerDetail" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+    <f:DynamicPage busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0"	stickySubheaderProvider="iconTabBar"
+			class="sapUiNoContentPadding" showFooter="true" id="dynamicPageId" headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{DGA/GivenName}" level="H1" titleStyle="H1"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs currentLocationText="{i18n>MainObject} {i18n>Details}">
+                        <Link text="{i18n>DGAList}" press="onNavToHome"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:expandedContent>
+                    <ObjectAttribute title="{i18n>PositionCode}" text="{path:'DGA/Positions',formatter:'.formatter.GetWorkLisPositionId'}"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                      <ObjectAttribute title="{i18n>PositionCode}" text="{path:'DGA/Positions',formatter:'.formatter.GetWorkLisPositionId'}"/>
+                </f:snappedContent>
+                <f:snappedTitleOnMobile>
+                    <Title text="{ComplaintType/ComplaintType}"/>
+                </f:snappedTitleOnMobile>
+                <!-- <f:actions>
+                    <Button enabled="{parts:['ActivationStatus','IsReplaced'],formatter:'.formatter.fmtEnbChangeStatus'}" press="onChangeStatus" type="Emphasized" text="{i18n>ChangeStatus}" />
+                </f:actions> -->
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <layout:HorizontalLayout allowWrapping="false">
+                  <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                         <Avatar  src="{path:'__metadata',formatter:'.formatter.fmtGenerateImageUrl'}" fallbackIcon="sap-icon://picture" displaySize="L" class="sapUiTinyMarginBegin"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                        <ObjectAttribute title="{i18n>Mobile}" text="{DGA/Mobile}"/>
+                            <ObjectAttribute title="{i18n>JoiningDate}" text="{path:'DGA/JoiningDate', type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'} }"/>
+                            <ObjectAttribute title="{i18n>PinCode}" text="{DGA/Pincode/Name}"/>
+                            <ObjectAttribute title="{i18n>Zone}" text="{DGA/Zone}"/>
+                    </layout:VerticalLayout >
+                        <layout:VerticalLayout  class="sapUiSmallMarginEnd" >
+                          <ObjectAttribute title="{i18n>Division}" text="{DGA/DivisionId}"/>
+                            <ObjectAttribute title="{i18n>Depot}" text="{path:'DGA/Positions',formatter:'.formatter.fmtDisplayDepots'}" />
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout>
+                        <Label  text="{i18n>Status}:"  class="sapUiSmallMarginEnd"/>
+                   
+                             <ObjectStatus class="statusTextSizeLarge" text="{path:'DGA/ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'DGA/ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/> 
+                    </layout:VerticalLayout>
+                    <!-- <layout:VerticalLayout>
+                        <Label  text="{i18n>ActivationStatus}:"/>
+                   
+                          <ObjectStatus class="sapMObjectStatusLarge" text="{ActivationStatus}" state="{ path:'Status',formatter:'.formatter.fmtStatusColorChange' }"/>
+                    </layout:VerticalLayout> -->
+                </layout:HorizontalLayout>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+           <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="idDealerIconTabBar" class="sapUiResponsiveContentPadding" >
+                <items>
+                    <IconTabFilter  text="{i18n>VisitDetails}" key="0" >
+                        <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.VisitDetails" type="XML"/>
+                    </IconTabFilter>
+                   
+                </items>
+            </IconTabBar>
+
+        </f:content>
+        <f:footer>
+         
+            <OverflowToolbar>
+              <ToolbarSpacer/>
+               
+          
+        
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>
+
