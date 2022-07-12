@@ -180,7 +180,7 @@ sap.ui.define([], function () {
             if (!fValue) {
                 return "-";
             } else {
-                return oFloatFormat.format(fValue);
+                return Number(fValue) === 0 ? "00.0" : oFloatFormat.format(fValue);
             }
         }
     };

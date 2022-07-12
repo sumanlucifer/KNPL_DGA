@@ -245,7 +245,7 @@
                       </VBox>
                          <VBox class="sapUiTinyMargin">
                       <Label  text="{i18n>BusinessGeneration} ({i18n>Monthly})"  width="14em" />
-                      <StepInput value="{oModelControl>/AddFields/BusinessGeneration/TargetValue}" displayValuePrecision="0"  min="0" max="9999" width="14em" enabled="true" editable="true" change="onChange"/>
+                      <StepInput value="{oModelControl>/AddFields/BusinessGeneration/TargetValue}" displayValuePrecision="0"  min="0" max="100000" width="14em" enabled="true" editable="true" change="onChange"/>
                       </VBox>
                      </HBox>
                   

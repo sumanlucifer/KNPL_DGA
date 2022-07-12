@@ -92,7 +92,7 @@
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.DGAHistory" type="XML"/>
                     </IconTabFilter>
                     <!-- Feedback tab -->
-                    <IconTabFilter text="{i18n>Feedback}" key="5">
+                    <IconTabFilter  text="{i18n>Feedback}" key="5" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.Feedback" type="XML"/>
                     </IconTabFilter>   
                      <!-- Visit History tab -->
@@ -100,7 +100,7 @@
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.PaymentHistory" type="XML"/>
                     </IconTabFilter>    
                     <!-- Visit History tab -->
-                    <IconTabFilter text="{i18n>VisitHistory}" key="6">
+                    <IconTabFilter  text="{i18n>VisitHistory}" key="6" >
                         <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.VisitHistory" type="XML"/>
                     </IconTabFilter>        
                     <!-- Site Images tab -->
