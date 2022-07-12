@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:upload="sap.m.upload">
+    <OverflowToolbar class="sapUiTinyMarginBottom" style="Clear">
+        <Title id="idSiteImagesTitle" title="{i18n>SiteImages}"/>
+        <ToolbarSpacer />
+        <!-- <ToggleButton icon="sap-icon://sort" type="Transparent" press="onSortPress" pressed="false"/>
+        <Button id="idSelectFilter" icon="sap-icon://filter" type="Transparent" press="onPressFilter"/> -->
+        <SegmentedButton selectedKey="Before" selectionChange="onBeforeAfterChange">
+            <items>
+                <SegmentedButtonItem text="{i18n>Before}" key="Before"/>
+                <SegmentedButtonItem text="{i18n>After}" key="After"/>
+            </items>
+        </SegmentedButton>
+    </OverflowToolbar>
+
+    <List id="idSiteImagesBeforeList" visible="{= ${LocalViewModel>/ToggleSiteImagesVisible} === 'Before' ? true : false}" mode="SingleSelectMaster" itemPress="onOpenSiteImagePress" growing="true" growingThreshold="20" growingScrollToLoad="true" items="{
+			path: 'SiteImages',
+            filters: [{path: 'State', operator: 'EQ', value1: 'Before'}], 
+            sorter: {path: 'UpdatedAt', descending: false}
+		}" updateFinished="onListUpdateFinished" noDataText="{i18n>NoDataAvailable}">
+        <StandardListItem title="{i18n>UploadedBy}: {CreatedBy}" description="{i18n>UploadedOn}: {path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" info="File Size: {path:'MediaSize',formatter:'.formatter.handleNoData'}" icon="{path: '__metadata', formatter: '.formatter.fnGenerateImageUrl'}" type="Active" adaptTitleSize="false"/>
+    </List>
+
+    <List id="idSiteImagesAfterList" visible="{= ${LocalViewModel>/ToggleSiteImagesVisible} === 'After' ? true : false}" mode="SingleSelectMaster" itemPress="onOpenSiteImagePress" growing="true" growingThreshold="20" growingScrollToLoad="true" items="{
+			path: 'SiteImages',
+            filters: [{path: 'State', operator: 'EQ', value1: 'After'}],
+            sorter: {path: 'UpdatedAt', descending: false}
+		}" noDataText="{i18n>NoDataAvailable}">
+        <StandardListItem title="{i18n>UploadedBy}: {CreatedBy}" description="{i18n>UploadedOn}: {path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" info="File Size: {path:'MediaSize',formatter:'.formatter.handleNoData'}" icon="{path: '__metadata', formatter: '.formatter.fnGenerateImageUrl'}" type="Active" adaptTitleSize="false"/>
+    </List>
+</core:FragmentDefinition>
