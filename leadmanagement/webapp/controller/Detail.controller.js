@@ -415,7 +415,7 @@ sap.ui.define([
             _bindMRTbl: function (oEvent, iPaintingReqId) {
                 var promise = jQuery.Deferred();
                 var oView = this.getView();
-                var sId = oView.getModel("oModelDisplay").getProperty("/Id")
+                var sId = oView.getModel("oModelDisplay").getProperty("/Id");
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters["expand"] = "Product,ProductShade,Product/ProductClassification";
                 var oFiler = new Filter("LeadId", FilterOperator.EQ, sId);
@@ -617,12 +617,14 @@ sap.ui.define([
             },
 
             onBeforeRebindPaymentHistory: function (oEvent) {
-                var sId = this.getView().getModel("oModelDisplay").getProperty("/Id"),
-                    oIdFilter = new Filter("Id", FilterOperator.EQ, sId),
+                var promise = jQuery.Deferred(),
+                    sLeadId = this.getView().getModel("oModelDisplay").getProperty("/Id"),
+                    oLeadIdFilter = new Filter("LeadId", FilterOperator.EQ, sLeadId),
                     oBindingParams = oEvent.getParameter("bindingParams");
 
-                oBindingParams.parameters["expand"] = "PaymentTransactionDetails";
-                oBindingParams.filters.push(oIdFilter);
+                oBindingParams.filters.push(oLeadIdFilter);
+                promise.resolve();
+                return promise;
             },
 
             _LoadFragment: function (mParam) {

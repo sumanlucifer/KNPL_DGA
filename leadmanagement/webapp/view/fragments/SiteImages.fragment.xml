@@ -19,7 +19,7 @@
 			path: 'SiteImages',
             filters: [{path: 'State', operator: 'EQ', value1: 'Before'}], 
             sorter: {path: 'UpdatedAt', descending: false}
-		}" updateFinished="onListUpdateFinished">
+		}" updateFinished="onListUpdateFinished" noDataText="{i18n>NoDataAvailable}">
         <StandardListItem title="{i18n>UploadedBy}: {CreatedBy}" description="{i18n>UploadedOn}: {path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" info="File Size: {path:'MediaSize',formatter:'.formatter.handleNoData'}" icon="{path: '__metadata', formatter: '.formatter.fnGenerateImageUrl'}" type="Active" adaptTitleSize="false"/>
     </List>
 
@@ -27,7 +27,7 @@
 			path: 'SiteImages',
             filters: [{path: 'State', operator: 'EQ', value1: 'After'}],
             sorter: {path: 'UpdatedAt', descending: false}
-		}">
+		}" noDataText="{i18n>NoDataAvailable}">
         <StandardListItem title="{i18n>UploadedBy}: {CreatedBy}" description="{i18n>UploadedOn}: {path : 'CreatedAt',type:'sap.ui.model.type.Date',formatOptions: {pattern: 'dd/MM/yyyy'},formatter:'.formatter.handleNoData'}" info="File Size: {path:'MediaSize',formatter:'.formatter.handleNoData'}" icon="{path: '__metadata', formatter: '.formatter.fnGenerateImageUrl'}" type="Active" adaptTitleSize="false"/>
     </List>
 </core:FragmentDefinition>
