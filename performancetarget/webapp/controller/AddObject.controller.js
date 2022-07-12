@@ -60,6 +60,7 @@ sap.ui.define([
             // this.getView().byId("idAddObjectTitle").setText(this.IconTb);
             //  this.getView().byId("idAddObjectCrumb").setCurrentLocationText(this.IconTb);
             // this.getView().byId("idStepInpt").setText(this.IconTb + " Count ");
+
             this._initData();
         },
 
@@ -609,7 +610,7 @@ sap.ui.define([
         onToDate4: function (oEvent) {
             var oView = this.getView();
             var oModelControl = oView.getModel("oModelControl");
-
+            var oFromDate = new Date(oModelControl.getProperty("/AddFields/LeadConversion/FromDate"));
             var oFromDate = new Date(oModelControl.getProperty("/AddFields/LeadConversion/FromDate").split("/")[0]+"/01/"+oModelControl.getProperty("/AddFields/LeadConversion/FromDate").split("/")[1]);
             var oDate = oEvent.getSource().getDateValue();
             if (oFromDate) {

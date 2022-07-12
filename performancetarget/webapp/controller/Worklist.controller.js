@@ -308,7 +308,7 @@ sap.ui.define(
                  * Purpose: init binding method for the table.
                  */
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGAType,PerformanceZone,PerformanceDivision,PerformanceDepot,PerformanceJobLocation/JobLocationDetails";
+                oBindingParams.parameters["expand"] = "DGAType,JobLocationDetails";
                 // oBindingParams.sorter.push(new Sorter("CreatedAt", true));
 
 
@@ -361,7 +361,7 @@ sap.ui.define(
                         aCurrentFilterValues.push(
                             new Filter("TargetTypeId",
                                 sap.ui.model.FilterOperator.EQ,
-                                2));
+                                "2"));
                         break;
                     case "1":
                         aCurrentFilterValues.push(
@@ -431,16 +431,20 @@ sap.ui.define(
                         else if (prop === "ZoneId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("PerformanceZone/ZoneId", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("TargetZone", FilterOperator.EQ, oViewFilter[prop]));
                         }
-                        else if (prop === "DvisionId") {
+                        else if (prop === "DivisionId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("PerformanceDivision/DivisionId", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("TargetDivision", FilterOperator.EQ, oViewFilter[prop]));
                         } else if (prop === "DepotId") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
-                                new Filter("PerformanceDepot/DepotId", FilterOperator.EQ, oViewFilter[prop]));
+                                new Filter("TargetDepot", FilterOperator.EQ, oViewFilter[prop]));
+                            } else if (prop === "LocationId") {
+                                aFlaEmpty = false;
+                                aCurrentFilterValues.push(
+                                    new Filter("JobLocationDetails/TownName", FilterOperator.EQ, oViewFilter[prop]));        
                         } else if (prop === "Search") {
                             aFlaEmpty = false;
                             aCurrentFilterValues.push(
@@ -561,15 +565,15 @@ sap.ui.define(
                 jQuery.extend(true, contextObject, oContext.getObject());
 
                 contextObject.DGAType.Name = oContext.getProperty("/"+oContext.getObject().DGAType.__ref).Name;
-
+                   contextObject.JobLocationDetails.TownName = oContext.getProperty("/"+oContext.getObject().JobLocationDetails.__ref).TownName;
                 
-                contextObject.PerformanceDivision = oContext.getObject().PerformanceDivision.__list;
-                contextObject.PerformanceDepot = oContext.getObject().PerformanceDepot.__list;
-                contextObject.PerformanceZone = oContext.getObject().PerformanceZone.__list;
-                 contextObject.PerformanceJobLocation = oContext.getObject().PerformanceJobLocation.__list;
+                // contextObject.PerformanceDivision = oContext.getObject().PerformanceDivision.__list;
+                // contextObject.PerformanceDepot = oContext.getObject().PerformanceDepot.__list;
+                // contextObject.PerformanceZone = oContext.getObject().PerformanceZone.__list;
+                //  contextObject.PerformanceJobLocation = oContext.getObject().PerformanceJobLocation.__list;
 
 
-
+var sSelectedKey = this.getView().byId("iconTabBar").getSelectedKey();
                 oView.getModel("oModelControl").setProperty("/EditFields", contextObject);
                 return new Promise(function (resolve, reject) {
                     if (!this.EditTargetHistory) {
@@ -581,11 +585,21 @@ sap.ui.define(
                             function (oDialog) {
                                 this.EditTargetHistory = oDialog;
                                 oView.addDependent(this.EditTargetHistory);
+                                if(sSelectedKey === "5"){
+                                    this.getView().byId("idStepLbl").setText(this.getResourceBundle().getText("rupee"));
+                                }else{
+                                    this.getView().byId("idStepLbl").setText(this.getResourceBundle().getText("Count"));
+                                }
                                 this.EditTargetHistory.open();
                                 resolve();
                             }.bind(this)
                         );
                     } else {
+                        if(sSelectedKey === "5"){
+                            this.getView().byId("idStepLbl").setText(this.getResourceBundle().getText("rupee"));
+                        }else{
+                            this.getView().byId("idStepLbl").setText(this.getResourceBundle().getText("Count"));
+                        }
                         this.EditTargetHistory.open();
                         resolve();
                     }
@@ -629,7 +643,7 @@ sap.ui.define(
                         actions: ["OK"],
                         emphasizedAction: "OK",
                         onClose: function (sAction) {
-                            oData.update("/MasterTargetPlansRenews("+Number(oModel.getProperty("/EditFields/Id"))+"L)/TargetValue", oPayload, {
+                            oData.update("/MasterTargetPlansRecreates("+Number(oModel.getProperty("/EditFields/Id"))+"L)/TargetValue", oPayload, {
                                 success: function () {
                                     oModel.setProperty("/EditFields", {});
                                        oData.refresh(true);
