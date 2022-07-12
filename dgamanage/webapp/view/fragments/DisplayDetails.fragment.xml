@@ -45,7 +45,7 @@
                 <Label text="{i18n>ChildTown}" />
                 <TextArea editable="false" value="{path:'Positions/',formatter:'.formatter.fmtDisplayChildTowns'}"  />
                  <Label text="{i18n>DgaRequirement}"/>
-                <Text text="{AllocatedDGACount}" />
+                <Text text="{WorkLocation/AllocatedDGACount}" />
               <Label text="{i18n>Location} {i18n>PinCode}" />
                 <Text text="{Pincode/Name}"  />
               <Label text="{i18n>Service} {i18n>PinCode}" />
