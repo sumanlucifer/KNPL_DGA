@@ -78,7 +78,7 @@
                         <Text text="{Visit/DGA/Mobile}"/>
                          <Text text="{Visit/DGA/Zone}"/>
                          <Text text="{Visit/DGA/DivisionId}"/>
-                         <Text text="{= ${Visit/DGA/DepotId} === null ? 'NA' : ${Visit/DGA/Depot/Depot} (${Visit/DGA/DepotId})}"/>
+                         <Text text="{parts:['Visit/DGA/DepotId','Visit/DGA/Depot/Depot'],formatter:'.formatter.fmtDepot'}"/>
                          <Text text="{Visit/TaskType/Name}"/>
                          <ObjectStatus text="{Visit/Status}" state="{= ${Visit/Status} === 'Completed' ? 'Success' : ${Visit/Status} === 'Rejected' ? 'Error' : 'Warning'}"/>
                     </cells>

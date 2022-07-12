@@ -86,7 +86,7 @@ sap.ui.define([
             var oModel = new JSONModel({});
             oView.setModel(oModel, "contractorModel");
             var oDataModel = oView.getModel("oData2");
-            var exPand = "BusinessCategory,AgeGroup,PainterType,MaritalStatus,Religion,Preference/Language,PainterContact,PrimaryDealerDetails,PainterAddress/CityDetails,PainterAddress/StateDetails,PainterMobileNumberChangeRequest";
+            var exPand = "Slab,BusinessCategory,AgeGroup,PainterType,MaritalStatus,Religion,Preference/Language,PainterContact,PrimaryDealerDetails,PainterAddress/CityDetails,PainterAddress/StateDetails,PainterMobileNumberChangeRequest";
 
             return new Promise(function(resolve, reject){
                 oDataModel.read("/PainterSet("+Number(contractorId)+")", {
