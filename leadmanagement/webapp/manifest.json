@@ -155,6 +155,13 @@
                     ]
                 },
                 {
+                    "pattern": "SiteVisitDetail",
+                    "name": "SiteVisitDetail",
+                    "target": [
+                        "SiteVisitDetailTarget"
+                    ]
+                },
+                {
                     "pattern": "Add",
                     "name": "Add",
                     "target": [
@@ -182,6 +189,11 @@
                     "viewName": "Detail",
                     "viewId": "Detail",
                     "viewLevel": 2
+                },
+                "SiteVisitDetailTarget": {
+                    "viewName": "SiteVisitDetail",
+                    "viewId": "SiteVisitDetail",
+                    "viewLevel": 3
                 },
                 "notFound": {
                     "viewName": "NotFound",

@@ -1,0 +1,64 @@
+<mvc:View height="100%" controllerName="com.knpl.dga.leadmanagement.controller.SiteVisitDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+    <f:DynamicPage busy="{oModelDisplay>/PageBusy}" busyIndicatorDelay="0" stickySubheaderProvider="iconTabBar" class="sapUiNoContentPadding" showFooter="true" id="dynamicPageId" headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{ConsumerName}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs currentLocationText="{i18n>Lead Details} ">
+                        <Link text="{i18n>Leads}" press="onNavToHome"/>
+                        <Link text="{i18n>Lead Visit History}" press="onNavToVisitHistory"/>
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:expandedContent>
+                    <Label text="{i18n>MainObject} {i18n>ID}: {Id}"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label text="{i18n>MainObject} {i18n>ID}: {Id}"/>
+                </f:snappedContent>
+                <f:snappedTitleOnMobile>
+                    <Title text="{i18n>MainObject} {i18n>ID}: {Id}"/>
+                </f:snappedTitleOnMobile>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <layout:HorizontalLayout allowWrapping="false">
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                        <ObjectAttribute title="{i18n>DGAName}" text="{DGA/GivenName} {DGA/FamilyName}"/>
+                        <ObjectAttribute title="{i18n>DealerName}" text="{path:'Dealer/Name',formatter:'.formatter.fmtCheckNull'}"/>
+                        <ObjectAttribute title="{i18n>AssignedContractorName}" text="{path: 'AssignedContractors' , formatter: '.formatter.fmtCommaSepratedAssignedContractor'}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout class="sapUiSmallMarginEnd">
+                        <Label text="{i18n>Status}:"/>
+                        <ObjectStatus class="statusTextSizeLarge" text="{path:'LeadStatus/Name',formatter:'.formatter.fmtCheckNull'}" state="{= ${LeadStatus/Name} === 'Converted' ? 'Success' : ${LeadStatus/Name} === 'In Pipeline'  ? 'Warning' : ${LeadStatus/Name} === 'Lost' ? 'Error' : 'None' }"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <IconTabBar  select="onSiteVisitIcnTbarChange"  selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="idDealerIconTabBar" class="sapUiResponsiveContentPadding" >
+                <items>
+                    <IconTabFilter text="{i18n>Overview}" key="1">
+                        <core:Fragment fragmentName="com.knpl.dga.leadmanagement.view.fragments.VisitHistoryDetails.Converted" type="XML"/>
+                    </IconTabFilter>        
+                </items>
+            </IconTabBar>
+        </f:content>
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button press="onNavToHome" type="Ghost" text="{i18n>Cancel}" />
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

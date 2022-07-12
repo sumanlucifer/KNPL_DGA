@@ -21,9 +21,10 @@
                             placeToolbarInTable="true"
                             persistencyKey="HistoryPersistenceKey"
                             requestAtLeastFields="Id"
-                            initialNoDataText="{i18n>tableNoDataText}">
+                            initialNoDataText="{i18n>tableNoDataText}"
+                            header="{i18n>VisitHistory}">
 
-         <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
+         <Table growing="true" growingThreshold="10" growingScrollToLoad="false"  noDataText="{i18n>tableNoDataText}">
             <columns>
                 <Column hAlign="Begin">
                     <customData>
@@ -51,7 +52,7 @@
                 </Column>
             </columns>
             <items>
-                <ColumnListItem>
+               <ColumnListItem type="Navigation" press="onpressVisitHistoryItem">
                     <cells>
                         <Text text="{LeadVisitOutcomeDetails/VisitsOutcome/Name}"/>
                         <Text text="{path:'Date',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'}}" />

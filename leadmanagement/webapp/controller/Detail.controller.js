@@ -673,6 +673,12 @@ sap.ui.define([
                 sap.m.URLHelper.redirect(sURL, true);
             },
 
+            onpressVisitHistoryItem: function (oEvent) {
+                var sId = oEvent.getSource().getBindingContext().getObject().Id;
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("SiteVisitDetail", { Id: sId });
+            },
+
 
             // onPressSave: function () {
             //     var bValidateForm = this._ValidateForm();
