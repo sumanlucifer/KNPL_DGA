@@ -7,7 +7,7 @@
                     <Title text="{DGA/GivenName}" level="H1" titleStyle="H1"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>MainObject} {i18n>Details}">
+                    <Breadcrumbs currentLocationText="{i18n>MainObject} {i18n>Details} / {i18n>Visit} {i18n>Details}">
                         <Link text="{i18n>DGAList}" press="onNavToHome"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
@@ -43,12 +43,10 @@
                     </layout:VerticalLayout>
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"  class="sapUiSmallMarginEnd"/>
-                   
                              <ObjectStatus class="statusTextSizeLarge" text="{path:'DGA/ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'DGA/ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/> 
                     </layout:VerticalLayout>
                     <!-- <layout:VerticalLayout>
                         <Label  text="{i18n>ActivationStatus}:"/>
-                   
                           <ObjectStatus class="sapMObjectStatusLarge" text="{ActivationStatus}" state="{ path:'Status',formatter:'.formatter.fmtStatusColorChange' }"/>
                     </layout:VerticalLayout> -->
                 </layout:HorizontalLayout>
@@ -57,23 +55,16 @@
         <f:content>
            <IconTabBar  select="onIcnTbarChange" selectedKey="{oModelDisplay>/IcnTabKey}" expandable="false" expanded="true" id="idDealerIconTabBar" class="sapUiResponsiveContentPadding" >
                 <items>
-                    <IconTabFilter  text="{i18n>VisitDetails}" key="0" >
+                    <IconTabFilter  text="{i18n>visitdeatil}" key="0" >
                         <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.VisitDetails" type="XML"/>
                     </IconTabFilter>
-                   
                 </items>
             </IconTabBar>
-
         </f:content>
         <f:footer>
-         
             <OverflowToolbar>
               <ToolbarSpacer/>
-               
-          
-        
             </OverflowToolbar>
         </f:footer>
     </f:DynamicPage>
 </mvc:View>
-
