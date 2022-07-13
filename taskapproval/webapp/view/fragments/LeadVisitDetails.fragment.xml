@@ -15,7 +15,7 @@
 
                 <Label text="{i18n>FollowUpActions}" visible="{= ${Visit/LeadVisitOutcomeDetails/VisitOutcomeId} === '4' ? true : false }" />
                 <VBox>
-                    <Text class="sapUiTinyMarginBottom" text="Qutation Submited Again with more discount: Yes" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsQutationSubmitedAgain} ? true : false }"/>
+                    <Text class="sapUiTinyMarginBottom" text="Quote Submitted Again with more discount: Yes" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsQutationSubmitedAgain} ? true : false }"/>
                     <Text class="sapUiTinyMarginBottom" text="Sampling Done: Yes" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsSamplingDone} ? true : false }"/>
                     <Text class="sapUiTinyMarginBottom" text="Product/Process information Given: Yes" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpIsProductinfoGiven} ? true : false }"/>
                     <Text class="sapUiTinyMarginBottom" text="Other: Yes" visible="{= ${Visit/LeadVisitOutcomeDetails/FollowUpOther} ? true : false }"/>
