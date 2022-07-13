@@ -25,7 +25,6 @@
                             persistencyKey="HistoryPersistenceKey"
                             requestAtLeastFields="Id"
                             initialNoDataText="{i18n>tableNoDataText}">
-
          <Table growing="true" growingThreshold="10" growingScrollToLoad="false">
             <columns>
                 <Column hAlign="Begin">
@@ -46,7 +45,6 @@
                     </customData>
                     <Text text="{i18n>Pc}"/>
                 </Column>
-               
                  <Column hAlign="Begin">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Time", "leadingProperty": "Time", "columnIndex": 3 ,"sortProperty": "Time","filterProperty": "Time"}'/>
@@ -71,14 +69,10 @@
                     <cells>
                         <Text text="{DGA/GivenName}"/>
                         <Text text="{DGA/Id}"/>
-                        <Text text="{path:'DGA/Positions', formatter:'.formatter.GetWorkLisPositionId'}"/>
-                      
+                        <Text text="{path:'DGA/Positions/', formatter:'.formatter.GetWorkLisPositionId'}"/>
                           <Text text="{Time}"/>
                         <Text text="{path:'Date',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'}}" />
-                      
                        <ObjectStatus text="{Status}" state="{= ${Status} === 'Completed' ? 'Success' : ${Status} === 'Rejected' ? 'Error' : 'Warning'}"/>
-                   
-
                     </cells>
                 </ColumnListItem>
             </items>

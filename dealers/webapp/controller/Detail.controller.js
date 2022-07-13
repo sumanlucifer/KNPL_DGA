@@ -128,7 +128,7 @@ sap.ui.define(
                 var oView = this.getView();
                 var sId = oView.getModel("oModelDisplay").getProperty("/Id")
                 var oBindingParams = oEvent.getParameter("bindingParams");
-                oBindingParams.parameters["expand"] = "DGA";
+                oBindingParams.parameters["expand"] = "DGA,DGA/Positions";
                 // oBindingParams.parameters["expand"] = "LeadVisitOutcomeDetails/VisitsOutcome";
                 var oIdFilter = new Filter("VisitTargetId", FilterOperator.EQ, sId);
                 // var oFirstVisitFilter = new Filter("LeadVisitOutcomeDetails/VisitOutcomeId", FilterOperator.NE, 1);
@@ -192,7 +192,6 @@ sap.ui.define(
                     Id: oBj["Id"],
                     Mode: "Display"
                 });
-
             },
             onListItemPressDGA: function (oEvent) {
                 var oBj = oEvent.getSource().getBindingContext().getObject();

@@ -43,12 +43,10 @@
                     </layout:VerticalLayout>
                     <layout:VerticalLayout>
                         <Label  text="{i18n>Status}:"  class="sapUiSmallMarginEnd"/>
-                   
                              <ObjectStatus class="statusTextSizeLarge" text="{path:'DGA/ActivationStatus',formatter:'.formatter.fmtLowerCase'}" state="{ path:'DGA/ActivationStatus',formatter:'.formatter.fmtStatusColorChange' }"/> 
                     </layout:VerticalLayout>
                     <!-- <layout:VerticalLayout>
                         <Label  text="{i18n>ActivationStatus}:"/>
-                   
                           <ObjectStatus class="sapMObjectStatusLarge" text="{ActivationStatus}" state="{ path:'Status',formatter:'.formatter.fmtStatusColorChange' }"/>
                     </layout:VerticalLayout> -->
                 </layout:HorizontalLayout>
@@ -60,20 +58,13 @@
                     <IconTabFilter  text="{i18n>visitdeatil}" key="0" >
                         <core:Fragment fragmentName="com.knpl.dga.dealers.view.fragments.VisitDetails" type="XML"/>
                     </IconTabFilter>
-                   
                 </items>
             </IconTabBar>
-
         </f:content>
         <f:footer>
-         
             <OverflowToolbar>
               <ToolbarSpacer/>
-               
-          
-        
             </OverflowToolbar>
         </f:footer>
     </f:DynamicPage>
 </mvc:View>
-
